@@ -6,31 +6,13 @@ using UnityEngine;
 public class Block : MonoBehaviour
 {
     public BlockType Type { get; private set; }
-    public bool[,] Shape { get; private set; }
+    public Vector2Int[] Shape { get; private set; }
 
+    public GameObject originCell;      // 블록 모양의 기준 칸
 
-
-
-    // Test Code //////////////////////////////////////////////////////////////////
-
-
-    private void OnMouseDrag()
+    public void Initialize(BlockData blockData)
     {
-        // Block Drag
-        float distance = Camera.main.WorldToScreenPoint(transform.position).z;
-
-        Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
-        Vector3 objPos = Camera.main.ScreenToWorldPoint(mousePos);
-
-        transform.position = objPos;
-
-        // Show board position
-
+        Type = blockData.type;
+        Shape = blockData.shape;
     }
-
-    private void OnMouseUp()
-    {
-
-    }
-    /////////////////////////////////////////////////////////////////////////////
 }

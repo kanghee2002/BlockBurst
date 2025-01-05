@@ -264,8 +264,8 @@ GameObject:
   - component: {fileID: 8880612676828597529}
   - component: {fileID: 6036646357174845135}
   m_Layer: 0
-  m_Name: TBlock
-  m_TagString: Untagged
+  m_Name: BlockT
+  m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -301,6 +301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3a2da52cd48e204c9dc9dd999a8825f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  originCell: {fileID: 6209972031530722578}
 --- !u!60 &6036646357174845135
 PolygonCollider2D:
   m_ObjectHideFlags: 0

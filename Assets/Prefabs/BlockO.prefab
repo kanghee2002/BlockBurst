@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 1732367638839436922}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: -0.5, z: 0}
+  m_LocalPosition: {x: -0.5, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -110,7 +110,7 @@ Transform:
   m_GameObject: {fileID: 2655900220664350239}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: -0.5, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -194,7 +194,7 @@ Transform:
   m_GameObject: {fileID: 6209972031530722578}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0.5, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -261,11 +261,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5392900940053885924}
-  - component: {fileID: -3007120401261108004}
-  - component: {fileID: 4096237797788461129}
+  - component: {fileID: 3941410380343423509}
+  - component: {fileID: -2276432276739441986}
   m_Layer: 0
-  m_Name: SBlock
-  m_TagString: Untagged
+  m_Name: BlockO
+  m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -289,7 +289,7 @@ Transform:
   - {fileID: 5834470908635210575}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-3007120401261108004
+--- !u!114 &3941410380343423509
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -301,7 +301,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3a2da52cd48e204c9dc9dd999a8825f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!60 &4096237797788461129
+  originCell: {fileID: 2655900220664350239}
+--- !u!60 &-2276432276739441986
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -345,14 +346,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.5062877, y: 1.0000001}
-      - {x: -0.5102013, y: 0.019081712}
-      - {x: -1.5085418, y: 0.018897057}
-      - {x: -1.5052754, y: -0.9978163}
-      - {x: 0.5138333, y: -1.0024302}
-      - {x: 0.5087947, y: -0.017386079}
-      - {x: 1.509747, y: 0.000821054}
-      - {x: 1.5199189, y: 1.008718}
+    - - {x: 1.0241445, y: 1.0156357}
+      - {x: -1.0057817, y: 1.0126277}
+      - {x: -1.0099516, y: -1.0044645}
+      - {x: 1.0255876, y: -1.0044643}
   m_UseDelaunayMesh: 0
 --- !u!1 &7589158116189709728
 GameObject:
@@ -380,7 +377,7 @@ Transform:
   m_GameObject: {fileID: 7589158116189709728}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalPosition: {x: 0.5, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -18,18 +18,18 @@ public class DeckInfoUI : MonoBehaviour
         gameUIManager = gameUIManagerInstance.GetComponent<GameUIManager>();
     }
 
-    public void openDeckInfoUI()
+    public void OpenDeckInfoUI()
     {
         Debug.Log("DeckInfoUI가 화면 위에서 아래로 내려옴");
     }
 
-    public void closeDeckInfoUI()
+    public void CloseDeckInfoUI()
     {
         Debug.Log("DeckInfoUI가 화면 중앙에서 위로 올라감");
     }
 
     public void OnDeckInfoBackButtonUIPressed()
     {
-        gameUIManager.deckInfoBackButtonUIPressed();
+        gameUIManager.DeckInfoBackButtonUIPressed();
     }
 }

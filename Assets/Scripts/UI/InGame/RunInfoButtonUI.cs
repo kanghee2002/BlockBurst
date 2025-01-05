@@ -20,6 +20,6 @@ public class RunInfoButtonUI : MonoBehaviour
 
     public void OnRunInfoButtonUIPressed()
     {
-        gameUIManager.runInfoButtonUIPressed();
+        gameUIManager.RunInfoButtonUIPressed();
     }
 }

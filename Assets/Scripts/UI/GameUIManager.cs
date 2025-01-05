@@ -106,59 +106,59 @@ public class GameUIManager : MonoBehaviour
     }
 
     // RunInfo methods
-    public void runInfoButtonUIPressed()
+    public void RunInfoButtonUIPressed()
     {
         if (state == UIstate.playing)
         {
             state = UIstate.runInfo;
-            runInfoUI.openRunInfoUI();
+            runInfoUI.OpenRunInfoUI();
         }
     }
 
-    public void runInfoBackButtonUIPressed()
+    public void RunInfoBackButtonUIPressed()
     {
         if (state == UIstate.runInfo)
         {
             state = UIstate.playing;
-            runInfoUI.closeRunInfoUI();
+            runInfoUI.CloseRunInfoUI();
         }
     }
 
     // Option methods
-    public void optionButtonUIPressed()
+    public void OptionButtonUIPressed()
     {
         if (state == UIstate.playing)
         {
             state = UIstate.option;
-            optionUI.openOptionUI();
+            optionUI.OpenOptionUI();
         }
     }
 
-    public void optionBackButtonUIPressed()
+    public void OptionBackButtonUIPressed()
     {
         if (state == UIstate.option)
         {
             state = UIstate.playing;
-            optionUI.closeOptionUI();
+            optionUI.CloseOptionUI();
         }
     }
 
     // DeckInfo methods
-    public void deckButtonUIPressed()
+    public void DeckButtonUIPressed()
     {
         if (state == UIstate.playing)
         {
             state = UIstate.deckInfo;
-            deckInfoUI.openDeckInfoUI();
+            deckInfoUI.OpenDeckInfoUI();
         }
     }
 
-    public void deckInfoBackButtonUIPressed()
+    public void DeckInfoBackButtonUIPressed()
     {
         if (state == UIstate.option)
         {
             state = UIstate.deckInfo;
-            deckInfoUI.closeDeckInfoUI();
+            deckInfoUI.CloseDeckInfoUI();
         }
     }
 }

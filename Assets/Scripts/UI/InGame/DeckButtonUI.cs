@@ -20,6 +20,6 @@ public class DeckButtonUI : MonoBehaviour
 
     public void OnDeckButtonUIPressed()
     {
-        gameUIManager.deckButtonUIPressed();
+        gameUIManager.DeckButtonUIPressed();
     }
 }

@@ -20,6 +20,6 @@ public class OptionButtonUI : MonoBehaviour
 
     public void OnOptionButtonUIPressed()
     {
-        gameUIManager.optionButtonUIPressed();
+        gameUIManager.OptionButtonUIPressed();
     }
 }

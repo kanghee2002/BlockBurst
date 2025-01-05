@@ -40,18 +40,25 @@ public class GameUIManager : MonoBehaviour
     private DeckInfoUI deckInfoUI;
     private ItemSetUI itemSetUI;
 
-    private enum UIstate
+    private enum SceneState
     {
+        selecting,
         playing,
+        buying
+    }
+
+    private enum PopupState
+    {
+        none,
         runInfo,
         option,
         deckInfo
     }
-    private UIstate state;
+    private PopupState popupState;
 
     private void Start()
     {
-        state = UIstate.playing;
+        popupState = PopupState.none;
         initializeManagerInstances();
         initializeUIInstances();
         fetchUIData();
@@ -108,18 +115,18 @@ public class GameUIManager : MonoBehaviour
     // RunInfo methods
     public void RunInfoButtonUIPressed()
     {
-        if (state == UIstate.playing)
+        if (popupState == PopupState.none)
         {
-            state = UIstate.runInfo;
+            popupState = PopupState.runInfo;
             runInfoUI.OpenRunInfoUI();
         }
     }
 
     public void RunInfoBackButtonUIPressed()
     {
-        if (state == UIstate.runInfo)
+        if (popupState == PopupState.runInfo)
         {
-            state = UIstate.playing;
+            popupState = PopupState.none;
             runInfoUI.CloseRunInfoUI();
         }
     }
@@ -127,18 +134,18 @@ public class GameUIManager : MonoBehaviour
     // Option methods
     public void OptionButtonUIPressed()
     {
-        if (state == UIstate.playing)
+        if (popupState == PopupState.none)
         {
-            state = UIstate.option;
+            popupState = PopupState.option;
             optionUI.OpenOptionUI();
         }
     }
 
     public void OptionBackButtonUIPressed()
     {
-        if (state == UIstate.option)
+        if (popupState == PopupState.option)
         {
-            state = UIstate.playing;
+            popupState = PopupState.none;
             optionUI.CloseOptionUI();
         }
     }
@@ -146,18 +153,18 @@ public class GameUIManager : MonoBehaviour
     // DeckInfo methods
     public void DeckButtonUIPressed()
     {
-        if (state == UIstate.playing)
+        if (popupState == PopupState.none)
         {
-            state = UIstate.deckInfo;
+            popupState = PopupState.deckInfo;
             deckInfoUI.OpenDeckInfoUI();
         }
     }
 
     public void DeckInfoBackButtonUIPressed()
     {
-        if (state == UIstate.option)
+        if (popupState == PopupState.option)
         {
-            state = UIstate.deckInfo;
+            popupState = PopupState.deckInfo;
             deckInfoUI.CloseDeckInfoUI();
         }
     }

@@ -8,17 +8,29 @@ public class Block : MonoBehaviour
     public BlockType Type { get; private set; }
     public bool[,] Shape { get; private set; }
 
+
+
+
     // Test Code //////////////////////////////////////////////////////////////////
 
 
     private void OnMouseDrag()
     {
+        // Block Drag
         float distance = Camera.main.WorldToScreenPoint(transform.position).z;
 
         Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
         Vector3 objPos = Camera.main.ScreenToWorldPoint(mousePos);
 
         transform.position = objPos;
+
+        // Show board position
+
+    }
+
+    private void OnMouseUp()
+    {
+
     }
     /////////////////////////////////////////////////////////////////////////////
 }

@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 1732367638839436922}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5, y: -1, z: 0}
+  m_LocalPosition: {x: 1, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -110,7 +110,7 @@ Transform:
   m_GameObject: {fileID: 2655900220664350239}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -194,7 +194,7 @@ Transform:
   m_GameObject: {fileID: 6209972031530722578}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 1, z: 0}
+  m_LocalPosition: {x: -1, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -261,11 +261,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5392900940053885924}
-  - component: {fileID: 1175324519769786322}
-  - component: {fileID: -553673426298637584}
+  - component: {fileID: -114168268063012452}
+  - component: {fileID: 8184602516338600100}
   m_Layer: 0
-  m_Name: LBlock
-  m_TagString: Untagged
+  m_Name: BlockZ
+  m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -289,7 +289,7 @@ Transform:
   - {fileID: 5834470908635210575}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1175324519769786322
+--- !u!114 &-114168268063012452
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -301,7 +301,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3a2da52cd48e204c9dc9dd999a8825f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!60 &-553673426298637584
+  originCell: {fileID: 6209972031530722578}
+--- !u!60 &8184602516338600100
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -345,11 +346,14 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0, y: 1}
-      - {x: -0.95105654, y: 0.30901697}
-      - {x: -0.5877852, y: -0.80901706}
-      - {x: 0.58778536, y: -0.80901694}
-      - {x: 0.9510565, y: 0.30901712}
+    - - {x: -1.4903202, y: 1.0158544}
+      - {x: -1.4980358, y: 0.02363649}
+      - {x: -0.48429477, y: 0.0077542514}
+      - {x: -0.47680396, y: -0.9834162}
+      - {x: 1.4994174, y: -0.9754889}
+      - {x: 1.4835502, y: -0.023921132}
+      - {x: 0.5001482, y: -0.018081903}
+      - {x: 0.4912768, y: 0.9986866}
   m_UseDelaunayMesh: 0
 --- !u!1 &7589158116189709728
 GameObject:
@@ -377,7 +381,7 @@ Transform:
   m_GameObject: {fileID: 7589158116189709728}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

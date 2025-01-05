@@ -264,8 +264,8 @@ GameObject:
   - component: {fileID: 2296509274538744587}
   - component: {fileID: -6103241944554836375}
   m_Layer: 0
-  m_Name: IBlock
-  m_TagString: Untagged
+  m_Name: BlockI
+  m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -301,6 +301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3a2da52cd48e204c9dc9dd999a8825f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  originCell: {fileID: 6209972031530722578}
 --- !u!60 &-6103241944554836375
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -345,11 +346,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0, y: 1}
-      - {x: -0.95105654, y: 0.30901697}
-      - {x: -0.5877852, y: -0.80901706}
-      - {x: 0.58778536, y: -0.80901694}
-      - {x: 0.9510565, y: 0.30901712}
+    - - {x: -0.50834024, y: 2.0185525}
+      - {x: -0.5015898, y: -2.0034394}
+      - {x: 0.50569445, y: -2.0034392}
+      - {x: 0.50869364, y: 2.0177996}
   m_UseDelaunayMesh: 0
 --- !u!1 &7589158116189709728
 GameObject:

@@ -7,7 +7,6 @@ public class BlockGameTester : MonoBehaviour
     [SerializeField] private Board board;
 
     private GameObject currentBlock;
-    private Vector2 offset;
     private Vector2Int currentOriginCellPosition;
 
     private void Start()

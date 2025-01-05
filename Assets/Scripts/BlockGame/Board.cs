@@ -13,11 +13,21 @@ public class Board : MonoBehaviour
         if (CanPlace(block, pos))
         {
             isPlaced = true;
-            foreach (Vector2Int shape in block.Shape)
-            {
-                Vector2Int curPos = pos + shape;
 
-                cells[curPos.x, curPos.y].SetBlock();
+            int width = block.Shape.GetLength(0);
+            int height = block.Shape.GetLength(1);
+
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    if (block.Shape[x, y])
+                    {
+                        Vector2Int curPos = pos + new Vector2Int(x, y);
+
+                        cells[curPos.x, curPos.y].SetBlock();
+                    }
+                }
             }
         }
 
@@ -28,15 +38,23 @@ public class Board : MonoBehaviour
 
     private bool CanPlace(Block block, Vector2Int pos)
     {
-        foreach (Vector2Int shape in block.Shape)
+        int width = block.Shape.GetLength(0);
+        int height = block.Shape.GetLength(1);
+
+        for (int x = 0; x < width; x++)
         {
-            Vector2Int curPos = pos + shape;
+            for (int y = 0; y < height; y++)
+            {
+                if (block.Shape[x, y])
+                {
+                    Vector2Int curPos = pos + new Vector2Int(x, y);
 
-            if (IsOutOfBoard(curPos)) return false;
+                    if (IsOutOfBoard(curPos)) return false;
 
-            if (IsBlocked(curPos)) return false;
+                    if (IsBlocked(curPos)) return false;
+                }
+            }
         }
-
         return true;
     }
     
@@ -153,6 +171,15 @@ public class Board : MonoBehaviour
 
         GameObject blockObj = blockObjects[randomIdx];
         blockObjects.RemoveAt(randomIdx);
+
+        // Random Rotate
+        int rotateCount = Random.Range(0, 4);
+        Block block = blockObj.GetComponent<Block>();
+        for (int i = 0; i < rotateCount; i++)
+        {
+            block.RotateShape();
+        }
+
 
         return blockObj;
     }

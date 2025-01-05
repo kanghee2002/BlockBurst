@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class UIEvents : MonoBehaviour
 {
+    /*
     // 보드 관련
     public static event Action<Cell[,]> OnBoardChanged;
     public static event Action<Block, Vector2Int> OnBlockMoved;
@@ -22,4 +23,5 @@ public class UIEvents : MonoBehaviour
     // 상점 관련
     public static event Action<ItemData> OnItemSelected;
     public static event Action<BlockData> OnUpgradeSelected;
+    */
 }

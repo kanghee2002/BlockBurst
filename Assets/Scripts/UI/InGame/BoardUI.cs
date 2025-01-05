@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BoardUI : MonoBehaviour
 {
+    /*
     private Cell[,] boardCells;
     private Block currentBlock;
     private Vector2Int currentPosition;
@@ -16,4 +17,5 @@ public class BoardUI : MonoBehaviour
     public void UpdateBlockControl(Vector2Int pos);
     public void ShowMatchType(MatchType type, List<Vector2Int> positions);
     private void HandleMovementInput();
+    */
 }

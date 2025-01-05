@@ -9,8 +9,6 @@ public class Block : MonoBehaviour
 {
     public BlockType Type { get; private set; }
     public bool[,] Shape { get; private set; }
-
-    public GameObject originCell;      // 블록 모양의 기준 칸
     
     public void Initialize(BlockData blockData)
     {

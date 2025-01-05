@@ -107,7 +107,7 @@ public class BlockGameTester : MonoBehaviour
 
     private bool IsOutOfBoard(Vector2Int pos)
     {
-        // Need to change 8 to board size
+        // TEST: 8 -> Board Size로 변경 필요
         if (pos.x < 0 || pos.x >= 8 || pos.y < 0 || pos.y >= 8)
             return true;
         else

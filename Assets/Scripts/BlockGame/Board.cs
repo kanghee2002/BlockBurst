@@ -6,8 +6,102 @@ public class Board : MonoBehaviour
 {
     public Cell[,] cells {  get; private set; }
 
+    public bool PlaceBlock(Block block, Vector2Int pos)
+    {
+        bool isPlaced = false;
 
+        if (CanPlace(block, pos))
+        {
+            isPlaced = true;
+            foreach (Vector2Int shape in block.Shape)
+            {
+                Vector2Int curPos = pos + shape;
 
+                cells[curPos.x, curPos.y].SetBlock();
+            }
+        }
+
+        ProcessMatches();
+
+        return isPlaced;
+    }
+
+    private bool CanPlace(Block block, Vector2Int pos)
+    {
+        foreach (Vector2Int shape in block.Shape)
+        {
+            Vector2Int curPos = pos + shape;
+
+            if (IsOutOfBoard(curPos)) return false;
+
+            if (IsBlocked(curPos)) return false;
+        }
+
+        return true;
+    }
+    
+    public void ProcessMatches()
+    {
+        // Temporary Implement
+
+        for (int i = 0; i < 8; i++)
+        {
+            // Check Row
+            bool rowLine = true;
+            for (int j = 0; j < 8; j++)
+            {
+                if (!cells[i, j].IsBlocked)
+                {
+                    rowLine = false;
+                    break;
+                }
+            }
+            if (rowLine)
+            {
+                matcedLineCount++;
+                for (int j = 0; j < 8; j++)
+                {
+                    cells[i, j].ClearBlock();
+                }
+            }
+
+            // Check Column
+            bool colLine = true;
+            for (int j = 0; j < 8; j++)
+            {
+                if (!cells[j, i].IsBlocked)
+                {
+                    colLine = false;
+                    break;
+                }
+            }
+            if (colLine)
+            {
+                matcedLineCount++;
+                for (int j = 0; j < 8; j++)
+                {
+                    cells[j, i].ClearBlock();
+                }
+            }
+        }
+
+        Debug.Log(matcedLineCount);
+    }
+
+    private bool IsOutOfBoard(Vector2Int pos)
+    {
+        // Need to change 8 to board size
+        if (pos.x < 0 || pos.x >= 8 || pos.y < 0 || pos.y >= 8)
+            return true;
+        else
+            return false;
+    }
+
+    private bool IsBlocked(Vector2Int pos)
+    {
+        if (cells[pos.x, pos.y].IsBlocked) return true;
+        else return false;
+    }
 
     // Test Code  ////////////////////////////////////////////////////////////
     [SerializeField] private Cell[] tmpCells;
@@ -15,6 +109,8 @@ public class Board : MonoBehaviour
     [SerializeField] private BlockData[] blocks;
 
     private List<GameObject> blockObjects;
+
+    private int matcedLineCount = 0;
 
     private void Start()
     {
@@ -51,21 +147,14 @@ public class Board : MonoBehaviour
         }
     }
 
-
-    private void Update()
+    public GameObject GetRandomBlock()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            for (int i = 0; i < 3; i++)
-            {
-                int idx = Random.Range(0, blockObjects.Count);
+        int randomIdx = Random.Range(0, blockObjects.Count);
 
-                GameObject curBlock = blockObjects[idx];
-                blockObjects.RemoveAt(idx);
+        GameObject blockObj = blockObjects[randomIdx];
+        blockObjects.RemoveAt(randomIdx);
 
-                curBlock.transform.position = new Vector3(10, -3 * i);
-            }
-        }
+        return blockObj;
     }
     //////////////////////////////////////////////////////////////////////
 }

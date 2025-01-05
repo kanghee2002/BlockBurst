@@ -15,8 +15,8 @@ MonoBehaviour:
   id: 
   type: 4
   shape:
-  - {x: 0, y: 0}
-  - {x: 0, y: 1}
+  - {x: 1, y: 0}
+  - {x: 1, y: 1}
   - {x: 0, y: 2}
-  - {x: -1, y: 2}
-  prefab: {fileID: 6605347088874912601, guid: f64dcd325657bc74a8386a34bc2e910c, type: 3}
+  - {x: 1, y: 2}
+  prefab: {fileID: 6605347088874912601, guid: b86f2aaad899e8142b6c26b160935747, type: 3}

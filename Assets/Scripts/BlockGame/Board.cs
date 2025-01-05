@@ -6,8 +6,120 @@ public class Board : MonoBehaviour
 {
     public Cell[,] cells {  get; private set; }
 
+    public bool PlaceBlock(Block block, Vector2Int pos)
+    {
+        bool isPlaced = false;
 
+        if (CanPlace(block, pos))
+        {
+            isPlaced = true;
 
+            int width = block.Shape.GetLength(0);
+            int height = block.Shape.GetLength(1);
+
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    if (block.Shape[x, y])
+                    {
+                        Vector2Int curPos = pos + new Vector2Int(x, y);
+
+                        cells[curPos.x, curPos.y].SetBlock();
+                    }
+                }
+            }
+        }
+
+        ProcessMatches();
+
+        return isPlaced;
+    }
+
+    private bool CanPlace(Block block, Vector2Int pos)
+    {
+        int width = block.Shape.GetLength(0);
+        int height = block.Shape.GetLength(1);
+
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                if (block.Shape[x, y])
+                {
+                    Vector2Int curPos = pos + new Vector2Int(x, y);
+
+                    if (IsOutOfBoard(curPos)) return false;
+
+                    if (IsBlocked(curPos)) return false;
+                }
+            }
+        }
+        return true;
+    }
+    
+    public void ProcessMatches()
+    {
+        // Temporary Implement
+
+        for (int i = 0; i < 8; i++)
+        {
+            // Check Row
+            bool rowLine = true;
+            for (int j = 0; j < 8; j++)
+            {
+                if (!cells[i, j].IsBlocked)
+                {
+                    rowLine = false;
+                    break;
+                }
+            }
+            if (rowLine)
+            {
+                matcedLineCount++;
+                for (int j = 0; j < 8; j++)
+                {
+                    cells[i, j].ClearBlock();
+                }
+            }
+
+            // Check Column
+            bool colLine = true;
+            for (int j = 0; j < 8; j++)
+            {
+                if (!cells[j, i].IsBlocked)
+                {
+                    colLine = false;
+                    break;
+                }
+            }
+            if (colLine)
+            {
+                matcedLineCount++;
+                for (int j = 0; j < 8; j++)
+                {
+                    cells[j, i].ClearBlock();
+                }
+            }
+        }
+
+        Debug.Log(matcedLineCount);
+    }
+
+    private bool IsOutOfBoard(Vector2Int pos)
+    {
+        // Need to change 8 to board size
+        if (pos.x < 0 || pos.x >= 8 || pos.y < 0 || pos.y >= 8)
+            return true;
+        else
+            return false;
+    }
+
+    private bool IsBlocked(Vector2Int pos)
+    {
+        if (cells[pos.x, pos.y].IsBlocked) return true;
+        else return false;
+    }
 
     // Test Code  ////////////////////////////////////////////////////////////
     [SerializeField] private Cell[] tmpCells;
@@ -15,6 +127,8 @@ public class Board : MonoBehaviour
     [SerializeField] private BlockData[] blocks;
 
     private List<GameObject> blockObjects;
+
+    private int matcedLineCount = 0;
 
     private void Start()
     {
@@ -51,21 +165,23 @@ public class Board : MonoBehaviour
         }
     }
 
-
-    private void Update()
+    public GameObject GetRandomBlock()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        int randomIdx = Random.Range(0, blockObjects.Count);
+
+        GameObject blockObj = blockObjects[randomIdx];
+        blockObjects.RemoveAt(randomIdx);
+
+        // Random Rotate
+        int rotateCount = Random.Range(0, 4);
+        Block block = blockObj.GetComponent<Block>();
+        for (int i = 0; i < rotateCount; i++)
         {
-            for (int i = 0; i < 3; i++)
-            {
-                int idx = Random.Range(0, blockObjects.Count);
-
-                GameObject curBlock = blockObjects[idx];
-                blockObjects.RemoveAt(idx);
-
-                curBlock.transform.position = new Vector3(10, -3 * i);
-            }
+            block.RotateShape();
         }
+
+
+        return blockObj;
     }
     //////////////////////////////////////////////////////////////////////
 }

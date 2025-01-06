@@ -6,12 +6,24 @@ public class BlockGameTester : MonoBehaviour
 {
     [SerializeField] private Board board;
 
-    private GameObject currentBlock;
+    [SerializeField] private DeckManager deckManager;
+
+    [SerializeField] private List<BlockData> blockDatas;
+
+    private Block currentBlock;
     private Vector2Int currentOriginCellPosition;
+
+    private RunData runData;
 
     private void Start()
     {
         currentOriginCellPosition = new Vector2Int(0, 0);
+
+        runData = new RunData()
+        {
+            availableBlocks = blockDatas
+        };
+        deckManager.Initialize(runData);
     }
 
     private void Update()
@@ -74,7 +86,7 @@ public class BlockGameTester : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            currentBlock = board.GetRandomBlock();
+            currentBlock = deckManager.DrawBlock();
             currentBlock.transform.position = new Vector2(10f, -3.5f);
         }
 
@@ -84,9 +96,9 @@ public class BlockGameTester : MonoBehaviour
 
             if (result)
             {
-                currentBlock.SetActive(false);
+                currentBlock.gameObject.SetActive(false);
 
-                currentBlock = board.GetRandomBlock();
+                currentBlock = deckManager.DrawBlock();
                 currentBlock.transform.position = new Vector2(10f, -3.5f);
             }
         }

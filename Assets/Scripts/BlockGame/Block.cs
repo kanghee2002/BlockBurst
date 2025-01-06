@@ -1,17 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro.EditorUtilities;
 using Unity.VisualScripting;
 using UnityEngine;
-using static Unity.Collections.AllocatorManager;
 
 public class Block : MonoBehaviour
 {
+    public int Id { get; private set; }
     public BlockType Type { get; private set; }
     public bool[,] Shape { get; private set; }
     
-    public void Initialize(BlockData blockData)
+    public void Initialize(BlockData blockData, int id)
     {
+        Id = id;
         Type = blockData.type;
         MakeShapeArray(blockData.shape);
     }

@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class Cell : MonoBehaviour
 {
+    public BlockType? Type { get; private set; }
+    public int BlockID { get; private set; }
     public bool IsBlocked { get; private set; }
 
-    public void SetBlock()
+    public void SetBlock(BlockType type, int blockId)
     {
+        Type = type;
+        BlockID = blockId;
         IsBlocked = true;
+        
 
         //TEST
         GetComponent<SpriteRenderer>().color = new Color(0f, 0f, 0f);
@@ -16,6 +21,8 @@ public class Cell : MonoBehaviour
 
     public void ClearBlock()
     {
+        Type = null;
+        BlockID = -1;
         IsBlocked = false;
 
         //TEST

@@ -243,21 +243,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee7d90488f7da9e41a412d9a7ca310b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageInfoUIInstance: {fileID: 1716367721}
-  scoreInfoUIInstance: {fileID: 1533101009}
-  actionInfoUIInstance: {fileID: 1731314313}
-  rerollInfoUIInstance: {fileID: 325277136}
-  goldInfoUIInstance: {fileID: 492050604}
-  runInfoButtonUIInstance: {fileID: 1766484601}
-  runInfoUIInstance: {fileID: 1638924308}
-  optionButtonUIInstance: {fileID: 1453892798}
-  optionUIInstance: {fileID: 1866874478}
-  boardUIInstance: {fileID: 633287273}
-  rerollButtonUIInstance: {fileID: 362239311}
-  handUIInstance: {fileID: 500465784}
-  deckButtonUIInstance: {fileID: 363586315}
-  deckInfoUIInstance: {fileID: 699606393}
-  itemSetUIInstance: {fileID: 337874176}
+  stageInfoUI: {fileID: 1716367723}
+  scoreInfoUI: {fileID: 1533101011}
+  actionInfoUI: {fileID: 1731314315}
+  rerollInfoUI: {fileID: 325277138}
+  goldInfoUI: {fileID: 492050606}
+  runInfoButtonUI: {fileID: 1766484603}
+  runInfoUI: {fileID: 1638924310}
+  optionButtonUI: {fileID: 1453892800}
+  optionUI: {fileID: 1866874480}
+  boardUI: {fileID: 633287275}
+  rerollButtonUI: {fileID: 362239313}
+  handUI: {fileID: 500465786}
+  deckButtonUI: {fileID: 363586317}
+  deckInfoUI: {fileID: 699606395}
+  itemSetUI: {fileID: 337874178}
 --- !u!4 &294469253
 Transform:
   m_ObjectHideFlags: 0
@@ -763,6 +763,74 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7fee5db08f8bb14888e753386c03c2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1630386384
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1630386387}
+  - component: {fileID: 1630386386}
+  - component: {fileID: 1630386385}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1630386385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630386384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
+  m_InputActionsPerSecond: 10
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 0
+--- !u!114 &1630386386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630386384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+--- !u!4 &1630386387
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630386384}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1638924308
 GameObject:
   m_ObjectHideFlags: 0
@@ -1056,3 +1124,4 @@ SceneRoots:
   m_Roots:
   - {fileID: 230092828}
   - {fileID: 294469253}
+  - {fileID: 1630386387}

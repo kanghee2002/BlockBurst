@@ -8,37 +8,21 @@ public class GameUIManager : MonoBehaviour
     //private StageManager stageManager;
     //private DeckManager deckManager;
 
-    [SerializeField] private GameObject stageInfoUIInstance;
-    [SerializeField] private GameObject scoreInfoUIInstance;
-    [SerializeField] private GameObject actionInfoUIInstance;
-    [SerializeField] private GameObject rerollInfoUIInstance;
-    [SerializeField] private GameObject goldInfoUIInstance;
-    [SerializeField] private GameObject runInfoButtonUIInstance;
-    [SerializeField] private GameObject runInfoUIInstance;
-    [SerializeField] private GameObject optionButtonUIInstance;
-    [SerializeField] private GameObject optionUIInstance;
-    [SerializeField] private GameObject boardUIInstance;
-    [SerializeField] private GameObject rerollButtonUIInstance;
-    [SerializeField] private GameObject handUIInstance;
-    [SerializeField] private GameObject deckButtonUIInstance;
-    [SerializeField] private GameObject deckInfoUIInstance;
-    [SerializeField] private GameObject itemSetUIInstance;
-
-    private StageInfoUI stageInfoUI;
-    private ScoreInfoUI scoreInfoUI;
-    private ActionInfoUI actionInfoUI;
-    private RerollInfoUI rerollInfoUI;
-    private GoldInfoUI goldInfoUI;
-    private RunInfoButtonUI runInfoButtonUI;
-    private RunInfoUI runInfoUI;
-    private OptionButtonUI optionButtonUI;
-    private OptionUI optionUI;
-    private BoardUI boardUI;
-    private RerollButtonUI rerollButtonUI;
-    private HandUI handUI;
-    private DeckButtonUI deckButtonUI;
-    private DeckInfoUI deckInfoUI;
-    private ItemSetUI itemSetUI;
+    [SerializeField] private StageInfoUI stageInfoUI;
+    [SerializeField] private ScoreInfoUI scoreInfoUI;
+    [SerializeField] private ActionInfoUI actionInfoUI;
+    [SerializeField] private RerollInfoUI rerollInfoUI;
+    [SerializeField] private GoldInfoUI goldInfoUI;
+    [SerializeField] private RunInfoButtonUI runInfoButtonUI;
+    [SerializeField] private RunInfoUI runInfoUI;
+    [SerializeField] private OptionButtonUI optionButtonUI;
+    [SerializeField] private OptionUI optionUI;
+    [SerializeField] private BoardUI boardUI;
+    [SerializeField] private RerollButtonUI rerollButtonUI;
+    [SerializeField] private HandUI handUI;
+    [SerializeField] private DeckButtonUI deckButtonUI;
+    [SerializeField] private DeckInfoUI deckInfoUI;
+    [SerializeField] private ItemSetUI itemSetUI;
 
     private enum SceneState
     {
@@ -60,7 +44,6 @@ public class GameUIManager : MonoBehaviour
     {
         popupState = PopupState.none;
         initializeManagerInstances();
-        initializeUIInstances();
         fetchUIData();
     }
 
@@ -69,27 +52,6 @@ public class GameUIManager : MonoBehaviour
         //gameManager = GameObject.Find("GameManager").getComponent<GameManager>();
         //stageManager = GameObject.Find("StageManager").getComponent<StageManager>();
         //deckManager = GameObject.Find("DeckManager").getComponent<DeckManager>();
-    }
-
-    private void initializeUIInstances()
-    {
-        stageInfoUI = stageInfoUIInstance.GetComponent<StageInfoUI>();
-        scoreInfoUI = scoreInfoUIInstance.GetComponent<ScoreInfoUI>();
-        actionInfoUI = actionInfoUIInstance.GetComponent<ActionInfoUI>();
-        rerollInfoUI = rerollInfoUIInstance.GetComponent<RerollInfoUI>();
-        goldInfoUI = goldInfoUIInstance.GetComponent<GoldInfoUI>();
-        runInfoButtonUI = runInfoButtonUIInstance.GetComponent<RunInfoButtonUI>();
-        runInfoUI = runInfoUIInstance.GetComponent<RunInfoUI>();
-        optionButtonUI = optionButtonUIInstance.GetComponent<OptionButtonUI>();
-        optionUI = optionUIInstance.GetComponent<OptionUI>();
-        boardUI = boardUIInstance.GetComponent<BoardUI>();
-        rerollButtonUI = rerollButtonUIInstance.GetComponent<RerollButtonUI>();
-        handUI = handUIInstance.GetComponent<HandUI>();
-        deckButtonUI = deckButtonUIInstance.GetComponent<DeckButtonUI>();
-        deckInfoUI = deckInfoUIInstance.GetComponent<DeckInfoUI>();
-        itemSetUI = itemSetUIInstance.GetComponent<ItemSetUI>();
-
-
     }
 
     private void fetchUIData()

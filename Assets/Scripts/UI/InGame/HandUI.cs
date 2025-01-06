@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class HandUI : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void OpenHandInfoUI()
     {
-        
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public void CloseHandInfoUI()
     {
-        
+
     }
 }

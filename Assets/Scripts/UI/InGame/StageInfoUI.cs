@@ -4,14 +4,23 @@ using UnityEngine;
 
 public class StageInfoUI : MonoBehaviour
 {
-    public void UpdateAnte(int _ante)
+    public void OpenStageInfoUI()
     {
-        Debug.Log("Ante has been updated.");
+
     }
 
-    public void UpdateRound(int _round)
+    public void CloseStageInfoUI()
     {
-        Debug.Log("Round has been updated.");
+
+    }
+    public void UpdateChapter(int _chapter)
+    {
+        Debug.Log("Chapter has been updated.");
+    }
+
+    public void UpdateStage(int _stage)
+    {
+        Debug.Log("Stage has been updated.");
     }
 
     public void UpdateDebuffText(string _debuffText)

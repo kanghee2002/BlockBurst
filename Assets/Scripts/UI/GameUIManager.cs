@@ -11,7 +11,6 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private StageInfoUI stageInfoUI;
     [SerializeField] private ScoreInfoUI scoreInfoUI;
     [SerializeField] private ActionInfoUI actionInfoUI;
-    [SerializeField] private RerollInfoUI rerollInfoUI;
     [SerializeField] private GoldInfoUI goldInfoUI;
     [SerializeField] private RunInfoButtonUI runInfoButtonUI;
     [SerializeField] private RunInfoUI runInfoUI;
@@ -19,17 +18,26 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private OptionUI optionUI;
     [SerializeField] private BoardUI boardUI;
     [SerializeField] private RerollButtonUI rerollButtonUI;
+    [SerializeField] private RerollInfoUI rerollInfoUI;
     [SerializeField] private HandUI handUI;
     [SerializeField] private DeckButtonUI deckButtonUI;
     [SerializeField] private DeckInfoUI deckInfoUI;
     [SerializeField] private ItemSetUI itemSetUI;
+    [SerializeField] private ShopSignboardUI shopSignboardUI;
+    [SerializeField] private NextStageButtonUI nextStageButtonUI;
+    [SerializeField] private ItemRerollButtonUI itemRerollButtonUI;
+    [SerializeField] private ItemShowcaseUI itemShowcaseUI;
+    [SerializeField] private StageSelectionSignboardUI stageSelectionSignboardUI;
+    [SerializeField] private NextStageChoiceUI[] nextStageChoiceUI;
+    [SerializeField] private NextStageChoiceButtonUI[] nextStageChoiceButtonUI;
 
     private enum SceneState
     {
         selecting,
         playing,
-        buying
+        shopping
     }
+    private SceneState sceneState;
 
     private enum PopupState
     {
@@ -40,7 +48,7 @@ public class GameUIManager : MonoBehaviour
     }
     private PopupState popupState;
 
-    private void Start()
+    private void Awake()
     {
         popupState = PopupState.none;
         initializeManagerInstances();
@@ -57,21 +65,19 @@ public class GameUIManager : MonoBehaviour
     private void fetchUIData()
     {
         // update stage info ui
-        stageInfoUI.UpdateAnte(0);
-        stageInfoUI.UpdateRound(0);
-        stageInfoUI.UpdateDebuffText("asdf");
+        stageInfoUI.UpdateChapter(0);
+        stageInfoUI.UpdateStage(0);
+        stageInfoUI.UpdateDebuffText("init");
         stageInfoUI.UpdateScoreAtLeast(0); 
 
         // update socre info ui
         scoreInfoUI.UpdateScore(0);
 
-        //update reroll info ui
-        rerollInfoUI.UpdateLeftRerollCount(0);
-        rerollInfoUI.UpdateMaximumRerollCount(0);
-
         //update gold info ui
-        goldInfoUI.UpdateGainGold(0);
-        goldInfoUI.UpdateCurrentGold(0);
+        goldInfoUI.UpdateGold(0);
+
+        //update reroll info ui
+        rerollInfoUI.UpdateReroll(0);
     }
 
     // RunInfo methods
@@ -128,6 +134,32 @@ public class GameUIManager : MonoBehaviour
         {
             popupState = PopupState.deckInfo;
             deckInfoUI.CloseDeckInfoUI();
+        }
+    }
+
+    // ShopUI methods
+    public void NextStageButtonUIPressed()
+    {
+        if (sceneState == SceneState.shopping && popupState == PopupState.none)
+        {
+
+        }
+    }
+
+    public void ItemRerollButtonUIPressed()
+    {
+        if (sceneState == SceneState.shopping && popupState == PopupState.none)
+        {
+
+        }
+    }
+
+    // StageSelectionUi methods
+    public void NextStageChoiceButtonUIPressed(int choiceIndex)
+    {
+        if (sceneState == SceneState.selecting && popupState == PopupState.none)
+        {
+
         }
     }
 }

@@ -5,18 +5,7 @@ using UnityEngine;
 public class RunInfoUI : MonoBehaviour
 {
 
-    [SerializeField] private GameObject gameUIManagerInstance;
-    private GameUIManager gameUIManager;
-
-    private void Start()
-    {
-        initializeInstances();
-    }
-
-    private void initializeInstances()
-    {
-        gameUIManager = gameUIManagerInstance.GetComponent<GameUIManager>();
-    }
+    [SerializeField] private GameUIManager gameUIManager;
 
     public void OpenRunInfoUI()
     {

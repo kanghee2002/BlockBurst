@@ -4,5 +4,12 @@ using UnityEngine;
 
 public class ActionInfoUI : MonoBehaviour
 {
-    //ㅅㅂ 뭐해야 하지
+    public void UpdateChip()
+    {
+        
+    }
+    public void UpdateMuliplier(int _multiplier)
+    {
+
+    }
 }

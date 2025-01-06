@@ -4,13 +4,8 @@ using UnityEngine;
 
 public class GoldInfoUI : MonoBehaviour
 {
-    public void UpdateGainGold(int _gainGold)
+    public void UpdateGold(int _gainGold)
     {
-        Debug.Log("GainGold has been updated.");
-    }
-
-    public void UpdateCurrentGold(int _currentGold)
-    {
-        Debug.Log("CurrentGold has been updated.");
+        Debug.Log("Gold has been updated.");
     }
 }

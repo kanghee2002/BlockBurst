@@ -4,13 +4,8 @@ using UnityEngine;
 
 public class RerollInfoUI : MonoBehaviour
 {
-    public void UpdateLeftRerollCount(int _leftRerollCount)
+    public void UpdateReroll(int _reroll)
     {
-        Debug.Log("LeftRerollCount has been updated.");
-    }
-
-    public void UpdateMaximumRerollCount(int _maximumRerollCount)
-    {
-        Debug.Log("MaximumRerollCount has been updated.");
+        Debug.Log("Reroll has been updated.");
     }
 }

@@ -17,7 +17,7 @@ public class DeckManager : MonoBehaviour
     // ºí·Ï »Ì±â
     public BlockData DrawBlock()
     {
-
+        return null;
     }
 
     // µ¦ ¼ÅÇÃ
@@ -29,7 +29,7 @@ public class DeckManager : MonoBehaviour
     // µ¦ ¸®·Ñ
     public bool RerollDeck()
     {
-
+        return false;
     }
 
     // ºí·Ï Àç»ç¿ë Ã³¸®

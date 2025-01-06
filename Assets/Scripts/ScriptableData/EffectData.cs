@@ -11,11 +11,6 @@ public class EffectData : ScriptableObject
     public Dictionary<string, float> modifiers;      // 데이터 수정자
 }
 
-public enum BlockType
-{
-    I, O, T, L, J, S, Z, SPECIAL
-}
-
 public enum StageType
 {
     NORMAL1, NORMAL2, BOSS

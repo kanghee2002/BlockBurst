@@ -16,7 +16,7 @@ public class ShopManager : MonoBehaviour
     // 아이템 구매
     public bool PurchaseItem(string itemId)
     {
-
+        return true;
     }
 
     // 아이템 적용

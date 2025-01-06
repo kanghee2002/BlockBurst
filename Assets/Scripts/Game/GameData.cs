@@ -31,8 +31,5 @@ public class GameData
         defaultBlockScores[BlockType.S] = 130;
         defaultBlockScores[BlockType.Z] = 130;
 
-        // 기본 매치 배율 설정
-        defaultMatchMultipliers[MatchType.LINE] = 1.0f;
-        defaultMatchMultipliers[MatchType.SQUARE] = 1.5f;
     }
 }

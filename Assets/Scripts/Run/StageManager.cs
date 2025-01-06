@@ -17,7 +17,7 @@ public class StageManager : MonoBehaviour
     // 스테이지 클리어 체크
     public bool CheckStageClear()
     {
-
+        return true;
     }
 
     // 스테이지 제한사항 적용

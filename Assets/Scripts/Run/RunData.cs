@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class RunData
 {
-    // ½ºÅ×ÀÌÁö ÁøÇà µ¥ÀÌÅÍ
-    public Dictionary<BlockType, int> baseBlockScores;     // ±âº» ºí·Ï Á¡¼ö
-    public Dictionary<MatchType, float> baseMatchMultipliers;  // ±âº» ¸ÅÄ¡ ¹èÀ²
-    public List<BlockData> availableBlocks;               // »ç¿ë °¡´ÉÇÑ ºí·Ïµé
-    public List<ItemData> activeItems;                    // È°¼ºÈ­µÈ ¾ÆÀÌÅÛµé
-    public List<EffectData> activeEffects;                // È°¼ºÈ­µÈ È¿°úµé
-    public StageData currentStage;                        // ÇöÀç ½ºÅ×ÀÌÁö
-    public Dictionary<string, int> blockReuses;           // ºí·Ïº° Àç»ç¿ë È½¼ö
-    public int gold;                                      // ÇöÀç º¸À¯ °ñµå
-    public int baseRerollCount;                           // ±âº» ¸®·Ñ È½¼ö
-    public int currentRerollCount;                        // ÇöÀç ¸®·Ñ È½¼ö
-    public float baseMultiplier;                          // ±âº» ¹èÀ²
+    // ìŠ¤í…Œì´ì§€ ì§„í–‰ ë°ì´í„°
+    public Dictionary<BlockType, int> baseBlockScores;          // ê¸°ë³¸ ë¸”ë¡ ì ìˆ˜
+    public Dictionary<MatchType, float> baseMatchMultipliers;   // ê¸°ë³¸ ë§¤ì¹˜ ë°°ìœ¨
+    public List<BlockData> availableBlocks;                     // ì‚¬ìš© ê°€ëŠ¥í•œ ë¸”ë¡ë“¤
+    public List<ItemData> activeItems;                          // í™œì„±í™”ëœ ì•„ì´í…œë“¤
+    public List<EffectData> activeEffects;                      // í™œì„±í™”ëœ íš¨ê³¼ë“¤
+    public StageData currentStage;                              // í˜„ì¬ ìŠ¤í…Œì´ì§€
+    public Dictionary<string, int> blockReuses;                 // ë¸”ë¡ë³„ ì¬ì‚¬ìš© íšŸìˆ˜
+    public int gold;                                            // í˜„ì¬ ë³´ìœ  ê³¨ë“œ
+    public int baseRerollCount;                                 // ê¸°ë³¸ ë¦¬ë¡¤ íšŸìˆ˜
+    public int currentRerollCount;                              // í˜„ì¬ ë¦¬ë¡¤ íšŸìˆ˜
+    public float baseMultiplier;                                // ê¸°ë³¸ ë°°ìœ¨
 
     public void Initialize(GameData gameData)
     {

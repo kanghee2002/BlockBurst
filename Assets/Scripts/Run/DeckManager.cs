@@ -8,43 +8,43 @@ public class DeckManager : MonoBehaviour
     private List<BlockData> discardPile;
     private RunData runData;
 
-    // µ¦ ÃÊ±âÈ­
+    // ë± ì´ˆê¸°í™”
     public void Initialize(RunData data)
     {
 
     }
 
-    // ºí·Ï »Ì±â
+    // ë¸”ë¡ ë½‘ê¸°
     public BlockData DrawBlock()
     {
         return null;
     }
 
-    // µ¦ ¼ÅÇÃ
+    // ë± ì…”í”Œ
     private void ShuffleDeck()
     {
 
     }
 
-    // µ¦ ¸®·Ñ
+    // ë± ë¦¬ë¡¤
     public bool RerollDeck()
     {
         return false;
     }
 
-    // ºí·Ï Àç»ç¿ë Ã³¸®
+    // ë¸”ë¡ ì¬ì‚¬ìš© ì²˜ë¦¬
     public void ProcessBlockReuse(string blockId)
     {
 
     }
 
-    // ºí·Ï Ãß°¡
+    // ë¸”ë¡ ì¶”ê°€
     public void AddBlock(BlockData block)
     {
 
     }
 
-    // ºí·Ï Á¦°Å
+    // ë¸”ë¡ ì œê±°
     public void RemoveBlock(BlockData block)
     {
 

@@ -5,36 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Effect", menuName = "BlockBurst/Effect")]
 public class EffectData : ScriptableObject
 {
-    public string id;                                // È¿°ú ID
-    public EffectType type;                         // È¿°ú Å¸ÀÔ
-    public TriggerType trigger;                     // ¹ßµ¿ Á¶°Ç
-    public Dictionary<string, float> modifiers;      // µ¥ÀÌÅÍ ¼öÁ¤ÀÚ
-}
-
-public enum StageType
-{
-    NORMAL1, NORMAL2, BOSS
-}
-
-public enum EffectType
-{
-    SCORE_MODIFIER,      // Á¡¼ö ¼öÁ¤
-    MULTIPLIER_MODIFIER, // ¹èÀ² ¼öÁ¤
-    REROLL_MODIFIER,     // ¸®·Ñ ¼öÁ¤
-    GOLD_MODIFIER,       // °ñµå ¼öÁ¤
-    BOARD_MODIFIER,      // º¸µå ¼öÁ¤
-    DECK_MODIFIER,       // µ¦ ¼öÁ¤
-    BLOCK_REUSE,        // ºí·Ï Àç»ç¿ë
-    SPECIAL_CLEAR       // Æ¯¼ö Å¬¸®¾î
-}
-
-public enum TriggerType
-{
-    ON_BLOCK_PLACE,          // ºí·Ï ¹èÄ¡ ½Ã
-    ON_BLOCK_CLEAR,          // ºí·Ï Á¦°Å ½Ã
-    ON_LINE_CLEAR,           // ¶óÀÎ Å¬¸®¾î ½Ã
-    ON_LINE_CLEAR_WITH_BLOCK, // Æ¯Á¤ ºí·ÏÀ¸·Î ¶óÀÎ Å¬¸®¾î ½Ã
-    ON_DECK_EMPTY,           // µ¦ÀÌ ºñ¾úÀ» ¶§
-    ON_REROLL,              // ¸®·Ñ ½Ã
-    ON_BOARD_STATE,         // º¸µå »óÅÂ Á¶°Ç ÃæÁ· ½Ã
+    public string id;                               // íš¨ê³¼ ID
+    public EffectType type;                         // íš¨ê³¼ íƒ€ì…
+    public TriggerType trigger;                     // ë°œë™ ì¡°ê±´
+    public Dictionary<string, float> modifiers;     // ë°ì´í„° ìˆ˜ì •ì
 }

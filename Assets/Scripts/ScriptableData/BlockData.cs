@@ -10,8 +10,3 @@ public class BlockData : ScriptableObject
 
     public GameObject prefab;
 }
-
-public enum BlockType
-{
-    I, O, T, L, J, S, Z, SPECIAL
-}

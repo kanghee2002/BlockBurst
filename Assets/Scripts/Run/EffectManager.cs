@@ -8,25 +8,25 @@ public class EffectManager : MonoBehaviour
     private BlockGameData gameData;
     private Dictionary<TriggerType, List<EffectData>> triggerEffects;
 
-    // È¿°ú Ãß°¡
+    // íš¨ê³¼ ì¶”ê°€
     public void AddEffect(EffectData effect)
     {
 
     }
 
-    // È¿°ú Á¦°Å
+    // íš¨ê³¼ ì œê±°
     public void RemoveEffect(EffectData effect)
     {
 
     }
 
-    // È¿°ú Æ®¸®°Å
+    // íš¨ê³¼ íŠ¸ë¦¬ê±°
     public void TriggerEffects(TriggerType trigger)
     {
 
     }
 
-    // È¿°ú Àû¿ë
+    // íš¨ê³¼ ì ìš©
     private void ApplyEffect(EffectData effect)
     {
 

@@ -8,6 +8,25 @@ public class ScoreCalculator : MonoBehaviour
 
     public int Calculate(Match match, BlockGameData data)
     {
-        return 0;
+        switch (match.matchType)
+        {
+            case MatchType.ROW:
+                break;
+            case MatchType.COLUMN:
+                break;
+            case MatchType.SQUARE:
+                break;
+            default:
+                Debug.Log("Error");
+                break;
+        }
+
+        int totalScore = 0, totalMultiplier = 1;
+        foreach (BlockType blockType in match.blockTypes)
+        {
+            totalScore += data.blockScores[blockType];
+        }
+
+        return totalScore * totalMultiplier;
     }
 }

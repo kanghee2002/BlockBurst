@@ -82,7 +82,8 @@ public class DeckManager : MonoBehaviour
         {
             GameObject blockObject = Instantiate(blockData.prefab);
             Block block = blockObject.GetComponent<Block>();
-            block.Initialize(blockData, idCount);
+            BlockType blockType = blockData.type;
+            block.Initialize(blockData, idCount, runData.blockReuses[blockType]);
             idCount++;
             blocks.Add(block);
 

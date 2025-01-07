@@ -8,6 +8,13 @@ public class Cell : MonoBehaviour
     public int BlockID { get; private set; }
     public bool IsBlocked { get; private set; }
 
+    public void Initialize()
+    {
+        Type = null;
+        BlockID = -1;
+        IsBlocked = false;
+    }
+
     public void SetBlock(BlockType type, int blockId)
     {
         Type = type;

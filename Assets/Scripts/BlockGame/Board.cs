@@ -59,6 +59,9 @@ public class Board : MonoBehaviour
     private void ProcessMatches(Block block, Vector2Int pos)
     {
         List<Match> matches = CheckMatches(block, pos);
+
+        // 점수 계산
+        // 점수 증가
     }
 
     // 매치 확인
@@ -72,7 +75,17 @@ public class Board : MonoBehaviour
         List<Match> rowMatches = CheckRowMatch(rows);
         List<Match> columnMatches = CheckColumnMatch(columns);
 
-        return null;
+        foreach (Match match in rowMatches)
+        {
+            matches.Add(match);
+        }
+
+        foreach (Match match in columnMatches)
+        {
+            matches.Add(match);
+        }
+
+        return matches;
     }
 
     // 행 매치 확인
@@ -219,6 +232,7 @@ public class Board : MonoBehaviour
 
                 tmpCells[i * 8 + j].cellPosition = new Vector2Int(j, i);
                 cells[j, i] = tmpCells[i * 8 + j];
+                cells[j, i].Initialize();
             }
         }
     }

@@ -11,7 +11,7 @@ public class RunData
     public List<ItemData> activeItems;                          // 활성화된 아이템들
     public List<EffectData> activeEffects;                      // 활성화된 효과들
     public StageData currentStage;                              // 현재 스테이지
-    public Dictionary<string, int> blockReuses;                 // 블록별 재사용 횟수
+    public Dictionary<BlockType, int> blockReuses;              // 블록별 재사용 횟수
     public int gold;                                            // 현재 보유 골드
     public int baseRerollCount;                                 // 기본 리롤 횟수
     public int currentRerollCount;                              // 현재 리롤 횟수
@@ -23,7 +23,7 @@ public class RunData
         baseMatchMultipliers = new Dictionary<MatchType, float>(gameData.defaultMatchMultipliers);
         availableBlocks = new List<BlockData>(gameData.defaultBlocks);
         activeEffects = new List<EffectData>();
-        blockReuses = new Dictionary<string, int>();
+        blockReuses = new Dictionary<BlockType, int>();
         gold = gameData.startingGold;
         baseRerollCount = gameData.defaultRerollCount;
         currentRerollCount = baseRerollCount;

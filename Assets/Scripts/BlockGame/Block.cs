@@ -10,12 +10,16 @@ public class Block : MonoBehaviour
     public int Id { get; private set; }
     public BlockType Type { get; private set; }
     public bool[,] Shape { get; private set; }
+    public List<EffectData> OnPlaceEffects { get; private set; }
+    public List<EffectData> OnClearEffects { get; private set; }
+    public int MaxReuses { get; private set; }
     
-    public void Initialize(BlockData blockData, int id)
+    public void Initialize(BlockData blockData, int id, int maxReuses)
     {
         Id = id;
         Type = blockData.type;
         MakeShapeArray(blockData.shape);
+        MaxReuses = maxReuses;
     }
 
     /// <summary>

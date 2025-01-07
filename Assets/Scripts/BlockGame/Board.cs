@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 public class Board : MonoBehaviour
 {
     public Cell[,] cells { get; private set; }
 
+    // 블록 배치 처리
     public bool PlaceBlock(Block block, Vector2Int pos)
     {
         bool isPlaced = false;
@@ -27,81 +29,60 @@ public class Board : MonoBehaviour
                         Vector2Int curPos = pos + new Vector2Int(x, y);
 
                         cells[curPos.x, curPos.y].SetBlock(block.Type, block.Id);
-
-                        Debug.Log(block.Id);
                     }
                 }
             }
         }
 
-        ProcessMatches();
+        ProcessMatches(block, pos);
 
         return isPlaced;
     }
 
-    public void ProcessMatches()
+    // 강제 행 매치 처리 (무작위로 줄 지우는 효과)
+    public void ForceRowMatches(List<int> rows)
     {
-        // Temporary Implement
-        for (int i = 0; i < 8; i++)
+        foreach (int row in rows)
         {
-            // Check Row
-            bool rowLine = true;
-            for (int j = 0; j < 8; j++)
-            {
-                if (!cells[i, j].IsBlocked)
-                {
-                    rowLine = false;
-                    break;
-                }
-            }
-            if (rowLine)
-            {
-                matcedLineCount++;
-                for (int j = 0; j < 8; j++)
-                {
-                    cells[i, j].ClearBlock();
-                }
-            }
-
-            // Check Column
-            bool colLine = true;
-            for (int j = 0; j < 8; j++)
-            {
-                if (!cells[j, i].IsBlocked)
-                {
-                    colLine = false;
-                    break;
-                }
-            }
-            if (colLine)
-            {
-                matcedLineCount++;
-                for (int j = 0; j < 8; j++)
-                {
-                    cells[j, i].ClearBlock();
-                }
-            }
+            //List<Match> rowMatches = CheckRowMatch(row, 1);
         }
-
-        Debug.Log("현재 지운 줄 수: " + matcedLineCount);
     }
 
+    // 강제 열 매치 처리 (무작위로 줄 지우는 효과)
+    public void ForceColumnMatches(List<int> columns)
+    {
+
+    }
+
+
+    // 매치 처리
+    private void ProcessMatches(Block block, Vector2Int pos)
+    {
+        List<Match> matches = CheckMatches(block, pos);
+    }
+
+    // 매치 확인
     private List<Match> CheckMatches(Block block, Vector2Int pos)
     {
         List<Match> matches = new List<Match>();
 
-        List<Match> rowMatches = CheckRowMatch(pos.y, block.Shape.GetLength(1));
-        List<Match> colMatches = CheckColumnMatch(pos.x, block.Shape.GetLength(0));
+        List<int> rows = Enumerable.Range(pos.y, block.Shape.GetLength(1)).ToList();
+        List<int> columns = Enumerable.Range(pos.x, block.Shape.GetLength(0)).ToList();
+
+        List<Match> rowMatches = CheckRowMatch(rows);
+        List<Match> columnMatches = CheckColumnMatch(columns);
 
         return null;
     }
 
-    private List<Match> CheckRowMatch(int start, int length)
+    // 행 매치 확인
+    private List<Match> CheckRowMatch(List<int> rows)
     {
         List<Match> matches = new List<Match>();
 
-        for (int y = start; y < start + length; y++)
+        foreach (int y in rows)
         {
+            // 한 줄 완성 확인
             bool isMatched = true;
             // TEST: 8 -> Board Size로 변경 필요
             for (int x = 0; x < 8; x++)
@@ -113,6 +94,7 @@ public class Board : MonoBehaviour
                 }
             }
 
+            // 한 줄 완성 시
             if (isMatched)
             {
                 Match match = new Match()
@@ -120,28 +102,66 @@ public class Board : MonoBehaviour
                     matchType = MatchType.ROW,
                     blockTypes = new List<BlockType>()
                 };
-
+                // TEST: 8 -> Board Size로 변경 필요
                 for (int x = 0; x < 8; x++)
                 {
                     Cell currentCell = cells[x, y];
                     match.blockTypes.Add((BlockType)currentCell.Type);
+                    currentCell.ClearBlock();
                 }
+                matches.Add(match);
             }
         }
-
-        return null;
+        return matches;
     }
 
-    private List<Match> CheckColumnMatch(int start, int length)
+    // 열 매치 확인
+    private List<Match> CheckColumnMatch(List<int> columns)
     {
-        return null;
+        List<Match> matches = new List<Match>();
+
+        foreach (int x in columns)
+        {
+            // 한 줄 완성 확인
+            bool isMatched = true;
+            // TEST: 8 -> Board Size로 변경 필요
+            for (int y = 0; y < 8; y++)
+            {
+                if (!cells[x, y].IsBlocked)
+                {
+                    isMatched = false;
+                    break;
+                }
+            }
+
+            // 한 줄 완성 시
+            if (isMatched)
+            {
+                Match match = new Match()
+                {
+                    matchType = MatchType.COLUMN,
+                    blockTypes = new List<BlockType>()
+                };
+                // TEST: 8 -> Board Size로 변경 필요
+                for (int y = 0; y < 8; y++)
+                {
+                    Cell currentCell = cells[x, y];
+                    match.blockTypes.Add((BlockType)currentCell.Type);
+                    currentCell.ClearBlock();
+                }
+                matches.Add(match);
+            }
+        }
+        return matches;
     }
 
+    // 정사각형 매치 확인
     private Match CheckSquareMatch(Block block, Vector2Int pos)
     {
         return null;
     }
 
+    // 블록 배치 가능 여부 확인
     private bool CanPlace(Block block, Vector2Int pos)
     {
         int width = block.Shape.GetLength(0);
@@ -181,8 +201,6 @@ public class Board : MonoBehaviour
 
     // Test Code  ////////////////////////////////////////////////////////////
     [SerializeField] private Cell[] tmpCells;
-
-    private int matcedLineCount = 0;
 
     private void Start()
     {

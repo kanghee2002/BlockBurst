@@ -10,18 +10,48 @@ public class BlockGameTester : MonoBehaviour
 
     [SerializeField] private List<BlockData> blockDatas;
 
-    private Block currentBlock;
+    [SerializeField] private Transform currentCursor;
+
+    private List<Block> currentBlocks;
+    private int currentBlockIndex;
+
     private Vector2Int currentOriginCellPosition;
 
     private RunData runData;
 
     private void Start()
     {
+        currentBlockIndex = 0;
+
+        currentCursor.position = new Vector2(14f, -3.5f * currentBlockIndex);
+
         currentOriginCellPosition = new Vector2Int(0, 0);
 
         runData = new RunData()
         {
-            availableBlocks = blockDatas
+            availableBlocks = blockDatas,
+            baseBlockScores = new Dictionary<BlockType, int>
+            {
+                { BlockType.I, 10 },
+                { BlockType.O, 15 },
+                { BlockType.Z, 25 },
+                { BlockType.S, 25 },
+                { BlockType.J, 20 },
+                { BlockType.L, 20 },
+                { BlockType.T, 20 },
+            },
+            baseRerollCount = 3,
+            baseMultiplier = 1,
+            blockReuses = new Dictionary<BlockType, int>()
+            {
+                { BlockType.I, 0 },
+                { BlockType.O, 0 },
+                { BlockType.Z, 0 },
+                { BlockType.S, 0 },
+                { BlockType.J, 0 },
+                { BlockType.L, 0 },
+                { BlockType.T, 0 },
+            }
         };
         deckManager.Initialize(runData);
     }
@@ -84,22 +114,61 @@ public class BlockGameTester : MonoBehaviour
             SetCellColor(0.5f);
         }
 
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            currentBlockIndex--;
+            if (currentBlockIndex < 0) currentBlockIndex = 0;
+            currentCursor.position = new Vector2(14f, -3.5f * currentBlockIndex);
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            currentBlockIndex++;
+            if (currentBlockIndex >= currentBlocks.Count) currentBlockIndex = currentBlocks.Count - 1;
+            currentCursor.position = new Vector2(14f, -3.5f * currentBlockIndex);
+        }
+
         if (Input.GetKeyDown(KeyCode.R))
         {
-            currentBlock = deckManager.DrawBlock();
-            currentBlock.transform.position = new Vector2(10f, -3.5f);
+            currentBlocks = deckManager.DrawBlock();
+            
+            for (int i = 0; i < currentBlocks.Count; i++)
+            {
+                currentBlocks[i].transform.position = new Vector2(10f, -3.5f * i);
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            bool result = board.PlaceBlock(currentBlock.GetComponent<Block>(), currentOriginCellPosition);
+            Block placingBlock = currentBlocks[currentBlockIndex];
+
+            bool result = board.PlaceBlock(placingBlock.GetComponent<Block>(), currentOriginCellPosition);
 
             if (result)
             {
-                currentBlock.gameObject.SetActive(false);
+                placingBlock.gameObject.SetActive(false);
 
-                currentBlock = deckManager.DrawBlock();
-                currentBlock.transform.position = new Vector2(10f, -3.5f);
+                currentBlocks.RemoveAt(currentBlockIndex);
+
+                currentBlockIndex--;
+                if (currentBlockIndex < 0) currentBlockIndex = 0;
+                currentCursor.position = new Vector2(14f, -3.5f * currentBlockIndex);
+
+                for (int i = 0; i < currentBlocks.Count; i++)
+                {
+                    currentBlocks[i].transform.position = new Vector2(10f, -3.5f * i);
+                }
+            }
+
+            if (currentBlocks.Count == 0)
+            {
+                currentBlocks = deckManager.DrawBlock();
+
+                for (int i = 0; i < currentBlocks.Count; i++)
+                {
+                    currentBlocks[i].transform.position = new Vector2(10f, -3.5f * i);
+                }
+                currentCursor.position = new Vector2(14f, -3.5f * currentBlockIndex);
             }
         }
     }

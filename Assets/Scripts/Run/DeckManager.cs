@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class DeckManager : MonoBehaviour
 {
+    public int rerollCount { get; private set; }
+    public int drawBlockCount { get; private set; }
+
     private List<Block> deck;
     private List<Block> discardPile;
     private RunData runData;
@@ -15,39 +18,53 @@ public class DeckManager : MonoBehaviour
     // 덱 초기화
     public void Initialize(RunData data)
     {
+        runData = data;
         deck = InstantiateBlocks(data.availableBlocks);
         discardPile = new List<Block>();
-        runData = data;
         idCount = 0;
+        drawBlockCount = 3;
+
+        ShuffleDeck();
     }
 
     // 블록 뽑기
-    public Block DrawBlock()
+    public List<Block> DrawBlock()
     {
-        if (deck.Count == 0)
+        List<Block> drawedBlocks = new List<Block>();
+
+        for (int i = 0; i < drawBlockCount; i++)
         {
-            Debug.Log("드로우 시도: 덱에 블록 없음");
-            return null;
+            if (deck.Count == 0)
+            {
+                Debug.Log("덱에 남은 블록 없음");
+                break;
+            }
+
+            Block block = deck[deck.Count - 1];
+            deck.RemoveAt(deck.Count - 1);
+
+            int rotateCount = Random.Range(0, 4);
+            for (int j = 0; j < rotateCount; j++)
+            {
+                block.RotateShape();
+            }
+
+            drawedBlocks.Add(block);
         }
 
-        // TEST
-        int randomIdx = Random.Range(0, deck.Count);
-        Block block = deck[randomIdx];
-        deck.RemoveAt(randomIdx);
-
-        int rotateCount = Random.Range(0, 4);
-        for (int i = 0; i < rotateCount; i++)
-        {
-            block.RotateShape();
-        }
-
-        return block;
+        return drawedBlocks;
     }
 
     // 덱 셔플
     private void ShuffleDeck()
     {
-
+        for (int i = 0; i < deck.Count; i++)
+        {
+            int j = Random.Range(i, deck.Count);
+            Block tmp = deck[i];
+            deck[i] = deck[j];
+            deck[j] = tmp;
+        }
     }
 
     // 덱 리롤

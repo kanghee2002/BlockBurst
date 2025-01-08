@@ -12,7 +12,6 @@ public class BlockGameTester : MonoBehaviour
 
     [SerializeField] private Transform currentCursor;
 
-    private List<Block> currentBlocks;
     private int currentBlockIndex;
 
     private Vector2Int currentOriginCellPosition;
@@ -57,6 +56,69 @@ public class BlockGameTester : MonoBehaviour
     }
 
     private void Update()
+    {
+        HandleArrowInput();
+
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            currentBlockIndex--;
+            if (currentBlockIndex < 0) currentBlockIndex = 0;
+            currentCursor.position = new Vector2(14f, -3.5f * currentBlockIndex);
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            currentBlockIndex++;
+            if (currentBlockIndex >= deckManager.currentBlocks.Count) 
+                currentBlockIndex = deckManager.currentBlocks.Count - 1;
+            currentCursor.position = new Vector2(14f, -3.5f * currentBlockIndex);
+        }
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            deckManager.DrawBlock();
+
+            SetBlockPosition();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            foreach (Block block in deckManager.currentBlocks)
+            {
+                block.transform.position = new Vector2(10, 10);
+            }
+
+            deckManager.RerollBlock();
+
+            SetBlockPosition();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Block placingBlock = deckManager.currentBlocks[currentBlockIndex];
+
+            bool result = board.PlaceBlock(placingBlock.GetComponent<Block>(), currentOriginCellPosition);
+
+            if (result)
+            {
+                deckManager.UseBlock(placingBlock);
+
+                currentBlockIndex--;
+                if (currentBlockIndex < 0) currentBlockIndex = 0;
+                currentCursor.position = new Vector2(14f, -3.5f * currentBlockIndex);
+
+                SetBlockPosition();
+            }
+
+            if (deckManager.currentBlocks.Count == 0)
+            {
+                SetBlockPosition();
+                currentCursor.position = new Vector2(14f, -3.5f * currentBlockIndex);
+            }
+        }
+    }
+
+    private void HandleArrowInput()
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
@@ -113,64 +175,6 @@ public class BlockGameTester : MonoBehaviour
 
             SetCellColor(0.5f);
         }
-
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            currentBlockIndex--;
-            if (currentBlockIndex < 0) currentBlockIndex = 0;
-            currentCursor.position = new Vector2(14f, -3.5f * currentBlockIndex);
-        }
-
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            currentBlockIndex++;
-            if (currentBlockIndex >= currentBlocks.Count) currentBlockIndex = currentBlocks.Count - 1;
-            currentCursor.position = new Vector2(14f, -3.5f * currentBlockIndex);
-        }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            currentBlocks = deckManager.DrawBlock();
-            
-            for (int i = 0; i < currentBlocks.Count; i++)
-            {
-                currentBlocks[i].transform.position = new Vector2(10f, -3.5f * i);
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            Block placingBlock = currentBlocks[currentBlockIndex];
-
-            bool result = board.PlaceBlock(placingBlock.GetComponent<Block>(), currentOriginCellPosition);
-
-            if (result)
-            {
-                placingBlock.gameObject.SetActive(false);
-
-                currentBlocks.RemoveAt(currentBlockIndex);
-
-                currentBlockIndex--;
-                if (currentBlockIndex < 0) currentBlockIndex = 0;
-                currentCursor.position = new Vector2(14f, -3.5f * currentBlockIndex);
-
-                for (int i = 0; i < currentBlocks.Count; i++)
-                {
-                    currentBlocks[i].transform.position = new Vector2(10f, -3.5f * i);
-                }
-            }
-
-            if (currentBlocks.Count == 0)
-            {
-                currentBlocks = deckManager.DrawBlock();
-
-                for (int i = 0; i < currentBlocks.Count; i++)
-                {
-                    currentBlocks[i].transform.position = new Vector2(10f, -3.5f * i);
-                }
-                currentCursor.position = new Vector2(14f, -3.5f * currentBlockIndex);
-            }
-        }
     }
 
     private void SetCellColor(float color)
@@ -183,6 +187,14 @@ public class BlockGameTester : MonoBehaviour
             }
             board.cells[currentOriginCellPosition.x, currentOriginCellPosition.y].GetComponent<SpriteRenderer>().color
                 = new Color(color, color, color);
+        }
+    }
+
+    private void SetBlockPosition()
+    {
+        for (int i = 0; i < deckManager.currentBlocks.Count; i++)
+        {
+            deckManager.currentBlocks[i].transform.position = new Vector2(10f, -3.5f * i);
         }
     }
 

@@ -24,12 +24,10 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private DeckInfoUI deckInfoUI;
     [SerializeField] private ItemSetUI itemSetUI;
     [SerializeField] private ShopSignboardUI shopSignboardUI;
-    [SerializeField] private NextStageButtonUI nextStageButtonUI;
-    [SerializeField] private ItemRerollButtonUI itemRerollButtonUI;
+    [SerializeField] private ItemBoardUI itemBoardUI;
     [SerializeField] private ItemShowcaseUI itemShowcaseUI;
     [SerializeField] private StageSelectionSignboardUI stageSelectionSignboardUI;
-    [SerializeField] private NextStageChoiceUI[] nextStageChoiceUI;
-    [SerializeField] private NextStageChoiceButtonUI[] nextStageChoiceButtonUI;
+    [SerializeField] private StageSelectionBoardUI stageSelectionBoardUI;
 
     private enum SceneState
     {
@@ -118,6 +116,15 @@ public class GameUIManager : MonoBehaviour
         }
     }
 
+    // Reroll Button methods
+    public void RerollButtonUIPressed()
+    {
+        if (sceneState == SceneState.playing && popupState == PopupState.none)
+        {
+            Debug.Log("리롤 버튼 눌림");
+        }
+    }
+
     // DeckInfo methods
     public void DeckButtonUIPressed()
     {
@@ -137,12 +144,12 @@ public class GameUIManager : MonoBehaviour
         }
     }
 
-    // ShopUI methods
+    // Item Board methods
     public void NextStageButtonUIPressed()
     {
         if (sceneState == SceneState.shopping && popupState == PopupState.none)
         {
-
+            Debug.Log("다음 스테이지로 버튼 눌림");
         }
     }
 
@@ -150,7 +157,7 @@ public class GameUIManager : MonoBehaviour
     {
         if (sceneState == SceneState.shopping && popupState == PopupState.none)
         {
-
+            Debug.Log("아이템 리롤 버튼 눌림"); 
         }
     }
 
@@ -159,7 +166,7 @@ public class GameUIManager : MonoBehaviour
     {
         if (sceneState == SceneState.selecting && popupState == PopupState.none)
         {
-
+            Debug.Log("다음 스테이지 선택지 버튼 눌림");
         }
     }
 }

@@ -4,15 +4,6 @@ using UnityEngine;
 
 public class NextStageChoiceUI : MonoBehaviour
 {
-    public void OpenNextStageChoiceUI()
-    {
-
-    }
-
-    public void CloseNextStageChoiceUI()
-    {
-
-    }
 
     public void UpdateDebuffText(string _debuffText)
     {

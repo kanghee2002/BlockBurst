@@ -6,6 +6,18 @@ public class ScoreCalculator : MonoBehaviour
 {
     public static ScoreCalculator Instance { get; private set; }
 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject); // 중복 인스턴스 파괴
+        }
+    }
+
     public int Calculate(Match match, BlockGameData data)
     {
         switch (match.matchType)
@@ -20,6 +32,8 @@ public class ScoreCalculator : MonoBehaviour
                 Debug.Log("Error");
                 break;
         }
+
+        // 아이템 효과 발동
 
         int totalScore = 0, totalMultiplier = 1;
         foreach (BlockType blockType in match.blockTypes)

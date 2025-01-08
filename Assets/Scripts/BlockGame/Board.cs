@@ -7,6 +7,12 @@ using UnityEngine;
 public class Board : MonoBehaviour
 {
     public Cell[,] cells { get; private set; }
+    private BlockGameData gameData;
+
+    public void Initialize(BlockGameData blockGameData)
+    {
+        gameData = blockGameData;
+    }
 
     // 블록 배치 처리
     public bool PlaceBlock(Block block, Vector2Int pos)
@@ -32,9 +38,8 @@ public class Board : MonoBehaviour
                     }
                 }
             }
+            ProcessMatches(block, pos);
         }
-
-        ProcessMatches(block, pos);
 
         return isPlaced;
     }
@@ -61,9 +66,17 @@ public class Board : MonoBehaviour
         List<Match> matches = CheckMatches(block, pos);
 
         // 점수 계산
-        // 점수 증가
-    }
+        int totalScore = 0;
+        foreach (Match match in matches)
+        {
+            totalScore += ScoreCalculator.Instance.Calculate(match, gameData);
+        }
 
+        gameData.currentScore += totalScore;
+
+        Debug.Log("현재 점수: " + gameData.currentScore);
+    }
+    
     // 매치 확인
     private List<Match> CheckMatches(Block block, Vector2Int pos)
     {

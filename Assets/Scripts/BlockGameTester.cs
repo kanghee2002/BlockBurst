@@ -17,6 +17,7 @@ public class BlockGameTester : MonoBehaviour
     private Vector2Int currentOriginCellPosition;
 
     private RunData runData;
+    private BlockGameData blockGameData;
 
     private void Start()
     {
@@ -29,7 +30,7 @@ public class BlockGameTester : MonoBehaviour
         runData = new RunData()
         {
             availableBlocks = blockDatas,
-            baseBlockScores = new Dictionary<BlockType, int>
+            baseBlockScores = new Dictionary<BlockType, int>()
             {
                 { BlockType.I, 10 },
                 { BlockType.O, 15 },
@@ -50,8 +51,19 @@ public class BlockGameTester : MonoBehaviour
                 { BlockType.J, 0 },
                 { BlockType.L, 0 },
                 { BlockType.T, 0 },
+            },
+            baseMatchMultipliers = new Dictionary<MatchType, float>()
+            {
+                { MatchType.ROW, 1f },
+                { MatchType.COLUMN, 1f },
+                { MatchType.SQUARE, 1f }
             }
         };
+
+        blockGameData = new BlockGameData();
+        blockGameData.Initialize(runData);
+        board.Initialize(blockGameData);
+
         deckManager.Initialize(runData);
     }
 
@@ -81,6 +93,7 @@ public class BlockGameTester : MonoBehaviour
             SetBlockPosition();
         }
 
+        // 리롤
         if (Input.GetKeyDown(KeyCode.R))
         {
             foreach (Block block in deckManager.currentBlocks)
@@ -93,6 +106,7 @@ public class BlockGameTester : MonoBehaviour
             SetBlockPosition();
         }
 
+        // 블록 배치
         if (Input.GetKeyDown(KeyCode.Q))
         {
             Block placingBlock = deckManager.currentBlocks[currentBlockIndex];

@@ -8,6 +8,8 @@ public class BlockGameTester : MonoBehaviour
 
     [SerializeField] private DeckManager deckManager;
 
+    [SerializeField] private EffectManager effectManager;
+
     [SerializeField] private List<BlockData> blockDatas;
 
     [SerializeField] private Transform currentCursor;
@@ -65,6 +67,10 @@ public class BlockGameTester : MonoBehaviour
         board.Initialize(blockGameData);
 
         deckManager.Initialize(runData);
+
+        effectManager.Initialize(runData, blockGameData);
+
+
     }
 
     private void Update()

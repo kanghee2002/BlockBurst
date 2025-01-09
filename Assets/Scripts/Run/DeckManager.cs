@@ -6,63 +6,43 @@ using UnityEngine;
 
 public class DeckManager : MonoBehaviour
 {
-    public List<Block> currentBlocks { get; private set; }
-    public int rerollCount { get; private set; }
-    public int drawBlockCount { get; private set; }
-
-    private List<Block> deck;
-    private List<Block> discardPile;
+    private List<BlockData> discardPile;
     private RunData runData;
+    private BlockGameData blockGameData;
 
-    private int idCount;
-
-    // 덱 초기화
-    public void Initialize(RunData data)
+    public void Initialize(ref RunData data, ref BlockGameData blockData)
     {
         runData = data;
-        deck = InstantiateBlocks(data.availableBlocks);
-        discardPile = new List<Block>();
-        idCount = 0;
+        blockGameData = blockData;
 
-        currentBlocks = new List<Block>();
-        rerollCount = 3;
-        drawBlockCount = 3;
-
-        ShuffleDeck();
+        discardPile = new List<BlockData>();
     }
 
-    // 블록 뽑기
-    public List<Block> DrawBlock()
+    public BlockData DrawBlock()
     {
-        for (int i = 0; i < drawBlockCount; i++)
+        BlockData block = null;
+        if (blockGameData.deck.Count == 0)
         {
-            if (deck.Count == 0)
-            {
-                Debug.Log("덱에 남은 블록 없음");
-                break;
-            }
-
-            Block block = deck[deck.Count - 1];
-            deck.RemoveAt(deck.Count - 1);
-
-            int rotateCount = Random.Range(0, 4);
-            for (int j = 0; j < rotateCount; j++)
-            {
-                block.RotateShape();
-            }
-
-            currentBlocks.Add(block);
+            Debug.Log("Deck is empty");
+        }
+        else
+        {
+            block = blockGameData.deck[0];
+            blockGameData.deck.RemoveAt(0);
         }
 
-        return currentBlocks;
+        return block;
     }
 
-    // 덱 리롤
-    public List<Block> RerollBlock()
+    private void ShuffleDeck()
     {
-        if (rerollCount == 0)
+        // deck을 랜덤 셔플
+        for (int i = 0; i < blockGameData.deck.Count; i++)
         {
-            return currentBlocks;
+            int randomIndex = Random.Range(i, blockGameData.deck.Count);
+            BlockData temp = blockGameData.deck[i];
+            blockGameData.deck[i] = blockGameData.deck[randomIndex];
+            blockGameData.deck[randomIndex] = temp;
         }
 
         foreach (Block block in currentBlocks)
@@ -76,40 +56,42 @@ public class DeckManager : MonoBehaviour
         return DrawBlock();
     }
 
-    // 블록 사용 처리
-    public void UseBlock(Block block)
+    public bool RerollDeck(BlockData[] remains)
     {
-        for (int i = 0; i < currentBlocks.Count; i++)
+        if (blockGameData.rerollCount <= 0)
         {
-            if (currentBlocks[i].Id == block.Id)
+            return false;
+        }
+        else 
+        {
+            blockGameData.rerollCount--;
+            foreach (BlockData block in blockGameData.deck)
             {
-                currentBlocks[i].gameObject.SetActive(false);
-                currentBlocks.RemoveAt(i);
+                AddBlock(block);
             }
+            return true;
         }
+    }
 
-        if (currentBlocks.Count == 0)
+    public void ProcessBlockReuse(BlockData block)
+    {
+        if (block.reuseCount > 0)
         {
-            DrawBlock();
+            block.reuseCount--;
+            AddBlock(block);
         }
     }
 
-    // 블록 재사용 처리
-    public void ProcessBlockReuse(int blockId)
+    // 랜덤한 위치에 추가
+    public void AddBlock(BlockData block)
     {
-
+        blockGameData.deck.Insert(Random.Range(0, blockGameData.deck.Count), block);
     }
 
-    // 블록 추가
-    public void AddBlock(Block block)
+    public void RemoveBlock(BlockData block)
     {
-
-    }
-
-    // 블록 삭제
-    public void DeleteBlock(Block block)
-    {
-
+        discardPile.Add(block);
+        blockGameData.deck.Remove(block);
     }
 
     private List<Block> InstantiateBlocks(List<BlockData> blockData)

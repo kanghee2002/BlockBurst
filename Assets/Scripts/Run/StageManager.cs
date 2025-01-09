@@ -4,31 +4,38 @@ using UnityEngine;
 
 public class StageManager : MonoBehaviour
 {
-    private RunData runData;
-    private StageData currentStage;
-    private BlockGameData gameData;
+    private RunData runData;    // GMì—ì„œ ë°›ì•„ì˜¨ RunData
+    public StageData currentStage;
 
-    // ½ºÅ×ÀÌÁö ½ÃÀÛ
+    public void Initialize(ref RunData data)
+    {
+        runData = data;
+    }
+
     public void StartStage(StageData stage)
     {
-
+        currentStage = stage;
+        ApplyConstraints();
     }
 
-    // ½ºÅ×ÀÌÁö Å¬¸®¾î Ã¼Å©
-    public bool CheckStageClear()
+    public bool CheckStageClear(BlockGameData blockGameData)
     {
-        return true;
+        // ìŠ¤í…Œì´ì§€ í´ë¦¬ì–´ ì¡°ê±´ í™•ì¸
+        return (blockGameData.score >= currentStage.clearRequirement.targetScore);
     }
 
-    // ½ºÅ×ÀÌÁö Á¦ÇÑ»çÇ× Àû¿ë
     private void ApplyConstraints()
     {
-
+        // Effectë“¤ì„ ì¶”ê°€
+        currentStage.constraints.ForEach(constraint =>
+        {
+            runData.activeEffects.Add(constraint);
+        });
     }
 
-    // Å¬¸®¾î º¸»ó Áö±Ş
-    private void GrantReward()
+    public void GrantReward()
     {
-
+        // ë³´ìƒ ì§€ê¸‰
+        runData.gold += currentStage.goldReward;
     }
 }

@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class BlockGameData
 {
-    // ÇöÀç °ÔÀÓ »óÅÂ
-    public Dictionary<BlockType, int> blockScores;      // ºí·Ïº° Á¡¼ö
-    public Dictionary<MatchType, float> matchMultipliers;  // ¸ÅÄ¡ Å¸ÀÔº° ¹èÀ²
-    public int currentScore;                            // ÇöÀç Á¡¼ö
-    public int moveCount;                               // ÀÌµ¿ È½¼ö
-    public Dictionary<string, HashSet<Vector2Int>> activeBlockCells;  // ÇöÀç È°¼ºÈ­µÈ ºí·Ï cell À§Ä¡
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public Dictionary<BlockType, int> blockScores;      // ï¿½ï¿½ï¿½Ïºï¿½ ï¿½ï¿½ï¿½ï¿½
+    public Dictionary<MatchType, float> matchMultipliers;  // ï¿½ï¿½Ä¡ Å¸ï¿½Ôºï¿½ ï¿½ï¿½ï¿½ï¿½
+    public int currentScore;                            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public int moveCount;                               // ï¿½Ìµï¿½ È½ï¿½ï¿½
+    public Dictionary<string, HashSet<Vector2Int>> activeBlockCells;  // ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ cell ï¿½ï¿½Ä¡
+    public List<BlockData> deck;
+    public int rerollCount;
+    public int score;
 
     public void Initialize(RunData runData)
     {
@@ -18,5 +21,7 @@ public class BlockGameData
         currentScore = 0;
         moveCount = 0;
         activeBlockCells = new Dictionary<string, HashSet<Vector2Int>>();
+        deck = new List<BlockData>(runData.availableBlocks);
+        rerollCount = runData.currentRerollCount;
     }
 }

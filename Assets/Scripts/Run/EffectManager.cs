@@ -7,57 +7,36 @@ using System.Linq;
 public class EffectManager : MonoBehaviour
 {
     private RunData runData;
-    private BlockGameData gameData;
-    private Dictionary<TriggerType, List<EffectData>> triggerEffects;
 
-    public void Initialize(RunData runData, BlockGameData blockGameData)
+    public void Initialize(ref RunData data)
     {
-        this.runData = runData;
-        gameData = blockGameData;
-        triggerEffects = new Dictionary<TriggerType, List<EffectData>>();
-
-        TriggerType[] allTriggers = Enum.GetValues(typeof(TriggerType)).Cast<TriggerType>().ToArray();
-
-        foreach (TriggerType trigger in allTriggers)
-        {
-            triggerEffects.Add(trigger, new List<EffectData>());
-        }
-
+        runData = data;
     }
 
-    // 효과 추가
     public void AddEffect(EffectData effect)
     {
-        if (effect.trigger == TriggerType.ON_ACQUIRE)
-        {
-            //효과 발동
-            ApplyEffect(effect);
-        }
-        
-        triggerEffects[effect.trigger].Add(effect);
+        runData.activeEffects.Add(effect);
     }
 
-    // 효과 제거
-    public void RemoveEffect(EffectData effect)
+    public bool RemoveEffect(EffectData effect)
     {
-        for (int i = 0; i < triggerEffects[effect.trigger].Count; i++)
+        return runData.activeEffects.Remove(effect);
+    }
+
+    public void TriggerEffects(TriggerType trigger)
+    {
+        foreach (EffectData effect in runData.activeEffects)
         {
-            if (triggerEffects[effect.trigger][i].id == effect.id)
+            if (effect.trigger == trigger)
             {
-                triggerEffects[effect.trigger].RemoveAt(i);
+                ApplyEffect(effect);
             }
         }
     }
 
-    // 효과 트리거
-    public void TriggerEffects(TriggerType trigger, List<BlockType> blockType = null)
-    {
-
-    }
-
-    // 효과 적용
     private void ApplyEffect(EffectData effect)
     {
-
+        // 효과 적용
+        // 흠흐밍...
     }
 }

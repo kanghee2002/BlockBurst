@@ -7,6 +7,8 @@ public class BlockData : ScriptableObject
 {
     public BlockType type;                 // 블록 타입
     public Vector2Int[] shape;             // 블록 모양
+    public int reuseCount;                 // 재사용 횟수
+    public List<EffectData> effects;       // 블록 효과
 
     public GameObject prefab;
 }

@@ -137,9 +137,9 @@ public class GameUIManager : MonoBehaviour
 
     public void DeckInfoBackButtonUIPressed()
     {
-        if (popupState == PopupState.option)
+        if (popupState == PopupState.deckInfo)
         {
-            popupState = PopupState.deckInfo;
+            popupState = PopupState.none;
             deckInfoUI.CloseDeckInfoUI();
         }
     }

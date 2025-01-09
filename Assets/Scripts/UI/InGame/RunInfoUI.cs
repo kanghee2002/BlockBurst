@@ -11,8 +11,7 @@ public class RunInfoUI : MonoBehaviour
     [SerializeField] private GameUIManager gameUIManager;
 
     private const float centerPositionY = 0;
-    private const float outsidePositionY = -1024;
-
+    private const float outsidePositionY = -1080;
     private const float duration = 0.2f;
 
     public void OpenRunInfoUI()
@@ -24,7 +23,6 @@ public class RunInfoUI : MonoBehaviour
 
     public void CloseRunInfoUI()
     {
-        Debug.Log("RunInfoUI가 화면 중앙에서 아래로 내려감");
         rectTransform.DOAnchorPosY(outsidePositionY, duration)
             .SetEase(Ease.OutSine)
             .OnComplete(() =>

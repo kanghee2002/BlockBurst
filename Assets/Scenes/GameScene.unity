@@ -832,7 +832,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -1024}
   m_SizeDelta: {x: 640, y: 768}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &194651271
@@ -847,6 +847,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251418e66bb16684dbfc4f766d8eac40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  optionUI: {fileID: 194651269}
+  rectTransform: {fileID: 194651270}
   gameUIManager: {fileID: 294469252}
 --- !u!114 &194651272
 MonoBehaviour:
@@ -868,7 +870,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: ae4a50894839f4a4892de9cd6b50db57, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1897,7 +1899,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 812856454}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 812856456}
+        m_TargetAssemblyTypeName: DeckButtonUI, Assembly-CSharp
+        m_MethodName: OnDeckButtonUIPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &812856454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2165,7 +2179,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 1920, y: 0}
   m_SizeDelta: {x: 640, y: 768}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1019123825
@@ -2180,6 +2194,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 187b5e39a86217a4587b0faced52ee59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deckInfoUI: {fileID: 1019123823}
+  rectTransform: {fileID: 1019123824}
   gameUIManager: {fileID: 294469252}
 --- !u!114 &1019123826
 MonoBehaviour:
@@ -4219,7 +4235,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1681341654}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1019123825}
+        m_TargetAssemblyTypeName: DeckInfoUI, Assembly-CSharp
+        m_MethodName: OnDeckInfoBackButtonUIPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1681341654
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,20 +1,34 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DeckInfoUI : MonoBehaviour
 {
+    [SerializeField] private GameObject deckInfoUI;
+    [SerializeField] private RectTransform rectTransform;
 
     [SerializeField] private GameUIManager gameUIManager;
 
+    private const float centerPositionX = 0;
+    private const float outsidePositionX = 1920;
+    private const float duration = 0.2f;
+
     public void OpenDeckInfoUI()
     {
-        Debug.Log("DeckInfoUI가 화면 위에서 아래로 내려옴");
+        deckInfoUI.SetActive(true);
+        rectTransform.DOAnchorPosX(centerPositionX, duration)
+            .SetEase(Ease.OutSine);
     }
 
     public void CloseDeckInfoUI()
     {
-        Debug.Log("DeckInfoUI가 화면 중앙에서 위로 올라감");
+        rectTransform.DOAnchorPosX(outsidePositionX, duration)
+            .SetEase(Ease.OutSine)
+            .OnComplete(() =>
+            {
+                deckInfoUI.SetActive(false);
+            });
     }
 
     public void OnDeckInfoBackButtonUIPressed()

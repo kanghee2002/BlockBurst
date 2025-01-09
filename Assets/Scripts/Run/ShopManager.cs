@@ -8,7 +8,6 @@ public class ShopManager : MonoBehaviour
     private List<ItemData> currentItems;
 
     public DeckManager deckManager;
-    public EffectManager effectManager;
 
     public void Initialize(ref RunData data, ItemData[] items)
     {
@@ -42,19 +41,23 @@ public class ShopManager : MonoBehaviour
 
     private void ApplyItem(ItemData item)
     {
-        if (item.type == ItemType.Block)
+        if (item.type == ItemType.BLOCK)
         {
             deckManager.AddBlock(item.block);
         }
-        else if (item.type == ItemType.Item)
+        else if (item.type == ItemType.ITEM)
         {
             runData.activeItems.Add(item);
             foreach (EffectData effect in item.effects)
             {
-                effectManager.AddEffect(effect);
+                EffectManager.instance.AddEffect(effect);
+                if (effect.trigger == TriggerType.ON_ACQUIRE)
+                {
+                    EffectManager.instance.ApplyEffect(effect);
+                }
             }
         } 
-        else if (item.type == ItemType.Upgrade) 
+        else if (item.type == ItemType.UPGRADE) 
         {
             foreach (EffectData effect in item.effects)
             {

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BlockGameTester : MonoBehaviour
 {
+    /*
     [SerializeField] private Board board;
 
     [SerializeField] private DeckManager deckManager;
@@ -226,5 +227,5 @@ public class BlockGameTester : MonoBehaviour
         else
             return false;
     }
-
+    */
 }

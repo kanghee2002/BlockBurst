@@ -42,6 +42,7 @@ public class Board : MonoBehaviour
                 }
             }
             ProcessMatches(block, pos);
+            EffectManager.instance.TriggerEffects(TriggerType.ON_BLOCK_PLACE);
         }
 
         return isPlaced;
@@ -73,6 +74,21 @@ public class Board : MonoBehaviour
         foreach (Match match in matches)
         {
             totalScore += ScoreCalculator.Instance.Calculate(match, gameData);
+            EffectManager.instance.TriggerEffects(TriggerType.ON_BLOCK_PLACE_WITH_LINE_CLEAR);
+
+            if (match.matchType == MatchType.ROW)
+            {
+                EffectManager.instance.TriggerEffects(TriggerType.ON_ROW_LINE_CLEAR);
+            }
+            else if (match.matchType == MatchType.COLUMN)
+            {
+                EffectManager.instance.TriggerEffects(TriggerType.ON_COLUMN_LINE_CLEAR);
+            }
+        }
+
+        if (matches.Count == 0)
+        {
+            EffectManager.instance.TriggerEffects(TriggerType.ON_BLOCK_PLACE_WITHOUT_LINE_CLEAR);
         }
 
         gameData.currentScore += totalScore;

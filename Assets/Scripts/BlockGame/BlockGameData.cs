@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class BlockGameData
 {
-    // ���� ���� ����
-    public Dictionary<BlockType, int> blockScores;      // ���Ϻ� ����
-    public Dictionary<MatchType, float> matchMultipliers;  // ��ġ Ÿ�Ժ� ����
-    public int currentScore;                            // ���� ����
-    public int moveCount;                               // �̵� Ƚ��
-    public Dictionary<string, HashSet<Vector2Int>> activeBlockCells;  // ���� Ȱ��ȭ�� ���� cell ��ġ
+    // 블럭 게임 데이터
+    public Dictionary<BlockType, int> blockScores;      // 블럭 점수
+    public Dictionary<MatchType, float> matchMultipliers;  // 매치 배율
+    public int currentScore;                            // 현재 점수
+    public int moveCount;                               // 이동 횟수
+    public Dictionary<string, HashSet<Vector2Int>> activeBlockCells;  // 활성 블럭 셀
     public List<BlockData> deck;
     public int rerollCount;
-    public int score;
 
     public void Initialize(RunData runData)
     {

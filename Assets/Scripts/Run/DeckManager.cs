@@ -34,28 +34,6 @@ public class DeckManager : MonoBehaviour
         return block;
     }
 
-    private void ShuffleDeck()
-    {
-        // deck을 랜덤 셔플
-        for (int i = 0; i < blockGameData.deck.Count; i++)
-        {
-            int randomIndex = Random.Range(i, blockGameData.deck.Count);
-            BlockData temp = blockGameData.deck[i];
-            blockGameData.deck[i] = blockGameData.deck[randomIndex];
-            blockGameData.deck[randomIndex] = temp;
-        }
-
-        foreach (Block block in currentBlocks)
-        {
-            int randomIndex = Random.Range(0, deck.Count + 1);
-            deck.Insert(randomIndex, block);
-        }
-
-        rerollCount--;
-
-        return DrawBlock();
-    }
-
     public bool RerollDeck(BlockData[] remains)
     {
         if (blockGameData.rerollCount <= 0)
@@ -93,7 +71,7 @@ public class DeckManager : MonoBehaviour
         discardPile.Add(block);
         blockGameData.deck.Remove(block);
     }
-
+    /*
     private List<Block> InstantiateBlocks(List<BlockData> blockData)
     {
         List<Block> blocks = new List<Block>();
@@ -113,16 +91,17 @@ public class DeckManager : MonoBehaviour
 
         return blocks;
     }
+    */
 
     // 덱 셔플
     private void ShuffleDeck()
     {
-        for (int i = 0; i < deck.Count; i++)
+        for (int i = 0; i < blockGameData.deck.Count; i++)
         {
-            int j = Random.Range(i, deck.Count);
-            Block tmp = deck[i];
-            deck[i] = deck[j];
-            deck[j] = tmp;
+            int j = Random.Range(i, blockGameData.deck.Count);
+            BlockData tmp = blockGameData.deck[i];
+            blockGameData.deck[i] = blockGameData.deck[j];
+            blockGameData.deck[j] = tmp;
         }
     }
 }

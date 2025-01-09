@@ -16,6 +16,7 @@ public class RunData
     public int baseRerollCount;                                 // 기본 리롤 횟수
     public int currentRerollCount;                              // 현재 리롤 횟수
     public float baseMultiplier;                                // 기본 배율
+    public int boardSize;                                       // 보드 크기
 
     public void Initialize(GameData gameData)
     {

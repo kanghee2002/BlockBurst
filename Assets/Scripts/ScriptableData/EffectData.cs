@@ -9,6 +9,7 @@ public class EffectData : ScriptableObject
     public EffectType type;                         // 효과 타입
     public TriggerType trigger;                     // 발동 조건
     public int value;                               // 데이터 수정치
+    public object[] parameters;                     // 추가 파라미터를 배열로 선언
 
     [Header("Dynamic")]
     public List<BlockType> blockType;

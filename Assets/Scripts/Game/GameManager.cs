@@ -11,11 +11,14 @@ public class GameManager : MonoBehaviour
 
     public DeckManager deckManager;
     public ShopManager shopManager;
-    public EffectManager effectManager;
     public StageManager stageManager;
 
     public StageData[] stageTemplates;
     public ItemData[] itemTemplates;
+
+    // ------------------------------
+    // GAME LAYER - start
+    // ------------------------------
 
     public void StartNewGame()
     {
@@ -26,6 +29,27 @@ public class GameManager : MonoBehaviour
 
         StartNewRun();
     }
+    
+    public void EndGame(bool isWin)
+    {
+        // 게임 종료 처리
+        if (isWin)
+        {
+            Debug.Log("Game Win");
+        }
+        else
+        {
+            Debug.Log("Game Lose");
+        }
+    }
+
+    // ------------------------------
+    // GAME LAYER - end
+    // ------------------------------
+
+    // ------------------------------
+    // RUN LAYER - start
+    // ------------------------------
 
     public void StartNewRun()
     {
@@ -33,8 +57,9 @@ public class GameManager : MonoBehaviour
         currentRun = new RunData();
         currentRun.Initialize(gameData);
 
+        EffectManager.instance.Initialize(ref currentRun);
+
         stageManager.Initialize(ref currentRun);
-        effectManager.Initialize(ref currentRun);
         deckManager.Initialize(ref currentRun, ref blockGame);
         shopManager.Initialize(ref currentRun, itemTemplates);
 
@@ -73,16 +98,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void EndGame(bool isWin)
+    // ------------------------------
+    // RUN LAYER - end
+    // ------------------------------
+
+    // ------------------------------
+    // BLOCKGAME LAYER - start
+    // ------------------------------
+
+    public void StartBlockGame()
     {
-        // 게임 종료 처리
-        if (isWin)
-        {
-            Debug.Log("Game Win");
-        }
-        else
-        {
-            Debug.Log("Game Lose");
-        }
+        // 블록 게임 시작
+        Debug.Log("Block Game Start");
     }
+
+    // ------------------------------
+    // BLOCKGAME LAYER - end
+    // ------------------------------
+
 }

@@ -21,7 +21,7 @@ public class StageManager : MonoBehaviour
     public bool CheckStageClear(BlockGameData blockGameData)
     {
         // 스테이지 클리어 조건 확인
-        return (blockGameData.score >= currentStage.clearRequirement.targetScore);
+        return (blockGameData.currentScore >= currentStage.clearRequirement.targetScore);
     }
 
     private void ApplyConstraints()
@@ -29,7 +29,7 @@ public class StageManager : MonoBehaviour
         // Effect들을 추가
         currentStage.constraints.ForEach(constraint =>
         {
-            runData.activeEffects.Add(constraint);
+            EffectManager.instance.AddEffect(constraint);
         });
     }
 

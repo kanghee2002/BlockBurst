@@ -11,17 +11,3 @@ public class ItemData : ScriptableObject
     public ItemType type;              // 타입
     public BlockData block;            // 블록
 }
-
-public enum ItemType
-{
-    Item, // 아이템
-    Upgrade,  // 효과
-    Block    // 블록
-}
-
-public enum MatchType
-{
-    ROW,    // �� ��ġ
-    COLUMN, // �� ��ġ
-    SQUARE  // ���簢�� ��ġ
-}

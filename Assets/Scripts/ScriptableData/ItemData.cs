@@ -5,15 +5,23 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Item", menuName = "BlockBurst/Item")]
 public class ItemData : ScriptableObject
 {
-    public string id;                  // ¾ÆÀÌÅÛ ID
-    public List<EffectData> effects;   // ¾ÆÀÌÅÛ È¿°ú
-    public int cost;                   // ±¸¸Å ºñ¿ë
-    public string targetBlockId;       // ´ë»ó ºí·Ï ID (ÇÊ¿äÇÑ °æ¿ì)
+    public string id;                  // ì•„ì´ë””
+    public List<EffectData> effects;   // íš¨ê³¼
+    public int cost;                   // ê°€ê²©
+    public ItemType type;              // íƒ€ì…
+    public BlockData block;            // ë¸”ë¡
+}
+
+public enum ItemType
+{
+    Item, // ì•„ì´í…œ
+    Upgrade,  // íš¨ê³¼
+    Block    // ë¸”ë¡
 }
 
 public enum MatchType
 {
-    ROW,    // Çà ¸ÅÄ¡
-    COLUMN, // ¿­ ¸ÅÄ¡
-    SQUARE  // Á¤»ç°¢Çü ¸ÅÄ¡
+    ROW,    // ï¿½ï¿½ ï¿½ï¿½Ä¡
+    COLUMN, // ï¿½ï¿½ ï¿½ï¿½Ä¡
+    SQUARE  // ï¿½ï¿½ï¿½ç°¢ï¿½ï¿½ ï¿½ï¿½Ä¡
 }

@@ -7,27 +7,64 @@ public class ShopManager : MonoBehaviour
     private RunData runData;
     private List<ItemData> currentItems;
 
-    // 상점 초기화
-    public void InitializeShop()
-    {
+    public DeckManager deckManager;
+    public EffectManager effectManager;
 
+    public void Initialize(ref RunData data, ItemData[] items)
+    {
+        runData = data;
+        currentItems = new List<ItemData>(items);
     }
 
-    // 아이템 구매
-    public bool PurchaseItem(string itemId)
+    public bool PurchaseItem(ItemData item)
     {
-        return true;
+        if (item == null || runData.gold < item.cost)
+        {
+            return false;
+        } 
+        else {
+            runData.gold -= item.cost;
+            ApplyItem(item);
+            return true;
+        }
     }
 
-    // 아이템 적용
+    public ItemData PopItem()
+    {
+        if (currentItems.Count == 0)
+        {
+            return null;
+        }
+        ItemData item = currentItems[0];
+        currentItems.RemoveAt(0);
+        return item;
+    }
+
     private void ApplyItem(ItemData item)
     {
-
+        if (item.type == ItemType.Block)
+        {
+            deckManager.AddBlock(item.block);
+        }
+        else if (item.type == ItemType.Item)
+        {
+            runData.activeItems.Add(item);
+            foreach (EffectData effect in item.effects)
+            {
+                effectManager.AddEffect(effect);
+            }
+        } 
+        else if (item.type == ItemType.Upgrade) 
+        {
+            foreach (EffectData effect in item.effects)
+            {
+                UpgradeBlock(item.block, effect);
+            }
+        }
     }
 
-    // 블록 강화
-    public void UpgradeBlock(string blockId)
+    public void UpgradeBlock(BlockData block, EffectData effect)
     {
-
+        block.effects.Add(effect);
     }
 }

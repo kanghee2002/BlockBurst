@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class GameData
 {
-    // ±âº» °ÔÀÓ µ¥ÀÌÅÍ
-    public Dictionary<BlockType, int> defaultBlockScores;     // ±âº» ºí·Ï Á¡¼ö
-    public Dictionary<MatchType, float> defaultMatchMultipliers;  // ±âº» ¸ÅÄ¡ ¹èÀ²
-    public List<BlockData> defaultBlocks;                     // ±âº» ºí·Ï ¸ñ·Ï
-    public List<StageData> stagePool;                        // ½ºÅ×ÀÌÁö Ç®
-    public int startingGold;                                 // ½ÃÀÛ °ñµå
-    public int defaultRerollCount;                           // ±âº» ¸®·Ñ È½¼ö
+    // ï¿½âº» ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public Dictionary<BlockType, int> defaultBlockScores;     // ï¿½âº» ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public Dictionary<MatchType, float> defaultMatchMultipliers;  // ï¿½âº» ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
+    public List<BlockData> defaultBlocks;                     // ï¿½âº» ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+    public List<StageData> stagePool;                        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç®
+    public int startingGold;                                 // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+    public int defaultRerollCount;                           // ï¿½âº» ï¿½ï¿½ï¿½ï¿½ È½ï¿½ï¿½
 
     public void Initialize()
     {
-        // ±âº»°ª ¼³Á¤
+        // ï¿½âº»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         defaultBlockScores = new Dictionary<BlockType, int>();
         defaultMatchMultipliers = new Dictionary<MatchType, float>();
         defaultBlocks = new List<BlockData>();
@@ -22,7 +22,7 @@ public class GameData
         startingGold = 10;
         defaultRerollCount = 3;
 
-        // ±âº» ºí·Ï Á¡¼ö ¼³Á¤
+        // ï¿½âº» ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         defaultBlockScores[BlockType.I] = 100;
         defaultBlockScores[BlockType.O] = 100;
         defaultBlockScores[BlockType.T] = 150;

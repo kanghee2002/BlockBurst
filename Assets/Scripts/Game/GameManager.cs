@@ -1,40 +1,88 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
-    private GameData gameData;
-    private RunData currentRun;
-    private BlockGameData blockGame;
+    public GameData gameData;
+    public RunData currentRun;
+    public BlockGameData blockGame;
 
-    // »õ °ÔÀÓ ½ÃÀÛ
+    public DeckManager deckManager;
+    public ShopManager shopManager;
+    public EffectManager effectManager;
+    public StageManager stageManager;
+
+    public StageData[] stageTemplates;
+    public ItemData[] itemTemplates;
+
     public void StartNewGame()
     {
+        // ê°ì¢… ì´ˆê¸°í™”
+        Debug.Log("Game Start");
+        gameData = new GameData();
+        gameData.Initialize();
 
+        StartNewRun();
     }
 
-    // »õ·Î¿î ·± ½ÃÀÛ
     public void StartNewRun()
     {
+        // ì´ˆê¸°í™”
+        currentRun = new RunData();
+        currentRun.Initialize(gameData);
 
+        stageManager.Initialize(ref currentRun);
+        effectManager.Initialize(ref currentRun);
+        deckManager.Initialize(ref currentRun, ref blockGame);
+        shopManager.Initialize(ref currentRun, itemTemplates);
+
+        StartStage((StageType)0);
     }
 
-    // ½ºÅ×ÀÌÁö ½ÃÀÛ
-    public void StartStage(StageData stage)
+    public void StartStage(StageType stageType)
     {
+        // stage Templateì—ì„œ stagetypeì´ ë§žëŠ” ê²ƒì„ ëžœë¤í•˜ê²Œ ì¶”ì¶œ
+        var stages = stageTemplates.Where(stage => stage.type == stageType).ToArray();
+        StageData stage = stages[Random.Range(0, stages.Length)];
 
+        stageManager.StartStage(stage);
+        
+        blockGame = new BlockGameData();
+        blockGame.Initialize(currentRun);
     }
 
-    // ½ºÅ×ÀÌÁö Á¾·á
     public void EndStage(bool cleared)
     {
-
+        if (cleared)
+        {
+            stageManager.GrantReward();
+            if (stageManager.currentStage.type == StageType.BOSS)
+            {
+                EndGame(true);
+            }
+            else
+            {
+                StartStage(stageManager.currentStage.type + 1);
+            }
+        } 
+        else 
+        {
+            EndGame(false);
+        }
     }
 
-    // °ÔÀÓ Á¾·á
-    public void EndGame()
+    public void EndGame(bool isWin)
     {
-
+        // ê²Œìž„ ì¢…ë£Œ ì²˜ë¦¬
+        if (isWin)
+        {
+            Debug.Log("Game Win");
+        }
+        else
+        {
+            Debug.Log("Game Lose");
+        }
     }
 }

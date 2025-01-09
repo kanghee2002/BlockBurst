@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class RunData
 {
-    // ½ºÅ×ÀÌÁö ÁøÇà µ¥ÀÌÅÍ
-    public Dictionary<BlockType, int> baseBlockScores;     // ±âº» ºí·Ï Á¡¼ö
-    public Dictionary<MatchType, float> baseMatchMultipliers;  // ±âº» ¸ÅÄ¡ ¹èÀ²
-    public List<BlockData> availableBlocks;               // »ç¿ë °¡´ÉÇÑ ºí·Ïµé
-    public List<ItemData> activeItems;                    // È°¼ºÈ­µÈ ¾ÆÀÌÅÛµé
-    public List<EffectData> activeEffects;                // È°¼ºÈ­µÈ È¿°úµé
-    public StageData currentStage;                        // ÇöÀç ½ºÅ×ÀÌÁö
-    public Dictionary<string, int> blockReuses;           // ºí·Ïº° Àç»ç¿ë È½¼ö
-    public int gold;                                      // ÇöÀç º¸À¯ °ñµå
-    public int baseRerollCount;                           // ±âº» ¸®·Ñ È½¼ö
-    public int currentRerollCount;                        // ÇöÀç ¸®·Ñ È½¼ö
-    public float baseMultiplier;                          // ±âº» ¹èÀ²
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public Dictionary<BlockType, int> baseBlockScores;     // ï¿½âº» ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public Dictionary<MatchType, float> baseMatchMultipliers;  // ï¿½âº» ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
+    public List<BlockData> availableBlocks;               // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ïµï¿½
+    public List<ItemData> activeItems;                    // È°ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ûµï¿½
+    public List<EffectData> activeEffects;                // È°ï¿½ï¿½È­ï¿½ï¿½ È¿ï¿½ï¿½ï¿½ï¿½
+    public StageData currentStage;                        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public Dictionary<string, int> blockReuses;           // ï¿½ï¿½ï¿½Ïºï¿½ ï¿½ï¿½ï¿½ï¿½ È½ï¿½ï¿½
+    public int gold;                                      // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+    public int baseRerollCount;                           // ï¿½âº» ï¿½ï¿½ï¿½ï¿½ È½ï¿½ï¿½
+    public int currentRerollCount;                        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È½ï¿½ï¿½
+    public float baseMultiplier;                          // ï¿½âº» ï¿½ï¿½ï¿½ï¿½
 
     public void Initialize(GameData gameData)
     {

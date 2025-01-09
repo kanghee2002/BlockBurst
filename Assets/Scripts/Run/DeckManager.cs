@@ -4,49 +4,82 @@ using UnityEngine;
 
 public class DeckManager : MonoBehaviour
 {
-    private List<BlockData> deck;
     private List<BlockData> discardPile;
     private RunData runData;
+    private BlockGameData blockGameData;
 
-    // µ¦ ÃÊ±âÈ­
-    public void Initialize(RunData data)
+    public void Initialize(ref RunData data, ref BlockGameData blockData)
     {
+        runData = data;
+        blockGameData = blockData;
 
+        discardPile = new List<BlockData>();
     }
 
-    // ºí·Ï »Ì±â
     public BlockData DrawBlock()
     {
-        return null;
+        BlockData block = null;
+        if (blockGameData.deck.Count == 0)
+        {
+            Debug.Log("Deck is empty");
+        }
+        else
+        {
+            block = blockGameData.deck[0];
+            blockGameData.deck.RemoveAt(0);
+        }
+
+        return block;
     }
 
-    // µ¦ ¼ÅÇÃ
     private void ShuffleDeck()
     {
+        // deckì„ ëœë¤ ì…”í”Œ
+        for (int i = 0; i < blockGameData.deck.Count; i++)
+        {
+            int randomIndex = Random.Range(i, blockGameData.deck.Count);
+            BlockData temp = blockGameData.deck[i];
+            blockGameData.deck[i] = blockGameData.deck[randomIndex];
+            blockGameData.deck[randomIndex] = temp;
+        }
 
     }
 
-    // µ¦ ¸®·Ñ
-    public bool RerollDeck()
+    public bool RerollDeck(BlockData[] remains)
     {
-        return false;
+        if (blockGameData.rerollCount <= 0)
+        {
+            return false;
+        }
+        else 
+        {
+            blockGameData.rerollCount--;
+            foreach (BlockData block in blockGameData.deck)
+            {
+                AddBlock(block);
+            }
+            return true;
+        }
     }
 
-    // ºí·Ï Àç»ç¿ë Ã³¸®
-    public void ProcessBlockReuse(string blockId)
+    public void ProcessBlockReuse(BlockData block)
     {
-
+        if (block.reuseCount > 0)
+        {
+            block.reuseCount--;
+            AddBlock(block);
+        }
     }
 
-    // ºí·Ï Ãß°¡
+    // ëœë¤í•œ ìœ„ì¹˜ì— ì¶”ê°€
     public void AddBlock(BlockData block)
     {
-
+        blockGameData.deck.Insert(Random.Range(0, blockGameData.deck.Count), block);
     }
 
-    // ºí·Ï Á¦°Å
     public void RemoveBlock(BlockData block)
     {
-
+        discardPile.Add(block);
+        blockGameData.deck.Remove(block);
     }
 }

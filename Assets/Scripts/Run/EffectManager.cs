@@ -5,30 +5,36 @@ using UnityEngine;
 public class EffectManager : MonoBehaviour
 {
     private RunData runData;
-    private BlockGameData gameData;
-    private Dictionary<TriggerType, List<EffectData>> triggerEffects;
 
-    // È¿°ú Ãß°¡
+    public void Initialize(ref RunData data)
+    {
+        runData = data;
+    }
+
     public void AddEffect(EffectData effect)
     {
-
+        runData.activeEffects.Add(effect);
     }
 
-    // È¿°ú Á¦°Å
-    public void RemoveEffect(EffectData effect)
+    public bool RemoveEffect(EffectData effect)
     {
-
+        return runData.activeEffects.Remove(effect);
     }
 
-    // È¿°ú Æ®¸®°Å
     public void TriggerEffects(TriggerType trigger)
     {
-
+        foreach (EffectData effect in runData.activeEffects)
+        {
+            if (effect.trigger == trigger)
+            {
+                ApplyEffect(effect);
+            }
+        }
     }
 
-    // È¿°ú Àû¿ë
     private void ApplyEffect(EffectData effect)
     {
-
+        // íš¨ê³¼ ì ìš©
+        // í íë°...
     }
 }

@@ -64,6 +64,7 @@ public enum TriggerType
     ON_BLOCK_PLACE,                         // 블록을 배치할 때
     ON_BLOCK_PLACE_WITHOUT_LINE_CLEAR,      // 블록을 배치할 때 줄이 지워지지 않으면
     ON_BLOCK_PLACE_WITH_LINE_CLEAR,         // 특정 블록을 배치하여 줄을 지울 때
+    ON_BLOCK_CLEAR,                         // 블록이 모두 지워질 때
     ON_ROW_LINE_CLEAR,                      // 가로로 줄을 지울 때
     ON_COLUMN_LINE_CLEAR,                   // 세로로 줄을 지울 때
     ON_CROSS_LINE_CLEAR,                    // 가로, 세로를 한 번에 지울 때

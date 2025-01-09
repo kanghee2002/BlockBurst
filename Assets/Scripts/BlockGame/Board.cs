@@ -7,11 +7,14 @@ using UnityEngine;
 public class Board : MonoBehaviour
 {
     public Cell[,] cells { get; private set; }
+    
     private BlockGameData gameData;
+    private List<int> onClearEffectBlocks;      // 모두 지워질 때 효과 발동하는 블록 ID 저장
 
     public void Initialize(BlockGameData blockGameData)
     {
         gameData = blockGameData;
+        onClearEffectBlocks = new List<int>();
     }
 
     // 블록 배치 처리

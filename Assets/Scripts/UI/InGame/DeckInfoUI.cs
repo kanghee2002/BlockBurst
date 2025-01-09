@@ -10,21 +10,21 @@ public class DeckInfoUI : MonoBehaviour
 
     [SerializeField] private GameUIManager gameUIManager;
 
-    private const float centerPositionX = 0;
+    private const float insidePositionX = 0;
     private const float outsidePositionX = 1920;
     private const float duration = 0.2f;
 
     public void OpenDeckInfoUI()
     {
         deckInfoUI.SetActive(true);
-        rectTransform.DOAnchorPosX(centerPositionX, duration)
-            .SetEase(Ease.OutSine);
+        rectTransform.DOAnchorPosX(insidePositionX, duration)
+            .SetEase(Ease.OutCubic);
     }
 
     public void CloseDeckInfoUI()
     {
         rectTransform.DOAnchorPosX(outsidePositionX, duration)
-            .SetEase(Ease.OutSine)
+            .SetEase(Ease.OutCubic)
             .OnComplete(() =>
             {
                 deckInfoUI.SetActive(false);

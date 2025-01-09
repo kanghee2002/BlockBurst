@@ -10,21 +10,21 @@ public class OptionUI : MonoBehaviour
 
     [SerializeField] private GameUIManager gameUIManager;
 
-    private const float centerPositionY = 0;
+    private const float insidePositionY = 0;
     private const float outsidePositionY = -1080;
     private const float duration = 0.2f;
 
     public void OpenOptionUI()
     {
         optionUI.SetActive(true);
-        rectTransform.DOAnchorPosY(centerPositionY, duration)
-            .SetEase(Ease.OutSine);
+        rectTransform.DOAnchorPosY(insidePositionY, duration)
+            .SetEase(Ease.OutCubic);
     }
 
     public void CloseOptionUI()
     {
         rectTransform.DOAnchorPosY(outsidePositionY, duration)
-            .SetEase(Ease.OutSine)
+            .SetEase(Ease.OutCubic)
             .OnComplete(() =>
             {
                 optionUI.SetActive(false);

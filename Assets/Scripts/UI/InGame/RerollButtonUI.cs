@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class RerollButtonUI : MonoBehaviour
 {
+    [SerializeField] private GameUIManager gameUIManager;
+
+    public void OnRerollButtonUIPressed()
+    {
+        gameUIManager.RerollButtonUIPressed();
+    }
     public void OpenRerollButtonUI()
     {
 

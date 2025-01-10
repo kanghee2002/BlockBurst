@@ -5,6 +5,9 @@ using UnityEngine.EventSystems;
 
 public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    private BlockType blockType;
+    [SerializeField] private GameObject prefabBlockCellUI;
+
     private BoardUI boardUI;
     private List<BoardCellUI> boardCellsUI = new List<BoardCellUI>();
 
@@ -16,6 +19,23 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
     {
         canvas = GetComponentInParent<Canvas>();
         boardUI = FindObjectOfType<BoardUI>();
+        SetBlockType(BlockType.I);
+    }
+
+    public void SetBlockType(BlockType blockTypeToSet)
+    {
+        blockType = blockTypeToSet;
+        if (blockType == BlockType.I)
+        {
+            List<GameObject> blockCellsUI = new List<GameObject>();
+            for (int i = 0; i < 4; i++)
+            {
+                blockCellsUI.Add(Instantiate(prefabBlockCellUI));
+                blockCellsUI[i].transform.SetParent(this.transform, false);
+                const float block_size = 96f;
+                blockCellsUI[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(0, block_size*(i-1.5f));
+            }
+        }
     }
     public void OnPointerDown(PointerEventData eventData)
     {

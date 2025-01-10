@@ -48,6 +48,37 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
     }
     public void OnEndDrag(PointerEventData eventData)
     {
-        // 드래그 종료 시 필요한 로직 (ex. 위치 제한, 스냅(snap) 등)을 처리
+        /*
+        // 1) 각 Cell의 위치(월드 좌표나 로컬 좌표)를 순회하며,
+        // 2) 내 블록의 RectTransform.localPosition과의 거리 차를 비교,
+        // 3) 가장 가까운 Cell을 찾는다.
+
+        Cell closestCell = null;
+        float minDistance = float.MaxValue;
+
+        foreach (var cell in allCells) // allCells: 모든 격자칸(Cell)을 담은 리스트
+        {
+            float dist = Vector2.Distance(
+                rectTransform.anchoredPosition,
+                cell.GetComponent<RectTransform>().anchoredPosition
+            );
+
+            if (dist < minDistance)
+            {
+                minDistance = dist;
+                closestCell = cell;
+            }
+        }
+
+        // 4) 가장 가까운 Cell에 스냅
+        if (closestCell != null)
+        {
+            rectTransform.anchoredPosition =
+                closestCell.GetComponent<RectTransform>().anchoredPosition;
+        }
+
+        // 만약 해당 Cell이 이미 차 있으면(Block이 있으면) 놓을 수 없게 하는 등
+        // 추가 로직이 필요할 수 있음
+        */
     }
 }

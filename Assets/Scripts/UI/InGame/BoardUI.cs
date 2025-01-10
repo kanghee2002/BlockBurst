@@ -9,6 +9,7 @@ public class BoardUI : MonoBehaviour
     [SerializeField] private GameObject boardUI;
     [SerializeField] private RectTransform rectTransform;
 
+    private const float block_size = 96f;
     private int width = 8;
     private int height = 8;
     [SerializeField] private GameObject prefabBoardCellUI;
@@ -42,7 +43,8 @@ public class BoardUI : MonoBehaviour
             {
                 GameObject newObject = Instantiate(prefabBoardCellUI);
                 newObject.transform.SetParent(boardUI.transform, false);
-                newObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(i*96-336, j*96-336);
+                newObject.GetComponent<RectTransform>().anchoredPosition
+                    = new Vector2(i * block_size - block_size * (width - 1f) / 2, j * block_size - block_size * (width - 1f) / 2);
 
                 boardCellsUI.Add(newObject.GetComponent<BoardCellUI>());
             }

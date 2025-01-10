@@ -12,7 +12,7 @@ public class BoardUI : MonoBehaviour
     private int width = 8;
     private int height = 8;
     [SerializeField] private GameObject prefabBoardCellUI;
-    [SerializeField] private List<Cell> allCells = new List<Cell>();
+    public List<BoardCellUI> boardCellsUI = new List<BoardCellUI>();
 
     private const float insidePositionY = 0;
     private const float outsidePositionY = -1080;
@@ -40,6 +40,8 @@ public class BoardUI : MonoBehaviour
         {
             GameObject newObject = Instantiate(prefabBoardCellUI);
             newObject.transform.SetParent(boardUI.transform, false);
+
+            boardCellsUI.Add(newObject.GetComponent<BoardCellUI>());
         }
     }
 }

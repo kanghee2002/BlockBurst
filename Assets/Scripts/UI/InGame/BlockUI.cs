@@ -5,6 +5,9 @@ using UnityEngine.EventSystems;
 
 public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    public BoardUI boardUI;
+    public List<BoardCellUI> boardCellsUI = new List<BoardCellUI>();
+
     [SerializeField] private RectTransform rectTransform;
     private Canvas canvas;
     private Vector2 offset;
@@ -48,15 +51,15 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
     }
     public void OnEndDrag(PointerEventData eventData)
     {
-        /*
         // 1) 각 Cell의 위치(월드 좌표나 로컬 좌표)를 순회하며,
         // 2) 내 블록의 RectTransform.localPosition과의 거리 차를 비교,
         // 3) 가장 가까운 Cell을 찾는다.
 
-        Cell closestCell = null;
+        BoardCellUI closestBoardCellUI = null;
         float minDistance = float.MaxValue;
 
-        foreach (var cell in allCells) // allCells: 모든 격자칸(Cell)을 담은 리스트
+        boardCellsUI = boardUI.boardCellsUI;
+        foreach (var cell in boardCellsUI) // allCells: 모든 격자칸(Cell)을 담은 리스트
         {
             float dist = Vector2.Distance(
                 rectTransform.anchoredPosition,
@@ -66,19 +69,18 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
             if (dist < minDistance)
             {
                 minDistance = dist;
-                closestCell = cell;
+                closestBoardCellUI = cell;
             }
         }
 
         // 4) 가장 가까운 Cell에 스냅
-        if (closestCell != null)
+        if (closestBoardCellUI != null)
         {
             rectTransform.anchoredPosition =
-                closestCell.GetComponent<RectTransform>().anchoredPosition;
+                closestBoardCellUI.GetComponent<RectTransform>().anchoredPosition;
         }
 
         // 만약 해당 Cell이 이미 차 있으면(Block이 있으면) 놓을 수 없게 하는 등
         // 추가 로직이 필요할 수 있음
-        */
     }
 }

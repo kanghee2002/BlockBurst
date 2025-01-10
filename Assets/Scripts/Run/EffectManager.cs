@@ -55,6 +55,7 @@ public class EffectManager : MonoBehaviour
         BlockType blockType;
         MatchType matchType;
         BlockData blockData;
+        /*
         // 효과 적용
         switch (effect.type)
         {
@@ -126,5 +127,6 @@ public class EffectManager : MonoBehaviour
             default:
                 break;
         }
+        */
     }
 }

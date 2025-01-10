@@ -23,11 +23,6 @@ public class ScoreCalculator : MonoBehaviour
         switch (match.matchType)
         {
             case MatchType.ROW:
-                break;
-            case MatchType.COLUMN:
-                break;
-            case MatchType.SQUARE:
-                break;
             default:
                 Debug.Log("Error");
                 break;

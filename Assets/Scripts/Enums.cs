@@ -25,13 +25,11 @@ public enum BlockType
 public enum MatchType
 {
     ROW,    // 행 매치
-    COLUMN, // 열 매치
-    SQUARE  // 정사각형 매치
 }
 
 public enum StageType
 {
-    NORMAL1, NORMAL2, BOSS
+    NORMAL, BOSS
 }
 
 public enum EffectType

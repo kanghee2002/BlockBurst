@@ -80,10 +80,6 @@ public class Board : MonoBehaviour
             {
                 EffectManager.instance.TriggerEffects(TriggerType.ON_ROW_LINE_CLEAR);
             }
-            else if (match.matchType == MatchType.COLUMN)
-            {
-                EffectManager.instance.TriggerEffects(TriggerType.ON_COLUMN_LINE_CLEAR);
-            }
         }
 
         if (matches.Count == 0)
@@ -184,7 +180,7 @@ public class Board : MonoBehaviour
             {
                 Match match = new Match()
                 {
-                    matchType = MatchType.COLUMN,
+                    matchType = MatchType.ROW,
                     blockTypes = new List<BlockType>()
                 };
                 // TEST: 8 -> Board Size로 변경 필요

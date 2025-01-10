@@ -10,7 +10,7 @@ public class EffectData : ScriptableObject
     public TriggerType trigger;                     // 발동 조건
     public int value;                               // 데이터 수정치
 
-    [Header("Dynamic")]
+    [Header("Additional")]
     public List<BlockType> blockType;
     public string blockId;
     public float probability = 1;                   // 발동 확률

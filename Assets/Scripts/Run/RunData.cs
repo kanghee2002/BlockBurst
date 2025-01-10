@@ -6,7 +6,7 @@ public class RunData
 {
     // 스테이지 진행 데이터
     public Dictionary<BlockType, int> baseBlockScores;          // 기본 블록 점수
-    public Dictionary<MatchType, float> baseMatchMultipliers;   // 기본 매치 배율
+    public Dictionary<MatchType, int> baseMatchMultipliers;     // 기본 배수
     public List<BlockData> availableBlocks;                     // 사용 가능한 블록들
     public List<ItemData> activeItems;                          // 활성화된 아이템들
     public List<EffectData> activeEffects;                      // 활성화된 효과들
@@ -21,7 +21,7 @@ public class RunData
     public void Initialize(GameData gameData)
     {
         baseBlockScores = new Dictionary<BlockType, int>(gameData.defaultBlockScores);
-        baseMatchMultipliers = new Dictionary<MatchType, float>(gameData.defaultMatchMultipliers);
+        baseMatchMultipliers = new Dictionary<MatchType, int>(gameData.defaultMatchMultipliers);
         availableBlocks = new List<BlockData>(gameData.defaultBlocks);
         activeEffects = new List<EffectData>();
         blockReuses = new Dictionary<BlockType, int>();

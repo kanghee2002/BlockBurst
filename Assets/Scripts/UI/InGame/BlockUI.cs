@@ -63,7 +63,7 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
         {
             float dist = Vector2.Distance(
                 rectTransform.anchoredPosition,
-                cell.GetComponent<RectTransform>().anchoredPosition
+                cell.GetComponent<RectTransform>().anchoredPosition + boardUI.GetComponent<RectTransform>().anchoredPosition
             );
 
             if (dist < minDistance)
@@ -77,7 +77,7 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
         if (closestBoardCellUI != null)
         {
             rectTransform.anchoredPosition =
-                closestBoardCellUI.GetComponent<RectTransform>().anchoredPosition;
+                closestBoardCellUI.GetComponent<RectTransform>().anchoredPosition + boardUI.GetComponent<RectTransform>().anchoredPosition;
         }
 
         // 만약 해당 Cell이 이미 차 있으면(Block이 있으면) 놓을 수 없게 하는 등

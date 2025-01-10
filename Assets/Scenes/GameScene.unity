@@ -583,7 +583,6 @@ GameObject:
   - component: {fileID: 90868070}
   - component: {fileID: 90868072}
   - component: {fileID: 90868071}
-  - component: {fileID: 90868074}
   - component: {fileID: 90868073}
   m_Layer: 5
   m_Name: BoardUI
@@ -664,31 +663,7 @@ MonoBehaviour:
   boardUI: {fileID: 90868069}
   rectTransform: {fileID: 90868070}
   prefabBoardCellUI: {fileID: 5668075285194595410, guid: 8aa622ec88eb05341a77314c8b91cfa3, type: 3}
-  allCells: []
---- !u!114 &90868074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 90868069}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 0
-  m_StartCorner: 0
-  m_StartAxis: 0
-  m_CellSize: {x: 96, y: 96}
-  m_Spacing: {x: 0, y: 0}
-  m_Constraint: 0
-  m_ConstraintCount: 2
+  boardCellsUI: []
 --- !u!1 &186705452
 GameObject:
   m_ObjectHideFlags: 0
@@ -5466,19 +5441,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5605540467424104713, guid: 612e0ed1397b4d645ad9596dcbba42c9, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5605540467424104713, guid: 612e0ed1397b4d645ad9596dcbba42c9, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5605540467424104713, guid: 612e0ed1397b4d645ad9596dcbba42c9, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5605540467424104713, guid: 612e0ed1397b4d645ad9596dcbba42c9, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5605540467424104713, guid: 612e0ed1397b4d645ad9596dcbba42c9, type: 3}
       propertyPath: m_SizeDelta.x
@@ -5518,11 +5493,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5605540467424104713, guid: 612e0ed1397b4d645ad9596dcbba42c9, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1732.0001
+      value: 772.0001
       objectReference: {fileID: 0}
     - target: {fileID: 5605540467424104713, guid: 612e0ed1397b4d645ad9596dcbba42c9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -540
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5605540467424104713, guid: 612e0ed1397b4d645ad9596dcbba42c9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -5536,6 +5511,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8319281967089602838, guid: 612e0ed1397b4d645ad9596dcbba42c9, type: 3}
+      propertyPath: boardUI
+      value: 
+      objectReference: {fileID: 90868073}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

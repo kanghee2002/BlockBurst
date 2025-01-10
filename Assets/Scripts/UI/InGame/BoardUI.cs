@@ -36,12 +36,17 @@ public class BoardUI : MonoBehaviour
 
     private void Awake()
     {
-        for (int i = 0; i < width * height; i++)
+        for (int j = 0; j < height; j++)
         {
-            GameObject newObject = Instantiate(prefabBoardCellUI);
-            newObject.transform.SetParent(boardUI.transform, false);
+            for (int i = 0; i < width; i++)
+            {
+                GameObject newObject = Instantiate(prefabBoardCellUI);
+                newObject.transform.SetParent(boardUI.transform, false);
+                newObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(i*96-336, j*96-336);
 
-            boardCellsUI.Add(newObject.GetComponent<BoardCellUI>());
+                boardCellsUI.Add(newObject.GetComponent<BoardCellUI>());
+            }
+
         }
     }
 }

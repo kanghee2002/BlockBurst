@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class BoardCellUI : MonoBehaviour
 {
-    public int[,] cellIndex;
+    public Vector2Int cellIndex = new Vector2Int(0, 0);
 }

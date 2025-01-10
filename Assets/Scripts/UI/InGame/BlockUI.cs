@@ -5,17 +5,17 @@ using UnityEngine.EventSystems;
 
 public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    public BoardUI boardUI;
-    public List<BoardCellUI> boardCellsUI = new List<BoardCellUI>();
+    private BoardUI boardUI;
+    private List<BoardCellUI> boardCellsUI = new List<BoardCellUI>();
 
     [SerializeField] private RectTransform rectTransform;
     private Canvas canvas;
     private Vector2 offset;
-    private int draw_index;
 
     private void Awake()
     {
         canvas = GetComponentInParent<Canvas>();
+        boardUI = FindObjectOfType<BoardUI>();
     }
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -78,6 +78,7 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
         {
             rectTransform.anchoredPosition =
                 closestBoardCellUI.GetComponent<RectTransform>().anchoredPosition + boardUI.GetComponent<RectTransform>().anchoredPosition;
+            Debug.Log(closestBoardCellUI.GetComponent<BoardCellUI>().cellIndex);
         }
 
         // 만약 해당 Cell이 이미 차 있으면(Block이 있으면) 놓을 수 없게 하는 등

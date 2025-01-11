@@ -12,9 +12,10 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
     private int blockCellsUIRowCount = 0;
     private int blockCellsUIColumnCount = 0;
     private const float block_size = 96f;
+    [SerializeField] private GameObject shadowContainer;
+    [SerializeField] private GameObject prefabBlockCellShadowUI;
 
     private BoardUI boardUI;
-    private List<List<BoardCellUI>> boardCellsUI;
 
     [SerializeField] private RectTransform rectTransform;
     private Canvas canvas;
@@ -176,12 +177,18 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
                     blockCellsUI[row][column].transform.SetParent(this.transform, false);
                     blockCellsUI[row][column].GetComponent<RectTransform>().anchoredPosition
                         = new Vector2(column - (blockCellsUIColumnCount - 1) / 2f, row - (blockCellsUIRowCount - 1) / 2f) * block_size;
+                
+                    GameObject shadow = Instantiate(prefabBlockCellShadowUI);
+                    shadow.transform.SetParent(shadowContainer.transform, false);
+                    shadow.GetComponent<RectTransform>().anchoredPosition
+                        = new Vector2(column - (blockCellsUIColumnCount - 1) / 2f, row - (blockCellsUIRowCount - 1) / 2f) * block_size;
                 }
             }
         }
     }
     public void OnPointerDown(PointerEventData eventData)
     {
+        shadowContainer.SetActive(true);
         // (필요하다면) 클릭 시 어떤 사운드를 재생한다거나, 다른 로직을 수행할 수 있음
     }
     public void OnBeginDrag(PointerEventData eventData)
@@ -213,20 +220,51 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
         }
 
         //좆같은 그림자를 그려보자
-    }
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        // 1) 각 Cell의 위치(월드 좌표나 로컬 좌표)를 순회하며,
-        // 2) 내 블록의 RectTransform.localPosition과의 거리 차를 비교,
-        // 3) 가장 가까운 Cell을 찾는다.
 
+        List<List<BoardCellUI>> boardCellsUI = boardUI.boardCellsUI;
         BoardCellUI closestBoardCellUI = null;
         float minDistance = float.MaxValue;
 
         Vector2 zeroOffset = new Vector2((blockCellsUIColumnCount - 1) / 2f, (blockCellsUIRowCount - 1) / 2f * (-1)) * block_size;
 
-        boardCellsUI = boardUI.boardCellsUI;
-        foreach (var cell in boardCellsUI.SelectMany(row => row)) // allCells: 모든 격자칸(Cell)을 담은 리스트
+        foreach (var cell in boardCellsUI.SelectMany(row => row))
+        {
+            float dist = Vector2.Distance(
+                rectTransform.anchoredPosition - zeroOffset,
+                cell.GetComponent<RectTransform>().anchoredPosition
+                + boardUI.GetComponent<RectTransform>().anchoredPosition
+            );
+
+            if (dist < minDistance)
+            {
+                minDistance = dist;
+                closestBoardCellUI = cell;
+            }
+        }
+
+        if (closestBoardCellUI != null)
+        {
+            shadowContainer.GetComponent<RectTransform>().anchoredPosition =
+                closestBoardCellUI.GetComponent<RectTransform>().anchoredPosition
+                + boardUI.GetComponent<RectTransform>().anchoredPosition
+                + zeroOffset
+                - rectTransform.anchoredPosition;
+        }
+    }
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        shadowContainer.SetActive(false);
+        // 1) 각 Cell의 위치(월드 좌표나 로컬 좌표)를 순회하며,
+        // 2) 내 블록의 RectTransform.localPosition과의 거리 차를 비교,
+        // 3) 가장 가까운 Cell을 찾는다.
+
+        List<List<BoardCellUI>> boardCellsUI = boardUI.boardCellsUI;
+        BoardCellUI closestBoardCellUI = null;
+        float minDistance = float.MaxValue;
+
+        Vector2 zeroOffset = new Vector2((blockCellsUIColumnCount - 1) / 2f, (blockCellsUIRowCount - 1) / 2f * (-1)) * block_size;
+
+        foreach (var cell in boardCellsUI.SelectMany(row => row))
         {
             float dist = Vector2.Distance(
                 rectTransform.anchoredPosition - zeroOffset,

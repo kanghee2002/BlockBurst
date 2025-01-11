@@ -46,7 +46,7 @@ public class BoardUI : MonoBehaviour
                 newObject.transform.SetParent(boardUI.transform, false);
                 newObject.GetComponent<RectTransform>().anchoredPosition
                     = new Vector2(column - (width - 1f) / 2, row - (width - 1f) / 2) * block_size;
-                newObject.GetComponent<BoardCellUI>().SetCellIndex(new Vector2Int(column, height - row - 1));
+                newObject.GetComponent<BoardCellUI>().SetCellIndex(new Vector2Int(column, height - row - 1)); // 방향 좆같네 진짜
 
                 listRow.Add(newObject.GetComponent<BoardCellUI>());
             }

@@ -13,16 +13,4 @@ public class BoardCellUI : MonoBehaviour
     {
         cellIndex = indexToSet;
     }
-
-    public void SetShadowed(bool isShadowed)
-    {
-        if (isShadowed)
-        {
-            image.color = new Color(0.5f, 0.5f, 0.5f, 1f);
-        }
-        else
-        {
-            image.color = Color.white;
-        }
-    }
 }

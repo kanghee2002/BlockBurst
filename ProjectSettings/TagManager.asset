@@ -43,6 +43,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Board
+    uniqueID: 83890321
+    locked: 0
   - name: Popup
     uniqueID: 2581710003
     locked: 0

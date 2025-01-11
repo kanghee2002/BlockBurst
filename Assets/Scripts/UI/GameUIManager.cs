@@ -5,8 +5,6 @@ using UnityEngine;
 public class GameUIManager : MonoBehaviour
 {
     //private GameManager gameManager;
-    //private StageManager stageManager;
-    //private DeckManager deckManager;
 
     [SerializeField] private StageInfoUI stageInfoUI;
     [SerializeField] private ScoreInfoUI scoreInfoUI;
@@ -29,7 +27,7 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private StageSelectionSignboardUI stageSelectionSignboardUI;
     [SerializeField] private StageSelectionBoardUI stageSelectionBoardUI;
 
-    private enum SceneState
+    public enum SceneState
     {
         selecting,
         playing,
@@ -50,32 +48,11 @@ public class GameUIManager : MonoBehaviour
     {
         popupState = PopupState.none;
         initializeManagerInstances();
-        fetchUIData();
     }
 
     private void initializeManagerInstances()
     {
         //gameManager = GameObject.Find("GameManager").getComponent<GameManager>();
-        //stageManager = GameObject.Find("StageManager").getComponent<StageManager>();
-        //deckManager = GameObject.Find("DeckManager").getComponent<DeckManager>();
-    }
-
-    private void fetchUIData()
-    {
-        // update stage info ui
-        stageInfoUI.UpdateChapter(0);
-        stageInfoUI.UpdateStage(0);
-        stageInfoUI.UpdateDebuffText("init");
-        stageInfoUI.UpdateScoreAtLeast(0); 
-
-        // update socre info ui
-        scoreInfoUI.UpdateScore(0);
-
-        //update gold info ui
-        goldInfoUI.UpdateGold(0);
-
-        //update reroll info ui
-        rerollInfoUI.UpdateReroll(0);
     }
 
     // RunInfo methods
@@ -85,6 +62,7 @@ public class GameUIManager : MonoBehaviour
         {
             popupState = PopupState.runInfo;
             runInfoUI.OpenRunInfoUI();
+            GetRunInfo();
         }
     }
 
@@ -104,6 +82,7 @@ public class GameUIManager : MonoBehaviour
         {
             popupState = PopupState.option;
             optionUI.OpenOptionUI();
+            GetOption();
         }
     }
 
@@ -121,7 +100,7 @@ public class GameUIManager : MonoBehaviour
     {
         if (sceneState == SceneState.playing && popupState == PopupState.none)
         {
-            Debug.Log("리롤 버튼 눌림");
+            OnRerolled();
         }
     }
 
@@ -132,6 +111,7 @@ public class GameUIManager : MonoBehaviour
         {
             popupState = PopupState.deckInfo;
             deckInfoUI.OpenDeckInfoUI();
+            GetDeckInfo();
         }
     }
 
@@ -157,16 +137,141 @@ public class GameUIManager : MonoBehaviour
     {
         if (sceneState == SceneState.shopping && popupState == PopupState.none)
         {
-            Debug.Log("아이템 리롤 버튼 눌림"); 
+            Debug.Log("아이템 리롤 버튼 눌림");
+            OnRerolled();
         }
     }
 
-    // StageSelectionUi methods
+    // StageSelectionUI methods
     public void NextStageChoiceButtonUIPressed(int choiceIndex)
     {
         if (sceneState == SceneState.selecting && popupState == PopupState.none)
         {
-            Debug.Log("다음 스테이지 선택지 버튼 눌림");
+            Debug.Log("다음 스테이지 선택지 버튼 눌렸음. "
+                + "원래대로라면 여기에서 정보를 뭔가 주고 받아야겠지? "
+                + "일단 selecting -> playing으로 sceneState 바꿈.");
+            ChangeSceneState(SceneState.playing);
+
         }
+    }
+
+    public void ChangeSceneState(SceneState stateToSet)
+    {
+        sceneState = stateToSet;
+        if (sceneState == SceneState.playing)
+        {
+            StartCoroutine(CoroutineSelectingToPlaying());
+        }
+        else if (sceneState == SceneState.shopping)
+        {
+            StartCoroutine(CoroutinePlayingToShopping());
+        }
+        else if (sceneState == SceneState.selecting)
+        {
+            StartCoroutine(CoroutineShoppingToSelecting());
+        }
+    }
+
+    IEnumerator CoroutineSelectingToPlaying()
+    {
+        stageSelectionSignboardUI.CloseStageSelectionSignboardUI();
+        stageSelectionBoardUI.CloseStageSelectionBoardUI();
+
+        yield return new WaitForSeconds(0.5f);
+
+        stageInfoUI.OpenStageInfoUI();
+        scoreInfoUI.OpenScoreInfoUI();
+        boardUI.OpenBoardUI();
+        rerollButtonUI.OpenRerollButtonUI();
+        handUI.OpenHandUI();
+        
+        yield return null;
+    }
+    IEnumerator CoroutinePlayingToShopping()
+    {
+        stageInfoUI.CloseStageInfoUI();
+        scoreInfoUI.CloseScoreInfoUI();
+        boardUI.CloseBoardUI();
+        rerollButtonUI.CloseRerollButtonUI();
+        handUI.CloseHandUI();
+
+        yield return new WaitForSeconds(0.5f);
+
+        shopSignboardUI.OpenShopSignboardUI();
+        itemBoardUI.OpenItemBoardUI();
+        
+        yield return null;
+    }
+    IEnumerator CoroutineShoppingToSelecting()
+    {
+        shopSignboardUI.CloseShopSignboardUI();
+        itemBoardUI.CloseItemBoardUI();
+
+        yield return new WaitForSeconds(0.5f);
+
+        stageSelectionSignboardUI.OpenStageSelectionSignboardUI();
+        stageSelectionBoardUI.OpenStageSelectionBoardUI();
+
+        yield return null;
+    }
+
+    // 이하 model 부분과의 의사소통을 위한 창구... 갈 길이 멀다.
+    // On: GameUIManager -(이벤트)-> GameManager
+    // Notify: GameManager -(이벤트)-> GameUIManager
+    // Get: GameUIManager가 GameManager로부터 정보를 가져옴
+    public void NotifyChapterIsUpdated(int updatedChapter)
+    {
+        stageInfoUI.UpdateChapter(updatedChapter);
+    }
+
+    public void NotifyStageIsUpdated(int updatedStage)
+    {
+       
+        stageInfoUI.UpdateStage(updatedStage);
+    }
+    public void NotifyDebuffTextIsUpdated(string updatedDebuffText)
+    {
+        stageInfoUI.UpdateDebuffText(updatedDebuffText);
+    }
+
+    public void NotifyScoreAtLeastIsUpdated(int updatedScoreAtLeast)
+    {
+        stageInfoUI.UpdateScoreAtLeast(updatedScoreAtLeast);
+    }
+
+    public void NotifyScoreIsUpdated(int updatedScore)
+    {
+        scoreInfoUI.UpdateScore(updatedScore);
+    }
+
+    public void NotifyGoldIsUpdated(int updatedGold)
+    {
+        goldInfoUI.UpdateGold(updatedGold);
+    }
+    public void GetRunInfo()
+    {
+        Debug.Log("게임매니저야 플레이어가 런 정보를 열었어! 런 정보 가져갈게!");
+    }
+
+    public void GetOption()
+    {
+        Debug.Log("게임매니저야 플레이어가 옵션을 열었어! 현재 설정되어있는 옵션 정보들 가져갈게!");
+    } // 옵션에 들어갈 항목에 따라, 플레이어가 어떤 옵션을 조작할 때 마다 그것에 해당하는 것 마다 Set할 수 있게 메서드 필요함.
+
+    public void OnRerolled()
+    {
+        Debug.Log("게임매니저야 리롤버튼이 눌렸어!!!");
+    }
+    public void NotifyRerolled()
+    {
+        // 리롤이 시행되었을 때 호출되는 메서드
+        // 패러미터로 드로우 된 블록들에 대한 정보를 받아와서
+        // 블록을 핸드에 새팅해 놓는 메서드임...
+        // 난 뭐가 뭔지 몰라서 그냥 빈 함수로 냅둘게...
+    }
+
+    public void GetDeckInfo()
+    {
+        Debug.Log("게임매니저야 플레이어가 덱을 열었어! 덱 정보 가져갈게!");
     }
 }

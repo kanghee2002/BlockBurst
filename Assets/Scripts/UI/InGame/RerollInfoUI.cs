@@ -5,7 +5,7 @@ using UnityEngine;
 public class RerollInfoUI : MonoBehaviour
 {
     [SerializeField] private GameObject rerollCountText;
-    public void UpdateReroll(int _reroll)
+    public void UpdateRerollCount(int countToSet)
     {
         Debug.Log("Reroll Count has been updated.");
     }

@@ -69,22 +69,32 @@ public class Board : MonoBehaviour
     {
         List<Match> matches = CheckMatches(block, pos);
 
-        // 점수 계산
-        int totalScore = 0;
+
+        // 효과 발동
+        if (matches.Count == 0)
+        {
+            EffectManager.instance.TriggerEffects(TriggerType.ON_BLOCK_PLACE_WITHOUT_LINE_CLEAR);
+        }
+
         foreach (Match match in matches)
         {
-            totalScore += ScoreCalculator.Instance.Calculate(match, gameData);
             EffectManager.instance.TriggerEffects(TriggerType.ON_BLOCK_PLACE_WITH_LINE_CLEAR);
 
             if (match.matchType == MatchType.ROW)
             {
                 EffectManager.instance.TriggerEffects(TriggerType.ON_ROW_LINE_CLEAR);
             }
+            if (match.matchType == MatchType.COLUMN)
+            {
+                EffectManager.instance.TriggerEffects(TriggerType.ON_COLUMN_LINE_CLEAR);
+            }
         }
 
-        if (matches.Count == 0)
+        // 점수 계산
+        int totalScore = 0;
+        foreach (Match match in matches)
         {
-            EffectManager.instance.TriggerEffects(TriggerType.ON_BLOCK_PLACE_WITHOUT_LINE_CLEAR);
+            totalScore += ScoreCalculator.Instance.Calculate(match, gameData);
         }
 
         gameData.currentScore += totalScore;
@@ -180,7 +190,7 @@ public class Board : MonoBehaviour
             {
                 Match match = new Match()
                 {
-                    matchType = MatchType.ROW,
+                    matchType = MatchType.COLUMN,
                     blockTypes = new List<BlockType>()
                 };
                 // TEST: 8 -> Board Size로 변경 필요

@@ -11,7 +11,7 @@ public class EffectData : ScriptableObject
     public int value;                               // 데이터 수정치
 
     [Header("Additional")]
-    public List<BlockType> blockType;
+    public BlockType blockTypes;
     public string blockId;
     public float probability = 1;                   // 발동 확률
     public int triggerValue = 0;

@@ -24,7 +24,7 @@ public enum BlockType
 
 public enum MatchType
 {
-    ROW,    // 행 매치
+    ROW, COLUMN    // 행 매치
 }
 
 public enum StageType

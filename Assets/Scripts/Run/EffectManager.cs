@@ -38,7 +38,7 @@ public class EffectManager : MonoBehaviour
         return runData.activeEffects.Remove(effect);
     }
 
-    public void TriggerEffects(TriggerType trigger)
+    public void TriggerEffects(TriggerType trigger, BlockType[] blockTypes = null, int blockId = -1, int triggerValue = 0) 
     {
         foreach (EffectData effect in runData.activeEffects)
         {

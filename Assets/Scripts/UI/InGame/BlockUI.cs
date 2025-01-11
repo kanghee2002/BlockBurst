@@ -245,7 +245,6 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
                 closestBoardCellUI.GetComponent<RectTransform>().anchoredPosition
                 + boardUI.GetComponent<RectTransform>().anchoredPosition
                 + zeroOffset;
-            Debug.Log(closestBoardCellUI.GetComponent<BoardCellUI>().cellIndex);
         }
 
         // 만약 해당 Cell이 이미 차 있으면(Block이 있으면) 놓을 수 없게 하는 등

@@ -5,8 +5,6 @@ using UnityEngine;
 public class GameUIManager : MonoBehaviour
 {
     //private GameManager gameManager;
-    //private StageManager stageManager;
-    //private DeckManager deckManager;
 
     [SerializeField] private StageInfoUI stageInfoUI;
     [SerializeField] private ScoreInfoUI scoreInfoUI;
@@ -56,8 +54,6 @@ public class GameUIManager : MonoBehaviour
     private void initializeManagerInstances()
     {
         //gameManager = GameObject.Find("GameManager").getComponent<GameManager>();
-        //stageManager = GameObject.Find("StageManager").getComponent<StageManager>();
-        //deckManager = GameObject.Find("DeckManager").getComponent<DeckManager>();
     }
 
     private void fetchUIData()

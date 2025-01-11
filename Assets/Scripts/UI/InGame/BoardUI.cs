@@ -15,8 +15,9 @@ public class BoardUI : MonoBehaviour
     [SerializeField] private GameObject prefabBoardCellUI;
     public List<List<BoardCellUI>> boardCellsUI = new List<List<BoardCellUI>>();
 
-    private const float insidePositionY = 0;
-    private const float outsidePositionY = -1080;
+    // inside anchored position = (116,-96)
+    private const float insidePositionY = -96;
+    private const float outsidePositionOffsetY = -1080;
     private const float duration = 0.2f;
     public void OpenBoardUI()
     {
@@ -27,7 +28,7 @@ public class BoardUI : MonoBehaviour
 
     public void CloseBoardUI()
     {
-        rectTransform.DOAnchorPosY(outsidePositionY, duration)
+        rectTransform.DOAnchorPosY(insidePositionY + outsidePositionOffsetY, duration)
             .SetEase(Ease.OutCubic)
             .OnComplete(() =>
             {

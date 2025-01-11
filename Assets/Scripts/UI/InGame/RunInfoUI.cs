@@ -33,7 +33,6 @@ public class RunInfoUI : MonoBehaviour
 
     public void OnRunInfoBackButtonUIPressed()
     {
-        Debug.Log("왜 안돼 하 진짜");
         gameUIManager.RunInfoBackButtonUIPressed();
     }
 }

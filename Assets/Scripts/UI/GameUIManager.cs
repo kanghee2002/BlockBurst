@@ -48,30 +48,11 @@ public class GameUIManager : MonoBehaviour
     {
         popupState = PopupState.none;
         initializeManagerInstances();
-        fetchUIData();
     }
 
     private void initializeManagerInstances()
     {
         //gameManager = GameObject.Find("GameManager").getComponent<GameManager>();
-    }
-
-    private void fetchUIData()
-    {
-        // update stage info ui
-        stageInfoUI.UpdateChapter(0);
-        stageInfoUI.UpdateStage(0);
-        stageInfoUI.UpdateDebuffText("init");
-        stageInfoUI.UpdateScoreAtLeast(0); 
-
-        // update socre info ui
-        scoreInfoUI.UpdateScore(0);
-
-        //update gold info ui
-        goldInfoUI.UpdateGold(0);
-
-        //update reroll info ui
-        rerollInfoUI.UpdateReroll(0);
     }
 
     // RunInfo methods
@@ -162,7 +143,17 @@ public class GameUIManager : MonoBehaviour
     {
         if (sceneState == SceneState.selecting && popupState == PopupState.none)
         {
-            Debug.Log("다음 스테이지 선택지 버튼 눌림");
+            Debug.Log("다음 스테이지 선택지 버튼 눌렸음."
+                + "\n원래대로라면 여기에서 정보를 뭔가 주고 받아야겠지?"
+                + "\n난 그런 거 모르겠고 일단 selecting -> playing으로 sceneState 바꿈.");
+            sceneState = SceneState.playing;
+            stageSelectionSignboardUI.CloseStageSelectionSignboardUI();
+            stageSelectionBoardUI.CloseNextStageChoiceUI();
+            stageInfoUI.OpenStageInfoUI();
+            scoreInfoUI.OpenScoreInfoUI();
+            boardUI.OpenBoardUI();
+            rerollButtonUI.OpenRerollButtonUI();
+            handUI.OpenHandUI();
         }
     }
 }

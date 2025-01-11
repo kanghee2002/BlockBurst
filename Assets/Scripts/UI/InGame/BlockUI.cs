@@ -188,11 +188,11 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
     }
     public void OnPointerDown(PointerEventData eventData)
     {
-        shadowContainer.SetActive(true);
         // (필요하다면) 클릭 시 어떤 사운드를 재생한다거나, 다른 로직을 수행할 수 있음
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
+        shadowContainer.SetActive(true);
         // 드래그 시작 시, 현재 클릭된 포인트에서 오브젝트 중심까지의 오프셋을 계산
         // RectTransformUtility.ScreenPointToLocalPointInRectangle 함수로
         // 로컬 좌표를 얻어낼 수 있다.

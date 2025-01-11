@@ -13,7 +13,7 @@ public class BoardUI : MonoBehaviour
     private int width = 8;
     private int height = 8;
     [SerializeField] private GameObject prefabBoardCellUI;
-    public List<BoardCellUI> boardCellsUI = new List<BoardCellUI>();
+    public List<List<BoardCellUI>> boardCellsUI = new List<List<BoardCellUI>>();
 
     private const float insidePositionY = 0;
     private const float outsidePositionY = -1080;
@@ -37,19 +37,20 @@ public class BoardUI : MonoBehaviour
 
     private void Awake()
     {
-        for (int j = 0; j < height; j++)
+        for (int row = 0; row < height; row++)
         {
-            for (int i = 0; i < width; i++)
+            List<BoardCellUI> listRow = new List<BoardCellUI>();
+            for (int column = 0; column < width; column++)
             {
                 GameObject newObject = Instantiate(prefabBoardCellUI);
                 newObject.transform.SetParent(boardUI.transform, false);
                 newObject.GetComponent<RectTransform>().anchoredPosition
-                    = new Vector2(i * block_size - block_size * (width - 1f) / 2, j * block_size - block_size * (width - 1f) / 2);
-                newObject.GetComponent<BoardCellUI>().SetCellIndex(new Vector2Int(i, height - j - 1));
+                    = new Vector2(column - (width - 1f) / 2, row - (width - 1f) / 2) * block_size;
+                newObject.GetComponent<BoardCellUI>().SetCellIndex(new Vector2Int(column, height - row - 1));
 
-                boardCellsUI.Add(newObject.GetComponent<BoardCellUI>());
+                listRow.Add(newObject.GetComponent<BoardCellUI>());
             }
-
+            boardCellsUI.Add(listRow);
         }
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Linq;
 
 public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
@@ -13,7 +14,7 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
     private const float block_size = 96f;
 
     private BoardUI boardUI;
-    private List<BoardCellUI> boardCellsUI;
+    private List<List<BoardCellUI>> boardCellsUI;
 
     [SerializeField] private RectTransform rectTransform;
     private Canvas canvas;
@@ -210,6 +211,8 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
             // 오프셋을 빼서 실제로 누른 지점 기준으로 이동
             rectTransform.localPosition = localPoint - offset;
         }
+
+        //좆같은 그림자를 그려보자
     }
     public void OnEndDrag(PointerEventData eventData)
     {
@@ -223,7 +226,7 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
         Vector2 zeroOffset = new Vector2((blockCellsUIColumnCount - 1) / 2f, (blockCellsUIRowCount - 1) / 2f * (-1)) * block_size;
 
         boardCellsUI = boardUI.boardCellsUI;
-        foreach (var cell in boardCellsUI) // allCells: 모든 격자칸(Cell)을 담은 리스트
+        foreach (var cell in boardCellsUI.SelectMany(row => row)) // allCells: 모든 격자칸(Cell)을 담은 리스트
         {
             float dist = Vector2.Distance(
                 rectTransform.anchoredPosition - zeroOffset,

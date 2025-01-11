@@ -28,14 +28,15 @@ public class ScoreCalculator : MonoBehaviour
                 break;
         }
 
-        // 아이템 효과 발동
-
-        int totalScore = 0, totalMultiplier = 1;
+        int totalScore = 0;
         foreach (BlockType blockType in match.blockTypes)
         {
             totalScore += data.blockScores[blockType];
         }
 
-        return totalScore * totalMultiplier;
+        Debug.Log("블록 점수: " + totalScore);
+        Debug.Log("배수 : " + data.matchMultipliers[MatchType.ROW]);
+
+        return totalScore * data.matchMultipliers[MatchType.ROW];
     }
 }

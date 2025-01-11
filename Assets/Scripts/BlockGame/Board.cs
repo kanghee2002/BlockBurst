@@ -41,8 +41,8 @@ public class Board : MonoBehaviour
                     }
                 }
             }
-            ProcessMatches(block, pos);
             EffectManager.instance.TriggerEffects(TriggerType.ON_BLOCK_PLACE);
+            ProcessMatches(block, pos);
         }
 
         return isPlaced;

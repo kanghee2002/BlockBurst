@@ -42,7 +42,8 @@ public class EffectManager : MonoBehaviour
     {
         foreach (EffectData effect in runData.activeEffects)
         {
-            if (effect.trigger == trigger)
+            if (effect.trigger == trigger && IsArraysEqual(effect.blockTypes, blockTypes) &&
+                effect.blockId == blockId && effect.triggerValue == triggerValue)
             {
                 ApplyEffect(effect);
             }
@@ -128,5 +129,13 @@ public class EffectManager : MonoBehaviour
                 break;
         }
         */
+    }
+
+    private bool IsArraysEqual(BlockType[] arr1, BlockType[] arr2)
+    {
+        HashSet<BlockType> set1 = new HashSet<BlockType>(arr1);
+        HashSet<BlockType> set2 = new HashSet<BlockType>(arr2);
+
+        return set1.SetEquals(set2);
     }
 }

@@ -7,9 +7,9 @@ public class StageSelectionBoardUI : MonoBehaviour
 {
     [SerializeField] private GameObject stageSelectionBoardUI;
     [SerializeField] private RectTransform rectTransform;
-    // inside anchored position = (182,128)
-    private const float insidePositionY = 128;
-    private const float outsidePositionOffsetY = -540;
+    // inside anchored position = (182,-128)
+    private const float insidePositionY = -128;
+    private const float outsidePositionOffsetY = -1080;
     private const float duration = 0.2f;
 
     [SerializeField] private GameUIManager gameUIManager;
@@ -19,14 +19,14 @@ public class StageSelectionBoardUI : MonoBehaviour
     {
         gameUIManager.NextStageChoiceButtonUIPressed(choiceIndex);
     }
-    public void OpenNextStageChoiceUI()
+    public void OpenStageSelectionBoardUI()
     {
         stageSelectionBoardUI.SetActive(true);
         rectTransform.DOAnchorPosY(insidePositionY, duration)
             .SetEase(Ease.OutCubic);
     }
 
-    public void CloseNextStageChoiceUI()
+    public void CloseStageSelectionBoardUI()
     {
         rectTransform.DOAnchorPosY(insidePositionY + outsidePositionOffsetY, duration)
             .SetEase(Ease.OutCubic)

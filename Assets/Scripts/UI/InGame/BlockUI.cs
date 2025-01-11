@@ -7,6 +7,7 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
 {
     private BlockType blockType;
     [SerializeField] private GameObject prefabBlockCellUI;
+    private List<GameObject> blockCellsUI = new List<GameObject>();
 
     private BoardUI boardUI;
     private List<BoardCellUI> boardCellsUI = new List<BoardCellUI>();
@@ -25,16 +26,64 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
     public void SetBlockType(BlockType blockTypeToSet)
     {
         blockType = blockTypeToSet;
+        const float block_size = 96f;
         if (blockType == BlockType.I)
         {
-            List<GameObject> blockCellsUI = new List<GameObject>();
             for (int i = 0; i < 4; i++)
             {
                 blockCellsUI.Add(Instantiate(prefabBlockCellUI));
                 blockCellsUI[i].transform.SetParent(this.transform, false);
-                const float block_size = 96f;
-                blockCellsUI[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(0, block_size*(i-1.5f));
+                blockCellsUI[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(0, block_size * (i - 1.5f));
             }
+        }
+        else if (blockType == BlockType.O)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                blockCellsUI.Add(Instantiate(prefabBlockCellUI));
+                blockCellsUI[i].transform.SetParent(this.transform, false);
+                blockCellsUI[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(block_size * (i % 2 - 0.5f), block_size * (i / 2 - 0.5f));
+            }
+        }
+        else if (blockType == BlockType.T)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                blockCellsUI.Add(Instantiate(prefabBlockCellUI));
+                blockCellsUI[i].transform.SetParent(this.transform, false);
+                blockCellsUI[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(0, block_size * (i - 1));
+            }
+            blockCellsUI.Add(Instantiate(prefabBlockCellUI));
+            blockCellsUI[3].transform.SetParent(this.transform, false);
+            blockCellsUI[3].GetComponent<RectTransform>().anchoredPosition = new Vector2(block_size * (-1f), block_size * 1f);
+
+            blockCellsUI.Add(Instantiate(prefabBlockCellUI));
+            blockCellsUI[4].transform.SetParent(this.transform, false);
+            blockCellsUI[4].GetComponent<RectTransform>().anchoredPosition = new Vector2(block_size * (1f), block_size * 1f);
+        }
+        else if (blockType == BlockType.L)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                blockCellsUI.Add(Instantiate(prefabBlockCellUI));
+                blockCellsUI[i].transform.SetParent(this.transform, false);
+                blockCellsUI[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(block_size * (-0.5f), block_size * (i - 1));
+            }
+            blockCellsUI.Add(Instantiate(prefabBlockCellUI));
+            blockCellsUI[3].transform.SetParent(this.transform, false);
+            blockCellsUI[3].GetComponent<RectTransform>().anchoredPosition = new Vector2(block_size * (0.5f), block_size * (-1f));
+        }
+        else if (blockType == BlockType.J)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                blockCellsUI.Add(Instantiate(prefabBlockCellUI));
+                blockCellsUI[i].transform.SetParent(this.transform, false);
+                blockCellsUI[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(block_size * (0.5f), block_size * (i - 1));
+            }
+            blockCellsUI.Add(Instantiate(prefabBlockCellUI));
+            blockCellsUI[3].transform.SetParent(this.transform, false);
+            blockCellsUI[3].GetComponent<RectTransform>().anchoredPosition = new Vector2(block_size * (-0.5f), block_size * (-1f));
         }
     }
     public void OnPointerDown(PointerEventData eventData)

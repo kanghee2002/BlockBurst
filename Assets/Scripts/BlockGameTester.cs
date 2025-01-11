@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class BlockGameTester : MonoBehaviour
 {
-    /*
     [SerializeField] private Board board;
-
-    [SerializeField] private DeckManager deckManager;
-
-    [SerializeField] private EffectManager effectManager;
 
     [SerializeField] private List<BlockData> blockDatas;
 
     [SerializeField] private Transform currentCursor;
+
+    private List<Block> deck;
+
+    private List<Block> currentBlocks;
 
     private int currentBlockIndex;
 
@@ -24,6 +23,11 @@ public class BlockGameTester : MonoBehaviour
 
     private void Start()
     {
+        deck = InstantiateBlocks(blockDatas);
+        ShuffleDeck();
+
+        currentBlocks = new();
+
         currentBlockIndex = 0;
 
         currentCursor.position = new Vector2(14f, -3.5f * currentBlockIndex);
@@ -55,23 +59,20 @@ public class BlockGameTester : MonoBehaviour
                 { BlockType.L, 0 },
                 { BlockType.T, 0 },
             },
-            baseMatchMultipliers = new Dictionary<MatchType, float>()
+            baseMatchMultipliers = new Dictionary<MatchType, int>()
             {
-                { MatchType.ROW, 1f },
-                { MatchType.COLUMN, 1f },
-                { MatchType.SQUARE, 1f }
-            }
+                { MatchType.ROW, 1 },
+                { MatchType.COLUMN, 1 },
+            },
+            activeEffects = new(),
+            
         };
 
         blockGameData = new BlockGameData();
         blockGameData.Initialize(runData);
         board.Initialize(blockGameData);
 
-        deckManager.Initialize(runData);
-
-        effectManager.Initialize(runData, blockGameData);
-
-
+        EffectManager.instance.Initialize(ref runData);
     }
 
     private void Update()
@@ -88,14 +89,17 @@ public class BlockGameTester : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S))
         {
             currentBlockIndex++;
-            if (currentBlockIndex >= deckManager.currentBlocks.Count) 
-                currentBlockIndex = deckManager.currentBlocks.Count - 1;
+            if (currentBlockIndex >= currentBlocks.Count) 
+                currentBlockIndex = currentBlocks.Count - 1;
             currentCursor.position = new Vector2(14f, -3.5f * currentBlockIndex);
         }
 
         if (Input.GetKeyDown(KeyCode.A))
         {
-            deckManager.DrawBlock();
+            for (int i = 0; i < 3; i++)
+            {
+                currentBlocks.Add(GetBlock());
+            }
 
             SetBlockPosition();
         }
@@ -103,12 +107,12 @@ public class BlockGameTester : MonoBehaviour
         // 리롤
         if (Input.GetKeyDown(KeyCode.R))
         {
-            foreach (Block block in deckManager.currentBlocks)
+            foreach (Block block in currentBlocks)
             {
                 block.transform.position = new Vector2(10, 10);
             }
 
-            deckManager.RerollBlock();
+            //deckManager.RerollBlock();
 
             SetBlockPosition();
         }
@@ -116,13 +120,14 @@ public class BlockGameTester : MonoBehaviour
         // 블록 배치
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            Block placingBlock = deckManager.currentBlocks[currentBlockIndex];
+            Block placingBlock = currentBlocks[currentBlockIndex];
 
             bool result = board.PlaceBlock(placingBlock.GetComponent<Block>(), currentOriginCellPosition);
 
             if (result)
             {
-                deckManager.UseBlock(placingBlock);
+                currentBlocks.RemoveAt(currentBlockIndex);
+                placingBlock.gameObject.SetActive(false);
 
                 currentBlockIndex--;
                 if (currentBlockIndex < 0) currentBlockIndex = 0;
@@ -131,8 +136,13 @@ public class BlockGameTester : MonoBehaviour
                 SetBlockPosition();
             }
 
-            if (deckManager.currentBlocks.Count == 0)
+            if (currentBlocks.Count == 0)
             {
+                for (int i = 0; i < 3; i++)
+                {
+                    currentBlocks.Add(GetBlock());
+                }
+
                 SetBlockPosition();
                 currentCursor.position = new Vector2(14f, -3.5f * currentBlockIndex);
             }
@@ -213,9 +223,46 @@ public class BlockGameTester : MonoBehaviour
 
     private void SetBlockPosition()
     {
-        for (int i = 0; i < deckManager.currentBlocks.Count; i++)
+        for (int i = 0; i < currentBlocks.Count; i++)
         {
-            deckManager.currentBlocks[i].transform.position = new Vector2(10f, -3.5f * i);
+            currentBlocks[i].transform.position = new Vector2(10f, -3.5f * i);
+        }
+    }
+
+    private List<Block> InstantiateBlocks(List<BlockData> blockData)
+    {
+        List<Block> blocks = new List<Block>();
+
+        foreach (BlockData data in blockData)
+        {
+            GameObject blockObject = Instantiate(data.prefab);
+            Block block = blockObject.GetComponent<Block>();
+            BlockType blockType = data.type;
+            block.Initialize(data, 0, 0);
+            blocks.Add(block);
+
+            // TEST
+            blockObject.transform.position = new Vector3(10, 10);
+        }
+
+        return blocks;
+    }
+
+    private Block GetBlock()
+    {
+        Block block = deck[0];
+        deck.RemoveAt(0);
+        return block;
+    }
+
+    private void ShuffleDeck()
+    {
+        for (int i = 0; i < deck.Count; i++)
+        {
+            int j = Random.Range(i, deck.Count);
+            Block tmp = deck[i];
+            deck[i] = deck[j];
+            deck[j] = tmp;
         }
     }
 
@@ -227,5 +274,4 @@ public class BlockGameTester : MonoBehaviour
         else
             return false;
     }
-    */
 }

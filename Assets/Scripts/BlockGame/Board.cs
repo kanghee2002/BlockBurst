@@ -69,26 +69,45 @@ public class Board : MonoBehaviour
     {
         List<Match> matches = CheckMatches(block, pos);
 
-
         // 효과 발동
         if (matches.Count == 0)
         {
             EffectManager.instance.TriggerEffects(TriggerType.ON_BLOCK_PLACE_WITHOUT_LINE_CLEAR);
         }
+        else
+        {
+            EffectManager.instance.TriggerEffects(TriggerType.ON_BLOCK_PLACE_WITH_LINE_CLEAR, new BlockType[] { block.Type });
+            EffectManager.instance.TriggerEffects(TriggerType.ON_LINE_CLEAR);
+        }
 
+        int rowClearCount = 0, columnClearCount = 0;
         foreach (Match match in matches)
         {
-            EffectManager.instance.TriggerEffects(TriggerType.ON_BLOCK_PLACE_WITH_LINE_CLEAR);
-
             if (match.matchType == MatchType.ROW)
             {
+                rowClearCount++;
                 EffectManager.instance.TriggerEffects(TriggerType.ON_ROW_LINE_CLEAR);
             }
             if (match.matchType == MatchType.COLUMN)
             {
+                columnClearCount++;
                 EffectManager.instance.TriggerEffects(TriggerType.ON_COLUMN_LINE_CLEAR);
             }
         }
+
+        if (rowClearCount > 0 && columnClearCount > 0)
+        {
+            EffectManager.instance.TriggerEffects(TriggerType.ON_CROSS_LINE_CLEAR);
+        }
+        if (rowClearCount > 1)
+        {
+            EffectManager.instance.TriggerEffects(TriggerType.ON_MULTIPLE_LINE_CLEAR, triggerValue: rowClearCount);
+        }
+        if (columnClearCount > 1)
+        {
+            EffectManager.instance.TriggerEffects(TriggerType.ON_MULTIPLE_LINE_CLEAR, triggerValue: columnClearCount);
+        }
+
 
         // 점수 계산
         int totalScore = 0;

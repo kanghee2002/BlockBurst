@@ -66,9 +66,9 @@ public enum TriggerType
     ON_BLOCK_CLEAR,                         // 블록이 모두 지워질 때
     ON_ROW_LINE_CLEAR,                      // * 가로로 줄을 지울 때
     ON_COLUMN_LINE_CLEAR,                   // * 세로로 줄을 지울 때
-    ON_CROSS_LINE_CLEAR,                    // 가로, 세로를 한 번에 지울 때
-    ON_MULTIPLE_LINE_CLEAR,                 // 여러 줄을 한 번에 지울 때
-    ON_LINE_CLEAR,                          // 줄을 지울 때
+    ON_CROSS_LINE_CLEAR,                    // * 가로, 세로를 한 번에 지울 때
+    ON_MULTIPLE_LINE_CLEAR,                 // * 여러 줄을 한 번에 지울 때
+    ON_LINE_CLEAR,                          // * 줄을 지울 때
     ON_LINE_CLEAR_WITH_COUNT,               // 줄을 N번째 지울 때
     ON_LINE_CLEAR_WITH_SPECIFIC_BLOCKS,     // 줄을 지울 때 특정 블록이 포함돼있으면
     ON_LINE_CLEAR_WITH_SAME_BLOCK,          // 줄을 지울 때 같은 종류의 블록이 있으면
@@ -81,6 +81,7 @@ public enum TriggerType
     ON_BOARD_HALF_FULL,                     // 보드가 반 이상 찼을 때
     ON_BOARD_NOT_HALF_FULL,                 // 보드가 반 이상 차지 않았을 때
     ON_GOLD_CHANGE,                         // 골드가 바뀔 때
+    ON_ENTER_STAGE                          // 스테이지 진입할 때
 }
 
 public enum ItemType

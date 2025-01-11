@@ -4071,8 +4071,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   board: {fileID: 1028687117}
-  deckManager: {fileID: 1348751754}
-  effectManager: {fileID: 1171540749}
   blockDatas:
   - {fileID: 11400000, guid: dfd317ceae9fff3408a3fcb9a2dfa9ec, type: 2}
   - {fileID: 11400000, guid: d8aac9c1adf4acf4fba208ed137a32df, type: 2}

@@ -27,7 +27,7 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private StageSelectionSignboardUI stageSelectionSignboardUI;
     [SerializeField] private StageSelectionBoardUI stageSelectionBoardUI;
 
-    private enum SceneState
+    public enum SceneState
     {
         selecting,
         playing,
@@ -134,7 +134,7 @@ public class GameUIManager : MonoBehaviour
     {
         if (sceneState == SceneState.shopping && popupState == PopupState.none)
         {
-            Debug.Log("아이템 리롤 버튼 눌림"); 
+            Debug.Log("아이템 리롤 버튼 눌림");
         }
     }
 
@@ -146,6 +146,16 @@ public class GameUIManager : MonoBehaviour
             Debug.Log("다음 스테이지 선택지 버튼 눌렸음."
                 + "\n원래대로라면 여기에서 정보를 뭔가 주고 받아야겠지?"
                 + "\n난 그런 거 모르겠고 일단 selecting -> playing으로 sceneState 바꿈.");
+            ChangeSceneState(SceneState.playing);
+
+        }
+    }
+
+    public void ChangeSceneState(SceneState stateToSet)
+    {
+        sceneState = stateToSet;
+        if (sceneState == SceneState.playing)
+        {
             sceneState = SceneState.playing;
             stageSelectionSignboardUI.CloseStageSelectionSignboardUI();
             stageSelectionBoardUI.CloseNextStageChoiceUI();

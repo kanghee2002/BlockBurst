@@ -7,12 +7,16 @@ using UnityEngine;
 public class Board : MonoBehaviour
 {
     public Cell[,] cells { get; private set; }
-    
+
+    // TEST
+    private RunData runData;
     private BlockGameData gameData;
     private List<int> onClearEffectBlocks;      // 모두 지워질 때 효과 발동하는 블록 ID 저장
 
-    public void Initialize(BlockGameData blockGameData)
+    public void Initialize(RunData runData, BlockGameData blockGameData)
     {
+        // TEST
+        this.runData = runData;
         gameData = blockGameData;
         onClearEffectBlocks = new List<int>();
     }
@@ -117,6 +121,12 @@ public class Board : MonoBehaviour
         }
 
         gameData.currentScore += totalScore;
+
+        // 배수 초기화
+        if (matches.Count > 0)
+        {
+            gameData.matchMultipliers = new(runData.baseMatchMultipliers);
+        }
 
         Debug.Log("현재 점수: " + gameData.currentScore);
     }

@@ -76,15 +76,14 @@ public class EffectManager : MonoBehaviour
                 break;
             case EffectType.MULTIPLIER_MODIFIER:
                 blockGameData.matchMultipliers[matchType] += effect.effectValue;
+                Debug.Log("효과 적용된 배수: " + blockGameData.matchMultipliers[matchType]);
                 break;
             case EffectType.BASEMULTIPLIER_MODIFIER:
                 runData.baseMatchMultipliers[matchType] += effect.effectValue;
-                blockGameData.baseMatchMultiplier[matchType] += effect.effectValue;
                 blockGameData.matchMultipliers[matchType] += effect.effectValue;
                 break;
             case EffectType.BASEMULTIPLIER_MULTIPLIER:
                 runData.baseMatchMultipliers[matchType] *= effect.effectValue;
-                blockGameData.baseMatchMultiplier[matchType] *= effect.effectValue;
                 blockGameData.matchMultipliers[matchType] *= effect.effectValue;
                 break;
             case EffectType.REROLL_MODIFIER:

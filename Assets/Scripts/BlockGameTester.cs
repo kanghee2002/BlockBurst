@@ -56,7 +56,7 @@ public class BlockGameTester : MonoBehaviour
         ApplyEffects();
 
         // Board
-        board.Initialize(blockGameData);
+        board.Initialize(runData, blockGameData);
 
         // Tester
         currentBlocks = new()

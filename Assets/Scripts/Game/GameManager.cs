@@ -5,6 +5,8 @@ using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance = null;
+
     public GameData gameData;
     public RunData currentRun;
     public BlockGameData blockGame;
@@ -16,9 +18,33 @@ public class GameManager : MonoBehaviour
     public StageData[] stageTemplates;
     public ItemData[] itemTemplates;
 
+    const int STAGE_CHOICE_COUNT = 2;
+    public int currentStageIndex = 1;
+
+    StageData[] nextStageChoices = new StageData[STAGE_CHOICE_COUNT];
+
     // ------------------------------
     // GAME LAYER - start
     // ------------------------------
+
+    void Awake()
+    {
+        // singleton
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    void Start()
+    {
+        StartNewGame();
+    }
 
     public void StartNewGame()
     {
@@ -63,15 +89,33 @@ public class GameManager : MonoBehaviour
         deckManager.Initialize(ref currentRun, ref blockGame);
         shopManager.Initialize(ref currentRun, itemTemplates);
 
-        StartStage((StageType)0);
+        StartStageSelection(StageType.NORMAL);
     }
 
-    public void StartStage(StageType stageType)
+    public void StartStageSelection(StageType stageType)
     {
         // stage Template에서 stagetype이 맞는 것을 랜덤하게 추출
-        var stages = stageTemplates.Where(stage => stage.type == stageType).ToArray();
-        StageData stage = stages[Random.Range(0, stages.Length)];
+        var templates = stageTemplates.Where(stage => stage.type == stageType).ToArray();
+        for (int i = 0; i < nextStageChoices.Length; i++)
+        {
+            nextStageChoices[i] = templates[Random.Range(0, templates.Length)];
+        }
 
+        // UI에 전달
+        GameUIManager.instance.OnStageSelection(nextStageChoices);
+    }
+
+    public void OnStageSelection(int choiceIndex)
+    {
+        // 선택된 스테이지로 진행
+        StageData selectedStage = nextStageChoices[choiceIndex];
+        StartStage(selectedStage);
+        GameUIManager.instance.OnStageStart(currentStageIndex, selectedStage);
+    }
+
+    public void StartStage(StageData stage)
+    {
+        // 스테이지 시작
         stageManager.StartStage(stage);
         
         blockGame = new BlockGameData();
@@ -87,9 +131,15 @@ public class GameManager : MonoBehaviour
             {
                 EndGame(true);
             }
-            else
+            else if (currentStageIndex < 2)
             {
-                StartStage(stageManager.currentStage.type + 1);
+                currentStageIndex++;
+                StartStageSelection(StageType.NORMAL);
+            }
+            else if (currentStageIndex == 2)
+            {
+                currentStageIndex++;
+                StartStageSelection(StageType.BOSS);
             }
         } 
         else 

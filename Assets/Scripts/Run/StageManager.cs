@@ -21,7 +21,7 @@ public class StageManager : MonoBehaviour
     public bool CheckStageClear(BlockGameData blockGameData)
     {
         // 스테이지 클리어 조건 확인
-        return (blockGameData.currentScore >= currentStage.clearRequirement.targetScore);
+        return (blockGameData.currentScore >= currentStage.clearRequirement);
     }
 
     private void ApplyConstraints()

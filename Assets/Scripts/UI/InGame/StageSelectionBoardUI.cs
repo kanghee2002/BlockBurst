@@ -19,6 +19,23 @@ public class StageSelectionBoardUI : MonoBehaviour
     {
         gameUIManager.NextStageChoiceButtonUIPressed(choiceIndex);
     }
+
+    public void InitializeNextStageChoiceUI(StageData[] nextStageChoices)
+    {
+        if (nextStageChoices.Length == nextStageChoiceUI.Length)
+        {
+            for (int i = 0; i < nextStageChoices.Length; i++)
+            {
+                nextStageChoiceUI[i].Initialize(nextStageChoices[i]);
+            }
+        } 
+        else
+        {
+            Debug.LogError("length of nextStageChoices and nextStageChoiceUI is different");
+            return;
+        }
+    }
+
     public void OpenStageSelectionBoardUI()
     {
         stageSelectionBoardUI.SetActive(true);

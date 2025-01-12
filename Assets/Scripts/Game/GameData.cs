@@ -31,5 +31,7 @@ public class GameData
         defaultBlockScores[BlockType.L] = 20;
         defaultBlockScores[BlockType.T] = 20;
 
+        // 기본 배수 설정
+        defaultMatchMultipliers[MatchType.ROW] = 1;
     }
 }

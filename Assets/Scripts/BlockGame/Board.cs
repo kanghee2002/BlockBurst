@@ -76,7 +76,7 @@ public class Board : MonoBehaviour
         }
         else
         {
-            EffectManager.instance.TriggerEffects(TriggerType.ON_BLOCK_PLACE_WITH_LINE_CLEAR, new BlockType[] { block.Type });
+            EffectManager.instance.TriggerEffects(TriggerType.ON_BLOCK_PLACE_WITH_LINE_CLEAR, blockTypes: new BlockType[] { block.Type });
             EffectManager.instance.TriggerEffects(TriggerType.ON_LINE_CLEAR);
         }
 

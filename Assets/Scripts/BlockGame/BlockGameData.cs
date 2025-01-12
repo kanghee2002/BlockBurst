@@ -6,7 +6,7 @@ public class BlockGameData
 {
     // 블럭 게임 데이터
     public Dictionary<BlockType, int> blockScores;                      // 블록 점수
-    public Dictionary<BlockType, int> baseMatchMultiplier;              // 기본 배수
+    public Dictionary<MatchType, int> baseMatchMultiplier;              // 기본 배수
     public Dictionary<MatchType, int> matchMultipliers;                 // 배수
     public int currentScore;                                            // 현재 점수
     public int moveCount;                                               // 이동 횟수
@@ -17,6 +17,7 @@ public class BlockGameData
     public void Initialize(RunData runData)
     {
         blockScores = new Dictionary<BlockType, int>(runData.baseBlockScores);
+        baseMatchMultiplier = new Dictionary<MatchType, int>(runData.baseMatchMultipliers);
         matchMultipliers = new Dictionary<MatchType, int>(runData.baseMatchMultipliers);
         currentScore = 0;
         moveCount = 0;

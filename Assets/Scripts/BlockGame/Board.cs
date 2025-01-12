@@ -7,12 +7,16 @@ using UnityEngine;
 public class Board : MonoBehaviour
 {
     public Cell[,] cells { get; private set; }
-    
+
+    // TEST
+    private RunData runData;
     private BlockGameData gameData;
     private List<int> onClearEffectBlocks;      // 모두 지워질 때 효과 발동하는 블록 ID 저장
 
-    public void Initialize(BlockGameData blockGameData)
+    public void Initialize(RunData runData, BlockGameData blockGameData)
     {
+        // TEST
+        this.runData = runData;
         gameData = blockGameData;
         onClearEffectBlocks = new List<int>();
     }
@@ -76,7 +80,7 @@ public class Board : MonoBehaviour
         }
         else
         {
-            EffectManager.instance.TriggerEffects(TriggerType.ON_BLOCK_PLACE_WITH_LINE_CLEAR, new BlockType[] { block.Type });
+            EffectManager.instance.TriggerEffects(TriggerType.ON_BLOCK_PLACE_WITH_LINE_CLEAR, blockTypes: new BlockType[] { block.Type });
             EffectManager.instance.TriggerEffects(TriggerType.ON_LINE_CLEAR);
         }
 
@@ -118,29 +122,38 @@ public class Board : MonoBehaviour
 
         gameData.currentScore += totalScore;
 
-        Debug.Log("현재 점수: " + gameData.currentScore);
+        Debug.Log("현재 배수: " + gameData.matchMultipliers[MatchType.ROW]);
+        Debug.Log("현재 기본 배수: " + runData.baseMatchMultipliers[MatchType.ROW]);
+
+        // 배수 초기화
+        if (matches.Count > 0)
+        {
+            gameData.matchMultipliers = new(runData.baseMatchMultipliers);
+
+            Debug.Log("현재 점수: " + gameData.currentScore);
+        }
     }
     
     // 매치 확인
     private List<Match> CheckMatches(Block block, Vector2Int pos)
     {
-        List<Match> matches = new List<Match>();
-
         List<int> rows = Enumerable.Range(pos.y, block.Shape.GetLength(1)).ToList();
         List<int> columns = Enumerable.Range(pos.x, block.Shape.GetLength(0)).ToList();
 
         List<Match> rowMatches = CheckRowMatch(rows);
         List<Match> columnMatches = CheckColumnMatch(columns);
 
+        List<Match> matches = new List<Match>();
         foreach (Match match in rowMatches)
         {
             matches.Add(match);
         }
-
         foreach (Match match in columnMatches)
         {
             matches.Add(match);
         }
+
+        ClearCells(matches);
 
         return matches;
     }
@@ -169,6 +182,7 @@ public class Board : MonoBehaviour
             {
                 Match match = new Match()
                 {
+                    index = y,
                     matchType = MatchType.ROW,
                     blockTypes = new List<BlockType>()
                 };
@@ -177,7 +191,6 @@ public class Board : MonoBehaviour
                 {
                     Cell currentCell = cells[x, y];
                     match.blockTypes.Add((BlockType)currentCell.Type);
-                    currentCell.ClearBlock();
                 }
                 matches.Add(match);
             }
@@ -209,6 +222,7 @@ public class Board : MonoBehaviour
             {
                 Match match = new Match()
                 {
+                    index = x,
                     matchType = MatchType.COLUMN,
                     blockTypes = new List<BlockType>()
                 };
@@ -217,7 +231,6 @@ public class Board : MonoBehaviour
                 {
                     Cell currentCell = cells[x, y];
                     match.blockTypes.Add((BlockType)currentCell.Type);
-                    currentCell.ClearBlock();
                 }
                 matches.Add(match);
             }
@@ -229,6 +242,27 @@ public class Board : MonoBehaviour
     private Match CheckSquareMatch(Block block, Vector2Int pos)
     {
         return null;
+    }
+
+    private void ClearCells(List<Match> matches)
+    {
+        foreach (Match match in matches)
+        {
+            if (match.matchType == MatchType.ROW)
+            {
+                for (int x = 0; x < 8; x++)
+                {
+                    cells[x, match.index].ClearBlock();
+                }
+            }
+            else if (match.matchType == MatchType.COLUMN)
+            {
+                for (int y = 0; y < 8; y++)
+                {
+                    cells[match.index, y].ClearBlock();
+                }
+            }
+        }
     }
 
     // 블록 배치 가능 여부 확인

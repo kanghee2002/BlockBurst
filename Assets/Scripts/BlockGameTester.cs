@@ -10,6 +10,8 @@ public class BlockGameTester : MonoBehaviour
 
     [SerializeField] private Transform currentCursor;
 
+    [SerializeField] private EffectData[] effects;
+
     private List<Block> deck;
 
     private List<Block> currentBlocks;
@@ -18,15 +20,52 @@ public class BlockGameTester : MonoBehaviour
 
     private Vector2Int currentOriginCellPosition;
 
+    private GameData gameData;
     private RunData runData;
     private BlockGameData blockGameData;
 
     private void Start()
     {
+        // Deck
         deck = InstantiateBlocks(blockDatas);
         ShuffleDeck();
 
-        currentBlocks = new();
+        // Data
+        gameData = new GameData();
+        gameData.Initialize();
+        gameData.defaultBlockScores = new Dictionary<BlockType, int>()
+        {
+
+            { BlockType.I, 10 },
+            { BlockType.O, 10 },
+            { BlockType.Z, 10 },
+            { BlockType.S, 10 },
+            { BlockType.J, 10 },
+            { BlockType.L, 10 },
+            { BlockType.T, 10 },
+        };
+        runData = new RunData();
+        runData.Initialize(gameData);
+        blockGameData = new BlockGameData();
+        blockGameData.Initialize(runData);
+
+        // Effect
+        EffectManager.instance.Initialize(ref runData);
+        EffectManager.instance.InitializeBlockGameData(ref blockGameData);
+
+        ApplyEffects();
+
+        // Board
+        board.Initialize(runData, blockGameData);
+
+        // Tester
+        currentBlocks = new()
+        {
+            GetBlock(),
+            GetBlock(),
+            GetBlock(),
+        };
+        SetBlockPosition();
 
         currentBlockIndex = 0;
 
@@ -34,45 +73,6 @@ public class BlockGameTester : MonoBehaviour
 
         currentOriginCellPosition = new Vector2Int(0, 0);
 
-        runData = new RunData()
-        {
-            availableBlocks = blockDatas,
-            baseBlockScores = new Dictionary<BlockType, int>()
-            {
-                { BlockType.I, 10 },
-                { BlockType.O, 15 },
-                { BlockType.Z, 25 },
-                { BlockType.S, 25 },
-                { BlockType.J, 20 },
-                { BlockType.L, 20 },
-                { BlockType.T, 20 },
-            },
-            baseRerollCount = 3,
-            baseMultiplier = 1,
-            blockReuses = new Dictionary<BlockType, int>()
-            {
-                { BlockType.I, 0 },
-                { BlockType.O, 0 },
-                { BlockType.Z, 0 },
-                { BlockType.S, 0 },
-                { BlockType.J, 0 },
-                { BlockType.L, 0 },
-                { BlockType.T, 0 },
-            },
-            baseMatchMultipliers = new Dictionary<MatchType, int>()
-            {
-                { MatchType.ROW, 1 },
-                { MatchType.COLUMN, 1 },
-            },
-            activeEffects = new(),
-            
-        };
-
-        blockGameData = new BlockGameData();
-        blockGameData.Initialize(runData);
-        board.Initialize(blockGameData);
-
-        EffectManager.instance.Initialize(ref runData);
     }
 
     private void Update()
@@ -92,16 +92,6 @@ public class BlockGameTester : MonoBehaviour
             if (currentBlockIndex >= currentBlocks.Count) 
                 currentBlockIndex = currentBlocks.Count - 1;
             currentCursor.position = new Vector2(14f, -3.5f * currentBlockIndex);
-        }
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            for (int i = 0; i < 3; i++)
-            {
-                currentBlocks.Add(GetBlock());
-            }
-
-            SetBlockPosition();
         }
 
         // 리롤
@@ -273,5 +263,17 @@ public class BlockGameTester : MonoBehaviour
             return true;
         else
             return false;
+    }
+
+    private void ApplyEffects()
+    {
+        foreach (var effect in effects)
+        {
+            EffectManager.instance.AddEffect(effect);
+            if (effect.trigger == TriggerType.ON_ACQUIRE)
+            {
+                EffectManager.instance.ApplyEffect(effect);
+            }
+        }
     }
 }

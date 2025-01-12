@@ -28,6 +28,11 @@ public class EffectManager : MonoBehaviour
         runData = data;
     }
 
+    public void InitializeBlockGameData(ref BlockGameData data)
+    {
+        blockGameData = data;
+    }
+
     public void AddEffect(EffectData effect)
     {
         runData.activeEffects.Add(effect);
@@ -38,61 +43,68 @@ public class EffectManager : MonoBehaviour
         return runData.activeEffects.Remove(effect);
     }
 
-    public void TriggerEffects(TriggerType trigger, BlockType[] blockTypes = null, int blockId = -1, int triggerValue = 0) 
+    public void TriggerEffects(TriggerType trigger, int triggerValue = 0, BlockType[] blockTypes = null, int blockId = -1) 
     {
         foreach (EffectData effect in runData.activeEffects)
         {
-            if (effect.trigger == trigger && IsArraysEqual(effect.blockTypes, blockTypes) &&
+            if (effect.trigger == trigger && IsIncluded(effect.blockTypes, blockTypes) &&
                 effect.blockId == blockId && effect.triggerValue == triggerValue)
             {
-                ApplyEffect(effect);
+                ApplyEffect(effect, blockId);
             }
         }
     }
 
-    public void ApplyEffect(EffectData effect)
+    public void ApplyEffect(EffectData effect, int blockId = -1)
     {
-        // 임시 변수 선언
-        BlockType blockType;
-        MatchType matchType;
-        BlockData blockData;
-        /*
+        MatchType matchType = MatchType.ROW;
+
+        if (effect.probability != 1)
+        {
+            // 랜덤 적용
+        }
+
         // 효과 적용
         switch (effect.type)
         {
             case EffectType.SCORE_MODIFIER:
-                blockType = (BlockType)effect.parameters[0];
-                blockGameData.blockScores[blockType] += effect.value;
+                foreach (BlockType blockType in effect.blockTypes)
+                {
+                    runData.baseBlockScores[blockType] += effect.effectValue;
+                    blockGameData.blockScores[blockType] += effect.effectValue;
+                }
                 break;
             case EffectType.MULTIPLIER_MODIFIER:
-                matchType = (MatchType)effect.parameters[0];
-                blockGameData.matchMultipliers[matchType] += effect.value;
+                blockGameData.matchMultipliers[matchType] += effect.effectValue;
+                Debug.Log("효과 적용된 배수: " + blockGameData.matchMultipliers[matchType]);
                 break;
             case EffectType.BASEMULTIPLIER_MODIFIER:
-                matchType = (MatchType)effect.parameters[0];
-                runData.baseMatchMultipliers[matchType] += effect.value;
+                runData.baseMatchMultipliers[matchType] += effect.effectValue;
+                blockGameData.matchMultipliers[matchType] += effect.effectValue;
                 break;
             case EffectType.BASEMULTIPLIER_MULTIPLIER:
-                matchType = (MatchType)effect.parameters[0];
-                runData.baseMatchMultipliers[matchType] *= effect.value;
+                runData.baseMatchMultipliers[matchType] *= effect.effectValue;
+                blockGameData.matchMultipliers[matchType] *= effect.effectValue;
                 break;
             case EffectType.REROLL_MODIFIER:
-                blockGameData.rerollCount += effect.value;
+                blockGameData.rerollCount += effect.effectValue;
                 break;
             case EffectType.BASEREROLL_MODIFIER:            
-                runData.currentRerollCount += effect.value;
+                runData.currentRerollCount += effect.effectValue;
+                blockGameData.rerollCount += effect.effectValue;
                 break;
             case EffectType.BASEREROLL_MULTIPLIER:
-                runData.currentRerollCount *= effect.value;
+                runData.currentRerollCount *= effect.effectValue;
+                blockGameData.rerollCount *= effect.effectValue;
                 break;
             case EffectType.GOLD_MODIFIER:
-                runData.gold += effect.value;
+                runData.gold += effect.effectValue;
                 break;
             case EffectType.GOLD_MULTIPLIER:
-                runData.gold *= effect.value;
+                runData.gold *= effect.effectValue;
                 break;
             case EffectType.BOARD_SIZE_MODIFIER:
-                runData.boardSize += effect.value;
+                runData.boardSize += effect.effectValue;
                 break;
             case EffectType.BOARD_CORNER:
                 // TODO
@@ -104,8 +116,7 @@ public class EffectManager : MonoBehaviour
                 // TODO
                 break;
             case EffectType.BLOCK_REUSE_MODIFIER:
-                blockData = (BlockData)effect.parameters[0];
-                blockData.reuseCount += effect.value;
+                // TODO
                 break;
             case EffectType.SQUARE_CLEAR:
                 // TODO
@@ -128,14 +139,10 @@ public class EffectManager : MonoBehaviour
             default:
                 break;
         }
-        */
     }
 
-    private bool IsArraysEqual(BlockType[] arr1, BlockType[] arr2)
+    private bool IsIncluded(BlockType[] arr1, BlockType[] arr2)
     {
-        HashSet<BlockType> set1 = new HashSet<BlockType>(arr1);
-        HashSet<BlockType> set2 = new HashSet<BlockType>(arr2);
-
-        return set1.SetEquals(set2);
+        return arr1.All(x => arr2.Contains(x));
     }
 }

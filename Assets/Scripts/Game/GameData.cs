@@ -23,13 +23,15 @@ public class GameData
         defaultRerollCount = 3;
 
         // 기본 블록 점수 설정
-        defaultBlockScores[BlockType.I] = 100;
-        defaultBlockScores[BlockType.O] = 100;
-        defaultBlockScores[BlockType.T] = 150;
-        defaultBlockScores[BlockType.L] = 120;
-        defaultBlockScores[BlockType.J] = 120;
-        defaultBlockScores[BlockType.S] = 130;
-        defaultBlockScores[BlockType.Z] = 130;
+        defaultBlockScores[BlockType.I] = 10;
+        defaultBlockScores[BlockType.O] = 15;
+        defaultBlockScores[BlockType.Z] = 25;
+        defaultBlockScores[BlockType.S] = 25;
+        defaultBlockScores[BlockType.J] = 20;
+        defaultBlockScores[BlockType.L] = 20;
+        defaultBlockScores[BlockType.T] = 20;
 
+        // 기본 배수 설정
+        defaultMatchMultipliers[MatchType.ROW] = 1;
     }
 }

@@ -32,7 +32,7 @@ public class ScoreCalculator : MonoBehaviour
         }
 
         int totalScore = 0;
-        foreach (BlockType blockType in match.blockTypes)
+        foreach ((BlockType blockType, int id) in match.blocks)
         {
             totalScore += data.blockScores[blockType];
         }

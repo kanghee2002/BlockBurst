@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 public class Board : MonoBehaviour
@@ -126,6 +127,29 @@ public class Board : MonoBehaviour
             EffectManager.instance.TriggerEffects(TriggerType.ON_LINE_CLEAR);
             EffectManager.instance.TriggerEffects(TriggerType.ON_LINE_CLEAR_WITH_COUNT, triggerValue: matchCount);
             EffectManager.instance.TriggerEffects(TriggerType.ON_MULTIPLE_LINE_CLEAR, triggerValue: matches.Count);
+
+            HashSet<(BlockType, int)> clearedBlocks = new HashSet<(BlockType, int)>();
+            foreach (Match match in matches)
+            {
+                clearedBlocks.UnionWith(match.blocks);
+            }
+
+            // 특정 블록이 포함돼있을 때
+            HashSet<BlockType> hashedBlockTypes = new HashSet<BlockType>(clearedBlocks.Select(x => x.Item1));
+            foreach (BlockType blockType in hashedBlockTypes)
+            {
+                EffectManager.instance.TriggerEffects(TriggerType.ON_LINE_CLEAR_WITH_SPECIFIC_BLOCKS, blockTypes: new BlockType[] { blockType });  
+            }
+            // 같은 종류의 블록이 있으면
+            if (clearedBlocks.Count > hashedBlockTypes.Count)
+            {
+                EffectManager.instance.TriggerEffects(TriggerType.ON_LINE_CLEAR_WITH_SAME_BLOCK);
+            }
+            // 모두 다른 종류의 블록이면
+            if (clearedBlocks.Count == hashedBlockTypes.Count)
+            {
+                EffectManager.instance.TriggerEffects(TriggerType.ON_LINE_CLEAR_WITH_DISTINCT_BLOCKS);
+            }
         }
 
         // 가로, 세로 줄 지우기 관련
@@ -149,8 +173,6 @@ public class Board : MonoBehaviour
         {
             EffectManager.instance.TriggerEffects(TriggerType.ON_CROSS_LINE_CLEAR);
         }
-
-        // 특정 블록이 포함돼있을 때
 
 
         // 점수 계산
@@ -184,15 +206,8 @@ public class Board : MonoBehaviour
         List<Match> rowMatches = CheckRowMatch(rows);
         List<Match> columnMatches = CheckColumnMatch(columns);
 
-        foreach (Match match in rowMatches)
-        {
-            matches.Add(match);
-        }
-
-        foreach (Match match in columnMatches)
-        {
-            matches.Add(match);
-        }
+        matches.AddRange(rowMatches);
+        matches.AddRange(columnMatches);
 
         return matches;
     }
@@ -222,13 +237,13 @@ public class Board : MonoBehaviour
                 Match match = new Match()
                 {
                     matchType = MatchType.ROW,
-                    blockTypes = new List<BlockType>()
+                    blocks = new List<(BlockType, int)>()
                 };
                 // TEST: 8 -> Board Size로 변경 필요
                 for (int x = 0; x < 8; x++)
                 {
                     Cell currentCell = cells[x, y];
-                    match.blockTypes.Add((BlockType)currentCell.Type);
+                    match.blocks.Add(((BlockType)currentCell.Type, currentCell.BlockID));
                     currentCell.ClearBlock();
                 }
                 matches.Add(match);
@@ -262,13 +277,13 @@ public class Board : MonoBehaviour
                 Match match = new Match()
                 {
                     matchType = MatchType.COLUMN,
-                    blockTypes = new List<BlockType>()
+                    blocks = new List<(BlockType, int)>()
                 };
                 // TEST: 8 -> Board Size로 변경 필요
                 for (int y = 0; y < 8; y++)
                 {
                     Cell currentCell = cells[x, y];
-                    match.blockTypes.Add((BlockType)currentCell.Type);
+                    match.blocks.Add(((BlockType)currentCell.Type, currentCell.BlockID));
                     currentCell.ClearBlock();
                 }
                 matches.Add(match);

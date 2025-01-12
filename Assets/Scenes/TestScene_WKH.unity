@@ -4093,6 +4093,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b0172120c75fca6458b0f441243560a9, type: 2}
   - {fileID: 11400000, guid: 24a5634cee7354d4fa928d54f928a471, type: 2}
   - {fileID: 11400000, guid: e939360afcef8914dbd213eb46618b27, type: 2}
+  - {fileID: 11400000, guid: c25c441b238b98245bd4070a8b26a3ef, type: 2}
   - {fileID: 11400000, guid: dfd317ceae9fff3408a3fcb9a2dfa9ec, type: 2}
   - {fileID: 11400000, guid: d8aac9c1adf4acf4fba208ed137a32df, type: 2}
   - {fileID: 11400000, guid: c25c441b238b98245bd4070a8b26a3ef, type: 2}
@@ -4109,7 +4110,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e939360afcef8914dbd213eb46618b27, type: 2}
   currentCursor: {fileID: 1512917794}
   effects:
-  - {fileID: 11400000, guid: 6c530266671bce24a964539c4dd77489, type: 2}
+  - {fileID: 11400000, guid: 3e935774c75bd7140849da22e9981b9f, type: 2}
 --- !u!4 &941430067
 Transform:
   m_ObjectHideFlags: 0

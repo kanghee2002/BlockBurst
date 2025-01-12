@@ -24,9 +24,12 @@ public class BlockGameTester : MonoBehaviour
     private RunData runData;
     private BlockGameData blockGameData;
 
+    private int blockIdCount;
+
     private void Start()
     {
         // Deck
+        blockIdCount = 0;
         deck = InstantiateBlocks(blockDatas);
         ShuffleDeck();
 
@@ -228,10 +231,14 @@ public class BlockGameTester : MonoBehaviour
             GameObject blockObject = Instantiate(data.prefab);
             Block block = blockObject.GetComponent<Block>();
             BlockType blockType = data.type;
-            block.Initialize(data, 0, 0);
+            block.Initialize(data, blockIdCount++, 0);
             blocks.Add(block);
 
-            // TEST
+            int cnt = Random.Range(0, 4);
+            for (int i = 0; i < cnt; i++)
+            {
+                block.RotateShape();
+            }
             blockObject.transform.position = new Vector3(10, 10);
         }
 

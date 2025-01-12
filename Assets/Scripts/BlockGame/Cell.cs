@@ -36,6 +36,13 @@ public class Cell : MonoBehaviour
         GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f);
     }
 
+    public void BlockCell()
+    {
+        Type = null;
+        IsBlocked = true;
+        BlockID = -1;
+    }
+
     // Test Code ////////////////////////////////////////////////////////////
     public Vector2Int cellPosition;
 

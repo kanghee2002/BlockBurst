@@ -70,9 +70,9 @@ public enum TriggerType
     ON_MULTIPLE_LINE_CLEAR,                 // * 여러 줄을 한 번에 지울 때
     ON_LINE_CLEAR,                          // * 줄을 지울 때
     ON_LINE_CLEAR_WITH_COUNT,               // * 줄을 N번째 지울 때
-    ON_LINE_CLEAR_WITH_SPECIFIC_BLOCKS,     // 줄을 지울 때 특정 블록이 포함돼있으면
-    ON_LINE_CLEAR_WITH_SAME_BLOCK,          // 줄을 지울 때 같은 종류의 블록이 있으면
-    ON_LINE_CLEAR_WITH_DISTINCT_BLOCKS,     // 줄을 지울 때 모두 다른 종류의 블록이면
+    ON_LINE_CLEAR_WITH_SPECIFIC_BLOCKS,     // * 줄을 지울 때 특정 블록이 포함돼있으면
+    ON_LINE_CLEAR_WITH_SAME_BLOCK,          // * 줄을 지울 때 같은 종류의 블록이 있으면
+    ON_LINE_CLEAR_WITH_DISTINCT_BLOCKS,     // * 줄을 지울 때 모두 다른 종류의 블록이면
     ON_LINE_CLEAR_CONSECUTIVELY,            // * 연속으로 줄을 지울 때 
     ON_FIRST_LINE_CLEAR,                    // * 처음 줄이 지워질 때
     ON_DECK_EMPTY,                          // 덱이 비었을 때

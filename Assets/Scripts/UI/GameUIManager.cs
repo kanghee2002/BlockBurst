@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameUIManager : MonoBehaviour
 {
+    public static GameUIManager instance;
     //private GameManager gameManager;
 
     [SerializeField] private StageInfoUI stageInfoUI;
@@ -48,6 +49,17 @@ public class GameUIManager : MonoBehaviour
     {
         popupState = PopupState.none;
         initializeManagerInstances();
+        
+        // singleton
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void initializeManagerInstances()
@@ -129,7 +141,7 @@ public class GameUIManager : MonoBehaviour
     {
         if (sceneState == SceneState.shopping && popupState == PopupState.none)
         {
-            Debug.Log("´ÙÀ½ ½ºÅ×ÀÌÁö·Î ¹öÆ° ´­¸²");
+            Debug.Log("ë‹¤ìŒ ìŠ¤í…Œì´ì§€ë¡œ ë²„íŠ¼ ëˆŒë¦¼");
         }
     }
 
@@ -137,7 +149,7 @@ public class GameUIManager : MonoBehaviour
     {
         if (sceneState == SceneState.shopping && popupState == PopupState.none)
         {
-            Debug.Log("¾ÆÀÌÅÛ ¸®·Ñ ¹öÆ° ´­¸²");
+            Debug.Log("ì•„ì´í…œ ë¦¬ë¡¤ ë²„íŠ¼ ëˆŒë¦¼");
             OnRerolled();
         }
     }
@@ -147,11 +159,12 @@ public class GameUIManager : MonoBehaviour
     {
         if (sceneState == SceneState.selecting && popupState == PopupState.none)
         {
-            Debug.Log("´ÙÀ½ ½ºÅ×ÀÌÁö ¼±ÅÃÁö ¹öÆ° ´­·ÈÀ½. "
-                + "¿ø·¡´ë·Î¶ó¸é ¿©±â¿¡¼­ Á¤º¸¸¦ ¹º°¡ ÁÖ°í ¹Ş¾Æ¾ß°ÚÁö? "
-                + "ÀÏ´Ü selecting -> playingÀ¸·Î sceneState ¹Ù²Ş.");
-            ChangeSceneState(SceneState.playing);
-
+            GameManager.instance.OnStageSelection(choiceIndex);   
+            /*
+            Debug.Log("ë‹¤ìŒ ìŠ¤í…Œì´ì§€ ì„ íƒì§€ ë²„íŠ¼ ëˆŒë ¸ìŒ. "
+                + "ì›ë˜ëŒ€ë¡œë¼ë©´ ì—¬ê¸°ì—ì„œ ì •ë³´ë¥¼ ë­”ê°€ ì£¼ê³  ë°›ì•„ì•¼ê² ì§€? "
+                + "ì¼ë‹¨ selecting -> playingìœ¼ë¡œ sceneState ë°”ê¿ˆ.");
+                */
         }
     }
 
@@ -187,6 +200,7 @@ public class GameUIManager : MonoBehaviour
         
         yield return null;
     }
+
     IEnumerator CoroutinePlayingToShopping()
     {
         stageInfoUI.CloseStageInfoUI();
@@ -215,10 +229,11 @@ public class GameUIManager : MonoBehaviour
         yield return null;
     }
 
-    // ÀÌÇÏ model ºÎºĞ°úÀÇ ÀÇ»ç¼ÒÅëÀ» À§ÇÑ Ã¢±¸... °¥ ±æÀÌ ¸Ö´Ù.
-    // On: GameUIManager -(ÀÌº¥Æ®)-> GameManager
-    // Notify: GameManager -(ÀÌº¥Æ®)-> GameUIManager
-    // Get: GameUIManager°¡ GameManager·ÎºÎÅÍ Á¤º¸¸¦ °¡Á®¿È
+    // ì´í•˜ model ë¶€ë¶„ê³¼ì˜ ì˜ì‚¬ì†Œí†µì„ ìœ„í•œ ì°½êµ¬... ê°ˆ ê¸¸ì´ ë©€ë‹¤.
+    // On: GameUIManager -(ì´ë²¤íŠ¸)-> GameManager
+    // Notify: GameManager -(ì´ë²¤íŠ¸)-> GameUIManager
+    // Get: GameUIManagerê°€ GameManagerë¡œë¶€í„° ì •ë³´ë¥¼ ê°€ì ¸ì˜´
+    /*
     public void NotifyChapterIsUpdated(int updatedChapter)
     {
         stageInfoUI.UpdateChapter(updatedChapter);
@@ -248,30 +263,55 @@ public class GameUIManager : MonoBehaviour
     {
         goldInfoUI.UpdateGold(updatedGold);
     }
+    */
     public void GetRunInfo()
     {
-        Debug.Log("°ÔÀÓ¸Å´ÏÀú¾ß ÇÃ·¹ÀÌ¾î°¡ ·± Á¤º¸¸¦ ¿­¾ú¾î! ·± Á¤º¸ °¡Á®°¥°Ô!");
+        Debug.Log("ê²Œì„ë§¤ë‹ˆì €ì•¼ í”Œë ˆì´ì–´ê°€ ëŸ° ì •ë³´ë¥¼ ì—´ì—ˆì–´! ëŸ° ì •ë³´ ê°€ì ¸ê°ˆê²Œ!");
     }
 
     public void GetOption()
     {
-        Debug.Log("°ÔÀÓ¸Å´ÏÀú¾ß ÇÃ·¹ÀÌ¾î°¡ ¿É¼ÇÀ» ¿­¾ú¾î! ÇöÀç ¼³Á¤µÇ¾îÀÖ´Â ¿É¼Ç Á¤º¸µé °¡Á®°¥°Ô!");
-    } // ¿É¼Ç¿¡ µé¾î°¥ Ç×¸ñ¿¡ µû¶ó, ÇÃ·¹ÀÌ¾î°¡ ¾î¶² ¿É¼ÇÀ» Á¶ÀÛÇÒ ¶§ ¸¶´Ù ±×°Í¿¡ ÇØ´çÇÏ´Â °Í ¸¶´Ù SetÇÒ ¼ö ÀÖ°Ô ¸Ş¼­µå ÇÊ¿äÇÔ.
+        Debug.Log("ê²Œì„ë§¤ë‹ˆì €ì•¼ í”Œë ˆì´ì–´ê°€ ì˜µì…˜ì„ ì—´ì—ˆì–´! í˜„ì¬ ì„¤ì •ë˜ì–´ìˆëŠ” ì˜µì…˜ ì •ë³´ë“¤ ê°€ì ¸ê°ˆê²Œ!");
+    } // ì˜µì…˜ì— ë“¤ì–´ê°ˆ í•­ëª©ì— ë”°ë¼, í”Œë ˆì´ì–´ê°€ ì–´ë–¤ ì˜µì…˜ì„ ì¡°ì‘í•  ë•Œ ë§ˆë‹¤ ê·¸ê²ƒì— í•´ë‹¹í•˜ëŠ” ê²ƒ ë§ˆë‹¤ Setí•  ìˆ˜ ìˆê²Œ ë©”ì„œë“œ í•„ìš”í•¨.
 
     public void OnRerolled()
     {
-        Debug.Log("°ÔÀÓ¸Å´ÏÀú¾ß ¸®·Ñ¹öÆ°ÀÌ ´­·È¾î!!!");
+        Debug.Log("ê²Œì„ë§¤ë‹ˆì €ì•¼ ë¦¬ë¡¤ë²„íŠ¼ì´ ëˆŒë ¸ì–´!!!");
     }
     public void NotifyRerolled()
     {
-        // ¸®·ÑÀÌ ½ÃÇàµÇ¾úÀ» ¶§ È£ÃâµÇ´Â ¸Ş¼­µå
-        // ÆĞ·¯¹ÌÅÍ·Î µå·Î¿ì µÈ ºí·Ïµé¿¡ ´ëÇÑ Á¤º¸¸¦ ¹Ş¾Æ¿Í¼­
-        // ºí·ÏÀ» ÇÚµå¿¡ »õÆÃÇØ ³õ´Â ¸Ş¼­µåÀÓ...
-        // ³­ ¹¹°¡ ¹ºÁö ¸ô¶ó¼­ ±×³É ºó ÇÔ¼ö·Î ³ÀµÑ°Ô...
+        // ë¦¬ë¡¤ì´ ì‹œí–‰ë˜ì—ˆì„ ë•Œ í˜¸ì¶œë˜ëŠ” ë©”ì„œë“œ
+        // íŒ¨ëŸ¬ë¯¸í„°ë¡œ ë“œë¡œìš° ëœ ë¸”ë¡ë“¤ì— ëŒ€í•œ ì •ë³´ë¥¼ ë°›ì•„ì™€ì„œ
+        // ë¸”ë¡ì„ í•¸ë“œì— ìƒˆíŒ…í•´ ë†“ëŠ” ë©”ì„œë“œì„...
+        // ë‚œ ë­ê°€ ë­”ì§€ ëª°ë¼ì„œ ê·¸ëƒ¥ ë¹ˆ í•¨ìˆ˜ë¡œ ëƒ…ë‘˜ê²Œ...
     }
 
     public void GetDeckInfo()
     {
-        Debug.Log("°ÔÀÓ¸Å´ÏÀú¾ß ÇÃ·¹ÀÌ¾î°¡ µ¦À» ¿­¾ú¾î! µ¦ Á¤º¸ °¡Á®°¥°Ô!");
+        Debug.Log("ê²Œì„ë§¤ë‹ˆì €ì•¼ í”Œë ˆì´ì–´ê°€ ë±ì„ ì—´ì—ˆì–´! ë± ì •ë³´ ê°€ì ¸ê°ˆê²Œ!");
+    }
+    
+    public void OnStageSelection(StageData[] nextStageChoices)
+    {
+        // stageDataë“¤ì„ ë°›ì•„ì™€ì„œ UIì— ë¿Œë ¤ì£¼ëŠ” ë©”ì„œë“œ
+        if (nextStageChoices.Length == 2)
+        {
+            stageSelectionBoardUI.InitializeNextStageChoiceUI(nextStageChoices);
+            stageSelectionBoardUI.OpenStageSelectionBoardUI();
+        }
+        else
+        {
+            // ì¶”í›„ ì§€ì› ì˜ˆì •
+            /*
+            stageSelectionSignboardUI.InitializeNextStageChoiceUI(nextStageChoices);
+            stageSelectionSignboardUI.OpenStageSelectionSignboardUI();
+            */
+        }
+    }
+
+    public void OnStageStart(int stageIndex, StageData stageData)
+    {        
+        stageInfoUI.Initialize(stageIndex, stageData);
+        ChangeSceneState(SceneState.playing);
     }
 }

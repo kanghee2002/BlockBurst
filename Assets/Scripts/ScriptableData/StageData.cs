@@ -5,18 +5,19 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Stage", menuName = "BlockBurst/Stage")]
 public class StageData : ScriptableObject
 {
-    public string id;                        // ½ºÅ×ÀÌÁö ID
-    public StageType type;                   // Normal1, Normal2, Boss
-    public Vector2Int boardSize;             // º¸µå Å©±â
-    public List<Vector2Int> blockedCells;    // »ç¿ë ºÒ°¡´ÉÇÑ ¼¿
-    public List<EffectData> constraints;     // ½ºÅ×ÀÌÁö Á¦ÇÑ»çÇ×
-    public StageRequirement clearRequirement; // Å¬¸®¾î Á¶°Ç
-    public int goldReward;                   // Å¬¸®¾î º¸»ó
+    public string id;                        // ìŠ¤í…Œì´ì§€ ID
+    public StageType type;                   // Normal, Boss
+    public Vector2Int boardSize;             // ë³´ë“œ ì‚¬ì´ì¦ˆ
+    public List<Vector2Int> blockedCells;    // ë§‰íŒ ì…€
+    public List<EffectData> constraints;     // ì œì•½ ì¡°ê±´
+    public int clearRequirement;             // í´ë¦¬ì–´ ì¡°ê±´ (ì„ì‹œë¡œ int)
+    public int goldReward;                   // ë³´ìƒ ê³¨ë“œ
 }
 
-public class StageRequirement
+// ì¼ë‹¨ ì•ˆ ì”€
+public struct StageRequirement
 {
-    public int targetScore;      // ¸ñÇ¥ Á¡¼ö
-    public int maxMoves;         // ÃÖ´ë ÀÌµ¿ ¼ö
-    public int minLineClears;    // ÃÖ¼Ò ¶óÀÎ Å¬¸®¾î ¼ö
+    public int targetScore;      // ëª©í‘œ ì ìˆ˜
+    public int maxMoves;         // ìµœëŒ€ ì´ë™ìˆ˜
+    public int minLineClears;    // ìµœì†Œ ë¼ì¸ í´ë¦¬ì–´ ìˆ˜
 }

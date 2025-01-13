@@ -1,27 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class UIEvents : MonoBehaviour
+public static class UIEvents
 {
     /*
-    // º¸µå °ü·Ã
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public static event Action<Cell[,]> OnBoardChanged;
     public static event Action<Block, Vector2Int> OnBlockMoved;
     public static event Action<BlockData, Vector2Int> OnBlockPlaced;
     public static event Action<MatchType, List<Vector2Int>> OnMatchCompleted;
 
-    // µ¦ °ü·Ã
+    // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public static event Action<List<BlockData>> OnDeckChanged;
     public static event Action OnRerollRequested;
 
-    // Á¡¼ö/ÁøÇà °ü·Ã
+    // ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public static event Action<int> OnScoreChanged;
     public static event Action<int> OnGoldChanged;
     public static event Action<StageProgress> OnProgressUpdated;
 
-    // »óÁ¡ °ü·Ã
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public static event Action<ItemData> OnItemSelected;
     public static event Action<BlockData> OnUpgradeSelected;
+
+    // ìŠ¤í…Œì´ì§€ ì„ íƒ ì‹œì‘
+    public static event Action<StageData[]> OnStageSelection;
     */
 }

@@ -6,6 +6,7 @@ using UnityEngine;
 public class EffectData : ScriptableObject
 {
     public string id;                               // 효과 ID
+    public string effectName;                             // 효과 이름
     public EffectType type;                         // 효과 타입
     public TriggerType trigger;                     // 발동 조건
     public int effectValue;                         // 데이터 수정치

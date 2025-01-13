@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using static Unity.Collections.AllocatorManager;
 
 public class Board : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class Board : MonoBehaviour
     private RunData runData;
     private BlockGameData gameData;
 
-    private List<int> onClearEffectBlocks;      // 모두 지워질 때 효과 발동하는 블록 ID 저장
+    private List<(BlockType, int)> onClearEffectBlocks;      // 모두 지워질 때 효과 발동하는 블록 ID 저장
     private int matchCount;
     private bool hasMatched;
     private bool isHalfFull;
@@ -23,8 +24,7 @@ public class Board : MonoBehaviour
         gameData = blockGameData;
         EffectManager.instance.TriggerEffects(TriggerType.ON_BOARD_NOT_HALF_FULL);
 
-
-        onClearEffectBlocks = new List<int>();
+        onClearEffectBlocks = new List<(BlockType, int)>();
         matchCount = 0;
         hasMatched = false;
         isHalfFull = false;
@@ -38,6 +38,8 @@ public class Board : MonoBehaviour
         if (CanPlace(block, pos))
         {
             isPlaced = true;
+
+            onClearEffectBlocks.Add((block.Type, block.Id));
 
             int width = block.Shape.GetLength(0);
             int height = block.Shape.GetLength(1);
@@ -175,6 +177,12 @@ public class Board : MonoBehaviour
         }
 
 
+        // 지운 블록들 비우기
+        ClearCells(matches);
+
+        // 모두 지워질 때 효과를 가진 블록 중 지워진 것 있는지 확인
+        CheckOnClearEffectBlocks();
+
         // 점수 계산
         int totalScore = 0;
         foreach (Match match in matches)
@@ -193,6 +201,7 @@ public class Board : MonoBehaviour
             Debug.Log("계산된 점수: " + totalScore);
             gameData.matchMultipliers = new(runData.baseMatchMultipliers);
         }
+
     }
 
     // 매치 확인
@@ -236,6 +245,7 @@ public class Board : MonoBehaviour
             {
                 Match match = new Match()
                 {
+                    index = y,
                     matchType = MatchType.ROW,
                     blocks = new List<(BlockType, int)>()
                 };
@@ -243,7 +253,6 @@ public class Board : MonoBehaviour
                 {
                     Cell currentCell = cells[x, y];
                     match.blocks.Add(((BlockType)currentCell.Type, currentCell.BlockID));
-                    currentCell.ClearBlock();
                 }
                 matches.Add(match);
             }
@@ -275,6 +284,7 @@ public class Board : MonoBehaviour
             {
                 Match match = new Match()
                 {
+                    index = x,
                     matchType = MatchType.COLUMN,
                     blocks = new List<(BlockType, int)>()
                 };
@@ -282,7 +292,6 @@ public class Board : MonoBehaviour
                 {
                     Cell currentCell = cells[x, y];
                     match.blocks.Add(((BlockType)currentCell.Type, currentCell.BlockID));
-                    currentCell.ClearBlock();
                 }
                 matches.Add(match);
             }
@@ -356,6 +365,57 @@ public class Board : MonoBehaviour
         else
         {
             return false;
+        }
+    }
+
+    private void ClearCells(List<Match> matches)
+    {
+        int column = cells.GetLength(0);
+        int row = cells.GetLength(1);
+
+        foreach (Match match in matches)
+        {
+            if (match.matchType == MatchType.ROW)
+            {
+                for (int x = 0; x < column; x++)
+                {
+                    cells[x, match.index].ClearBlock();
+                }
+            }
+            else if (match.matchType == MatchType.COLUMN)
+            {
+                for (int y = 0; y < row; y++)
+                {
+                    cells[match.index, y].ClearBlock();
+                }
+            }
+        }
+    }
+
+    private void CheckOnClearEffectBlocks()
+    {
+        int column = cells.GetLength(0);
+        int row = cells.GetLength(1);
+
+        HashSet<int> blocks = new HashSet<int>();
+
+        for (int x = 0; x < column; x++)
+        {
+            for (int y = 0; y < row; y++)
+            {
+                blocks.Add(cells[x, y].BlockID);
+            }
+        }
+
+        for (int i = onClearEffectBlocks.Count - 1; i >= 0; i--)
+        {
+            (BlockType blockType, int id) = onClearEffectBlocks[i];
+
+            if (!blocks.Contains(id))
+            {
+                EffectManager.instance.TriggerEffects(TriggerType.ON_BLOCK_CLEAR, blockTypes: new BlockType[] { blockType });
+                onClearEffectBlocks.RemoveAt(i);
+            }
         }
     }
 

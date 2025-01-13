@@ -28,6 +28,11 @@ public class Cell : MonoBehaviour
 
     public void ClearBlock()
     {
+        if (IsBlocked && BlockID == -1)
+        {
+            return;
+        }
+
         Type = null;
         BlockID = -1;
         IsBlocked = false;

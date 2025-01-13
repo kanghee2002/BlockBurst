@@ -252,7 +252,11 @@ public class Board : MonoBehaviour
                 for (int x = 0; x < column; x++)
                 {
                     Cell currentCell = cells[x, y];
-                    match.blocks.Add(((BlockType)currentCell.Type, currentCell.BlockID));
+
+                    if (currentCell.IsBlocked && currentCell.BlockID != -1)
+                    {
+                        match.blocks.Add(((BlockType)currentCell.Type, currentCell.BlockID));
+                    }
                 }
                 matches.Add(match);
             }
@@ -291,7 +295,11 @@ public class Board : MonoBehaviour
                 for (int y = 0; y < row; y++)
                 {
                     Cell currentCell = cells[x, y];
-                    match.blocks.Add(((BlockType)currentCell.Type, currentCell.BlockID));
+
+                    if (currentCell.IsBlocked && currentCell.BlockID != -1)
+                    {
+                        match.blocks.Add(((BlockType)currentCell.Type, currentCell.BlockID));
+                    }
                 }
                 matches.Add(match);
             }

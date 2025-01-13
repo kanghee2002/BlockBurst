@@ -26,8 +26,12 @@ public class BlockGameTester : MonoBehaviour
 
     private int blockIdCount;
 
+    private bool isFirstUpdated;
+
     private void Start()
     {
+        isFirstUpdated = false;
+
         // Deck
         blockIdCount = 0;
         deck = InstantiateBlocks(blockDatas);
@@ -60,7 +64,7 @@ public class BlockGameTester : MonoBehaviour
 
         // Board
         board.Initialize(runData, blockGameData);
-
+        
         // Tester
         currentBlocks = new()
         {
@@ -80,6 +84,11 @@ public class BlockGameTester : MonoBehaviour
 
     private void Update()
     {
+        if (!isFirstUpdated)
+        {
+            isFirstUpdated = true;
+        }
+
         HandleArrowInput();
 
         if (Input.GetKeyDown(KeyCode.W))
@@ -147,7 +156,6 @@ public class BlockGameTester : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             SetCellColor(1f);
-
 
             currentOriginCellPosition = new Vector2Int(currentOriginCellPosition.x - 1, currentOriginCellPosition.y);
 
@@ -282,5 +290,11 @@ public class BlockGameTester : MonoBehaviour
                 EffectManager.instance.ApplyEffect(effect);
             }
         }
+    }
+
+    private void BlockCell(int x, int y)
+    {
+        board.cells[x, y].BlockCell();
+        board.cells[x, y].GetComponent<SpriteRenderer>().color = new Color(1f, 0f, 0f);
     }
 }

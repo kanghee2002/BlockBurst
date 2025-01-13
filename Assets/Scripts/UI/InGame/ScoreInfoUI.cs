@@ -1,10 +1,14 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class ScoreInfoUI : MonoBehaviour
 {
+    [SerializeField] private TextMeshProUGUI scoreText;
+
     [SerializeField] private GameObject scoreInfoUI;
     [SerializeField] private RectTransform rectTransform;
     // inside anchored position = (300,80)
@@ -27,8 +31,12 @@ public class ScoreInfoUI : MonoBehaviour
                 scoreInfoUI.SetActive(false);
             });
     }
+    public void Initialize(int _score)
+    {
+        UpdateScore(_score);
+    }
     public void UpdateScore(int _score)
     {
-        Debug.Log("Score has been updated.");
+        scoreText.text = _score.ToString();
     }
 }

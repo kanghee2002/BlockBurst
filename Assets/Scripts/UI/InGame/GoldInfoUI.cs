@@ -1,11 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GoldInfoUI : MonoBehaviour
 {
-    public void UpdateGold(int _gainGold)
+    [SerializeField] private TextMeshProUGUI goldText;
+
+    public void Initialize(int _gold)
     {
-        Debug.Log("Gold has been updated.");
+        UpdateGold(_gold);
+    }
+    public void UpdateGold(int _gold)
+    {
+        goldText.text = _gold.ToString();
     }
 }

@@ -1,12 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class RerollInfoUI : MonoBehaviour
 {
-    [SerializeField] private GameObject rerollCountText;
-    public void UpdateRerollCount(int countToSet)
+    [SerializeField] private TextMeshProUGUI rerollCountText;
+
+    public void Initialize(int _rerollCount)
     {
-        Debug.Log("Reroll Count has been updated.");
+        UpdateRerollCount(_rerollCount);
+    }
+    public void UpdateRerollCount(int _rerollCount)
+    {
+        rerollCountText.text = _rerollCount.ToString();
     }
 }

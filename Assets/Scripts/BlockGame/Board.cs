@@ -216,13 +216,13 @@ public class Board : MonoBehaviour
     private List<Match> CheckRowMatch(List<int> rows)
     {
         List<Match> matches = new List<Match>();
+        int column = cells.GetLength(0);
 
         foreach (int y in rows)
         {
             // 한 줄 완성 확인
             bool isMatched = true;
-            // TEST: 8 -> Board Size로 변경 필요
-            for (int x = 0; x < 8; x++)
+            for (int x = 0; x < column; x++)
             {
                 if (!cells[x, y].IsBlocked)
                 {
@@ -239,8 +239,7 @@ public class Board : MonoBehaviour
                     matchType = MatchType.ROW,
                     blocks = new List<(BlockType, int)>()
                 };
-                // TEST: 8 -> Board Size로 변경 필요
-                for (int x = 0; x < 8; x++)
+                for (int x = 0; x < column; x++)
                 {
                     Cell currentCell = cells[x, y];
                     match.blocks.Add(((BlockType)currentCell.Type, currentCell.BlockID));
@@ -256,13 +255,13 @@ public class Board : MonoBehaviour
     private List<Match> CheckColumnMatch(List<int> columns)
     {
         List<Match> matches = new List<Match>();
+        int row = cells.GetLength(1);
 
         foreach (int x in columns)
         {
             // 한 줄 완성 확인
             bool isMatched = true;
-            // TEST: 8 -> Board Size로 변경 필요
-            for (int y = 0; y < 8; y++)
+            for (int y = 0; y < row; y++)
             {
                 if (!cells[x, y].IsBlocked)
                 {
@@ -279,8 +278,7 @@ public class Board : MonoBehaviour
                     matchType = MatchType.COLUMN,
                     blocks = new List<(BlockType, int)>()
                 };
-                // TEST: 8 -> Board Size로 변경 필요
-                for (int y = 0; y < 8; y++)
+                for (int y = 0; y < row; y++)
                 {
                     Cell currentCell = cells[x, y];
                     match.blocks.Add(((BlockType)currentCell.Type, currentCell.BlockID));
@@ -301,12 +299,12 @@ public class Board : MonoBehaviour
     // 블록 배치 가능 여부 확인
     private bool CanPlace(Block block, Vector2Int pos)
     {
-        int width = block.Shape.GetLength(0);
-        int height = block.Shape.GetLength(1);
+        int column = block.Shape.GetLength(0);
+        int row = block.Shape.GetLength(1);
 
-        for (int x = 0; x < width; x++)
+        for (int x = 0; x < column; x++)
         {
-            for (int y = 0; y < height; y++)
+            for (int y = 0; y < row; y++)
             {
                 if (block.Shape[x, y])
                 {
@@ -323,8 +321,7 @@ public class Board : MonoBehaviour
 
     private bool IsOutOfBoard(Vector2Int pos)
     {
-        // Need to change 8 to board size
-        if (pos.x < 0 || pos.x >= 8 || pos.y < 0 || pos.y >= 8)
+        if (pos.x < 0 || pos.x >= cells.GetLength(0) || pos.y < 0 || pos.y >= cells.GetLength(1))
             return true;
         else
             return false;

@@ -7,6 +7,7 @@ using System.Linq;
 
 public class StageInfoUI : MonoBehaviour
 {
+    [SerializeField] private TextMeshProUGUI chapterText;
     [SerializeField] private TextMeshProUGUI stageText;
     [SerializeField] private TextMeshProUGUI debuffText;
     [SerializeField] private TextMeshProUGUI scoreAtLeastText;
@@ -17,13 +18,6 @@ public class StageInfoUI : MonoBehaviour
     private const float insidePositionY = 320;
     private const float outsidePositionOffsetY = 540;
     private const float duration = 0.2f;
-
-    void Awake()
-    {
-        stageText = transform.Find("StageText").GetComponent<TextMeshProUGUI>();
-        debuffText = transform.Find("DebuffText").GetComponent<TextMeshProUGUI>();
-        scoreAtLeastText = transform.Find("ScoreAtLeastText").GetComponent<TextMeshProUGUI>();
-    }
 
     public void OpenStageInfoUI()
     {
@@ -52,25 +46,22 @@ public class StageInfoUI : MonoBehaviour
 
     public void UpdateChapter(int chapter)
     {
-        //Debug.Log("Chapter has been updated.");
+        chapterText.text = chapter.ToString();
     }
 
     public void UpdateStage(int stage)
     {
-        //Debug.Log("Stage has been updated.");
         stageText.text = stage.ToString();
     }
 
     public void UpdateDebuffText(string[] debuffTexts)
     {
-        //Debug.Log("DebuffText has been updated.");
         string text = string.Join("\n", debuffTexts);
         debuffText.text = text;
     }
 
     public void UpdateScoreAtLeast(int scoreAtLeast)
     {
-        //Debug.Log("ScoreAtLeast has been updated.");
         scoreAtLeastText.text = scoreAtLeast.ToString();
     }
 }

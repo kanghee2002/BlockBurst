@@ -9,15 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
-  m_Name: MagazineRainbowEffect
+  m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
+  m_Name: GrayRose
   m_EditorClassIdentifier: 
-  id: MagazineRainbowEffect
-  effectName: MagazineRainbowEffect
+  id: GrayRose
+  effects:
+  - {fileID: 11400000, guid: 0f2fcdbac9f6d4449a8fcd2918e16dad, type: 2}
+  cost: 0
   type: 1
-  trigger: 2
-  effectValue: 1
-  blockTypes: 
-  blockId: -1
-  probability: 1
-  triggerValue: 0
+  block: {fileID: 0}

@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
-  m_Name: BlueCube
+  m_Name: Eraser
   m_EditorClassIdentifier: 
-  id: BlueCube
+  id: Eraser
   effects:
-  - {fileID: 11400000, guid: 6c530266671bce24a964539c4dd77489, type: 2}
+  - {fileID: 11400000, guid: 9d38315ad01c69a47902a725a27f25ff, type: 2}
+  - {fileID: 11400000, guid: a740e0e77fd94a04d808b1642c040542, type: 2}
   cost: 0
   type: 1
   block: {fileID: 0}

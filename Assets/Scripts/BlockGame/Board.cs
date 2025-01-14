@@ -114,7 +114,6 @@ public class Board : MonoBehaviour
         // 줄이 지워졌을 때
         else
         {
-            EffectManager.instance.TriggerEffects(TriggerType.ON_BLOCK_PLACE_WITH_LINE_CLEAR, blockTypes: new BlockType[] { block.Type });
             if (hasMatched)
             {
                 EffectManager.instance.TriggerEffects(TriggerType.ON_LINE_CLEAR_CONSECUTIVELY);

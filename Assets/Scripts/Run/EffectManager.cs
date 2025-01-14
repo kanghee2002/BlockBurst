@@ -49,6 +49,11 @@ public class EffectManager : MonoBehaviour
         return runData.activeEffects.Remove(effect);
     }
 
+    public bool ContainsEffect(EffectData effect)
+    {
+        return runData.activeEffects.Contains(effect);
+    }
+
     public void TriggerEffects(TriggerType trigger, int triggerValue = 0, BlockType[] blockTypes = null, int blockId = -1) 
     {
         foreach (EffectData effect in runData.activeEffects)

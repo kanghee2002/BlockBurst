@@ -48,6 +48,19 @@ public class ShopManager : MonoBehaviour
             {
                 deckManager.AddBlock(item.block);
             }
+
+            // 특수 블록은 첫 구매에만 효과 등록
+            if (Enums.IsSpecialBlockType(item.block.type))
+            {
+                foreach (EffectData effect in item.block.effects)
+                {
+                    if (EffectManager.instance.ContainsEffect(effect))
+                    {
+                        continue;
+                    }
+                    EffectManager.instance.AddEffect(effect);
+                }
+            }
         }
         else if (item.type == ItemType.DELETE_BLOCK)
         {
@@ -69,8 +82,8 @@ public class ShopManager : MonoBehaviour
         {
             foreach (EffectData effect in item.effects)
             {
-                //UpgradeBlock(item.block, effect);
-
+                // 아이템처럼 취급
+                // 구매 시 등록 (BlockData의 effects로 등록 X)
                 EffectManager.instance.AddEffect(effect);
             }
         }

@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: GiftBoxEffect2
   m_EditorClassIdentifier: 
   id: GiftBoxEffect2
-  effectName: GiftBoxEffect2
-  type: 15
+  effectName: "\uB371\uC758 \uBAA8\uB4E0 \uD2B9\uC218 \uBE14\uB85D\uC744 2\uBC30\uB85C
+    \uBCF5\uC0AC"
+  type: 17
   trigger: 0
   effectValue: 2
   blockTypes: 0700000008000000090000000a0000000b0000000c0000000d000000

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: KeyEffect2
   m_EditorClassIdentifier: 
   id: KeyEffect2
-  effectName: KeyEffect2
-  type: 2
+  effectName: "\uAE30\uBCF8 \uBC30\uC218 -3"
+  type: 3
   trigger: 0
   effectValue: -3
   blockTypes: 

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: RedMagnifierEffect1
   m_EditorClassIdentifier: 
   id: RedMagnifierEffect1
-  effectName: RedMagnifierEffect1
-  type: 9
+  effectName: "\uBCF4\uB4DC \uD06C\uAE30 \uD55C \uCE78 \uAC10\uC18C"
+  type: 11
   trigger: 0
   effectValue: -1
   blockTypes: 

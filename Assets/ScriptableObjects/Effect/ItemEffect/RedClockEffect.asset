@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: RedClockEffect
   m_EditorClassIdentifier: 
   id: RedClockEffect
-  effectName: RedClockEffect
-  type: 2
+  effectName: "\uC904\uC744 7\uBC88 \uC9C0\uC6B8 \uB54C\uB9C8\uB2E4 \uC601\uAD6C\uC801\uC73C\uB85C
+    \uAE30\uBCF8 \uBC30\uC218 +1"
+  type: 3
   trigger: 10
   effectValue: 1
   blockTypes: 

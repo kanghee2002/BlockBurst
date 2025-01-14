@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DecreaseMultiplierNotHalfFullEffect2
   m_EditorClassIdentifier: 
   id: DecreaseMultiplierNotHalfFullEffect2
-  effectName: DecreaseMultiplierNotHalfFullEffect2
+  effectName: 
   type: 2
   trigger: 19
   effectValue: 4

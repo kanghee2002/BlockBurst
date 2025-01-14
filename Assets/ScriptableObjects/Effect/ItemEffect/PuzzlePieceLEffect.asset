@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: PuzzlePieceLEffect
   m_EditorClassIdentifier: 
   id: PuzzlePieceLEffect
-  effectName: PuzzlePieceLEffect
-  type: 1
+  effectName: "L \uBE14\uB85D\uC744 \uBC30\uCE58\uD558\uC5EC \uC904\uC744 \uC9C0\uC6B8
+    \uB54C \uBC30\uC218 +2"
+  type: 2
   trigger: 3
   effectValue: 2
   blockTypes: 05000000

@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: CoinZEffect
   m_EditorClassIdentifier: 
   id: CoinZEffect
-  effectName: CoinZEffect
-  type: 7
+  effectName: "\uC904\uC744 \uC9C0\uC6B8 \uB54C Z \uBE14\uB85D\uC774 \uD3EC\uD568\uB3FC\uC788\uC73C\uBA74
+    \uACE8\uB4DC +1"
+  type: 9
   trigger: 11
   effectValue: 1
   blockTypes: 02000000

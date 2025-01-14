@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: BlockSMultiplierUpgradeEffect 1
   m_EditorClassIdentifier: 
   id: BlockSMultiplierUpgradeEffect 1
-  effectName: BlockSMultiplierUpgradeEffect 1
-  type: 1
+  effectName: "\uC774 \uBE14\uB85D\uC744 \uBC30\uCE58\uD558\uC5EC \uC904\uC744 \uC9C0\uC6B8
+    \uB54C \uBC30\uC218 +1"
+  type: 2
   trigger: 3
   effectValue: 1
   blockTypes: 03000000

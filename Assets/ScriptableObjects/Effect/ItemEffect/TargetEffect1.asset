@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: TargetEffect1
   m_EditorClassIdentifier: 
   id: TargetEffect1
-  effectName: TargetEffect1
-  type: 11
+  effectName: "\uBCF4\uB4DC\uC758 \uBB34\uC791\uC704 3\uCE78\uC774 \uB9C9\uD798"
+  type: 13
   trigger: 22
   effectValue: 3
   blockTypes: 

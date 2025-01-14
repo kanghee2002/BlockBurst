@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DebuffOScoreEffect
   m_EditorClassIdentifier: 
   id: DebuffOScoreEffect
-  effectName: DebuffOScoreEffect
+  effectName: "O \uBE14\uB85D \uC810\uC218\uAC00 0\uC774 \uB428"
   type: 1
   trigger: 0
   effectValue: 0

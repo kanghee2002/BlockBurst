@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlueCubeEffect
   m_EditorClassIdentifier: 
   id: BlueCubeEffect
-  effectName: BlueCubeEffect
+  effectName: "\uBAA8\uB4E0 \uAE30\uBCF8 \uBE14\uB85D \uC810\uC218 +20"
   type: 0
   trigger: 0
   effectValue: 20

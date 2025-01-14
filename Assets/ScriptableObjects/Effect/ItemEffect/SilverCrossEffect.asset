@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: SilverCrossEffect
   m_EditorClassIdentifier: 
   id: SilverCrossEffect
-  effectName: SilverCrossEffect
-  type: 2
+  effectName: "\uAC00\uB85C, \uC138\uB85C \uC904\uC744 \uD55C \uBC88\uC5D0 \uC9C0\uC6B8
+    \uB54C \uC601\uAD6C\uC801\uC73C\uB85C \uAE30\uBCF8 \uBC30\uC218 +1"
+  type: 3
   trigger: 7
   effectValue: 1
   blockTypes: 

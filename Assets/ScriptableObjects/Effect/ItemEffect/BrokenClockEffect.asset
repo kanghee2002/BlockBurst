@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: BrokenClockEffect
   m_EditorClassIdentifier: 
   id: BrokenClockEffect
-  effectName: BrokenClockEffect
-  type: 4
+  effectName: "\uC904\uC744 5\uBC88 \uC9C0\uC6B8 \uB54C\uB9C8\uB2E4 \uB9AC\uB864
+    \uD69F\uC218 +1"
+  type: 5
   trigger: 10
   effectValue: 1
   blockTypes: 

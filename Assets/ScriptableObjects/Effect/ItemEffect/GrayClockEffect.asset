@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: GrayClockEffect
   m_EditorClassIdentifier: 
   id: GrayClockEffect
-  effectName: GrayClockEffect
-  type: 5
+  effectName: "\uC904\uC744 10\uBC88 \uC9C0\uC6B8 \uB54C\uB9C8\uB2E4 \uC601\uAD6C\uC801\uC73C\uB85C
+    \uAE30\uBCF8 \uB9AC\uB864 \uD69F\uC218 +1"
+  type: 7
   trigger: 10
   effectValue: 1
   blockTypes: 

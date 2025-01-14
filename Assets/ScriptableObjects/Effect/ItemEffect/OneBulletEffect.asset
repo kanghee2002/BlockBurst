@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: OneBulletEffect
   m_EditorClassIdentifier: 
   id: OneBulletEffect
-  effectName: OneBulletEffect
-  type: 1
+  effectName: "\uB371\uC774 \uBE44\uC5C8\uC744 \uB54C\uB9C8\uB2E4 \uBC30\uC218 +15"
+  type: 2
   trigger: 16
   effectValue: 15
   blockTypes: 

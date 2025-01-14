@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BrokenKeyEffect2
   m_EditorClassIdentifier: 
   id: BrokenKeyEffect2
-  effectName: BrokenKeyEffect2
+  effectName: "\uB098\uBA38\uC9C0 \uAE30\uBCF8 \uBE14\uB85D\uB4E4 \uC810\uC218 +200"
   type: 0
   trigger: 0
   effectValue: 200

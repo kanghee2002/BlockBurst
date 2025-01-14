@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlockTScoreUpgradeEffect
   m_EditorClassIdentifier: 
   id: BlockTScoreUpgradeEffect
-  effectName: BlockTScoreUpgradeEffect
+  effectName: "\uC774 \uBE14\uB85D \uC810\uC218 +7"
   type: 0
   trigger: 0
   effectValue: 7

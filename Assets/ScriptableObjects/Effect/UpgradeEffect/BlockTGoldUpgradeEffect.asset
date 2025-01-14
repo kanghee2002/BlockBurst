@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: BlockTGoldUpgradeEffect
   m_EditorClassIdentifier: 
   id: BlockTGoldUpgradeEffect
-  effectName: BlockTGoldUpgradeEffect
-  type: 7
+  effectName: "\uC774 \uBE14\uB85D\uC744 \uBC30\uCE58\uD558\uC5EC \uC904\uC744 \uC9C0\uC6B8
+    \uB54C \uACE8\uB4DC +1"
+  type: 9
   trigger: 3
   effectValue: 1
   blockTypes: 06000000

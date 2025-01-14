@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: DecreaseDrawBlockCountEffect
   m_EditorClassIdentifier: 
   id: DecreaseDrawBlockCountEffect
-  effectName: DecreaseDrawBlockCountEffect
+  effectName: "\uBC30\uCE58\uD560 \uC218 \uC788\uB294 \uBE14\uB85D\uC774 3\uAC1C\uC5D0\uC11C
+    2\uAC1C\uB85C \uAC10\uC18C"
   type: 23
   trigger: 0
   effectValue: 2

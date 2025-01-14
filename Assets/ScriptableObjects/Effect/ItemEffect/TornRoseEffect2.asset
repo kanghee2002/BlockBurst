@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: TornRoseEffect2
   m_EditorClassIdentifier: 
   id: TornRoseEffect2
-  effectName: TornRoseEffect2
-  type: 2
+  effectName: "\uAE30\uBCF8 \uBC30\uC218 +3"
+  type: 3
   trigger: 0
   effectValue: 3
   blockTypes: 

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: WindowEffect2
   m_EditorClassIdentifier: 
   id: WindowEffect2
-  effectName: WindowEffect2
-  type: 15
+  effectName: "\uB371\uC758 I/O \uBE14\uB85D\uC744 2\uBC30\uB85C \uBCF5\uC0AC"
+  type: 17
   trigger: 0
   effectValue: 2
   blockTypes: 0000000001000000

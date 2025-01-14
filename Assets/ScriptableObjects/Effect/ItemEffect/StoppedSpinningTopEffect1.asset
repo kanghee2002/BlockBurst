@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: StoppedSpinningTopEffect1
   m_EditorClassIdentifier: 
   id: StoppedSpinningTopEffect
-  effectName: StoppedSpinningTopEffect
-  type: 5
+  effectName: "\uAE30\uBCF8 \uB9AC\uB864 \uD69F\uC218 +10"
+  type: 7
   trigger: 0
   effectValue: 10
   blockTypes: 

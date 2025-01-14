@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: BlueMagnifierEffect1
   m_EditorClassIdentifier: 
   id: BlueMagnifierEffect1
-  effectName: BlueMagnifierEffect1
-  type: 9
+  effectName: "\uBCF4\uB4DC \uD06C\uAE30 \uD55C \uCE78 \uC99D\uAC00"
+  type: 11
   trigger: 0
   effectValue: 1
   blockTypes: 

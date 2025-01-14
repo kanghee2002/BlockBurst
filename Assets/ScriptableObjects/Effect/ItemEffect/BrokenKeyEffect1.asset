@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BrokenKeyEffect1
   m_EditorClassIdentifier: 
   id: BrokenKeyEffect1
-  effectName: BrokenKeyEffect1
+  effectName: "I/O \uBE14\uB85D\uC744 \uB371\uC5D0\uC11C \uBAA8\uB450 \uC0AD\uC81C"
   type: 16
   trigger: 0
   effectValue: 0

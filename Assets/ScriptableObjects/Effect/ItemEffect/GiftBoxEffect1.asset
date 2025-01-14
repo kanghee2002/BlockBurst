@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: GiftBoxEffect1
   m_EditorClassIdentifier: 
   id: GiftBoxEffect1
-  effectName: GiftBoxEffect1
-  type: 2
+  effectName: "\uAE30\uBCF8 \uBC30\uC218 -2"
+  type: 3
   trigger: 0
   effectValue: -2
   blockTypes: 

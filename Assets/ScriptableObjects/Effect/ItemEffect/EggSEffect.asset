@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: EggSEffect
   m_EditorClassIdentifier: 
   id: EggSEffect
-  effectName: EggSEffect
-  type: 1
+  effectName: "\uC904\uC744 \uC9C0\uC6B8 \uB54C S \uBE14\uB85D\uC774 \uD3EC\uD568\uB3FC\uC788\uC73C\uBA74
+    \uBC30\uC218 +1"
+  type: 2
   trigger: 11
   effectValue: 2
   blockTypes: 03000000

@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: MagazineEffect
   m_EditorClassIdentifier: 
   id: MagazineEffect
-  effectName: MagazineEffect
-  type: 1
+  effectName: "\uBE14\uB85D\uC744 \uBC30\uCE58\uD560 \uB54C \uC904\uC774 \uC9C0\uC6CC\uC9C0\uC9C0
+    \uC54A\uC73C\uBA74 \uBC30\uC218 +1"
+  type: 2
   trigger: 2
   effectValue: 1
   blockTypes: 

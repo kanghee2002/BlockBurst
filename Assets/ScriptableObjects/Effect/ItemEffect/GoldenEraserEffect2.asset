@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: GoldenEraserEffect2
   m_EditorClassIdentifier: 
   id: GoldenEraserEffect2
-  effectName: GoldenEraserEffect2
-  type: 7
+  effectName: "\uC904\uC744 \uC9C0\uC6B8 \uB54C \uACE8\uB4DC -1"
+  type: 9
   trigger: 9
   effectValue: -1
   blockTypes: 

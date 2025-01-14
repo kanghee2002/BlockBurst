@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: GrayRoseEffect
   m_EditorClassIdentifier: 
   id: GrayRoseEffect
-  effectName: GrayRoseEffect
-  type: 6
+  effectName: "\uAE30\uBCF8 \uB9AC\uB864 \uD69F\uC218\uB97C 2\uBC30\uB85C \uB9CC\uB4E6"
+  type: 8
   trigger: 0
   effectValue: 2
   blockTypes: 

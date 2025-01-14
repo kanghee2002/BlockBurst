@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: GraySpinningTopEffect
   m_EditorClassIdentifier: 
   id: GraySpinningTopEffect
-  effectName: GraySpinningTopEffect
-  type: 4
+  effectName: "\uBE14\uB85D\uC744 \uBC30\uCE58\uD558\uC9C0 \uC54A\uACE0 \uB9AC\uB864\uD558\uBA74
+    \uB9AC\uB864 \uD69F\uC218 +1"
+  type: 5
   trigger: 18
   effectValue: 1
   blockTypes: 

@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: RedBookEffect
   m_EditorClassIdentifier: 
   id: RedBookEffect
-  effectName: RedBookEffect
-  type: 1
+  effectName: "\uC5F0\uC18D\uC73C\uB85C \uC904\uC744 \uC9C0\uC6B8 \uB54C \uBC30\uC218
+    +2"
+  type: 2
   trigger: 14
   effectValue: 2
   blockTypes: 

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: RedSpinningTopEffect
   m_EditorClassIdentifier: 
   id: RedSpinningTopEffect
-  effectName: RedSpinningTopEffect
-  type: 1
+  effectName: "\uB9AC\uB864\uD560 \uB54C\uB9C8\uB2E4 \uBC30\uC218 +1"
+  type: 2
   trigger: 17
   effectValue: 1
   blockTypes: 

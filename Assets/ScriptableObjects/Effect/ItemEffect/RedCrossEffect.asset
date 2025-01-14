@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: RedCrossEffect
   m_EditorClassIdentifier: 
   id: RedCrossEffect
-  effectName: RedCrossEffect
-  type: 1
+  effectName: "\uAC00\uB85C, \uC138\uB85C \uC904\uC744 \uD55C \uBC88\uC5D0 \uC9C0\uC6B8
+    \uB54C \uBC30\uC218 +6"
+  type: 2
   trigger: 7
   effectValue: 6
   blockTypes: 

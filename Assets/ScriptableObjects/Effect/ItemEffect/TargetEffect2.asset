@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: TargetEffect2
   m_EditorClassIdentifier: 
   id: TargetEffect2
-  effectName: TargetEffect2
-  type: 2
+  effectName: "\uAE30\uBCF8 \uBC30\uC218 +5"
+  type: 3
   trigger: 0
   effectValue: 5
   blockTypes: 

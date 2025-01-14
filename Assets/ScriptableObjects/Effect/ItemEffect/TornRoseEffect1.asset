@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: TornRoseEffect1
   m_EditorClassIdentifier: 
   id: TornRoseEffect1
-  effectName: TornRoseEffect1
-  type: 8
+  effectName: "\uAC00\uC9C0\uACE0 \uC788\uB294 \uACE8\uB4DC\uB97C \uBAA8\uB450 \uC783\uACE0"
+  type: 10
   trigger: 0
   effectValue: 0
   blockTypes: 

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: RedRoseEffect
   m_EditorClassIdentifier: 
   id: RedRoseEffect
-  effectName: RedRoseEffect
-  type: 3
+  effectName: "\uAE30\uBCF8 \uBC30\uC218\uB97C 2\uBC30\uB85C \uB9CC\uB4E6"
+  type: 4
   trigger: 0
   effectValue: 2
   blockTypes: 

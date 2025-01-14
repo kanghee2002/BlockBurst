@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: BlockJRerollUpgradeEffect
   m_EditorClassIdentifier: 
   id: BlockJRerollUpgradeEffect
-  effectName: BlockJRerollUpgradeEffect
-  type: 4
+  effectName: "\uC774 \uBE14\uB85D\uC744 \uBC30\uCE58\uD558\uC5EC \uC904\uC744 \uC9C0\uC6B8
+    \uB54C \uB9AC\uB864 \uD69F\uC218 +1"
+  type: 5
   trigger: 3
   effectValue: 1
   blockTypes: 04000000

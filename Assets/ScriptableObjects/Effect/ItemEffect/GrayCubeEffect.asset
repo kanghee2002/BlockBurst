@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: GrayCubeEffect
   m_EditorClassIdentifier: 
   id: GrayCubeEffect
-  effectName: GrayCubeEffect
-  type: 5
+  effectName: "\uAE30\uBCF8 \uB9AC\uB864 \uD69F\uC218 +3"
+  type: 7
   trigger: 0
   effectValue: 3
   blockTypes: 

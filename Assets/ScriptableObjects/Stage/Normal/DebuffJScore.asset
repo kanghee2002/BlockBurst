@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: DebuffJScore
   type: 0
-  boardSize: {x: 0, y: 0}
+  boardSize: {x: 8, y: 8}
   blockedCells: []
   constraints:
   - {fileID: 11400000, guid: 287feb0d7ed400940b8b19eac4a27050, type: 2}

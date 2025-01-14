@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: DecreaseGoldOnReroll
   type: 0
-  boardSize: {x: 0, y: 0}
+  boardSize: {x: 8, y: 8}
   blockedCells: []
   constraints:
   - {fileID: 11400000, guid: a955585cc30b78549ae9a63911e65a97, type: 2}

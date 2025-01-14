@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: DebuffReroll
   type: 0
-  boardSize: {x: 0, y: 0}
+  boardSize: {x: 8, y: 8}
   blockedCells: []
   constraints:
   - {fileID: 11400000, guid: 4cb6a6daecdbf2b498770a4f7c1d8418, type: 2}

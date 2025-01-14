@@ -44,7 +44,7 @@ public enum EffectType
     GOLD_MODIFIER,              // * 골드 수정
     GOLD_MULTIPLIER,            // * 골드 N배
     BOARD_SIZE_MODIFIER,        // 보드 크기 수정
-    BOARD_CORNER,               // 보드 가장자리 제한
+    BOARD_CORNER_BLOCK,         // 보드 가장자리 제한
     BOARD_RANDOM_BLOCK,         // 보드 무작위 N칸 제한
     DECK_MODIFIER,              // 덱 수정
     BLOCK_REUSE_MODIFIER,       // 블록 재사용
@@ -88,4 +88,29 @@ public enum TriggerType
 public enum ItemType
 {
     ADD_BLOCK, DELETE_BLOCK, ITEM, UPGRADE
+}
+
+public class Enums
+{
+    public static bool IsDefaultBlockType(BlockType blockType)
+    {
+        switch (blockType)
+        {
+            case BlockType.I:
+            case BlockType.O:
+            case BlockType.Z:
+            case BlockType.S:
+            case BlockType.J:
+            case BlockType.L:
+            case BlockType.T:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    public static bool IsSpecialBlockType(BlockType blockType)
+    {
+        return !IsDefaultBlockType(blockType);
+    }
 }

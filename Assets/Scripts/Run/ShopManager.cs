@@ -43,7 +43,19 @@ public class ShopManager : MonoBehaviour
     {
         if (item.type == ItemType.ADD_BLOCK)
         {
-            deckManager.AddBlock(item.block);
+            int addCount = 2;
+            for (int i = 0; i < addCount; i++)
+            {
+                deckManager.AddBlock(item.block);
+            }
+        }
+        else if (item.type == ItemType.DELETE_BLOCK)
+        {
+            int deleteCount = 2;
+            for (int i = 0; i < deleteCount; i++)
+            {
+                deckManager.RemoveBlock(item.block);
+            }
         }
         else if (item.type == ItemType.ITEM)
         {
@@ -56,12 +68,18 @@ public class ShopManager : MonoBehaviour
                     EffectManager.instance.ApplyEffect(effect);
                 }
             }
-        } 
+        }
         else if (item.type == ItemType.UPGRADE) 
         {
             foreach (EffectData effect in item.effects)
             {
-                UpgradeBlock(item.block, effect);
+                //UpgradeBlock(item.block, effect);
+
+                EffectManager.instance.AddEffect(effect);
+                if (effect.trigger == TriggerType.ON_ACQUIRE)
+                {
+                    EffectManager.instance.ApplyEffect(effect);
+                }
             }
         }
     }

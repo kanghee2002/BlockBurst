@@ -115,11 +115,13 @@ public class GameManager : MonoBehaviour
 
     public void StartStage(StageData stage)
     {
-        // 스테이지 시작
-        stageManager.StartStage(stage);
-        
         blockGame = new BlockGameData();
         blockGame.Initialize(currentRun);
+
+        EffectManager.instance.InitializeBlockGameData(ref blockGame);
+
+        // 스테이지 시작
+        stageManager.StartStage(stage);
     }
 
     public void EndStage(bool cleared)

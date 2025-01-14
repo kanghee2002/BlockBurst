@@ -35,10 +35,12 @@ public enum StageType
 public enum EffectType
 {
     SCORE_MODIFIER,             // * 점수 수정
+    SCORE_MULTIPLIER,           // * 점수 N배
     MULTIPLIER_MODIFIER,        // * 배수 수정
     BASEMULTIPLIER_MODIFIER,    // * 기본 배수 수정
     BASEMULTIPLIER_MULTIPLIER,  // * 기본 배수 N배
     REROLL_MODIFIER,            // * 리롤 횟수 수정
+    REROLL_MULTIPLIER,          // * 리롤 횟수 N배
     BASEREROLL_MODIFIER,        // * 기본 리롤 횟수 수정
     BASEREROLL_MULTIPLIER,      // * 기본 리롤 횟수 N배
     GOLD_MODIFIER,              // * 골드 수정

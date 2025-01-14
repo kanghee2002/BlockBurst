@@ -89,3 +89,28 @@ public enum ItemType
 {
     ADD_BLOCK, DELETE_BLOCK, ITEM, UPGRADE
 }
+
+public class Enums
+{
+    public static bool IsDefaultBlockType(BlockType blockType)
+    {
+        switch (blockType)
+        {
+            case BlockType.I:
+            case BlockType.O:
+            case BlockType.Z:
+            case BlockType.S:
+            case BlockType.J:
+            case BlockType.L:
+            case BlockType.T:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    public static bool IsSpecialBlockType(BlockType blockType)
+    {
+        return !IsDefaultBlockType(blockType);
+    }
+}

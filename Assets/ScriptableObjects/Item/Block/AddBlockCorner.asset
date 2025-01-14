@@ -15,6 +15,6 @@ MonoBehaviour:
   id: AddBlockCorner
   itemName: "\uCF54\uB108 \uBE14\uB85D 2\uAC1C \uCD94\uAC00"
   effects: []
-  cost: 0
+  cost: 5
   type: 0
   block: {fileID: 11400000, guid: 905263e11040dfa48b2e8e65e0ee073b, type: 2}

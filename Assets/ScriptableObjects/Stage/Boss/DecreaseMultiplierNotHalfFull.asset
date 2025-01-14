@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: DecreaseMultiplierNotHalfFull
   type: 1
-  boardSize: {x: 0, y: 0}
+  boardSize: {x: 8, y: 8}
   blockedCells: []
   constraints:
   - {fileID: 11400000, guid: 81dc9f024f518eb47b903f8c11993cba, type: 2}
   - {fileID: 11400000, guid: 2face4ffe411bb44da1b3165ce6050fa, type: 2}
-  clearRequirement: 0
-  goldReward: 0
+  clearRequirement: 700
+  goldReward: 10

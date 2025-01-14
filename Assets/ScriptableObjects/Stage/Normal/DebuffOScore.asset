@@ -18,5 +18,5 @@ MonoBehaviour:
   blockedCells: []
   constraints:
   - {fileID: 11400000, guid: 0aac72b29c3352a499473c38cbb87c28, type: 2}
-  clearRequirement: 0
-  goldReward: 0
+  clearRequirement: 300
+  goldReward: 5

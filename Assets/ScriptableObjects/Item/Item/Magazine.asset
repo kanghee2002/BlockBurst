@@ -16,6 +16,6 @@ MonoBehaviour:
   itemName: "\uD0C4\uCC3D"
   effects:
   - {fileID: 11400000, guid: 104f7b7f65e1f7441887b782cc6dd13e, type: 2}
-  cost: 0
+  cost: 4
   type: 1
   block: {fileID: 0}

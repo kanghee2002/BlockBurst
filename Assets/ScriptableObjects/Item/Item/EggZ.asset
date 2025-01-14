@@ -16,6 +16,6 @@ MonoBehaviour:
   itemName: "Z \uC54C"
   effects:
   - {fileID: 11400000, guid: e0107c7a3f3d88b439bc0b24cbfcb960, type: 2}
-  cost: 0
+  cost: 4
   type: 1
   block: {fileID: 0}

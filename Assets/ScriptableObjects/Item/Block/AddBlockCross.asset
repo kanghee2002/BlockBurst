@@ -15,6 +15,6 @@ MonoBehaviour:
   id: BlockCross
   itemName: "\uD06C\uB85C\uC2A4 \uBE14\uB85D 2\uAC1C \uCD94\uAC00"
   effects: []
-  cost: 0
+  cost: 5
   type: 0
   block: {fileID: 11400000, guid: 1b92fd88d904cea4a9266b5b7e507600, type: 2}

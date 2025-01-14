@@ -16,6 +16,6 @@ MonoBehaviour:
   itemName: "O \uCC45"
   effects:
   - {fileID: 11400000, guid: 6fe089a794da01a4ea863da63771fa85, type: 2}
-  cost: 0
+  cost: 4
   type: 1
   block: {fileID: 0}

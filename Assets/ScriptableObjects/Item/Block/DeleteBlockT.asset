@@ -15,6 +15,6 @@ MonoBehaviour:
   id: BlockT
   itemName: "T \uBE14\uB85D 2\uAC1C \uC0AD\uC81C"
   effects: []
-  cost: 0
+  cost: 2
   type: 1
   block: {fileID: 11400000, guid: 24a5634cee7354d4fa928d54f928a471, type: 2}

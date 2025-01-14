@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Window
   m_EditorClassIdentifier: 
   id: Window
+  itemName: "\uCC3D\uBB38"
   effects:
   - {fileID: 11400000, guid: 2da4239983d419f469648e9fdef73131, type: 2}
   - {fileID: 11400000, guid: 47f3e24a12ebac0468a96547c98f7f74, type: 2}

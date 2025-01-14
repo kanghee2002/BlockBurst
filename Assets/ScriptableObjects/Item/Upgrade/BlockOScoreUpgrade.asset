@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BlockOScoreUpgrade
   m_EditorClassIdentifier: 
   id: BlockOScoreUpgrade
+  itemName: "\uC810\uC218 \uC99D\uAC00"
   effects:
   - {fileID: 11400000, guid: b8022cb1834b4ca45b6a33592771c23a, type: 2}
   cost: 0

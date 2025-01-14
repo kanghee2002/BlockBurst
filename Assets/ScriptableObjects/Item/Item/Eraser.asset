@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Eraser
   m_EditorClassIdentifier: 
   id: Eraser
+  itemName: "\uC9C0\uC6B0\uAC1C"
   effects:
   - {fileID: 11400000, guid: 9d38315ad01c69a47902a725a27f25ff, type: 2}
   - {fileID: 11400000, guid: a740e0e77fd94a04d808b1642c040542, type: 2}

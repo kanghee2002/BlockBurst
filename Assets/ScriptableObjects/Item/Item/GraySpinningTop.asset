@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: GraySpinningTop
   m_EditorClassIdentifier: 
   id: GraySpinningTop
+  itemName: "\uC7BF\uBE5B \uD33D\uC774"
   effects:
   - {fileID: 11400000, guid: 9e08ddfc6ff50a040910d08b96b3e006, type: 2}
   cost: 0

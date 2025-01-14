@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: CoinT
   m_EditorClassIdentifier: 
   id: CoinT
+  itemName: "T \uB3D9\uC804"
   effects:
   - {fileID: 11400000, guid: e7382bf8a34d43d4cb66260903407c28, type: 2}
   cost: 0

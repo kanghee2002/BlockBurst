@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: RedBook
   m_EditorClassIdentifier: 
   id: RedBook
+  itemName: "\uBD89\uC740 \uCC45"
   effects:
   - {fileID: 11400000, guid: e23b8fd1157ade042b7f72fb94de8730, type: 2}
   cost: 0

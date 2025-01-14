@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: PuzzlePieceI
   m_EditorClassIdentifier: 
   id: PuzzlePieceI
+  itemName: "I \uD37C\uC990 \uC870\uAC01"
   effects:
   - {fileID: 11400000, guid: e7e3f3f0feb1b674296421285b62a76a, type: 2}
   cost: 0

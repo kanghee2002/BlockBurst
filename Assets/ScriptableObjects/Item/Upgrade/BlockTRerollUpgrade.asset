@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BlockTRerollUpgrade
   m_EditorClassIdentifier: 
   id: BlockTRerollUpgrade
+  itemName: "\uB9AC\uB864 \uAC15\uD654"
   effects:
   - {fileID: 11400000, guid: 49a4d6f2ad3082b44965727a7596ccf9, type: 2}
   cost: 0

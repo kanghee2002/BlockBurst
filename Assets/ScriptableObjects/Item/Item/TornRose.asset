@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: TornRose
   m_EditorClassIdentifier: 
   id: TornRose
+  itemName: "\uB72F\uAE34 \uC7A5\uBBF8"
   effects:
   - {fileID: 11400000, guid: 33c4cb98a3a813046a6d93cd849da58b, type: 2}
   - {fileID: 11400000, guid: 4f7a42dfcc80f9d4fbc4f157cd3922db, type: 2}

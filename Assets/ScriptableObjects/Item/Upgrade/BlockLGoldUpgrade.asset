@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BlockLGoldUpgrade
   m_EditorClassIdentifier: 
   id: BlockLGoldUpgrade
+  itemName: "\uACE8\uB4DC \uAC15\uD654"
   effects:
   - {fileID: 11400000, guid: b2e795fca216b8a4f9f579bfb1696847, type: 2}
   cost: 0

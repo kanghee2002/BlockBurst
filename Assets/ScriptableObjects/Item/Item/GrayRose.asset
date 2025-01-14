@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: GrayRose
   m_EditorClassIdentifier: 
   id: GrayRose
+  itemName: "\uC7BF\uBE5B \uC7A5\uBBF8"
   effects:
   - {fileID: 11400000, guid: 0f2fcdbac9f6d4449a8fcd2918e16dad, type: 2}
   cost: 0

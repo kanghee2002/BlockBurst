@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: StrangeClock
   m_EditorClassIdentifier: 
   id: StrangeClock
+  itemName: "\uC774\uC0C1\uD55C \uC2DC\uACC4"
   effects:
   - {fileID: 11400000, guid: 5220bce4f6f93cc429a903464a774efe, type: 2}
   cost: 0

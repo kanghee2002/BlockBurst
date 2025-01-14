@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: CoinZ
   m_EditorClassIdentifier: 
   id: CoinZ
+  itemName: "Z \uB3D9\uC804"
   effects:
   - {fileID: 11400000, guid: 3a3f45bab61e70e4d9cc09f3851618eb, type: 2}
   cost: 0

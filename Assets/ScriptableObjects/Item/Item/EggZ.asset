@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: EggZ
   m_EditorClassIdentifier: 
   id: EggZ
+  itemName: "Z \uC54C"
   effects:
   - {fileID: 11400000, guid: e0107c7a3f3d88b439bc0b24cbfcb960, type: 2}
   cost: 0

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: DeleteBlockO
   m_EditorClassIdentifier: 
   id: BlockO
+  itemName: "O \uBE14\uB85D 2\uAC1C \uC0AD\uC81C"
   effects: []
   cost: 0
   type: 1

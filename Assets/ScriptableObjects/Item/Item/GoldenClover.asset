@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: GoldenClover
   m_EditorClassIdentifier: 
   id: GoldenClover
+  itemName: "\uAE08\uBE5B \uD074\uB85C\uBC84"
   effects:
   - {fileID: 11400000, guid: ac0bbb92742d051428f13f2ba7c58927, type: 2}
   cost: 0

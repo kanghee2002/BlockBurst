@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: DelectBlockI
   m_EditorClassIdentifier: 
   id: BlockI
+  itemName: "I \uBE14\uB85D 2\uAC1C \uC0AD\uC81C"
   effects: []
   cost: 0
   type: 1

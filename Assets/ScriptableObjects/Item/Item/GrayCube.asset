@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: GrayCube
   m_EditorClassIdentifier: 
   id: GrayCube
+  itemName: "\uC7BF\uBE5B \uC815\uC721\uBA74\uCCB4"
   effects:
   - {fileID: 11400000, guid: c775d7dd1e0efd2429e0047bfac4ba6e, type: 2}
   cost: 0

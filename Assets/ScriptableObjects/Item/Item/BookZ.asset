@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BookZ
   m_EditorClassIdentifier: 
   id: BookZ
+  itemName: "Z \uCC45"
   effects:
   - {fileID: 11400000, guid: 55a5880483ae8534f961a7940fb4a9af, type: 2}
   cost: 0

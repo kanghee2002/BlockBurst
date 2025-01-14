@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: LyingRuler
   m_EditorClassIdentifier: 
   id: LyingRuler
+  itemName: "\uB204\uC6B4 \uC790"
   effects:
   - {fileID: 11400000, guid: b229a3d535930874e8075d9a7b808edb, type: 2}
   cost: 0

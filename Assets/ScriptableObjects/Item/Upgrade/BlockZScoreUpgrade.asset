@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BlockZScoreUpgrade
   m_EditorClassIdentifier: 
   id: BlockZScoreUpgrade
+  itemName: "\uC810\uC218 \uC99D\uAC00"
   effects:
   - {fileID: 11400000, guid: 979f4f75087f1e84dad8ecb11bc31a1e, type: 2}
   cost: 0

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BlueMagnifier
   m_EditorClassIdentifier: 
   id: BlueMagnifier
+  itemName: "\uD478\uB978 \uB3CB\uBCF4\uAE30"
   effects:
   - {fileID: 11400000, guid: cb4712fe82487194989e044d6a82077f, type: 2}
   - {fileID: 11400000, guid: abf3e17fd63f3f2449058a0236481a07, type: 2}

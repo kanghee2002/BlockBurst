@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BlueCube
   m_EditorClassIdentifier: 
   id: BlueCube
+  itemName: "\uD478\uB978 \uC815\uC721\uBA74\uCCB4"
   effects:
   - {fileID: 11400000, guid: 6c530266671bce24a964539c4dd77489, type: 2}
   cost: 0

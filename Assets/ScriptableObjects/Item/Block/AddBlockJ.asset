@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: AddBlockJ
   m_EditorClassIdentifier: 
   id: BlockJ
+  itemName: "J \uBE14\uB85D 2\uAC1C \uCD94\uAC00"
   effects: []
   cost: 0
   type: 0

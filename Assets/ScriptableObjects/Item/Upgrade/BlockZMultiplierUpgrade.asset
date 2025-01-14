@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BlockZMultiplierUpgrade
   m_EditorClassIdentifier: 
   id: BlockZMultiplierUpgrade
+  itemName: "\uBC30\uC218 \uAC15\uD654"
   effects:
   - {fileID: 11400000, guid: 4dbbdf4a5dcd5a941a1de83b9cdb6519, type: 2}
   cost: 0

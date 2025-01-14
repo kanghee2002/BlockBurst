@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: StoppedSpinningTop
   m_EditorClassIdentifier: 
   id: StoppedSpinningTop
+  itemName: "\uBA48\uCD98 \uD33D\uC774"
   effects:
   - {fileID: 11400000, guid: 39c30421d1e51224fb52d463b321ae43, type: 2}
   - {fileID: 11400000, guid: cefa334787d427e409ec69cbac17a116, type: 2}

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: RedCube
   m_EditorClassIdentifier: 
   id: RedCube
+  itemName: "\uBD89\uC740 \uC815\uC721\uBA74\uCCB4"
   effects:
   - {fileID: 11400000, guid: 3afd93a5f09e8b0419f8e4b691163ccf, type: 2}
   cost: 0

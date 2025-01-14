@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ThreeClock
   m_EditorClassIdentifier: 
   id: ThreeClock
+  itemName: "3\uC2DC \uC2DC\uACC4"
   effects:
   - {fileID: 11400000, guid: 8244fabb8686cbf48960f0e4cb0e68a4, type: 2}
   cost: 0

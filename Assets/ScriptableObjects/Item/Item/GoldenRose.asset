@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: GoldenRose
   m_EditorClassIdentifier: 
   id: GoldenRose
+  itemName: "\uAE08\uBE5B \uC7A5\uBBF8"
   effects:
   - {fileID: 11400000, guid: 6f326d702a95d514483dd612f9e8f23e, type: 2}
   cost: 0

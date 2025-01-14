@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: TwoClock
   m_EditorClassIdentifier: 
   id: TwoClock
+  itemName: "2\uC2DC \uC2DC\uACC4"
   effects:
   - {fileID: 11400000, guid: 1c0c811c01a2da34da92e142140a6fe7, type: 2}
   cost: 0

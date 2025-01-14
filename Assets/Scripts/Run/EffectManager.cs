@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Random = UnityEngine.Random;
+using Unity.VisualScripting;
 
 public class EffectManager : MonoBehaviour
 {
@@ -59,9 +61,13 @@ public class EffectManager : MonoBehaviour
     {
         MatchType matchType = MatchType.ROW;
 
+        // 확률 적용
         if (effect.probability != 1)
         {
-            // 랜덤 적용
+            if (!CheckProbability(effect.probability))
+            {
+                return;
+            }
         }
 
         // 효과 적용
@@ -76,7 +82,6 @@ public class EffectManager : MonoBehaviour
                 break;
             case EffectType.MULTIPLIER_MODIFIER:
                 blockGameData.matchMultipliers[matchType] += effect.effectValue;
-                Debug.Log("효과 적용된 배수: " + blockGameData.matchMultipliers[matchType]);
                 break;
             case EffectType.BASEMULTIPLIER_MODIFIER:
                 runData.baseMatchMultipliers[matchType] += effect.effectValue;
@@ -106,11 +111,11 @@ public class EffectManager : MonoBehaviour
             case EffectType.BOARD_SIZE_MODIFIER:
                 runData.boardSize += effect.effectValue;
                 break;
-            case EffectType.BOARD_CORNER:
-                // TODO
+            case EffectType.BOARD_CORNER_BLOCK:
+                blockGameData.isCornerBlocked = true;
                 break;
             case EffectType.BOARD_RANDOM_BLOCK:
-                // TODO
+                blockGameData.inactiveBlockCells = GetRandomBlockCells(runData.boardSize, effect.effectValue);
                 break;
             case EffectType.DECK_MODIFIER:
                 // TODO
@@ -122,10 +127,16 @@ public class EffectManager : MonoBehaviour
                 // TODO
                 break; 
             case EffectType.BLOCK_MULTIPLIER:
-                // TODO
+                foreach (BlockType blockType in effect.blockTypes)
+                {
+                    MultiplyBlock(blockType, effect.effectValue);
+                }
                 break;
             case EffectType.BLOCK_DELETE:
-                // TODO
+                foreach (BlockType blockType in effect.blockTypes)
+                {
+                    runData.availableBlocks.RemoveAll(data => data.type == blockType);
+                }
                 break;
             case EffectType.ROW_LINE_CLEAR:
                 // TODO
@@ -134,7 +145,7 @@ public class EffectManager : MonoBehaviour
                 // TODO
                 break;
             case EffectType.DRAW_BLOCK_COUNT_MODIFIER:
-                // TODO
+                blockGameData.drawBlockCount = effect.effectValue;
                 break;
             default:
                 break;
@@ -144,5 +155,39 @@ public class EffectManager : MonoBehaviour
     private bool IsIncluded(BlockType[] arr1, BlockType[] arr2)
     {
         return arr1.All(x => arr2.Contains(x));
+    }
+
+    private bool CheckProbability(float probability)
+    {
+        return Random.Range(0, 1f) <= probability;
+    }
+
+    private HashSet<Vector2Int> GetRandomBlockCells(int boardSize, int count)
+    {
+        HashSet<Vector2Int> result = new HashSet<Vector2Int>();
+
+        for (int i = 0; i < 10000; i++)
+        {
+            if (result.Count == count)
+            {
+                break;
+            }
+            int x = Random.Range(0, boardSize);
+            int y = Random.Range(0, boardSize);
+            result.Add(new Vector2Int(x, y));
+        }
+        return result;
+    }
+
+    private void MultiplyBlock(BlockType blockType, int multiplier)
+    {
+        int count = runData.availableBlocks.Count(blockData => blockData.type == blockType);
+
+        BlockData block = runData.availableBlocks.Find(data => data.type == blockType);
+
+        for (int i = 0; i <  count * (multiplier - 1); i++)
+        {
+            runData.availableBlocks.Add(block.Clone());
+        }
     }
 }

@@ -16,6 +16,8 @@ public class StageManager : MonoBehaviour
     {
         currentStage = stage;
         ApplyConstraints();
+        // "스테이지 진입할 때" 효과 적용 
+        //EffectManager.instance.TriggerEffects(TriggerType.ON_ENTER_STAGE);
     }
 
     public bool CheckStageClear(BlockGameData blockGameData)
@@ -37,5 +39,14 @@ public class StageManager : MonoBehaviour
     {
         // 보상 지급
         runData.gold += currentStage.goldReward;
+    }
+
+    // 스테이지 클리어 시 적용된 제한 제거
+    private void RemoveConstraints()
+    {
+        currentStage.constraints.ForEach(constraint =>
+        {
+            EffectManager.instance.RemoveEffect(constraint);
+        });
     }
 }

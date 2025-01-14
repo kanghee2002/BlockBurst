@@ -44,7 +44,7 @@ public enum EffectType
     GOLD_MODIFIER,              // * 골드 수정
     GOLD_MULTIPLIER,            // * 골드 N배
     BOARD_SIZE_MODIFIER,        // 보드 크기 수정
-    BOARD_CORNER,               // 보드 가장자리 제한
+    BOARD_CORNER_BLOCK,         // 보드 가장자리 제한
     BOARD_RANDOM_BLOCK,         // 보드 무작위 N칸 제한
     DECK_MODIFIER,              // 덱 수정
     BLOCK_REUSE_MODIFIER,       // 블록 재사용

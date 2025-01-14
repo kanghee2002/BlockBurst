@@ -12,4 +12,19 @@ public class BlockData : ScriptableObject
     public List<EffectData> effects;       // 블록 효과
 
     public GameObject prefab;
+
+    public BlockData Clone()
+    {
+        BlockData newBlock = CreateInstance<BlockData>();
+
+        newBlock.id = id;
+        newBlock.type = type;
+        newBlock.shape = (Vector2Int[])shape.Clone();
+        newBlock.reuseCount = reuseCount;
+        newBlock.effects = new List<EffectData>(effects);
+
+        newBlock.prefab = prefab;
+
+        return newBlock;
+    }
 }

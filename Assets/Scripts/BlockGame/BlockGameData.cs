@@ -9,9 +9,11 @@ public class BlockGameData
     public Dictionary<MatchType, int> matchMultipliers;                 // 배수
     public int currentScore;                                            // 현재 점수
     public int moveCount;                                               // 이동 횟수
-    public Dictionary<string, HashSet<Vector2Int>> activeBlockCells;    // 활성 블럭 셀
+    public bool isCornerBlocked;                                        // 가장자리 막혔는지
+    public HashSet<Vector2Int> inactiveBlockCells;                      // 활성 블럭 셀
     public List<BlockData> deck;
     public int rerollCount;
+    public int drawBlockCount;
 
     public void Initialize(RunData runData)
     {
@@ -19,7 +21,8 @@ public class BlockGameData
         matchMultipliers = new Dictionary<MatchType, int>(runData.baseMatchMultipliers);
         currentScore = 0;
         moveCount = 0;
-        activeBlockCells = new Dictionary<string, HashSet<Vector2Int>>();
+        isCornerBlocked = false;
+        inactiveBlockCells = new HashSet<Vector2Int>();
         deck = new List<BlockData>(runData.availableBlocks);
         rerollCount = runData.currentRerollCount;
     }

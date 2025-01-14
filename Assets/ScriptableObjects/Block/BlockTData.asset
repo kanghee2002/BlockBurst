@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: BlockTData
   m_EditorClassIdentifier: 
   id: 
-  type: 2
+  type: 6
   shape:
   - {x: 0, y: 0}
   - {x: 1, y: 0}
   - {x: 2, y: 0}
   - {x: 1, y: 1}
+  reuseCount: 0
+  effects: []
   prefab: {fileID: 6605347088874912601, guid: 09300a4c3e5570f4d892d335e7bda23f, type: 3}

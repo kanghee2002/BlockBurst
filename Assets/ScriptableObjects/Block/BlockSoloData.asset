@@ -10,15 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 80988d82d0424cb45adfcaaeecd2c6c0, type: 3}
-  m_Name: BlockZData
+  m_Name: BlockSoloData
   m_EditorClassIdentifier: 
   id: 
-  type: 2
+  type: 7
   shape:
   - {x: 0, y: 0}
-  - {x: 1, y: 0}
-  - {x: 1, y: 1}
-  - {x: 2, y: 1}
   reuseCount: 0
   effects: []
-  prefab: {fileID: 6605347088874912601, guid: 37c5b125113b7b7429a0647b91e485ca, type: 3}
+  prefab: {fileID: 6605347088874912601, guid: 6401848e48aa64b489cdeb4c4968a1c4, type: 3}

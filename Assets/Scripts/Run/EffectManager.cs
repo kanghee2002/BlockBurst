@@ -38,6 +38,10 @@ public class EffectManager : MonoBehaviour
     public void AddEffect(EffectData effect)
     {
         runData.activeEffects.Add(effect);
+        if (effect.trigger == TriggerType.ON_ACQUIRE)
+        {
+            ApplyEffect(effect);
+        }
     }
 
     public bool RemoveEffect(EffectData effect)

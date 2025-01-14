@@ -63,10 +63,6 @@ public class ShopManager : MonoBehaviour
             foreach (EffectData effect in item.effects)
             {
                 EffectManager.instance.AddEffect(effect);
-                if (effect.trigger == TriggerType.ON_ACQUIRE)
-                {
-                    EffectManager.instance.ApplyEffect(effect);
-                }
             }
         }
         else if (item.type == ItemType.UPGRADE) 
@@ -76,10 +72,6 @@ public class ShopManager : MonoBehaviour
                 //UpgradeBlock(item.block, effect);
 
                 EffectManager.instance.AddEffect(effect);
-                if (effect.trigger == TriggerType.ON_ACQUIRE)
-                {
-                    EffectManager.instance.ApplyEffect(effect);
-                }
             }
         }
     }

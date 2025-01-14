@@ -285,10 +285,6 @@ public class BlockGameTester : MonoBehaviour
         foreach (var effect in effects)
         {
             EffectManager.instance.AddEffect(effect);
-            if (effect.trigger == TriggerType.ON_ACQUIRE)
-            {
-                EffectManager.instance.ApplyEffect(effect);
-            }
         }
     }
 

@@ -41,7 +41,7 @@ public class ShopManager : MonoBehaviour
 
     private void ApplyItem(ItemData item)
     {
-        if (item.type == ItemType.BLOCK)
+        if (item.type == ItemType.ADD_BLOCK)
         {
             deckManager.AddBlock(item.block);
         }

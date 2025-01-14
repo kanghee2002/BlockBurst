@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
-  m_Name: BlockO
+  m_Name: BlockOScore
   m_EditorClassIdentifier: 
-  id: BlockO
-  effects: []
+  id: BlockOScore
+  effects:
+  - {fileID: 11400000, guid: b8022cb1834b4ca45b6a33592771c23a, type: 2}
   cost: 0
-  type: 0
-  block: {fileID: 11400000, guid: 8ce73ce0dd6031a44b800d70efc05a9d, type: 2}
+  type: 3
+  block: {fileID: 0}

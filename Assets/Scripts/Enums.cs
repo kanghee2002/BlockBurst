@@ -51,6 +51,7 @@ public enum EffectType
     SQUARE_CLEAR,               // 사각형 클리어
     BLOCK_MULTIPLIER,           // 덱의 특정 블록 N배
     BLOCK_DELETE,               // 덱의 특정 블록 모두 삭제
+    BLOCK_DELETE_WITH_VALUE,    // 덱의 특정 블록 N개 삭제
     ROW_LINE_CLEAR,             // 무작위 가로 1줄 지움
     COLUMN_LINE_CLEAR,          // 무작위 세로 1줄 지움
     BOARD_CLEAR,                // 보드의 모든 블록 지움
@@ -86,5 +87,5 @@ public enum TriggerType
 
 public enum ItemType
 {
-    BLOCK, ITEM, UPGRADE
+    ADD_BLOCK, DELETE_BLOCK, ITEM, UPGRADE
 }

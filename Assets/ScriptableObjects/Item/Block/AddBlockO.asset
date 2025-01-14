@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
-  m_Name: BlockCross
+  m_Name: AddBlockO
   m_EditorClassIdentifier: 
-  id: BlockCross
+  id: BlockO
   effects: []
   cost: 0
   type: 0
-  block: {fileID: 11400000, guid: 1b92fd88d904cea4a9266b5b7e507600, type: 2}
+  block: {fileID: 11400000, guid: 8ce73ce0dd6031a44b800d70efc05a9d, type: 2}

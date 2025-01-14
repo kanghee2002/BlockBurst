@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
-  m_Name: BlockL
+  m_Name: DeleteBlockT
   m_EditorClassIdentifier: 
-  id: BlockL
+  id: BlockT
   effects: []
   cost: 0
-  type: 0
-  block: {fileID: 11400000, guid: c25c441b238b98245bd4070a8b26a3ef, type: 2}
+  type: 1
+  block: {fileID: 11400000, guid: 24a5634cee7354d4fa928d54f928a471, type: 2}

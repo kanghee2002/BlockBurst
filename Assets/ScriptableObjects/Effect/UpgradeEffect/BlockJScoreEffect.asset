@@ -9,11 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
-  m_Name: BlockTrio
+  m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
+  m_Name: BlockJScoreEffect
   m_EditorClassIdentifier: 
-  id: BlockTrio
-  effects: []
-  cost: 0
+  id: BlockJScoreEffect
+  effectName: BlockJScoreEffect
   type: 0
-  block: {fileID: 11400000, guid: b1bda4724194ff543a2147600707da72, type: 2}
+  trigger: 0
+  effectValue: 7
+  blockTypes: 04000000
+  blockId: -1
+  probability: 1
+  triggerValue: 0

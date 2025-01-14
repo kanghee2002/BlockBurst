@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
-  m_Name: BlockM
+  m_Name: AddBlockCorner
   m_EditorClassIdentifier: 
-  id: BlockM
+  id: AddBlockCorner
   effects: []
   cost: 0
   type: 0
-  block: {fileID: 11400000, guid: c8e37f2662e93734282554e0a4d9ee23, type: 2}
+  block: {fileID: 11400000, guid: 905263e11040dfa48b2e8e65e0ee073b, type: 2}

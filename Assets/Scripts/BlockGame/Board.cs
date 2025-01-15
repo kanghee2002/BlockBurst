@@ -22,8 +22,6 @@ public class Board
     public void Initialize(BlockGameData blockGameData)
     {
         gameData = blockGameData;
-        EffectManager.instance.TriggerEffects(TriggerType.ON_BOARD_NOT_HALF_FULL);
-
         onClearEffectBlocks = new List<(BlockType, string)>();
         matchCount = 0;
         hasMatched = false;

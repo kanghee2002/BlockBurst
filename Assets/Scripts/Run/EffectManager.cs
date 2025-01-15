@@ -111,6 +111,9 @@ public class EffectManager : MonoBehaviour
                 blockGameData.rerollCount += effect.effectValue;
                 if (blockGameData.rerollCount < 0) blockGameData.rerollCount = 0;
                 break;
+            case EffectType.REROLL_MULTIPLIER:
+                blockGameData.rerollCount *= effect.effectValue;
+                break;
             case EffectType.BASEREROLL_MODIFIER:            
                 runData.baseRerollCount += effect.effectValue;
                 blockGameData.rerollCount += effect.effectValue;

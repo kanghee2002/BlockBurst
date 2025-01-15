@@ -167,7 +167,7 @@ public class GameManager : MonoBehaviour
         deckManager.Initialize(ref blockGame, runData.availableBlocks);
 
         EffectManager.instance.InitializeBlockGameData(ref blockGame);
-        
+
         // 스테이지 시작
         stageManager.StartStage(stage);
         DrawBlocks();

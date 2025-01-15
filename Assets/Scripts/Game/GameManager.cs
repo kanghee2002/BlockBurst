@@ -240,8 +240,8 @@ public class GameManager : MonoBehaviour
         bool success = board.PlaceBlock(block, pos);
         if (success) {
             // 손에서 블록 제거
-            handBlocks.RemoveAt(idx);
-            handBlocksData.RemoveAt(idx);
+            handBlocks[idx] = null;
+            handBlocksData[idx] = null;
             
             // UI 업데이트 트리거
             GameUIManager.instance.OnBlockPlaced(block, pos);
@@ -254,6 +254,11 @@ public class GameManager : MonoBehaviour
             */
 
             GameUIManager.instance.UpdateScore(blockGame.currentScore);
+        }
+
+        // 손패 다 쓰면 드로우
+        if (handBlocks.All(block => block == null)) {
+            DrawBlocks();
         }
         return success;
     }

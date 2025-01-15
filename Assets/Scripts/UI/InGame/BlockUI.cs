@@ -7,21 +7,23 @@ using System.Linq;
 public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [SerializeField] private GameObject prefabBlockCellUI;
-    private List<List<GameObject>> blockCellsUI = new List<List<GameObject>>();
-    private int blockCellsUIRowCount = 0;
-    private int blockCellsUIColumnCount = 0;
+    private GameObject[,] blockCellsUI;
+    private int blockCellsUIColumnCount;
+    private int blockCellsUIRowCount;
     private const float block_size = 96f;
-    [SerializeField] private GameObject shadowContainer;
-    [SerializeField] private GameObject prefabBlockCellShadowUI;
 
     private BoardUI boardUI;
+    private BoardCellUI lastHighlightedCell;
+    private List<BoardCellUI> currentShadowCells = new List<BoardCellUI>();
 
     [SerializeField] private RectTransform rectTransform;
     private Canvas canvas;
-    private Vector2 offset;
-
+    private Vector2 dragOffset;
     private Vector3 originalPosition;
     private int idx;
+
+    private int minX;
+    private int minY;
 
     private void Start()
     {
@@ -35,38 +37,17 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
         originalPosition = transform.localPosition;
         idx = index;
 
-        // Clear existing blocks
-        for (int row = 0; row < blockCellsUIRowCount; row++)
-        {
-            for (int column = 0; column < blockCellsUIColumnCount; column++)
-            {
-                if (blockCellsUI[row][column] != null)
-                {
-                    Destroy(blockCellsUI[row][column]);
-                }
-            }
-        }
-        blockCellsUI.Clear();
-
         // Calculate dimensions based on shape data
-        int minX = block.Shape.Min(pos => pos.x);
+        minX = block.Shape.Min(pos => pos.x);
+        minY = block.Shape.Min(pos => pos.y);
+
         int maxX = block.Shape.Max(pos => pos.x);
-        int minY = block.Shape.Min(pos => pos.y);
         int maxY = block.Shape.Max(pos => pos.y);
 
-        blockCellsUIColumnCount = maxX - minX + 1;
-        blockCellsUIRowCount = maxY - minY + 1;
+        blockCellsUIRowCount = maxX - minX + 1;
+        blockCellsUIColumnCount = maxY - minY + 1;
 
-        // Initialize empty grid
-        for (int row = 0; row < blockCellsUIRowCount; row++)
-        {
-            List<GameObject> listRow = new List<GameObject>();
-            for (int column = 0; column < blockCellsUIColumnCount; column++)
-            {
-                listRow.Add(null);
-            }
-            blockCellsUI.Add(listRow);
-        }
+        blockCellsUI = new GameObject[blockCellsUIRowCount, blockCellsUIColumnCount];
 
         // Place blocks according to shape data
         foreach (Vector2Int pos in block.Shape)
@@ -75,24 +56,19 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
             int normalizedY = pos.y - minY;
             
             GameObject blockCell = Instantiate(prefabBlockCellUI);
-            blockCellsUI[normalizedY][normalizedX] = blockCell;
+            blockCellsUI[normalizedX, normalizedY] = blockCell;
         }
 
-        // Position blocks
+        // Position blocks (minX, minY) is left top
         for (int row = 0; row < blockCellsUIRowCount; row++)
         {
-            for (int column = 0; column < blockCellsUIColumnCount; column++)
+            for (int col = 0; col < blockCellsUIColumnCount; col++)
             {
-                if (blockCellsUI[row][column] != null)
+                if (blockCellsUI[row, col] != null)
                 {
-                    blockCellsUI[row][column].transform.SetParent(this.transform, false);
-                    blockCellsUI[row][column].GetComponent<RectTransform>().anchoredPosition
-                        = new Vector2(column - (blockCellsUIColumnCount - 1) / 2f, -(row - (blockCellsUIRowCount - 1) / 2f)) * block_size;
-                
-                    GameObject shadow = Instantiate(prefabBlockCellShadowUI);
-                    shadow.transform.SetParent(shadowContainer.transform, false);
-                    shadow.GetComponent<RectTransform>().anchoredPosition
-                        = new Vector2(column - (blockCellsUIColumnCount - 1) / 2f, -(row - (blockCellsUIRowCount - 1) / 2f)) * block_size;
+                    blockCellsUI[row, col].transform.SetParent(transform, false);
+                    blockCellsUI[row, col].GetComponent<RectTransform>().anchoredPosition
+                        = new Vector2(col, -row) * block_size;
                 }
             }
         }
@@ -104,13 +80,14 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        shadowContainer.SetActive(true);
+        Vector2 localPoint;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             rectTransform,
             eventData.position,
             eventData.pressEventCamera,
-            out offset
+            out localPoint
         );
+        dragOffset = localPoint;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -122,38 +99,34 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
                 eventData.pressEventCamera,
                 out localPoint))
         {
-            rectTransform.localPosition = localPoint - offset;
+            rectTransform.localPosition = localPoint - dragOffset;
         }
 
-        BoardCellUI closestValidCell = FindClosestValidCell();
-        if (closestValidCell != null)
-        {
-            Vector2 zeroOffset = new Vector2((blockCellsUIColumnCount - 1) / 2f, (blockCellsUIRowCount - 1) / 2f * (-1)) * block_size;
-            shadowContainer.GetComponent<RectTransform>().anchoredPosition =
-                closestValidCell.GetComponent<RectTransform>().anchoredPosition
-                + boardUI.GetComponent<RectTransform>().anchoredPosition
-                + zeroOffset
-                - rectTransform.anchoredPosition;
-        }
-    }
-
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        shadowContainer.SetActive(false);
+        ClearShadowCells();
         
         BoardCellUI closestValidCell = FindClosestValidCell();
         if (closestValidCell != null)
         {
             Vector2Int boardPosition = closestValidCell.GetCellIndex();
-            Debug.Log(boardPosition);
-            
+            // 보드 셀의 위치를 기준으로 그림자를 표시합니다
+            ShowShadowAtPosition(boardPosition);
+        }
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        ClearShadowCells();
+        
+        BoardCellUI closestValidCell = FindClosestValidCell();
+        if (closestValidCell != null)
+        {
+            Vector2Int boardPosition = closestValidCell.GetCellIndex() - new Vector2Int(minX, minY);
+            Debug.Log("Board Position: " + boardPosition);
             if (GameUIManager.instance.TryPlaceBlock(idx, boardPosition))
             {
-                Vector2 zeroOffset = new Vector2((blockCellsUIColumnCount - 1) / 2f, (blockCellsUIRowCount - 1) / 2f * (-1)) * block_size;
-                rectTransform.anchoredPosition =
-                    closestValidCell.GetComponent<RectTransform>().anchoredPosition
-                    + boardUI.GetComponent<RectTransform>().anchoredPosition
-                    + zeroOffset;
+                Vector2 targetPosition = closestValidCell.GetComponent<RectTransform>().anchoredPosition
+                    + boardUI.GetComponent<RectTransform>().anchoredPosition;
+                rectTransform.anchoredPosition = targetPosition;
             }
             else
             {
@@ -166,55 +139,83 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
         }
     }
 
+    private void ClearShadowCells()
+    {
+        foreach (var cell in currentShadowCells)
+        {
+            cell.HideShadow();
+        }
+        currentShadowCells.Clear();
+    }
+
+    private void ShowShadowAtPosition(Vector2Int boardPosition)
+    {
+        bool isValid = true;
+        
+        // 전체 블록 모양이 보드 안에 들어가는지 확인
+        for (int blockRow = 0; blockRow < blockCellsUI.GetLength(0) && isValid; blockRow++)
+        {
+            for (int blockCol = 0; blockCol < blockCellsUI.GetLength(1); blockCol++)
+            {
+                if (blockCellsUI[blockRow, blockCol] != null)
+                {
+                    int targetRow = boardPosition.x + blockRow;
+                    int targetCol = boardPosition.y + blockCol;
+                    
+                    if (targetRow < 0 || targetRow >= boardUI.boardCellsUI.GetLength(0) ||
+                        targetCol < 0 || targetCol >= boardUI.boardCellsUI.GetLength(1))
+                    {
+                        isValid = false;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (isValid)
+        {
+            for (int blockRow = 0; blockRow < blockCellsUI.GetLength(0); blockRow++)
+            {
+                for (int blockCol = 0; blockCol < blockCellsUI.GetLength(1); blockCol++)
+                {
+                    if (blockCellsUI[blockRow, blockCol] != null)
+                    {
+                        int targetRow = boardPosition.x + blockRow;
+                        int targetCol = boardPosition.y + blockCol;
+                        
+                        var cell = boardUI.boardCellsUI[targetRow, targetCol];
+                        cell.ShowShadow();
+                        currentShadowCells.Add(cell);
+                    }
+                }
+            }
+        }
+    }
+
     private BoardCellUI FindClosestValidCell()
     {
-        List<List<BoardCellUI>> boardCellsUI = boardUI.boardCellsUI;
+        BoardCellUI[,] boardCellsUI = boardUI.boardCellsUI;
         BoardCellUI closestBoardCellUI = null;
         float minDistance = float.MaxValue;
 
-        Vector2 zeroOffset = new Vector2((blockCellsUIColumnCount - 1) / 2f, (blockCellsUIRowCount - 1) / 2f * (-1)) * block_size;
-        Vector2 blockCenter = rectTransform.anchoredPosition - zeroOffset;
+        // 블록의 RectTransform 위치 사용
+        Vector2 blockPosition = rectTransform.position;
+        float maxAllowedDistance = block_size * 2f; 
 
-        for (int row = 0; row < boardCellsUI.Count; row++)
+        for (int row = 0; row < boardCellsUI.GetLength(0); row++)
         {
-            for (int col = 0; col < boardCellsUI[0].Count; col++)
+            for (int col = 0; col < boardCellsUI.GetLength(1); col++)
             {
-                Vector2 cellPos = boardCellsUI[row][col].GetComponent<RectTransform>().anchoredPosition
-                    + boardUI.GetComponent<RectTransform>().anchoredPosition;
+                // RectTransform 기반 거리 계산
+                Vector2 cellPosition = boardCellsUI[row, col].transform.position;
+                float distance = Vector2.Distance(blockPosition, cellPosition);
 
-                bool isValid = true;
-                float totalDistance = 0;
+                if (distance > maxAllowedDistance) continue;
 
-                // 블록의 각 셀에 대해 보드 위치 확인
-                for (int blockRow = 0; blockRow < blockCellsUI.Count; blockRow++)
+                if (distance < minDistance)
                 {
-                    for (int blockCol = 0; blockCol < blockCellsUI[0].Count; blockCol++)
-                    {
-                        if (blockCellsUI[blockRow][blockCol] != null)
-                        {
-                            int targetRow = row + blockRow - (int)((blockCellsUIRowCount - 1) / 2f);
-                            int targetCol = col + blockCol - (int)((blockCellsUIColumnCount - 1) / 2f);
-
-                            // 보드 범위 체크
-                            if (targetRow < 0 || targetRow >= boardCellsUI.Count ||
-                                targetCol < 0 || targetCol >= boardCellsUI[0].Count)
-                            {
-                                isValid = false;
-                                break;
-                            }
-
-                            Vector2 blockCellPos = blockCellsUI[blockRow][blockCol].GetComponent<RectTransform>().anchoredPosition;
-                            Vector2 targetPos = cellPos + blockCellPos;
-                            totalDistance += Vector2.Distance(blockCenter + blockCellPos, targetPos);
-                        }
-                    }
-                    if (!isValid) break;
-                }
-
-                if (isValid && totalDistance < minDistance)
-                {
-                    minDistance = totalDistance;
-                    closestBoardCellUI = boardCellsUI[row][col];
+                    minDistance = distance;
+                    closestBoardCellUI = boardCellsUI[row, col];
                 }
             }
         }
@@ -225,5 +226,10 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
     private void ReturnToHand()
     {
         transform.localPosition = originalPosition;
+    }
+
+    private void OnDestroy()
+    {
+        ClearShadowCells();
     }
 }

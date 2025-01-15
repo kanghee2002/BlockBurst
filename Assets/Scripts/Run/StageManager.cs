@@ -16,8 +16,8 @@ public class StageManager : MonoBehaviour
     {
         currentStage = stage;
         ApplyConstraints();
-        // "스테이지 진입할 때" 효과 적용 
-        //EffectManager.instance.TriggerEffects(TriggerType.ON_ENTER_STAGE);
+
+        EffectManager.instance.TriggerEffects(TriggerType.ON_ENTER_STAGE);
     }
 
     public bool CheckStageClear(BlockGameData blockGameData)

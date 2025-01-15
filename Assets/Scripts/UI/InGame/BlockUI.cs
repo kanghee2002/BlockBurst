@@ -105,7 +105,7 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
             rectTransform.localPosition = localPoint - dragOffset;
         }
 
-        ClearShadowCells();
+        //ClearShadowCells();
         
         BoardCellUI closestValidCell = FindClosestValidCell();
         if (closestValidCell != null)
@@ -153,6 +153,8 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
     private void ShowShadowAtPosition(Vector2Int boardPosition)
     {
         bool isValid = true;
+        List<BoardCellUI> prevShadowCells = new List<BoardCellUI>(currentShadowCells);
+        currentShadowCells.Clear();
         
         // 전체 블록 모양이 보드 안에 들어가는지 확인
         for (int blockRow = 0; blockRow < blockCellsUI.GetLength(0) && isValid; blockRow++)
@@ -190,6 +192,14 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
                         currentShadowCells.Add(cell);
                     }
                 }
+            }
+        }
+
+        foreach (var cell in prevShadowCells)
+        {
+            if (!currentShadowCells.Contains(cell))
+            {
+                cell.HideShadow();
             }
         }
     }

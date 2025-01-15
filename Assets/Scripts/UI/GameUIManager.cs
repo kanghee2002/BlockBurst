@@ -68,6 +68,7 @@ public class GameUIManager : MonoBehaviour
         actionInfoUI.Initialize(0, 0);
         runInfoUI.Initialize(runData);
         deckInfoUI.Initialize(runData);
+        stageSelectionBoardUI.OpenStageSelectionBoardUI(); // 나중에 옮겨
     }
 
     private void initializeManagerInstances()
@@ -284,7 +285,6 @@ public class GameUIManager : MonoBehaviour
         if (nextStageChoices.Length == 2)
         {
             stageSelectionBoardUI.InitializeNextStageChoiceUI(nextStageChoices);
-            stageSelectionBoardUI.OpenStageSelectionBoardUI();
         }
         else
         {

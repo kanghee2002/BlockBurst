@@ -28,6 +28,14 @@ public class BoardUI : MonoBehaviour
 
     public void CloseBoardUI()
     {
+        // boardCell 초기화
+        for (int row = 0; row < height; row++)
+        {
+            for (int col = 0; col < width; col++)
+            {
+                boardCellsUI[row, col].ClearCell();
+            }
+        }
         rectTransform.DOAnchorPosY(insidePositionY + outsidePositionOffsetY, duration)
             .SetEase(Ease.OutCubic)
             .OnComplete(() =>
@@ -126,14 +134,14 @@ public class BoardUI : MonoBehaviour
             {
                 for (int x = 0; x < width; x++)
                 {
-                    boardCellsUI[match.index, x].SetBlockInfo("");
+                    boardCellsUI[match.index, x].ClearCell();
                 }
             }
             else if (match.matchType == MatchType.COLUMN)
             {
                 for (int y = 0; y < height; y++)
                 {
-                    boardCellsUI[y, match.index].SetBlockInfo("");
+                    boardCellsUI[y, match.index].ClearCell();
                 }
             }
         }

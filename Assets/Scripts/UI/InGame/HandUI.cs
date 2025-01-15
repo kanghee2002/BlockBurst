@@ -11,6 +11,15 @@ public class HandUI : MonoBehaviour
     private const float insidePositionX = -188;
     private const float outsidePositionOffsetX = 480;
     private const float duration = 0.2f;
+    
+    [SerializeField] private GameObject BoardUICanvas;
+    [SerializeField] private GameObject blockPrefab;
+
+    private void Awake()
+    {
+        BoardUICanvas = GameObject.Find("BoardUICanvas");
+    }
+
     public void OpenHandUI()
     {
         handUI.SetActive(true);
@@ -26,5 +35,17 @@ public class HandUI : MonoBehaviour
             {
                 handUI.SetActive(false);
             });
+    }
+
+    public void Initialize(List<BlockData> hand)
+    {
+        int pos = 0;
+        foreach (BlockData blockData in hand)
+        {
+            GameObject block = Instantiate(blockPrefab, BoardUICanvas.transform);
+            block.GetComponent<BlockUI>().Initialize(blockData);
+            block.transform.localPosition = new Vector3(800, (pos - 1) * 300, 0);
+            pos++;
+        }
     }
 }

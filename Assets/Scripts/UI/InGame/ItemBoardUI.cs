@@ -16,11 +16,11 @@ public class ItemBoardUI : MonoBehaviour
 
     public void OpenItemBoardUI()
     {
-
+        gameObject.SetActive(true);
     }
 
     public void CloseItemBoardUI()
     {
-
+        gameObject.SetActive(false);
     }
 }

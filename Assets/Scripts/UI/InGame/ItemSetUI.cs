@@ -15,4 +15,14 @@ public class ItemSetUI : MonoBehaviour
     {
         
     }
+
+    public void Initialize(List<ItemData> items)
+    {
+        string text = "";
+        foreach (ItemData itemData in items)
+        {
+            text += itemData.type.ToString() + "\n";
+        }
+        Debug.Log(text);
+    }
 }

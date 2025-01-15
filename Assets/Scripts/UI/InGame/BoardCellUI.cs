@@ -11,6 +11,9 @@ public class BoardCellUI : MonoBehaviour
     private Image cellImage;
     private Color originalColor;
     private Sprite originalSprite;
+    private bool isShadow = false;
+    private bool isAnimating = false;
+    private bool hideShadowReserved = false; // HideShadow 예약 플래그
 
     private void Awake()
     {
@@ -35,33 +38,55 @@ public class BoardCellUI : MonoBehaviour
         GetComponent<Image>().sprite = cellUI.GetComponent<Image>().sprite;
     }
 
+    private void AnimateShadow(Color targetColor, bool setShadow) {
+        isAnimating = true;
+        hideShadowReserved = false; // 예약 초기화
+        Tween tween = cellImage.DOColor(targetColor, 0.1f);
+        tween.OnComplete(() => {
+            isAnimating = false;
+            isShadow = setShadow;
+            
+            // 예약된 HideShadow 실행
+            if (hideShadowReserved && setShadow) {
+                HideShadow();
+            }
+        });
+    }
+
     public void ShowShadow() {
-        cellImage.DOColor(new Color(0.5f, 0.5f, 1f, 0.5f), 0.1f);
+        if (!isAnimating && !isShadow) {
+            Color shadowColor = string.IsNullOrEmpty(blockId) ? 
+                new Color(.6f, .6f, .6f, 1f) : 
+                new Color(.7f, 0, 0, 1f);
+            AnimateShadow(shadowColor, true);
+        }
     }
 
     public void HideShadow() {
-        cellImage.DOColor(originalColor, 0.1f);
+        if (isAnimating) {
+            hideShadowReserved = true; // 애니메이션 중일 경우 예약
+        } else if (isShadow) {
+            AnimateShadow(originalColor, false);
+        }
     }
 
     public void PlayHighlightAnimation() {
-        cellImage.DOColor(Color.yellow, 0.2f).SetLoops(2, LoopType.Yoyo);
+        cellImage.DOColor(new Color(1f, 1f, 1f), 0.2f).SetLoops(2, LoopType.Yoyo);
     }
 
     public void PlayClearAnimation() {
-        // 원래 스케일 값을 저장
         Vector3 originalScale = transform.localScale;
-        
-        // 애니메이션 시퀀스 생성
+
+        DOTween.Kill(transform);
+        DOTween.Kill(cellImage);
+
         Sequence sequence = DOTween.Sequence();
-        
         cellImage.sprite = originalSprite;
         cellImage.color = originalColor;
-        
-        // 사라지는 애니메이션
+
         sequence.Append(transform.DOScale(0, 0.3f).SetEase(Ease.InBack));
         sequence.Join(cellImage.DOFade(0, 0.3f));
-        
-        // 애니메이션이 끝난 후 원래 상태로 복원
+
         sequence.OnComplete(() => {
             transform.localScale = originalScale;
             cellImage.color = originalColor;

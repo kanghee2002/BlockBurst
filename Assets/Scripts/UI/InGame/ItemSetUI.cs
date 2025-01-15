@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using DG.Tweening;
+using TMPro;
 
 public class ItemSetUI : MonoBehaviour
 {
@@ -100,11 +101,16 @@ public class ItemSetUI : MonoBehaviour
             itemIcon.transform.GetChild(0).GetComponent<Image>().sprite = GetImage(item);
             SetUpgradeIcon(itemIcon, item);
 
+            GameObject description = itemIcon.transform.GetChild(2).gameObject;
+
+            description.GetComponent<TextMeshProUGUI>().text = GetDescription(item);
+
             EventTrigger trigger = itemIcon.AddComponent<EventTrigger>();
             
             EventTrigger.Entry enterEntry = new EventTrigger.Entry();
             enterEntry.eventID = EventTriggerType.PointerEnter;
-            enterEntry.callback.AddListener((data) => { 
+            enterEntry.callback.AddListener((data) => {
+                OnItemEnter(description);
                 itemIcon.transform.DOScale(hoverScale, hoverDuration).SetEase(Ease.OutQuad);
                 itemIcon.transform.SetAsLastSibling();
             });
@@ -113,6 +119,7 @@ public class ItemSetUI : MonoBehaviour
             EventTrigger.Entry exitEntry = new EventTrigger.Entry();
             exitEntry.eventID = EventTriggerType.PointerExit;
             exitEntry.callback.AddListener((data) => {
+                OnItemExit(description);
                 itemIcon.transform.DOScale(1f, hoverDuration).SetEase(Ease.OutQuad);
                 itemIcon.transform.SetSiblingIndex(itemIcons.IndexOf(itemIcon));
             });
@@ -120,7 +127,7 @@ public class ItemSetUI : MonoBehaviour
 
             EventTrigger.Entry clickEntry = new EventTrigger.Entry();
             clickEntry.eventID = EventTriggerType.PointerClick;
-            clickEntry.callback.AddListener((data) => { OnItemClick(itemIcon); });
+            clickEntry.callback.AddListener((data) => {  });
             trigger.triggers.Add(clickEntry);
             
             itemIcon.transform.SetSiblingIndex(itemIcons.Count);
@@ -128,11 +135,29 @@ public class ItemSetUI : MonoBehaviour
         }
     }
 
-    private void OnItemClick(GameObject icon)
+    private void OnItemEnter(GameObject description)
     {
-        // 클릭 이벤트 처리
+        description.SetActive(true);
+    }
 
-        // 여기야 여기!!
-        Debug.Log("여기야 여기!!");
+    private void OnItemExit(GameObject description)
+    {
+        description.SetActive(false);
+    }
+
+    private string GetDescription(ItemData item)
+    {
+        string description = "";
+
+        for (int i = 0; i < item.effects.Count; i++)
+        {
+            description += item.effects[i].effectName;
+            if (i != item.effects.Count - 1)
+            {
+                description += "\n";
+            }
+        }
+
+        return description;
     }
 }

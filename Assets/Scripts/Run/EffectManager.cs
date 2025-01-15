@@ -102,10 +102,13 @@ public class EffectManager : MonoBehaviour
                 break;
             case EffectType.REROLL_MODIFIER:
                 blockGameData.rerollCount += effect.effectValue;
+                if (blockGameData.rerollCount < 0) blockGameData.rerollCount = 0;
                 break;
             case EffectType.BASEREROLL_MODIFIER:            
-                runData.currentRerollCount += effect.effectValue;
+                runData.baseRerollCount += effect.effectValue;
                 blockGameData.rerollCount += effect.effectValue;
+                if (runData.baseRerollCount < 0) runData.baseRerollCount = 0;
+                if (blockGameData.rerollCount < 0) blockGameData.rerollCount = 0;
                 break;
             case EffectType.BASEREROLL_MULTIPLIER:
                 runData.currentRerollCount *= effect.effectValue;
@@ -113,6 +116,7 @@ public class EffectManager : MonoBehaviour
                 break;
             case EffectType.GOLD_MODIFIER:
                 runData.gold += effect.effectValue;
+                if (runData.gold < 0) runData.gold = 0;
                 break;
             case EffectType.GOLD_MULTIPLIER:
                 runData.gold *= effect.effectValue;

@@ -23,7 +23,7 @@ public class ItemShowcaseUI : MonoBehaviour
             SetImage(itemUI, items[currentIndex]);
 
             itemUI.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = itemData.itemName;
-            itemUI.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = itemData.cost.ToString();
+            itemUI.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "$" + itemData.cost.ToString();
             itemUI.transform.GetChild(4).GetComponent<Button>().onClick.AddListener(() => {
                 GameUIManager.instance.OnItemShowcaseItemButtonPressed(currentIndex);
             });

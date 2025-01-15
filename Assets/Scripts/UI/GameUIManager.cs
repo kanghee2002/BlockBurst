@@ -331,15 +331,14 @@ public class GameUIManager : MonoBehaviour
         ChangeSceneState(SceneState.playing);
     }
 
-    public void OnBlocksDrawn(List<BlockData> blocks)
+    public void OnBlocksDrawn(List<Block> blocks)
     {
         handUI.Initialize(blocks);
     }
 
-    public bool OnBlockSet(BlockData block)
+    public bool TryPlaceBlock(int idx, Vector2Int pos)
     {
-        GameManager.instance.OnBlockSet(block);
-        return true;
+        return GameManager.instance.TryPlaceBlock(idx, pos);
     }
 
     public void OnShopStart(List<ItemData> items)
@@ -355,7 +354,7 @@ public class GameUIManager : MonoBehaviour
             itemShowcaseUI.CloseItemShowcaseUI();
         }
     }
-    public void OnBlockPlaced(BlockData block, Vector2Int pos) {
+    public void OnBlockPlaced(Block block, Vector2Int pos) {
         boardUI.OnBlockPlaced(block, pos);
     }
 

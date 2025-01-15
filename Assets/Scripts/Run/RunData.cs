@@ -27,5 +27,6 @@ public class RunData
         gold = gameData.startingGold;
         baseRerollCount = gameData.defaultRerollCount;
         currentRerollCount = baseRerollCount;
+        boardSize = 8;
     }
 }

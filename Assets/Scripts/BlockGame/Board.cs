@@ -6,7 +6,7 @@ using UnityEditor;
 using UnityEngine;
 using static Unity.Collections.AllocatorManager;
 
-public class Board : MonoBehaviour
+public class Board
 {
     public Cell[,] cells { get; private set; }
 
@@ -18,9 +18,9 @@ public class Board : MonoBehaviour
     private bool hasMatched;
     private bool isHalfFull;
 
-    public void Initialize(RunData runData, BlockGameData blockGameData)
+    public void Initialize(RunData data, BlockGameData blockGameData)
     {
-        this.runData = runData;
+        runData = data;
         gameData = blockGameData;
         EffectManager.instance.TriggerEffects(TriggerType.ON_BOARD_NOT_HALF_FULL);
 
@@ -30,6 +30,14 @@ public class Board : MonoBehaviour
         isHalfFull = false;
 
         cells = new Cell[runData.boardSize, runData.boardSize];
+        for (int i = 0; i < runData.boardSize; i++)
+        {
+            for (int j = 0; j < runData.boardSize; j++)
+            {
+                cells[i, j] = new Cell();
+                cells[i, j].Initialize();
+            }
+        }
     }
 
     // 블록 배치 처리
@@ -52,7 +60,7 @@ public class Board : MonoBehaviour
 
             // 블록 배치 이펙트 트리거
             EffectManager.instance.TriggerEffects(TriggerType.ON_BLOCK_PLACE);
-            block.TriggerEffects(TriggerType.ON_BLOCK_PLACE);
+            //block.TriggerEffects(TriggerType.ON_BLOCK_PLACE);
 
             // 보드 상태 이펙트 체크
             if (IsHalfFull())
@@ -201,14 +209,27 @@ public class Board : MonoBehaviour
     // 매치 확인
     private List<Match> CheckMatches(Block block, Vector2Int pos)
     {
-        List<Match> matches = new List<Match>();
+        // Shape에서 실제 차지하는 범위 계산
+        int minX = block.Shape.Min(p => p.x);
+        int maxX = block.Shape.Max(p => p.x);
+        int minY = block.Shape.Min(p => p.y);
+        int maxY = block.Shape.Max(p => p.y);
 
-        List<int> rows = Enumerable.Range(pos.y, block.Shape.GetLength(1)).ToList();
-        List<int> columns = Enumerable.Range(pos.x, block.Shape.GetLength(0)).ToList();
+        // 실제 영향 받는 행/열 계산
+        List<int> rows = Enumerable.Range(
+            pos.y + minY, 
+            maxY - minY + 1
+        ).ToList();
+        
+        List<int> columns = Enumerable.Range(
+            pos.x + minX, 
+            maxX - minX + 1
+        ).ToList();
 
         List<Match> rowMatches = CheckRowMatch(rows);
         List<Match> columnMatches = CheckColumnMatch(columns);
 
+        var matches = new List<Match>();
         matches.AddRange(rowMatches);
         matches.AddRange(columnMatches);
 
@@ -313,6 +334,7 @@ public class Board : MonoBehaviour
         foreach (Vector2Int shapePos in block.Shape)
         {
             Vector2Int worldPos = pos + shapePos;
+            Debug.Log("worldPos: " + worldPos.ToString());
             if (IsOutOfBoard(worldPos) || IsBlocked(worldPos)) 
                 return false;
         }

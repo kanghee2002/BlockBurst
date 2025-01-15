@@ -3557,6 +3557,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameUIManager: {fileID: 294469252}
+  deckCountText: {fileID: 1932354069}
 --- !u!1 &836755881
 GameObject:
   m_ObjectHideFlags: 0
@@ -5279,6 +5280,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rerollButtonUI: {fileID: 1229596797}
   rectTransform: {fileID: 1229596798}
+  rerollCountText: {fileID: 1465880559}
   gameUIManager: {fileID: 294469252}
 --- !u!1 &1233002509
 GameObject:

@@ -92,6 +92,7 @@ public class DeckInfoUI : MonoBehaviour
             text2 += " " + runData.baseBlockScores[blockType] + "\t";
             text2 += "\n";
         }
+        text2 += "\n모든 블록 수: " + availableBlocks.Count;
         deckInfoText2.text = text2;
     }
 }

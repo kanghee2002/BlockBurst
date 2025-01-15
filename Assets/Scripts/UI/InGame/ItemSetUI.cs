@@ -1,28 +1,138 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using DG.Tweening;
 
 public class ItemSetUI : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private GameObject itemIconPrefab;
+    [SerializeField] private float iconOverlap = 30f;    
+    [SerializeField] private float hoverScale = 1.2f;    
+    [SerializeField] private float hoverDuration = 0.2f; 
+    private float startPos = -380f;
+    List<GameObject> itemIcons = new List<GameObject>();
+
+    private Sprite GetImage(ItemData item)
     {
+        string blockPresetPath = "Sprites/Block/Preset/";
+        string itemPath = "Sprites/Item/Item/";
         
+        if (item.type == ItemType.ADD_BLOCK)
+        {
+            return Resources.Load<Sprite>(blockPresetPath + item.block.type.ToString());
+        }
+        else if (item.type == ItemType.ITEM)
+        {
+            return Resources.Load<Sprite>(itemPath + item.id);
+        }
+        else if (item.type == ItemType.DELETE_BLOCK || item.type == ItemType.UPGRADE)
+        {
+            return Resources.Load<Sprite>(blockPresetPath + item.block.type.ToString());
+        }
+        return null;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void SetUpgradeIcon(GameObject itemUI, ItemData item)
     {
-        
+        string upgradePath = "Sprites/Item/Upgrade/";
+        itemUI.transform.GetChild(1).gameObject.SetActive(false);
+
+        if (item.type != ItemType.DELETE_BLOCK && item.type != ItemType.UPGRADE)
+            return;
+
+        string IconPath = upgradePath;
+        if (item.type == ItemType.DELETE_BLOCK)
+        {
+            IconPath += "DeleteUpgrade";
+        }
+        else if (item.effects[0].type == EffectType.GOLD_MODIFIER)
+        {
+            IconPath += "GoldUpgrade";
+        }
+        else if (item.effects[0].type == EffectType.MULTIPLIER_MODIFIER)
+        {
+            IconPath += "MultiplierUpgrade";
+        }
+        else if (item.effects[0].type == EffectType.REROLL_MODIFIER)
+        {
+            IconPath += "RerollUpgrade";
+        }
+        else if (item.effects[0].type == EffectType.BLOCK_REUSE_MODIFIER)
+        {
+            IconPath += "ReuseUpgrade";
+        }
+        else if (item.effects[0].type == EffectType.SCORE_MODIFIER)
+        {
+            IconPath += "ScoreUpgrade";
+        }
+
+        Sprite IconSprite = Resources.Load<Sprite>(IconPath);
+        itemUI.transform.GetChild(1).gameObject.SetActive(true);
+        itemUI.transform.GetChild(1).GetComponent<Image>().sprite = IconSprite;
+    }
+
+    public void Clear()
+    {
+        foreach (GameObject icon in itemIcons)
+        {
+            if (icon != null)
+                Destroy(icon);
+        }
+        itemIcons.Clear();
     }
 
     public void Initialize(List<ItemData> items)
     {
-        string text = "";
-        foreach (ItemData itemData in items)
+        Clear();
+
+        float iconWidth = itemIconPrefab.GetComponent<RectTransform>().rect.width;
+        float spacing = iconWidth - iconOverlap;
+
+        foreach (ItemData item in items)
         {
-            text += itemData.type.ToString() + "\n";
+            GameObject itemIcon = Instantiate(itemIconPrefab, transform);
+            
+            RectTransform rectTransform = itemIcon.GetComponent<RectTransform>();
+            rectTransform.anchoredPosition = new Vector2(startPos + spacing * itemIcons.Count, 0);
+            
+            itemIcon.transform.GetChild(0).GetComponent<Image>().sprite = GetImage(item);
+            SetUpgradeIcon(itemIcon, item);
+
+            EventTrigger trigger = itemIcon.AddComponent<EventTrigger>();
+            
+            EventTrigger.Entry enterEntry = new EventTrigger.Entry();
+            enterEntry.eventID = EventTriggerType.PointerEnter;
+            enterEntry.callback.AddListener((data) => { 
+                itemIcon.transform.DOScale(hoverScale, hoverDuration).SetEase(Ease.OutQuad);
+                itemIcon.transform.SetAsLastSibling();
+            });
+            trigger.triggers.Add(enterEntry);
+
+            EventTrigger.Entry exitEntry = new EventTrigger.Entry();
+            exitEntry.eventID = EventTriggerType.PointerExit;
+            exitEntry.callback.AddListener((data) => {
+                itemIcon.transform.DOScale(1f, hoverDuration).SetEase(Ease.OutQuad);
+                itemIcon.transform.SetSiblingIndex(itemIcons.IndexOf(itemIcon));
+            });
+            trigger.triggers.Add(exitEntry);
+
+            EventTrigger.Entry clickEntry = new EventTrigger.Entry();
+            clickEntry.eventID = EventTriggerType.PointerClick;
+            clickEntry.callback.AddListener((data) => { OnItemClick(itemIcon); });
+            trigger.triggers.Add(clickEntry);
+            
+            itemIcon.transform.SetSiblingIndex(itemIcons.Count);
+            itemIcons.Add(itemIcon);
         }
-        Debug.Log(text);
+    }
+
+    private void OnItemClick(GameObject icon)
+    {
+        // 클릭 이벤트 처리
+
+        // 여기야 여기!!
+        Debug.Log("여기야 여기!!");
     }
 }

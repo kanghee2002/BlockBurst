@@ -7370,6 +7370,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1a3a958847eae54598d25c51d579dc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemIconPrefab: {fileID: 2590677270669734416, guid: 7193ec8fa5d4ee341a3481b89dfd68f3, type: 3}
+  iconOverlap: 30
+  hoverScale: 1.2
+  hoverDuration: 0.2
 --- !u!114 &1583208972
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -207,7 +207,12 @@ public class GameManager : MonoBehaviour
     {
         ItemData shopItem = shopItems[index];
         shopItems[index] = null;
-        return shopManager.PurchaseItem(shopItem);
+        int res = shopManager.PurchaseItem(shopItem);
+        if (res != -1)
+        {
+            GameUIManager.instance.DisplayItemSet(runData.activeItems);
+        }
+        return res;
     }
 
     public void OnShopReroll()

@@ -357,4 +357,9 @@ public class GameUIManager : MonoBehaviour
     {
         GameManager.instance.BackToMain();
     }
+
+    public void DisplayItemSet(List<ItemData> items)
+    {
+        itemSetUI.Initialize(items);
+    }
 }

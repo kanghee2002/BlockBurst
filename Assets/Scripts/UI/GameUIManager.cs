@@ -252,12 +252,8 @@ public class GameUIManager : MonoBehaviour
 
     public void OnRerolled()
     {
-        // TEST
-        GameManager.instance.EndStage(true);
-        /*
-        Debug.Log("게임매니저야 리롤버튼이 눌렸어!!!");
+        //Debug.Log("게임매니저야 리롤버튼이 눌렸어!!!");
         GameManager.instance.OnRerolled();
-        */
     }
 
     public void OnEndStage()

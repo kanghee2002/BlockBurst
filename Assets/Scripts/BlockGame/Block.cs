@@ -5,21 +5,23 @@ using TMPro.EditorUtilities;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Block : MonoBehaviour
+public class Block
 {
-    public int Id { get; private set; }
+    public string Id { get; private set; }
     public BlockType Type { get; private set; }
-    public bool[,] Shape { get; private set; }
-    public List<EffectData> OnPlaceEffects { get; private set; }
-    public List<EffectData> OnClearEffects { get; private set; }
-    public int MaxReuses { get; private set; }
-    
-    public void Initialize(BlockData blockData, int id, int maxReuses)
+    public Vector2Int[] Shape { get; private set; }
+    public List<EffectData> Effects { get; private set; }
+    public int ReuseCount { get; private set; }
+    public GameObject Prefab { get; private set; }
+
+    public void Initialize(BlockData blockData)
     {
-        Id = id;
+        Id = blockData.id;
         Type = blockData.type;
-        MakeShapeArray(blockData.shape);
-        MaxReuses = maxReuses;
+        Shape = blockData.shape.Clone() as Vector2Int[];
+        Effects = new List<EffectData>(blockData.effects);
+        ReuseCount = blockData.reuseCount;
+        Prefab = blockData.prefab;
     }
 
     /// <summary>
@@ -27,34 +29,35 @@ public class Block : MonoBehaviour
     /// </summary>
     public void RotateShape()
     {
-        int width = Shape.GetLength(0);
-        int height = Shape.GetLength(1);
-
-        bool[,] newShape = new bool[height, width];
-
-        for (int y = 0; y < height; y++)
+        Vector2Int[] rotatedShape = new Vector2Int[Shape.Length];
+        for (int i = 0; i < Shape.Length; i++)
         {
-            for (int x = 0; x < width; x++)
-            {
-                newShape[height - 1 - y, x] = Shape[x, y];
-            }
+            Vector2Int pos = Shape[i];
+            rotatedShape[i] = new Vector2Int(-pos.y, pos.x);
         }
-
-        Shape = newShape;
-
-        transform.Rotate(0f, 0f, -90f);
+        Shape = rotatedShape;
+        
+        //transform.Rotate(0f, 0f, -90f);
     }
 
     private void MakeShapeArray(Vector2Int[] shape)
     {
-        int maxX = shape.Max(s => s.x);
-        int maxY = shape.Max(s => s.y);
-
-        Shape = new bool[maxX + 1, maxY + 1];
-
-        foreach (Vector2Int s in shape) 
+        // shape 양식에 맞게
+        Shape = new Vector2Int[shape.Length];
+        for (int i = 0; i < shape.Length; i++)
         {
-            Shape[s.x, s.y] = true;
+            Shape[i] = shape[i];
+        }
+    }
+
+    public void TriggerEffects(TriggerType triggerType)
+    {
+        foreach (var effect in Effects)
+        {
+            if (effect.trigger == triggerType)
+            {
+                EffectManager.instance.TriggerEffects(triggerType, blockTypes: new BlockType[] { Type });
+            }
         }
     }
 }

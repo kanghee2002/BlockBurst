@@ -48,7 +48,7 @@ public class BoardUI : MonoBehaviour
                 newObject.transform.SetParent(boardUI.transform, false);
                 newObject.GetComponent<RectTransform>().anchoredPosition
                     = new Vector2(column - (width - 1f) / 2, row - (width - 1f) / 2) * block_size;
-                newObject.GetComponent<BoardCellUI>().SetCellIndex(new Vector2Int(column, height - row - 1)); // ���� ������ ��¥
+                newObject.GetComponent<BoardCellUI>().SetCellIndex(new Vector2Int(height - row - 1, column)); // ���� ������ ��¥
 
                 listRow.Add(newObject.GetComponent<BoardCellUI>());
             }
@@ -56,20 +56,20 @@ public class BoardUI : MonoBehaviour
         }
     }
 
-    public void OnBlockPlaced(BlockData block, Vector2Int pos) {
-        GameObject blockObj = activeBlocks[block.id];
+    public void OnBlockPlaced(Block block, Vector2Int pos) {
+        GameObject blockObj = activeBlocks[block.Id];
         DecomposeBlockToBoard(blockObj, block, pos);
-        activeBlocks.Remove(block.id);
+        activeBlocks.Remove(block.Id);
         Destroy(blockObj);
     }
 
-    private void DecomposeBlockToBoard(GameObject blockObj, BlockData block, Vector2Int pos) {
-        BlockUI blockUI = blockObj.GetComponent<BlockUI>();
-        foreach (Vector2Int shapePos in block.shape) {
+    private void DecomposeBlockToBoard(GameObject blockObj, Block block, Vector2Int pos) {
+        Transform visualObj = blockObj.transform.GetChild(1);
+        foreach (Vector2Int shapePos in block.Shape) {
             Vector2Int cellPos = pos + shapePos;
-            BoardCellUI cellUI = boardCellsUI[cellPos.y][cellPos.x];
-            cellUI.SetBlockInfo(block.id);
-            cellUI.CopyVisualFrom(blockUI);
+            BoardCellUI cellUI = boardCellsUI[cellPos.x][cellPos.y];
+            cellUI.SetBlockInfo(block.Id);
+            cellUI.CopyVisualFrom(visualObj);
         }
     }
 

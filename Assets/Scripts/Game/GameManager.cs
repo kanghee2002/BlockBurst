@@ -23,11 +23,14 @@ public class GameManager : MonoBehaviour
     const int STAGE_CHOICE_COUNT = 2;
     public int currentStageIndex = 1;
 
-    public List<BlockData> handBlocks = new List<BlockData>();
+    public List<BlockData> handBlocksData = new List<BlockData>();
+    public List<Block> handBlocks = new List<Block>();
     const int HAND_BLOCK_COUNT = 3;
 
     public List<ItemData> shopItems = new List<ItemData>();
     const int SHOP_ITEM_COUNT = 3;
+
+    private int blockId = 0;
 
     public Board board;
 
@@ -145,7 +148,7 @@ public class GameManager : MonoBehaviour
         blockGame = new BlockGameData();
         blockGame.Initialize(currentRun);
 
-        board = GameObject.Find("Board").GetComponent<Board>();
+        board = new Board();
         board.Initialize(currentRun, blockGame);
 
         deckManager.Initialize(ref currentRun, ref blockGame);
@@ -212,38 +215,35 @@ public class GameManager : MonoBehaviour
 
     public void DrawBlocks()
     {
+        handBlocksData.Clear();
         handBlocks.Clear();
         for (int i = 0; i < HAND_BLOCK_COUNT; i++)
         {
-            handBlocks.Add(deckManager.DrawBlock());
+            handBlocksData.Add(deckManager.DrawBlock());
+            handBlocks.Add(new Block());
+            handBlocks[i].Initialize(handBlocksData[i], blockId++);
         }
         GameUIManager.instance.OnBlocksDrawn(handBlocks);
     }
 
-    public void OnBlockSet(BlockData block)
-    {
-        handBlocks.Remove(block);
-        if (handBlocks.Count == 0)
-        {
-            DrawBlocks();
-        }
-    }
-
     public void OnRerolled()
     {
-        if (deckManager.RerollDeck(handBlocks.ToArray()))
+        if (deckManager.RerollDeck(handBlocksData.ToArray()))
         {
             DrawBlocks();
         }
     }
 
-    public bool TryPlaceBlock(BlockData blockData, Vector2Int pos) {
-        Block block = new Block();
-        block.Initialize(blockData);
+    public bool TryPlaceBlock(int idx, Vector2Int pos) {
+        Block block = handBlocks[idx];
         bool success = board.PlaceBlock(block, pos);
         if (success) {
+            // 손에서 블록 제거
+            handBlocks.RemoveAt(idx);
+            handBlocksData.RemoveAt(idx);
+            
             // UI 업데이트 트리거
-            GameUIManager.instance.OnBlockPlaced(blockData, pos);
+            GameUIManager.instance.OnBlockPlaced(block, pos);
             /*
             // Match 처리된 결과 가져오기 및 애니메이션 실행
             List<Match> matches = board.GetLastMatches();

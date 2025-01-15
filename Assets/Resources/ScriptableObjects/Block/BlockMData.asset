@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80988d82d0424cb45adfcaaeecd2c6c0, type: 3}
   m_Name: BlockMData
   m_EditorClassIdentifier: 
-  id: 
+  id: BlockM
   type: 13
   shape:
   - {x: 0, y: 0}

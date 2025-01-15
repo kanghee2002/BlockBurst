@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80988d82d0424cb45adfcaaeecd2c6c0, type: 3}
   m_Name: BlockOData
   m_EditorClassIdentifier: 
-  id: 
+  id: BlockO
   type: 1
   shape:
   - {x: 0, y: 0}
   - {x: 1, y: 0}
   - {x: 0, y: 1}
   - {x: 1, y: 1}
+  reuseCount: 0
+  effects: []
   prefab: {fileID: 6605347088874912601, guid: 9fdc349d9202f0e4493fea0b8fa6d5b6, type: 3}

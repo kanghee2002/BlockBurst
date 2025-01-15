@@ -11,6 +11,9 @@ public class ItemShowcaseUI : MonoBehaviour
 
     public void Initialize(List<ItemData> items)
     {   
+        // 기존 itemUI 삭제
+        ClearItemShowcaseUI();
+
         itemUIs = new GameObject[items.Count];
         for (int i = 0; i < items.Count; i++)
         {
@@ -39,12 +42,24 @@ public class ItemShowcaseUI : MonoBehaviour
 
     public void CloseItemShowcaseUI()
     {
+        ClearItemShowcaseUI();
         gameObject.SetActive(false);
     }
 
     public void PurchaseItem(int idx)
     {
         Destroy(itemUIs[idx]);
+    }
+
+    public void ClearItemShowcaseUI()
+    {
+        if (itemUIs != null)
+        {
+            foreach (GameObject itemUI in itemUIs)
+            {
+                Destroy(itemUI);
+            }
+        }
     }
 
     private void SetImage(GameObject itemUI, ItemData item)

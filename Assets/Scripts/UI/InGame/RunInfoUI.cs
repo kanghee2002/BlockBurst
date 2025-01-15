@@ -74,7 +74,7 @@ public class RunData
         System.Text.StringBuilder sb = new System.Text.StringBuilder();
         
         // 기본 정보를 2개씩 탭으로 구분
-        sb.AppendLine($"Gold: {runData.gold}\t\tReroll: {runData.currentRerollCount}/{runData.baseRerollCount}");
+        sb.AppendLine($"Gold: {runData.gold}\t\tReroll: {runData.baseRerollCount}/{runData.baseRerollCount}");
         
         // Block Scores를 2개씩 탭으로 구분
         sb.AppendLine("\nBlock Scores:");

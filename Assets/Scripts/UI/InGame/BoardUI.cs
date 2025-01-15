@@ -44,8 +44,17 @@ public class BoardUI : MonoBehaviour
             });
     }
 
-    private void Awake()
+    public void Initialize(int rows, int columns)
     {
+        height = rows;
+        width = columns;
+
+        // 기존 boardCell 비우기
+        foreach (Transform child in boardUI.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
         boardCellsUI = new BoardCellUI[height, width];
 
         for (int row = 0; row < height; row++)

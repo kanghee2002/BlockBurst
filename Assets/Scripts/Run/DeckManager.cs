@@ -38,7 +38,7 @@ public class DeckManager : MonoBehaviour
         return block;
     }
 
-    public bool RerollDeck(BlockData[] remains)
+    public bool RerollDeck(List<BlockData> remains)
     {
         if (blockGameData.rerollCount <= 0)
         {
@@ -47,9 +47,9 @@ public class DeckManager : MonoBehaviour
         else 
         {
             blockGameData.rerollCount--;
-            foreach (BlockData block in blockGameData.deck)
+            foreach (BlockData block in remains)
             {
-                AddBlock(block);
+                if (block) AddBlock(block);
             }
             return true;
         }

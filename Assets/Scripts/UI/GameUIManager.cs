@@ -271,7 +271,8 @@ public class GameUIManager : MonoBehaviour
 
     public void GetDeckInfo()
     {
-        Debug.Log("게임매니저야 플레이어가 덱을 열었어! 덱 정보 가져갈게!");
+        Debug.Log("게임매니저야 플레이어가 덱 정보를 열었어! 덱 정보 가져갈게!");
+        deckInfoUI.Initialize(GameManager.instance.GetDeckInfo());
     }
     
     public void OnStageSelection(StageData[] nextStageChoices, int currentChapterIndex, int currentStageIndex)
@@ -292,17 +293,19 @@ public class GameUIManager : MonoBehaviour
         }
     }
 
-    public void OnStageStart(int chapterIndex, int stageIndex, StageData stageData)
+    public void OnStageStart(int chapterIndex, int stageIndex, StageData stageData, BlockGameData blockGame)
     {        
         boardUI.gameObject.SetActive(true);
         stageInfoUI.Initialize(chapterIndex, stageIndex, stageData);
         scoreInfoUI.UpdateScore(0);
+
+        boardUI.Initialize(blockGame.boardRows, blockGame.boardColumns);
+        
         ChangeSceneState(SceneState.playing);
     }
 
     public void OnBlocksDrawn(List<Block> blocks)
     {
-
         handUI.Initialize(blocks);
     }
 
@@ -340,6 +343,14 @@ public class GameUIManager : MonoBehaviour
 
     public void UpdateGold(int gold) {
         goldInfoUI.UpdateGold(gold);
+    }
+
+    public void DisplayRerollCount(int rerollCount) {
+        rerollButtonUI.DisplayRerollCount(rerollCount);
+    }
+
+    public void DisplayDeckCount(int deckCount, int maxDeckCount) {
+        deckButtonUI.DisplayDeckCount(deckCount, maxDeckCount);
     }
 
     public void BackToMain()

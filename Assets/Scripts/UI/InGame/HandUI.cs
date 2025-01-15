@@ -15,6 +15,8 @@ public class HandUI : MonoBehaviour
     [SerializeField] private GameObject BoardUICanvas;
     [SerializeField] private GameObject blockPrefab;
 
+    private bool isOpen = false;
+
     GameObject[] blockUIs;
 
     private void Awake()
@@ -24,40 +26,61 @@ public class HandUI : MonoBehaviour
 
     public void OpenHandUI()
     {
-        handUI.SetActive(true);
-        rectTransform.DOAnchorPosX(insidePositionX, duration)
-            .SetEase(Ease.OutCubic);
+        if (!isOpen)
+        {
+            isOpen = true;
+            handUI.SetActive(true);
+            rectTransform.DOAnchorPosX(insidePositionX, duration)
+                .SetEase(Ease.OutCubic);
+            FadeInBlocks();
+        }
+    }
 
+    void FadeInBlocks()
+    {
         for (int i = 0; i < blockUIs.Length; i++)
         {
             var blockObj = blockUIs[i];
             blockObj.GetComponent<CanvasGroup>().DOFade(1f, 0.2f)
-                .SetDelay((3 - i) * 0.2f); // 순차적으로 나타나도록 딜레이 추가
+                .SetDelay((i + 1) * 0.2f); // 순차적으로 나타나도록 딜레이 추가
         }
     }
 
     public void CloseHandUI()
     {
-        foreach (GameObject blockUI in blockUIs)
+        if (isOpen)
         {
-            if (blockUI) Destroy(blockUI);
+            isOpen = false;
+            ClearHandUI();
+            rectTransform.DOAnchorPosX(insidePositionX + outsidePositionOffsetX, duration)
+                .SetEase(Ease.OutCubic)
+                .OnComplete(() =>
+                {
+                    handUI.SetActive(false);
+                });
         }
-        rectTransform.DOAnchorPosX(insidePositionX + outsidePositionOffsetX, duration)
-            .SetEase(Ease.OutCubic)
-            .OnComplete(() =>
+    }
+
+    public void ClearHandUI()
+    {
+        if (blockUIs != null) 
+        {
+            foreach (GameObject blockUI in blockUIs)
             {
-                handUI.SetActive(false);
-            });
+                if (blockUI) Destroy(blockUI);
+            }
+        }
     }
 
     public void Initialize(List<Block> hand)
     {
+        ClearHandUI();
         blockUIs = new GameObject[hand.Count];
         int idx = 0;
         foreach (Block block in hand)
         {
             GameObject blockObj = Instantiate(blockPrefab, BoardUICanvas.transform);
-            blockObj.transform.localPosition = new Vector3(750, (idx - 1) * 200, 0); // 위치는 임시
+            blockObj.transform.localPosition = new Vector3(750, (1 - idx) * 200, 0); // 위치는 임시
             var blockUI = blockObj.GetComponent<BlockUI>();
             blockUI.Initialize(block, idx);
             
@@ -66,6 +89,10 @@ public class HandUI : MonoBehaviour
             
             blockUIs[idx] = blockObj;
             idx++;
+        }
+        if (isOpen)
+        {
+            FadeInBlocks();
         }
     }
 }

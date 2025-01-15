@@ -2,11 +2,13 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class RerollButtonUI : MonoBehaviour
 {
     [SerializeField] private GameObject rerollButtonUI;
     [SerializeField] private RectTransform rectTransform;
+    [SerializeField] private TextMeshProUGUI rerollCountText;
     // inside anchored position = (-188,-400)
     private const float insidePositionX = -188;
     private const float outsidePositionOffsetX = 480;
@@ -33,5 +35,10 @@ public class RerollButtonUI : MonoBehaviour
             {
                 rerollButtonUI.SetActive(false);
             });
+    }
+
+    public void DisplayRerollCount(int rerollCount)
+    {
+        rerollCountText.text = rerollCount.ToString();
     }
 }

@@ -10,7 +10,6 @@ public class Board
 {
     public Cell[,] cells { get; private set; }
 
-    private RunData runData;
     private BlockGameData gameData;
 
     private List<(BlockType, string)> onClearEffectBlocks;      // 모두 지워질 때 효과 발동하는 블록 ID 저장
@@ -20,9 +19,8 @@ public class Board
 
     private List<Match> lastMatches;
 
-    public void Initialize(RunData data, BlockGameData blockGameData)
+    public void Initialize(BlockGameData blockGameData)
     {
-        runData = data;
         gameData = blockGameData;
         EffectManager.instance.TriggerEffects(TriggerType.ON_BOARD_NOT_HALF_FULL);
 
@@ -31,10 +29,10 @@ public class Board
         hasMatched = false;
         isHalfFull = false;
 
-        cells = new Cell[runData.boardSize, runData.boardSize];
-        for (int i = 0; i < runData.boardSize; i++)
+        cells = new Cell[gameData.boardRows, gameData.boardColumns];
+        for (int i = 0; i < gameData.boardRows; i++)
         {
-            for (int j = 0; j < runData.boardSize; j++)
+            for (int j = 0; j < gameData.boardColumns; j++)
             {
                 cells[i, j] = new Cell();
                 cells[i, j].Initialize();
@@ -211,7 +209,7 @@ public class Board
         if (matches.Count > 0)
         {
             Debug.Log("계산된 점수: " + totalScore);
-            gameData.matchMultipliers = new(runData.baseMatchMultipliers);
+            //gameData.matchMultipliers = new(runData.baseMatchMultipliers);
         }
 
     }
@@ -345,7 +343,6 @@ public class Board
         foreach (Vector2Int shapePos in block.Shape)
         {
             Vector2Int worldPos = pos + shapePos;
-            Debug.Log("worldPos: " + worldPos.ToString());
             if (IsOutOfBoard(worldPos) || IsBlocked(worldPos)) 
                 return false;
         }

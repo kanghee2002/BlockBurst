@@ -11,6 +11,7 @@ public class GameData
     public List<StageData> stagePool;                               // 스테이지 풀
     public int startingGold;                                        // 시작 골드
     public int defaultRerollCount;                                  // 기본 리롤 횟수
+    public int defaultBlockCount;                                   // 기본 블록 수
 
     public void Initialize()
     {
@@ -21,6 +22,7 @@ public class GameData
         stagePool = new List<StageData>();
         startingGold = 10;
         defaultRerollCount = 3;
+        defaultBlockCount = 20;
         
         // 기본 블록 점수 설정
         defaultBlockScores[BlockType.I] = 10;

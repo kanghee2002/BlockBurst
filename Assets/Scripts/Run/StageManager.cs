@@ -39,6 +39,7 @@ public class StageManager : MonoBehaviour
     {
         // 보상 지급
         runData.gold += currentStage.goldReward;
+        RemoveConstraints();
     }
 
     // 스테이지 클리어 시 적용된 제한 제거

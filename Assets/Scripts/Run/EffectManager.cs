@@ -89,6 +89,13 @@ public class EffectManager : MonoBehaviour
                     blockGameData.blockScores[blockType] += effect.effectValue;
                 }
                 break;
+            case EffectType.SCORE_MULTIPLIER:
+                foreach (BlockType blockType in effect.blockTypes)
+                {
+                    //runData.baseBlockScores[blockType] += effect.effectValue;
+                    blockGameData.blockScores[blockType] *= effect.effectValue;
+                }
+                break;
             case EffectType.MULTIPLIER_MODIFIER:
                 blockGameData.matchMultipliers[matchType] += effect.effectValue;
                 break;

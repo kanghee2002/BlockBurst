@@ -25,20 +25,20 @@ public class GameData
         // 기본 블록 점수 설정
         defaultBlockScores[BlockType.I] = 10;
         defaultBlockScores[BlockType.O] = 15;
-        defaultBlockScores[BlockType.Z] = 25;
-        defaultBlockScores[BlockType.S] = 25;
+        defaultBlockScores[BlockType.Z] = 30;
+        defaultBlockScores[BlockType.S] = 30;
         defaultBlockScores[BlockType.J] = 20;
         defaultBlockScores[BlockType.L] = 20;
         defaultBlockScores[BlockType.T] = 20;
-        defaultBlockScores[BlockType.SOLO] = 5;
+        defaultBlockScores[BlockType.SOLO] = 10;
         defaultBlockScores[BlockType.DUO] = 10;
-        defaultBlockScores[BlockType.TRIO] = 15;
-        defaultBlockScores[BlockType.X] = 30;
-        defaultBlockScores[BlockType.CROSS] = 30;
-        defaultBlockScores[BlockType.CORNER] = 30;
-        defaultBlockScores[BlockType.M] = 30;
-        defaultBlockScores[BlockType.MEGASQUARE] = 50;
-        defaultBlockScores[BlockType.ULTRASQUARE] = 100;
+        defaultBlockScores[BlockType.TRIO] = 10;
+        defaultBlockScores[BlockType.X] = 10;
+        defaultBlockScores[BlockType.CROSS] = 10;
+        defaultBlockScores[BlockType.CORNER] = 10;
+        defaultBlockScores[BlockType.M] = 10;
+        defaultBlockScores[BlockType.MEGASQUARE] = 0;
+        defaultBlockScores[BlockType.ULTRASQUARE] = 0;
 
 
         // 기본 배수 설정

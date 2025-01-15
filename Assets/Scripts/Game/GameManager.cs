@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     public BlockData[] blockTemplates;
 
     const int STAGE_CHOICE_COUNT = 2;
+    public int currentChapterIndex = 1;
     public int currentStageIndex = 1;
 
     public List<BlockData> handBlocksData = new List<BlockData>();
@@ -132,7 +133,7 @@ public class GameManager : MonoBehaviour
         }
 
         // UI에 전달
-        GameUIManager.instance.OnStageSelection(nextStageChoices);
+        GameUIManager.instance.OnStageSelection(nextStageChoices, currentChapterIndex, currentStageIndex);
     }
 
     public void OnStageSelection(int choiceIndex)

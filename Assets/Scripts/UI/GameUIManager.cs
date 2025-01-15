@@ -306,8 +306,9 @@ public class GameUIManager : MonoBehaviour
         Debug.Log("게임매니저야 플레이어가 덱을 열었어! 덱 정보 가져갈게!");
     }
     
-    public void OnStageSelection(StageData[] nextStageChoices)
+    public void OnStageSelection(StageData[] nextStageChoices, int currentChapterIndex, int currentStageIndex)
     {
+        stageSelectionSignboardUI.Initialize(currentChapterIndex, currentStageIndex);
         // stageData들을 받아와서 UI에 뿌려주는 메서드
         if (nextStageChoices.Length == 2)
         {

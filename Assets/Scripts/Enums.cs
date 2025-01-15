@@ -45,15 +45,15 @@ public enum EffectType
     BASEREROLL_MULTIPLIER,      // * 기본 리롤 횟수 N배
     GOLD_MODIFIER,              // * 골드 수정
     GOLD_MULTIPLIER,            // * 골드 N배
-    BOARD_SIZE_MODIFIER,        // 보드 크기 수정
-    BOARD_CORNER_BLOCK,         // 보드 가장자리 제한
-    BOARD_RANDOM_BLOCK,         // 보드 무작위 N칸 제한
+    BOARD_SIZE_MODIFIER,        // * 보드 크기 수정
+    BOARD_CORNER_BLOCK,         // * 보드 가장자리 제한
+    BOARD_RANDOM_BLOCK,         // * 보드 무작위 N칸 제한
     DECK_MODIFIER,              // 덱 수정
     BLOCK_REUSE_MODIFIER,       // 블록 재사용
     SQUARE_CLEAR,               // 사각형 클리어
-    BLOCK_MULTIPLIER,           // 덱의 특정 블록 N배
-    BLOCK_DELETE,               // 덱의 특정 블록 모두 삭제
-    BLOCK_DELETE_WITH_VALUE,    // 덱의 특정 블록 N개 삭제
+    BLOCK_MULTIPLIER,           // * 덱의 특정 블록 N배
+    BLOCK_DELETE,               // * 덱의 특정 블록 모두 삭제
+    BLOCK_DELETE_WITH_COUNT,    // 덱의 특정 블록 N개 삭제
     ROW_LINE_CLEAR,             // 무작위 가로 1줄 지움
     COLUMN_LINE_CLEAR,          // 무작위 세로 1줄 지움
     BOARD_CLEAR,                // 보드의 모든 블록 지움
@@ -63,10 +63,10 @@ public enum EffectType
 public enum TriggerType
 {
     ON_ACQUIRE,                             // * 획득할 때 (즉시)
-    ON_BLOCK_PLACE,                         // * 블록을 배치할 때
+    ON_BLOCK_PLACE,                         // * 블록을 배치할 때 (특정 가능)
     ON_BLOCK_PLACE_WITHOUT_LINE_CLEAR,      // * 블록을 배치할 때 줄이 지워지지 않으면
     ON_BLOCK_PLACE_WITH_LINE_CLEAR,         // * 특정 블록을 배치하여 줄을 지울 때
-    ON_BLOCK_CLEAR,                         // 블록이 모두 지워질 때
+    ON_BLOCK_CLEAR,                         // * 블록이 모두 지워질 때
     ON_ROW_LINE_CLEAR,                      // * 가로로 줄을 지울 때
     ON_COLUMN_LINE_CLEAR,                   // * 세로로 줄을 지울 때
     ON_CROSS_LINE_CLEAR,                    // * 가로, 세로를 한 번에 지울 때

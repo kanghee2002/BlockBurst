@@ -147,6 +147,8 @@ public class EffectManager : MonoBehaviour
                     runData.availableBlocks.RemoveAll(data => data.type == blockType);
                 }
                 break;
+            case EffectType.BLOCK_DELETE_WITH_COUNT:
+                break;
             case EffectType.ROW_LINE_CLEAR:
                 // TODO
                 break;

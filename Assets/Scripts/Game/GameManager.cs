@@ -154,6 +154,20 @@ public class GameManager : MonoBehaviour
         StageData selectedStage = nextStageChoices[choiceIndex];
         StartStage(selectedStage);
         GameUIManager.instance.OnStageStart(currentChapterIndex, currentStageIndex, selectedStage, blockGame);
+        GameUIManager.instance.BlockCells(GetInactiveBlockCells(blockGame));
+    }
+
+    HashSet<Vector2Int> GetInactiveBlockCells(BlockGameData data)
+    {
+        HashSet<Vector2Int> inactiveBlockCells = new HashSet<Vector2Int>(data.inactiveBlockCells);
+        if (data.isCornerBlocked)
+        {
+            inactiveBlockCells.Add(new Vector2Int(0, 0));
+            inactiveBlockCells.Add(new Vector2Int(0, data.boardColumns - 1));
+            inactiveBlockCells.Add(new Vector2Int(data.boardRows - 1, 0));
+            inactiveBlockCells.Add(new Vector2Int(data.boardRows - 1, data.boardColumns - 1));
+        }
+        return inactiveBlockCells;
     }
 
     public void StartStage(StageData stage)
@@ -166,10 +180,12 @@ public class GameManager : MonoBehaviour
         // 스테이지 시작
         stageManager.StartStage(stage);
 
-        Debug.Log(blockGame.boardRows + " " + blockGame.boardColumns);
-
         board = new Board();
         board.Initialize(blockGame);
+
+        // 보드와 프론트를 막음
+        HashSet<Vector2Int> inactiveBlockCells = GetInactiveBlockCells(blockGame);
+        board.BlockCells(inactiveBlockCells);
 
         deckManager.Initialize(ref blockGame, runData.availableBlocks);
 

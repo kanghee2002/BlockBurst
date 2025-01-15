@@ -362,4 +362,9 @@ public class GameUIManager : MonoBehaviour
     {
         itemSetUI.Initialize(items);
     }
+
+    public void BlockCells(HashSet<Vector2Int> cells)
+    {
+        boardUI.BlockCells(cells);
+    }
 }

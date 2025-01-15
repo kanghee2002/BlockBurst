@@ -38,6 +38,14 @@ public class Board
         }
     }
 
+    public void BlockCells(HashSet<Vector2Int> blockedCells)
+    {
+        foreach (Vector2Int pos in blockedCells)
+        {
+            cells[pos.x, pos.y].BlockCell();
+        }
+    }
+
     public List<Match> GetLastMatches()
     {
         return lastMatches;

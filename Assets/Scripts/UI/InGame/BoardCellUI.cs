@@ -14,6 +14,7 @@ public class BoardCellUI : MonoBehaviour
     private bool isShadow = false;
     private bool isAnimating = false;
     private bool hideShadowReserved = false; // HideShadow 예약 플래그
+    private bool isBlocked = false;
 
     private void Awake()
     {
@@ -36,6 +37,7 @@ public class BoardCellUI : MonoBehaviour
 
     public void ClearCell()
     {
+        if (isBlocked) return;
         blockId = "";
         cellImage.sprite = originalSprite;
         cellImage.color = originalColor;
@@ -61,6 +63,7 @@ public class BoardCellUI : MonoBehaviour
     }
 
     public void ShowShadow() {
+        if (isBlocked) return;
         if (!isAnimating && !isShadow) {
             Color shadowColor = string.IsNullOrEmpty(blockId) ? 
                 new Color(.6f, .6f, .6f, 1f) : 
@@ -70,6 +73,7 @@ public class BoardCellUI : MonoBehaviour
     }
 
     public void HideShadow() {
+        if (isBlocked) return;
         if (isAnimating) {
             hideShadowReserved = true; // 애니메이션 중일 경우 예약
         } else if (isShadow) {
@@ -77,11 +81,18 @@ public class BoardCellUI : MonoBehaviour
         }
     }
 
+    public void BlockCell() {
+        isBlocked = true;
+        cellImage.color = new Color(0.5f, 0.5f, 0.5f);
+    }
+
     public void PlayHighlightAnimation() {
+        if (isBlocked) return;
         cellImage.DOColor(new Color(1f, 1f, 1f), 0.2f).SetLoops(2, LoopType.Yoyo);
     }
 
     public void PlayClearAnimation() {
+        if (isBlocked) return;
         Vector3 originalScale = transform.localScale;
 
         DOTween.Kill(transform);

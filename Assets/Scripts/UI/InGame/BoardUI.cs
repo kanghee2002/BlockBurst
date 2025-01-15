@@ -44,6 +44,15 @@ public class BoardUI : MonoBehaviour
             });
     }
 
+    public void BlockCells(HashSet<Vector2Int> cells)
+    {
+        foreach (Vector2Int cell in cells)
+        {
+            boardCellsUI[cell.x, cell.y].BlockCell();
+        }
+    }
+        
+
     public void Initialize(int rows, int columns)
     {
         height = rows;

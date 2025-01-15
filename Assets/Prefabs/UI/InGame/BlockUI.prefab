@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5605540467424104713}
   - component: {fileID: 4280433295334999291}
   - component: {fileID: 8319281967089602838}
+  - component: {fileID: -11890129036196670}
   m_Layer: 5
   m_Name: BlockUI
   m_TagString: Untagged
@@ -59,9 +60,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabBlockCellUI: {fileID: 2567228566445153721, guid: 1539e31fbae4f004bb591e40b48c4093, type: 3}
-  shadowContainer: {fileID: 7792159552252890174}
-  prefabBlockCellShadowUI: {fileID: 1336363243026422355, guid: f39003f5d2dec6b49bcac27bc20f5007, type: 3}
   rectTransform: {fileID: 5605540467424104713}
+--- !u!225 &-11890129036196670
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5584209774050834303}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &7792159552252890174
 GameObject:
   m_ObjectHideFlags: 0

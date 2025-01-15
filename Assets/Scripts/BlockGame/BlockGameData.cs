@@ -23,7 +23,7 @@ public class BlockGameData
         moveCount = 0;
         isCornerBlocked = false;
         inactiveBlockCells = new HashSet<Vector2Int>();
-        deck = new List<BlockData>(runData.availableBlocks);
+        deck = new List<BlockData>();
         rerollCount = runData.currentRerollCount;
     }
 }

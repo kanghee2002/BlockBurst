@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Linq;
+using UnityEngine.UI;
 
 public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
@@ -49,6 +50,7 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
 
         blockCellsUI = new GameObject[blockCellsUIRowCount, blockCellsUIColumnCount];
 
+        Sprite blockSprite = Resources.Load<Sprite>("Sprites/Block/" + block.Type.ToString());
         // Place blocks according to shape data
         foreach (Vector2Int pos in block.Shape)
         {
@@ -56,6 +58,7 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
             int normalizedY = pos.y - minY;
             
             GameObject blockCell = Instantiate(prefabBlockCellUI);
+            blockCell.GetComponent<Image>().sprite = blockSprite;
             blockCellsUI[normalizedX, normalizedY] = blockCell;
         }
 
@@ -121,8 +124,7 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
         if (closestValidCell != null)
         {
             Vector2Int boardPosition = closestValidCell.GetCellIndex() - new Vector2Int(minX, minY);
-            Debug.Log("Board Position: " + boardPosition);
-            if (GameUIManager.instance.TryPlaceBlock(idx, boardPosition))
+            if (GameUIManager.instance.TryPlaceBlock(idx, boardPosition, gameObject))
             {
                 Vector2 targetPosition = closestValidCell.GetComponent<RectTransform>().anchoredPosition
                     + boardUI.GetComponent<RectTransform>().anchoredPosition;

@@ -35,10 +35,10 @@ public class StageInfoUI : MonoBehaviour
             });
     }
 
-    public void Initialize(int stageIndex, StageData stageData)
+    public void Initialize(int chapterIndex, int stageIndex, StageData stageData)
     {
         stageInfoUI.SetActive(true);
-        //UpdateChapter(1);
+        UpdateChapter(chapterIndex);
         UpdateStage(stageIndex);
         UpdateDebuffText(stageData.constraints.Select(x => x.effectName).ToArray());
         UpdateScoreAtLeast(stageData.clearRequirement);

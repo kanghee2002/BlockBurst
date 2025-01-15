@@ -16,16 +16,16 @@ public class ShopManager : MonoBehaviour
         deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
     }
 
-    public bool PurchaseItem(ItemData item)
+    public int PurchaseItem(ItemData item)
     {
         if (item == null || runData.gold < item.cost)
         {
-            return false;
+            return -1;
         } 
         else {
             runData.gold -= item.cost;
             ApplyItem(item);
-            return true;
+            return runData.gold;
         }
     }
 

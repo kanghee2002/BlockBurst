@@ -257,7 +257,7 @@ public class GameManager : MonoBehaviour
             handBlocks[i].Initialize(handBlocksData[i], blockId++);
         }
         GameUIManager.instance.OnBlocksDrawn(handBlocks);
-        GameUIManager.instance.DisplayDeckCount(blockGame.deck.Count, gameData.defaultBlockCount);
+        GameUIManager.instance.DisplayDeckCount(blockGame.deck.Count, runData.availableBlocks.Count);
     }
 
     public void OnRerolled()

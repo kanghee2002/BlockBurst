@@ -22,7 +22,7 @@ public class GameData
         stagePool = new List<StageData>();
         startingGold = 10;
         defaultRerollCount = 3;
-        defaultBlockCount = 20;
+        defaultBlockCount = 5;
         
         // 기본 블록 점수 설정
         defaultBlockScores[BlockType.I] = 10;

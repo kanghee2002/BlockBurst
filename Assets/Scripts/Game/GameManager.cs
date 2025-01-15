@@ -98,6 +98,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void BackToMain()
+    {
+        // 메인 화면으로 돌아가기
+        Debug.Log("Back to Main");
+    }
+
     // ------------------------------
     // GAME LAYER - end
     // ------------------------------
@@ -203,8 +209,9 @@ public class GameManager : MonoBehaviour
 
     public void OnShopReroll()
     {
-        shopManager.RerollShop(shopItems);
+        List<ItemData> remains = shopItems.Where(item => item != null).ToList();
         StartShop();
+        shopManager.RerollShop(remains);
     }
     // ------------------------------
     // RUN LAYER - end
@@ -245,7 +252,7 @@ public class GameManager : MonoBehaviour
             
             // UI 업데이트 트리거
             GameUIManager.instance.OnBlockPlaced(block, pos);
-            
+
             // Match 처리된 결과 가져오기 및 애니메이션 실행
             List<Match> matches = board.GetLastMatches();
             if (matches.Count > 0) {

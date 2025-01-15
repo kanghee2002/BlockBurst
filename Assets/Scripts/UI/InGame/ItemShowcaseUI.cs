@@ -7,14 +7,17 @@ using UnityEngine.UI;
 public class ItemShowcaseUI : MonoBehaviour
 {
     [SerializeField] private GameObject itemPrefab;
+    GameObject[] itemUIs;
 
     public void Initialize(List<ItemData> items)
     {   
+        itemUIs = new GameObject[items.Count];
         for (int i = 0; i < items.Count; i++)
         {
             int currentIndex = i;
             ItemData itemData = items[currentIndex];
-            GameObject itemUI = Instantiate(itemPrefab, transform);
+            itemUIs[i] = Instantiate(itemPrefab, transform);
+            GameObject itemUI = itemUIs[i];
             itemUI.transform.localPosition = new Vector3((currentIndex - 1) * 250, 0, 0);
 
             SetImage(itemUI, items[currentIndex]);
@@ -35,6 +38,11 @@ public class ItemShowcaseUI : MonoBehaviour
     public void CloseItemShowcaseUI()
     {
         gameObject.SetActive(false);
+    }
+
+    public void PurchaseItem(int idx)
+    {
+        Destroy(itemUIs[idx]);
     }
 
     private void SetImage(GameObject itemUI, ItemData item)

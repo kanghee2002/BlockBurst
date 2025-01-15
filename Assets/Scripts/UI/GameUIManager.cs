@@ -239,41 +239,6 @@ public class GameUIManager : MonoBehaviour
         yield return null;
     }
 
-    // 이하 model 부분과의 의사소통을 위한 창구... 갈 길이 멀다.
-    // On: GameUIManager -(이벤트)-> GameManager
-    // Notify: GameManager -(이벤트)-> GameUIManager
-    // Get: GameUIManager가 GameManager로부터 정보를 가져옴
-    /*
-    public void NotifyChapterIsUpdated(int updatedChapter)
-    {
-        stageInfoUI.UpdateChapter(updatedChapter);
-    }
-
-    public void NotifyStageIsUpdated(int updatedStage)
-    {
-       
-        stageInfoUI.UpdateStage(updatedStage);
-    }
-    public void NotifyDebuffTextIsUpdated(string updatedDebuffText)
-    {
-        stageInfoUI.UpdateDebuffText(updatedDebuffText);
-    }
-
-    public void NotifyScoreAtLeastIsUpdated(int updatedScoreAtLeast)
-    {
-        stageInfoUI.UpdateScoreAtLeast(updatedScoreAtLeast);
-    }
-
-    public void NotifyScoreIsUpdated(int updatedScore)
-    {
-        scoreInfoUI.UpdateScore(updatedScore);
-    }
-
-    public void NotifyGoldIsUpdated(int updatedGold)
-    {
-        goldInfoUI.UpdateGold(updatedGold);
-    }
-    */
     public void GetRunInfo()
     {
         Debug.Log("게임매니저야 플레이어가 런 정보를 열었어! 런 정보 가져갈게!");
@@ -293,6 +258,12 @@ public class GameUIManager : MonoBehaviour
         GameManager.instance.OnRerolled();
         */
     }
+
+    public void OnEndStage()
+    {
+        
+    }
+
     public void NotifyRerolled()
     {
         // 리롤이 시행되었을 때 호출되는 메서드
@@ -325,21 +296,23 @@ public class GameUIManager : MonoBehaviour
         }
     }
 
-    public void OnStageStart(int stageIndex, StageData stageData)
+    public void OnStageStart(int chapterIndex, int stageIndex, StageData stageData)
     {        
-        stageInfoUI.Initialize(stageIndex, stageData);
+        boardUI.gameObject.SetActive(true);
+        stageInfoUI.Initialize(chapterIndex, stageIndex, stageData);
         scoreInfoUI.UpdateScore(0);
         ChangeSceneState(SceneState.playing);
     }
 
     public void OnBlocksDrawn(List<Block> blocks)
     {
+
         handUI.Initialize(blocks);
     }
 
-    public bool TryPlaceBlock(int idx, Vector2Int pos)
+    public bool TryPlaceBlock(int idx, Vector2Int pos, GameObject blockObj)
     {
-        return GameManager.instance.TryPlaceBlock(idx, pos);
+        return GameManager.instance.TryPlaceBlock(idx, pos, blockObj);
     }
 
     public void OnShopStart(List<ItemData> items)
@@ -350,13 +323,15 @@ public class GameUIManager : MonoBehaviour
 
     public void OnItemShowcaseItemButtonPressed(int index)
     {
-        if (GameManager.instance.OnItemPurchased(index))
+        int gold = GameManager.instance.OnItemPurchased(index);
+        if (gold != -1)
         {
+            goldInfoUI.UpdateGold(gold);
             itemShowcaseUI.PurchaseItem(index);
         }
     }
-    public void OnBlockPlaced(Block block, Vector2Int pos) {
-        boardUI.OnBlockPlaced(block, pos);
+    public void OnBlockPlaced(GameObject blockObj, Block block, Vector2Int pos) {
+        boardUI.OnBlockPlaced(blockObj, block, pos);
     }
 
     public void PlayMatchAnimation(List<Match> matches) {

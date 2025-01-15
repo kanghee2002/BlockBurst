@@ -14,7 +14,6 @@ public class BoardUI : MonoBehaviour
     private int height = 8;
     [SerializeField] private GameObject prefabBoardCellUI;
     public BoardCellUI[,] boardCellsUI;
-    public Dictionary<string, GameObject> activeBlocks = new Dictionary<string, GameObject>();
 
     private const float insidePositionY = -96;
     private const float outsidePositionOffsetY = -1080;
@@ -57,11 +56,9 @@ public class BoardUI : MonoBehaviour
         }
     }
 
-    public void OnBlockPlaced(Block block, Vector2Int pos)
+    public void OnBlockPlaced(GameObject blockObj, Block block, Vector2Int pos)
     {
-        GameObject blockObj = activeBlocks[block.Id];
         DecomposeBlockToBoard(blockObj, block, pos);
-        activeBlocks.Remove(block.Id);
         Destroy(blockObj);
     }
 

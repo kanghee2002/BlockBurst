@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance = null;
 
     public GameData gameData;
-    public RunData currentRun;
+    public RunData runData;
     public BlockGameData blockGame;
 
     public DeckManager deckManager;
@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
         gameData.Initialize();
         
         // 템플릿에서 몇개 랜덤으로 뽑아 추가
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 20; i++)
         {
             gameData.defaultBlocks.Add(blockTemplates[Random.Range(0, blockTemplates.Length)]);
         }
@@ -115,16 +115,16 @@ public class GameManager : MonoBehaviour
     public void StartNewRun()
     {
         // 초기화
-        currentRun = new RunData();
-        currentRun.Initialize(gameData);
+        runData = new RunData();
+        runData.Initialize(gameData);
 
-        EffectManager.instance.Initialize(ref currentRun);
+        EffectManager.instance.Initialize(ref runData);
 
-        stageManager.Initialize(ref currentRun);
+        stageManager.Initialize(ref runData);
 
-        shopManager.Initialize(ref currentRun, itemTemplates);
+        shopManager.Initialize(ref runData, itemTemplates);
 
-        GameUIManager.instance.Initialize(currentRun);
+        GameUIManager.instance.Initialize(runData);
         StartStageSelection();
     }
 
@@ -147,21 +147,21 @@ public class GameManager : MonoBehaviour
         // 선택된 스테이지로 진행
         StageData selectedStage = nextStageChoices[choiceIndex];
         StartStage(selectedStage);
-        GameUIManager.instance.OnStageStart(currentStageIndex, selectedStage);
+        GameUIManager.instance.OnStageStart(currentChapterIndex, currentStageIndex, selectedStage);
     }
 
     public void StartStage(StageData stage)
     {
         blockGame = new BlockGameData();
-        blockGame.Initialize(currentRun);
+        blockGame.Initialize(runData);
 
         board = new Board();
-        board.Initialize(currentRun, blockGame);
+        board.Initialize(runData, blockGame);
 
-        deckManager.Initialize(ref currentRun, ref blockGame);
+        deckManager.Initialize(ref runData, ref blockGame);
 
         EffectManager.instance.InitializeBlockGameData(ref blockGame);
-
+        Debug.Log(blockGame.deck.Count);
         // 스테이지 시작
         stageManager.StartStage(stage);
         DrawBlocks();
@@ -172,6 +172,7 @@ public class GameManager : MonoBehaviour
         if (cleared)
         {
             stageManager.GrantReward();
+            GameUIManager.instance.UpdateGold(runData.gold);
             if (stageManager.currentStage.type == StageType.BOSS)
             {
                 EndGame(true);
@@ -200,7 +201,7 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public bool OnItemPurchased(int index)
+    public int OnItemPurchased(int index)
     {
         ItemData shopItem = shopItems[index];
         shopItems[index] = null;
@@ -242,7 +243,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public bool TryPlaceBlock(int idx, Vector2Int pos) {
+    public bool TryPlaceBlock(int idx, Vector2Int pos, GameObject blockObj) {
         Block block = handBlocks[idx];
         bool success = board.PlaceBlock(block, pos);
         if (success) {
@@ -251,7 +252,7 @@ public class GameManager : MonoBehaviour
             handBlocksData[idx] = null;
             
             // UI 업데이트 트리거
-            GameUIManager.instance.OnBlockPlaced(block, pos);
+            GameUIManager.instance.OnBlockPlaced(blockObj, block, pos);
 
             // Match 처리된 결과 가져오기 및 애니메이션 실행
             List<Match> matches = board.GetLastMatches();

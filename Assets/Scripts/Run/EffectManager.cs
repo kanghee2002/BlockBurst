@@ -111,7 +111,7 @@ public class EffectManager : MonoBehaviour
                 if (blockGameData.rerollCount < 0) blockGameData.rerollCount = 0;
                 break;
             case EffectType.BASEREROLL_MULTIPLIER:
-                runData.currentRerollCount *= effect.effectValue;
+                runData.baseRerollCount *= effect.effectValue;
                 blockGameData.rerollCount *= effect.effectValue;
                 break;
             case EffectType.GOLD_MODIFIER:
@@ -122,13 +122,14 @@ public class EffectManager : MonoBehaviour
                 runData.gold *= effect.effectValue;
                 break;
             case EffectType.BOARD_SIZE_MODIFIER:
-                runData.boardSize += effect.effectValue;
+                blockGameData.boardRows += effect.effectValue;
+                blockGameData.boardColumns += effect.effectValue;
                 break;
             case EffectType.BOARD_CORNER_BLOCK:
                 blockGameData.isCornerBlocked = true;
                 break;
             case EffectType.BOARD_RANDOM_BLOCK:
-                blockGameData.inactiveBlockCells = GetRandomBlockCells(runData.boardSize, effect.effectValue);
+                blockGameData.inactiveBlockCells = GetRandomBlockCells(blockGameData.boardRows, blockGameData.boardColumns, effect.effectValue);
                 break;
             case EffectType.DECK_MODIFIER:
                 // TODO
@@ -177,7 +178,7 @@ public class EffectManager : MonoBehaviour
         return Random.Range(0, 1f) <= probability;
     }
 
-    private HashSet<Vector2Int> GetRandomBlockCells(int boardSize, int count)
+    private HashSet<Vector2Int> GetRandomBlockCells(int boardRows, int boardColumns, int count)
     {
         HashSet<Vector2Int> result = new HashSet<Vector2Int>();
 
@@ -187,8 +188,8 @@ public class EffectManager : MonoBehaviour
             {
                 break;
             }
-            int x = Random.Range(0, boardSize);
-            int y = Random.Range(0, boardSize);
+            int x = Random.Range(0, boardRows);
+            int y = Random.Range(0, boardColumns);
             result.Add(new Vector2Int(x, y));
         }
         return result;

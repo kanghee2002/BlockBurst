@@ -12,7 +12,11 @@ public class ShopManager : MonoBehaviour
     public void Initialize(ref RunData data, ItemData[] items)
     {
         runData = data;
-        currentItems = new List<ItemData>(items);
+        currentItems = new List<ItemData>();
+        foreach (ItemData item in items)
+        {
+            AddItem(item);
+        }
         deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
     }
 
@@ -101,8 +105,15 @@ public class ShopManager : MonoBehaviour
         {
             if (item != null)
             {
-                currentItems.Add(item);
+                AddItem(item);
             }
         }
+    }
+
+    public void AddItem(ItemData item)
+    {
+        // 랜덤 인덱스에 삽입
+        int index = Random.Range(0, currentItems.Count);
+        currentItems.Insert(index, item);
     }
 }

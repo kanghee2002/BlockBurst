@@ -26,7 +26,6 @@ public class GameManager : MonoBehaviour
 
     public List<BlockData> handBlocksData = new List<BlockData>();
     public List<Block> handBlocks = new List<Block>();
-    const int HAND_BLOCK_COUNT = 3;
 
     public List<ItemData> shopItems = new List<ItemData>();
     const int SHOP_ITEM_COUNT = 3;
@@ -77,7 +76,7 @@ public class GameManager : MonoBehaviour
         gameData.Initialize();
         
         // 템플릿에서 몇개 랜덤으로 뽑아 추가
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < gameData.defaultBlockCount; i++)
         {
             gameData.defaultBlocks.Add(blockTemplates[Random.Range(0, blockTemplates.Length)]);
         }
@@ -123,6 +122,7 @@ public class GameManager : MonoBehaviour
         stageManager.Initialize(ref runData);
 
         shopManager.Initialize(ref runData, itemTemplates);
+        GameUIManager.instance.DisplayDeckCount(gameData.defaultBlockCount, gameData.defaultBlockCount);
 
         GameUIManager.instance.Initialize(runData);
         StartStageSelection();
@@ -147,7 +147,7 @@ public class GameManager : MonoBehaviour
         // 선택된 스테이지로 진행
         StageData selectedStage = nextStageChoices[choiceIndex];
         StartStage(selectedStage);
-        GameUIManager.instance.OnStageStart(currentChapterIndex, currentStageIndex, selectedStage);
+        GameUIManager.instance.OnStageStart(currentChapterIndex, currentStageIndex, selectedStage, blockGame);
     }
 
     public void StartStage(StageData stage)
@@ -156,7 +156,7 @@ public class GameManager : MonoBehaviour
         blockGame.Initialize(runData);
 
         board = new Board();
-        board.Initialize(runData, blockGame);
+        board.Initialize(blockGame);
 
         deckManager.Initialize(ref blockGame, runData.availableBlocks);
 
@@ -224,23 +224,36 @@ public class GameManager : MonoBehaviour
     // BLOCKGAME LAYER - start
     // ------------------------------
 
+    public RunData GetDeckInfo()
+    {
+        return runData;
+    }
+
     public void DrawBlocks()
     {
         handBlocksData.Clear();
         handBlocks.Clear();
-        for (int i = 0; i < HAND_BLOCK_COUNT; i++)
+        for (int i = 0; i < blockGame.drawBlockCount; i++)
         {
-            handBlocksData.Add(deckManager.DrawBlock());
+            BlockData blockData = deckManager.DrawBlock();
+            if (!blockData)
+            {
+                Debug.Log("Deck is empty");
+                break;
+            }
+            handBlocksData.Add(blockData);
             handBlocks.Add(new Block());
             handBlocks[i].Initialize(handBlocksData[i], blockId++);
         }
         GameUIManager.instance.OnBlocksDrawn(handBlocks);
+        GameUIManager.instance.DisplayDeckCount(blockGame.deck.Count, gameData.defaultBlockCount);
     }
 
     public void OnRerolled()
     {
-        if (deckManager.RerollDeck(handBlocksData.ToArray()))
+        if (deckManager.RerollDeck(handBlocksData))
         {
+            GameUIManager.instance.DisplayRerollCount(blockGame.rerollCount);
             DrawBlocks();
         }
     }
@@ -263,6 +276,10 @@ public class GameManager : MonoBehaviour
             }
 
             GameUIManager.instance.UpdateScore(blockGame.currentScore);
+            if (stageManager.CheckStageClear(blockGame))
+            {
+                EndStage(true);
+            }
         }
 
         // 손패 다 쓰면 드로우

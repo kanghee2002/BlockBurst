@@ -27,6 +27,8 @@ public class ItemShowcaseUI : MonoBehaviour
             itemUI.transform.GetChild(4).GetComponent<Button>().onClick.AddListener(() => {
                 GameUIManager.instance.OnItemShowcaseItemButtonPressed(currentIndex);
             });
+
+            itemUI.GetComponent<ItemDescriptionUI>().Initialize(items[currentIndex]);
         }
     }
 

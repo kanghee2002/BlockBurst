@@ -75,10 +75,16 @@ public class GameManager : MonoBehaviour
         gameData = new GameData();
         gameData.Initialize();
         
-        // 템플릿에서 몇개 랜덤으로 뽑아 추가
-        for (int i = 0; i < gameData.defaultBlockCount; i++)
+        foreach (BlockData blockData in blockTemplates)
         {
-            gameData.defaultBlocks.Add(blockTemplates[Random.Range(0, blockTemplates.Length)]);
+            if (Enums.IsSpecialBlockType(blockData.type))
+            {
+                continue;
+            }
+            for (int i = 0; i < gameData.defaultBlockCount; i++)
+            {
+                gameData.defaultBlocks.Add(blockData);
+            }
         }
 
         StartNewRun();

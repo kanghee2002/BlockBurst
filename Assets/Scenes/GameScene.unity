@@ -802,50 +802,6 @@ MonoBehaviour:
   boardUI: {fileID: 90868069}
   rectTransform: {fileID: 90868070}
   prefabBoardCellUI: {fileID: 5668075285194595410, guid: 8aa622ec88eb05341a77314c8b91cfa3, type: 3}
---- !u!1 &106977482
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 106977484}
-  - component: {fileID: 106977483}
-  m_Layer: 0
-  m_Name: Board
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &106977483
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 106977482}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 543f78276aeae0e478be518a94336b32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &106977484
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 106977482}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &153734768
 GameObject:
   m_ObjectHideFlags: 0
@@ -8381,7 +8337,6 @@ SceneRoots:
   - {fileID: 1937104743}
   - {fileID: 798070447}
   - {fileID: 299062497}
-  - {fileID: 106977484}
   - {fileID: 955863558}
   - {fileID: 1789236761}
   - {fileID: 1967566183}

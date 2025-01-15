@@ -39,15 +39,18 @@ public class HandUI : MonoBehaviour
             });
     }
 
-    public void Initialize(List<BlockData> hand)
+    public void Initialize(List<Block> hand)
     {
         boardUI = GameObject.Find("BoardUI").GetComponent<BoardUI>();
-        foreach (BlockData blockData in hand)
+        int idx = 0;
+        foreach (Block block in hand)
         {
-            GameObject block = Instantiate(blockPrefab, BoardUICanvas.transform);
-            var blockUI = block.GetComponent<BlockUI>();
-            blockUI.Initialize(blockData);
-            boardUI.activeBlocks[blockData.id] = block;
+            GameObject blockObj = Instantiate(blockPrefab, BoardUICanvas.transform);
+            blockObj.transform.localPosition = new Vector3(800, (idx - 1) * 200, 0);
+            var blockUI = blockObj.GetComponent<BlockUI>();
+            blockUI.Initialize(block, idx++);
+            boardUI.activeBlocks[block.Id] = blockObj;
+            Debug.Log(block.Shape);
         }
     }
 }

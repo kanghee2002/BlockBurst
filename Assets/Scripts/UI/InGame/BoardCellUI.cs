@@ -20,8 +20,8 @@ public class BoardCellUI : MonoBehaviour
         blockId = id;
     }
 
-    public void CopyVisualFrom(BlockUI blockUI) {
-        // blockUI의 시각적 요소를 복사
+    public void CopyVisualFrom(Transform cellUI) {
+        GetComponent<Image>().sprite = cellUI.GetComponent<Image>().sprite;
     }
 
     public void PlayHighlightAnimation() {

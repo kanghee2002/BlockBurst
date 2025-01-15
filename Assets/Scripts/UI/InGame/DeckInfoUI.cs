@@ -6,7 +6,8 @@ using TMPro;
 
 public class DeckInfoUI : MonoBehaviour
 {
-    public TextMeshProUGUI deckInfoText;
+    public TextMeshProUGUI deckInfoText1;
+    public TextMeshProUGUI deckInfoText2;
     [SerializeField] private GameObject deckInfoUI;
     [SerializeField] private RectTransform rectTransform;
 
@@ -41,11 +42,56 @@ public class DeckInfoUI : MonoBehaviour
     public void Initialize(RunData runData)
     {
         List<BlockData> availableBlocks = runData.availableBlocks;
-        string text = "";
-        foreach (BlockData blockData in availableBlocks)
+        Dictionary<BlockType, int> defaultCountDictionary = new Dictionary<BlockType, int>();
+        Dictionary<BlockType, int> specialCountDictionary = new Dictionary<BlockType, int>();
+        
+        foreach (BlockData block in availableBlocks)
         {
-            text += blockData.type.ToString() + "\n";
+            if (Enums.IsDefaultBlockType(block.type))
+            {
+                if (!defaultCountDictionary.ContainsKey(block.type))
+                {
+                    defaultCountDictionary.Add(block.type, 0);
+                }
+                defaultCountDictionary[block.type]++;
+            }
+            else
+            {
+                if (!specialCountDictionary.ContainsKey(block.type))
+                {
+                    specialCountDictionary.Add(block.type, 0);
+                }
+                specialCountDictionary[block.type]++;
+            }
         }
-        deckInfoText.text = text;
+
+        string text1 = "\t개수\t점수\n";
+        foreach ((BlockType blockType, int count)  in defaultCountDictionary)
+        {
+            if (defaultCountDictionary[blockType] == 0)
+            {
+                continue;
+            } 
+            text1 += blockType.ToString() + " 블록\t";
+            text1 += "  " + count + "\t";
+            text1 += " " + runData.baseBlockScores[blockType] + "\t";
+            text1 += "\n";
+        }
+        deckInfoText1.text = text1;
+
+        string text2 = "\t\t개수\t점수\n";
+        foreach ((BlockType blockType, int count) in specialCountDictionary)
+        {
+            if (specialCountDictionary[blockType] == 0)
+            {
+                continue;
+            }
+            if (blockType == BlockType.CORNER) text2 += "CORNER 블록\t";
+            else text2 += blockType.ToString() + " 블록\t";
+            text2 += "  " + count + "\t";
+            text2 += " " + runData.baseBlockScores[blockType] + "\t";
+            text2 += "\n";
+        }
+        deckInfoText2.text = text2;
     }
 }

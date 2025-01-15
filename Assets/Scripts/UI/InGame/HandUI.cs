@@ -15,6 +15,8 @@ public class HandUI : MonoBehaviour
     [SerializeField] private GameObject BoardUICanvas;
     [SerializeField] private GameObject blockPrefab;
 
+    [SerializeField] private BoardUI boardUI;
+
     private void Awake()
     {
         BoardUICanvas = GameObject.Find("BoardUICanvas");
@@ -39,13 +41,13 @@ public class HandUI : MonoBehaviour
 
     public void Initialize(List<BlockData> hand)
     {
-        int pos = 0;
+        boardUI = GameObject.Find("BoardUI").GetComponent<BoardUI>();
         foreach (BlockData blockData in hand)
         {
             GameObject block = Instantiate(blockPrefab, BoardUICanvas.transform);
-            block.GetComponent<BlockUI>().Initialize(blockData);
-            block.transform.localPosition = new Vector3(800, (pos - 1) * 300, 0);
-            pos++;
+            var blockUI = block.GetComponent<BlockUI>();
+            blockUI.Initialize(blockData);
+            boardUI.activeBlocks[blockData.id] = block;
         }
     }
 }

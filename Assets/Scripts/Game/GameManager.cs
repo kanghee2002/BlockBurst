@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
     public List<ItemData> shopItems = new List<ItemData>();
     const int SHOP_ITEM_COUNT = 3;
 
+    public Board board;
+
     StageData[] nextStageChoices = new StageData[STAGE_CHOICE_COUNT];
 
     // ------------------------------
@@ -47,6 +49,15 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        LoadTemplates();
+    }
+
+    void LoadTemplates()
+    {
+        // 경로에서 scriptable objects를 로드
+        stageTemplates = Resources.LoadAll<StageData>("ScriptableObjects/Stage");
+        itemTemplates = Resources.LoadAll<ItemData>("ScriptableObjects/Item");
+        blockTemplates = Resources.LoadAll<BlockData>("ScriptableObjects/Block");
     }
 
     void Start()
@@ -133,6 +144,9 @@ public class GameManager : MonoBehaviour
     {
         blockGame = new BlockGameData();
         blockGame.Initialize(currentRun);
+
+        board = GameObject.Find("Board").GetComponent<Board>();
+        board.Initialize(currentRun, blockGame);
 
         deckManager.Initialize(ref currentRun, ref blockGame);
 
@@ -221,6 +235,26 @@ public class GameManager : MonoBehaviour
         {
             DrawBlocks();
         }
+    }
+
+    public bool TryPlaceBlock(BlockData blockData, Vector2Int pos) {
+        Block block = new Block();
+        block.Initialize(blockData);
+        bool success = board.PlaceBlock(block, pos);
+        if (success) {
+            // UI 업데이트 트리거
+            GameUIManager.instance.OnBlockPlaced(blockData, pos);
+            /*
+            // Match 처리된 결과 가져오기 및 애니메이션 실행
+            List<Match> matches = board.GetLastMatches();
+            if (matches.Count > 0) {
+                GameUIManager.instance.PlayMatchAnimation(matches);
+            }
+            */
+
+            GameUIManager.instance.UpdateScore(blockGame.currentScore);
+        }
+        return success;
     }
     
 

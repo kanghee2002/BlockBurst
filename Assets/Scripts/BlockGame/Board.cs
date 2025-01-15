@@ -13,7 +13,7 @@ public class Board : MonoBehaviour
     private RunData runData;
     private BlockGameData gameData;
 
-    private List<(BlockType, int)> onClearEffectBlocks;      // 모두 지워질 때 효과 발동하는 블록 ID 저장
+    private List<(BlockType, string)> onClearEffectBlocks;      // 모두 지워질 때 효과 발동하는 블록 ID 저장
     private int matchCount;
     private bool hasMatched;
     private bool isHalfFull;
@@ -24,10 +24,12 @@ public class Board : MonoBehaviour
         gameData = blockGameData;
         EffectManager.instance.TriggerEffects(TriggerType.ON_BOARD_NOT_HALF_FULL);
 
-        onClearEffectBlocks = new List<(BlockType, int)>();
+        onClearEffectBlocks = new List<(BlockType, string)>();
         matchCount = 0;
         hasMatched = false;
         isHalfFull = false;
+
+        cells = new Cell[runData.boardSize, runData.boardSize];
     }
 
     // 블록 배치 처리
@@ -39,28 +41,22 @@ public class Board : MonoBehaviour
         {
             isPlaced = true;
 
+            // 블록의 onClearEffects 트리거를 위해 추가
             onClearEffectBlocks.Add((block.Type, block.Id));
 
-            int width = block.Shape.GetLength(0);
-            int height = block.Shape.GetLength(1);
-
-            for (int x = 0; x < width; x++)
+            foreach (Vector2Int shapePos in block.Shape)
             {
-                for (int y = 0; y < height; y++)
-                {
-                    if (block.Shape[x, y])
-                    {
-                        Vector2Int curPos = pos + new Vector2Int(x, y);
-
-                        cells[curPos.x, curPos.y].SetBlock(block.Type, block.Id);
-                    }
-                }
+                Vector2Int worldPos = pos + shapePos;
+                cells[worldPos.x, worldPos.y].SetBlock(block.Type, block.Id);
             }
-            EffectManager.instance.TriggerEffects(TriggerType.ON_BLOCK_PLACE);
 
+            // 블록 배치 이펙트 트리거
+            EffectManager.instance.TriggerEffects(TriggerType.ON_BLOCK_PLACE);
+            block.TriggerEffects(TriggerType.ON_BLOCK_PLACE);
+
+            // 보드 상태 이펙트 체크
             if (IsHalfFull())
             {
-                // 이전에 반 이상 차 있지 않았다면
                 if (!isHalfFull)
                 {
                     EffectManager.instance.TriggerEffects(TriggerType.ON_BOARD_HALF_FULL);
@@ -69,7 +65,6 @@ public class Board : MonoBehaviour
             }
             else
             {
-                // 이전에 반 이상 차 있었으면
                 if (isHalfFull)
                 {
                     EffectManager.instance.TriggerEffects(TriggerType.ON_BOARD_NOT_HALF_FULL);
@@ -129,7 +124,7 @@ public class Board : MonoBehaviour
             EffectManager.instance.TriggerEffects(TriggerType.ON_LINE_CLEAR_WITH_COUNT, triggerValue: matchCount);
             EffectManager.instance.TriggerEffects(TriggerType.ON_MULTIPLE_LINE_CLEAR, triggerValue: matches.Count);
 
-            HashSet<(BlockType, int)> clearedBlocks = new HashSet<(BlockType, int)>();
+            HashSet<(BlockType, string)> clearedBlocks = new HashSet<(BlockType, string)>();
             foreach (Match match in matches)
             {
                 clearedBlocks.UnionWith(match.blocks);
@@ -246,13 +241,13 @@ public class Board : MonoBehaviour
                 {
                     index = y,
                     matchType = MatchType.ROW,
-                    blocks = new List<(BlockType, int)>()
+                    blocks = new List<(BlockType, string)>()
                 };
                 for (int x = 0; x < column; x++)
                 {
                     Cell currentCell = cells[x, y];
 
-                    if (currentCell.IsBlocked && currentCell.BlockID != -1)
+                    if (currentCell.IsBlocked && currentCell.BlockID != "")
                     {
                         match.blocks.Add(((BlockType)currentCell.Type, currentCell.BlockID));
                     }
@@ -289,13 +284,13 @@ public class Board : MonoBehaviour
                 {
                     index = x,
                     matchType = MatchType.COLUMN,
-                    blocks = new List<(BlockType, int)>()
+                    blocks = new List<(BlockType, string)>()
                 };
                 for (int y = 0; y < row; y++)
                 {
                     Cell currentCell = cells[x, y];
 
-                    if (currentCell.IsBlocked && currentCell.BlockID != -1)
+                    if (currentCell.IsBlocked && currentCell.BlockID != "")
                     {
                         match.blocks.Add(((BlockType)currentCell.Type, currentCell.BlockID));
                     }
@@ -315,22 +310,11 @@ public class Board : MonoBehaviour
     // 블록 배치 가능 여부 확인
     private bool CanPlace(Block block, Vector2Int pos)
     {
-        int column = block.Shape.GetLength(0);
-        int row = block.Shape.GetLength(1);
-
-        for (int x = 0; x < column; x++)
+        foreach (Vector2Int shapePos in block.Shape)
         {
-            for (int y = 0; y < row; y++)
-            {
-                if (block.Shape[x, y])
-                {
-                    Vector2Int curPos = pos + new Vector2Int(x, y);
-
-                    if (IsOutOfBoard(curPos)) return false;
-
-                    if (IsBlocked(curPos)) return false;
-                }
-            }
+            Vector2Int worldPos = pos + shapePos;
+            if (IsOutOfBoard(worldPos) || IsBlocked(worldPos)) 
+                return false;
         }
         return true;
     }
@@ -358,7 +342,7 @@ public class Board : MonoBehaviour
         {
             for (int j = 0; j < col; j++)
             {
-                if (cells[i, j].IsBlocked && cells[i, j].BlockID != -1)
+                if (cells[i, j].IsBlocked && cells[i, j].BlockID != "")
                 {
                     blockCount++;
                 }
@@ -404,7 +388,7 @@ public class Board : MonoBehaviour
         int column = cells.GetLength(0);
         int row = cells.GetLength(1);
 
-        HashSet<int> blocks = new HashSet<int>();
+        HashSet<string> blocks = new HashSet<string>();
 
         for (int x = 0; x < column; x++)
         {
@@ -416,7 +400,7 @@ public class Board : MonoBehaviour
 
         for (int i = onClearEffectBlocks.Count - 1; i >= 0; i--)
         {
-            (BlockType blockType, int id) = onClearEffectBlocks[i];
+            (BlockType blockType, string id) = onClearEffectBlocks[i];
 
             if (!blocks.Contains(id))
             {
@@ -426,6 +410,7 @@ public class Board : MonoBehaviour
         }
     }
 
+    /*
     // Test Code  ////////////////////////////////////////////////////////////
     [SerializeField] private Cell[] tmpCells;
 
@@ -438,11 +423,11 @@ public class Board : MonoBehaviour
             {
                 tmpCells[i * 8 + j].transform.position = new Vector3(j, -i);
 
-                /*
+                
                 if ((i + j) % 2 == 0)
                 {
                     tmpCells[i * 8 + j].GetComponent<SpriteRenderer>().color = new Color(0.8f, 0.8f, 0.8f);
-                }*/
+                }
 
                 tmpCells[i * 8 + j].cellPosition = new Vector2Int(j, i);
                 cells[j, i] = tmpCells[i * 8 + j];
@@ -451,4 +436,5 @@ public class Board : MonoBehaviour
         }
     }
     //////////////////////////////////////////////////////////////////////
+    */
 }

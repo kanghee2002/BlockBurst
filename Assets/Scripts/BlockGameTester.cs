@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BlockGameTester : MonoBehaviour
 {
+    /*
     [SerializeField] private Board board;
 
     [SerializeField] private List<BlockData> blockDatas;
@@ -293,4 +294,5 @@ public class BlockGameTester : MonoBehaviour
         board.cells[x, y].BlockCell();
         board.cells[x, y].GetComponent<SpriteRenderer>().color = new Color(1f, 0f, 0f);
     }
+    */
 }

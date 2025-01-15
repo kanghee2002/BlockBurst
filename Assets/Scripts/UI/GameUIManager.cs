@@ -355,4 +355,19 @@ public class GameUIManager : MonoBehaviour
             itemShowcaseUI.CloseItemShowcaseUI();
         }
     }
+    public void OnBlockPlaced(BlockData block, Vector2Int pos) {
+        boardUI.OnBlockPlaced(block, pos);
+    }
+
+    public void PlayMatchAnimation(List<Match> matches) {
+        boardUI.ProcessMatchAnimation(matches);
+    }
+
+    public void UpdateScore(int score) {
+        scoreInfoUI.UpdateScore(score);
+    }
+
+    public void UpdateGold(int gold) {
+        goldInfoUI.UpdateGold(gold);
+    }
 }

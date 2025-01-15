@@ -6,5 +6,5 @@ public class Match : MonoBehaviour
 {
     public int index { get; set; }
     public MatchType matchType { get; set; }
-    public List<(BlockType, int)> blocks { get; set; }  // 각 칸에 해당하는 BlockType과 ID
+    public List<(BlockType, string)> blocks { get; set; }  // 각 칸에 해당하는 BlockType과 ID
 }

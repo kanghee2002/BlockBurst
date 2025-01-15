@@ -23,6 +23,8 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
 
     BlockData blockData;
 
+    private Vector3 originalPosition;
+
     private void Start()
     {
         canvas = GetComponentInParent<Canvas>();
@@ -34,6 +36,7 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
     {
         blockData = data;
         blockType = blockData.type;
+        originalPosition = transform.localPosition;  // 초기 위치 저장
 
         // Clear existing blocks
         for (int row = 0; row < blockCellsUIRowCount; row++)
@@ -97,166 +100,7 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
             }
         }
     }
-    /*
-    public void SetBlockType(BlockType blockTypeToSet)
-    {
-        blockType = blockTypeToSet;
 
-        for (int row = 0; row < blockCellsUIRowCount; row++)
-        {
-            for (int column = 0; column < blockCellsUIColumnCount; column++)
-            {
-                if (blockCellsUI[row][column] != null)
-                {
-                    Destroy(blockCellsUI[row][column]);
-                }
-            }
-        }
-
-        if (blockType == BlockType.I)
-        {
-            blockCellsUIRowCount = 4;
-            blockCellsUIColumnCount = 1;
-            for (int row = 0; row < blockCellsUIRowCount; row++)
-            {
-                List<GameObject> listRow = new List<GameObject>();
-                listRow.Add(Instantiate(prefabBlockCellUI));
-                blockCellsUI.Add(listRow);
-            }
-        }
-        else if (blockType == BlockType.O)
-        {
-            blockCellsUIRowCount = 2;
-            blockCellsUIColumnCount = 2;
-            for (int row = 0; row < blockCellsUIRowCount; row++)
-            {
-                List<GameObject> listRow = new List<GameObject>();
-                for (int column = 0; column < blockCellsUIColumnCount; column++)
-                {
-                    listRow.Add(Instantiate(prefabBlockCellUI));
-                }
-                blockCellsUI.Add(listRow);
-            }
-        }
-        else if (blockType == BlockType.T)
-        {
-            blockCellsUIRowCount = 3;
-            blockCellsUIColumnCount = 3;
-
-            List<GameObject> listRow1st = new List<GameObject>();
-            listRow1st.Add(null);
-            listRow1st.Add(Instantiate(prefabBlockCellUI));
-            listRow1st.Add(null);
-            blockCellsUI.Add(listRow1st);
-
-            List<GameObject> listRow2nd = new List<GameObject>();
-            listRow2nd.Add(null);
-            listRow2nd.Add(Instantiate(prefabBlockCellUI));
-            listRow2nd.Add(null);
-            blockCellsUI.Add(listRow2nd);
-
-            List<GameObject> listRow3rd = new List<GameObject>();
-            for (int column = 0; column < blockCellsUIColumnCount; column++)
-            {
-                listRow3rd.Add(Instantiate(prefabBlockCellUI));
-            }
-            blockCellsUI.Add(listRow3rd);
-        }
-        else if (blockType == BlockType.L)
-        {
-            blockCellsUIRowCount = 3;
-            blockCellsUIColumnCount = 2;
-
-            List<GameObject> listRow1st = new List<GameObject>();
-            listRow1st.Add(Instantiate(prefabBlockCellUI));
-            listRow1st.Add(Instantiate(prefabBlockCellUI));
-            blockCellsUI.Add(listRow1st);
-
-            List<GameObject> listRow2nd = new List<GameObject>();
-            listRow2nd.Add(Instantiate(prefabBlockCellUI));
-            listRow2nd.Add(null);
-            blockCellsUI.Add(listRow2nd);
-
-            List<GameObject> listRow3rd = new List<GameObject>();
-            listRow3rd.Add(Instantiate(prefabBlockCellUI));
-            listRow3rd.Add(null);
-            blockCellsUI.Add(listRow3rd);
-        }
-        else if (blockType == BlockType.J)
-        {
-            blockCellsUIRowCount = 3;
-            blockCellsUIColumnCount = 2;
-
-            List<GameObject> listRow1st = new List<GameObject>();
-            listRow1st.Add(Instantiate(prefabBlockCellUI));
-            listRow1st.Add(Instantiate(prefabBlockCellUI));
-            blockCellsUI.Add(listRow1st);
-
-            List<GameObject> listRow2nd = new List<GameObject>();
-            listRow2nd.Add(null);
-            listRow2nd.Add(Instantiate(prefabBlockCellUI));
-            blockCellsUI.Add(listRow2nd);
-
-            List<GameObject> listRow3rd = new List<GameObject>();
-            listRow3rd.Add(null);
-            listRow3rd.Add(Instantiate(prefabBlockCellUI));
-            blockCellsUI.Add(listRow3rd);
-        }
-        else if (blockType == BlockType.S)
-        {
-            blockCellsUIRowCount = 2;
-            blockCellsUIColumnCount = 3;
-
-            List<GameObject> listRow1st = new List<GameObject>();
-            listRow1st.Add(Instantiate(prefabBlockCellUI));
-            listRow1st.Add(Instantiate(prefabBlockCellUI));
-            listRow1st.Add(null);
-            blockCellsUI.Add(listRow1st);
-
-            List<GameObject> listRow2nd = new List<GameObject>();
-            listRow2nd.Add(null);
-            listRow2nd.Add(Instantiate(prefabBlockCellUI));
-            listRow2nd.Add(Instantiate(prefabBlockCellUI));
-            blockCellsUI.Add(listRow2nd);
-        }
-        else if (blockType == BlockType.Z)
-        {
-            blockCellsUIRowCount = 2;
-            blockCellsUIColumnCount = 3;
-
-            List<GameObject> listRow1st = new List<GameObject>();
-            listRow1st.Add(null);
-            listRow1st.Add(Instantiate(prefabBlockCellUI));
-            listRow1st.Add(Instantiate(prefabBlockCellUI));
-            blockCellsUI.Add(listRow1st);
-
-            List<GameObject> listRow2nd = new List<GameObject>();
-            listRow2nd.Add(Instantiate(prefabBlockCellUI));
-            listRow2nd.Add(Instantiate(prefabBlockCellUI));
-            listRow2nd.Add(null);
-            blockCellsUI.Add(listRow2nd);
-        }
-
-        // ��ġ �����ֱ�
-        for (int row = 0; row < blockCellsUIRowCount; row++)
-        {
-            for (int column = 0; column < blockCellsUIColumnCount; column++)
-            {
-                if (blockCellsUI[row][column] != null)
-                {
-                    blockCellsUI[row][column].transform.SetParent(this.transform, false);
-                    blockCellsUI[row][column].GetComponent<RectTransform>().anchoredPosition
-                        = new Vector2(column - (blockCellsUIColumnCount - 1) / 2f, row - (blockCellsUIRowCount - 1) / 2f) * block_size;
-                
-                    GameObject shadow = Instantiate(prefabBlockCellShadowUI);
-                    shadow.transform.SetParent(shadowContainer.transform, false);
-                    shadow.GetComponent<RectTransform>().anchoredPosition
-                        = new Vector2(column - (blockCellsUIColumnCount - 1) / 2f, row - (blockCellsUIRowCount - 1) / 2f) * block_size;
-                }
-            }
-        }
-    }
-    */
     public void OnPointerDown(PointerEventData eventData)
     {
         // (�ʿ��ϴٸ�) Ŭ�� �� � ���带 ����Ѵٰų�, �ٸ� ������ ������ �� ����
@@ -324,45 +168,45 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
     }
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (GameUIManager.instance.OnBlockSet(blockData))
-        {
-            shadowContainer.SetActive(false);
-            // 1) �� Cell�� ��ġ(���� ��ǥ�� ���� ��ǥ)�� ��ȸ�ϸ�,
-            // 2) �� ������ RectTransform.localPosition���� �Ÿ� ���� ��,
-            // 3) ���� ����� Cell�� ã�´�.
+        shadowContainer.SetActive(false);
 
-            List<List<BoardCellUI>> boardCellsUI = boardUI.boardCellsUI;
-            BoardCellUI closestBoardCellUI = null;
-            float minDistance = float.MaxValue;
+        List<List<BoardCellUI>> boardCellsUI = boardUI.boardCellsUI;
+        BoardCellUI closestBoardCellUI = null;
+        float minDistance = float.MaxValue;
 
-            Vector2 zeroOffset = new Vector2((blockCellsUIColumnCount - 1) / 2f, (blockCellsUIRowCount - 1) / 2f * (-1)) * block_size;
+        Vector2 zeroOffset = new Vector2((blockCellsUIColumnCount - 1) / 2f, (blockCellsUIRowCount - 1) / 2f * (-1)) * block_size;
 
-            foreach (var cell in boardCellsUI.SelectMany(row => row))
-            {
-                float dist = Vector2.Distance(
-                    rectTransform.anchoredPosition - zeroOffset,
-                    cell.GetComponent<RectTransform>().anchoredPosition
-                    + boardUI.GetComponent<RectTransform>().anchoredPosition
-                );
+        foreach (var cell in boardCellsUI.SelectMany(row => row)) {
+            float dist = Vector2.Distance(
+                rectTransform.anchoredPosition - zeroOffset,
+                cell.GetComponent<RectTransform>().anchoredPosition
+                + boardUI.GetComponent<RectTransform>().anchoredPosition
+            );
 
-                if (dist < minDistance)
-                {
-                    minDistance = dist;
-                    closestBoardCellUI = cell;
-                }
+            if (dist < minDistance) {
+                minDistance = dist;
+                closestBoardCellUI = cell;
             }
+        }
 
-            // 4) ���� ����� Cell�� ����
-            if (closestBoardCellUI != null)
-            {
+        if (closestBoardCellUI != null) {
+            Vector2Int boardPosition = closestBoardCellUI.GetCellIndex();
+            
+            // Board에 배치 요청
+            if (GameManager.instance.TryPlaceBlock(blockData, boardPosition)) {
+                // 배치 성공 시 UI 위치만 업데이트 (실제 처리는 BoardUI에서)
                 rectTransform.anchoredPosition =
                     closestBoardCellUI.GetComponent<RectTransform>().anchoredPosition
                     + boardUI.GetComponent<RectTransform>().anchoredPosition
                     + zeroOffset;
+            } else {
+                // 배치 실패 시 원위치
+                ReturnToHand();
             }
-
-            // ���� �ش� Cell�� �̹� �� ������(Block�� ������) ���� �� ���� �ϴ� ��
-            // �߰� ������ �ʿ��� �� ����
         }
+    }
+    
+    private void ReturnToHand() {
+        transform.localPosition = originalPosition;
     }
 }

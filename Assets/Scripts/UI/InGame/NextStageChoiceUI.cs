@@ -19,6 +19,9 @@ public class NextStageChoiceUI : MonoBehaviour
 
     public void Initialize(StageData stageData)
     {
+        debuffText = transform.Find("DebuffText").GetComponent<TextMeshProUGUI>();
+        scoreAtLeastText = transform.Find("ScoreAtLeastText").GetComponent<TextMeshProUGUI>();
+        rewardGoldText = transform.Find("RewardGoldText").GetComponent<TextMeshProUGUI>();
         UpdateDebuffText(stageData.constraints.Select(x => x.effectName).ToArray());
         UpdateScoreAtLeast(stageData.clearRequirement);
         UpdateRewardGold(stageData.goldReward);

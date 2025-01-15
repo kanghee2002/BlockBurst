@@ -64,14 +64,42 @@ public class RunData
         gold = gameData.startingGold;
         baseRerollCount = gameData.defaultRerollCount;
         currentRerollCount = baseRerollCount;
+        boardSize = 8;
     }
 }
+
 */
     public void Initialize(RunData runData)
     {
-        string text = "";
-        text += "Gold: " + runData.gold + "\n";
-        text += "Reroll: " + runData.currentRerollCount + "/" + runData.baseRerollCount + "\n";
-        runInfoText.text = text;
+        System.Text.StringBuilder sb = new System.Text.StringBuilder();
+        
+        // 기본 정보를 2개씩 탭으로 구분
+        sb.AppendLine($"Gold: {runData.gold}\t\tReroll: {runData.currentRerollCount}/{runData.baseRerollCount}");
+        
+        // Block Scores를 2개씩 탭으로 구분
+        sb.AppendLine("\nBlock Scores:");
+        
+        // Dictionary를 List로 변환
+        List<KeyValuePair<BlockType, int>> blockScores = new List<KeyValuePair<BlockType, int>>();
+        foreach (var pair in runData.baseBlockScores)
+        {
+            blockScores.Add(pair);
+        }
+
+        for (int i = 0; i < blockScores.Count; i += 2)
+        {
+            if (i + 1 < blockScores.Count)
+            {
+                // 2개의 항목이 있는 경우
+                sb.AppendLine($"  {blockScores[i].Key}: {blockScores[i].Value}\t\t{blockScores[i+1].Key}: {blockScores[i+1].Value}");
+            }
+            else
+            {
+                // 마지막 항목이 홀수인 경우
+                sb.AppendLine($"  {blockScores[i].Key}: {blockScores[i].Value}");
+            }
+        }
+
+        runInfoText.text = sb.ToString();
     }
 }

@@ -18,6 +18,8 @@ public class Board
     private bool hasMatched;
     private bool isHalfFull;
 
+    private List<Match> lastMatches;
+
     public void Initialize(RunData data, BlockGameData blockGameData)
     {
         runData = data;
@@ -38,6 +40,11 @@ public class Board
                 cells[i, j].Initialize();
             }
         }
+    }
+
+    public List<Match> GetLastMatches()
+    {
+        return lastMatches;
     }
 
     // 블록 배치 처리
@@ -185,11 +192,14 @@ public class Board
         // 모두 지워질 때 효과를 가진 블록 중 지워진 것 있는지 확인
         CheckOnClearEffectBlocks();
 
+        // 매치된 결과 저장
+        lastMatches = matches;
+
         // 점수 계산
         int totalScore = 0;
         foreach (Match match in matches)
         {
-            totalScore += ScoreCalculator.Instance.Calculate(match, gameData);
+            totalScore += ScoreCalculator.instance.Calculate(match, gameData);
         }
 
         gameData.currentScore += totalScore;
@@ -217,15 +227,15 @@ public class Board
 
         // 실제 영향 받는 행/열 계산
         List<int> rows = Enumerable.Range(
-            pos.y + minY, 
-            maxY - minY + 1
-        ).ToList();
-        
-        List<int> columns = Enumerable.Range(
             pos.x + minX, 
             maxX - minX + 1
         ).ToList();
 
+        List<int> columns = Enumerable.Range(
+            pos.y + minY, 
+            maxY - minY + 1
+        ).ToList();
+        
         List<Match> rowMatches = CheckRowMatch(rows);
         List<Match> columnMatches = CheckColumnMatch(columns);
 
@@ -240,56 +250,13 @@ public class Board
     private List<Match> CheckRowMatch(List<int> rows)
     {
         List<Match> matches = new List<Match>();
-        int column = cells.GetLength(0);
+        int column = cells.GetLength(1);
 
-        foreach (int y in rows)
+        foreach (int x in rows)
         {
             // 한 줄 완성 확인
             bool isMatched = true;
-            for (int x = 0; x < column; x++)
-            {
-                if (!cells[x, y].IsBlocked)
-                {
-                    isMatched = false;
-                    break;
-                }
-            }
-
-            // 한 줄 완성 시
-            if (isMatched)
-            {
-                Match match = new Match()
-                {
-                    index = y,
-                    matchType = MatchType.ROW,
-                    blocks = new List<(BlockType, string)>()
-                };
-                for (int x = 0; x < column; x++)
-                {
-                    Cell currentCell = cells[x, y];
-
-                    if (currentCell.IsBlocked && currentCell.BlockID != "")
-                    {
-                        match.blocks.Add(((BlockType)currentCell.Type, currentCell.BlockID));
-                    }
-                }
-                matches.Add(match);
-            }
-        }
-        return matches;
-    }
-
-    // 열 매치 확인
-    private List<Match> CheckColumnMatch(List<int> columns)
-    {
-        List<Match> matches = new List<Match>();
-        int row = cells.GetLength(1);
-
-        foreach (int x in columns)
-        {
-            // 한 줄 완성 확인
-            bool isMatched = true;
-            for (int y = 0; y < row; y++)
+            for (int y = 0; y < column; y++)
             {
                 if (!cells[x, y].IsBlocked)
                 {
@@ -304,10 +271,54 @@ public class Board
                 Match match = new Match()
                 {
                     index = x,
+                    matchType = MatchType.ROW,
+                    blocks = new List<(BlockType, string)>()
+                };
+                for (int y = 0; y < column; y++)
+                {
+                    Cell currentCell = cells[x, y];
+
+                    if (currentCell.IsBlocked && currentCell.BlockID != "")
+                    {
+                        match.blocks.Add(((BlockType)currentCell.Type, currentCell.BlockID));
+                    }
+                }
+                matches.Add(match);
+            }
+        }
+
+        return matches;
+    }
+
+    // 열 매치 확인
+    private List<Match> CheckColumnMatch(List<int> columns)
+    {
+        List<Match> matches = new List<Match>();
+        int row = cells.GetLength(0);
+
+        foreach (int y in columns)
+        {
+            // 한 줄 완성 확인
+            bool isMatched = true;
+            for (int x = 0; x < row; x++)
+            {
+                if (!cells[x, y].IsBlocked)
+                {
+                    isMatched = false;
+                    break;
+                }
+            }
+
+            // 한 줄 완성 시
+            if (isMatched)
+            {
+                Match match = new Match()
+                {
+                    index = y,
                     matchType = MatchType.COLUMN,
                     blocks = new List<(BlockType, string)>()
                 };
-                for (int y = 0; y < row; y++)
+                for (int x = 0; x < row; x++)
                 {
                     Cell currentCell = cells[x, y];
 
@@ -383,23 +394,23 @@ public class Board
 
     private void ClearCells(List<Match> matches)
     {
-        int column = cells.GetLength(0);
-        int row = cells.GetLength(1);
+        int row = cells.GetLength(0);
+        int column = cells.GetLength(1);
 
         foreach (Match match in matches)
         {
             if (match.matchType == MatchType.ROW)
             {
-                for (int x = 0; x < column; x++)
+                for (int y = 0; y < column; y++)
                 {
-                    cells[x, match.index].ClearBlock();
+                    cells[match.index, y].ClearBlock();
                 }
             }
             else if (match.matchType == MatchType.COLUMN)
             {
-                for (int y = 0; y < row; y++)
+                for (int x = 0; x < row; x++)
                 {
-                    cells[match.index, y].ClearBlock();
+                    cells[x, match.index].ClearBlock();
                 }
             }
         }
@@ -407,14 +418,14 @@ public class Board
 
     private void CheckOnClearEffectBlocks()
     {
-        int column = cells.GetLength(0);
-        int row = cells.GetLength(1);
+        int row = cells.GetLength(0);
+        int column = cells.GetLength(1);
 
         HashSet<string> blocks = new HashSet<string>();
 
-        for (int x = 0; x < column; x++)
+        for (int x = 0; x < row; x++)
         {
-            for (int y = 0; y < row; y++)
+            for (int y = 0; y < column; y++)
             {
                 blocks.Add(cells[x, y].BlockID);
             }

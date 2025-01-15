@@ -35,4 +35,9 @@ public class OptionUI : MonoBehaviour
     {
         gameUIManager.OptionBackButtonUIPressed();
     }
+
+    public void OnBackToMainButtonPressed()
+    {
+        gameUIManager.BackToMain();
+    }
 }

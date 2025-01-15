@@ -352,7 +352,7 @@ public class GameUIManager : MonoBehaviour
     {
         if (GameManager.instance.OnItemPurchased(index))
         {
-            itemShowcaseUI.CloseItemShowcaseUI();
+            itemShowcaseUI.PurchaseItem(index);
         }
     }
     public void OnBlockPlaced(Block block, Vector2Int pos) {
@@ -369,5 +369,10 @@ public class GameUIManager : MonoBehaviour
 
     public void UpdateGold(int gold) {
         goldInfoUI.UpdateGold(gold);
+    }
+
+    public void BackToMain()
+    {
+        GameManager.instance.BackToMain();
     }
 }

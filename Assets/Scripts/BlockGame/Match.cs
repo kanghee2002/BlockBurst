@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Match : MonoBehaviour
+public class Match
 {
     public int index { get; set; }
     public MatchType matchType { get; set; }

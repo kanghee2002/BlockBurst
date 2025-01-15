@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class ScoreCalculator : MonoBehaviour
 {
-    public static ScoreCalculator Instance { get; private set; }
+    public static ScoreCalculator instance { get; private set; }
 
     private void Awake()
     {
-        if (Instance == null)
+        if (instance == null)
         {
-            Instance = this;
+            instance = this;
         }
         else
         {

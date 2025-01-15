@@ -245,13 +245,12 @@ public class GameManager : MonoBehaviour
             
             // UI 업데이트 트리거
             GameUIManager.instance.OnBlockPlaced(block, pos);
-            /*
+            
             // Match 처리된 결과 가져오기 및 애니메이션 실행
             List<Match> matches = board.GetLastMatches();
             if (matches.Count > 0) {
                 GameUIManager.instance.PlayMatchAnimation(matches);
             }
-            */
 
             GameUIManager.instance.UpdateScore(blockGame.currentScore);
         }

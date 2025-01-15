@@ -10,11 +10,13 @@ public class BoardCellUI : MonoBehaviour
     private Vector2Int cellIndex;
     private Image cellImage;
     private Color originalColor;
+    private Sprite originalSprite;
 
     private void Awake()
     {
         cellImage = GetComponent<Image>();
         originalColor = cellImage.color;
+        originalSprite = cellImage.sprite;
     }
 
     public void SetCellIndex(Vector2Int index) {
@@ -46,7 +48,23 @@ public class BoardCellUI : MonoBehaviour
     }
 
     public void PlayClearAnimation() {
-        transform.DOScale(0, 0.3f).SetEase(Ease.InBack);
-        cellImage.DOFade(0, 0.3f);
+        // 원래 스케일 값을 저장
+        Vector3 originalScale = transform.localScale;
+        
+        // 애니메이션 시퀀스 생성
+        Sequence sequence = DOTween.Sequence();
+        
+        cellImage.sprite = originalSprite;
+        cellImage.color = originalColor;
+        
+        // 사라지는 애니메이션
+        sequence.Append(transform.DOScale(0, 0.3f).SetEase(Ease.InBack));
+        sequence.Join(cellImage.DOFade(0, 0.3f));
+        
+        // 애니메이션이 끝난 후 원래 상태로 복원
+        sequence.OnComplete(() => {
+            transform.localScale = originalScale;
+            cellImage.color = originalColor;
+        });
     }
 }

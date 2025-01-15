@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: BlockBoardCornerEffect
   effectName: "\uBCF4\uB4DC\uC758 \uAC00\uC7A5\uC790\uB9AC \uCE78\uC774 \uB9C9\uD798"
-  type: 11
+  type: 12
   trigger: 0
   effectValue: 0
   blockTypes: 

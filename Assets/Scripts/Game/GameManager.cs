@@ -161,15 +161,18 @@ public class GameManager : MonoBehaviour
         blockGame = new BlockGameData();
         blockGame.Initialize(runData);
 
+        EffectManager.instance.InitializeBlockGameData(ref blockGame);
+
+        // 스테이지 시작
+        stageManager.StartStage(stage);
+
+        Debug.Log(blockGame.boardRows + " " + blockGame.boardColumns);
+
         board = new Board();
         board.Initialize(blockGame);
 
         deckManager.Initialize(ref blockGame, runData.availableBlocks);
 
-        EffectManager.instance.InitializeBlockGameData(ref blockGame);
-
-        // 스테이지 시작
-        stageManager.StartStage(stage);
         DrawBlocks();
     }
 

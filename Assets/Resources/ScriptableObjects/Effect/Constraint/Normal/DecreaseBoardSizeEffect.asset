@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: DecreaseBoardSizeEffect
   effectName: "\uBCF4\uB4DC \uD06C\uAE30\uAC00 \uD55C \uCE78 \uAC10\uC18C"
-  type: 10
+  type: 11
   trigger: 0
   effectValue: -1
   blockTypes: 

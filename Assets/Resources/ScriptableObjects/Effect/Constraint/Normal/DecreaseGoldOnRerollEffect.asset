@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: DecreaseGoldOnRerollEffect
   effectName: "\uB9AC\uB864\uD560 \uB54C\uB9C8\uB2E4 \uACE8\uB4DC -1"
-  type: 8
+  type: 9
   trigger: 17
   effectValue: -1
   blockTypes: 

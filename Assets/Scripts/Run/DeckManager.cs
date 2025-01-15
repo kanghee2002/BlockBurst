@@ -10,10 +10,14 @@ public class DeckManager : MonoBehaviour
     private RunData runData;
     private BlockGameData blockGameData;
 
-    public void Initialize(ref RunData data, ref BlockGameData blockData)
+    public void Initialize(ref BlockGameData blockData, List<BlockData> availableBlocks)
     {
-        runData = data;
         blockGameData = blockData;
+
+        foreach (BlockData block in availableBlocks)
+        {
+            AddBlock(block);
+        }
 
         discardPile = new List<BlockData>();
     }
@@ -71,27 +75,6 @@ public class DeckManager : MonoBehaviour
         discardPile.Add(block);
         blockGameData.deck.Remove(block);
     }
-    /*
-    private List<Block> InstantiateBlocks(List<BlockData> blockData)
-    {
-        List<Block> blocks = new List<Block>();
-
-        foreach (BlockData data in blockData)
-        {
-            GameObject blockObject = Instantiate(data.prefab);
-            Block block = blockObject.GetComponent<Block>();
-            BlockType blockType = data.type;
-            block.Initialize(data, idCount, runData.blockReuses[blockType]);
-            idCount++;
-            blocks.Add(block);
-
-            // TEST
-            blockObject.transform.position = new Vector3(10, 10);
-        }
-
-        return blocks;
-    }
-    */
 
     // 덱 셔플
     private void ShuffleDeck()

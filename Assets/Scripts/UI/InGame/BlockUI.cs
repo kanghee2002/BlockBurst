@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Linq;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
@@ -75,10 +76,19 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
                 }
             }
         }
+
+        makeSmall(true);
+    }
+
+    void makeSmall(bool toSmall)
+    {
+        Vector3 targetScale = toSmall ? new Vector3(0.5f, 0.5f, 1) : new Vector3(1, 1, 1);
+        transform.DOScale(targetScale, 0.2f).SetEase(Ease.OutQuad);
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        makeSmall(false);
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -237,7 +247,8 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
     
     private void ReturnToHand()
     {
-        transform.localPosition = originalPosition;
+        makeSmall(true);
+        rectTransform.DOLocalMove(originalPosition, 0.3f).SetEase(Ease.OutBack);
     }
 
     private void OnDestroy()

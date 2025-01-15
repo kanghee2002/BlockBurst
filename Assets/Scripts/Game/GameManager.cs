@@ -158,10 +158,10 @@ public class GameManager : MonoBehaviour
         board = new Board();
         board.Initialize(runData, blockGame);
 
-        deckManager.Initialize(ref runData, ref blockGame);
+        deckManager.Initialize(ref blockGame, runData.availableBlocks);
 
         EffectManager.instance.InitializeBlockGameData(ref blockGame);
-        Debug.Log(blockGame.deck.Count);
+        
         // 스테이지 시작
         stageManager.StartStage(stage);
         DrawBlocks();
@@ -175,13 +175,15 @@ public class GameManager : MonoBehaviour
             GameUIManager.instance.UpdateGold(runData.gold);
             if (stageManager.currentStage.type == StageType.BOSS)
             {
-                EndGame(true);
+                currentChapterIndex++;
+                currentStageIndex = 1;
+                
             }
             else 
             {
                 currentStageIndex++;
-                StartShop();
             }
+            StartShop();
         } 
         else 
         {

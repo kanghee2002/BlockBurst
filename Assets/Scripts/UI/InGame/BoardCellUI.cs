@@ -34,6 +34,13 @@ public class BoardCellUI : MonoBehaviour
         blockId = id;
     }
 
+    public void ClearCell()
+    {
+        blockId = "";
+        cellImage.sprite = originalSprite;
+        cellImage.color = originalColor;
+    }
+
     public void CopyVisualFrom(Transform cellUI) {
         GetComponent<Image>().sprite = cellUI.GetComponent<Image>().sprite;
     }

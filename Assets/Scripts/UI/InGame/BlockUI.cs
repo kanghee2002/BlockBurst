@@ -21,13 +21,83 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
     private Canvas canvas;
     private Vector2 offset;
 
-    private void Awake()
+    BlockData blockData;
+
+    private void Start()
     {
         canvas = GetComponentInParent<Canvas>();
-        boardUI = FindObjectOfType<BoardUI>();
-        SetBlockType(BlockType.Z);
+        boardUI = GameObject.Find("BoardUI").GetComponent<BoardUI>();
+        rectTransform = GetComponent<RectTransform>();
     }
 
+    public void Initialize(BlockData data)
+    {
+        blockData = data;
+        blockType = blockData.type;
+
+        // Clear existing blocks
+        for (int row = 0; row < blockCellsUIRowCount; row++)
+        {
+            for (int column = 0; column < blockCellsUIColumnCount; column++)
+            {
+                if (blockCellsUI[row][column] != null)
+                {
+                    Destroy(blockCellsUI[row][column]);
+                }
+            }
+        }
+        blockCellsUI.Clear();
+
+        // Calculate dimensions based on shape data
+        int minX = blockData.shape.Min(pos => pos.x);
+        int maxX = blockData.shape.Max(pos => pos.x);
+        int minY = blockData.shape.Min(pos => pos.y);
+        int maxY = blockData.shape.Max(pos => pos.y);
+
+        blockCellsUIColumnCount = maxX - minX + 1;
+        blockCellsUIRowCount = maxY - minY + 1;
+
+        // Initialize empty grid
+        for (int row = 0; row < blockCellsUIRowCount; row++)
+        {
+            List<GameObject> listRow = new List<GameObject>();
+            for (int column = 0; column < blockCellsUIColumnCount; column++)
+            {
+                listRow.Add(null);
+            }
+            blockCellsUI.Add(listRow);
+        }
+
+        // Place blocks according to shape data
+        foreach (Vector2Int pos in blockData.shape)
+        {
+            int normalizedX = pos.x - minX;
+            int normalizedY = pos.y - minY;
+            
+            GameObject blockCell = Instantiate(prefabBlockCellUI);
+            blockCellsUI[normalizedY][normalizedX] = blockCell;
+        }
+
+        // Position blocks
+        for (int row = 0; row < blockCellsUIRowCount; row++)
+        {
+            for (int column = 0; column < blockCellsUIColumnCount; column++)
+            {
+                if (blockCellsUI[row][column] != null)
+                {
+                    blockCellsUI[row][column].transform.SetParent(this.transform, false);
+                    blockCellsUI[row][column].GetComponent<RectTransform>().anchoredPosition
+                        = new Vector2(column - (blockCellsUIColumnCount - 1) / 2f, row - (blockCellsUIRowCount - 1) / 2f) * block_size;
+                
+                    GameObject shadow = Instantiate(prefabBlockCellShadowUI);
+                    shadow.transform.SetParent(shadowContainer.transform, false);
+                    shadow.GetComponent<RectTransform>().anchoredPosition
+                        = new Vector2(column - (blockCellsUIColumnCount - 1) / 2f, row - (blockCellsUIRowCount - 1) / 2f) * block_size;
+                }
+            }
+        }
+    }
+    /*
     public void SetBlockType(BlockType blockTypeToSet)
     {
         blockType = blockTypeToSet;
@@ -167,7 +237,7 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
             blockCellsUI.Add(listRow2nd);
         }
 
-        // À§Ä¡ ¸ÂÃçÁÖ±â
+        // ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
         for (int row = 0; row < blockCellsUIRowCount; row++)
         {
             for (int column = 0; column < blockCellsUIColumnCount; column++)
@@ -186,16 +256,17 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
             }
         }
     }
+    */
     public void OnPointerDown(PointerEventData eventData)
     {
-        // (ÇÊ¿äÇÏ´Ù¸é) Å¬¸¯ ½Ã ¾î¶² »ç¿îµå¸¦ Àç»ýÇÑ´Ù°Å³ª, ´Ù¸¥ ·ÎÁ÷À» ¼öÇàÇÒ ¼ö ÀÖÀ½
+        // (ï¿½Ê¿ï¿½ï¿½Ï´Ù¸ï¿½) Å¬ï¿½ï¿½ ï¿½ï¿½ ï¿½î¶² ï¿½ï¿½ï¿½å¸¦ ï¿½ï¿½ï¿½ï¿½Ñ´Ù°Å³ï¿½, ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
         shadowContainer.SetActive(true);
-        // µå·¡±× ½ÃÀÛ ½Ã, ÇöÀç Å¬¸¯µÈ Æ÷ÀÎÆ®¿¡¼­ ¿ÀºêÁ§Æ® Áß½É±îÁöÀÇ ¿ÀÇÁ¼ÂÀ» °è»ê
-        // RectTransformUtility.ScreenPointToLocalPointInRectangle ÇÔ¼ö·Î
-        // ·ÎÄÃ ÁÂÇ¥¸¦ ¾ò¾î³¾ ¼ö ÀÖ´Ù.
+        // ï¿½å·¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ß½É±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+        // RectTransformUtility.ScreenPointToLocalPointInRectangle ï¿½Ô¼ï¿½ï¿½ï¿½
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½î³¾ ï¿½ï¿½ ï¿½Ö´ï¿½.
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             rectTransform,
             eventData.position,
@@ -205,21 +276,21 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
     }
     public void OnDrag(PointerEventData eventData)
     {
-        // µå·¡±× ÁßÀÎ ¸¶¿ì½º(¶Ç´Â ÅÍÄ¡) À§Ä¡¸¦ Canvas ±âÁØÀÇ ·ÎÄÃ ÁÂÇ¥·Î º¯È¯
+        // ï¿½å·¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ì½º(ï¿½Ç´ï¿½ ï¿½ï¿½Ä¡) ï¿½ï¿½Ä¡ï¿½ï¿½ Canvas ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½È¯
         Vector2 localPoint;
-        // canvas.transform as RectTransform -> CanvasÀÇ RectTransform
-        // eventData.pressEventCamera -> Ä«¸Þ¶ó (Screen Space - Overlay¶ó¸é nullÀÏ ¼öµµ ÀÖÀ¸´Ï À¯ÀÇ)
+        // canvas.transform as RectTransform -> Canvasï¿½ï¿½ RectTransform
+        // eventData.pressEventCamera -> Ä«ï¿½Þ¶ï¿½ (Screen Space - Overlayï¿½ï¿½ï¿½ nullï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 canvas.transform as RectTransform,
                 eventData.position,
                 eventData.pressEventCamera,
                 out localPoint))
         {
-            // ¿ÀÇÁ¼ÂÀ» »©¼­ ½ÇÁ¦·Î ´©¸¥ ÁöÁ¡ ±âÁØÀ¸·Î ÀÌµ¿
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
             rectTransform.localPosition = localPoint - offset;
         }
 
-        //Á¿°°Àº ±×¸²ÀÚ¸¦ ±×·Áº¸ÀÚ
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½Ú¸ï¿½ ï¿½×·ï¿½ï¿½ï¿½ï¿½ï¿½
 
         List<List<BoardCellUI>> boardCellsUI = boardUI.boardCellsUI;
         BoardCellUI closestBoardCellUI = null;
@@ -253,42 +324,45 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
     }
     public void OnEndDrag(PointerEventData eventData)
     {
-        shadowContainer.SetActive(false);
-        // 1) °¢ CellÀÇ À§Ä¡(¿ùµå ÁÂÇ¥³ª ·ÎÄÃ ÁÂÇ¥)¸¦ ¼øÈ¸ÇÏ¸ç,
-        // 2) ³» ºí·ÏÀÇ RectTransform.localPosition°úÀÇ °Å¸® Â÷¸¦ ºñ±³,
-        // 3) °¡Àå °¡±î¿î CellÀ» Ã£´Â´Ù.
-
-        List<List<BoardCellUI>> boardCellsUI = boardUI.boardCellsUI;
-        BoardCellUI closestBoardCellUI = null;
-        float minDistance = float.MaxValue;
-
-        Vector2 zeroOffset = new Vector2((blockCellsUIColumnCount - 1) / 2f, (blockCellsUIRowCount - 1) / 2f * (-1)) * block_size;
-
-        foreach (var cell in boardCellsUI.SelectMany(row => row))
+        if (GameUIManager.instance.OnBlockSet(blockData))
         {
-            float dist = Vector2.Distance(
-                rectTransform.anchoredPosition - zeroOffset,
-                cell.GetComponent<RectTransform>().anchoredPosition
-                + boardUI.GetComponent<RectTransform>().anchoredPosition
-            );
+            shadowContainer.SetActive(false);
+            // 1) ï¿½ï¿½ Cellï¿½ï¿½ ï¿½ï¿½Ä¡(ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥)ï¿½ï¿½ ï¿½ï¿½È¸ï¿½Ï¸ï¿½,
+            // 2) ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ RectTransform.localPositionï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½,
+            // 3) ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Cellï¿½ï¿½ Ã£ï¿½Â´ï¿½.
 
-            if (dist < minDistance)
+            List<List<BoardCellUI>> boardCellsUI = boardUI.boardCellsUI;
+            BoardCellUI closestBoardCellUI = null;
+            float minDistance = float.MaxValue;
+
+            Vector2 zeroOffset = new Vector2((blockCellsUIColumnCount - 1) / 2f, (blockCellsUIRowCount - 1) / 2f * (-1)) * block_size;
+
+            foreach (var cell in boardCellsUI.SelectMany(row => row))
             {
-                minDistance = dist;
-                closestBoardCellUI = cell;
+                float dist = Vector2.Distance(
+                    rectTransform.anchoredPosition - zeroOffset,
+                    cell.GetComponent<RectTransform>().anchoredPosition
+                    + boardUI.GetComponent<RectTransform>().anchoredPosition
+                );
+
+                if (dist < minDistance)
+                {
+                    minDistance = dist;
+                    closestBoardCellUI = cell;
+                }
             }
-        }
 
-        // 4) °¡Àå °¡±î¿î Cell¿¡ ½º³À
-        if (closestBoardCellUI != null)
-        {
-            rectTransform.anchoredPosition =
-                closestBoardCellUI.GetComponent<RectTransform>().anchoredPosition
-                + boardUI.GetComponent<RectTransform>().anchoredPosition
-                + zeroOffset;
-        }
+            // 4) ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Cellï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            if (closestBoardCellUI != null)
+            {
+                rectTransform.anchoredPosition =
+                    closestBoardCellUI.GetComponent<RectTransform>().anchoredPosition
+                    + boardUI.GetComponent<RectTransform>().anchoredPosition
+                    + zeroOffset;
+            }
 
-        // ¸¸¾à ÇØ´ç CellÀÌ ÀÌ¹Ì Â÷ ÀÖÀ¸¸é(BlockÀÌ ÀÖÀ¸¸é) ³õÀ» ¼ö ¾ø°Ô ÇÏ´Â µî
-        // Ãß°¡ ·ÎÁ÷ÀÌ ÇÊ¿äÇÒ ¼ö ÀÖÀ½
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ Cellï¿½ï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(Blockï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½
+            // ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        }
     }
 }

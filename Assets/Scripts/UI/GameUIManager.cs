@@ -62,6 +62,14 @@ public class GameUIManager : MonoBehaviour
         }
     }
 
+    public void Initialize(RunData runData)
+    {
+        goldInfoUI.Initialize(runData.gold);
+        actionInfoUI.Initialize(0, 0);
+        runInfoUI.Initialize(runData);
+        deckInfoUI.Initialize(runData);
+    }
+
     private void initializeManagerInstances()
     {
         //gameManager = GameObject.Find("GameManager").getComponent<GameManager>();
@@ -142,6 +150,8 @@ public class GameUIManager : MonoBehaviour
         if (sceneState == SceneState.shopping && popupState == PopupState.none)
         {
             Debug.Log("다음 스테이지로 버튼 눌림");
+            GameManager.instance.StartStageSelection();
+            ChangeSceneState(SceneState.selecting);
         }
     }
 
@@ -276,7 +286,12 @@ public class GameUIManager : MonoBehaviour
 
     public void OnRerolled()
     {
+        // TEST
+        GameManager.instance.EndStage(true);
+        /*
         Debug.Log("게임매니저야 리롤버튼이 눌렸어!!!");
+        GameManager.instance.OnRerolled();
+        */
     }
     public void NotifyRerolled()
     {
@@ -312,6 +327,31 @@ public class GameUIManager : MonoBehaviour
     public void OnStageStart(int stageIndex, StageData stageData)
     {        
         stageInfoUI.Initialize(stageIndex, stageData);
+        scoreInfoUI.UpdateScore(0);
         ChangeSceneState(SceneState.playing);
+    }
+
+    public void OnBlocksDrawn(List<BlockData> blocks)
+    {
+        handUI.Initialize(blocks);
+    }
+
+    public bool OnBlockSet(BlockData block)
+    {
+        GameManager.instance.OnBlockSet(block);
+        return true;
+    }
+
+    public void OnShopStart(List<ItemData> items)
+    {
+        ChangeSceneState(SceneState.shopping);
+        itemShowcaseUI.Initialize(items);
+    }
+    public void OnItemShowcaseItemButtonPressed(int index)
+    {
+        if (GameManager.instance.OnItemPurchased(index))
+        {
+            itemShowcaseUI.CloseItemShowcaseUI();
+        }
     }
 }

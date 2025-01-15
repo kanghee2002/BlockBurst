@@ -2,9 +2,11 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class DeckInfoUI : MonoBehaviour
 {
+    public TextMeshProUGUI deckInfoText;
     [SerializeField] private GameObject deckInfoUI;
     [SerializeField] private RectTransform rectTransform;
 
@@ -34,5 +36,16 @@ public class DeckInfoUI : MonoBehaviour
     public void OnDeckInfoBackButtonUIPressed()
     {
         gameUIManager.DeckInfoBackButtonUIPressed();
+    }
+
+    public void Initialize(RunData runData)
+    {
+        List<BlockData> availableBlocks = runData.availableBlocks;
+        string text = "";
+        foreach (BlockData blockData in availableBlocks)
+        {
+            text += blockData.type.ToString() + "\n";
+        }
+        deckInfoText.text = text;
     }
 }

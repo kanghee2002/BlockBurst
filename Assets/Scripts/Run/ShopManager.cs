@@ -13,6 +13,7 @@ public class ShopManager : MonoBehaviour
     {
         runData = data;
         currentItems = new List<ItemData>(items);
+        deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
     }
 
     public bool PurchaseItem(ItemData item)

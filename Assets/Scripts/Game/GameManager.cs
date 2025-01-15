@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System.IO;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,9 +18,16 @@ public class GameManager : MonoBehaviour
 
     public StageData[] stageTemplates;
     public ItemData[] itemTemplates;
+    public BlockData[] blockTemplates;
 
     const int STAGE_CHOICE_COUNT = 2;
     public int currentStageIndex = 1;
+
+    public List<BlockData> handBlocks = new List<BlockData>();
+    const int HAND_BLOCK_COUNT = 3;
+
+    public List<ItemData> shopItems = new List<ItemData>();
+    const int SHOP_ITEM_COUNT = 3;
 
     StageData[] nextStageChoices = new StageData[STAGE_CHOICE_COUNT];
 
@@ -52,6 +60,12 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game Start");
         gameData = new GameData();
         gameData.Initialize();
+        
+        // 템플릿에서 몇개 랜덤으로 뽑아 추가
+        for (int i = 0; i < 10; i++)
+        {
+            gameData.defaultBlocks.Add(blockTemplates[Random.Range(0, blockTemplates.Length)]);
+        }
 
         StartNewRun();
     }
@@ -86,15 +100,17 @@ public class GameManager : MonoBehaviour
         EffectManager.instance.Initialize(ref currentRun);
 
         stageManager.Initialize(ref currentRun);
-        deckManager.Initialize(ref currentRun, ref blockGame);
+
         shopManager.Initialize(ref currentRun, itemTemplates);
 
-        StartStageSelection(StageType.NORMAL);
+        GameUIManager.instance.Initialize(currentRun);
+        StartStageSelection();
     }
 
-    public void StartStageSelection(StageType stageType)
+    public void StartStageSelection()
     {
         // stage Template에서 stagetype이 맞는 것을 랜덤하게 추출
+        StageType stageType = currentStageIndex == 3 ? StageType.BOSS : StageType.NORMAL;
         var templates = stageTemplates.Where(stage => stage.type == stageType).ToArray();
         for (int i = 0; i < nextStageChoices.Length; i++)
         {
@@ -118,10 +134,13 @@ public class GameManager : MonoBehaviour
         blockGame = new BlockGameData();
         blockGame.Initialize(currentRun);
 
+        deckManager.Initialize(ref currentRun, ref blockGame);
+
         EffectManager.instance.InitializeBlockGameData(ref blockGame);
 
         // 스테이지 시작
         stageManager.StartStage(stage);
+        DrawBlocks();
     }
 
     public void EndStage(bool cleared)
@@ -133,15 +152,10 @@ public class GameManager : MonoBehaviour
             {
                 EndGame(true);
             }
-            else if (currentStageIndex < 2)
+            else 
             {
                 currentStageIndex++;
-                StartStageSelection(StageType.NORMAL);
-            }
-            else if (currentStageIndex == 2)
-            {
-                currentStageIndex++;
-                StartStageSelection(StageType.BOSS);
+                StartShop();
             }
         } 
         else 
@@ -150,6 +164,23 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void StartShop()
+    {
+        // 아이템 랜덤하게 뽑아서 UI에 전달
+        shopItems.Clear();
+        for (int i = 0; i < SHOP_ITEM_COUNT; i++)
+        {
+            shopItems.Add(shopManager.PopItem());
+        }
+        GameUIManager.instance.OnShopStart(shopItems);
+        
+    }
+
+    public bool OnItemPurchased(int index)
+    {
+        Debug.Log(shopItems[index]);
+        return shopManager.PurchaseItem(shopItems[index]);
+    }
     // ------------------------------
     // RUN LAYER - end
     // ------------------------------
@@ -158,11 +189,33 @@ public class GameManager : MonoBehaviour
     // BLOCKGAME LAYER - start
     // ------------------------------
 
-    public void StartBlockGame()
+    public void DrawBlocks()
     {
-        // 블록 게임 시작
-        Debug.Log("Block Game Start");
+        handBlocks.Clear();
+        for (int i = 0; i < HAND_BLOCK_COUNT; i++)
+        {
+            handBlocks.Add(deckManager.DrawBlock());
+        }
+        GameUIManager.instance.OnBlocksDrawn(handBlocks);
     }
+
+    public void OnBlockSet(BlockData block)
+    {
+        handBlocks.Remove(block);
+        if (handBlocks.Count == 0)
+        {
+            DrawBlocks();
+        }
+    }
+
+    public void OnRerolled()
+    {
+        if (deckManager.RerollDeck(handBlocks.ToArray()))
+        {
+            DrawBlocks();
+        }
+    }
+    
 
     // ------------------------------
     // BLOCKGAME LAYER - end

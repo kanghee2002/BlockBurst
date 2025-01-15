@@ -160,7 +160,7 @@ public class GameUIManager : MonoBehaviour
         if (sceneState == SceneState.shopping && popupState == PopupState.none)
         {
             Debug.Log("아이템 리롤 버튼 눌림");
-            OnRerolled();
+            GameManager.instance.OnShopReroll();
         }
     }
 
@@ -347,6 +347,7 @@ public class GameUIManager : MonoBehaviour
         ChangeSceneState(SceneState.shopping);
         itemShowcaseUI.Initialize(items);
     }
+
     public void OnItemShowcaseItemButtonPressed(int index)
     {
         if (GameManager.instance.OnItemPurchased(index))

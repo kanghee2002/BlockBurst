@@ -13,11 +13,11 @@ public class ItemShowcaseUI : MonoBehaviour
         for (int i = 0; i < items.Count; i++)
         {
             int currentIndex = i;
-            ItemData itemData = items[i];
+            ItemData itemData = items[currentIndex];
             GameObject itemUI = Instantiate(itemPrefab, transform);
-            itemUI.transform.localPosition = new Vector3((i - 1) * 250, 0, 0);
+            itemUI.transform.localPosition = new Vector3((currentIndex - 1) * 250, 0, 0);
 
-            itemUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = itemData.id;
+            itemUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = itemData.itemName;
             itemUI.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = itemData.cost.ToString();
             itemUI.transform.GetChild(3).GetComponent<Button>().onClick.AddListener(() => {
                 GameUIManager.instance.OnItemShowcaseItemButtonPressed(currentIndex);

@@ -94,4 +94,15 @@ public class ShopManager : MonoBehaviour
     {
         block.effects.Add(effect);
     }
+
+    public void RerollShop(List<ItemData> items)
+    {
+        foreach (ItemData item in items)
+        {
+            if (item != null)
+            {
+                currentItems.Add(item);
+            }
+        }
+    }
 }

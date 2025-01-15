@@ -178,8 +178,15 @@ public class GameManager : MonoBehaviour
 
     public bool OnItemPurchased(int index)
     {
-        Debug.Log(shopItems[index]);
-        return shopManager.PurchaseItem(shopItems[index]);
+        ItemData shopItem = shopItems[index];
+        shopItems[index] = null;
+        return shopManager.PurchaseItem(shopItem);
+    }
+
+    public void OnShopReroll()
+    {
+        shopManager.RerollShop(shopItems);
+        StartShop();
     }
     // ------------------------------
     // RUN LAYER - end

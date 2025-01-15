@@ -87,12 +87,12 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
                 {
                     blockCellsUI[row][column].transform.SetParent(this.transform, false);
                     blockCellsUI[row][column].GetComponent<RectTransform>().anchoredPosition
-                        = new Vector2(column - (blockCellsUIColumnCount - 1) / 2f, row - (blockCellsUIRowCount - 1) / 2f) * block_size;
+                        = new Vector2(column - (blockCellsUIColumnCount - 1) / 2f, -(row - (blockCellsUIRowCount - 1) / 2f)) * block_size;
                 
                     GameObject shadow = Instantiate(prefabBlockCellShadowUI);
                     shadow.transform.SetParent(shadowContainer.transform, false);
                     shadow.GetComponent<RectTransform>().anchoredPosition
-                        = new Vector2(column - (blockCellsUIColumnCount - 1) / 2f, row - (blockCellsUIRowCount - 1) / 2f) * block_size;
+                        = new Vector2(column - (blockCellsUIColumnCount - 1) / 2f, -(row - (blockCellsUIRowCount - 1) / 2f)) * block_size;
                 }
             }
         }

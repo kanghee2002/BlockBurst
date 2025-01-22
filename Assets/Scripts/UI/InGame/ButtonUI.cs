@@ -31,6 +31,13 @@ public class ButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     void Start()
     {
+        Initialize();
+
+        CreateShadow();
+    }
+
+    private void Initialize()
+    {
         image = GetComponent<Image>();
 
         rectTransform = GetComponent<RectTransform>();
@@ -44,11 +51,7 @@ public class ButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         pressedScale = originalScale * new Vector2(0.99f, 0.99f);
         pressedPositionOffset = new Vector2(0f, -0.08f * rectTransform.rect.height);
         pressedPosition = originalPosition + pressedPositionOffset;
-
-        // create shadow
-        CreateShadow();
     }
-
     private void CreateShadow()
     {
         // 새 GameObject 생성
@@ -65,7 +68,7 @@ public class ButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         // Image 설정
         Image shadowImage = shadowObject.AddComponent<Image>();
         shadowImage.sprite = image.sprite; // 원본 이미지와 동일한 Sprite 사용
-        shadowImage.color = new Color(0, 0, 0, 0.5f); // 반투명한 검정색
+        shadowImage.color = new Color(0, 0, 0, 0.8f); // 반투명한 검정색
 
         // 그림자를 Raycast 타겟에서 제외 (클릭 감지 방지)
         shadowImage.raycastTarget = false;

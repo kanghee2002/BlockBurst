@@ -5,15 +5,14 @@ using UnityEngine;
 public class GameUIManager : MonoBehaviour
 {
     public static GameUIManager instance;
-    //private GameManager gameManager;
 
     [SerializeField] private StageInfoUI stageInfoUI;
     [SerializeField] private ScoreInfoUI scoreInfoUI;
     [SerializeField] private ActionInfoUI actionInfoUI;
     [SerializeField] private GoldInfoUI goldInfoUI;
-    [SerializeField] private RunInfoButtonUI runInfoButtonUI;
+    //[SerializeField] private RunInfoButtonUI runInfoButtonUI;
     [SerializeField] private RunInfoUI runInfoUI;
-    [SerializeField] private OptionButtonUI optionButtonUI;
+    //[SerializeField] private OptionButtonUI optionButtonUI;
     [SerializeField] private OptionUI optionUI;
     [SerializeField] private BoardUI boardUI;
     [SerializeField] private RerollButtonUI rerollButtonUI;

@@ -70,7 +70,7 @@ public class Board
             }
 
             // 블록 배치 이펙트 트리거
-            EffectManager.instance.TriggerEffects(TriggerType.ON_BLOCK_PLACE);
+            EffectManager.instance.TriggerEffects(TriggerType.ON_BLOCK_PLACE, blockTypes: new BlockType[] { block.Type });
             //block.TriggerEffects(TriggerType.ON_BLOCK_PLACE);
 
             // 보드 상태 이펙트 체크
@@ -208,16 +208,31 @@ public class Board
 
         gameData.currentScore += totalScore;
 
-        Debug.Log("현재 점수: " + gameData.currentScore);
         Debug.Log("현재 배수: " + gameData.matchMultipliers[MatchType.ROW]);
 
         // 배수 초기화
         if (matches.Count > 0)
         {
             Debug.Log("계산된 점수: " + totalScore);
-            //gameData.matchMultipliers = new(runData.baseMatchMultipliers);
+            gameData.matchMultipliers = new(GameManager.instance.runData.baseMatchMultipliers);
         }
 
+        // 한 줄이 지워졌다면 보드 상태 이펙트 체크
+        if (matches.Count > 0)
+        {
+            if (!IsHalfFull())
+            {
+                EffectManager.instance.TriggerEffects(TriggerType.ON_BOARD_NOT_HALF_FULL);
+            }
+            else
+            {
+                if (!isHalfFull)
+                {
+                    EffectManager.instance.TriggerEffects(TriggerType.ON_BOARD_HALF_FULL);
+                }
+            }
+            isHalfFull = IsHalfFull();
+        }
     }
 
     // 매치 확인

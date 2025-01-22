@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class ButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler
 {
@@ -25,6 +26,8 @@ public class ButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private Vector2 pressedPosition;
 
     private GameObject shadowObject;
+
+    [SerializeField] private UnityEvent onClick;
 
     void Start()
     {
@@ -112,12 +115,7 @@ public class ButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         image.color = originalColor;
         rectTransform.anchoredPosition = originalPosition;
         rectTransform.localScale = originalScale;
-        OnClick();
-    }
 
-    public virtual void OnClick()
-    {
-        // Please override this method.
+        onClick?.Invoke();
     }
-
 }

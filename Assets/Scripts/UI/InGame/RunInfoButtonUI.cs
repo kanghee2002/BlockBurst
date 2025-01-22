@@ -7,9 +7,9 @@ public class RunInfoButtonUI : ButtonUI
 {
 
     [SerializeField] private GameUIManager gameUIManager;
-
+    /*
     public override void OnClick()
     {
         gameUIManager.RunInfoButtonUIPressed();
-    }
+    }*/
 }

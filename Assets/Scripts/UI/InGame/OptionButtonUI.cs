@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OptionButtonUI : MonoBehaviour
+public class OptionButtonUI : ButtonUI
 {
-
     [SerializeField] private GameUIManager gameUIManager;
 
-    public void OnOptionButtonUIPressed()
+    public override void OnClick()
     {
         gameUIManager.OptionButtonUIPressed();
     }

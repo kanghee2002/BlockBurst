@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class DeckButtonUI : MonoBehaviour
+public class DeckButtonUI : ButtonUI
 {
 
     [SerializeField] private GameUIManager gameUIManager;
     [SerializeField] private TextMeshProUGUI deckCountText;
 
-    public void OnDeckButtonUIPressed()
+    public override void OnClick()
     {
         gameUIManager.DeckButtonUIPressed();
     }

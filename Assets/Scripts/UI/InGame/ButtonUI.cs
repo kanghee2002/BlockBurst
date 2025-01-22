@@ -46,14 +46,14 @@ public class ButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         pressedPosition = originalPosition + pressedPositionOffset;
 
         // create shadow
-        //CreateShadow();
+        CreateShadow();
     }
 
     private void CreateShadow()
     {
         // 새 GameObject 생성
         shadowObject = new GameObject("Shadow");
-        shadowObject.transform.SetParent(transform); // 부모를 현재 오브젝트로 설정
+        shadowObject.transform.SetParent(transform.parent); // 부모를 현재 오브젝트로 설정
         shadowObject.transform.SetAsFirstSibling(); // 부모의 첫 번째 자식으로 설정 (이미지 뒤에 배치)
 
         // RectTransform 설정

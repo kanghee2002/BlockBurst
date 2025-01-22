@@ -16,12 +16,15 @@ public class ButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private Vector2 originalPosition;
 
     private const float brightnessIncrease = 0.2f;
-    private Color hoverColor = Color.gray;
+    private Color hoverColor;
 
     private const float brightnessDecrease = 0.2f;
     private Color pressedColor;
     private Vector2 pressedScale;
+    private Vector2 pressedPositionOffset;
     private Vector2 pressedPosition;
+
+    private GameObject shadowObject;
 
     void Start()
     {
@@ -36,8 +39,35 @@ public class ButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         pressedColor = Color.Lerp(originalColor, Color.black, brightnessDecrease);
         pressedScale = originalScale * new Vector2(0.99f, 0.99f);
-        pressedPosition = originalPosition + new Vector2(0f, -0.08f * rectTransform.rect.height);
+        pressedPositionOffset = new Vector2(0f, -0.08f * rectTransform.rect.height);
+        pressedPosition = originalPosition + pressedPositionOffset;
+
+        // create shadow
+        //CreateShadow();
     }
+
+    private void CreateShadow()
+    {
+        // 새 GameObject 생성
+        shadowObject = new GameObject("Shadow");
+        shadowObject.transform.SetParent(transform); // 부모를 현재 오브젝트로 설정
+        shadowObject.transform.SetAsFirstSibling(); // 부모의 첫 번째 자식으로 설정 (이미지 뒤에 배치)
+
+        // RectTransform 설정
+        RectTransform shadowRect = shadowObject.AddComponent<RectTransform>();
+        shadowRect.sizeDelta = rectTransform.sizeDelta; // 원본 크기와 동일
+        shadowRect.anchoredPosition = pressedPositionOffset; // 그림자 위치 설정
+        shadowRect.localScale = pressedScale; // 그림자 크기 설정
+
+        // Image 설정
+        Image shadowImage = shadowObject.AddComponent<Image>();
+        shadowImage.sprite = image.sprite; // 원본 이미지와 동일한 Sprite 사용
+        shadowImage.color = new Color(0, 0, 0, 0.5f); // 반투명한 검정색
+
+        // 그림자를 Raycast 타겟에서 제외 (클릭 감지 방지)
+        shadowImage.raycastTarget = false;
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (isPressed == true)

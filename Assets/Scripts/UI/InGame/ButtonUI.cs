@@ -59,10 +59,9 @@ public class ButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         OnClick();
-        Debug.Log("asdf");
     }
 
-    public void OnClick()
+    public virtual void OnClick()
     {
         // Please override this method.
     }

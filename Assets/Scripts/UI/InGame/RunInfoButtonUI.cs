@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class RunInfoButtonUI : MonoBehaviour
+public class RunInfoButtonUI : ButtonUI
 {
 
     [SerializeField] private GameUIManager gameUIManager;
 
-    public void OnRunInfoButtonUIPressed()
+    public override void OnClick()
     {
         gameUIManager.RunInfoButtonUIPressed();
     }

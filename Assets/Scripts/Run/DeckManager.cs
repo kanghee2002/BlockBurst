@@ -10,13 +10,14 @@ public class DeckManager : MonoBehaviour
     private RunData runData;
     private BlockGameData blockGameData;
 
-    public void Initialize(ref BlockGameData blockData, List<BlockData> availableBlocks)
+    public void Initialize(ref BlockGameData blockData, ref RunData runData)
     {
+        this.runData = runData;
         blockGameData = blockData;
 
-        foreach (BlockData block in availableBlocks)
+        foreach (BlockData block in runData.availableBlocks)
         {
-            AddBlock(block);
+            AddBlockToBlockGameDeck(block);
         }
 
         discardPile = new List<BlockData>();
@@ -49,7 +50,7 @@ public class DeckManager : MonoBehaviour
             blockGameData.rerollCount--;
             foreach (BlockData block in remains)
             {
-                if (block) AddBlock(block);
+                if (block) AddBlockToBlockGameDeck(block);
             }
             return true;
         }
@@ -60,20 +61,30 @@ public class DeckManager : MonoBehaviour
         if (block.reuseCount > 0)
         {
             block.reuseCount--;
-            AddBlock(block);
+            AddBlockToBlockGameDeck(block);
         }
     }
 
     // 랜덤한 위치에 추가
-    public void AddBlock(BlockData block)
+    public void AddBlockToBlockGameDeck(BlockData block)
     {
         blockGameData.deck.Insert(Random.Range(0, blockGameData.deck.Count), block);
     }
 
-    public void RemoveBlock(BlockData block)
+    public void AddBlockToRunDeck(BlockData block)
+    {
+        runData.availableBlocks.Add(block);
+    }
+
+    public void RemoveBlockFromGameDeck(BlockData block)
     {
         discardPile.Add(block);
         blockGameData.deck.Remove(block);
+    }
+
+    public void RemoveBlockFromRunDeck(BlockData block)
+    {
+        runData.availableBlocks.Remove(block);
     }
 
     // 덱 셔플

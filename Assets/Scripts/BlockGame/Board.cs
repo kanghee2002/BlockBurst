@@ -453,11 +453,12 @@ public class Board
         {
             (BlockType blockType, string id) = onClearEffectBlocks[i];
 
-            if (!blocks.Contains(id))
+            if (blocks.Contains(id))
             {
-                EffectManager.instance.TriggerEffects(TriggerType.ON_BLOCK_CLEAR, blockTypes: new BlockType[] { blockType });
-                onClearEffectBlocks.RemoveAt(i);
+                continue;
             }
+            EffectManager.instance.TriggerEffects(TriggerType.ON_BLOCK_CLEAR, blockTypes: new BlockType[] { blockType });
+            onClearEffectBlocks.RemoveAt(i);
         }
     }
 

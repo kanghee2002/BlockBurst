@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class HandUI : MonoBehaviour
 {
-    [SerializeField] private GameObject handUI;
-    [SerializeField] private RectTransform rectTransform;
+    private RectTransform rectTransform;
     // inside anchored position = (-188,0)
     private const float insidePositionX = -188;
     private const float outsidePositionOffsetX = 480;
@@ -22,58 +21,12 @@ public class HandUI : MonoBehaviour
     private void Awake()
     {
         BoardUICanvas = GameObject.Find("BoardUICanvas");
-    }
-
-    public void OpenHandUI()
-    {
-        if (!isOpen)
-        {
-            isOpen = true;
-            handUI.SetActive(true);
-            rectTransform.DOAnchorPosX(insidePositionX, duration)
-                .SetEase(Ease.OutCubic);
-            FadeInBlocks();
-        }
-    }
-
-    void FadeInBlocks()
-    {
-        for (int i = 0; i < blockUIs.Length; i++)
-        {
-            var blockObj = blockUIs[i];
-            blockObj.GetComponent<CanvasGroup>().DOFade(1f, 0.2f)
-                .SetDelay((i + 1) * 0.2f); // 순차적으로 나타나도록 딜레이 추가
-        }
-    }
-
-    public void CloseHandUI()
-    {
-        if (isOpen)
-        {
-            isOpen = false;
-            ClearHandUI();
-            rectTransform.DOAnchorPosX(insidePositionX + outsidePositionOffsetX, duration)
-                .SetEase(Ease.OutCubic)
-                .OnComplete(() =>
-                {
-                    handUI.SetActive(false);
-                });
-        }
-    }
-
-    public void ClearHandUI()
-    {
-        if (blockUIs != null) 
-        {
-            foreach (GameObject blockUI in blockUIs)
-            {
-                if (blockUI) Destroy(blockUI);
-            }
-        }
+        rectTransform = GetComponent<RectTransform>();
     }
 
     public void Initialize(List<Block> hand)
     {
+        gameObject.SetActive(true);
         ClearHandUI();
         blockUIs = new GameObject[hand.Count];
         int idx = 0;
@@ -93,6 +46,47 @@ public class HandUI : MonoBehaviour
         if (isOpen)
         {
             FadeInBlocks();
+        }
+    }
+
+    public void OpenHandUI()
+    {
+        if (!isOpen)
+        {
+            isOpen = true;
+            UIUtils.OpenUI(rectTransform, "X", insidePositionX, duration);
+            FadeInBlocks();
+        }
+    }
+
+    public void CloseHandUI()
+    {
+        if (isOpen)
+        {
+            isOpen = false;
+            ClearHandUI();
+            UIUtils.CloseUI(rectTransform, "X", insidePositionX, outsidePositionOffsetX, duration);
+        }
+    }
+
+    void FadeInBlocks()
+    {
+        for (int i = 0; i < blockUIs.Length; i++)
+        {
+            var blockObj = blockUIs[i];
+            blockObj.GetComponent<CanvasGroup>().DOFade(1f, 0.2f)
+                .SetDelay((i + 1) * 0.2f); // 순차적으로 나타나도록 딜레이 추가
+        }
+    }
+
+    public void ClearHandUI()
+    {
+        if (blockUIs != null) 
+        {
+            foreach (GameObject blockUI in blockUIs)
+            {
+                if (blockUI) Destroy(blockUI);
+            }
         }
     }
 }

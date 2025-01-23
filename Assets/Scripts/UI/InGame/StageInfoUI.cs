@@ -12,36 +12,34 @@ public class StageInfoUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI debuffText;
     [SerializeField] private TextMeshProUGUI scoreAtLeastText;
 
-    [SerializeField] private GameObject stageInfoUI;
-    [SerializeField] private RectTransform rectTransform;
+    private RectTransform rectTransform;
     // inside anchored position = (300,320)
     private const float insidePositionY = 320;
     private const float outsidePositionOffsetY = 540;
     private const float duration = 0.2f;
 
-    public void OpenStageInfoUI()
+    void Awake()
     {
-        rectTransform.DOAnchorPosY(insidePositionY, duration)
-            .SetEase(Ease.OutCubic);
-    }
-
-    public void CloseStageInfoUI()
-    {
-        rectTransform.DOAnchorPosY(insidePositionY + outsidePositionOffsetY, duration)
-            .SetEase(Ease.OutCubic)
-            .OnComplete(() =>
-            {
-                stageInfoUI.SetActive(false);
-            });
+        rectTransform = GetComponent<RectTransform>();
     }
 
     public void Initialize(int chapterIndex, int stageIndex, StageData stageData)
     {
-        stageInfoUI.SetActive(true);
+        gameObject.SetActive(true);
         UpdateChapter(chapterIndex);
         UpdateStage(stageIndex);
         UpdateDebuffText(stageData.constraints.Select(x => x.effectName).ToArray());
         UpdateScoreAtLeast(stageData.clearRequirement);
+    }
+
+    public void OpenStageInfoUI()
+    {
+        UIUtils.OpenUI(rectTransform, "Y", insidePositionY, duration);
+    }
+
+    public void CloseStageInfoUI()
+    {
+        UIUtils.CloseUI(rectTransform, "Y", insidePositionY, outsidePositionOffsetY, duration);
     }
 
     public void UpdateChapter(int chapter)

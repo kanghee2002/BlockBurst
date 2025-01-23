@@ -15,6 +15,57 @@ public class ItemSetUI : MonoBehaviour
     private float startPos = -380f;
     List<GameObject> itemIcons = new List<GameObject>();
 
+    public void Initialize(List<ItemData> items)
+    {
+        Clear();
+
+        float iconWidth = itemIconPrefab.GetComponent<RectTransform>().rect.width;
+        float spacing = iconWidth - iconOverlap;
+
+        foreach (ItemData item in items)
+        {
+            GameObject itemIcon = Instantiate(itemIconPrefab, transform);
+            
+            RectTransform rectTransform = itemIcon.GetComponent<RectTransform>();
+            rectTransform.anchoredPosition = new Vector2(startPos + spacing * itemIcons.Count, 0);
+            
+            itemIcon.transform.GetChild(0).GetComponent<Image>().sprite = GetImage(item);
+            SetUpgradeIcon(itemIcon, item);
+
+            GameObject description = itemIcon.transform.GetChild(2).gameObject;
+
+            description.GetComponent<TextMeshProUGUI>().text = GetDescription(item);
+
+            EventTrigger trigger = itemIcon.AddComponent<EventTrigger>();
+            
+            EventTrigger.Entry enterEntry = new EventTrigger.Entry();
+            enterEntry.eventID = EventTriggerType.PointerEnter;
+            enterEntry.callback.AddListener((data) => {
+                OnItemEnter(description);
+                itemIcon.transform.DOScale(hoverScale, hoverDuration).SetEase(Ease.OutQuad);
+                itemIcon.transform.SetAsLastSibling();
+            });
+            trigger.triggers.Add(enterEntry);
+
+            EventTrigger.Entry exitEntry = new EventTrigger.Entry();
+            exitEntry.eventID = EventTriggerType.PointerExit;
+            exitEntry.callback.AddListener((data) => {
+                OnItemExit(description);
+                itemIcon.transform.DOScale(1f, hoverDuration).SetEase(Ease.OutQuad);
+                itemIcon.transform.SetSiblingIndex(itemIcons.IndexOf(itemIcon));
+            });
+            trigger.triggers.Add(exitEntry);
+
+            EventTrigger.Entry clickEntry = new EventTrigger.Entry();
+            clickEntry.eventID = EventTriggerType.PointerClick;
+            clickEntry.callback.AddListener((data) => {  });
+            trigger.triggers.Add(clickEntry);
+            
+            itemIcon.transform.SetSiblingIndex(itemIcons.Count);
+            itemIcons.Add(itemIcon);
+        }
+    }
+
     private Sprite GetImage(ItemData item)
     {
         string blockPresetPath = "Sprites/Block/Preset/";
@@ -82,57 +133,6 @@ public class ItemSetUI : MonoBehaviour
                 Destroy(icon);
         }
         itemIcons.Clear();
-    }
-
-    public void Initialize(List<ItemData> items)
-    {
-        Clear();
-
-        float iconWidth = itemIconPrefab.GetComponent<RectTransform>().rect.width;
-        float spacing = iconWidth - iconOverlap;
-
-        foreach (ItemData item in items)
-        {
-            GameObject itemIcon = Instantiate(itemIconPrefab, transform);
-            
-            RectTransform rectTransform = itemIcon.GetComponent<RectTransform>();
-            rectTransform.anchoredPosition = new Vector2(startPos + spacing * itemIcons.Count, 0);
-            
-            itemIcon.transform.GetChild(0).GetComponent<Image>().sprite = GetImage(item);
-            SetUpgradeIcon(itemIcon, item);
-
-            GameObject description = itemIcon.transform.GetChild(2).gameObject;
-
-            description.GetComponent<TextMeshProUGUI>().text = GetDescription(item);
-
-            EventTrigger trigger = itemIcon.AddComponent<EventTrigger>();
-            
-            EventTrigger.Entry enterEntry = new EventTrigger.Entry();
-            enterEntry.eventID = EventTriggerType.PointerEnter;
-            enterEntry.callback.AddListener((data) => {
-                OnItemEnter(description);
-                itemIcon.transform.DOScale(hoverScale, hoverDuration).SetEase(Ease.OutQuad);
-                itemIcon.transform.SetAsLastSibling();
-            });
-            trigger.triggers.Add(enterEntry);
-
-            EventTrigger.Entry exitEntry = new EventTrigger.Entry();
-            exitEntry.eventID = EventTriggerType.PointerExit;
-            exitEntry.callback.AddListener((data) => {
-                OnItemExit(description);
-                itemIcon.transform.DOScale(1f, hoverDuration).SetEase(Ease.OutQuad);
-                itemIcon.transform.SetSiblingIndex(itemIcons.IndexOf(itemIcon));
-            });
-            trigger.triggers.Add(exitEntry);
-
-            EventTrigger.Entry clickEntry = new EventTrigger.Entry();
-            clickEntry.eventID = EventTriggerType.PointerClick;
-            clickEntry.callback.AddListener((data) => {  });
-            trigger.triggers.Add(clickEntry);
-            
-            itemIcon.transform.SetSiblingIndex(itemIcons.Count);
-            itemIcons.Add(itemIcon);
-        }
     }
 
     private void OnItemEnter(GameObject description)

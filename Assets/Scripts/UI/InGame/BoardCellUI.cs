@@ -15,12 +15,18 @@ public class BoardCellUI : MonoBehaviour
     private bool isAnimating = false;
     private bool hideShadowReserved = false; // HideShadow 예약 플래그
     private bool isBlocked = false;
+    private Tween shadowTween;
 
-    private void Awake()
-    {
+    private void Awake() {
         cellImage = GetComponent<Image>();
         originalColor = cellImage.color;
         originalSprite = cellImage.sprite;
+    }
+
+    public void Initialize(Vector2Int index, Color color) {
+        cellIndex = index;
+        cellImage.color = color;
+        originalColor = color;
     }
 
     public void SetCellIndex(Vector2Int index) {
@@ -45,13 +51,14 @@ public class BoardCellUI : MonoBehaviour
 
     public void CopyVisualFrom(Transform cellUI) {
         GetComponent<Image>().sprite = cellUI.GetComponent<Image>().sprite;
+        ClearShadow();
     }
 
     private void AnimateShadow(Color targetColor, bool setShadow) {
         isAnimating = true;
         hideShadowReserved = false; // 예약 초기화
-        Tween tween = cellImage.DOColor(targetColor, 0.1f);
-        tween.OnComplete(() => {
+        shadowTween = cellImage.DOColor(targetColor, 0.1f);
+        shadowTween.OnComplete(() => {
             isAnimating = false;
             isShadow = setShadow;
             
@@ -77,8 +84,22 @@ public class BoardCellUI : MonoBehaviour
         if (isAnimating) {
             hideShadowReserved = true; // 애니메이션 중일 경우 예약
         } else if (isShadow) {
-            AnimateShadow(originalColor, false);
+            Color returnColor = string.IsNullOrEmpty(blockId) ? 
+                originalColor : 
+                new Color(1f, 1f, 1f, 1f);
+            AnimateShadow(returnColor, false);
         }
+    }
+
+    public void ClearShadow() {
+        if (isBlocked) return;
+        shadowTween.Kill();
+        hideShadowReserved = false;
+        isShadow = false;
+        Color returnColor = string.IsNullOrEmpty(blockId) ? 
+            originalColor : 
+            new Color(1f, 1f, 1f, 1f);
+        cellImage.color = returnColor;
     }
 
     public void BlockCell() {

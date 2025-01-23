@@ -208,7 +208,7 @@ public class GameManager : MonoBehaviour
             {
                 currentStageIndex++;
             }
-            StartShop();
+            StartShop(true);
         } 
         else 
         {
@@ -216,7 +216,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void StartShop()
+    public void StartShop(bool isFirst = false)
     {
         // 아이템 랜덤하게 뽑아서 UI에 전달
         shopItems.Clear();
@@ -224,8 +224,7 @@ public class GameManager : MonoBehaviour
         {
             shopItems.Add(shopManager.PopItem());
         }
-        GameUIManager.instance.OnShopStart(shopItems);
-        
+        GameUIManager.instance.OnShopStart(shopItems, isFirst);   
     }
 
     public int OnItemPurchased(int index)

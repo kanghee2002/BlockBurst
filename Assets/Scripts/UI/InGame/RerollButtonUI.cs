@@ -6,39 +6,43 @@ using TMPro;
 
 public class RerollButtonUI : MonoBehaviour
 {
-    [SerializeField] private GameObject rerollButtonUI;
-    [SerializeField] private RectTransform rectTransform;
     [SerializeField] private TextMeshProUGUI rerollCountText;
+    private RectTransform rectTransform;
+
     // inside anchored position = (-188,-400)
     private const float insidePositionX = -188;
     private const float outsidePositionOffsetX = 480;
     private const float duration = 0.2f;
 
-    [SerializeField] private GameUIManager gameUIManager;
+    void Awake()
+    {
+        rectTransform = GetComponent<RectTransform>();
+    }
 
     public void OnRerollButtonUIPressed()
     {
-        gameUIManager.RerollButtonUIPressed();
+        GameUIManager.instance.OnRerollButtonUIPressed();
     }
+
     public void OpenRerollButtonUI()
     {
-        rerollButtonUI.SetActive(true);
-        rectTransform.DOAnchorPosX(insidePositionX, duration)
-            .SetEase(Ease.OutCubic);
+        UIUtils.OpenUI(rectTransform, "X", insidePositionX, duration);
     }
 
     public void CloseRerollButtonUI()
     {
-        rectTransform.DOAnchorPosX(insidePositionX + outsidePositionOffsetX, duration)
-            .SetEase(Ease.OutCubic)
-            .OnComplete(() =>
-            {
-                rerollButtonUI.SetActive(false);
-            });
+        UIUtils.CloseUI(rectTransform, "X", insidePositionX, outsidePositionOffsetX, duration);
+    }
+
+    public void Initialize(int rerollCount)
+    {
+        gameObject.SetActive(true);
+        DisplayRerollCount(rerollCount);
     }
 
     public void DisplayRerollCount(int rerollCount)
     {
         rerollCountText.text = rerollCount.ToString();
+        UIUtils.BounceText(rerollCountText.transform);
     }
 }

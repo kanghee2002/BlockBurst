@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BoardUI : MonoBehaviour
 {
-    [SerializeField] private GameObject boardUI;
-    [SerializeField] private RectTransform rectTransform;
+    private RectTransform rectTransform;
 
     private const float block_size = 96f;
     private int width = 8;
@@ -19,11 +19,45 @@ public class BoardUI : MonoBehaviour
     private const float outsidePositionOffsetY = -1080;
     private const float duration = 0.2f;
 
+    void Awake()
+    {
+        rectTransform = GetComponent<RectTransform>();
+    }
+
+    public void Initialize(int rows, int columns)
+    {
+        gameObject.SetActive(true);
+        height = rows;
+        width = columns;
+
+        // 기존 boardCell 비우기
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        boardCellsUI = new BoardCellUI[height, width];
+
+        for (int row = 0; row < height; row++)
+        {
+            for (int col = 0; col < width; col++)
+            {
+                GameObject newObject = Instantiate(prefabBoardCellUI);
+                newObject.transform.SetParent(transform, false);
+                newObject.GetComponent<RectTransform>().anchoredPosition
+                    = new Vector2(col - (width - 1f) / 2, -(row - (height - 1f) / 2)) * block_size;
+                
+                var boardCellUI = newObject.GetComponent<BoardCellUI>();
+                Color color = (row + col) % 2 == 0 ? new Color(0.2f, 0.2f, 0.2f, 1f) : new Color(.25f, .25f, .25f, 1f);
+                boardCellUI.Initialize(new Vector2Int(col, row), color);
+                boardCellsUI[row, col] = boardCellUI;
+            }
+        }
+    }
+
     public void OpenBoardUI()
     {
-        boardUI.SetActive(true);
-        rectTransform.DOAnchorPosY(insidePositionY, duration)
-            .SetEase(Ease.OutCubic);
+        UIUtils.OpenUI(rectTransform, "Y", insidePositionY, duration);
     }
 
     public void CloseBoardUI()
@@ -36,52 +70,17 @@ public class BoardUI : MonoBehaviour
                 boardCellsUI[row, col].ClearCell();
             }
         }
-        rectTransform.DOAnchorPosY(insidePositionY + outsidePositionOffsetY, duration)
-            .SetEase(Ease.OutCubic)
-            .OnComplete(() =>
-            {
-                boardUI.SetActive(false);
-            });
+        UIUtils.CloseUI(rectTransform, "Y", insidePositionY, outsidePositionOffsetY, duration);
     }
 
     public void BlockCells(HashSet<Vector2Int> cells)
     {
         foreach (Vector2Int cell in cells)
         {
-            boardCellsUI[cell.x, cell.y].BlockCell();
+            boardCellsUI[cell.y, cell.x].BlockCell();
         }
     }
         
-
-    public void Initialize(int rows, int columns)
-    {
-        height = rows;
-        width = columns;
-
-        // 기존 boardCell 비우기
-        foreach (Transform child in boardUI.transform)
-        {
-            Destroy(child.gameObject);
-        }
-
-        boardCellsUI = new BoardCellUI[height, width];
-
-        for (int row = 0; row < height; row++)
-        {
-            for (int col = 0; col < width; col++)
-            {
-                GameObject newObject = Instantiate(prefabBoardCellUI);
-                newObject.transform.SetParent(boardUI.transform, false);
-                newObject.GetComponent<RectTransform>().anchoredPosition
-                    = new Vector2(col - (width - 1f) / 2, -(row - (height - 1f) / 2)) * block_size;
-                
-                var boardCellUI = newObject.GetComponent<BoardCellUI>();
-                boardCellUI.SetCellIndex(new Vector2Int(col, row));
-                boardCellsUI[row, col] = boardCellUI;
-            }
-        }
-    }
-
     public void OnBlockPlaced(GameObject blockObj, Block block, Vector2Int pos)
     {
         DecomposeBlockToBoard(blockObj, block, pos);

@@ -15,9 +15,11 @@ public class ActionInfoUI : MonoBehaviour
     public void UpdateChip(int _chip)
     {
         chipText.text = _chip.ToString();
+        UIUtils.BounceText(chipText.transform);
     }
     public void UpdateMuliplier(int _multiplier)
     {
         multiplierText.text = _multiplier.ToString();
+        UIUtils.BounceText(multiplierText.transform);
     }
 }

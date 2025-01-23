@@ -21,4 +21,4 @@ MonoBehaviour:
   blockTypes: 05000000
   blockId: -1
   probability: 1
-  triggerValue: 2
+  triggerValue: 0

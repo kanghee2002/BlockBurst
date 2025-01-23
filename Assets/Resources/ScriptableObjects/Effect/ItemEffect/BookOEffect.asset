@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: BookOEffect
   effectName: "O \uBE14\uB85D\uC744 \uBC30\uCE58\uD560 \uB54C\uB9C8\uB2E4 \uC601\uAD6C\uC801\uC73C\uB85C
-    I \uBE14\uB85D\uC758 \uC810\uC218 +2"
+    O \uBE14\uB85D\uC758 \uC810\uC218 +2"
   type: 0
   trigger: 1
   effectValue: 2
   blockTypes: 01000000
   blockId: -1
   probability: 1
-  triggerValue: 2
+  triggerValue: 0

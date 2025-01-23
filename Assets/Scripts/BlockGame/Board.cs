@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
 using static Unity.Collections.AllocatorManager;
@@ -97,22 +98,6 @@ public class Board
         return isPlaced;
     }
 
-    // 강제 행 매치 처리 (무작위로 줄 지우는 효과)
-    public void ForceRowMatches(List<int> rows)
-    {
-        foreach (int row in rows)
-        {
-            //List<Match> rowMatches = CheckRowMatch(row, 1);
-        }
-    }
-
-    // 강제 열 매치 처리 (무작위로 줄 지우는 효과)
-    public void ForceColumnMatches(List<int> columns)
-    {
-
-    }
-
-
     // 매치 처리
     private void ProcessMatches(Block block, Vector2Int pos)
     {
@@ -153,7 +138,7 @@ public class Board
             HashSet<BlockType> hashedBlockTypes = new HashSet<BlockType>(clearedBlocks.Select(x => x.Item1));
             foreach (BlockType blockType in hashedBlockTypes)
             {
-                EffectManager.instance.TriggerEffects(TriggerType.ON_LINE_CLEAR_WITH_SPECIFIC_BLOCKS, blockTypes: new BlockType[] { blockType });  
+                EffectManager.instance.TriggerEffects(TriggerType.ON_LINE_CLEAR_WITH_SPECIFIC_BLOCKS, blockTypes: new BlockType[] { blockType });
             }
             // 같은 종류의 블록이 있으면
             if (clearedBlocks.Count > hashedBlockTypes.Count)
@@ -199,40 +184,9 @@ public class Board
         // 매치된 결과 저장
         lastMatches = matches;
 
-        // 점수 계산
-        int totalScore = 0;
-        foreach (Match match in matches)
-        {
-            totalScore += ScoreCalculator.instance.Calculate(match, gameData);
-        }
+        CalculateScore(matches);
 
-        gameData.currentScore += totalScore;
-
-        Debug.Log("현재 배수: " + gameData.matchMultipliers[MatchType.ROW]);
-
-        // 배수 초기화
-        if (matches.Count > 0)
-        {
-            Debug.Log("계산된 점수: " + totalScore);
-            gameData.matchMultipliers = new(GameManager.instance.runData.baseMatchMultipliers);
-        }
-
-        // 한 줄이 지워졌다면 보드 상태 이펙트 체크
-        if (matches.Count > 0)
-        {
-            if (!IsHalfFull())
-            {
-                EffectManager.instance.TriggerEffects(TriggerType.ON_BOARD_NOT_HALF_FULL);
-            }
-            else
-            {
-                if (!isHalfFull)
-                {
-                    EffectManager.instance.TriggerEffects(TriggerType.ON_BOARD_HALF_FULL);
-                }
-            }
-            isHalfFull = IsHalfFull();
-        }
+        TriggerHalfFullEffect(matches);
     }
 
     // 매치 확인
@@ -251,10 +205,10 @@ public class Board
         ).ToList();
 
         List<int> columns = Enumerable.Range(
-            pos.x + minX, 
+            pos.x + minX,
             maxX - minX + 1
         ).ToList();
-        
+
         List<Match> rowMatches = CheckRowMatch(rows);
         List<Match> columnMatches = CheckColumnMatch(columns);
 
@@ -266,7 +220,7 @@ public class Board
     }
 
     // 행 매치 확인
-    private List<Match> CheckRowMatch(List<int> rows)
+    private List<Match> CheckRowMatch(List<int> rows, bool isForce = false)
     {
         List<Match> matches = new List<Match>();
         int column = cells.GetLength(1);
@@ -275,12 +229,15 @@ public class Board
         {
             // 한 줄 완성 확인
             bool isMatched = true;
-            for (int x = 0; x < column; x++)
+            if (!isForce)
             {
-                if (!cells[y, x].IsBlocked)
+                for (int x = 0; x < column; x++)
                 {
-                    isMatched = false;
-                    break;
+                    if (!cells[y, x].IsBlocked)
+                    {
+                        isMatched = false;
+                        break;
+                    }
                 }
             }
 
@@ -310,7 +267,7 @@ public class Board
     }
 
     // 열 매치 확인
-    private List<Match> CheckColumnMatch(List<int> columns)
+    private List<Match> CheckColumnMatch(List<int> columns, bool isForce = false)
     {
         List<Match> matches = new List<Match>();
         int row = cells.GetLength(0);
@@ -319,12 +276,15 @@ public class Board
         {
             // 한 줄 완성 확인
             bool isMatched = true;
-            for (int y = 0; y < row; y++)
+            if (!isForce)
             {
-                if (!cells[y, x].IsBlocked)
+                for (int y = 0; y < row; y++)
                 {
-                    isMatched = false;
-                    break;
+                    if (!cells[y, x].IsBlocked)
+                    {
+                        isMatched = false;
+                        break;
+                    }
                 }
             }
 
@@ -356,6 +316,96 @@ public class Board
     private Match CheckSquareMatch(Block block, Vector2Int pos)
     {
         return null;
+    }
+
+    // 강제 행 매치 처리 (무작위로 줄 지우는 효과)
+    public List<Match> ForceRowMatches(List<int> rows)
+    {
+        List<Match> matches = CheckRowMatch(rows, true);
+
+        // 지운 블록들 비우기
+        ClearCells(matches);
+
+        // 모두 지워질 때 효과를 가진 블록 중 지워진 것 있는지 확인
+        CheckOnClearEffectBlocks();
+
+        // 매치된 결과 저장
+        lastMatches = matches;
+
+        CalculateScore(matches);
+
+        TriggerHalfFullEffect(matches);
+        
+        return matches;
+    }
+
+    // 강제 열 매치 처리 (무작위로 줄 지우는 효과)
+    public List<Match> ForceColumnMatches(List<int> rows)
+    {
+        List<Match> matches = CheckColumnMatch(rows, true);
+
+        // 지운 블록들 비우기
+        ClearCells(matches);
+
+        // 모두 지워질 때 효과를 가진 블록 중 지워진 것 있는지 확인
+        CheckOnClearEffectBlocks();
+
+        // 매치된 결과 저장
+        lastMatches = matches;
+
+        CalculateScore(matches);
+
+        TriggerHalfFullEffect(matches);
+
+        return matches;
+    }
+
+    // 강제 사각형 매치 처리 (무작위로 사각형 지우는 효과)
+    public void ForceSquareMatches(List<Vector2Int> positions)
+    {
+
+    }
+
+
+    private void CalculateScore(List<Match> matches)
+    {
+        // 점수 계산
+        int totalScore = 0;
+        foreach (Match match in matches)
+        {
+            totalScore += ScoreCalculator.instance.Calculate(match, gameData);
+        }
+
+        gameData.currentScore += totalScore;
+
+        Debug.Log("현재 배수: " + gameData.matchMultipliers[MatchType.ROW]);
+
+        // 배수 초기화
+        if (matches.Count > 0)
+        {
+            Debug.Log("계산된 점수: " + totalScore);
+            gameData.matchMultipliers = new(GameManager.instance.runData.baseMatchMultipliers);
+        }
+    }
+
+    private void TriggerHalfFullEffect(List<Match> matches)
+    {
+        // 한 줄이 지워졌다면 보드 상태 이펙트 체크
+        if (matches.Count > 0)
+        {
+            if (!IsHalfFull())
+            {
+                EffectManager.instance.TriggerEffects(TriggerType.ON_BOARD_NOT_HALF_FULL);
+            }
+            else
+            {
+                if (!isHalfFull)
+                {
+                    EffectManager.instance.TriggerEffects(TriggerType.ON_BOARD_HALF_FULL);
+                }
+            }
+            isHalfFull = IsHalfFull();
+        }
     }
 
     // 블록 배치 가능 여부 확인

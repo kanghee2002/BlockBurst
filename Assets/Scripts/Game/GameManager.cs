@@ -325,7 +325,32 @@ public class GameManager : MonoBehaviour
         }
         return success;
     }
-    
+
+    public void ForceLineClear(MatchType matchType, List<int> indices)
+    {
+        if (matchType == MatchType.ROW)
+        {
+            board.ForceRowMatches(indices);
+        }
+        else if (matchType == MatchType.COLUMN)
+        {
+            board.ForceColumnMatches(indices);
+        }
+
+        // Match 처리된 결과 가져오기 및 애니메이션 실행
+        List<Match> matches = board.GetLastMatches();
+        if (matches.Count > 0)
+        {
+            GameUIManager.instance.PlayMatchAnimation(matches);
+        }
+
+        GameUIManager.instance.UpdateScore(blockGame.currentScore);
+        if (stageManager.CheckStageClear(blockGame))
+        {
+            EndStage(true);
+        }
+    }
+
 
     // ------------------------------
     // BLOCKGAME LAYER - end

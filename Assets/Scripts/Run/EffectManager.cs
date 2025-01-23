@@ -175,6 +175,9 @@ public class EffectManager : MonoBehaviour
                 if (CheckProbability(0.5f)) GameManager.instance.ForceLineClear(MatchType.ROW, GetRandomIndices(blockGameData.boardRows, 1));
                 else GameManager.instance.ForceLineClear(MatchType.COLUMN, GetRandomIndices(blockGameData.boardColumns, 1));
                 break;
+            case EffectType.BOARD_CLEAR:
+                // TODO
+                break;
             case EffectType.DRAW_BLOCK_COUNT_MODIFIER:
                 blockGameData.drawBlockCount = effect.effectValue;
                 break;

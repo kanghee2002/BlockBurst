@@ -6,37 +6,17 @@ using TMPro;
 
 public class DeckInfoUI : MonoBehaviour
 {
-    public TextMeshProUGUI deckInfoText1;
-    public TextMeshProUGUI deckInfoText2;
-    [SerializeField] private GameObject deckInfoUI;
-    [SerializeField] private RectTransform rectTransform;
-
-    [SerializeField] private GameUIManager gameUIManager;
+    [SerializeField] private TextMeshProUGUI deckInfoText1;
+    [SerializeField] private TextMeshProUGUI deckInfoText2;
+    private RectTransform rectTransform;
 
     private const float insidePositionX = 0;
     private const float outsidePositionX = 1920;
     private const float duration = 0.2f;
 
-    public void OpenDeckInfoUI()
+    void Awake()
     {
-        deckInfoUI.SetActive(true);
-        rectTransform.DOAnchorPosX(insidePositionX, duration)
-            .SetEase(Ease.OutCubic);
-    }
-
-    public void CloseDeckInfoUI()
-    {
-        rectTransform.DOAnchorPosX(outsidePositionX, duration)
-            .SetEase(Ease.OutCubic)
-            .OnComplete(() =>
-            {
-                deckInfoUI.SetActive(false);
-            });
-    }
-
-    public void OnDeckInfoBackButtonUIPressed()
-    {
-        gameUIManager.DeckInfoBackButtonUIPressed();
+        rectTransform = GetComponent<RectTransform>();
     }
 
     public void Initialize(RunData runData)
@@ -94,5 +74,16 @@ public class DeckInfoUI : MonoBehaviour
         }
         text2 += "\n모든 블록 수: " + availableBlocks.Count;
         deckInfoText2.text = text2;
+    }
+
+    public void OpenDeckInfoUI()
+    {
+        gameObject.SetActive(true);
+        UIUtils.OpenUI(rectTransform, "X", insidePositionX, duration);
+    }
+
+    public void CloseDeckInfoUI()
+    {
+        UIUtils.CloseUI(rectTransform, "X", insidePositionX, outsidePositionX, duration);
     }
 }

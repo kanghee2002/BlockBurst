@@ -5,23 +5,22 @@ using UnityEngine;
 
 public class StageSelectionBoardUI : MonoBehaviour
 {
-    [SerializeField] private GameObject stageSelectionBoardUI;
-    [SerializeField] private RectTransform rectTransform;
+    private RectTransform rectTransform;
     // inside anchored position = (182,-128)
     private const float insidePositionY = -128;
     private const float outsidePositionOffsetY = -1080;
     private const float duration = 0.2f;
 
-    [SerializeField] private GameUIManager gameUIManager;
     [SerializeField] private NextStageChoiceUI[] nextStageChoiceUI;
 
-    public void OnNextStageChoiceButtonUIPressed(int choiceIndex)
+    void Awake()
     {
-        gameUIManager.NextStageChoiceButtonUIPressed(choiceIndex);
+        rectTransform = GetComponent<RectTransform>();
     }
 
-    public void InitializeNextStageChoiceUI(StageData[] nextStageChoices)
+    public void Initialize(StageData[] nextStageChoices)
     {
+        gameObject.SetActive(true);
         if (nextStageChoices.Length == nextStageChoiceUI.Length)
         {
             for (int i = 0; i < nextStageChoices.Length; i++)
@@ -38,18 +37,12 @@ public class StageSelectionBoardUI : MonoBehaviour
 
     public void OpenStageSelectionBoardUI()
     {
-        stageSelectionBoardUI.SetActive(true);
-        rectTransform.DOAnchorPosY(insidePositionY, duration)
-            .SetEase(Ease.OutCubic);
+        gameObject.SetActive(true);
+        UIUtils.OpenUI(rectTransform, "Y", insidePositionY, duration);
     }
 
     public void CloseStageSelectionBoardUI()
     {
-        rectTransform.DOAnchorPosY(insidePositionY + outsidePositionOffsetY, duration)
-            .SetEase(Ease.OutCubic)
-            .OnComplete(() =>
-            {
-                stageSelectionBoardUI.SetActive(false);
-            });
+        UIUtils.CloseUI(rectTransform, "Y", insidePositionY, outsidePositionOffsetY, duration);
     }
 }

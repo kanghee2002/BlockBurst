@@ -10,5 +10,6 @@ public class DeckButtonUI : MonoBehaviour
     public void DisplayDeckCount(int deckCount, int maxDeckCount)
     {
         deckCountText.text = deckCount.ToString() + "/" + maxDeckCount.ToString();
+        UIUtils.BounceText(deckCountText.transform);
     }
 }

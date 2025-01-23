@@ -9,6 +9,7 @@ public class ButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private bool isPressed = false;
     
+    private GameObject button;
     private Image image;
     private RectTransform rectTransform;
 
@@ -28,6 +29,11 @@ public class ButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private GameObject shadowObject;
 
     [SerializeField] private UnityEvent onClick;
+    
+    void Awake()
+    {
+        button = transform.GetChild(0).gameObject;
+    }
 
     void Start()
     {
@@ -38,9 +44,9 @@ public class ButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private void Initialize()
     {
-        image = GetComponent<Image>();
+        image = button.GetComponent<Image>();
 
-        rectTransform = GetComponent<RectTransform>();
+        rectTransform = button.GetComponent<RectTransform>();
         originalColor = image.color;
         originalScale = rectTransform.localScale;
         originalPosition = rectTransform.anchoredPosition;
@@ -54,23 +60,23 @@ public class ButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     }
     private void CreateShadow()
     {
-        // »õ GameObject »ı¼º
+        // ìƒˆ GameObject ìƒì„±
         shadowObject = new GameObject("Shadow");
-        shadowObject.transform.SetParent(transform.parent); // ºÎ¸ğ¸¦ ÇöÀç ¿ÀºêÁ§Æ®·Î ¼³Á¤
-        shadowObject.transform.SetAsFirstSibling(); // ºÎ¸ğÀÇ Ã¹ ¹øÂ° ÀÚ½ÄÀ¸·Î ¼³Á¤ (ÀÌ¹ÌÁö µÚ¿¡ ¹èÄ¡)
+        shadowObject.transform.SetParent(transform); // ë¶€ëª¨ë¥¼ í˜„ì¬ ì˜¤ë¸Œì íŠ¸ë¡œ ì„¤ì •
+        shadowObject.transform.SetAsFirstSibling(); // ë¶€ëª¨ì˜ ì²« ë²ˆì§¸ ìì‹ìœ¼ë¡œ ì„¤ì • (ì´ë¯¸ì§€ ë’¤ì— ë°°ì¹˜)
 
-        // RectTransform ¼³Á¤
+        // RectTransform ì„¤ì •
         RectTransform shadowRect = shadowObject.AddComponent<RectTransform>();
-        shadowRect.sizeDelta = rectTransform.sizeDelta; // ¿øº» Å©±â¿Í µ¿ÀÏ
-        shadowRect.anchoredPosition = pressedPositionOffset; // ±×¸²ÀÚ À§Ä¡ ¼³Á¤
-        shadowRect.localScale = pressedScale; // ±×¸²ÀÚ Å©±â ¼³Á¤
+        shadowRect.sizeDelta = rectTransform.sizeDelta; // ì›ë³¸ í¬ê¸°ì™€ ë™ì¼
+        shadowRect.anchoredPosition = pressedPositionOffset; // ê·¸ë¦¼ì ìœ„ì¹˜ ì„¤ì •
+        shadowRect.localScale = pressedScale; // ê·¸ë¦¼ì í¬ê¸° ì„¤ì •
 
-        // Image ¼³Á¤
+        // Image ì„¤ì •
         Image shadowImage = shadowObject.AddComponent<Image>();
-        shadowImage.sprite = image.sprite; // ¿øº» ÀÌ¹ÌÁö¿Í µ¿ÀÏÇÑ Sprite »ç¿ë
-        shadowImage.color = new Color(0, 0, 0, 0.8f); // ¹İÅõ¸íÇÑ °ËÁ¤»ö
+        shadowImage.sprite = image.sprite; // ì›ë³¸ ì´ë¯¸ì§€ì™€ ë™ì¼í•œ Sprite ì‚¬ìš©
+        shadowImage.color = new Color(0, 0, 0, 0.8f); // ë°˜íˆ¬ëª…í•œ ê²€ì •ìƒ‰
 
-        // ±×¸²ÀÚ¸¦ Raycast Å¸°Ù¿¡¼­ Á¦¿Ü (Å¬¸¯ °¨Áö ¹æÁö)
+        // ê·¸ë¦¼ìë¥¼ Raycast íƒ€ê²Ÿì—ì„œ ì œì™¸ (í´ë¦­ ê°ì§€ ë°©ì§€)
         shadowImage.raycastTarget = false;
     }
 

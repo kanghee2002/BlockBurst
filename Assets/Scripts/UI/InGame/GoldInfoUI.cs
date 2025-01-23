@@ -14,5 +14,6 @@ public class GoldInfoUI : MonoBehaviour
     public void UpdateGold(int _gold)
     {
         goldText.text = "$" + _gold.ToString();
+        UIUtils.BounceText(goldText.transform);
     }
 }

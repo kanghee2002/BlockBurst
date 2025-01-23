@@ -10,6 +10,8 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
 {
     [SerializeField] private GameObject prefabBlockCellUI;
     private GameObject[,] blockCellsUI;
+    private int minX;
+    private int minY;
     private int blockCellsUIColumnCount;
     private int blockCellsUIRowCount;
     private const float block_size = 96f;
@@ -18,14 +20,12 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
     private BoardCellUI lastHighlightedCell;
     private List<BoardCellUI> currentShadowCells = new List<BoardCellUI>();
 
-    [SerializeField] private RectTransform rectTransform;
+    private RectTransform rectTransform;
     private Canvas canvas;
     private Vector2 dragOffset;
     private Vector3 originalPosition;
     private int idx;
 
-    private int minX;
-    private int minY;
 
     private void Start()
     {
@@ -114,8 +114,6 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
         {
             rectTransform.localPosition = localPoint - dragOffset;
         }
-
-        //ClearShadowCells();
         
         BoardCellUI closestValidCell = FindClosestValidCell();
         if (closestValidCell != null)

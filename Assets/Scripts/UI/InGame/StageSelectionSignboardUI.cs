@@ -7,27 +7,26 @@ using TMPro;
 public class StageSelectionSignboardUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI stageSelectionSignboardText;
-    [SerializeField] private GameObject stageSelectionSignboardUI;
-    [SerializeField] private RectTransform rectTransform;
+    private RectTransform rectTransform;
     // inside anchored position = (300,256)
     private const float insidePositionY = 256;
     private const float outsidePositionOffsetY = 540;
     private const float duration = 0.2f;
+
+    void Awake()
+    {
+        rectTransform = GetComponent<RectTransform>();
+    }
+
     public void OpenStageSelectionSignboardUI()
     {
-        stageSelectionSignboardUI.SetActive(true);
-        rectTransform.DOAnchorPosY(insidePositionY, duration)
-            .SetEase(Ease.OutCubic);
+        gameObject.SetActive(true);
+        UIUtils.OpenUI(rectTransform, "Y", insidePositionY, duration);
     }
 
     public void CloseStageSelectionSignboardUI()
     {
-        rectTransform.DOAnchorPosY(insidePositionY + outsidePositionOffsetY, duration)
-            .SetEase(Ease.OutCubic)
-            .OnComplete(() =>
-            {
-                stageSelectionSignboardUI.SetActive(false);
-            });
+        UIUtils.CloseUI(rectTransform, "Y", insidePositionY, outsidePositionOffsetY, duration);
     }
     
     public void Initialize(int currentChapterIndex, int currentStageIndex)

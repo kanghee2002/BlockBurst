@@ -281,8 +281,15 @@ public class GameManager : MonoBehaviour
 
     public void OnRerolled()
     {
+        int handCount = handBlocks.Count(block => block != null);
+
         if (deckManager.RerollDeck(handBlocksData))
         {
+            if (handCount == blockGame.drawBlockCount)
+            {
+                EffectManager.instance.TriggerEffects(TriggerType.ON_REROLL_WITHOUT_PLACE);
+            }
+            EffectManager.instance.TriggerEffects(TriggerType.ON_REROLL);
             GameUIManager.instance.DisplayRerollCount(blockGame.rerollCount);
             DrawBlocks();
         }

@@ -29,6 +29,11 @@ public class DeckManager : MonoBehaviour
         if (blockGameData.deck.Count == 0)
         {
             Debug.Log("Deck is empty");
+            if (!blockGameData.isDeckEmpty)
+            {
+                EffectManager.instance.TriggerEffects(TriggerType.ON_DECK_EMPTY);
+                blockGameData.isDeckEmpty = true;
+            }
         }
         else
         {

@@ -66,7 +66,7 @@ public enum TriggerType
     ON_BLOCK_PLACE,                         // * 블록을 배치할 때 (특정 가능)
     ON_BLOCK_PLACE_WITHOUT_LINE_CLEAR,      // * 블록을 배치할 때 줄이 지워지지 않으면
     ON_BLOCK_PLACE_WITH_LINE_CLEAR,         // * 특정 블록을 배치하여 줄을 지울 때
-    ON_BLOCK_CLEAR,                         // 블록이 모두 지워질 때
+    ON_BLOCK_CLEAR,                         // * 블록이 모두 지워질 때
     ON_ROW_LINE_CLEAR,                      // * 가로로 줄을 지울 때
     ON_COLUMN_LINE_CLEAR,                   // * 세로로 줄을 지울 때
     ON_CROSS_LINE_CLEAR,                    // * 가로, 세로를 한 번에 지울 때
@@ -78,11 +78,11 @@ public enum TriggerType
     ON_LINE_CLEAR_WITH_DISTINCT_BLOCKS,     // * 줄을 지울 때 모두 다른 종류의 블록이면
     ON_LINE_CLEAR_CONSECUTIVELY,            // * 연속으로 줄을 지울 때 
     ON_FIRST_LINE_CLEAR,                    // * 처음 줄이 지워질 때
-    ON_DECK_EMPTY,                          // x 덱이 비었을 때
-    ON_REROLL,                              // x 리롤할 때
-    ON_REROLL_WITHOUT_PLACE,                // x 블록을 배치하지 않고 리롤할 때
+    ON_DECK_EMPTY,                          // * 덱이 비었을 때
+    ON_REROLL,                              // * 리롤할 때
+    ON_REROLL_WITHOUT_PLACE,                // * 블록을 배치하지 않고 리롤할 때
     ON_BOARD_HALF_FULL,                     // * 보드가 반 이상 찼을 때
-    ON_BOARD_NOT_HALF_FULL,                 // x 보드가 반 이상 차지 않았을 때
+    ON_BOARD_NOT_HALF_FULL,                 // * 보드가 반 이상 차지 않았을 때
     ON_GOLD_CHANGE,                         // x 골드가 바뀔 때
     ON_ENTER_STAGE                          // x 스테이지 진입할 때
 }

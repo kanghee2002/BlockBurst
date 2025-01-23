@@ -16,6 +16,7 @@ public class BlockGameData
     public int drawBlockCount;                                          // 드로우 블록 수
     public int boardRows;                                               // 보드 행
     public int boardColumns;                                            // 보드 열
+    public bool isDeckEmpty;                                            // 
 
     public void Initialize(RunData runData)
     {
@@ -30,5 +31,6 @@ public class BlockGameData
         drawBlockCount = runData.baseDrawBlockCount;
         boardRows = runData.baseBoardRows;
         boardColumns = runData.baseBoardColumns;
+        isDeckEmpty = false;
     }
 }

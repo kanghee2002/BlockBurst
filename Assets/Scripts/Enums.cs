@@ -54,10 +54,11 @@ public enum EffectType
     BLOCK_MULTIPLIER,           // * 덱의 특정 블록 N배
     BLOCK_DELETE,               // * 덱의 특정 블록 모두 삭제
     BLOCK_DELETE_WITH_COUNT,    // x 덱의 특정 블록 N개 삭제
-    ROW_LINE_CLEAR,             // x 무작위 가로 1줄 지움
-    COLUMN_LINE_CLEAR,          // x 무작위 세로 1줄 지움
+    ROW_LINE_CLEAR,             // * 무작위 가로 1줄 지움
+    COLUMN_LINE_CLEAR,          // * 무작위 세로 1줄 지움
     BOARD_CLEAR,                // x 보드의 모든 블록 지움
     DRAW_BLOCK_COUNT_MODIFIER,  // * 블록 선택지 수정
+    RANDOM_LINE_CLEAR,          // * 무작위 1줄 지움
 }
 
 public enum TriggerType

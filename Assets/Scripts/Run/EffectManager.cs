@@ -163,11 +163,19 @@ public class EffectManager : MonoBehaviour
                 }
                 break;
             case EffectType.BLOCK_DELETE_WITH_COUNT:
-                break;
-            case EffectType.ROW_LINE_CLEAR:
                 // TODO
                 break;
+            case EffectType.ROW_LINE_CLEAR:
+                GameManager.instance.ForceLineClear(MatchType.ROW, GetRandomIndices(blockGameData.boardRows, 1));
+                break;
             case EffectType.COLUMN_LINE_CLEAR:
+                GameManager.instance.ForceLineClear(MatchType.COLUMN, GetRandomIndices(blockGameData.boardColumns, 1));
+                break;
+            case EffectType.RANDOM_LINE_CLEAR:
+                if (CheckProbability(0.5f)) GameManager.instance.ForceLineClear(MatchType.ROW, GetRandomIndices(blockGameData.boardRows, 1));
+                else GameManager.instance.ForceLineClear(MatchType.COLUMN, GetRandomIndices(blockGameData.boardColumns, 1));
+                break;
+            case EffectType.BOARD_CLEAR:
                 // TODO
                 break;
             case EffectType.DRAW_BLOCK_COUNT_MODIFIER:
@@ -185,7 +193,7 @@ public class EffectManager : MonoBehaviour
 
     private bool CheckProbability(float probability)
     {
-        return Random.Range(0, 1f) <= probability;
+        return Random.Range(0f, 1f) <= probability;
     }
 
     private HashSet<Vector2Int> GetRandomBlockCells(int boardRows, int boardColumns, int count)
@@ -215,5 +223,21 @@ public class EffectManager : MonoBehaviour
         {
             runData.availableBlocks.Add(block.Clone());
         }
+    }
+
+    private List<int> GetRandomIndices(int boardSize, int count)
+    {
+        HashSet<int> result = new HashSet<int>();
+
+        for (int i = 0; i < 10000; i++)
+        {
+            if (result.Count == count)
+            {
+                break;
+            }
+            result.Add(Random.Range(0, boardSize));
+        }
+
+        return result.ToList();
     }
 }

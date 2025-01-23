@@ -76,7 +76,7 @@ public class BoardUI : MonoBehaviour
                     = new Vector2(col - (width - 1f) / 2, -(row - (height - 1f) / 2)) * block_size;
                 
                 var boardCellUI = newObject.GetComponent<BoardCellUI>();
-                boardCellUI.SetCellIndex(new Vector2Int(row, col));
+                boardCellUI.SetCellIndex(new Vector2Int(col, row));
                 boardCellsUI[row, col] = boardCellUI;
             }
         }
@@ -94,8 +94,8 @@ public class BoardUI : MonoBehaviour
         foreach (Vector2Int shapePos in block.Shape)
         {
             Vector2Int cellPos = pos + shapePos;
-            boardCellsUI[cellPos.x, cellPos.y].SetBlockInfo(block.Id);
-            boardCellsUI[cellPos.x, cellPos.y].CopyVisualFrom(visualObj);
+            boardCellsUI[cellPos.y, cellPos.x].SetBlockInfo(block.Id);
+            boardCellsUI[cellPos.y, cellPos.x].CopyVisualFrom(visualObj);
         }
     }
 

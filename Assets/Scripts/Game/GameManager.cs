@@ -187,7 +187,7 @@ public class GameManager : MonoBehaviour
         HashSet<Vector2Int> inactiveBlockCells = GetInactiveBlockCells(blockGame);
         board.BlockCells(inactiveBlockCells);
 
-        deckManager.Initialize(ref blockGame, runData.availableBlocks);
+        deckManager.Initialize(ref blockGame, ref runData);
 
         DrawBlocks();
     }

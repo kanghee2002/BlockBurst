@@ -18,7 +18,7 @@ MonoBehaviour:
   type: 2
   trigger: 4
   effectValue: 3
-  blockTypes: 
+  blockTypes: 09000000
   blockId: -1
   probability: 1
   triggerValue: 0

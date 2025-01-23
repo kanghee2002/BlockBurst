@@ -51,7 +51,7 @@ public class ShopManager : MonoBehaviour
             int addCount = 2;
             for (int i = 0; i < addCount; i++)
             {
-                deckManager.AddBlock(item.block);
+                deckManager.AddBlockToRunDeck(item.block);
             }
 
             // 특수 블록은 첫 구매에만 효과 등록
@@ -72,7 +72,7 @@ public class ShopManager : MonoBehaviour
             int deleteCount = 2;
             for (int i = 0; i < deleteCount; i++)
             {
-                deckManager.RemoveBlock(item.block);
+                deckManager.RemoveBlockFromRunDeck(item.block);
             }
         }
         else if (item.type == ItemType.ITEM)

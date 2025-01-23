@@ -42,7 +42,7 @@ public class Board
     {
         foreach (Vector2Int pos in blockedCells)
         {
-            cells[pos.x, pos.y].BlockCell();
+            cells[pos.y, pos.x].BlockCell();
         }
     }
 
@@ -60,17 +60,17 @@ public class Board
         {
             isPlaced = true;
 
-            // 블록의 onClearEffects 트리거를 위해 추가
+            // 블록의 OnClearEffects 트리거를 위해 추가
             onClearEffectBlocks.Add((block.Type, block.Id));
 
             foreach (Vector2Int shapePos in block.Shape)
             {
                 Vector2Int worldPos = pos + shapePos;
-                cells[worldPos.x, worldPos.y].SetBlock(block.Type, block.Id);
+                cells[worldPos.y, worldPos.x].SetBlock(block.Type, block.Id);
             }
 
             // 블록 배치 이펙트 트리거
-            EffectManager.instance.TriggerEffects(TriggerType.ON_BLOCK_PLACE);
+            EffectManager.instance.TriggerEffects(TriggerType.ON_BLOCK_PLACE, blockTypes: new BlockType[] { block.Type });
             //block.TriggerEffects(TriggerType.ON_BLOCK_PLACE);
 
             // 보드 상태 이펙트 체크
@@ -208,16 +208,31 @@ public class Board
 
         gameData.currentScore += totalScore;
 
-        Debug.Log("현재 점수: " + gameData.currentScore);
         Debug.Log("현재 배수: " + gameData.matchMultipliers[MatchType.ROW]);
 
         // 배수 초기화
         if (matches.Count > 0)
         {
             Debug.Log("계산된 점수: " + totalScore);
-            //gameData.matchMultipliers = new(runData.baseMatchMultipliers);
+            gameData.matchMultipliers = new(GameManager.instance.runData.baseMatchMultipliers);
         }
 
+        // 한 줄이 지워졌다면 보드 상태 이펙트 체크
+        if (matches.Count > 0)
+        {
+            if (!IsHalfFull())
+            {
+                EffectManager.instance.TriggerEffects(TriggerType.ON_BOARD_NOT_HALF_FULL);
+            }
+            else
+            {
+                if (!isHalfFull)
+                {
+                    EffectManager.instance.TriggerEffects(TriggerType.ON_BOARD_HALF_FULL);
+                }
+            }
+            isHalfFull = IsHalfFull();
+        }
     }
 
     // 매치 확인
@@ -231,13 +246,13 @@ public class Board
 
         // 실제 영향 받는 행/열 계산
         List<int> rows = Enumerable.Range(
-            pos.x + minX, 
-            maxX - minX + 1
+            pos.y + minY,
+            maxY - minY + 1
         ).ToList();
 
         List<int> columns = Enumerable.Range(
-            pos.y + minY, 
-            maxY - minY + 1
+            pos.x + minX, 
+            maxX - minX + 1
         ).ToList();
         
         List<Match> rowMatches = CheckRowMatch(rows);
@@ -256,13 +271,13 @@ public class Board
         List<Match> matches = new List<Match>();
         int column = cells.GetLength(1);
 
-        foreach (int x in rows)
+        foreach (int y in rows)
         {
             // 한 줄 완성 확인
             bool isMatched = true;
-            for (int y = 0; y < column; y++)
+            for (int x = 0; x < column; x++)
             {
-                if (!cells[x, y].IsBlocked)
+                if (!cells[y, x].IsBlocked)
                 {
                     isMatched = false;
                     break;
@@ -274,13 +289,13 @@ public class Board
             {
                 Match match = new Match()
                 {
-                    index = x,
+                    index = y,
                     matchType = MatchType.ROW,
                     blocks = new List<(BlockType, string)>()
                 };
-                for (int y = 0; y < column; y++)
+                for (int x = 0; x < column; x++)
                 {
-                    Cell currentCell = cells[x, y];
+                    Cell currentCell = cells[y, x];
 
                     if (currentCell.IsBlocked && currentCell.BlockID != "")
                     {
@@ -300,13 +315,13 @@ public class Board
         List<Match> matches = new List<Match>();
         int row = cells.GetLength(0);
 
-        foreach (int y in columns)
+        foreach (int x in columns)
         {
             // 한 줄 완성 확인
             bool isMatched = true;
-            for (int x = 0; x < row; x++)
+            for (int y = 0; y < row; y++)
             {
-                if (!cells[x, y].IsBlocked)
+                if (!cells[y, x].IsBlocked)
                 {
                     isMatched = false;
                     break;
@@ -318,13 +333,13 @@ public class Board
             {
                 Match match = new Match()
                 {
-                    index = y,
+                    index = x,
                     matchType = MatchType.COLUMN,
                     blocks = new List<(BlockType, string)>()
                 };
-                for (int x = 0; x < row; x++)
+                for (int y = 0; y < row; y++)
                 {
-                    Cell currentCell = cells[x, y];
+                    Cell currentCell = cells[y, x];
 
                     if (currentCell.IsBlocked && currentCell.BlockID != "")
                     {
@@ -357,7 +372,7 @@ public class Board
 
     private bool IsOutOfBoard(Vector2Int pos)
     {
-        if (pos.x < 0 || pos.x >= cells.GetLength(0) || pos.y < 0 || pos.y >= cells.GetLength(1))
+        if (pos.x < 0 || pos.x >= cells.GetLength(1) || pos.y < 0 || pos.y >= cells.GetLength(0))
             return true;
         else
             return false;
@@ -365,7 +380,7 @@ public class Board
 
     private bool IsBlocked(Vector2Int pos)
     {
-        if (cells[pos.x, pos.y].IsBlocked) return true;
+        if (cells[pos.y, pos.x].IsBlocked) return true;
         else return false;
     }
 
@@ -404,16 +419,16 @@ public class Board
         {
             if (match.matchType == MatchType.ROW)
             {
-                for (int y = 0; y < column; y++)
+                for (int x = 0; x < column; x++)
                 {
-                    cells[match.index, y].ClearBlock();
+                    cells[match.index, x].ClearBlock();
                 }
             }
             else if (match.matchType == MatchType.COLUMN)
             {
-                for (int x = 0; x < row; x++)
+                for (int y = 0; y < row; y++)
                 {
-                    cells[x, match.index].ClearBlock();
+                    cells[y, match.index].ClearBlock();
                 }
             }
         }
@@ -426,11 +441,11 @@ public class Board
 
         HashSet<string> blocks = new HashSet<string>();
 
-        for (int x = 0; x < row; x++)
+        for (int y = 0; y < row; y++)
         {
-            for (int y = 0; y < column; y++)
+            for (int x = 0; x < column; x++)
             {
-                blocks.Add(cells[x, y].BlockID);
+                blocks.Add(cells[y, x].BlockID);
             }
         }
 
@@ -438,11 +453,12 @@ public class Board
         {
             (BlockType blockType, string id) = onClearEffectBlocks[i];
 
-            if (!blocks.Contains(id))
+            if (blocks.Contains(id))
             {
-                EffectManager.instance.TriggerEffects(TriggerType.ON_BLOCK_CLEAR, blockTypes: new BlockType[] { blockType });
-                onClearEffectBlocks.RemoveAt(i);
+                continue;
             }
+            EffectManager.instance.TriggerEffects(TriggerType.ON_BLOCK_CLEAR, blockTypes: new BlockType[] { blockType });
+            onClearEffectBlocks.RemoveAt(i);
         }
     }
 

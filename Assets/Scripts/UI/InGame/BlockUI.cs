@@ -46,9 +46,9 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
         int maxX = block.Shape.Max(pos => pos.x);
         int maxY = block.Shape.Max(pos => pos.y);
 
-        blockCellsUIRowCount = maxX - minX + 1;
-        blockCellsUIColumnCount = maxY - minY + 1;
-
+        blockCellsUIRowCount = maxY - minY + 1;
+        blockCellsUIColumnCount = maxX - minX + 1;
+        
         blockCellsUI = new GameObject[blockCellsUIRowCount, blockCellsUIColumnCount];
 
         Sprite blockSprite = Resources.Load<Sprite>("Sprites/Block/" + block.Type.ToString());
@@ -60,7 +60,7 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
             
             GameObject blockCell = Instantiate(prefabBlockCellUI);
             blockCell.GetComponent<Image>().sprite = blockSprite;
-            blockCellsUI[normalizedX, normalizedY] = blockCell;
+            blockCellsUI[normalizedY, normalizedX] = blockCell;
         }
 
         // Position blocks (minX, minY) is left top
@@ -173,8 +173,8 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
             {
                 if (blockCellsUI[blockRow, blockCol] != null)
                 {
-                    int targetRow = boardPosition.x + blockRow;
-                    int targetCol = boardPosition.y + blockCol;
+                    int targetRow = boardPosition.y + blockRow;
+                    int targetCol = boardPosition.x + blockCol;
                     
                     if (targetRow < 0 || targetRow >= boardUI.boardCellsUI.GetLength(0) ||
                         targetCol < 0 || targetCol >= boardUI.boardCellsUI.GetLength(1))
@@ -194,8 +194,8 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
                 {
                     if (blockCellsUI[blockRow, blockCol] != null)
                     {
-                        int targetRow = boardPosition.x + blockRow;
-                        int targetCol = boardPosition.y + blockCol;
+                        int targetRow = boardPosition.y + blockRow;
+                        int targetCol = boardPosition.x + blockCol;
                         
                         var cell = boardUI.boardCellsUI[targetRow, targetCol];
                         cell.ShowShadow();
@@ -221,7 +221,8 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
         float minDistance = float.MaxValue;
 
         // 블록의 RectTransform 위치 사용
-        Vector2 blockPosition = rectTransform.position;
+        Vector2 blockPosition = transform.position;
+
         float maxAllowedDistance = block_size * 2f; 
 
         for (int row = 0; row < boardCellsUI.GetLength(0); row++)
@@ -230,6 +231,7 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
             {
                 // RectTransform 기반 거리 계산
                 Vector2 cellPosition = boardCellsUI[row, col].transform.position;
+
                 float distance = Vector2.Distance(blockPosition, cellPosition);
 
                 if (distance > maxAllowedDistance) continue;

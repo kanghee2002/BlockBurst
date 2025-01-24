@@ -44,6 +44,7 @@ public class BoardCellUI : MonoBehaviour
     public void ClearCell()
     {
         if (isBlocked) return;
+        ClearShadow();
         blockId = "";
         cellImage.sprite = originalSprite;
         cellImage.color = originalColor;
@@ -96,6 +97,7 @@ public class BoardCellUI : MonoBehaviour
         shadowTween.Kill();
         hideShadowReserved = false;
         isShadow = false;
+        isAnimating = false;
         Color returnColor = string.IsNullOrEmpty(blockId) ? 
             originalColor : 
             new Color(1f, 1f, 1f, 1f);
@@ -124,11 +126,11 @@ public class BoardCellUI : MonoBehaviour
         cellImage.color = originalColor;
 
         sequence.Append(transform.DOScale(0, 0.3f).SetEase(Ease.InBack));
-        sequence.Join(cellImage.DOFade(0, 0.3f));
+        //sequence.Join(cellImage.DOFade(0, 0.3f));
 
         sequence.OnComplete(() => {
             transform.localScale = originalScale;
-            cellImage.color = originalColor;
+            ClearCell();
         });
     }
 }

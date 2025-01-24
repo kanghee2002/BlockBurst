@@ -216,6 +216,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    IEnumerator DelayedEndStage(bool cleared)
+    {
+        yield return new WaitForSeconds(1.0f);
+        EndStage(cleared);
+    }
+
     public void StartShop(bool isFirst = false)
     {
         // 아이템 랜덤하게 뽑아서 UI에 전달
@@ -314,7 +320,7 @@ public class GameManager : MonoBehaviour
             GameUIManager.instance.UpdateScore(blockGame.currentScore);
             if (stageManager.CheckStageClear(blockGame))
             {
-                EndStage(true);
+                StartCoroutine(DelayedEndStage(true));
             }
         }
 
@@ -346,7 +352,7 @@ public class GameManager : MonoBehaviour
         GameUIManager.instance.UpdateScore(blockGame.currentScore);
         if (stageManager.CheckStageClear(blockGame))
         {
-            EndStage(true);
+            StartCoroutine(DelayedEndStage(true));
         }
     }
 

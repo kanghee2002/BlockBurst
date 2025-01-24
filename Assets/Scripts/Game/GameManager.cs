@@ -314,7 +314,8 @@ public class GameManager : MonoBehaviour
             // Match 처리된 결과 가져오기 및 애니메이션 실행
             List<Match> matches = board.GetLastMatches();
             if (matches.Count > 0) {
-                GameUIManager.instance.PlayMatchAnimation(matches);
+                Dictionary<Match, List<int>> scores = GetScoreDictionary(matches);
+                GameUIManager.instance.PlayMatchAnimation(matches, scores);
             }
 
             GameUIManager.instance.UpdateScore(blockGame.currentScore);
@@ -346,7 +347,8 @@ public class GameManager : MonoBehaviour
         List<Match> matches = board.GetLastMatches();
         if (matches.Count > 0)
         {
-            GameUIManager.instance.PlayMatchAnimation(matches);
+            Dictionary<Match, List<int>> scores = GetScoreDictionary(matches);
+            GameUIManager.instance.PlayMatchAnimation(matches, scores);
         }
 
         GameUIManager.instance.UpdateScore(blockGame.currentScore);
@@ -356,6 +358,54 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Match에 해당하는 점수 리스트 만들기
+    private Dictionary<Match, List<int>> GetScoreDictionary(List<Match> matches)
+    {
+        Dictionary<Match, List<int>> dictionary = new Dictionary<Match, List<int>>();
+
+        foreach (Match match in matches)
+        {
+            List<int> scores = new List<int>();
+
+            int blockIndex = 0;
+            if (match.matchType == MatchType.ROW)
+            {
+                for (int x = 0; x < blockGame.boardColumns; x++)
+                {
+                    if (match.validIndices.Contains(x))
+                    {
+                        BlockType blockType = match.blocks[blockIndex].Item1;
+                        int score = blockGame.blockScores[blockType];
+                        scores.Add(score);
+                        blockIndex++;
+                    }
+                    else
+                    {
+                        scores.Add(0);
+                    }
+                }
+            }
+            else if (match.matchType == MatchType.COLUMN)
+            {
+                for (int y = 0; y < blockGame.boardRows; y++)
+                {
+                    if (match.validIndices.Contains(y))
+                    {
+                        BlockType blockType = match.blocks[blockIndex].Item1;
+                        int score = blockGame.blockScores[blockType];
+                        scores.Add(score);
+                        blockIndex++;
+                    }
+                    else
+                    {
+                        scores.Add(0);
+                    }
+                }
+            }
+            dictionary.Add(match, scores);
+        }
+        return dictionary;
+    }
 
     // ------------------------------
     // BLOCKGAME LAYER - end

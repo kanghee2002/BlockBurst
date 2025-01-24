@@ -98,12 +98,12 @@ public class BoardUI : MonoBehaviour
         }
     }
 
-    public void ProcessMatchAnimation(List<Match> matches)
+    public void ProcessMatchAnimation(List<Match> matches, Dictionary<Match, List<int>> scores, float delay)
     {
-        StartCoroutine(MatchAnimationCoroutine(matches));
+        StartCoroutine(MatchAnimationCoroutine(matches, scores, delay));
     }
 
-    private IEnumerator MatchAnimationCoroutine(List<Match> matches)
+    private IEnumerator MatchAnimationCoroutine(List<Match> matches, Dictionary<Match, List<int>> scores, float delay)
     {
         // 하이라이트 효과
         foreach (Match match in matches)
@@ -113,6 +113,10 @@ public class BoardUI : MonoBehaviour
                 for (int x = 0; x < width; x++)
                 {
                     boardCellsUI[match.index, x].PlayHighlightAnimation();
+                    
+                    int score = scores[match][x];
+                    boardCellsUI[match.index, x].PlayScoreAnimation(score);
+                    yield return new WaitForSeconds(delay);
                 }
             }
             else if (match.matchType == MatchType.COLUMN)
@@ -120,6 +124,10 @@ public class BoardUI : MonoBehaviour
                 for (int y = 0; y < height; y++)
                 {
                     boardCellsUI[y, match.index].PlayHighlightAnimation();
+
+                    int score = scores[match][y];
+                    boardCellsUI[y, match.index].PlayScoreAnimation(score);
+                    yield return new WaitForSeconds(delay);
                 }
             }
         }

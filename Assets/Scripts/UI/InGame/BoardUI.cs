@@ -98,28 +98,49 @@ public class BoardUI : MonoBehaviour
         }
     }
 
-    public void ProcessMatchAnimation(List<Match> matches)
+    public void ProcessMatchAnimation(List<Match> matches, Dictionary<BlockType, int> blockScores)
     {
-        StartCoroutine(MatchAnimationCoroutine(matches));
+        StartCoroutine(MatchAnimationCoroutine(matches, blockScores));
     }
 
-    private IEnumerator MatchAnimationCoroutine(List<Match> matches)
+    private IEnumerator MatchAnimationCoroutine(List<Match> matches, Dictionary<BlockType, int> blockScores)
     {
         // 하이라이트 효과
         foreach (Match match in matches)
         {
+            int blockIndex = 0;
             if (match.matchType == MatchType.ROW)
             {
                 for (int x = 0; x < width; x++)
                 {
+                    yield return new WaitForSeconds(0.05f);
+
                     boardCellsUI[match.index, x].PlayHighlightAnimation();
+                    
+                    if (boardCellsUI[match.index, x].GetBlockId() != "")
+                    {
+                        BlockType blockType = match.blocks[blockIndex].Item1;
+                        int score = blockScores[blockType];
+                        boardCellsUI[match.index, x].PlayScoreAnimation(score);
+                        blockIndex++;
+                    }
                 }
             }
             else if (match.matchType == MatchType.COLUMN)
             {
                 for (int y = 0; y < height; y++)
                 {
+                    yield return new WaitForSeconds(0.05f);
+
                     boardCellsUI[y, match.index].PlayHighlightAnimation();
+
+                    if (boardCellsUI[y, match.index].GetBlockId() != "")
+                    {
+                        BlockType blockType = match.blocks[blockIndex].Item1;
+                        int score = blockScores[blockType];
+                        boardCellsUI[y, match.index].PlayScoreAnimation(score);
+                        blockIndex++;
+                    }
                 }
             }
         }

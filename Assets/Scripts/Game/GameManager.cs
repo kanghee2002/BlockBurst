@@ -308,7 +308,7 @@ public class GameManager : MonoBehaviour
             // Match 처리된 결과 가져오기 및 애니메이션 실행
             List<Match> matches = board.GetLastMatches();
             if (matches.Count > 0) {
-                GameUIManager.instance.PlayMatchAnimation(matches);
+                GameUIManager.instance.PlayMatchAnimation(matches, blockGame.blockScores);
             }
 
             GameUIManager.instance.UpdateScore(blockGame.currentScore);
@@ -340,7 +340,7 @@ public class GameManager : MonoBehaviour
         List<Match> matches = board.GetLastMatches();
         if (matches.Count > 0)
         {
-            GameUIManager.instance.PlayMatchAnimation(matches);
+            GameUIManager.instance.PlayMatchAnimation(matches, blockGame.blockScores);
         }
 
         GameUIManager.instance.UpdateScore(blockGame.currentScore);

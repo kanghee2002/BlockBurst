@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
 
 public class BoardCellUI : MonoBehaviour 
 {
     private string blockId;
     private Vector2Int cellIndex;
+    private RectTransform textTransform;
+    private TextMeshProUGUI scoreText;
     private Image cellImage;
     private Color originalColor;
     private Sprite originalSprite;
@@ -21,12 +24,19 @@ public class BoardCellUI : MonoBehaviour
         cellImage = GetComponent<Image>();
         originalColor = cellImage.color;
         originalSprite = cellImage.sprite;
+        textTransform = transform.GetChild(0).GetComponent<RectTransform>();
+        scoreText = textTransform.GetComponent<TextMeshProUGUI>();
     }
 
     public void Initialize(Vector2Int index, Color color) {
+        blockId = "";
         cellIndex = index;
         cellImage.color = color;
         originalColor = color;
+    }
+
+    public string GetBlockId() {
+        return blockId;
     }
 
     public void SetCellIndex(Vector2Int index) {
@@ -109,7 +119,13 @@ public class BoardCellUI : MonoBehaviour
 
     public void PlayHighlightAnimation() {
         if (isBlocked) return;
-        cellImage.DOColor(new Color(1f, 1f, 1f), 0.2f).SetLoops(2, LoopType.Yoyo);
+
+        // 추후 수정 필요
+        cellImage.sprite = originalSprite;
+        cellImage.color = originalColor;
+        /////////////////////////////
+        ///
+        cellImage.DOColor(new Color(1f, 1f, 1f), 0.2f).SetLoops(1, LoopType.Yoyo);
     }
 
     public void PlayClearAnimation() {
@@ -126,9 +142,35 @@ public class BoardCellUI : MonoBehaviour
         sequence.Append(transform.DOScale(0, 0.3f).SetEase(Ease.InBack));
         sequence.Join(cellImage.DOFade(0, 0.3f));
 
-        sequence.OnComplete(() => {
+        sequence.OnComplete(() => 
+        {
             transform.localScale = originalScale;
             cellImage.color = originalColor;
         });
+    }
+
+    // 점수 표시 애니메이션
+    public void PlayScoreAnimation(int score)
+    {
+        textTransform.gameObject.SetActive(true);
+        scoreText.text = score.ToString();
+
+        Vector2 originalPosition = textTransform.anchoredPosition;
+        Color originalColor = scoreText.color;
+        float yOffset = 10f;
+
+        Sequence sequence = DOTween.Sequence();
+
+        sequence.Append(textTransform.DOAnchorPosY(originalPosition.y + yOffset, 0.3f)
+            .SetEase(Ease.InOutQuad));
+        sequence.Join(scoreText.DOFade(0f, 0.8f));
+
+
+        sequence.OnComplete(() =>
+            {
+                textTransform.anchoredPosition = originalPosition;
+                scoreText.color = originalColor;
+                textTransform.gameObject.SetActive(false);
+            });
     }
 }

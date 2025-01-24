@@ -152,6 +152,7 @@ public class BoardCellUI : MonoBehaviour
     // 점수 표시 애니메이션
     public void PlayScoreAnimation(int score)
     {
+        if (isBlocked || blockId == "") return;
         textTransform.gameObject.SetActive(true);
         scoreText.text = score.ToString();
 

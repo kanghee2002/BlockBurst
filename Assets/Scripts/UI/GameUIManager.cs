@@ -293,8 +293,10 @@ public class GameUIManager : MonoBehaviour
         boardUI.OnBlockPlaced(blockObj, block, pos);
     }
 
-    public void PlayMatchAnimation(List<Match> matches, Dictionary<BlockType, int> blockScores) {
-        boardUI.ProcessMatchAnimation(matches, blockScores);
+    public void PlayMatchAnimation(List<Match> matches, Dictionary<Match, List<int>> scores) {
+        float delay = 0.1f;
+        boardUI.ProcessMatchAnimation(matches, scores, delay);
+        actionInfoUI.ProcessScoreUpdateAnimation(scores, delay);
     }
 
     public void UpdateScore(int score) {

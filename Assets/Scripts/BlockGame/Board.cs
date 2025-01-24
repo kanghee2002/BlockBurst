@@ -247,6 +247,7 @@ public class Board
                 Match match = new Match()
                 {
                     index = y,
+                    validIndices = new List<int>(),
                     matchType = MatchType.ROW,
                     blocks = new List<(BlockType, string)>()
                 };
@@ -256,6 +257,7 @@ public class Board
 
                     if (currentCell.IsBlocked && currentCell.BlockID != "")
                     {
+                        match.validIndices.Add(x);
                         match.blocks.Add(((BlockType)currentCell.Type, currentCell.BlockID));
                     }
                 }
@@ -294,6 +296,7 @@ public class Board
                 Match match = new Match()
                 {
                     index = x,
+                    validIndices = new List<int>(),
                     matchType = MatchType.COLUMN,
                     blocks = new List<(BlockType, string)>()
                 };
@@ -303,6 +306,7 @@ public class Board
 
                     if (currentCell.IsBlocked && currentCell.BlockID != "")
                     {
+                        match.validIndices.Add(x);
                         match.blocks.Add(((BlockType)currentCell.Type, currentCell.BlockID));
                     }
                 }

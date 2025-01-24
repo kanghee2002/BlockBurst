@@ -98,49 +98,36 @@ public class BoardUI : MonoBehaviour
         }
     }
 
-    public void ProcessMatchAnimation(List<Match> matches, Dictionary<BlockType, int> blockScores)
+    public void ProcessMatchAnimation(List<Match> matches, Dictionary<Match, List<int>> scores, float delay)
     {
-        StartCoroutine(MatchAnimationCoroutine(matches, blockScores));
+        StartCoroutine(MatchAnimationCoroutine(matches, scores, delay));
     }
 
-    private IEnumerator MatchAnimationCoroutine(List<Match> matches, Dictionary<BlockType, int> blockScores)
+    private IEnumerator MatchAnimationCoroutine(List<Match> matches, Dictionary<Match, List<int>> scores, float delay)
     {
         // 하이라이트 효과
         foreach (Match match in matches)
         {
-            int blockIndex = 0;
             if (match.matchType == MatchType.ROW)
             {
                 for (int x = 0; x < width; x++)
                 {
-                    yield return new WaitForSeconds(0.05f);
-
                     boardCellsUI[match.index, x].PlayHighlightAnimation();
                     
-                    if (boardCellsUI[match.index, x].GetBlockId() != "")
-                    {
-                        BlockType blockType = match.blocks[blockIndex].Item1;
-                        int score = blockScores[blockType];
-                        boardCellsUI[match.index, x].PlayScoreAnimation(score);
-                        blockIndex++;
-                    }
+                    int score = scores[match][x];
+                    boardCellsUI[match.index, x].PlayScoreAnimation(score);
+                    yield return new WaitForSeconds(delay);
                 }
             }
             else if (match.matchType == MatchType.COLUMN)
             {
                 for (int y = 0; y < height; y++)
                 {
-                    yield return new WaitForSeconds(0.05f);
-
                     boardCellsUI[y, match.index].PlayHighlightAnimation();
 
-                    if (boardCellsUI[y, match.index].GetBlockId() != "")
-                    {
-                        BlockType blockType = match.blocks[blockIndex].Item1;
-                        int score = blockScores[blockType];
-                        boardCellsUI[y, match.index].PlayScoreAnimation(score);
-                        blockIndex++;
-                    }
+                    int score = scores[match][y];
+                    boardCellsUI[y, match.index].PlayScoreAnimation(score);
+                    yield return new WaitForSeconds(delay);
                 }
             }
         }

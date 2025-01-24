@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: AddBlockDuo
   m_EditorClassIdentifier: 
   id: BlockDuo
-  itemName: "\uB4C0\uC624 \uBE14\uB85D 2\uAC1C \uCD94\uAC00"
-  effects: []
+  itemName: "Duo \uB4C0\uC624 \uBE14\uB85D 2\uAC1C \uCD94\uAC00"
+  effects:
+  - {fileID: 11400000, guid: 0df4c49b8afe47043ace0dc143fee393, type: 2}
   cost: 5
   type: 0
   block: {fileID: 11400000, guid: 54eeb4caf0b27c94596745f3d52c2ce3, type: 2}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlockZScoreUpgradeEffect
   m_EditorClassIdentifier: 
   id: BlockZScoreUpgradeEffect
-  effectName: "\uC774 \uBE14\uB85D \uC810\uC218 +10"
+  effectName: "Z \uBE14\uB85D \uC810\uC218 +10"
   type: 0
   trigger: 0
   effectValue: 10

@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: BlockL
   itemName: "L \uBE14\uB85D 2\uAC1C \uCD94\uAC00"
-  effects: []
+  effects:
+  - {fileID: 11400000, guid: 92882319e0942d2499315eb1d23502f7, type: 2}
   cost: 2
   type: 0
   block: {fileID: 11400000, guid: c25c441b238b98245bd4070a8b26a3ef, type: 2}

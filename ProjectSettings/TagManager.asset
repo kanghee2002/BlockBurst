@@ -46,6 +46,9 @@ TagManager:
   - name: Board
     uniqueID: 83890321
     locked: 0
+  - name: ItemSet
+    uniqueID: 2299833653
+    locked: 0
   - name: Popup
     uniqueID: 2581710003
     locked: 0

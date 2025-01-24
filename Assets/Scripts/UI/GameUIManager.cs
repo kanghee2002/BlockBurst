@@ -65,7 +65,8 @@ public class GameUIManager : MonoBehaviour
         actionInfoUI.Initialize(0, 0);
         runInfoUI.Initialize(runData);
         deckInfoUI.Initialize(runData);
-        ChangeSceneState(SceneState.selecting);
+        sceneState = SceneState.selecting;
+        OpenSceneState(sceneState);
     }
 
     // BUTTON METHODS

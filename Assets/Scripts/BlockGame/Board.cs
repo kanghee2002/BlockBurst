@@ -306,7 +306,7 @@ public class Board
 
                     if (currentCell.IsBlocked && currentCell.BlockID != "")
                     {
-                        match.validIndices.Add(x);
+                        match.validIndices.Add(y);
                         match.blocks.Add(((BlockType)currentCell.Type, currentCell.BlockID));
                     }
                 }

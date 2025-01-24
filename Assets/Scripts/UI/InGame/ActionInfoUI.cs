@@ -38,6 +38,8 @@ public class ActionInfoUI : MonoBehaviour
                 UpdateChip(GetCurrentChip() + score);
 
                 yield return new WaitForSeconds(delay);
+
+                chipText.transform.DOKill();
             }
         }
         chipText.transform.DOKill();

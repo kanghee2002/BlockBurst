@@ -21,5 +21,6 @@ MonoBehaviour:
   - {x: 0, y: 2}
   - {x: 2, y: 2}
   reuseCount: 0
-  effects: []
+  effects:
+  - {fileID: 11400000, guid: 3d93da855ee643b448443a43932108a8, type: 2}
   prefab: {fileID: 6605347088874912601, guid: 5589c6cc5ae60c649a8b33f35954d710, type: 3}

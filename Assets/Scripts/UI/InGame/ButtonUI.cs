@@ -40,6 +40,8 @@ public class ButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         Initialize();
 
         CreateShadow();
+
+        CreateHitbox();
     }
 
     private void Initialize()
@@ -74,10 +76,28 @@ public class ButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         // Image 설정
         Image shadowImage = shadowObject.AddComponent<Image>();
         shadowImage.sprite = image.sprite; // 원본 이미지와 동일한 Sprite 사용
-        shadowImage.color = new Color(0, 0, 0, 0.8f); // 반투명한 검정색
+        shadowImage.color = new Color(0f, 0f, 0f, 0.8f); // 반투명한 검정색
 
         // 그림자를 Raycast 타겟에서 제외 (클릭 감지 방지)
         shadowImage.raycastTarget = false;
+    }
+
+    private void CreateHitbox()
+    {
+        GameObject hitbox = new GameObject("HitBox");
+        hitbox.transform.SetParent(transform);
+        hitbox.transform.SetAsFirstSibling();
+
+        RectTransform hitboxRect = hitbox.AddComponent<RectTransform>();
+        hitboxRect.sizeDelta = rectTransform.sizeDelta;
+        hitboxRect.anchoredPosition = originalPosition;
+        hitboxRect.localScale = originalScale;
+
+        Image hitboxImage = hitbox.AddComponent<Image>();
+        hitboxImage.sprite = image.sprite;
+        hitboxImage.color = new Color(0f, 0f, 0f, 0f);
+
+        //hitboxImage.raycastTarget = true;
     }
 
     public void OnPointerEnter(PointerEventData eventData)

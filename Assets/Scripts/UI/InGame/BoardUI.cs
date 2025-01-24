@@ -143,24 +143,5 @@ public class BoardUI : MonoBehaviour
                 }
             }
         }
-        yield return new WaitForSeconds(0.5f);
-
-        foreach (Match match in matches)
-        {
-            if (match.matchType == MatchType.ROW)
-            {
-                for (int x = 0; x < width; x++)
-                {
-                    boardCellsUI[match.index, x].ClearCell();
-                }
-            }
-            else if (match.matchType == MatchType.COLUMN)
-            {
-                for (int y = 0; y < height; y++)
-                {
-                    boardCellsUI[y, match.index].ClearCell();
-                }
-            }
-        }
     }
 }

@@ -6,7 +6,7 @@ using System.Linq;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [SerializeField] private GameObject prefabBlockCellUI;
     private GameObject[,] blockCellsUI;
@@ -15,6 +15,7 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
     private int blockCellsUIColumnCount;
     private int blockCellsUIRowCount;
     private const float block_size = 96f;
+    private const float MAX_DISTANCE_TO_BOARD = 200f; // 보드로부터 최대 허용 거리
 
     private BoardUI boardUI;
     private BoardCellUI lastHighlightedCell;
@@ -25,13 +26,22 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
     private Vector2 dragOffset;
     private Vector3 originalPosition;
     private int idx;
+    private Image raycastImage; // 추가: Raycast를 위한 이미지 컴포넌트
+    private Vector2 centerOffset; // 중앙 정렬을 위한 오프셋
+    private bool isDragging = false;
 
-
-    private void Start()
+    void Awake()
     {
         canvas = GetComponentInParent<Canvas>();
         boardUI = GameObject.Find("BoardUI").GetComponent<BoardUI>();
         rectTransform = GetComponent<RectTransform>();
+        raycastImage = GetComponent<Image>();
+        if (raycastImage == null)
+        {
+            raycastImage = gameObject.AddComponent<Image>();
+        }
+        raycastImage.color = new Color(0, 0, 0, 0); // 완전 투명
+        raycastImage.raycastTarget = true;
     }
 
     public void Initialize(Block block, int index)
@@ -63,7 +73,12 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
             blockCellsUI[normalizedY, normalizedX] = blockCell;
         }
 
-        // Position blocks (minX, minY) is left top
+        // Position blocks - 중앙 정렬을 위해 오프셋 계산
+        centerOffset = new Vector2(
+            (blockCellsUIColumnCount - 1) * block_size * 0.5f,
+            (blockCellsUIRowCount - 1) * block_size * 0.5f
+        );
+
         for (int row = 0; row < blockCellsUIRowCount; row++)
         {
             for (int col = 0; col < blockCellsUIColumnCount; col++)
@@ -72,16 +87,22 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
                 {
                     blockCellsUI[row, col].transform.SetParent(transform, false);
                     blockCellsUI[row, col].GetComponent<RectTransform>().anchoredPosition
-                        = new Vector2(col, -row) * block_size;
+                        = new Vector2(col * block_size - centerOffset.x, -(row * block_size - centerOffset.y));
                 }
             }
         }
+
+        // 추가: Raycast 이미지 크기 설정
+        float width = blockCellsUIColumnCount * block_size * 1.5f;
+        float height = blockCellsUIRowCount * block_size * 1.5f;
+        rectTransform.sizeDelta = new Vector2(width, height);
 
         makeSmall(true);
     }
 
     void makeSmall(bool toSmall)
     {
+        transform.DOKill();
         Vector3 targetScale = toSmall ? new Vector3(0.5f, 0.5f, 1) : new Vector3(1, 1, 1);
         transform.DOScale(targetScale, 0.2f).SetEase(Ease.OutQuad);
     }
@@ -91,16 +112,27 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
         makeSmall(false);
     }
 
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        if (!isDragging)
+        {
+            makeSmall(true);
+        }
+    }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
+        isDragging = true;
         Vector2 localPoint;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            rectTransform,
+            canvas.transform as RectTransform,
             eventData.position,
             eventData.pressEventCamera,
             out localPoint
         );
-        dragOffset = localPoint;
+        
+        // 드래그 오프셋을 중앙 기준으로 계산
+        dragOffset = localPoint - (Vector2)transform.localPosition;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -112,28 +144,43 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
                 eventData.pressEventCamera,
                 out localPoint))
         {
-            rectTransform.localPosition = localPoint - dragOffset;
+            transform.localPosition = localPoint - dragOffset;
         }
         
         BoardCellUI closestValidCell = FindClosestValidCell();
         if (closestValidCell != null)
         {
+            // 중앙 오프셋을 고려한 보드 좌표 계산
             Vector2Int boardPosition = closestValidCell.GetCellIndex();
-            // 보드 셀의 위치를 기준으로 그림자를 표시합니다
+            boardPosition = new Vector2Int(
+                boardPosition.x - Mathf.RoundToInt(centerOffset.x / block_size),
+                boardPosition.y - Mathf.RoundToInt(centerOffset.y / block_size)
+            );
             ShowShadowAtPosition(boardPosition);
+        }
+        else
+        {
+            ClearShadowCells();
         }
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        isDragging = false;
         ClearShadowCells();
         
         BoardCellUI closestValidCell = FindClosestValidCell();
         if (closestValidCell != null)
         {
-            Vector2Int boardPosition = closestValidCell.GetCellIndex() - new Vector2Int(minX, minY);
+            Vector2Int boardPosition = closestValidCell.GetCellIndex();
+            // 중앙 오프셋과 최소 좌표를 고려한 최종 보드 좌표 계산
+            boardPosition = new Vector2Int(
+                boardPosition.x - Mathf.RoundToInt(centerOffset.x / block_size) - minX,
+                boardPosition.y - Mathf.RoundToInt(centerOffset.y / block_size) - minY
+            );
             if (GameUIManager.instance.TryPlaceBlock(idx, boardPosition, gameObject))
             {
+                // 중앙 오프셋을 고려한 최종 위치 계산
                 Vector2 targetPosition = closestValidCell.GetComponent<RectTransform>().anchoredPosition
                     + boardUI.GetComponent<RectTransform>().anchoredPosition;
                 rectTransform.anchoredPosition = targetPosition;
@@ -163,6 +210,16 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
         bool isValid = true;
         List<BoardCellUI> prevShadowCells = new List<BoardCellUI>(currentShadowCells);
         currentShadowCells.Clear();
+
+        // 보드와의 거리 체크
+        Vector2 boardCenter = boardUI.GetComponent<RectTransform>().position;
+        float distanceToBoard = Vector2.Distance(transform.position, boardCenter);
+        
+        if (distanceToBoard > MAX_DISTANCE_TO_BOARD)
+        {
+            ClearShadowCells();
+            return;
+        }
         
         // 전체 블록 모양이 보드 안에 들어가는지 확인
         for (int blockRow = 0; blockRow < blockCellsUI.GetLength(0) && isValid; blockRow++)
@@ -217,6 +274,15 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, ID
         BoardCellUI[,] boardCellsUI = boardUI.boardCellsUI;
         BoardCellUI closestBoardCellUI = null;
         float minDistance = float.MaxValue;
+
+        // 보드와의 거리 체크
+        Vector2 boardCenter = boardUI.GetComponent<RectTransform>().position;
+        float distanceToBoard = Vector2.Distance(transform.position, boardCenter);
+        
+        if (distanceToBoard > MAX_DISTANCE_TO_BOARD)
+        {
+            return null;
+        }
 
         // 블록의 RectTransform 위치 사용
         Vector2 blockPosition = transform.position;

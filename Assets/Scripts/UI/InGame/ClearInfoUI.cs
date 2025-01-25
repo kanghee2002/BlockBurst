@@ -16,7 +16,7 @@ public class ClearInfoUI : MonoBehaviour
     }
     void Start()
     {
-        OpenClearInfoUI();
+        //OpenClearInfoUI();
     }
 
     public void OpenClearInfoUI()

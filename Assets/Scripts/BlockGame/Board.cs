@@ -95,6 +95,8 @@ public class Board
             ProcessMatches(block, pos);
         }
 
+        EffectManager.instance.EndTriggerEffect();
+
         return isPlaced;
     }
 
@@ -306,7 +308,7 @@ public class Board
 
                     if (currentCell.IsBlocked && currentCell.BlockID != "")
                     {
-                        match.validIndices.Add(x);
+                        match.validIndices.Add(y);
                         match.blocks.Add(((BlockType)currentCell.Type, currentCell.BlockID));
                     }
                 }

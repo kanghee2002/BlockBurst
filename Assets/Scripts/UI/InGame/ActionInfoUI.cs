@@ -16,11 +16,18 @@ public class ActionInfoUI : MonoBehaviour
     public void UpdateChip(int _chip)
     {
         chipText.text = _chip.ToString();
-        UIUtils.BounceText(chipText.transform);
+        UIUtils.BounceText(chipText.transform, duration: 0.15f, strength: 0.5f);
     }
     public void UpdateMuliplier(int _multiplier)
     {
         multiplierText.text = _multiplier.ToString();
+        UIUtils.BounceText(multiplierText.transform);
+    }
+
+    public void AddMultiplier(int addingMultiplier)
+    {
+        int multiplier = GetCurrentMultiplier() + addingMultiplier;
+        multiplierText.text = multiplier.ToString();
         UIUtils.BounceText(multiplierText.transform);
     }
 
@@ -38,6 +45,8 @@ public class ActionInfoUI : MonoBehaviour
                 UpdateChip(GetCurrentChip() + score);
 
                 yield return new WaitForSeconds(delay);
+
+                chipText.transform.DOKill();
             }
         }
         chipText.transform.DOKill();
@@ -56,5 +65,19 @@ public class ActionInfoUI : MonoBehaviour
             Debug.Log("Error: chipText is not int form");
         }
         return chip;
+    }
+
+    private int GetCurrentMultiplier()
+    {
+        int multiplier = 0;
+        if (int.TryParse(multiplierText.text, out multiplier))
+        {
+            return multiplier;
+        }
+        else
+        {
+            Debug.Log("Error: chipText is not int form");
+        }
+        return multiplier;
     }
 }

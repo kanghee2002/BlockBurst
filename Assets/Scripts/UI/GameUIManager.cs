@@ -299,6 +299,10 @@ public class GameUIManager : MonoBehaviour
         actionInfoUI.ProcessScoreUpdateAnimation(scores, delay);
     }
 
+    public void UpdateMultiplier(int addingMultiplier) {
+        actionInfoUI.AddMultiplier(addingMultiplier);
+    }
+
     public void UpdateScore(int score) {
         scoreInfoUI.UpdateScore(score);
     }
@@ -323,6 +327,11 @@ public class GameUIManager : MonoBehaviour
     public void DisplayItemSet(List<ItemData> items)
     {
         itemSetUI.Initialize(items);
+    }
+
+    public void PlayItemEffectAnimation(string effectDescription, int index, float delay)
+    {
+        itemSetUI.PlayEffectAnimation(effectDescription, index, delay);
     }
 
     public void BlockCells(HashSet<Vector2Int> cells)

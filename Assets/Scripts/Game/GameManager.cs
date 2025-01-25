@@ -243,6 +243,15 @@ public class GameManager : MonoBehaviour
             GameUIManager.instance.DisplayItemSet(runData.activeItems);
         }
         EffectManager.instance.EndTriggerEffect();
+
+        // 아이템 구매 시 시각 효과
+        if (res != -1 && shopItem.type == ItemType.ITEM)
+        {
+            if (shopItem.effects.All(effect => effect.trigger != TriggerType.ON_ACQUIRE))
+            {
+                GameUIManager.instance.PlayItemEffectAnimation("", runData.activeItems.Count - 1, 1f);
+            }
+        }
         return res;
     }
 
@@ -309,15 +318,14 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator ItemEffectAnimationCoriotine(List<string> effectIdList)
     {
-        float delay = 2f;
+        float delay = 1f;
         for (int i = 0; i < runData.activeItems.Count; i++)
         {
             ItemData currentItem = runData.activeItems[i];
-            bool isTriggered = currentItem.effects.Any(effect => effectIdList.Contains(effect.id));
 
-            if (isTriggered)
+            foreach (EffectData effect in currentItem.effects)
             {
-                foreach (EffectData effect in currentItem.effects)
+                if (effectIdList.Contains(effect.id))
                 {
                     ProcessItemEffectAnimation(effect, i, delay);
 

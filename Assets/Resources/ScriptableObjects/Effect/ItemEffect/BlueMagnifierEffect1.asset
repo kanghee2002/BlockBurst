@@ -15,7 +15,7 @@ MonoBehaviour:
   id: BlueMagnifierEffect1
   effectName: "\uBCF4\uB4DC \uD06C\uAE30 \uD55C \uCE78 \uC99D\uAC00"
   type: 11
-  trigger: 0
+  trigger: 22
   effectValue: 1
   blockTypes: 
   blockId: -1

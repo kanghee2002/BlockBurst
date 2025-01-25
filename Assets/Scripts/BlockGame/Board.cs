@@ -186,6 +186,12 @@ public class Board
         // 매치된 결과 저장
         lastMatches = matches;
 
+        // 아이템 시각 효과 실행 이전에 대기 시간 설정
+        GameManager.instance.SetMatchAnimationTime(matches);
+
+        // 아이템 시각 효과 실행
+        EffectManager.instance.EndTriggerEffect();
+
         CalculateScore(matches);
 
         TriggerHalfFullEffect(matches);

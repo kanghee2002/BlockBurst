@@ -293,14 +293,17 @@ public class GameUIManager : MonoBehaviour
         boardUI.OnBlockPlaced(blockObj, block, pos);
     }
 
-    public void PlayMatchAnimation(List<Match> matches, Dictionary<Match, List<int>> scores) {
-        float delay = 0.1f;
+    public void PlayMatchAnimation(List<Match> matches, Dictionary<Match, List<int>> scores, float delay) {
         boardUI.ProcessMatchAnimation(matches, scores, delay);
         actionInfoUI.ProcessScoreUpdateAnimation(scores, delay);
     }
 
-    public void UpdateMultiplier(int addingMultiplier) {
-        actionInfoUI.AddMultiplier(addingMultiplier);
+    public void UpdateMultiplierByAdd(int addingValue) {
+        actionInfoUI.AddMultiplier(addingValue);
+    }
+    public void UpdateMultiplier(int multiplier)
+    {
+        actionInfoUI.UpdateMuliplier(multiplier);
     }
 
     public void UpdateScore(int score) {

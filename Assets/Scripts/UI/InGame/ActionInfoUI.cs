@@ -21,7 +21,7 @@ public class ActionInfoUI : MonoBehaviour
     public void UpdateMuliplier(int _multiplier)
     {
         multiplierText.text = _multiplier.ToString();
-        UIUtils.BounceText(multiplierText.transform);
+        UIUtils.BounceText(multiplierText.transform, duration: 0.15f, strength: 0.5f);
     }
 
     public void AddMultiplier(int addingMultiplier)

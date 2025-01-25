@@ -36,6 +36,9 @@ public class GameManager : MonoBehaviour
 
     StageData[] nextStageChoices = new StageData[STAGE_CHOICE_COUNT];
 
+    private float scoreAnimationDelay;
+    private float scoreAnimationTime;
+
     // ------------------------------
     // GAME LAYER - start
     // ------------------------------
@@ -88,6 +91,9 @@ public class GameManager : MonoBehaviour
         }
 
         StartNewRun();
+
+        scoreAnimationDelay = 0.1f;
+        scoreAnimationTime = 0f;
     }
     
     public void EndGame(bool isWin)
@@ -252,6 +258,9 @@ public class GameManager : MonoBehaviour
                 GameUIManager.instance.PlayItemEffectAnimation("", runData.activeItems.Count - 1, 1f);
             }
         }
+
+        UpdateBaseMultiplier();
+
         return res;
     }
 
@@ -309,6 +318,8 @@ public class GameManager : MonoBehaviour
             DrawBlocks();
         }
         EffectManager.instance.EndTriggerEffect();
+
+        UpdateMultiplier();
     }
 
     public void PlayItemEffectAnimation(List<string> effectIdList)
@@ -318,6 +329,10 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator ItemEffectAnimationCoriotine(List<string> effectIdList)
     {
+        yield return new WaitForSeconds(scoreAnimationTime);
+
+        scoreAnimationTime = 0f;
+
         float delay = 1f;
         for (int i = 0; i < runData.activeItems.Count; i++)
         {
@@ -350,7 +365,7 @@ public class GameManager : MonoBehaviour
             List<Match> matches = board.GetLastMatches();
             if (matches.Count > 0) {
                 Dictionary<Match, List<int>> scores = GetScoreDictionary(matches);
-                GameUIManager.instance.PlayMatchAnimation(matches, scores);
+                GameUIManager.instance.PlayMatchAnimation(matches, scores, scoreAnimationDelay);
             }
 
             GameUIManager.instance.UpdateScore(blockGame.currentScore);
@@ -383,7 +398,7 @@ public class GameManager : MonoBehaviour
         if (matches.Count > 0)
         {
             Dictionary<Match, List<int>> scores = GetScoreDictionary(matches);
-            GameUIManager.instance.PlayMatchAnimation(matches, scores);
+            GameUIManager.instance.PlayMatchAnimation(matches, scores, scoreAnimationDelay);
         }
 
         GameUIManager.instance.UpdateScore(blockGame.currentScore);
@@ -391,6 +406,46 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(DelayedEndStage(true));
         }
+    }
+
+    public float SetMatchAnimationTime(List<Match> matches)
+    {
+        float result = 0f, lastDelay = 1f;
+
+        foreach (Match match in matches)
+        {
+            if (match.matchType == MatchType.ROW)
+            {
+                result += scoreAnimationDelay * blockGame.boardRows;
+            }
+            else if (match.matchType == MatchType.COLUMN)
+            {
+                result += scoreAnimationDelay * blockGame.boardColumns;
+            }
+        }
+
+        if (result != 0f)
+        {
+            result += lastDelay;
+        }
+        scoreAnimationTime = result;
+
+        return result + lastDelay;
+    }
+    
+    public void UpdateMultiplierByAdd(int addingValue)
+    {
+        GameUIManager.instance.UpdateMultiplierByAdd(addingValue);
+    }
+
+    public void UpdateMultiplier()
+    {
+        GameUIManager.instance.UpdateMultiplier(blockGame.matchMultipliers[MatchType.ROW]);
+    }
+    
+    public void UpdateBaseMultiplier()
+    {
+        GameUIManager.instance.UpdateMultiplier(runData.baseMatchMultipliers[MatchType.ROW]);
     }
 
     // Match에 해당하는 점수 리스트 만들기
@@ -459,13 +514,19 @@ public class GameManager : MonoBehaviour
                 GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
                 break;
             case EffectType.MULTIPLIER_MODIFIER:
+                description = "<color=red>" + value + "</color>";
+                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
+                UpdateMultiplierByAdd(effect.effectValue);
+                break;
             case EffectType.BASEMULTIPLIER_MODIFIER:
                 description = "<color=red>" + value + "</color>";
                 GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
+                UpdateMultiplier();
                 break;
             case EffectType.BASEMULTIPLIER_MULTIPLIER:
                 description = "<color=red>X" + effect.effectValue + "</color>";
                 GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
+                UpdateBaseMultiplier();
                 break;
             case EffectType.REROLL_MODIFIER:
             case EffectType.BASEREROLL_MODIFIER:

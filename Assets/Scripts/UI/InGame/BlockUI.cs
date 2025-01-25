@@ -29,6 +29,7 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
     private Image raycastImage; // 추가: Raycast를 위한 이미지 컴포넌트
     private Vector2 centerOffset; // 중앙 정렬을 위한 오프셋
     private bool isDragging = false;
+    float boardCellSize;
 
     void Awake()
     {
@@ -110,6 +111,7 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
     public void OnPointerDown(PointerEventData eventData)
     {
         makeSmall(false);
+        boardCellSize = boardUI.boardCellsUI[0, 1].GetComponent<RectTransform>().position.x - boardUI.boardCellsUI[0, 0].GetComponent<RectTransform>().position.x;
     }
 
     public void OnPointerUp(PointerEventData eventData)
@@ -150,13 +152,7 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
         BoardCellUI closestValidCell = FindClosestValidCell();
         if (closestValidCell != null)
         {
-            // 중앙 오프셋을 고려한 보드 좌표 계산
-            Vector2Int boardPosition = closestValidCell.GetCellIndex();
-            boardPosition = new Vector2Int(
-                boardPosition.x - Mathf.RoundToInt(centerOffset.x / block_size),
-                boardPosition.y - Mathf.RoundToInt(centerOffset.y / block_size)
-            );
-            ShowShadowAtPosition(boardPosition);
+            ShowShadowAtPosition(closestValidCell.GetCellIndex());
         }
         else
         {
@@ -172,12 +168,7 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
         BoardCellUI closestValidCell = FindClosestValidCell();
         if (closestValidCell != null)
         {
-            Vector2Int boardPosition = closestValidCell.GetCellIndex();
-            // 중앙 오프셋과 최소 좌표를 고려한 최종 보드 좌표 계산
-            boardPosition = new Vector2Int(
-                boardPosition.x - Mathf.RoundToInt(centerOffset.x / block_size) - minX,
-                boardPosition.y - Mathf.RoundToInt(centerOffset.y / block_size) - minY
-            );
+            Vector2Int boardPosition = closestValidCell.GetCellIndex() - new Vector2Int(minX, minY);
             if (GameUIManager.instance.TryPlaceBlock(idx, boardPosition, gameObject))
             {
                 // 중앙 오프셋을 고려한 최종 위치 계산
@@ -271,43 +262,43 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
 
     private BoardCellUI FindClosestValidCell()
     {
-        BoardCellUI[,] boardCellsUI = boardUI.boardCellsUI;
+        int refX = 0, refY = 0;
+        bool flag = false;
+        Vector2 boardCellRef;
+        Vector2 blockCellRef;
         BoardCellUI closestBoardCellUI = null;
-        float minDistance = float.MaxValue;
-
-        // 보드와의 거리 체크
-        Vector2 boardCenter = boardUI.GetComponent<RectTransform>().position;
-        float distanceToBoard = Vector2.Distance(transform.position, boardCenter);
         
-        if (distanceToBoard > MAX_DISTANCE_TO_BOARD)
+        for (refX = 0; refX < blockCellsUIRowCount; refX++)
         {
-            return null;
-        }
-
-        // 블록의 RectTransform 위치 사용
-        Vector2 blockPosition = transform.position;
-
-        float maxAllowedDistance = block_size * 2f; 
-
-        for (int row = 0; row < boardCellsUI.GetLength(0); row++)
-        {
-            for (int col = 0; col < boardCellsUI.GetLength(1); col++)
+            for (refY = 0; refY < blockCellsUIColumnCount; refY++)
             {
-                // RectTransform 기반 거리 계산
-                Vector2 cellPosition = boardCellsUI[row, col].transform.position;
-
-                float distance = Vector2.Distance(blockPosition, cellPosition);
-
-                if (distance > maxAllowedDistance) continue;
-
-                if (distance < minDistance)
+                if (blockCellsUI[refX, refY] != null)
                 {
-                    minDistance = distance;
-                    closestBoardCellUI = boardCellsUI[row, col];
+                    flag = true;
+                    break;
                 }
             }
+            if (flag) break;
         }
 
+        blockCellRef = blockCellsUI[refX, refY].GetComponent<RectTransform>().position;
+        boardCellRef = boardUI.boardCellsUI[refX, refY].GetComponent<RectTransform>().position;
+
+        Vector2 distance = blockCellRef - boardCellRef;
+
+        Vector2Int pos = new Vector2Int(
+            Mathf.RoundToInt(distance.x / boardCellSize),
+            Mathf.RoundToInt(-distance.y / boardCellSize)
+        );
+
+        if (pos.x < 0 || pos.y < 0 || pos.x >= boardUI.boardCellsUI.GetLength(0) || pos.y >= boardUI.boardCellsUI.GetLength(1))
+        {
+            closestBoardCellUI = null;
+        }
+        else
+        {
+            closestBoardCellUI = boardUI.boardCellsUI[pos.y, pos.x];
+        }
         return closestBoardCellUI;
     }
     

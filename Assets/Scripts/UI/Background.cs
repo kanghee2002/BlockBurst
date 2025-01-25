@@ -8,11 +8,13 @@ public class Background : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     private const float rotationSpeed = 4.0f;
 
+    /*
     private void Start()
     {
         Color colorToSet = new Color(0.0627f, 0.8235f, 0.4588f, 1.0f);
         SetColor(colorToSet);
     }
+    */
 
     private void Update()
     {

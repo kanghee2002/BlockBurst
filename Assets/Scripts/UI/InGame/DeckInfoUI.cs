@@ -14,6 +14,9 @@ public class DeckInfoUI : MonoBehaviour
     private const float outsidePositionX = 1920;
     private const float duration = 0.2f;
 
+    [SerializeField] private GameObject basicContainer;
+    [SerializeField] private GameObject specialContainer;
+
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -85,5 +88,16 @@ public class DeckInfoUI : MonoBehaviour
     public void CloseDeckInfoUI()
     {
         UIUtils.CloseUI(rectTransform, "X", insidePositionX, outsidePositionX, duration);
+    }
+
+    public void OnBasicSwitchButtonUIClick()
+    {
+        basicContainer.SetActive(true);
+        specialContainer.SetActive(false);
+    }
+    public void OnSpecialSwitchButtonUIClick()
+    {
+        specialContainer.SetActive(true);
+        basicContainer.SetActive(false);
     }
 }

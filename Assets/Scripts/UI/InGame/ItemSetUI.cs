@@ -13,7 +13,7 @@ public class ItemSetUI : MonoBehaviour
     [SerializeField] private float hoverScale = 1.2f;    
     [SerializeField] private float hoverDuration = 0.2f; 
     private float startPos = -380f;
-    List<GameObject> itemIcons = new List<GameObject>();
+    private List<GameObject> itemIcons = new List<GameObject>();
 
     public void Initialize(List<ItemData> items)
     {
@@ -159,5 +159,33 @@ public class ItemSetUI : MonoBehaviour
         }
 
         return description;
+    }
+
+    public void PlayEffectAnimation(string effectDescription, int index, float delay)
+    {
+        GameObject currentItem = itemIcons[index];
+
+        TextMeshProUGUI currentText = currentItem.transform.GetChild(3).GetComponent<TextMeshProUGUI>();
+        currentText.gameObject.SetActive(true);
+        currentText.text = effectDescription;
+
+        Vector2 originalPosition = currentText.rectTransform.anchoredPosition;
+        Color originalColor = currentText.color;
+        float yOffset = 10f;
+
+        currentItem.transform.DOPunchScale(Vector2.one * 1.2f, 0.3f, 10, 0.5f);
+
+        Sequence sequence = DOTween.Sequence();
+
+        sequence.Append(currentText.rectTransform.DOAnchorPosY(originalPosition.y + yOffset, 0.3f)
+            .SetEase(Ease.InOutQuad));
+        sequence.Join(currentText.DOFade(0f, delay).SetEase(Ease.OutQuad));
+
+        sequence.OnComplete(() =>
+        {
+            currentText.rectTransform.anchoredPosition = originalPosition;
+            currentText.color = originalColor;
+            currentText.gameObject.SetActive(false);
+        });
     }
 }

@@ -95,6 +95,8 @@ public class Board
             ProcessMatches(block, pos);
         }
 
+        EffectManager.instance.EndTriggerEffect();
+
         return isPlaced;
     }
 

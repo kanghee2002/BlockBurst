@@ -12,6 +12,8 @@ public class EffectManager : MonoBehaviour
     private RunData runData;
     private BlockGameData blockGameData;
 
+    private List<string> lastTriggeredEffects = new List<string>();
+
     private void Awake()
     {
         if (instance == null)
@@ -35,6 +37,11 @@ public class EffectManager : MonoBehaviour
         blockGameData = data;
     }
 
+    public List<string> GetLastTriggeredEffects()
+    {
+        return lastTriggeredEffects;
+    }
+
     public void AddEffect(EffectData effect)
     {
         runData.activeEffects.Add(effect);
@@ -52,6 +59,13 @@ public class EffectManager : MonoBehaviour
     public bool ContainsEffect(EffectData effect)
     {
         return runData.activeEffects.Contains(effect);
+    }
+
+    // 모든 트리거 호출 이후, 시각 효과를 위해 호출
+    public void EndTriggerEffect()
+    {
+        GameManager.instance.PlayItemEffectAnimation(lastTriggeredEffects.ToList());
+        lastTriggeredEffects.Clear();
     }
 
     public void TriggerEffects(TriggerType trigger, int triggerValue = 0, BlockType[] blockTypes = null, int blockId = -1) 
@@ -78,6 +92,8 @@ public class EffectManager : MonoBehaviour
                 return;
             }
         }
+
+        lastTriggeredEffects.Add(effect.id);
 
         // 효과 적용
         switch (effect.type)

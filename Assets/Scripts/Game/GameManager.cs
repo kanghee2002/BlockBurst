@@ -242,6 +242,7 @@ public class GameManager : MonoBehaviour
         {
             GameUIManager.instance.DisplayItemSet(runData.activeItems);
         }
+        EffectManager.instance.EndTriggerEffect();
         return res;
     }
 
@@ -297,6 +298,32 @@ public class GameManager : MonoBehaviour
             EffectManager.instance.TriggerEffects(TriggerType.ON_REROLL);
             GameUIManager.instance.DisplayRerollCount(blockGame.rerollCount);
             DrawBlocks();
+        }
+        EffectManager.instance.EndTriggerEffect();
+    }
+
+    public void PlayItemEffectAnimation(List<string> effectIdList)
+    {
+        StartCoroutine(ItemEffectAnimationCoriotine(effectIdList));
+    }
+
+    private IEnumerator ItemEffectAnimationCoriotine(List<string> effectIdList)
+    {
+        float delay = 2f;
+        for (int i = 0; i < runData.activeItems.Count; i++)
+        {
+            ItemData currentItem = runData.activeItems[i];
+            bool isTriggered = currentItem.effects.Any(effect => effectIdList.Contains(effect.id));
+
+            if (isTriggered)
+            {
+                foreach (EffectData effect in currentItem.effects)
+                {
+                    ProcessItemEffectAnimation(effect, i, delay);
+
+                    yield return new WaitForSeconds(delay);
+                }
+            }
         }
     }
 
@@ -405,6 +432,105 @@ public class GameManager : MonoBehaviour
             dictionary.Add(match, scores);
         }
         return dictionary;
+    }
+
+    private void ProcessItemEffectAnimation(EffectData effect, int index, float delay)
+    {
+        string description = "";
+
+        string value = effect.effectValue > 0 ? "+" + effect.effectValue : effect.effectValue.ToString();
+        
+        switch (effect.type)
+        {
+            case EffectType.SCORE_MODIFIER:
+                description = "<color=#0088FF>" + value + "</color>";
+                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
+                break;
+            case EffectType.SCORE_MULTIPLIER:
+                description = "<color=#0088FF>X" + effect.effectValue + "</color>";
+                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
+                break;
+            case EffectType.MULTIPLIER_MODIFIER:
+            case EffectType.BASEMULTIPLIER_MODIFIER:
+                description = "<color=red>" + value + "</color>";
+                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
+                break;
+            case EffectType.BASEMULTIPLIER_MULTIPLIER:
+                description = "<color=red>X" + effect.effectValue + "</color>";
+                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
+                break;
+            case EffectType.REROLL_MODIFIER:
+            case EffectType.BASEREROLL_MODIFIER:
+                description = "<color=white>" + value + "</color>";
+                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
+                break;
+            case EffectType.REROLL_MULTIPLIER:
+            case EffectType.BASEREROLL_MULTIPLIER:
+                description = "<color=white>X" + effect.effectValue + "</color>";
+                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
+                break;
+            case EffectType.GOLD_MODIFIER:
+                description = "<color=yellow>" + value + "</color>";
+                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
+                break;
+            case EffectType.GOLD_MULTIPLIER:
+                description = "<color=yellow>X" + effect.effectValue + "</color>";
+                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
+                break;
+            case EffectType.BOARD_SIZE_MODIFIER:
+                description = "<color=white>보드 크기" + value + "</color>";
+                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
+                break;
+            case EffectType.BOARD_CORNER_BLOCK:
+                description = "<color=white>보드 가장자리\n막힘!</color>";
+                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
+                break;
+            case EffectType.BOARD_RANDOM_BLOCK:
+                description = "<color=white>보드 무작위\n" + effect.effectValue +"칸 막힘!</color>";
+                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
+                break;
+            case EffectType.DECK_MODIFIER:
+                // TODO
+                break;
+            case EffectType.BLOCK_REUSE_MODIFIER:
+                // TODO
+                break;
+            case EffectType.SQUARE_CLEAR:
+                // TODO
+                break;
+            case EffectType.BLOCK_MULTIPLIER:
+                description = "<color=white>블록 " + effect.effectValue + "배!</color>";
+                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
+                break;
+            case EffectType.BLOCK_DELETE:
+                description = "<color=white>블록 모두\n삭제!</color>";
+                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
+                break;
+            case EffectType.BLOCK_DELETE_WITH_COUNT:
+                // TODO
+                break;
+            case EffectType.ROW_LINE_CLEAR:
+                description = "<color=white>가로 한 줄\n지움!</color>";
+                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
+                break;
+            case EffectType.COLUMN_LINE_CLEAR:
+                description = "<color=white>세로 한 줄\n지움!</color>";
+                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
+                break;
+            case EffectType.BOARD_CLEAR:
+                description = "<color=white>보드\n지움!</color>";
+                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
+                break;
+            case EffectType.DRAW_BLOCK_COUNT_MODIFIER:
+                description = "<color=white>선택지가\n" + effect.effectValue +"개로!</color>";
+                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
+                break;
+            case EffectType.RANDOM_LINE_CLEAR:
+                description = "<color=white>무작위 한 줄\n지움!</color>";
+                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
+                break;
+        }
+        
     }
 
     // ------------------------------

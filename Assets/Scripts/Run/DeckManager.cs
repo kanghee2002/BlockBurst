@@ -41,6 +41,8 @@ public class DeckManager : MonoBehaviour
             blockGameData.deck.RemoveAt(0);
         }
 
+        EffectManager.instance.EndTriggerEffect();
+
         return block;
     }
 

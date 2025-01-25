@@ -14,10 +14,6 @@ public class ClearInfoUI : MonoBehaviour
     {
         rectTransform = GetComponent<RectTransform>();
     }
-    void Start()
-    {
-        //OpenClearInfoUI();
-    }
 
     public void OpenClearInfoUI()
     {

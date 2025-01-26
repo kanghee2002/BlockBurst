@@ -367,7 +367,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1.2f);
 
         GameUIManager.instance.UpdateProduct(0);
-        GameUIManager.instance.UpdateScore(lastScore);
+        GameUIManager.instance.UpdateScore(blockGame.currentScore);
     }
 
     public bool TryPlaceBlock(int idx, Vector2Int pos, GameObject blockObj) {

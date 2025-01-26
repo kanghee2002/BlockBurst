@@ -7248,6 +7248,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chipText: {fileID: 1233002511}
   multiplierText: {fileID: 1400602149}
+  productText: {fileID: 477082111}
 --- !u!114 &836755884
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -62,7 +62,7 @@ public class GameUIManager : MonoBehaviour
     public void Initialize(RunData runData)
     {
         goldInfoUI.Initialize(runData.gold);
-        actionInfoUI.Initialize(0, 0);
+        actionInfoUI.Initialize(0, 0, 0);
         runInfoUI.Initialize(runData);
         deckInfoUI.Initialize(runData);
         sceneState = SceneState.selecting;
@@ -298,12 +298,23 @@ public class GameUIManager : MonoBehaviour
         actionInfoUI.ProcessScoreUpdateAnimation(scores, delay);
     }
 
+    public void UpdateChip(int chip)
+    {
+        actionInfoUI.UpdateChip(chip);
+    }
+
     public void UpdateMultiplierByAdd(int addingValue) {
         actionInfoUI.AddMultiplier(addingValue);
     }
+
     public void UpdateMultiplier(int multiplier)
     {
         actionInfoUI.UpdateMuliplier(multiplier);
+    }
+
+    public void UpdateProduct(int product)
+    {
+        actionInfoUI.UpdateProduct(product);
     }
 
     public void UpdateScore(int score) {

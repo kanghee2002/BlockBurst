@@ -37,7 +37,6 @@ public class GameManager : MonoBehaviour
     StageData[] nextStageChoices = new StageData[STAGE_CHOICE_COUNT];
 
     private float scoreAnimationDelay;
-    private float scoreAnimationTime;
 
     // ------------------------------
     // GAME LAYER - start
@@ -93,7 +92,6 @@ public class GameManager : MonoBehaviour
         StartNewRun();
 
         scoreAnimationDelay = 0.1f;
-        scoreAnimationTime = 0f;
     }
     
     public void EndGame(bool isWin)
@@ -322,18 +320,17 @@ public class GameManager : MonoBehaviour
         UpdateMultiplier();
     }
 
-    public void PlayItemEffectAnimation(List<string> effectIdList)
+    public void PlayItemEffectAnimation(List<string> effectIdList, float matchAnimationTIme = 0f)
     {
-        StartCoroutine(ItemEffectAnimationCoriotine(effectIdList));
+        StartCoroutine(ItemEffectAnimationCoriotine(effectIdList, matchAnimationTIme));
     }
 
-    private IEnumerator ItemEffectAnimationCoriotine(List<string> effectIdList)
+    private IEnumerator ItemEffectAnimationCoriotine(List<string> effectIdList, float matchAnimationTIme = 0f)
     {
-        yield return new WaitForSeconds(scoreAnimationTime);
+        yield return new WaitForSeconds(matchAnimationTIme);
 
-        scoreAnimationTime = 0f;
-
-        float delay = 1f;
+        int delayCount = 0;
+        float delay = 0.5f;
         for (int i = 0; i < runData.activeItems.Count; i++)
         {
             ItemData currentItem = runData.activeItems[i];
@@ -344,10 +341,33 @@ public class GameManager : MonoBehaviour
                 {
                     ProcessItemEffectAnimation(effect, i, delay);
 
+                    delayCount++;
+
                     yield return new WaitForSeconds(delay);
                 }
             }
         }
+
+        // 매칭 진행 중이라면
+        if (matchAnimationTIme > 0f)
+        {
+            yield return new WaitForSeconds(0.3f);
+
+            StartCoroutine(CalculateScoreAnimationCoroutine());
+        }
+    }
+
+    private IEnumerator CalculateScoreAnimationCoroutine()
+    {
+        int lastScore = ScoreCalculator.instance.GetLastScore();
+        GameUIManager.instance.UpdateProduct(lastScore);
+        GameUIManager.instance.UpdateChip(0);
+        GameUIManager.instance.UpdateMultiplier(0);
+
+        yield return new WaitForSeconds(1.2f);
+
+        GameUIManager.instance.UpdateProduct(0);
+        GameUIManager.instance.UpdateScore(lastScore);
     }
 
     public bool TryPlaceBlock(int idx, Vector2Int pos, GameObject blockObj) {
@@ -368,7 +388,6 @@ public class GameManager : MonoBehaviour
                 GameUIManager.instance.PlayMatchAnimation(matches, scores, scoreAnimationDelay);
             }
 
-            GameUIManager.instance.UpdateScore(blockGame.currentScore);
             if (stageManager.CheckStageClear(blockGame))
             {
                 StartCoroutine(DelayedEndStage(true));
@@ -401,16 +420,15 @@ public class GameManager : MonoBehaviour
             GameUIManager.instance.PlayMatchAnimation(matches, scores, scoreAnimationDelay);
         }
 
-        GameUIManager.instance.UpdateScore(blockGame.currentScore);
         if (stageManager.CheckStageClear(blockGame))
         {
             StartCoroutine(DelayedEndStage(true));
         }
     }
 
-    public float SetMatchAnimationTime(List<Match> matches)
+    public float GetMatchAnimationTime(List<Match> matches)
     {
-        float result = 0f, lastDelay = 1f;
+        float result = 0f, lastDelay = 0.5f;
 
         foreach (Match match in matches)
         {
@@ -428,9 +446,8 @@ public class GameManager : MonoBehaviour
         {
             result += lastDelay;
         }
-        scoreAnimationTime = result;
 
-        return result + lastDelay;
+        return result;
     }
     
     public void UpdateMultiplierByAdd(int addingValue)

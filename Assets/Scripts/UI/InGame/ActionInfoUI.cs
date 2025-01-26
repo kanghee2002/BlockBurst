@@ -8,10 +8,13 @@ public class ActionInfoUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI chipText;
     [SerializeField] private TextMeshProUGUI multiplierText;
-    public void Initialize(int _chip, int _multiplier)
+    [SerializeField] private TextMeshProUGUI productText;
+
+    public void Initialize(int _chip, int _multiplier, int _product)
     {
         UpdateChip(_chip);
         UpdateMuliplier(_multiplier);
+        UpdateProduct(_product);
     }
     public void UpdateChip(int _chip)
     {
@@ -29,6 +32,18 @@ public class ActionInfoUI : MonoBehaviour
         int multiplier = GetCurrentMultiplier() + addingMultiplier;
         multiplierText.text = multiplier.ToString();
         UIUtils.BounceText(multiplierText.transform);
+    }
+
+    public void UpdateProduct(int product)
+    {
+        Sequence sequence = DOTween.Sequence();
+
+        sequence.Append(DOTween.To(() => 0, x =>
+        {
+            productText.text = x.ToString();
+        }, product, 1f).SetEase(Ease.InSine));
+        sequence.Join(productText.transform.DOPunchScale(Vector3.one * 1f, 
+            duration: 0.5f, vibrato: 10, elasticity: 1f));
     }
 
     public void ProcessScoreUpdateAnimation(Dictionary<Match, List<int>> scores, float delay)

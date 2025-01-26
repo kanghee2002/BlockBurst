@@ -4510,8 +4510,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -7248,6 +7248,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chipText: {fileID: 1233002511}
   multiplierText: {fileID: 1400602149}
+  productText: {fileID: 477082111}
 --- !u!114 &836755884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10761,8 +10762,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -11670,8 +11671,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -13227,7 +13228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemIconPrefab: {fileID: 2590677270669734416, guid: 7193ec8fa5d4ee341a3481b89dfd68f3, type: 3}
-  iconOverlap: 30
+  iconOverlap: 45
   hoverScale: 1.2
   hoverDuration: 0.2
 --- !u!114 &1583208972

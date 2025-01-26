@@ -31,7 +31,8 @@ public class ActionInfoUI : MonoBehaviour
     {
         int multiplier = GetCurrentMultiplier() + addingMultiplier;
         multiplierText.text = multiplier.ToString();
-        UIUtils.BounceText(multiplierText.transform);
+
+        UIUtils.BounceText(multiplierText.transform, duration: 0.15f, strength: 0.5f);
     }
 
     public void UpdateProduct(int product)
@@ -44,6 +45,8 @@ public class ActionInfoUI : MonoBehaviour
         }, product, 1f).SetEase(Ease.InSine));
         sequence.Join(productText.transform.DOPunchScale(Vector3.one * 1f, 
             duration: 0.5f, vibrato: 10, elasticity: 1f));
+
+        sequence.OnComplete(() => productText.transform.DOScale(Vector3.one, 0.3f));
     }
 
     public void ProcessScoreUpdateAnimation(Dictionary<Match, List<int>> scores, float delay)

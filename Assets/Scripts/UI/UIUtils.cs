@@ -56,6 +56,7 @@ public static class UIUtils
     /// <param name="strength">애니메이션 강도</param>
     public static void BounceText(Transform textTransform, float duration = 0.3f, float strength = 0.2f)
     {
-        textTransform.DOPunchScale(Vector3.one * strength, duration, 1, 0.5f);
+        textTransform.DOPunchScale(Vector3.one * strength, duration, 1, 0.5f)
+            .OnKill(() => textTransform.DOScale(Vector3.one, 0.2f));
     }
 }

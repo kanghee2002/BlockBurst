@@ -18,6 +18,13 @@ public class ScoreCalculator : MonoBehaviour
         }
     }
 
+    private int lastScore;
+
+    public int GetLastScore()
+    {
+        return lastScore;
+    }
+
     public int Calculate(Match match, BlockGameData data)
     {
         switch (match.matchType)
@@ -39,6 +46,8 @@ public class ScoreCalculator : MonoBehaviour
 
         Debug.Log("블록 점수: " + totalScore);
         Debug.Log("배수 : " + data.matchMultipliers[MatchType.ROW]);
+
+        lastScore = totalScore * data.matchMultipliers[MatchType.ROW];
 
         return totalScore * data.matchMultipliers[MatchType.ROW];
     }

@@ -68,6 +68,15 @@ public class EffectManager : MonoBehaviour
         lastTriggeredEffects.Clear();
     }
 
+    // 게임 중 블록을 놓았을 때, 시각 효과를 위해 호출
+    public void EndTriggerEffectOnPlace(List<Match> matches)
+    {
+        float matchAnimationTime = GameManager.instance.GetMatchAnimationTime(matches);
+
+        GameManager.instance.PlayItemEffectAnimation(lastTriggeredEffects.ToList(), matchAnimationTIme: matchAnimationTime);
+        lastTriggeredEffects.Clear();
+    }
+
     public void TriggerEffects(TriggerType trigger, int triggerValue = 0, BlockType[] blockTypes = null, int blockId = -1) 
     {
         foreach (EffectData effect in runData.activeEffects)

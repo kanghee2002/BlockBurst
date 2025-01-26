@@ -186,6 +186,9 @@ public class Board
         // 매치된 결과 저장
         lastMatches = matches;
 
+        // 아이템 시각 효과 실행
+        EffectManager.instance.EndTriggerEffectOnPlace(matches);
+
         CalculateScore(matches);
 
         TriggerHalfFullEffect(matches);

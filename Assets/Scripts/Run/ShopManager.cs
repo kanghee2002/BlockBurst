@@ -7,7 +7,9 @@ public class ShopManager : MonoBehaviour
     private RunData runData;
     private List<ItemData> currentItems;
 
-    public DeckManager deckManager;
+    private DeckManager deckManager;
+
+    [HideInInspector] public int rerollCost = 3;
 
     public void Initialize(ref RunData data, ItemData[] items)
     {
@@ -27,7 +29,7 @@ public class ShopManager : MonoBehaviour
             return -1;
         } 
         else {
-            runData.gold -= item.cost;
+            GameManager.instance.UpdateGold(-item.cost);
             ApplyItem(item);
             return runData.gold;
         }
@@ -41,6 +43,14 @@ public class ShopManager : MonoBehaviour
         }
         ItemData item = currentItems[0];
         currentItems.RemoveAt(0);
+
+        if (item.type == ItemType.ADD_BLOCK ||
+            item.type == ItemType.DELETE_BLOCK ||
+            item.type == ItemType.UPGRADE)
+        {
+            AddItem(item);
+        }
+
         return item;
     }
 
@@ -91,6 +101,12 @@ public class ShopManager : MonoBehaviour
                 // 구매 시 등록 (BlockData의 effects로 등록 X)
                 EffectManager.instance.AddEffect(effect);
             }
+        }
+
+        if (item.type == ItemType.ADD_BLOCK ||
+            item.type == ItemType.DELETE_BLOCK)
+        {
+            GameManager.instance.UpdateDeckCount(runData.availableBlocks.Count, runData.availableBlocks.Count);
         }
     }
 

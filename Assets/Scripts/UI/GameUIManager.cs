@@ -280,13 +280,13 @@ public class GameUIManager : MonoBehaviour
         return GameManager.instance.TryPlaceBlock(idx, pos, blockObj);
     }
 
-    public void OnShopStart(List<ItemData> items, bool isFirst = false)
+    public void OnShopStart(List<ItemData> items, int rerollCost, bool isFirst = false)
     {
         if (isFirst)
         {
             ChangeSceneState(SceneState.shopping);
         }
-        itemBoardUI.Initialize(items);
+        itemBoardUI.Initialize(items, rerollCost);
     }
 
     public void OnBlockPlaced(GameObject blockObj, Block block, Vector2Int pos) {

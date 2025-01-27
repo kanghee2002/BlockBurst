@@ -132,7 +132,8 @@ public class GameManager : MonoBehaviour
         stageManager.Initialize(ref runData);
 
         shopManager.Initialize(ref runData, itemTemplates);
-        GameUIManager.instance.DisplayDeckCount(gameData.defaultBlockCount, gameData.defaultBlockCount);
+
+        UpdateDeckCount(gameData.defaultBlockCount, gameData.defaultBlockCount);
 
         GameUIManager.instance.Initialize(runData);
         StartStageSelection();
@@ -146,6 +147,15 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < nextStageChoices.Length; i++)
         {
             nextStageChoices[i] = templates[Random.Range(0, templates.Length)];
+        }
+
+        // 스테이지 목표 점수 설정
+        for (int i = 0; i < nextStageChoices.Length; i++)
+        {
+            StageData stage = nextStageChoices[i];
+            int baseScore = gameData.stageBaseScores[currentChapterIndex - 1];
+            float baseScoreMultiplier = gameData.stageBaseScoreMultipliers[currentStageIndex - 1] + stage.baseScoreMultiplier;
+            stage.clearRequirement = Mathf.FloorToInt(baseScore * baseScoreMultiplier / 100f) * 100;
         }
 
         // UI에 전달
@@ -201,7 +211,6 @@ public class GameManager : MonoBehaviour
         if (cleared)
         {
             stageManager.GrantReward();
-            GameUIManager.instance.UpdateGold(runData.gold);
             if (stageManager.currentStage.type == StageType.BOSS)
             {
                 currentChapterIndex++;
@@ -213,6 +222,7 @@ public class GameManager : MonoBehaviour
                 currentStageIndex++;
             }
             StartShop(true);
+            UpdateDeckCount(runData.availableBlocks.Count, runData.availableBlocks.Count);
         } 
         else 
         {
@@ -234,7 +244,7 @@ public class GameManager : MonoBehaviour
         {
             shopItems.Add(shopManager.PopItem());
         }
-        GameUIManager.instance.OnShopStart(shopItems, isFirst);   
+        GameUIManager.instance.OnShopStart(shopItems, shopManager.rerollCost, isFirst);   
     }
 
     public int OnItemPurchased(int index)
@@ -245,6 +255,10 @@ public class GameManager : MonoBehaviour
         if (res != -1)
         {
             GameUIManager.instance.DisplayItemSet(runData.activeItems);
+        }
+        else
+        {
+            UpdateGold(0);
         }
         EffectManager.instance.EndTriggerEffect();
 
@@ -264,10 +278,53 @@ public class GameManager : MonoBehaviour
 
     public void OnShopReroll()
     {
+        if (runData.gold < shopManager.rerollCost)
+        {
+            UpdateGold(0);
+            return;
+        }
+
+        UpdateGold(-shopManager.rerollCost);
         List<ItemData> remains = shopItems.Where(item => item != null).ToList();
         StartShop();
         shopManager.RerollShop(remains);
     }
+
+    public void UpdateGold(int value, bool isMultiplying = false)
+    {
+        if (isMultiplying)
+        {
+            runData.gold *= value;
+        }
+        else
+        {
+            runData.gold += value;
+            if (runData.gold < 0) runData.gold = 0;
+        }
+        GameUIManager.instance.UpdateGold(runData.gold);
+    }
+
+    public void UpdateRerollCount(int value, bool isMultiplying = false)
+    {
+        // RunData.RerollCount는 플레이 중 드러나지 않으므로 처리 X
+        if (isMultiplying)
+        {
+            blockGame.rerollCount *= value;
+        }
+        else
+        {
+            blockGame.rerollCount += value;
+            if (blockGame.rerollCount < 0) blockGame.rerollCount = 0;
+        }
+
+        GameUIManager.instance.DisplayRerollCount(blockGame.rerollCount);
+    }
+
+    public void UpdateDeckCount(int deckCount, int maxDeckCount)
+    {
+        GameUIManager.instance.DisplayDeckCount(deckCount, maxDeckCount);
+    }
+
     // ------------------------------
     // RUN LAYER - end
     // ------------------------------
@@ -298,7 +355,7 @@ public class GameManager : MonoBehaviour
             handBlocks[i].Initialize(handBlocksData[i], blockId++);
         }
         GameUIManager.instance.OnBlocksDrawn(handBlocks);
-        GameUIManager.instance.DisplayDeckCount(blockGame.deck.Count, runData.availableBlocks.Count);
+        UpdateDeckCount(blockGame.deck.Count, runData.availableBlocks.Count);
     }
 
     public void OnRerolled()
@@ -312,7 +369,6 @@ public class GameManager : MonoBehaviour
                 EffectManager.instance.TriggerEffects(TriggerType.ON_REROLL_WITHOUT_PLACE);
             }
             EffectManager.instance.TriggerEffects(TriggerType.ON_REROLL);
-            GameUIManager.instance.DisplayRerollCount(blockGame.rerollCount);
             DrawBlocks();
         }
         EffectManager.instance.EndTriggerEffect();

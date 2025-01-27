@@ -133,28 +133,25 @@ public class EffectManager : MonoBehaviour
                 blockGameData.matchMultipliers[matchType] *= effect.effectValue;
                 break;
             case EffectType.REROLL_MODIFIER:
-                blockGameData.rerollCount += effect.effectValue;
-                if (blockGameData.rerollCount < 0) blockGameData.rerollCount = 0;
+                GameManager.instance.UpdateRerollCount(effect.effectValue);
                 break;
             case EffectType.REROLL_MULTIPLIER:
-                blockGameData.rerollCount *= effect.effectValue;
+                GameManager.instance.UpdateRerollCount(effect.effectValue, isMultiplying: true);
                 break;
             case EffectType.BASEREROLL_MODIFIER:            
                 runData.baseRerollCount += effect.effectValue;
-                blockGameData.rerollCount += effect.effectValue;
                 if (runData.baseRerollCount < 0) runData.baseRerollCount = 0;
-                if (blockGameData.rerollCount < 0) blockGameData.rerollCount = 0;
+                GameManager.instance.UpdateRerollCount(effect.effectValue);
                 break;
             case EffectType.BASEREROLL_MULTIPLIER:
                 runData.baseRerollCount *= effect.effectValue;
-                blockGameData.rerollCount *= effect.effectValue;
+                GameManager.instance.UpdateRerollCount(effect.effectValue, isMultiplying: true);
                 break;
             case EffectType.GOLD_MODIFIER:
-                runData.gold += effect.effectValue;
-                if (runData.gold < 0) runData.gold = 0;
+                GameManager.instance.UpdateGold(effect.effectValue);
                 break;
             case EffectType.GOLD_MULTIPLIER:
-                runData.gold *= effect.effectValue;
+                GameManager.instance.UpdateGold(effect.effectValue, isMultiplying: true);
                 break;
             case EffectType.BOARD_SIZE_MODIFIER:
                 blockGameData.boardRows += effect.effectValue;

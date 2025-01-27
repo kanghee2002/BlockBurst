@@ -50,11 +50,12 @@ public class DeckManager : MonoBehaviour
     {
         if (blockGameData.rerollCount <= 0)
         {
+            GameManager.instance.UpdateRerollCount(0);
             return false;
         }
         else 
         {
-            blockGameData.rerollCount--;
+            GameManager.instance.UpdateRerollCount(-1);
             foreach (BlockData block in remains)
             {
                 if (block) AddBlockToBlockGameDeck(block);

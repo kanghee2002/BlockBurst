@@ -65,6 +65,8 @@ public class GameUIManager : MonoBehaviour
         deckInfoUI.Initialize(runData);
         sceneState = SceneState.selecting;
         OpenSceneState(sceneState);
+
+        AudioManager.instance.BeginBackgroundMusic();
     }
 
     // BUTTON METHODS
@@ -160,6 +162,8 @@ public class GameUIManager : MonoBehaviour
         {
             goldInfoUI.UpdateGold(gold);
             itemBoardUI.PurchaseItem(index);
+
+            AudioManager.instance.SFXShopBuy();
         }
     }
 
@@ -177,6 +181,8 @@ public class GameUIManager : MonoBehaviour
     {
         if (sceneState == SceneState.selecting && popupState == PopupState.none)
         {
+            AudioManager.instance.ShopTransitionOut();
+
             GameManager.instance.OnStageSelection(choiceIndex);
         }
     }
@@ -205,6 +211,8 @@ public class GameUIManager : MonoBehaviour
         sceneState = stateToSet;
 
         StartCoroutine(ChangeSceneStateCoroutine(prevState, sceneState));
+
+        AudioManager.instance.SFXtransition();
     }
 
     private IEnumerator ChangeSceneStateCoroutine(SceneState prevState, SceneState stateToSet)
@@ -272,6 +280,8 @@ public class GameUIManager : MonoBehaviour
         boardUI.Initialize(blockGame.boardRows, blockGame.boardColumns);
         
         ChangeSceneState(SceneState.playing);
+
+        AudioManager.instance.ChangeStage(stageIndex);
     }
 
     public void OnBlocksDrawn(List<Block> blocks)
@@ -291,6 +301,8 @@ public class GameUIManager : MonoBehaviour
             ChangeSceneState(SceneState.shopping);
         }
         itemBoardUI.Initialize(items, rerollCost);
+
+        AudioManager.instance.ShopTransitionIn();
     }
 
     public void OnBlockPlaced(GameObject blockObj, Block block, Vector2Int pos) {

@@ -69,6 +69,7 @@ public class HandUI : MonoBehaviour
 
     void FadeInBlocks()
     {
+        AudioManager.instance.SFXRechargeBlock(blockUIs.Length);
         for (int i = 0; i < blockUIs.Length; i++)
         {
             var blockObj = blockUIs[i];

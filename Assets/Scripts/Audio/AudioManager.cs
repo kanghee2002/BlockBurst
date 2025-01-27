@@ -16,7 +16,7 @@ public class AudioManager : MonoBehaviour
         public int currentMusicBar = 0;
         public FMOD.StringWrapper lastMarker = new FMOD.StringWrapper();
     }
-    public static AudioManager Instance;
+    public static AudioManager instance;
 
     private static bool isPlaying = false;
     private RuntimeManager runtimeManager;
@@ -34,17 +34,13 @@ public class AudioManager : MonoBehaviour
     
 
     void Awake() {
-        if(Instance != null && Instance != this) {
+        if(instance != null && instance != this) {
             Destroy(this.gameObject);
         }
         else {
-            Instance = this;
+            instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
-        
-    }
-    void Start()
-    {
         timelineInfo = new TimelineInfo();
         stage1Callback = new FMOD.Studio.EVENT_CALLBACK(BeatEventCallback);
 
@@ -53,6 +49,20 @@ public class AudioManager : MonoBehaviour
         timelineHandle = GCHandle.Alloc(timelineInfo, GCHandleType.Pinned);
         stage1.setUserData(GCHandle.ToIntPtr(timelineHandle));
         stage1.setCallback(stage1Callback, EVENT_CALLBACK_TYPE.TIMELINE_MARKER | EVENT_CALLBACK_TYPE.TIMELINE_BEAT);
+        
+    }
+    void Start()
+    {
+        /*
+        timelineInfo = new TimelineInfo();
+        stage1Callback = new FMOD.Studio.EVENT_CALLBACK(BeatEventCallback);
+
+        stage1.setParameterByName("shop_transit", 0);
+        stage1 = RuntimeManager.CreateInstance("event:/stage1");
+        timelineHandle = GCHandle.Alloc(timelineInfo, GCHandleType.Pinned);
+        stage1.setUserData(GCHandle.ToIntPtr(timelineHandle));
+        stage1.setCallback(stage1Callback, EVENT_CALLBACK_TYPE.TIMELINE_MARKER | EVENT_CALLBACK_TYPE.TIMELINE_BEAT);
+        */
     }
 
     void OnDestroy() {

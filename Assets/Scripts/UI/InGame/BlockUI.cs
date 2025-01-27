@@ -112,6 +112,8 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
     {
         makeSmall(false);
         boardCellSize = boardUI.boardCellsUI[0, 1].GetComponent<RectTransform>().position.x - boardUI.boardCellsUI[0, 0].GetComponent<RectTransform>().position.x;
+
+        AudioManager.instance.SFXSelectBlock();
     }
 
     public void OnPointerUp(PointerEventData eventData)
@@ -175,6 +177,8 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
                 Vector2 targetPosition = closestValidCell.GetComponent<RectTransform>().anchoredPosition
                     + boardUI.GetComponent<RectTransform>().anchoredPosition;
                 rectTransform.anchoredPosition = targetPosition;
+
+                AudioManager.instance.SFXPlaceBlock();
             }
             else
             {
@@ -306,6 +310,8 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
     {
         makeSmall(true);
         rectTransform.DOLocalMove(originalPosition, 0.3f).SetEase(Ease.OutBack);
+
+        AudioManager.instance.SFXPlaceFail();
     }
 
     private void OnDestroy()

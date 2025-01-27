@@ -153,9 +153,9 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < nextStageChoices.Length; i++)
         {
             StageData stage = nextStageChoices[i];
-            int baseScore = gameData.stageBaseScores[currentChapterIndex - 1];
-            float baseScoreMultiplier = gameData.stageBaseScoreMultipliers[currentStageIndex - 1] + stage.baseScoreMultiplier;
-            stage.clearRequirement = Mathf.FloorToInt(baseScore * baseScoreMultiplier / 100f) * 100;
+            gameData.difficulty *= gameData.stageBaseScoreMultipliers[Random.Range(0, gameData.stageBaseScoreMultipliers.Length)];
+            stage.clearRequirement = (int)(gameData.stageBaseScores * gameData.difficulty);
+            stage.goldReward = (int)(gameData.stageBaseReward * gameData.difficulty);
         }
 
         // UI에 전달

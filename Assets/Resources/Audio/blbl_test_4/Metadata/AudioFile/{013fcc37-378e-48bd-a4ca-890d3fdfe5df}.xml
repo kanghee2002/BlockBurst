@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{013fcc37-378e-48bd-a4ca-890d3fdfe5df}">
+		<property name="assetPath">
+			<value>match-tok.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>7.968</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{a3ec89bc-8378-48a0-9b55-4b5bc4760314}</destination>
+		</relationship>
+	</object>
+</objects>

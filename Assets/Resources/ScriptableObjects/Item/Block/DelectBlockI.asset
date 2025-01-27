@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DelectBlockI
   m_EditorClassIdentifier: 
   id: BlockI
-  itemName: "I \uBE14\uB85D 2\uAC1C \uC0AD\uC81C"
+  itemName: "I \uBE14\uB85D -2"
   effects:
   - {fileID: 11400000, guid: 1025eb248032e554d8ac28be84e3ccee, type: 2}
   cost: 2

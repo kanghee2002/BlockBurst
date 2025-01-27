@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AddBlockCorner
   m_EditorClassIdentifier: 
   id: AddBlockCorner
-  itemName: "Corner \uBE14\uB85D 2\uAC1C \uCD94\uAC00"
+  itemName: "Corner \uBE14\uB85D +2"
   effects:
   - {fileID: 11400000, guid: 787b877fd70ee3e43b1bd40bf4bb9c62, type: 2}
   cost: 4

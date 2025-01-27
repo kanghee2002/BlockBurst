@@ -62,7 +62,6 @@ public class GameUIManager : MonoBehaviour
     {
         goldInfoUI.Initialize(runData.gold); 
         actionInfoUI.Initialize(_chip: 0, _multiplier: runData.baseMatchMultipliers[MatchType.ROW], _product: 0);
-        deckInfoUI.Initialize(runData);
         sceneState = SceneState.selecting;
         OpenSceneState(sceneState);
 
@@ -131,8 +130,14 @@ public class GameUIManager : MonoBehaviour
         {
             popupState = PopupState.deckInfo;
             deckInfoUI.OpenDeckInfoUI();
-            deckInfoUI.Initialize(GameManager.instance.GetDeckInfo());
+            GameManager.instance.OnDeckInfoRequested();
         }
+    }
+
+    public void OnDeckInfoCallback(RunData runData, BlockGameData blockGameData)
+    {
+        Dictionary<BlockType, int> scoreDictionary = (sceneState == SceneState.playing) ? blockGameData.blockScores : runData.baseBlockScores;
+        deckInfoUI.Initialize(runData, scoreDictionary);
     }
 
     public void OnDeckInfoBackButtonUIPressed()

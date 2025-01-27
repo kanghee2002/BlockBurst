@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DeleteBlockS
   m_EditorClassIdentifier: 
   id: BlockS
-  itemName: "S \uBE14\uB85D 2\uAC1C \uC0AD\uC81C"
+  itemName: "S \uBE14\uB85D -2"
   effects:
   - {fileID: 11400000, guid: ad932e0fc4b7b8340ab58d5f52935a09, type: 2}
   cost: 2

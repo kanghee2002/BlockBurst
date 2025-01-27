@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AddBlockO
   m_EditorClassIdentifier: 
   id: BlockO
-  itemName: "O \uBE14\uB85D 2\uAC1C \uCD94\uAC00"
+  itemName: "O \uBE14\uB85D +2"
   effects:
   - {fileID: 11400000, guid: 8305a6d68547de8419b1b412ba1c53c1, type: 2}
   cost: 2

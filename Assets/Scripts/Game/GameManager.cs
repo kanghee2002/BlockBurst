@@ -182,6 +182,12 @@ public class GameManager : MonoBehaviour
         GameUIManager.instance.OnRunInfoCallback(runData, startTime, mostPlacedBlockType);
     }
 
+    public void OnDeckInfoRequested()
+    {
+        // Deck 정보 UI 열기
+        GameUIManager.instance.OnDeckInfoCallback(runData, blockGame);
+    }
+
     public void StartStageSelection()
     {
         // stage Template에서 stagetype이 맞는 것을 랜덤하게 추출
@@ -389,11 +395,6 @@ public class GameManager : MonoBehaviour
     // ------------------------------
     // BLOCKGAME LAYER - start
     // ------------------------------
-
-    public RunData GetDeckInfo()
-    {
-        return runData;
-    }
 
     public void DrawBlocks()
     {

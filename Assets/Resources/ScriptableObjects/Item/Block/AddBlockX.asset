@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AddBlockX
   m_EditorClassIdentifier: 
   id: AddBlockX
-  itemName: "X \uBE14\uB85D 2\uAC1C \uCD94\uAC00"
+  itemName: "X \uBE14\uB85D +2"
   effects:
   - {fileID: 11400000, guid: 3d93da855ee643b448443a43932108a8, type: 2}
   cost: 4

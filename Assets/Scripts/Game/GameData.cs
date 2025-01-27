@@ -12,6 +12,8 @@ public class GameData
     public int startingGold;                                        // 시작 골드
     public int defaultRerollCount;                                  // 기본 리롤 횟수
     public int defaultBlockCount;                                   // 기본 블록 수
+    public float[] stageBaseScoreMultipliers;                       // 스테이지 목표 점수 배수
+    public int[] stageBaseScores;                                   // 챕터 당 기본 목표 점수
 
     public void Initialize()
     {
@@ -42,8 +44,11 @@ public class GameData
         defaultBlockScores[BlockType.MEGASQUARE] = 0;
         defaultBlockScores[BlockType.ULTRASQUARE] = 0;
 
-
         // 기본 배수 설정
         defaultMatchMultipliers[MatchType.ROW] = 1;
+
+        stageBaseScoreMultipliers = new float[3] { 1f, 1.5f, 2f };
+
+        stageBaseScores = new int[8] { 400, 1000, 2500, 6000, 13000, 24000, 42000, 60000 };
     }
 }

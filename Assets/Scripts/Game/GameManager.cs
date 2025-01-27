@@ -148,6 +148,15 @@ public class GameManager : MonoBehaviour
             nextStageChoices[i] = templates[Random.Range(0, templates.Length)];
         }
 
+        // 스테이지 목표 점수 설정
+        for (int i = 0; i < nextStageChoices.Length; i++)
+        {
+            StageData stage = nextStageChoices[i];
+            int baseScore = gameData.stageBaseScores[currentChapterIndex - 1];
+            float baseScoreMultiplier = gameData.stageBaseScoreMultipliers[currentStageIndex - 1] + stage.baseScoreMultiplier;
+            stage.clearRequirement = Mathf.FloorToInt(baseScore * baseScoreMultiplier / 100f) * 100;
+        }
+
         // UI에 전달
         GameUIManager.instance.OnStageSelection(nextStageChoices, currentChapterIndex, currentStageIndex);
     }

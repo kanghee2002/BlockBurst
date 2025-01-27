@@ -13,11 +13,10 @@ MonoBehaviour:
   m_Name: BlockDuoEffect
   m_EditorClassIdentifier: 
   id: BlockDuoEffect
-  effectName: "\uC774 \uBE14\uB85D\uC774 \uBAA8\uB450 \uC9C0\uC6CC\uC9C8 \uB54C \uACE8\uB4DC
-    +2"
+  effectName: "Duo \uC804\uBD80 \uD074\uB9AC\uC5B4 \uC2DC \uACE8\uB4DC +5"
   type: 9
   trigger: 4
-  effectValue: 2
+  effectValue: 5
   blockTypes: 08000000
   blockId: -1
   probability: 1

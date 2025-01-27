@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DebuffRerollEffect
   m_EditorClassIdentifier: 
   id: DebuffRerollEffect
-  effectName: "\uC2DC\uC791 \uB9AC\uB864 \uD69F\uC218\uAC00 0\uC774 \uB428"
+  effectName: "\uC2DC\uC791 \uB9AC\uB864 \uD69F\uC218 0"
   type: 6
   trigger: 0
   effectValue: 0

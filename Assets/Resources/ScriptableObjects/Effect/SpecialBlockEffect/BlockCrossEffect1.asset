@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: BlockCrossEffect1
   m_EditorClassIdentifier: 
   id: BlockCrossEffect1
-  effectName: "\uC774 \uBE14\uB85D\uC744 \uBC30\uCE58\uD560 \uB54C \uBB34\uC791\uC704
-    \uAC00\uB85C, \uC138\uB85C 1\uC904\uC529 \uC9C0\uC6C0"
+  effectName: "\uBC30\uCE58 \uC2DC \uBB34\uC791\uC704 \uAC00\uB85C, \uC138\uB85C
+    1\uC904 \uC529 \uD074\uB9AC\uC5B4"
   type: 20
   trigger: 1
   effectValue: 0

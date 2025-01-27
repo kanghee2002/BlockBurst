@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: TwoColorRainbowEffect
   m_EditorClassIdentifier: 
   id: TwoColorRainbowEffect
-  effectName: "\uC904\uC744 \uC9C0\uC6B8 \uB54C \uAC19\uC740 \uC885\uB958\uC758 \uBE14\uB85D\uC774
-    \uC788\uC73C\uBA74 \uBC30\uC218 +2"
+  effectName: "\uAC19\uC740 \uC885\uB958 \uBE14\uB85D \uD3EC\uD568 \uD074\uB9AC\uC5B4
+    \uC2DC \uBC30\uC218 +2"
   type: 2
   trigger: 12
   effectValue: 2

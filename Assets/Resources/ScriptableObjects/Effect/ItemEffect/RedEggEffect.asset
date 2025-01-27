@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RedEggEffect
   m_EditorClassIdentifier: 
   id: RedEggEffect
-  effectName: "\uCC98\uC74C \uC904\uC774 \uC9C0\uC6CC\uC9C8 \uB54C \uBC30\uC218 +2"
+  effectName: "\uCCAB \uD074\uB9AC\uC5B4 \uC2DC \uBC30\uC218 +2"
   type: 2
   trigger: 15
   effectValue: 2

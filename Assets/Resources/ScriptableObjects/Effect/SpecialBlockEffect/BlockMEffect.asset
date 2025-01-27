@@ -13,12 +13,11 @@ MonoBehaviour:
   m_Name: BlockMEffect
   m_EditorClassIdentifier: 
   id: BlockMEffect
-  effectName: "\uC774 \uBE14\uB85D\uC744 \uBC30\uCE58\uD560 \uB54C 10% \uD655\uB960\uB85C
-    \uACE8\uB4DC 2\uBC30"
+  effectName: "\uBC30\uCE58 \uC2DC 30% \uD655\uB960\uB85C \uACE8\uB4DC 2\uBC30"
   type: 10
   trigger: 1
   effectValue: 2
   blockTypes: 0d000000
   blockId: -1
-  probability: 0.1
+  probability: 0.3
   triggerValue: 0

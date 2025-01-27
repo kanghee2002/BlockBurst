@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlueMagnifierEffect2
   m_EditorClassIdentifier: 
   id: BlueMagnifierEffect2
-  effectName: "\uBAA8\uB4E0 \uAE30\uBCF8 \uBE14\uB85D \uC810\uC218 -5"
+  effectName: "\uAE30\uBCF8 \uBE14\uB85D \uC810\uC218 -5"
   type: 0
   trigger: 0
   effectValue: -5

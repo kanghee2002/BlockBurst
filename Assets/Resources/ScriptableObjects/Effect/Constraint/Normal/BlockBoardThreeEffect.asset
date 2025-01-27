@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlockBoardThreeEffect
   m_EditorClassIdentifier: 
   id: BlockBoardThreeEffect
-  effectName: "\uBCF4\uB4DC\uC758 \uBB34\uC791\uC704 3\uCE78\uC774 \uB9C9\uD798"
+  effectName: "\uBB34\uC791\uC704 3\uCE78 \uB9C9\uD798"
   type: 13
   trigger: 0
   effectValue: 3

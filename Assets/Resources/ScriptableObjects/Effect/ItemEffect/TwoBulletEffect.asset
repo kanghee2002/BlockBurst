@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: TwoBulletEffect
   m_EditorClassIdentifier: 
   id: TwoBulletEffect
-  effectName: "\uB450 \uC904\uC744 \uD55C \uBC88\uC5D0 \uC9C0\uC6B8 \uB54C \uBC30\uC218
-    +2"
+  effectName: "2\uC904 \uB3D9\uC2DC \uD074\uB9AC\uC5B4 \uC2DC \uBC30\uC218 +2"
   type: 2
   trigger: 8
   effectValue: 2

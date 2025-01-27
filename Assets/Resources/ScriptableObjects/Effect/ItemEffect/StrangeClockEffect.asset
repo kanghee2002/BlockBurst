@@ -13,12 +13,11 @@ MonoBehaviour:
   m_Name: StrangeClockEffect
   m_EditorClassIdentifier: 
   id: StrangeClockEffect
-  effectName: "\uC904\uC744 10\uBC88 \uC9C0\uC6B8 \uB54C\uB9C8\uB2E4 \uBC30\uC218
-    +5"
+  effectName: "6\uBC88 \uD074\uB9AC\uC5B4 \uC2DC \uBC30\uC218 +3"
   type: 2
   trigger: 10
   effectValue: 5
   blockTypes: 
   blockId: -1
   probability: 1
-  triggerValue: 15
+  triggerValue: 6

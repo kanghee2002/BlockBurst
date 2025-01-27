@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: MagazineEffect
   m_EditorClassIdentifier: 
   id: MagazineEffect
-  effectName: "\uBE14\uB85D\uC744 \uBC30\uCE58\uD560 \uB54C \uC904\uC774 \uC9C0\uC6CC\uC9C0\uC9C0
-    \uC54A\uC73C\uBA74 \uBAA8\uB4E0 \uBE14\uB85D \uC810\uC218 +5"
+  effectName: "\uBC30\uCE58 \uC2DC \uD074\uB9AC\uC5B4 \uB418\uC9C0 \uC54A\uC73C\uBA74
+    \uAE30\uBCF8 \uBE14\uB85D \uC810\uC218 +5"
   type: 0
   trigger: 2
   effectValue: 5

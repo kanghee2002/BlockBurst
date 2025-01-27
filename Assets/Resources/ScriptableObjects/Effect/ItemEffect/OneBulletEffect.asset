@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: OneBulletEffect
   m_EditorClassIdentifier: 
   id: OneBulletEffect
-  effectName: "\uB371\uC774 \uBE44\uC5C8\uC744 \uB54C\uB9C8\uB2E4 \uBC30\uC218 +15"
+  effectName: "\uB371\uC774 \uBE44\uC5C8\uC744 \uC2DC \uBC30\uC218 +5"
   type: 2
   trigger: 16
-  effectValue: 15
+  effectValue: 5
   blockTypes: 
   blockId: -1
   probability: 1

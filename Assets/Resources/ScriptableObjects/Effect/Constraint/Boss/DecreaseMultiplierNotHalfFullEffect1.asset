@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: DecreaseMultiplierNotHalfFullEffect1
   m_EditorClassIdentifier: 
   id: DecreaseMultiplierNotHalfFullEffect1
-  effectName: "\uBCF4\uB4DC\uC758 \uBC18 \uC774\uC0C1\uC774 \uCC28 \uC788\uC9C0 \uC54A\uB2E4\uBA74
-    \uBC30\uC218 -4"
+  effectName: "\uBCF4\uB4DC\uAC00 \uBC18 \uC774\uC0C1 \uCC28\uC788\uC9C0 \uC54A\uC73C\uBA74
+    \uBC30\uC218 -2"
   type: 2
   trigger: 20
-  effectValue: -4
+  effectValue: -2
   blockTypes: 
   blockId: -1
   probability: 1

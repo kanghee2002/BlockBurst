@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: ThreeClockEffect
   m_EditorClassIdentifier: 
   id: ThreeClockEffect
-  effectName: "\uC904\uC744 3\uBC88 \uC9C0\uC6B8 \uB54C\uB9C8\uB2E4 \uBC30\uC218
-    +1"
+  effectName: "3\uBC88 \uD074\uB9AC\uC5B4 \uC2DC\uB9C8\uB2E4 \uBC30\uC218 +1"
   type: 2
   trigger: 10
   effectValue: 1

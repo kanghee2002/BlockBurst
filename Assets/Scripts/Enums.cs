@@ -93,6 +93,16 @@ public enum ItemType
     ADD_BLOCK, DELETE_BLOCK, ITEM, UPGRADE
 }
 
+public enum ItemEffectType
+{
+    SCORE, DECK, GOLD, OTHER
+}
+
+public enum ItemRarity
+{
+    SILVER, GOLD, PLATINUM
+}
+
 public class Enums
 {
     public static bool IsDefaultBlockType(BlockType blockType)

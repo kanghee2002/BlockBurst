@@ -19,3 +19,5 @@ MonoBehaviour:
   cost: 10
   type: 2
   block: {fileID: 0}
+  effectType: 0
+  rarity: 2

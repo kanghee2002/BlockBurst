@@ -19,3 +19,5 @@ MonoBehaviour:
   cost: 2
   type: 1
   block: {fileID: 11400000, guid: c25c441b238b98245bd4070a8b26a3ef, type: 2}
+  effectType: 1
+  rarity: 0

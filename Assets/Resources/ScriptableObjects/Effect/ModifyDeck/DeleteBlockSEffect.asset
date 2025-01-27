@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DeleteBlockSEffect
   m_EditorClassIdentifier: 
   id: 
-  effectName: "\uB371\uC5D0 S \uBE14\uB85D\uC744 2\uAC1C \uC0AD\uC81C\uD568"
+  effectName: "S \uBE14\uB85D 2\uAC1C \uC0AD\uC81C"
   type: 0
   trigger: 0
   effectValue: 0

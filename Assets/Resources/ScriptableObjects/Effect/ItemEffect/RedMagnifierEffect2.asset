@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: RedMagnifierEffect2
   m_EditorClassIdentifier: 
   id: RedMagnifierEffect2
-  effectName: "\uAE30\uBCF8 \uBC30\uC218 +3"
+  effectName: "\uAE30\uBCF8 \uBC30\uC218 +4"
   type: 3
   trigger: 0
-  effectValue: 3
+  effectValue: 4
   blockTypes: 
   blockId: -1
   probability: 1

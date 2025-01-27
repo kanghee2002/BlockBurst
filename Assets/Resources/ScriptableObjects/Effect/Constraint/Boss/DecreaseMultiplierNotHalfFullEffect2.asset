@@ -16,7 +16,7 @@ MonoBehaviour:
   effectName: 
   type: 2
   trigger: 19
-  effectValue: 4
+  effectValue: 2
   blockTypes: 
   blockId: -1
   probability: 1

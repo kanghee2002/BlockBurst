@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BlueKeyEffect1
   m_EditorClassIdentifier: 
   id: BlueKeyEffect1
-  effectName: "Z/S \uBE14\uB85D \uC810\uC218 +20"
+  effectName: "Z/S \uC810\uC218 +20"
   type: 0
   trigger: 0
-  effectValue: 40
+  effectValue: 20
   blockTypes: 0200000003000000
   blockId: -1
   probability: 1

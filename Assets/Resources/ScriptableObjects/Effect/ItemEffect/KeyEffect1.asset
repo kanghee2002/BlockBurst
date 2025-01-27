@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: KeyEffect1
   m_EditorClassIdentifier: 
   id: KeyEffect1
-  effectName: "\uBAA8\uB4E0 \uAE30\uBCF8 \uBE14\uB85D \uC810\uC218 +50"
+  effectName: "\uBAA8\uB4E0 \uAE30\uBCF8 \uBE14\uB85D \uC810\uC218 +30"
   type: 0
   trigger: 0
-  effectValue: 50
+  effectValue: 30
   blockTypes: 00000000010000000200000003000000040000000500000006000000
   blockId: -1
   probability: 1

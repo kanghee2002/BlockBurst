@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: RedEggEffect
   m_EditorClassIdentifier: 
   id: RedEggEffect
-  effectName: "\uCC98\uC74C \uC904\uC774 \uC9C0\uC6CC\uC9C8 \uB54C \uBC30\uC218 +5"
+  effectName: "\uCC98\uC74C \uC904\uC774 \uC9C0\uC6CC\uC9C8 \uB54C \uBC30\uC218 +2"
   type: 2
   trigger: 15
-  effectValue: 5
+  effectValue: 2
   blockTypes: 
   blockId: -1
   probability: 1

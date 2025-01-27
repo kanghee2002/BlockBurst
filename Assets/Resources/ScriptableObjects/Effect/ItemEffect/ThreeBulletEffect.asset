@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: ThreeBulletEffect
   m_EditorClassIdentifier: 
   id: ThreeBulletEffect
-  effectName: "\uC138 \uC904\uC744 \uD55C \uBC88\uC5D0 \uC9C0\uC6B8 \uB54C \uBC30\uC218
-    +8"
+  effectName: "\uB450 \uC904\uC744 \uD55C \uBC88\uC5D0 \uC9C0\uC6B8 \uB54C \uBC30\uC218
+    +4"
   type: 2
   trigger: 8
-  effectValue: 8
+  effectValue: 4
   blockTypes: 
   blockId: -1
   probability: 1

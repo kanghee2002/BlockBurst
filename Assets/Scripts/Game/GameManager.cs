@@ -37,13 +37,6 @@ public class GameManager : MonoBehaviour
     StageData[] nextStageChoices = new StageData[STAGE_CHOICE_COUNT];
 
     private float scoreAnimationDelay;
-    
-    // --- temp ---
-    private float difficulty = 1.0f;
-    const float DIFFICULTY_COEF0 = 1.3f;
-    const float DIFFICULTY_COEF1 = 1.5f;
-
-    // --- temp ---
 
     // ------------------------------
     // GAME LAYER - start
@@ -163,8 +156,6 @@ public class GameManager : MonoBehaviour
     {
         // 선택된 스테이지로 진행
         StageData selectedStage = nextStageChoices[choiceIndex];
-        selectedStage.clearRequirement = (int)(selectedStage.clearRequirement * difficulty);
-        difficulty *= Random.Range(DIFFICULTY_COEF0, DIFFICULTY_COEF1); // 다음 스테이지 증가
 
         StartStage(selectedStage);
         GameUIManager.instance.OnStageStart(currentChapterIndex, currentStageIndex, selectedStage, blockGame);

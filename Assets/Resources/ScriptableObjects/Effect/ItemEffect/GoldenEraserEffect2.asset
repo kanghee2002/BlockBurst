@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: GoldenEraserEffect2
   m_EditorClassIdentifier: 
   id: GoldenEraserEffect2
-  effectName: "\uC904\uC744 \uC9C0\uC6B8 \uB54C \uACE8\uB4DC -1"
+  effectName: "\uC904\uC744 \uC9C0\uC6B8 \uB54C \uACE8\uB4DC -3"
   type: 9
   trigger: 9
-  effectValue: -1
+  effectValue: -3
   blockTypes: 
   blockId: -1
   probability: 1

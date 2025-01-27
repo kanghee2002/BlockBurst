@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: PuzzlePieceLEffect
   effectName: "L \uBE14\uB85D\uC744 \uBC30\uCE58\uD558\uC5EC \uC904\uC744 \uC9C0\uC6B8
-    \uB54C \uBC30\uC218 +2"
+    \uB54C \uBC30\uC218 +1"
   type: 2
   trigger: 3
-  effectValue: 2
+  effectValue: 1
   blockTypes: 05000000
   blockId: -1
   probability: 1

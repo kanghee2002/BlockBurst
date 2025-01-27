@@ -18,7 +18,7 @@ public class Board
     private bool hasMatched;
     private bool isHalfFull;
 
-    private List<Match> lastMatches;
+    private List<Match> lastMatches = new List<Match>();
 
     public void Initialize(BlockGameData blockGameData)
     {
@@ -49,7 +49,9 @@ public class Board
 
     public List<Match> GetLastMatches()
     {
-        return lastMatches;
+        var tmp = lastMatches.ToList();
+        lastMatches.Clear();
+        return tmp;
     }
 
     // 블록 배치 처리
@@ -184,12 +186,17 @@ public class Board
         CheckOnClearEffectBlocks();
 
         // 매치된 결과 저장
-        lastMatches = matches;
+        lastMatches.AddRange(matches);
 
         // 아이템 시각 효과 실행
         EffectManager.instance.EndTriggerEffectOnPlace(matches);
 
         CalculateScore(matches);
+
+        if (matches.Count > 0)
+        {
+            ResetMultiplier();
+        }
 
         TriggerHalfFullEffect(matches);
     }
@@ -339,7 +346,7 @@ public class Board
         CheckOnClearEffectBlocks();
 
         // 매치된 결과 저장
-        lastMatches = matches;
+        lastMatches.AddRange(matches);
 
         CalculateScore(matches);
 
@@ -360,7 +367,7 @@ public class Board
         CheckOnClearEffectBlocks();
 
         // 매치된 결과 저장
-        lastMatches = matches;
+        lastMatches.AddRange(matches);
 
         CalculateScore(matches);
 
@@ -389,12 +396,15 @@ public class Board
 
         Debug.Log("현재 배수: " + gameData.matchMultipliers[MatchType.ROW]);
 
-        // 배수 초기화
-        if (matches.Count > 0)
+        if (totalScore > 0)
         {
             Debug.Log("계산된 점수: " + totalScore);
-            gameData.matchMultipliers = new(GameManager.instance.runData.baseMatchMultipliers);
         }
+    }
+
+    private void ResetMultiplier()
+    {
+        gameData.matchMultipliers = new(GameManager.instance.runData.baseMatchMultipliers);
     }
 
     private void TriggerHalfFullEffect(List<Match> matches)

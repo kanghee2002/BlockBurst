@@ -14,10 +14,10 @@ public class StageManager : MonoBehaviour
 
     public void StartStage(StageData stage)
     {
+        EffectManager.instance.TriggerEffects(TriggerType.ON_ENTER_STAGE);
+
         currentStage = stage;
         ApplyConstraints();
-
-        EffectManager.instance.TriggerEffects(TriggerType.ON_ENTER_STAGE);
 
         EffectManager.instance.TriggerEffects(TriggerType.ON_BOARD_NOT_HALF_FULL);
 

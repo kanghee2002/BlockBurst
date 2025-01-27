@@ -22,7 +22,9 @@ public class ScoreCalculator : MonoBehaviour
 
     public int GetLastScore()
     {
-        return lastScore;
+        int tmp = lastScore;
+        lastScore = 0;
+        return tmp;
     }
 
     public int Calculate(Match match, BlockGameData data)
@@ -47,7 +49,7 @@ public class ScoreCalculator : MonoBehaviour
         Debug.Log("블록 점수: " + totalScore);
         Debug.Log("배수 : " + data.matchMultipliers[MatchType.ROW]);
 
-        lastScore = totalScore * data.matchMultipliers[MatchType.ROW];
+        lastScore += totalScore * data.matchMultipliers[MatchType.ROW];
 
         return totalScore * data.matchMultipliers[MatchType.ROW];
     }

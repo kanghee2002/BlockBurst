@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour
 
         StartNewRun();
 
-        scoreAnimationDelay = 0.05f;
+        scoreAnimationDelay = 0.025f;
     }
     
     public void EndGame(bool isWin)
@@ -459,15 +459,18 @@ public class GameManager : MonoBehaviour
         return success;
     }
 
-    public void ForceLineClear(MatchType matchType, List<int> indices)
+    public void ForceLineClear(List<(MatchType, List<int>)> lines)
     {
-        if (matchType == MatchType.ROW)
+        foreach ((MatchType matchType, List<int> indices) in lines) 
         {
-            board.ForceRowMatches(indices);
-        }
-        else if (matchType == MatchType.COLUMN)
-        {
-            board.ForceColumnMatches(indices);
+            if (matchType == MatchType.ROW)
+            {
+                board.ForceRowMatches(indices);
+            }
+            else if (matchType == MatchType.COLUMN)
+            {
+                board.ForceColumnMatches(indices);
+            }
         }
 
         // Match 처리된 결과 가져오기 및 애니메이션 실행

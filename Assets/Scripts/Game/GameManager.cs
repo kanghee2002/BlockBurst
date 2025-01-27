@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     public Board board;
 
     StageData[] nextStageChoices = new StageData[STAGE_CHOICE_COUNT];
+    float[] difficulties = new float[STAGE_CHOICE_COUNT];
 
     private float scoreAnimationDelay;
 
@@ -148,14 +149,13 @@ public class GameManager : MonoBehaviour
         {
             nextStageChoices[i] = templates[Random.Range(0, templates.Length)];
         }
-
         // 스테이지 목표 점수 설정
         for (int i = 0; i < nextStageChoices.Length; i++)
         {
             StageData stage = nextStageChoices[i];
-            gameData.difficulty *= gameData.stageBaseScoreMultipliers[Random.Range(0, gameData.stageBaseScoreMultipliers.Length)];
-            stage.clearRequirement = (int)(gameData.stageBaseScores * gameData.difficulty);
-            stage.goldReward = (int)(gameData.stageBaseReward * gameData.difficulty);
+            difficulties[i] = gameData.difficulty * Random.Range(gameData.stageBaseScoreMultipliers[0], gameData.stageBaseScoreMultipliers[1]);
+            stage.clearRequirement = (int)(gameData.stageBaseScores * difficulties[i] / 10f) * 10;
+            stage.goldReward = (int)(gameData.stageBaseReward * difficulties[i] / 10f) * 10;
         }
 
         // UI에 전달
@@ -166,6 +166,8 @@ public class GameManager : MonoBehaviour
     {
         // 선택된 스테이지로 진행
         StageData selectedStage = nextStageChoices[choiceIndex];
+
+        gameData.difficulty = difficulties[choiceIndex];
 
         StartStage(selectedStage);
         GameUIManager.instance.OnStageStart(currentChapterIndex, currentStageIndex, selectedStage, blockGame);

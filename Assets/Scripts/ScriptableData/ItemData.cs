@@ -11,4 +11,6 @@ public class ItemData : ScriptableObject
     public int cost;                   // 가격
     public ItemType type;              // 타입
     public BlockData block;            // 블록
+    public ItemEffectType effectType;  // 효과 타입
+    public ItemRarity rarity;          // 레어도
 }

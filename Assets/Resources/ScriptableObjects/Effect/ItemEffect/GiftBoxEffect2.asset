@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: GiftBoxEffect2
   m_EditorClassIdentifier: 
   id: GiftBoxEffect2
-  effectName: "\uB371\uC758 \uBAA8\uB4E0 \uD2B9\uC218 \uBE14\uB85D\uC744 2\uBC30\uB85C
-    \uBCF5\uC0AC"
+  effectName: "\uBAA8\uB4E0 \uD2B9\uC218 \uBE14\uB85D x2"
   type: 17
   trigger: 0
   effectValue: 2

@@ -16,6 +16,8 @@ MonoBehaviour:
   itemName: "Solo \uBE14\uB85D 2\uAC1C \uCD94\uAC00"
   effects:
   - {fileID: 11400000, guid: 7804b6837fb61e545bc59ffa6e8f69aa, type: 2}
-  cost: 5
+  cost: 4
   type: 0
   block: {fileID: 11400000, guid: 6234f1da19216ed49a71a7cf530e068b, type: 2}
+  effectType: 1
+  rarity: 1

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlueMagnifierEffect1
   m_EditorClassIdentifier: 
   id: BlueMagnifierEffect1
-  effectName: "\uBCF4\uB4DC \uD06C\uAE30 \uD55C \uCE78 \uC99D\uAC00"
+  effectName: "\uBCF4\uB4DC \uD06C\uAE30 +1"
   type: 11
   trigger: 22
   effectValue: 1

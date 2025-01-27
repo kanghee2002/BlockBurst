@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: BlockSoloEffect
   m_EditorClassIdentifier: 
   id: BlockSoloEffect
-  effectName: "\uC774 \uBE14\uB85D\uC774 \uBAA8\uB450 \uC9C0\uC6CC\uC9C8 \uB54C \uB9AC\uB864
-    \uD69F\uC218 +1"
+  effectName: "Solo \uC804\uBD80 \uD074\uB9AC\uC5B4 \uC2DC \uB9AC\uB864 \uD69F\uC218
+    +2"
   type: 5
   trigger: 4
-  effectValue: 1
+  effectValue: 2
   blockTypes: 07000000
   blockId: -1
   probability: 1

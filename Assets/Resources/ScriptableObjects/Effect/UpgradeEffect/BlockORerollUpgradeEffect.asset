@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: BlockORerollUpgradeEffect
   m_EditorClassIdentifier: 
   id: BlockORerollUpgradeEffect
-  effectName: "O \uBE14\uB85D\uC744 \uBC30\uCE58\uD558\uC5EC \uC904\uC744 \uC9C0\uC6B8
-    \uB54C \uB9AC\uB864 \uD69F\uC218 +1"
+  effectName: "O\uB85C \uD074\uB9AC\uC5B4 \uC2DC \uB9AC\uB864 +1"
   type: 5
   trigger: 3
   effectValue: 1

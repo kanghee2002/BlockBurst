@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: EraserEffect1
   m_EditorClassIdentifier: 
   id: EraserEffect1
-  effectName: "\uAE30\uBCF8 \uBC30\uC218 +5"
+  effectName: "\uAE30\uBCF8 \uBC30\uC218 +1"
   type: 3
   trigger: 0
-  effectValue: 5
+  effectValue: 1
   blockTypes: 
   blockId: -1
   probability: 1

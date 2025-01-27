@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BrokenKeyEffect2
   m_EditorClassIdentifier: 
   id: BrokenKeyEffect2
-  effectName: "\uB098\uBA38\uC9C0 \uAE30\uBCF8 \uBE14\uB85D\uB4E4 \uC810\uC218 +200"
+  effectName: "\uB098\uBA38\uC9C0 \uAE30\uBCF8 \uBE14\uB85D\uB4E4 \uC810\uC218 +15"
   type: 0
   trigger: 0
-  effectValue: 200
+  effectValue: 15
   blockTypes: 0200000003000000040000000500000006000000
   blockId: -1
   probability: 1

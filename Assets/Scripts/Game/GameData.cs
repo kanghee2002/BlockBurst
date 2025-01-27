@@ -24,16 +24,16 @@ public class GameData
         stagePool = new List<StageData>();
         startingGold = 10;
         defaultRerollCount = 3;
-        defaultBlockCount = 5;
+        defaultBlockCount = 3;
         
         // 기본 블록 점수 설정
         defaultBlockScores[BlockType.I] = 10;
-        defaultBlockScores[BlockType.O] = 15;
-        defaultBlockScores[BlockType.Z] = 30;
-        defaultBlockScores[BlockType.S] = 30;
-        defaultBlockScores[BlockType.J] = 20;
-        defaultBlockScores[BlockType.L] = 20;
-        defaultBlockScores[BlockType.T] = 20;
+        defaultBlockScores[BlockType.O] = 10;
+        defaultBlockScores[BlockType.Z] = 10;
+        defaultBlockScores[BlockType.S] = 10;
+        defaultBlockScores[BlockType.J] = 10;
+        defaultBlockScores[BlockType.L] = 10;
+        defaultBlockScores[BlockType.T] = 10;
         defaultBlockScores[BlockType.SOLO] = 10;
         defaultBlockScores[BlockType.DUO] = 10;
         defaultBlockScores[BlockType.TRIO] = 10;

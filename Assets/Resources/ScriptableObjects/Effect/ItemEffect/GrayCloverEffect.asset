@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: GrayCloverEffect
   m_EditorClassIdentifier: 
   id: GrayCloverEffect
-  effectName: "\uC904\uC744 \uC9C0\uC6B8 \uB54C\uB9C8\uB2E4 20% \uD655\uB960\uB85C
+  effectName: "\uC904\uC744 \uC9C0\uC6B8 \uB54C\uB9C8\uB2E4 30% \uD655\uB960\uB85C
     \uB9AC\uB864 \uD69F\uC218 +1"
   type: 5
   trigger: 9
   effectValue: 1
   blockTypes: 
   blockId: -1
-  probability: 0.2
+  probability: 0.3
   triggerValue: 0

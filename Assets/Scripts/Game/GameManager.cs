@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour
 
         StartNewRun();
 
-        scoreAnimationDelay = 0.1f;
+        scoreAnimationDelay = 0.05f;
     }
     
     public void EndGame(bool isWin)
@@ -166,6 +166,7 @@ public class GameManager : MonoBehaviour
     {
         // 선택된 스테이지로 진행
         StageData selectedStage = nextStageChoices[choiceIndex];
+
         StartStage(selectedStage);
         GameUIManager.instance.OnStageStart(currentChapterIndex, currentStageIndex, selectedStage, blockGame);
         GameUIManager.instance.BlockCells(GetInactiveBlockCells(blockGame));
@@ -232,7 +233,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator DelayedEndStage(bool cleared)
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(2.0f);
         EndStage(cleared);
     }
 

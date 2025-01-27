@@ -288,8 +288,6 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        UpdateBaseMultiplier();
-
         return res;
     }
 

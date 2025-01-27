@@ -105,6 +105,25 @@ public class BoardUI : MonoBehaviour
 
     private IEnumerator MatchAnimationCoroutine(List<Match> matches, Dictionary<Match, List<int>> scores, float delay)
     {
+        /*// 지워지는 셀들에 대해 ID 먼저 초기화
+        foreach (Match match in matches)
+        {
+            if (match.matchType == MatchType.ROW)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    boardCellsUI[match.index, x].SetBlockInfo("");
+                }
+            }
+            else if (match.matchType == MatchType.COLUMN)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    boardCellsUI[y, match.index].SetBlockInfo("");
+                }
+            }
+        }*/
+
         // 하이라이트 효과
         foreach (Match match in matches)
         {

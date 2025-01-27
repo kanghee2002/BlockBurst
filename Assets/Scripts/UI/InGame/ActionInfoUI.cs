@@ -10,8 +10,12 @@ public class ActionInfoUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI multiplierText;
     [SerializeField] private TextMeshProUGUI productText;
 
+    private float chipFontSize;
+
     public void Initialize(int _chip, int _multiplier, int _product)
     {
+        chipFontSize = chipText.fontSize;
+
         UpdateChip(_chip);
         UpdateMuliplier(_multiplier);
         UpdateProduct(_product);
@@ -19,12 +23,12 @@ public class ActionInfoUI : MonoBehaviour
     public void UpdateChip(int _chip)
     {
         chipText.text = _chip.ToString();
-        UIUtils.BounceText(chipText.transform, duration: 0.15f, strength: 0.5f);
+        BounceTextSize(chipText);
     }
     public void UpdateMuliplier(int _multiplier)
     {
         multiplierText.text = _multiplier.ToString();
-        UIUtils.BounceText(multiplierText.transform, duration: 0.15f, strength: 0.5f);
+        BounceTextSize(multiplierText);
     }
 
     public void AddMultiplier(int addingMultiplier)
@@ -32,7 +36,7 @@ public class ActionInfoUI : MonoBehaviour
         int multiplier = GetCurrentMultiplier() + addingMultiplier;
         multiplierText.text = multiplier.ToString();
 
-        UIUtils.BounceText(multiplierText.transform, duration: 0.15f, strength: 0.5f);
+        BounceTextSize(multiplierText);
     }
 
     public void UpdateProduct(int product)
@@ -42,7 +46,7 @@ public class ActionInfoUI : MonoBehaviour
         sequence.Append(DOTween.To(() => 0, x =>
         {
             productText.text = x.ToString();
-        }, product, 1f).SetEase(Ease.InSine));
+        }, product, 0.5f).SetEase(Ease.InSine));
         sequence.Join(productText.transform.DOPunchScale(Vector3.one * 1f, 
             duration: 0.5f, vibrato: 10, elasticity: 1f));
 
@@ -71,6 +75,16 @@ public class ActionInfoUI : MonoBehaviour
         chipText.transform.DOScale(Vector3.one, 1f);
     }
     
+    private void BounceTextSize(TextMeshProUGUI text, float duration = 0.15f, float punchSize = 10f)
+    {
+        float originalSize = text.fontSize;
+
+        DOTween.To(() => text.fontSize, x => text.fontSize = x, originalSize + punchSize, duration)
+        .SetLoops(2, LoopType.Yoyo)
+            .SetEase(Ease.OutQuad)
+            .OnKill(() => DOTween.To(() => text.fontSize, x => text.fontSize = x, chipFontSize, 0.2f));
+    }
+
     private int GetCurrentChip()
     {
         int chip = 0;

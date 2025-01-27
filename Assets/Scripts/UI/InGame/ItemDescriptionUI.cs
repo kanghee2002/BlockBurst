@@ -18,18 +18,18 @@ public class ItemDescriptionUI : MonoBehaviour, IPointerEnterHandler, IPointerEx
     // 효과 타입별 색상 정의
     private readonly Dictionary<ItemEffectType, Color> effectColors = new Dictionary<ItemEffectType, Color>()
     {
-        { ItemEffectType.SCORE, new Color(0x36/255f, 0xc5/255f, 0xf4/255f) }, // #36c5f4
-        { ItemEffectType.DECK, new Color(0x9d/255f, 0xe6/255f, 0x4e/255f) },  // #9de64e
-        { ItemEffectType.GOLD, new Color(0xf3/255f, 0xa8/255f, 0x33/255f) },  // #f3a833
-        { ItemEffectType.OTHER, new Color(0xcc/255f, 0x99/255f, 0xff/255f) }  // #cc99ff
+        { ItemEffectType.SCORE, new Color(0x0b/255f, 0xa9/255f, 0x05/255f) }, // #0ba905
+        { ItemEffectType.DECK, new Color(0x47/255f, 0x38/255f, 0xff/255f) },  // #4738ff
+        { ItemEffectType.GOLD, new Color(0xd9/255f, 0xa7/255f, 0x38/255f) },  // #d9a738
+        { ItemEffectType.OTHER, new Color(0xfc/255f, 0x8b/255f, 0x4d/255f) }  // #fc8b4d
     };
 
     // 레어도별 색상 정의
     private readonly Dictionary<ItemRarity, Color> rarityColors = new Dictionary<ItemRarity, Color>()
     {
         { ItemRarity.SILVER, new Color(0xb0/255f, 0xa7/255f, 0xb8/255f) },   // #b0a7b8
-        { ItemRarity.GOLD, new Color(0xf3/255f, 0xa8/255f, 0x33/255f) },     // #f3a833
-        { ItemRarity.PLATINUM, new Color(0x36/255f, 0xc5/255f, 0xf4/255f) }  // #36c5f4
+        { ItemRarity.GOLD, new Color(0xff/255f, 0xc8/255f, 0x57/255f) },     // #ffc857
+        { ItemRarity.PLATINUM, new Color(0xc0/255f, 0xf9/255f, 0xff/255f) }  // #c0f9ff
     };
 
     private void Awake()

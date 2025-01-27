@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlockLScoreUpgradeEffect
   m_EditorClassIdentifier: 
   id: BlockLScoreUpgradeEffect
-  effectName: "J \uC810\uC218 +5"
+  effectName: "L \uC810\uC218 +5"
   type: 0
   trigger: 0
   effectValue: 5

@@ -191,6 +191,11 @@ public class Board
 
         CalculateScore(matches);
 
+        if (matches.Count > 0)
+        {
+            ResetMultiplier();
+        }
+
         TriggerHalfFullEffect(matches);
     }
 
@@ -389,12 +394,15 @@ public class Board
 
         Debug.Log("현재 배수: " + gameData.matchMultipliers[MatchType.ROW]);
 
-        // 배수 초기화
-        if (matches.Count > 0)
+        if (totalScore > 0)
         {
             Debug.Log("계산된 점수: " + totalScore);
-            gameData.matchMultipliers = new(GameManager.instance.runData.baseMatchMultipliers);
         }
+    }
+
+    private void ResetMultiplier()
+    {
+        gameData.matchMultipliers = new(GameManager.instance.runData.baseMatchMultipliers);
     }
 
     private void TriggerHalfFullEffect(List<Match> matches)

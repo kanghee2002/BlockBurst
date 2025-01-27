@@ -51,7 +51,6 @@ public class GameUIManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else if (instance != this)
         {
@@ -341,6 +340,11 @@ public class GameUIManager : MonoBehaviour
     public void BackToMain()
     {
         GameManager.instance.BackToMain();
+    }
+
+    public void MakeNewRun()
+    {
+        GameManager.instance.MakeNewRun();
     }
 
     public void DisplayItemSet(List<ItemData> items)

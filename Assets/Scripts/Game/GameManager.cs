@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 using System.IO;
 using System;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -70,9 +71,25 @@ public class GameManager : MonoBehaviour
         blockTemplates = Resources.LoadAll<BlockData>("ScriptableObjects/Block");
     }
 
-    void Start()
+    void OnEnable()
     {
-        StartNewGame();
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "GameScene")
+        {
+            deckManager = FindObjectOfType<DeckManager>();
+            shopManager = FindObjectOfType<ShopManager>();
+            stageManager = FindObjectOfType<StageManager>();
+            StartNewGame();
+        }
     }
 
     public void StartNewGame()
@@ -99,7 +116,6 @@ public class GameManager : MonoBehaviour
         blockHistory = new int[Enum.GetValues(typeof(BlockType)).Length];
 
         StartNewRun();
-
     }
     
     public void EndGame(bool isWin)
@@ -119,6 +135,12 @@ public class GameManager : MonoBehaviour
     {
         // 메인 화면으로 돌아가기
         Debug.Log("Back to Main");
+        SceneManager.LoadScene("MainScene");
+    }
+
+    public void MakeNewRun()
+    {
+        StartNewGame();
     }
 
     // ------------------------------

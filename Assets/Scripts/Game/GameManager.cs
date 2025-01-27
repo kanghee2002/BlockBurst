@@ -133,7 +133,7 @@ public class GameManager : MonoBehaviour
 
         shopManager.Initialize(ref runData, itemTemplates);
 
-        UpdateDeckCount(gameData.defaultBlockCount, gameData.defaultBlockCount);
+        UpdateDeckCount(runData.availableBlocks.Count, runData.availableBlocks.Count);
 
         GameUIManager.instance.Initialize(runData);
         StartStageSelection();
@@ -224,6 +224,7 @@ public class GameManager : MonoBehaviour
             }
             StartShop(true);
             UpdateDeckCount(runData.availableBlocks.Count, runData.availableBlocks.Count);
+            UpdateBaseMultiplier();
         } 
         else 
         {
@@ -373,8 +374,6 @@ public class GameManager : MonoBehaviour
             DrawBlocks();
         }
         EffectManager.instance.EndTriggerEffect();
-
-        UpdateMultiplier();
     }
 
     public void PlayItemEffectAnimation(List<string> effectIdList, float matchAnimationTIme = 0f)
@@ -419,7 +418,7 @@ public class GameManager : MonoBehaviour
         int lastScore = ScoreCalculator.instance.GetLastScore();
         GameUIManager.instance.UpdateProduct(lastScore);
         GameUIManager.instance.UpdateChip(0);
-        GameUIManager.instance.UpdateMultiplier(0);
+        UpdateBaseMultiplier();
 
         yield return new WaitForSeconds(1.2f);
 
@@ -600,7 +599,7 @@ public class GameManager : MonoBehaviour
             case EffectType.BASEMULTIPLIER_MULTIPLIER:
                 description = "<color=red>X" + effect.effectValue + "</color>";
                 GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
-                UpdateBaseMultiplier();
+                UpdateMultiplier();
                 break;
             case EffectType.REROLL_MODIFIER:
             case EffectType.BASEREROLL_MODIFIER:

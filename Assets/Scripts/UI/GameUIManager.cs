@@ -61,8 +61,8 @@ public class GameUIManager : MonoBehaviour
 
     public void Initialize(RunData runData)
     {
-        goldInfoUI.Initialize(runData.gold);
-        actionInfoUI.Initialize(0, 0, 0);
+        goldInfoUI.Initialize(runData.gold); 
+        actionInfoUI.Initialize(_chip: 0, _multiplier: runData.baseMatchMultipliers[MatchType.ROW], _product: 0);
         runInfoUI.Initialize(runData);
         deckInfoUI.Initialize(runData);
         sceneState = SceneState.selecting;

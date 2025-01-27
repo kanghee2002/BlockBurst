@@ -14,6 +14,8 @@ public class EffectManager : MonoBehaviour
 
     private List<string> lastTriggeredEffects = new List<string>();
 
+    private List<(MatchType, List<int>)> forceClearedLines = new List<(MatchType, List<int>)>();
+
     private void Awake()
     {
         if (instance == null)
@@ -71,6 +73,12 @@ public class EffectManager : MonoBehaviour
     // 게임 중 블록을 놓았을 때, 시각 효과를 위해 호출
     public void EndTriggerEffectOnPlace(List<Match> matches)
     {
+        if (forceClearedLines.Count > 0)
+        {
+            GameManager.instance.ForceLineClear(forceClearedLines.ToList());
+            forceClearedLines.Clear();
+        }
+
         float matchAnimationTime = GameManager.instance.GetMatchAnimationTime(matches);
 
         GameManager.instance.PlayItemEffectAnimation(lastTriggeredEffects.ToList(), matchAnimationTIme: matchAnimationTime);
@@ -188,17 +196,17 @@ public class EffectManager : MonoBehaviour
                 // TODO
                 break;
             case EffectType.ROW_LINE_CLEAR:
-                GameManager.instance.ForceLineClear(MatchType.ROW, GetRandomIndices(blockGameData.boardRows, 1));
+                forceClearedLines.Add((MatchType.ROW, GetRandomIndices(blockGameData.boardRows, 1) ));
                 break;
             case EffectType.COLUMN_LINE_CLEAR:
-                GameManager.instance.ForceLineClear(MatchType.COLUMN, GetRandomIndices(blockGameData.boardColumns, 1));
+                forceClearedLines.Add((MatchType.COLUMN, GetRandomIndices(blockGameData.boardColumns, 1)));
                 break;
             case EffectType.RANDOM_LINE_CLEAR:
-                if (CheckProbability(0.5f)) GameManager.instance.ForceLineClear(MatchType.ROW, GetRandomIndices(blockGameData.boardRows, 1));
-                else GameManager.instance.ForceLineClear(MatchType.COLUMN, GetRandomIndices(blockGameData.boardColumns, 1));
+                if (CheckProbability(0.5f)) forceClearedLines.Add((MatchType.ROW, GetRandomIndices(blockGameData.boardRows, 1)));
+                else forceClearedLines.Add((MatchType.COLUMN, GetRandomIndices(blockGameData.boardColumns, 1)));
                 break;
             case EffectType.BOARD_CLEAR:
-                GameManager.instance.ForceLineClear(MatchType.ROW, Enumerable.Range(0, blockGameData.boardColumns).ToList());
+                forceClearedLines.Add((MatchType.ROW, Enumerable.Range(0, blockGameData.boardColumns).ToList()));
                 break;
             case EffectType.DRAW_BLOCK_COUNT_MODIFIER:
                 blockGameData.drawBlockCount = effect.effectValue;

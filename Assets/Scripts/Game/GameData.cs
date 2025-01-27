@@ -24,7 +24,7 @@ public class GameData
         defaultMatchMultipliers = new Dictionary<MatchType, int>();
         defaultBlocks = new List<BlockData>();
         stagePool = new List<StageData>();
-        startingGold = 10;
+        startingGold = 0;
         defaultRerollCount = 3;
         defaultBlockCount = 3;
         
@@ -52,7 +52,7 @@ public class GameData
         stageBaseScoreMultipliers = new float[3] { 1.3f, 1.5f, 2f };
 
         stageBaseScores = 100;
-        stageBaseReward = 10;
+        stageBaseReward = 5;
         difficulty = 1.0f;
     }
 }

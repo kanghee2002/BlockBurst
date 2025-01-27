@@ -361,4 +361,9 @@ public class GameUIManager : MonoBehaviour
     {
         boardUI.BlockCells(cells);
     }
+
+    public void ENDSTAGE()
+    {
+        GameManager.instance.EndStage(true);
+    }
 }

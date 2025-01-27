@@ -96,6 +96,10 @@ public class GameManager : MonoBehaviour
     {
         // 각종 초기화
         Debug.Log("Game Start");
+
+        currentChapterIndex = 1;
+        currentStageIndex = 1;
+
         gameData = new GameData();
         gameData.Initialize();
         

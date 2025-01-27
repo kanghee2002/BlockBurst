@@ -60,11 +60,8 @@ public class BoardCellUI : MonoBehaviour
         cellImage.color = originalColor;
     }
 
-    public void CopyVisualFrom(Transform cellUI) 
+    public void CopyVisualFrom(Transform cellUI)
     {
-        DOTween.Kill(transform);
-        DOTween.Kill(cellImage);
-
         GetComponent<Image>().sprite = cellUI.GetComponent<Image>().sprite;
         ClearShadow();
     }
@@ -124,7 +121,7 @@ public class BoardCellUI : MonoBehaviour
     }
 
     public void PlayHighlightAnimation() {
-        if (isBlocked || blockId != "") return;
+        if (isBlocked) return;
 
         cellImage.sprite = originalSprite;
         cellImage.color = originalColor;
@@ -133,7 +130,7 @@ public class BoardCellUI : MonoBehaviour
     }
 
     public void PlayClearAnimation() {
-        if (isBlocked || blockId != "") return;
+        if (isBlocked) return;
 
         Vector3 originalScale = transform.localScale;
 
@@ -150,13 +147,14 @@ public class BoardCellUI : MonoBehaviour
         sequence.OnComplete(() => 
         {
             transform.localScale = originalScale;
+            ClearCell();
         });
     }
 
     // 점수 표시 애니메이션
     public void PlayScoreAnimation(int score)
     {
-        if (isBlocked || blockId != "") return;
+        if (isBlocked) return;
 
         textTransform.gameObject.SetActive(true);
         scoreText.text = score.ToString();

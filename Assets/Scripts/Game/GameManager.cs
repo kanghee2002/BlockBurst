@@ -145,11 +145,24 @@ public class GameManager : MonoBehaviour
         // stage Template에서 stagetype이 맞는 것을 랜덤하게 추출
         StageType stageType = currentStageIndex == 3 ? StageType.BOSS : StageType.NORMAL;
         var templates = stageTemplates.Where(stage => stage.type == stageType).ToArray();
+        
+        // 사용할 인덱스들을 미리 섞어서 준비
+        List<int> indices = Enumerable.Range(0, templates.Length).ToList();
+        for (int i = indices.Count - 1; i > 0; i--)
+        {
+            int j = Random.Range(0, i + 1);
+            int temp = indices[i];
+            indices[i] = indices[j];
+            indices[j] = temp;
+        }
+
+        // 섞인 인덱스에서 필요한 만큼만 가져와서 사용
         for (int i = 0; i < nextStageChoices.Length; i++)
         {
-            nextStageChoices[i] = templates[Random.Range(0, templates.Length)];
+            nextStageChoices[i] = templates[indices[i]];
         }
-        // 스테이지 목표 점수 설정
+
+        // 스테이지 난이도 설정
         for (int i = 0; i < nextStageChoices.Length; i++)
         {
             StageData stage = nextStageChoices[i];

@@ -134,7 +134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.9960785, g: 0.5137255, b: 0.5137255, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -625,6 +625,7 @@ GameObject:
   - component: {fileID: 1654521410120293269}
   - component: {fileID: 698813314846180808}
   - component: {fileID: 923524967307170101}
+  - component: {fileID: 8042324968214406833}
   m_Layer: 5
   m_Name: DescriptionUI
   m_TagString: Untagged
@@ -675,7 +676,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -691,6 +692,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &8042324968214406833
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6147930295243249184}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &6571797250403315607
 GameObject:
   m_ObjectHideFlags: 0
@@ -837,6 +850,7 @@ GameObject:
   - component: {fileID: 2464397217072122265}
   - component: {fileID: 4744537772526566087}
   - component: {fileID: 5464528622014715731}
+  - component: {fileID: 7873484853049470810}
   m_Layer: 5
   m_Name: ItemUI
   m_TagString: Untagged
@@ -921,6 +935,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemDescriptionUI: {fileID: 6147930295243249184}
+  fadeTime: 0.2
+--- !u!225 &7873484853049470810
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7193063742566573687}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &7514838180897071597
 GameObject:
   m_ObjectHideFlags: 0
@@ -1114,7 +1141,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 0.514151, b: 0.514151, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

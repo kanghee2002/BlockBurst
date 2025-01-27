@@ -41,6 +41,14 @@ public class ShopManager : MonoBehaviour
         }
         ItemData item = currentItems[0];
         currentItems.RemoveAt(0);
+
+        if (item.type == ItemType.ADD_BLOCK ||
+            item.type == ItemType.DELETE_BLOCK ||
+            item.type == ItemType.UPGRADE)
+        {
+            AddItem(item);
+        }
+
         return item;
     }
 

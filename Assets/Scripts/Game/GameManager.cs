@@ -210,7 +210,6 @@ public class GameManager : MonoBehaviour
         if (cleared)
         {
             stageManager.GrantReward();
-            GameUIManager.instance.UpdateGold(runData.gold);
             if (stageManager.currentStage.type == StageType.BOSS)
             {
                 currentChapterIndex++;
@@ -243,7 +242,7 @@ public class GameManager : MonoBehaviour
         {
             shopItems.Add(shopManager.PopItem());
         }
-        GameUIManager.instance.OnShopStart(shopItems, isFirst);   
+        GameUIManager.instance.OnShopStart(shopItems, shopManager.rerollCost, isFirst);   
     }
 
     public int OnItemPurchased(int index)
@@ -254,6 +253,10 @@ public class GameManager : MonoBehaviour
         if (res != -1)
         {
             GameUIManager.instance.DisplayItemSet(runData.activeItems);
+        }
+        else
+        {
+            UpdateGold(0);
         }
         EffectManager.instance.EndTriggerEffect();
 
@@ -273,9 +276,30 @@ public class GameManager : MonoBehaviour
 
     public void OnShopReroll()
     {
+        if (runData.gold < shopManager.rerollCost)
+        {
+            UpdateGold(0);
+            return;
+        }
+
+        UpdateGold(-shopManager.rerollCost);
         List<ItemData> remains = shopItems.Where(item => item != null).ToList();
         StartShop();
         shopManager.RerollShop(remains);
+    }
+
+    public void UpdateGold(int value, bool isMultiplying = false)
+    {
+        if (isMultiplying)
+        {
+            runData.gold *= value;
+        }
+        else
+        {
+            runData.gold += value;
+            if (runData.gold < 0) runData.gold = 0;
+        }
+        GameUIManager.instance.UpdateGold(runData.gold);
     }
     // ------------------------------
     // RUN LAYER - end

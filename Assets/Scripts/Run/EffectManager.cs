@@ -150,11 +150,10 @@ public class EffectManager : MonoBehaviour
                 blockGameData.rerollCount *= effect.effectValue;
                 break;
             case EffectType.GOLD_MODIFIER:
-                runData.gold += effect.effectValue;
-                if (runData.gold < 0) runData.gold = 0;
+                GameManager.instance.UpdateGold(effect.effectValue);
                 break;
             case EffectType.GOLD_MULTIPLIER:
-                runData.gold *= effect.effectValue;
+                GameManager.instance.UpdateGold(effect.effectValue, isMultiplying: true);
                 break;
             case EffectType.BOARD_SIZE_MODIFIER:
                 blockGameData.boardRows += effect.effectValue;

@@ -10,6 +10,7 @@ public class ItemBoardUI : MonoBehaviour
     private RectTransform rectTransform;
     [SerializeField] private Transform itemShowcaseTransform;
     [SerializeField] private GameObject itemPrefab;
+    [SerializeField] private TextMeshProUGUI rerollCostText;
     GameObject[] itemUIs;
 
     private const float insidePositionY = -128; // 도착할 Y 위치
@@ -22,7 +23,7 @@ public class ItemBoardUI : MonoBehaviour
         rectTransform.anchoredPosition = new Vector2(192, insidePositionY + outsidePositionOffsetY);
     }
     
-    public void Initialize(List<ItemData> items)
+    public void Initialize(List<ItemData> items, int rerollCost)
     {   
         gameObject.SetActive(true);
         // 기존 itemUI 삭제
@@ -47,6 +48,8 @@ public class ItemBoardUI : MonoBehaviour
 
             itemUI.GetComponent<ItemDescriptionUI>().Initialize(items[currentIndex]);
         }
+
+        rerollCostText.text = "$" + rerollCost;
     }
 
     public void OpenItemBoardUI()

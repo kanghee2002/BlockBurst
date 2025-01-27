@@ -7,7 +7,9 @@ public class ShopManager : MonoBehaviour
     private RunData runData;
     private List<ItemData> currentItems;
 
-    public DeckManager deckManager;
+    private DeckManager deckManager;
+
+    [HideInInspector] public int rerollCost = 3;
 
     public void Initialize(ref RunData data, ItemData[] items)
     {
@@ -27,7 +29,7 @@ public class ShopManager : MonoBehaviour
             return -1;
         } 
         else {
-            runData.gold -= item.cost;
+            GameManager.instance.UpdateGold(-item.cost);
             ApplyItem(item);
             return runData.gold;
         }

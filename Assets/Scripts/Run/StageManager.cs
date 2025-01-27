@@ -42,7 +42,7 @@ public class StageManager : MonoBehaviour
     public void GrantReward()
     {
         // 보상 지급
-        runData.gold += currentStage.goldReward;
+        GameManager.instance.UpdateGold(currentStage.goldReward);
         RemoveConstraints();
     }
 

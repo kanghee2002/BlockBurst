@@ -7492,6 +7492,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemShowcaseTransform: {fileID: 299935733}
   itemPrefab: {fileID: 7193063742566573687, guid: f8dd76b756fadac4395881803f843a4e, type: 3}
+  rerollCostText: {fileID: 666947271}
 --- !u!1 &855963759 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2725497868016357453, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
@@ -11541,6 +11542,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deckManager: {fileID: 0}
+  rerollCost: 3
 --- !u!1 &1359025487
 GameObject:
   m_ObjectHideFlags: 0

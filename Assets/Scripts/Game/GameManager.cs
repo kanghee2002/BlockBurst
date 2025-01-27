@@ -44,6 +44,8 @@ public class GameManager : MonoBehaviour
     public float startTime; // 게임 시작 시간
     public int[] blockHistory;
 
+    bool isClearStage = false; // 중복 방지 플래그
+
     // ------------------------------
     // GAME LAYER - start
     // ------------------------------
@@ -268,6 +270,8 @@ public class GameManager : MonoBehaviour
         deckManager.Initialize(ref blockGame, ref runData);
 
         DrawBlocks();
+
+        isClearStage = false;
     }
 
     public void EndStage(bool cleared)
@@ -502,8 +506,9 @@ public class GameManager : MonoBehaviour
                 GameUIManager.instance.PlayMatchAnimation(matches, scores, scoreAnimationDelay);
             }
 
-            if (stageManager.CheckStageClear(blockGame))
+            if (!isClearStage && stageManager.CheckStageClear(blockGame))
             {
+                isClearStage = true;
                 StartCoroutine(DelayedEndStage(true));
             }
         }

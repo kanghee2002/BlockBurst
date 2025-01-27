@@ -73,13 +73,29 @@ public class EffectManager : MonoBehaviour
     // 게임 중 블록을 놓았을 때, 시각 효과를 위해 호출
     public void EndTriggerEffectOnPlace(List<Match> matches)
     {
+        float matchAnimationTime = 0f;
         if (forceClearedLines.Count > 0)
         {
+            // matches에 강제 처리된 매치가 없기 때문에 생성 필요
+            List<Match> forceClearedMatches = new List<Match>();
+            foreach ((MatchType matchType, List<int> indices) in forceClearedLines)
+            {
+                foreach (int index in indices)
+                {
+                    Match match = new Match()
+                    {
+                        matchType = matchType,
+                    };
+                    forceClearedMatches.Add(match);
+                }
+            }
+            matchAnimationTime += GameManager.instance.GetMatchAnimationTime(forceClearedMatches);
+
             GameManager.instance.ForceLineClear(forceClearedLines.ToList());
             forceClearedLines.Clear();
         }
 
-        float matchAnimationTime = GameManager.instance.GetMatchAnimationTime(matches);
+        matchAnimationTime += GameManager.instance.GetMatchAnimationTime(matches);
 
         GameManager.instance.PlayItemEffectAnimation(lastTriggeredEffects.ToList(), matchAnimationTIme: matchAnimationTime);
         lastTriggeredEffects.Clear();

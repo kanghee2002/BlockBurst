@@ -63,7 +63,6 @@ public class GameUIManager : MonoBehaviour
     {
         goldInfoUI.Initialize(runData.gold); 
         actionInfoUI.Initialize(_chip: 0, _multiplier: runData.baseMatchMultipliers[MatchType.ROW], _product: 0);
-        runInfoUI.Initialize(runData);
         deckInfoUI.Initialize(runData);
         sceneState = SceneState.selecting;
         OpenSceneState(sceneState);
@@ -77,8 +76,14 @@ public class GameUIManager : MonoBehaviour
         if (popupState == PopupState.none)
         {
             popupState = PopupState.runInfo;
+            GameManager.instance.OnRunInfoRequested();
             runInfoUI.OpenRunInfoUI();
         }
+    }
+
+    public void OnRunInfoCallback(RunData runData, float startTime, BlockType mostPlacedBlockType)
+    {
+        runInfoUI.Initialize(runData, startTime, mostPlacedBlockType);
     }
 
     public void OnRunInfoBackButtonUIPressed()

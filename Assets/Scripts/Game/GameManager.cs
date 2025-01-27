@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System.IO;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -38,6 +39,9 @@ public class GameManager : MonoBehaviour
     float[] difficulties = new float[STAGE_CHOICE_COUNT];
 
     private float scoreAnimationDelay;
+
+    public float startTime; // 게임 시작 시간
+    public int[] blockHistory;
 
     // ------------------------------
     // GAME LAYER - start
@@ -89,10 +93,13 @@ public class GameManager : MonoBehaviour
                 gameData.defaultBlocks.Add(blockData);
             }
         }
+        startTime = Time.time;
+        scoreAnimationDelay = 0.025f;
+
+        blockHistory = new int[Enum.GetValues(typeof(BlockType)).Length];
 
         StartNewRun();
 
-        scoreAnimationDelay = 0.025f;
     }
     
     public void EndGame(bool isWin)
@@ -137,7 +144,16 @@ public class GameManager : MonoBehaviour
         UpdateDeckCount(runData.availableBlocks.Count, runData.availableBlocks.Count);
 
         GameUIManager.instance.Initialize(runData);
+
         StartStageSelection();
+    }
+
+    public void OnRunInfoRequested()
+    {
+        // 최대로 사용된 블록 찾기
+        BlockType mostPlacedBlockType = (BlockType)blockHistory.ToList().IndexOf(blockHistory.Max());
+        // Run 정보 UI 열기
+        GameUIManager.instance.OnRunInfoCallback(runData, startTime, mostPlacedBlockType);
     }
 
     public void StartStageSelection()
@@ -150,7 +166,7 @@ public class GameManager : MonoBehaviour
         List<int> indices = Enumerable.Range(0, templates.Length).ToList();
         for (int i = indices.Count - 1; i > 0; i--)
         {
-            int j = Random.Range(0, i + 1);
+            int j = UnityEngine.Random.Range(0, i + 1);
             int temp = indices[i];
             indices[i] = indices[j];
             indices[j] = temp;
@@ -166,7 +182,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < nextStageChoices.Length; i++)
         {
             StageData stage = nextStageChoices[i];
-            difficulties[i] = gameData.difficulty * Random.Range(gameData.stageBaseScoreMultipliers[0], gameData.stageBaseScoreMultipliers[1]);
+            difficulties[i] = gameData.difficulty * UnityEngine.Random.Range(gameData.stageBaseScoreMultipliers[0], gameData.stageBaseScoreMultipliers[1]);
             stage.clearRequirement = (int)(gameData.stageBaseScores * difficulties[i] / 10f) * 10;
             stage.goldReward = (int)(gameData.stageBaseReward * difficulties[i]);
         }
@@ -443,6 +459,8 @@ public class GameManager : MonoBehaviour
         Block block = handBlocks[idx];
         bool success = board.PlaceBlock(block, pos);
         if (success) {
+            blockHistory[(int)handBlocksData[idx].type]++;  // 블록 히스토리 업데이트
+
             // 손에서 블록 제거
             handBlocks[idx] = null;
             handBlocksData[idx] = null;

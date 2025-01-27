@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlockBoardEightEffect
   m_EditorClassIdentifier: 
   id: BlockBoardEightEffect
-  effectName: "\uBB34\uC791\uC704 8\uCE78 \uB9C9\uD798"
+  effectName: "\uBB34\uC791\uC704 8\uCE78 \uC81C\uD55C"
   type: 13
   trigger: 0
   effectValue: 8

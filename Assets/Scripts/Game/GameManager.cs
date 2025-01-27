@@ -132,7 +132,8 @@ public class GameManager : MonoBehaviour
         stageManager.Initialize(ref runData);
 
         shopManager.Initialize(ref runData, itemTemplates);
-        GameUIManager.instance.DisplayDeckCount(gameData.defaultBlockCount, gameData.defaultBlockCount);
+
+        UpdateDeckCount(gameData.defaultBlockCount, gameData.defaultBlockCount);
 
         GameUIManager.instance.Initialize(runData);
         StartStageSelection();
@@ -221,6 +222,7 @@ public class GameManager : MonoBehaviour
                 currentStageIndex++;
             }
             StartShop(true);
+            UpdateDeckCount(runData.availableBlocks.Count, runData.availableBlocks.Count);
         } 
         else 
         {
@@ -301,6 +303,28 @@ public class GameManager : MonoBehaviour
         }
         GameUIManager.instance.UpdateGold(runData.gold);
     }
+
+    public void UpdateRerollCount(int value, bool isMultiplying = false)
+    {
+        // RunData.RerollCount는 플레이 중 드러나지 않으므로 처리 X
+        if (isMultiplying)
+        {
+            blockGame.rerollCount *= value;
+        }
+        else
+        {
+            blockGame.rerollCount += value;
+            if (blockGame.rerollCount < 0) blockGame.rerollCount = 0;
+        }
+
+        GameUIManager.instance.DisplayRerollCount(blockGame.rerollCount);
+    }
+
+    public void UpdateDeckCount(int deckCount, int maxDeckCount)
+    {
+        GameUIManager.instance.DisplayDeckCount(deckCount, maxDeckCount);
+    }
+
     // ------------------------------
     // RUN LAYER - end
     // ------------------------------
@@ -331,7 +355,7 @@ public class GameManager : MonoBehaviour
             handBlocks[i].Initialize(handBlocksData[i], blockId++);
         }
         GameUIManager.instance.OnBlocksDrawn(handBlocks);
-        GameUIManager.instance.DisplayDeckCount(blockGame.deck.Count, runData.availableBlocks.Count);
+        UpdateDeckCount(blockGame.deck.Count, runData.availableBlocks.Count);
     }
 
     public void OnRerolled()
@@ -345,7 +369,6 @@ public class GameManager : MonoBehaviour
                 EffectManager.instance.TriggerEffects(TriggerType.ON_REROLL_WITHOUT_PLACE);
             }
             EffectManager.instance.TriggerEffects(TriggerType.ON_REROLL);
-            GameUIManager.instance.DisplayRerollCount(blockGame.rerollCount);
             DrawBlocks();
         }
         EffectManager.instance.EndTriggerEffect();

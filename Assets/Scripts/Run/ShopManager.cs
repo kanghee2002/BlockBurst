@@ -102,6 +102,12 @@ public class ShopManager : MonoBehaviour
                 EffectManager.instance.AddEffect(effect);
             }
         }
+
+        if (item.type == ItemType.ADD_BLOCK ||
+            item.type == ItemType.DELETE_BLOCK)
+        {
+            GameManager.instance.UpdateDeckCount(runData.availableBlocks.Count, runData.availableBlocks.Count);
+        }
     }
 
     public void UpgradeBlock(BlockData block, EffectData effect)

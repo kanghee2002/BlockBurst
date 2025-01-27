@@ -58,44 +58,41 @@ public class ItemBoardUI : MonoBehaviour
 
         for (int i = 0; i < itemUIs.Length; i++)
         {
-            if (itemUIs[i] != null)
-            {
-                int index = i;
-                GameObject card = itemUIs[i];
-                Vector3 originalPosition = card.transform.localPosition;
+            int index = i;
+            GameObject card = itemUIs[i];
+            Vector3 originalPosition = card.transform.localPosition;
 
-                DOTween.Kill(card.transform);
-                DOTween.Kill(card.GetComponent<CanvasGroup>());
+            DOTween.Kill(card.transform);
+            DOTween.Kill(card.GetComponent<CanvasGroup>());
 
-                // 간단한 시퀀스: 올라가면서 흔들거리다가 -> 데이터 변경 -> 내려오면서 멈춤
-                Sequence cardSequence = DOTween.Sequence();
-                
-                // 좌우 흔들기
-                cardSequence.Append(card.transform.DOLocalMoveY(originalPosition.y + jumpHeight, duration)
-                    .SetEase(Ease.OutQuad));
-                cardSequence.Join(card.transform.DORotate(new Vector3(0, 0, rotateAmount), duration/4)
-                    .SetLoops(4, LoopType.Yoyo)
-                    .SetEase(Ease.Linear));
+            // 간단한 시퀀스: 올라가면서 흔들거리다가 -> 데이터 변경 -> 내려오면서 멈춤
+            Sequence cardSequence = DOTween.Sequence();
+            
+            // 좌우 흔들기
+            cardSequence.Append(card.transform.DOLocalMoveY(originalPosition.y + jumpHeight, duration)
+                .SetEase(Ease.OutQuad));
+            cardSequence.Join(card.transform.DORotate(new Vector3(0, 0, rotateAmount), duration/4)
+                .SetLoops(4, LoopType.Yoyo)
+                .SetEase(Ease.Linear));
 
-                // 데이터 변경
-                cardSequence.AppendCallback(() => {
-                    if (index < items.Count)
-                    {
-                        SetImage(card, items[index]);
-                        card.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = items[index].itemName;
-                        card.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "$" + items[index].cost.ToString();
-                        card.GetComponent<ItemDescriptionUI>().Initialize(items[index]);
-                    }
-                });
+            // 데이터 변경
+            cardSequence.AppendCallback(() => {
+                if (index < items.Count)
+                {
+                    SetImage(card, items[index]);
+                    card.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = items[index].itemName;
+                    card.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "$" + items[index].cost.ToString();
+                    card.GetComponent<ItemDescriptionUI>().Initialize(items[index]);
+                }
+            });
 
-                // 내려오기
-                cardSequence.Append(card.transform.DOLocalMove(originalPosition, duration));
-                cardSequence.Join(card.transform.DORotate(Vector3.zero, duration));
-                cardSequence.Join(card.GetComponent<CanvasGroup>().DOFade(1, duration));
+            // 내려오기
+            cardSequence.Append(card.transform.DOLocalMove(originalPosition, duration));
+            cardSequence.Join(card.transform.DORotate(Vector3.zero, duration));
+            cardSequence.Join(card.GetComponent<CanvasGroup>().DOFade(1, duration));
 
-                cardSequence.SetDelay(i * staggerTime);
-                cardSequence.Play();
-            }
+            cardSequence.SetDelay(i * staggerTime);
+            cardSequence.Play();
         }
 
         rerollCostText.text = "$" + rerollCost;
@@ -126,7 +123,7 @@ public class ItemBoardUI : MonoBehaviour
 
     public void PurchaseItem(int idx)
     {
-        Destroy(itemUIs[idx]);
+        itemUIs[idx].GetComponent<CanvasGroup>().alpha = 0;
     }
 
     public void ClearItemShowcaseUI()

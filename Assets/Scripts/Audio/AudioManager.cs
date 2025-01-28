@@ -166,6 +166,10 @@ public class AudioManager : MonoBehaviour
         RuntimeManager.PlayOneShot("event:/shop_buy");
     }
 
+    public void SFXShopFail() { // 상점 구매 실패 효과음
+        SFXPlaceFail(); // 임시로 배치 실패 효과음으로 대체
+    }
+
     public void SFXMatch(int quantity = 8) { // 매치해서 터질 때 재생
         EventInstance matchSFX = RuntimeManager.CreateInstance("event:/match");
         matchSFX.setParameterByName("quantity", quantity);

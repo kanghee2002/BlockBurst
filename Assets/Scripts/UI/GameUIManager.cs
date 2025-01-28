@@ -170,6 +170,10 @@ public class GameUIManager : MonoBehaviour
 
             AudioManager.instance.SFXShopBuy();
         }
+        else
+        {
+            AudioManager.instance.SFXShopFail();
+        }
     }
 
     public void OnItemRerollButtonUIPressed()

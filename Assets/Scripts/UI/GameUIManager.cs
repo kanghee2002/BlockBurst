@@ -186,8 +186,6 @@ public class GameUIManager : MonoBehaviour
     {
         if (sceneState == SceneState.selecting && popupState == PopupState.none)
         {
-            AudioManager.instance.ShopTransitionOut();
-
             GameManager.instance.OnStageSelection(choiceIndex);
         }
     }
@@ -216,8 +214,18 @@ public class GameUIManager : MonoBehaviour
         sceneState = stateToSet;
 
         StartCoroutine(ChangeSceneStateCoroutine(prevState, sceneState));
-
-        AudioManager.instance.SFXtransition();
+        if (prevState == SceneState.selecting && sceneState == SceneState.shopping)
+        {
+            AudioManager.instance.ShopTransitionIn();
+        }
+        else if (prevState == SceneState.shopping && sceneState == SceneState.selecting)
+        {
+            AudioManager.instance.ShopTransitionOut();
+        }
+        else 
+        {
+            AudioManager.instance.SFXtransition();
+        }
     }
 
     private IEnumerator ChangeSceneStateCoroutine(SceneState prevState, SceneState stateToSet)
@@ -306,8 +314,6 @@ public class GameUIManager : MonoBehaviour
             ChangeSceneState(SceneState.shopping);
         }
         itemBoardUI.Initialize(items, rerollCost);
-
-        AudioManager.instance.ShopTransitionIn();
     }
 
     public void OnBlockPlaced(GameObject blockObj, Block block, Vector2Int pos) {

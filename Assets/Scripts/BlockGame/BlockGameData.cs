@@ -10,13 +10,14 @@ public class BlockGameData
     public int currentScore;                                            // 현재 점수
     public int moveCount;                                               // 이동 횟수
     public bool isCornerBlocked;                                        // 가장자리 막혔는지
-    public int inactiveCellCount;                                       // 비활성 블럭 셀
+    public int inactiveCellCount;                                       // 비활성 블록 셀 수
     public List<BlockData> deck;                                        // 덱
     public int rerollCount;                                             // 리롤 횟수
     public int drawBlockCount;                                          // 드로우 블록 수
     public int boardRows;                                               // 보드 행
     public int boardColumns;                                            // 보드 열
     public bool isDeckEmpty;                                            // 
+    public HashSet<Vector2Int> inactiveCells;                           // 비활성 블록 셀
 
     public void Initialize(RunData runData)
     {
@@ -32,5 +33,6 @@ public class BlockGameData
         boardRows = runData.baseBoardRows;
         boardColumns = runData.baseBoardColumns;
         isDeckEmpty = false;
+        inactiveCells = new HashSet<Vector2Int>();
     }
 }

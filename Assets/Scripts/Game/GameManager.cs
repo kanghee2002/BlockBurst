@@ -462,6 +462,24 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(matchAnimationTIme);
 
+        // 임시 구현 (블록 강화 시각 효과)
+        foreach (string effectId in effectIdList)
+        {
+            bool isItemEffect = runData.activeItems
+                                .Any(item => item.effects
+                                .Any(effect => effect.id == effectId));
+            if (!isItemEffect)
+            {
+                EffectData effect = runData.activeEffects.Find(x => x.id == effectId);
+
+                if (effect.type == EffectType.MULTIPLIER_MODIFIER)
+                {
+                    UpdateMultiplierByAdd(effect.effectValue);
+                }
+            }
+        }
+
+
         int delayCount = 0;
         float delay = 0.5f;
         for (int i = 0; i < runData.activeItems.Count; i++)

@@ -248,7 +248,7 @@ public class GameManager : MonoBehaviour
             inactiveBlockCells.Add(new Vector2Int(data.boardRows - 1, 0));
             inactiveBlockCells.Add(new Vector2Int(data.boardRows - 1, data.boardColumns - 1));
         }
-        inactiveBlockCells.AddRange(GetRandomBlockCells(data));
+        inactiveBlockCells.Union(GetRandomBlockCells(data));
         return inactiveBlockCells;
     }
 

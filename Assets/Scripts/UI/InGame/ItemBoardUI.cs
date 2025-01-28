@@ -12,6 +12,7 @@ public class ItemBoardUI : MonoBehaviour
     [SerializeField] private GameObject itemPrefab;
     [SerializeField] private TextMeshProUGUI rerollCostText;
     GameObject[] itemUIs;
+    Vector3[] originalPositions;
 
     private const float insidePositionY = -128; // 도착할 Y 위치
     private const float outsidePositionOffsetY = -800; // 숨겨질 Y 위치
@@ -58,12 +59,19 @@ public class ItemBoardUI : MonoBehaviour
 
         for (int i = 0; i < itemUIs.Length; i++)
         {
+            itemUIs[i].GetComponent<CanvasGroup>().blocksRaycasts = false;
+        }
+
+        for (int i = 0; i < itemUIs.Length; i++)
+        {
             int index = i;
             GameObject card = itemUIs[i];
-            Vector3 originalPosition = card.transform.localPosition;
 
             DOTween.Kill(card.transform);
             DOTween.Kill(card.GetComponent<CanvasGroup>());
+            card.transform.localPosition = originalPositions[i];
+            
+            Vector3 originalPosition = card.transform.localPosition;
 
             // 간단한 시퀀스: 올라가면서 흔들거리다가 -> 데이터 변경 -> 내려오면서 멈춤
             Sequence cardSequence = DOTween.Sequence();
@@ -93,6 +101,17 @@ public class ItemBoardUI : MonoBehaviour
 
             cardSequence.SetDelay(i * staggerTime);
             cardSequence.Play();
+
+            // 끝날 때에 맞추어 raycast 활성
+            if (i == itemUIs.Length - 1)
+            {
+                cardSequence.OnComplete(() => {
+                    for (int j = 0; j < itemUIs.Length; j++)
+                    {
+                        itemUIs[j].GetComponent<CanvasGroup>().blocksRaycasts = true;
+                    }
+                });
+            }
         }
 
         rerollCostText.text = "$" + rerollCost;
@@ -101,6 +120,8 @@ public class ItemBoardUI : MonoBehaviour
     private void CreateItems(List<ItemData> items)
     {
         itemUIs = new GameObject[items.Count];
+        originalPositions = new Vector3[itemUIs.Length];
+
         for (int i = 0; i < items.Count; i++)
         {
             int currentIndex = i;
@@ -118,6 +139,8 @@ public class ItemBoardUI : MonoBehaviour
             });
 
             itemUI.GetComponent<ItemDescriptionUI>().Initialize(items[currentIndex]);
+
+            originalPositions[i] = itemUI.transform.localPosition;
         }
     }
 

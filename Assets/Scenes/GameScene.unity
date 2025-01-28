@@ -3304,7 +3304,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 847215b457d4fa14585905e8b7bd85c8, type: 2}
+  - {fileID: 2100000, guid: 0021ed5f762484c0596b46dbf8c4adce, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3363,7 +3363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c6010d9b77573348bf3acf613965959, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: 847215b457d4fa14585905e8b7bd85c8, type: 2}
+  material: {fileID: 2100000, guid: 0021ed5f762484c0596b46dbf8c4adce, type: 2}
   spriteRenderer: {fileID: 308968386}
 --- !u!1 &331479213
 GameObject:

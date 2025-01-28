@@ -24,7 +24,7 @@ public class GameData
         defaultMatchMultipliers = new Dictionary<MatchType, int>();
         defaultBlocks = new List<BlockData>();
         stagePool = new List<StageData>();
-        startingGold = 0;
+        startingGold = 5;
         defaultRerollCount = 3;
         defaultBlockCount = 3;
         

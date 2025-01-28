@@ -64,6 +64,35 @@ public class ItemSetUI : MonoBehaviour
             itemIcon.transform.SetSiblingIndex(itemIcons.Count);
             itemIcons.Add(itemIcon);
         }
+
+        // 아이템 많을 때 임시 위치 조정
+        if (itemIcons.Count >= 12 && itemIcons.Count <= 22)       // 두 줄일 때
+        {
+            for (int i = 0; i < itemIcons.Count; i++)
+            {
+                RectTransform rectTransform = itemIcons[i].GetComponent<RectTransform>();
+                
+                // 첫 번째 줄
+                rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, 40f);   
+                
+                if (i > 10) // 두 번째 줄
+                {
+                    rectTransform.anchoredPosition = new Vector2(startPos + spacing * (i - 11), -40f);
+
+                }
+            }
+        }
+        else if (itemIcons.Count > 22)       // 세 줄 이상일 때
+        {
+            for (int i = 0; i < itemIcons.Count; i++)
+            {
+                RectTransform rectTransform = itemIcons[i].GetComponent<RectTransform>();
+
+                int line = i / 11;
+
+                rectTransform.anchoredPosition = new Vector2(startPos + spacing * (i - 11 * line), 80f + (-80f) * line);
+            }
+        }
     }
 
     private Sprite GetImage(ItemData item)

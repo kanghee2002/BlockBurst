@@ -5,6 +5,7 @@ using System.Linq;
 using System.IO;
 using System;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -234,20 +235,36 @@ public class GameManager : MonoBehaviour
 
         StartStage(selectedStage);
         GameUIManager.instance.OnStageStart(currentChapterIndex, currentStageIndex, selectedStage, blockGame);
-        GameUIManager.instance.BlockCells(GetInactiveBlockCells(blockGame));
+        GameUIManager.instance.BlockCells(blockGame.inactiveCells);
     }
 
-    HashSet<Vector2Int> GetInactiveBlockCells(BlockGameData data)
+    HashSet<Vector2Int> SetInactiveBlockCells(BlockGameData data)
     {
-        HashSet<Vector2Int> inactiveBlockCells = new HashSet<Vector2Int>(data.inactiveBlockCells);
         if (data.isCornerBlocked)
         {
-            inactiveBlockCells.Add(new Vector2Int(0, 0));
-            inactiveBlockCells.Add(new Vector2Int(0, data.boardColumns - 1));
-            inactiveBlockCells.Add(new Vector2Int(data.boardRows - 1, 0));
-            inactiveBlockCells.Add(new Vector2Int(data.boardRows - 1, data.boardColumns - 1));
+            data.inactiveCells.Add(new Vector2Int(0, 0));
+            data.inactiveCells.Add(new Vector2Int(0, data.boardColumns - 1));
+            data.inactiveCells.Add(new Vector2Int(data.boardRows - 1, 0));
+            data.inactiveCells.Add(new Vector2Int(data.boardRows - 1, data.boardColumns - 1));
         }
-        return inactiveBlockCells;
+        data.inactiveCells.UnionWith(GetRandomBlockCells(data));
+
+        return data.inactiveCells;
+    }
+
+    private HashSet<Vector2Int> GetRandomBlockCells(BlockGameData data)
+    {
+        HashSet<Vector2Int> result = new HashSet<Vector2Int>();
+
+        for (int i = 0; i < 10000; i++)
+        {
+            // isCornerBlocked일 경우 break 다르게 구현
+            if (result.Count == data.inactiveCellCount) break;
+            int x = Random.Range(0, data.boardRows);
+            int y = Random.Range(0, data.boardColumns);
+            result.Add(new Vector2Int(y, x));
+        }
+        return result;
     }
 
     public void StartStage(StageData stage)
@@ -264,8 +281,8 @@ public class GameManager : MonoBehaviour
         board.Initialize(blockGame);
 
         // 보드와 프론트를 막음
-        HashSet<Vector2Int> inactiveBlockCells = GetInactiveBlockCells(blockGame);
-        board.BlockCells(inactiveBlockCells);
+        SetInactiveBlockCells(blockGame);
+        board.BlockCells(blockGame.inactiveCells);
 
         deckManager.Initialize(ref blockGame, ref runData);
 

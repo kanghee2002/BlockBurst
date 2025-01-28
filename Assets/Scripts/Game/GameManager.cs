@@ -478,9 +478,12 @@ public class GameManager : MonoBehaviour
             {
                 EffectData effect = runData.activeEffects.Find(x => x.id == effectId);
 
-                if (effect.type == EffectType.MULTIPLIER_MODIFIER)
+                if (effect != null)
                 {
-                    UpdateMultiplierByAdd(effect.effectValue);
+                    if (effect.type == EffectType.MULTIPLIER_MODIFIER)
+                    {
+                        UpdateMultiplierByAdd(effect.effectValue);
+                    }
                 }
             }
         }

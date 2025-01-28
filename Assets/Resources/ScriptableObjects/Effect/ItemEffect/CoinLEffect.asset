@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: CoinLEffect
   m_EditorClassIdentifier: 
   id: CoinLEffect
-  effectName: "L \uD3EC\uD568 \uD074\uB9AC\uC5B4 \uC2DC \uACE8\uB4DC +1"
+  effectName: "L \uD3EC\uD568 \uD074\uB9AC\uC5B4 \uC2DC 30% \uD655\uB960\uB85C\uACE8\uB4DC
+    +1"
   type: 9
   trigger: 11
   effectValue: 1
   blockTypes: 05000000
   blockId: -1
-  probability: 1
+  probability: 0.3
   triggerValue: 0

@@ -52,7 +52,7 @@ public class GameData
         stageBaseScoreMultipliers = new float[2] { 1.3f, 1.7f };
 
         stageBaseScores = 70;
-        stageBaseReward = 7;
+        stageBaseReward = 5;
         difficulty = 1.0f;
     }
 }

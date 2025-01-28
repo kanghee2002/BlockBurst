@@ -225,7 +225,7 @@ public class GameManager : MonoBehaviour
             StageData stage = nextStageChoices[i];
             difficulties[i] = gameData.difficulty * UnityEngine.Random.Range(gameData.stageBaseScoreMultipliers[0], gameData.stageBaseScoreMultipliers[1]);
             stage.clearRequirement = (int)(gameData.stageBaseScores * difficulties[i] / 10f) * 10;
-            stage.goldReward = (int)(gameData.stageBaseReward * Mathf.Sqrt(difficulties[i]));
+            stage.goldReward = (int)(gameData.stageBaseReward * Mathf.Pow(difficulties[i], .33f));
         }
 
         // UI에 전달

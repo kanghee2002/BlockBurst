@@ -48,7 +48,6 @@ public class RunInfoUI : MonoBehaviour
 
     public void CloseRunInfoUI()
     {
-        gameObject.SetActive(false);
         UIUtils.CloseUI(rectTransform, "Y", insidePositionY, outsidePositionY, duration);
         isUpdatingTime = false; // 경과 시간 업데이트 중지
     }

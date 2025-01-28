@@ -96,8 +96,8 @@ public class DeckInfoUI : MonoBehaviour
         Image blockImage = blockTransform.GetChild(1).GetChild(1).GetComponent<Image>();
 
         blockTypeText.text = blockType.ToString();
-        blockCountText.text = count.ToString();
-        blockScoreText.text = score.ToString();
+        blockCountText.text = count.ToString() + "개";
+        blockScoreText.text = score.ToString() + "점";
         blockImage.sprite = Resources.Load<Sprite>("Sprites/Block/Preset/" + blockType.ToString());
 
         if (!Enums.IsDefaultBlockType(blockType))

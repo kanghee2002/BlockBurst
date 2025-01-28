@@ -5,6 +5,7 @@ using System.Linq;
 using System.IO;
 using System;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -239,7 +240,7 @@ public class GameManager : MonoBehaviour
 
     HashSet<Vector2Int> GetInactiveBlockCells(BlockGameData data)
     {
-        HashSet<Vector2Int> inactiveBlockCells = new HashSet<Vector2Int>(data.inactiveBlockCells);
+        HashSet<Vector2Int> inactiveBlockCells = new HashSet<Vector2Int>();
         if (data.isCornerBlocked)
         {
             inactiveBlockCells.Add(new Vector2Int(0, 0));
@@ -247,7 +248,23 @@ public class GameManager : MonoBehaviour
             inactiveBlockCells.Add(new Vector2Int(data.boardRows - 1, 0));
             inactiveBlockCells.Add(new Vector2Int(data.boardRows - 1, data.boardColumns - 1));
         }
+        inactiveBlockCells.AddRange(GetRandomBlockCells(data));
         return inactiveBlockCells;
+    }
+
+    private HashSet<Vector2Int> GetRandomBlockCells(BlockGameData data)
+    {
+        HashSet<Vector2Int> result = new HashSet<Vector2Int>();
+
+        for (int i = 0; i < 10000; i++)
+        {
+            if (result.Count == data.inactiveCellCount) break;
+            int x = Random.Range(0, data.boardRows);
+            int y = Random.Range(0, data.boardColumns);
+            if (x == 0 || x == data.boardColumns || y == 0 || y == data.boardRows) continue;
+            result.Add(new Vector2Int(y, x));
+        }
+        return result;
     }
 
     public void StartStage(StageData stage)

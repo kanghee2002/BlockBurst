@@ -184,7 +184,7 @@ public class EffectManager : MonoBehaviour
                 blockGameData.isCornerBlocked = true;
                 break;
             case EffectType.BOARD_RANDOM_BLOCK:
-                blockGameData.inactiveBlockCells = GetRandomBlockCells(blockGameData.boardRows, blockGameData.boardColumns, effect.effectValue);
+                blockGameData.inactiveCellCount += effect.effectValue;
                 break;
             case EffectType.DECK_MODIFIER:
                 // TODO
@@ -239,23 +239,6 @@ public class EffectManager : MonoBehaviour
     private bool CheckProbability(float probability)
     {
         return Random.Range(0f, 1f) <= probability;
-    }
-
-    private HashSet<Vector2Int> GetRandomBlockCells(int boardRows, int boardColumns, int count)
-    {
-        HashSet<Vector2Int> result = new HashSet<Vector2Int>();
-
-        for (int i = 0; i < 10000; i++)
-        {
-            if (result.Count == count)
-            {
-                break;
-            }
-            int x = Random.Range(0, boardRows);
-            int y = Random.Range(0, boardColumns);
-            result.Add(new Vector2Int(x, y));
-        }
-        return result;
     }
 
     private void MultiplyBlock(BlockType blockType, int multiplier)

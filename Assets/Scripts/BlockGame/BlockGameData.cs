@@ -10,7 +10,7 @@ public class BlockGameData
     public int currentScore;                                            // 현재 점수
     public int moveCount;                                               // 이동 횟수
     public bool isCornerBlocked;                                        // 가장자리 막혔는지
-    public HashSet<Vector2Int> inactiveBlockCells;                      // 활성 블럭 셀
+    public int inactiveCellCount;                                       // 비활성 블럭 셀
     public List<BlockData> deck;                                        // 덱
     public int rerollCount;                                             // 리롤 횟수
     public int drawBlockCount;                                          // 드로우 블록 수
@@ -25,7 +25,7 @@ public class BlockGameData
         currentScore = 0;
         moveCount = 0;
         isCornerBlocked = false;
-        inactiveBlockCells = new HashSet<Vector2Int>();
+        inactiveCellCount = 0;
         deck = new List<BlockData>();
         rerollCount = runData.baseRerollCount;
         drawBlockCount = runData.baseDrawBlockCount;

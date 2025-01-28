@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (scene.name == "GameScene")
         {
@@ -93,6 +93,12 @@ public class GameManager : MonoBehaviour
             stageManager = FindObjectOfType<StageManager>();
             StartNewGame();
         }
+    }
+
+    public void GoToGameScene()
+    {
+        AudioManager.instance.SFXSelectMenu();
+        SceneManager.LoadScene("GameScene");
     }
 
     public void StartNewGame()
@@ -142,7 +148,7 @@ public class GameManager : MonoBehaviour
     {
         // 메인 화면으로 돌아가기
         Debug.Log("Back to Main");
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene("NewLogoScene");
     }
 
     public void MakeNewRun()

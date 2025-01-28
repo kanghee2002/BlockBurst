@@ -146,5 +146,7 @@ public class ButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         rectTransform.localScale = originalScale;
 
         onClick?.Invoke();
+
+        AudioManager.instance.SFXSelectMenu();
     }
 }

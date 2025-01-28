@@ -18,6 +18,12 @@ public class ShopManager : MonoBehaviour
         foreach (ItemData item in items)
         {
             AddItem(item);
+            // 특수 블록을 좀 복사
+            if (item.type == ItemType.ADD_BLOCK && Enums.IsSpecialBlockType(item.block.type))
+            {
+                AddItem(item);
+                AddItem(item);
+            }
         }
         deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
     }

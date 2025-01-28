@@ -101,6 +101,14 @@ public class BoardUI : MonoBehaviour
     public void ProcessMatchAnimation(List<Match> matches, Dictionary<Match, List<int>> scores, float delay)
     {
         StartCoroutine(MatchAnimationCoroutine(matches, scores, delay));
+
+        // matches의 blocks의 개수를 모두 더함
+        int totalBlocks = 0;
+        foreach (Match match in matches)
+        {
+            totalBlocks += match.blocks.Count;
+        }
+        AudioManager.instance.SFXMatch(totalBlocks);
     }
 
     private IEnumerator MatchAnimationCoroutine(List<Match> matches, Dictionary<Match, List<int>> scores, float delay)

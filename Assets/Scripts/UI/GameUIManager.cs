@@ -51,7 +51,6 @@ public class GameUIManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else if (instance != this)
         {
@@ -63,9 +62,10 @@ public class GameUIManager : MonoBehaviour
     {
         goldInfoUI.Initialize(runData.gold); 
         actionInfoUI.Initialize(_chip: 0, _multiplier: runData.baseMatchMultipliers[MatchType.ROW], _product: 0);
-        deckInfoUI.Initialize(runData);
         sceneState = SceneState.selecting;
         OpenSceneState(sceneState);
+
+        AudioManager.instance.BeginBackgroundMusic();
     }
 
     // BUTTON METHODS
@@ -130,8 +130,14 @@ public class GameUIManager : MonoBehaviour
         {
             popupState = PopupState.deckInfo;
             deckInfoUI.OpenDeckInfoUI();
-            deckInfoUI.Initialize(GameManager.instance.GetDeckInfo());
+            GameManager.instance.OnDeckInfoRequested();
         }
+    }
+
+    public void OnDeckInfoCallback(RunData runData, BlockGameData blockGameData)
+    {
+        Dictionary<BlockType, int> scoreDictionary = (sceneState == SceneState.playing) ? blockGameData.blockScores : runData.baseBlockScores;
+        deckInfoUI.Initialize(runData, scoreDictionary);
     }
 
     public void OnDeckInfoBackButtonUIPressed()
@@ -161,6 +167,8 @@ public class GameUIManager : MonoBehaviour
         {
             goldInfoUI.UpdateGold(gold);
             itemBoardUI.PurchaseItem(index);
+
+            AudioManager.instance.SFXShopBuy();
         }
     }
 
@@ -178,6 +186,8 @@ public class GameUIManager : MonoBehaviour
     {
         if (sceneState == SceneState.selecting && popupState == PopupState.none)
         {
+            AudioManager.instance.ShopTransitionOut();
+
             GameManager.instance.OnStageSelection(choiceIndex);
         }
     }
@@ -206,6 +216,8 @@ public class GameUIManager : MonoBehaviour
         sceneState = stateToSet;
 
         StartCoroutine(ChangeSceneStateCoroutine(prevState, sceneState));
+
+        AudioManager.instance.SFXtransition();
     }
 
     private IEnumerator ChangeSceneStateCoroutine(SceneState prevState, SceneState stateToSet)
@@ -273,6 +285,8 @@ public class GameUIManager : MonoBehaviour
         boardUI.Initialize(blockGame.boardRows, blockGame.boardColumns);
         
         ChangeSceneState(SceneState.playing);
+
+        AudioManager.instance.ChangeStage(stageIndex);
     }
 
     public void OnBlocksDrawn(List<Block> blocks)
@@ -292,6 +306,8 @@ public class GameUIManager : MonoBehaviour
             ChangeSceneState(SceneState.shopping);
         }
         itemBoardUI.Initialize(items, rerollCost);
+
+        AudioManager.instance.ShopTransitionIn();
     }
 
     public void OnBlockPlaced(GameObject blockObj, Block block, Vector2Int pos) {
@@ -343,6 +359,11 @@ public class GameUIManager : MonoBehaviour
         GameManager.instance.BackToMain();
     }
 
+    public void MakeNewRun()
+    {
+        GameManager.instance.MakeNewRun();
+    }
+
     public void DisplayItemSet(List<ItemData> items)
     {
         itemSetUI.Initialize(items);
@@ -356,5 +377,10 @@ public class GameUIManager : MonoBehaviour
     public void BlockCells(HashSet<Vector2Int> cells)
     {
         boardUI.BlockCells(cells);
+    }
+
+    public void ENDSTAGE()
+    {
+        GameManager.instance.EndStage(true);
     }
 }

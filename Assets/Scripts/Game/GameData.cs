@@ -49,10 +49,10 @@ public class GameData
         // 기본 배수 설정
         defaultMatchMultipliers[MatchType.ROW] = 1;
 
-        stageBaseScoreMultipliers = new float[2] { 1.3f, 2f };
+        stageBaseScoreMultipliers = new float[2] { 1.3f, 1.7f };
 
         stageBaseScores = 100;
-        stageBaseReward = 5;
+        stageBaseReward = 7;
         difficulty = 1.0f;
     }
 }

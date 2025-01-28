@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+using System;
 
 public class DeckInfoUI : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI deckInfoText1;
-    [SerializeField] private TextMeshProUGUI deckInfoText2;
     private RectTransform rectTransform;
 
     private const float insidePositionX = 0;
@@ -16,67 +16,94 @@ public class DeckInfoUI : MonoBehaviour
 
     [SerializeField] private GameObject basicContainer;
     [SerializeField] private GameObject specialContainer;
+    
+    [SerializeField] private GameObject BlockPrefab;
+
+    public Transform[] BlockTransforms;
+
+    const float ROW_OFFSET = 112;
+    const float ROW_REF = 112 * 3;
 
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
-    }
 
-    public void Initialize(RunData runData)
-    {
-        List<BlockData> availableBlocks = runData.availableBlocks;
-        Dictionary<BlockType, int> defaultCountDictionary = new Dictionary<BlockType, int>();
-        Dictionary<BlockType, int> specialCountDictionary = new Dictionary<BlockType, int>();
-        
-        foreach (BlockData block in availableBlocks)
+        // basicContainer의 자식들을 BlockTransforms에 저장
+        BlockTransforms = new Transform[Enum.GetNames(typeof(BlockType)).Length];
+        for (int i = 0; i < BlockTransforms.Length; i++)
         {
-            if (Enums.IsDefaultBlockType(block.type))
+            if (Enums.IsDefaultBlockType((BlockType)i))
             {
-                if (!defaultCountDictionary.ContainsKey(block.type))
-                {
-                    defaultCountDictionary.Add(block.type, 0);
-                }
-                defaultCountDictionary[block.type]++;
+                GameObject newObject = Instantiate(BlockPrefab, basicContainer.transform);
+                BlockTransforms[i] = newObject.transform;
             }
             else
             {
-                if (!specialCountDictionary.ContainsKey(block.type))
+                GameObject newObject = Instantiate(BlockPrefab, specialContainer.transform);
+                BlockTransforms[i] = newObject.transform;
+            }
+        }
+    }
+
+    public void Initialize(RunData runData, Dictionary<BlockType, int> scoreDictionary)
+    {
+        List<BlockData> availableBlocks = runData.availableBlocks;
+        Dictionary<BlockType, int> countDictionary = new Dictionary<BlockType, int>();
+
+        foreach (BlockData block in availableBlocks)
+        {
+            if (!countDictionary.ContainsKey(block.type))
+            {
+                countDictionary.Add(block.type, 0);
+            }
+            countDictionary[block.type]++;
+        }
+
+        int basicPos = 0;
+        int specialPos = 0;
+
+        for (int i = 0; i < BlockTransforms.Length; i++)
+        {
+            if (Enums.IsDefaultBlockType((BlockType)i))
+            {
+                InitializeBlockUI(BlockTransforms[i], (BlockType)i, countDictionary[(BlockType)i], scoreDictionary[(BlockType)i]);
+                BlockTransforms[i].localPosition = new Vector3(0, ROW_REF - ROW_OFFSET * basicPos, 0);
+                basicPos++;
+            }
+            else
+            {
+                if (!countDictionary.ContainsKey((BlockType)i) || countDictionary[(BlockType)i] == 0)
                 {
-                    specialCountDictionary.Add(block.type, 0);
+                    // 투명하게
+                    BlockTransforms[i].GetComponent<CanvasGroup>().alpha = 0f;
                 }
-                specialCountDictionary[block.type]++;
+                else
+                {
+                    BlockTransforms[i].GetComponent<CanvasGroup>().alpha = 1f;
+                    InitializeBlockUI(BlockTransforms[i], (BlockType)i, countDictionary[(BlockType)i], scoreDictionary[(BlockType)i]);
+                    BlockTransforms[i].localPosition = new Vector3(0, ROW_REF - ROW_OFFSET * specialPos, 0);
+                    specialPos++;
+                }
             }
         }
+    }
 
-        string text1 = "\t개수\t점수\n";
-        foreach ((BlockType blockType, int count)  in defaultCountDictionary)
-        {
-            if (defaultCountDictionary[blockType] == 0)
-            {
-                continue;
-            } 
-            text1 += blockType.ToString() + " 블록\t";
-            text1 += "  " + count + "\t";
-            text1 += " " + runData.baseBlockScores[blockType] + "\t";
-            text1 += "\n";
-        }
-        deckInfoText1.text = text1;
+    void InitializeBlockUI(Transform blockTransform, BlockType blockType, int count, int score)
+    {
+        TextMeshProUGUI blockTypeText = blockTransform.GetChild(1).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI blockCountText = blockTransform.GetChild(1).GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI blockScoreText = blockTransform.GetChild(1).GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>();
+        Image blockImage = blockTransform.GetChild(1).GetChild(1).GetComponent<Image>();
 
-        string text2 = "\t\t개수\t점수\n";
-        foreach ((BlockType blockType, int count) in specialCountDictionary)
+        blockTypeText.text = blockType.ToString();
+        blockCountText.text = count.ToString();
+        blockScoreText.text = score.ToString();
+        blockImage.sprite = Resources.Load<Sprite>("Sprites/Block/Preset/" + blockType.ToString());
+
+        if (!Enums.IsDefaultBlockType(blockType))
         {
-            if (specialCountDictionary[blockType] == 0)
-            {
-                continue;
-            }
-            if (blockType == BlockType.CORNER) text2 += "CORNER 블록\t";
-            else text2 += blockType.ToString() + " 블록\t";
-            text2 += "  " + count + "\t";
-            text2 += " " + runData.baseBlockScores[blockType] + "\t";
-            text2 += "\n";
+            blockTypeText.fontSize = 32;    // 특수 블록은 글자 크기를 줄인다.
         }
-        text2 += "\n모든 블록 수: " + availableBlocks.Count;
-        deckInfoText2.text = text2;
     }
 
     public void OpenDeckInfoUI()

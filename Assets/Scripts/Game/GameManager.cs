@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 using System.IO;
 using System;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -43,6 +44,8 @@ public class GameManager : MonoBehaviour
     public float startTime; // 게임 시작 시간
     public int[] blockHistory;
 
+    bool isClearStage = false; // 중복 방지 플래그
+
     // ------------------------------
     // GAME LAYER - start
     // ------------------------------
@@ -70,15 +73,35 @@ public class GameManager : MonoBehaviour
         blockTemplates = Resources.LoadAll<BlockData>("ScriptableObjects/Block");
     }
 
-    void Start()
+    void OnEnable()
     {
-        StartNewGame();
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "GameScene")
+        {
+            deckManager = FindObjectOfType<DeckManager>();
+            shopManager = FindObjectOfType<ShopManager>();
+            stageManager = FindObjectOfType<StageManager>();
+            StartNewGame();
+        }
     }
 
     public void StartNewGame()
     {
         // 각종 초기화
         Debug.Log("Game Start");
+
+        currentChapterIndex = 1;
+        currentStageIndex = 1;
+
         gameData = new GameData();
         gameData.Initialize();
         
@@ -99,7 +122,6 @@ public class GameManager : MonoBehaviour
         blockHistory = new int[Enum.GetValues(typeof(BlockType)).Length];
 
         StartNewRun();
-
     }
     
     public void EndGame(bool isWin)
@@ -119,6 +141,12 @@ public class GameManager : MonoBehaviour
     {
         // 메인 화면으로 돌아가기
         Debug.Log("Back to Main");
+        SceneManager.LoadScene("MainScene");
+    }
+
+    public void MakeNewRun()
+    {
+        SceneManager.LoadScene("GameScene");
     }
 
     // ------------------------------
@@ -156,6 +184,12 @@ public class GameManager : MonoBehaviour
         GameUIManager.instance.OnRunInfoCallback(runData, startTime, mostPlacedBlockType);
     }
 
+    public void OnDeckInfoRequested()
+    {
+        // Deck 정보 UI 열기
+        GameUIManager.instance.OnDeckInfoCallback(runData, blockGame);
+    }
+
     public void StartStageSelection()
     {
         // stage Template에서 stagetype이 맞는 것을 랜덤하게 추출
@@ -184,7 +218,7 @@ public class GameManager : MonoBehaviour
             StageData stage = nextStageChoices[i];
             difficulties[i] = gameData.difficulty * UnityEngine.Random.Range(gameData.stageBaseScoreMultipliers[0], gameData.stageBaseScoreMultipliers[1]);
             stage.clearRequirement = (int)(gameData.stageBaseScores * difficulties[i] / 10f) * 10;
-            stage.goldReward = (int)(gameData.stageBaseReward * difficulties[i]);
+            stage.goldReward = (int)(gameData.stageBaseReward * Mathf.Sqrt(difficulties[i]));
         }
 
         // UI에 전달
@@ -236,6 +270,8 @@ public class GameManager : MonoBehaviour
         deckManager.Initialize(ref blockGame, ref runData);
 
         DrawBlocks();
+
+        isClearStage = false;
     }
 
     public void EndStage(bool cleared)
@@ -364,11 +400,6 @@ public class GameManager : MonoBehaviour
     // BLOCKGAME LAYER - start
     // ------------------------------
 
-    public RunData GetDeckInfo()
-    {
-        return runData;
-    }
-
     public void DrawBlocks()
     {
         handBlocksData.Clear();
@@ -475,8 +506,9 @@ public class GameManager : MonoBehaviour
                 GameUIManager.instance.PlayMatchAnimation(matches, scores, scoreAnimationDelay);
             }
 
-            if (stageManager.CheckStageClear(blockGame))
+            if (!isClearStage && stageManager.CheckStageClear(blockGame))
             {
+                isClearStage = true;
                 StartCoroutine(DelayedEndStage(true));
             }
         }

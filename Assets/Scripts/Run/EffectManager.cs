@@ -14,8 +14,6 @@ public class EffectManager : MonoBehaviour
 
     private List<string> lastTriggeredEffects = new List<string>();
 
-    private List<(MatchType, List<int>)> forceClearedLines = new List<(MatchType, List<int>)>();
-
     private void Awake()
     {
         if (instance == null)
@@ -36,11 +34,6 @@ public class EffectManager : MonoBehaviour
     public void InitializeBlockGameData(ref BlockGameData data)
     {
         blockGameData = data;
-    }
-
-    public List<string> GetLastTriggeredEffects()
-    {
-        return lastTriggeredEffects;
     }
 
     public void AddEffect(EffectData effect)
@@ -72,31 +65,8 @@ public class EffectManager : MonoBehaviour
     // 게임 중 블록을 놓았을 때, 시각 효과를 위해 호출
     public void EndTriggerEffectOnPlace(List<Match> matches)
     {
-        float matchAnimationTime = 0f;
-        if (forceClearedLines.Count > 0)
-        {
-            // matches에 강제 처리된 매치가 없기 때문에 생성 필요
-            List<Match> forceClearedMatches = new List<Match>();
-            foreach ((MatchType matchType, List<int> indices) in forceClearedLines)
-            {
-                foreach (int index in indices)
-                {
-                    Match match = new Match()
-                    {
-                        matchType = matchType,
-                    };
-                    forceClearedMatches.Add(match);
-                }
-            }
-            matchAnimationTime += GameManager.instance.GetMatchAnimationTime(forceClearedMatches);
-
-            GameManager.instance.ForceLineClear(forceClearedLines.ToList());
-            forceClearedLines.Clear();
-        }
-
-        matchAnimationTime += GameManager.instance.GetMatchAnimationTime(matches);
-
-        GameManager.instance.PlayItemEffectAnimation(lastTriggeredEffects.ToList(), matchAnimationTIme: matchAnimationTime);
+        float matchAnimationTime = GameManager.instance.GetMatchAnimationTime(matches);
+        GameManager.instance.PlayItemEffectAnimation(lastTriggeredEffects.ToList(), matchAnimationTime);
         lastTriggeredEffects.Clear();
     }
 
@@ -211,17 +181,19 @@ public class EffectManager : MonoBehaviour
                 // TODO
                 break;
             case EffectType.ROW_LINE_CLEAR:
-                forceClearedLines.Add((MatchType.ROW, GetRandomIndices(blockGameData.boardRows, 1) ));
+                List<int> rowIndices = GetRandomIndices(blockGameData.boardRows, 1);
+                GameManager.instance.ForceLineClearBoard(MatchType.ROW, rowIndices);
                 break;
             case EffectType.COLUMN_LINE_CLEAR:
-                forceClearedLines.Add((MatchType.COLUMN, GetRandomIndices(blockGameData.boardColumns, 1)));
+                List<int> columnIndices = GetRandomIndices(blockGameData.boardColumns, 1);
+                GameManager.instance.ForceLineClearBoard(MatchType.COLUMN, columnIndices);
                 break;
             case EffectType.RANDOM_LINE_CLEAR:
-                if (CheckProbability(0.5f)) forceClearedLines.Add((MatchType.ROW, GetRandomIndices(blockGameData.boardRows, 1)));
-                else forceClearedLines.Add((MatchType.COLUMN, GetRandomIndices(blockGameData.boardColumns, 1)));
+                ProcessRandomLineClear();
                 break;
             case EffectType.BOARD_CLEAR:
-                forceClearedLines.Add((MatchType.ROW, Enumerable.Range(0, blockGameData.boardColumns).ToList()));
+                List<int> indices = Enumerable.Range(0, blockGameData.boardColumns).ToList();
+                GameManager.instance.ForceLineClearBoard(MatchType.ROW, indices);
                 break;
             case EffectType.DRAW_BLOCK_COUNT_MODIFIER:
                 blockGameData.drawBlockCount = effect.effectValue;
@@ -267,5 +239,19 @@ public class EffectManager : MonoBehaviour
         }
 
         return result.ToList();
+    }
+
+    private void ProcessRandomLineClear()
+    {
+        if (CheckProbability(0.5f))
+        {
+            List<int> rowIndices = GetRandomIndices(blockGameData.boardRows, 1);
+            GameManager.instance.ForceLineClearBoard(MatchType.ROW, rowIndices);
+        } 
+        else
+        {
+            List<int> columnIndices = GetRandomIndices(blockGameData.boardColumns, 1);
+            GameManager.instance.ForceLineClearBoard(MatchType.COLUMN, columnIndices);
+        }
     }
 }

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: RulerEffect
   m_EditorClassIdentifier: 
   id: RulerEffect
-  effectName: "\uC138\uB85C \uD074\uB9AC\uC5B4 \uC2DC \uBC30\uC218 +1"
+  effectName: "\uC138\uB85C \uD074\uB9AC\uC5B4 \uC2DC \uBC30\uC218 +2"
   type: 2
   trigger: 6
-  effectValue: 1
+  effectValue: 2
   blockTypes: 
   blockId: -1
   probability: 1

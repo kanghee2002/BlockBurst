@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: GiftBoxEffect1
   m_EditorClassIdentifier: 
   id: GiftBoxEffect1
-  effectName: "\uAE30\uBCF8 \uBC30\uC218 -1"
-  type: 3
+  effectName: "J/L/T \uC678\uC758 \uBE14\uB85D \uC0AD\uC81C"
+  type: 18
   trigger: 0
-  effectValue: -1
-  blockTypes: 
+  effectValue: 0
+  blockTypes: 00000000010000000200000003000000
   blockId: -1
   probability: 1
   triggerValue: 0

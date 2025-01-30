@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: WindowEffect2
   m_EditorClassIdentifier: 
   id: WindowEffect2
-  effectName: "I/O \uBE14\uB85D x2"
+  effectName: "I/O \uBE14\uB85D x3"
   type: 17
   trigger: 0
-  effectValue: 2
+  effectValue: 3
   blockTypes: 0000000001000000
   blockId: -1
   probability: 1

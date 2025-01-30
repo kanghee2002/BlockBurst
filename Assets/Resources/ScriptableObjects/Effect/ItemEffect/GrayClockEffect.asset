@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: GrayClockEffect
   m_EditorClassIdentifier: 
   id: GrayClockEffect
-  effectName: "3\uBC88 \uD074\uB9AC\uC5B4 \uC2DC\uB9C8\uB2E4 \uAE30\uBCF8 \uB9AC\uB864
-    +1"
+  effectName: "5\uBC88 \uD074\uB9AC\uC5B4 \uD560 \uB54C\uB9C8\uB2E4 \uAE30\uBCF8
+    \uB9AC\uB864 +1"
   type: 7
   trigger: 10
   effectValue: 1
   blockTypes: 
   blockId: -1
   probability: 1
-  triggerValue: 3
+  triggerValue: 5

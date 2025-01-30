@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: CoinZEffect
   m_EditorClassIdentifier: 
   id: CoinZEffect
-  effectName: "Z \uD3EC\uD568 \uD074\uB9AC\uC5B4 \uC2DC 30% \uD655\uB960\uB85C \uACE8\uB4DC
+  effectName: "Z \uD3EC\uD568 \uD074\uB9AC\uC5B4 \uC2DC 50% \uD655\uB960\uB85C \uACE8\uB4DC
     +1"
   type: 9
   trigger: 11
   effectValue: 1
   blockTypes: 02000000
   blockId: -1
-  probability: 0.3
+  probability: 0.5
   triggerValue: 0

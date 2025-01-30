@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: BlueKeyEffect1
   m_EditorClassIdentifier: 
   id: BlueKeyEffect1
-  effectName: "Z/S \uC810\uC218 +20"
-  type: 0
+  effectName: "I/O \uBE14\uB85D \uC0AD\uC81C"
+  type: 18
   trigger: 0
-  effectValue: 20
-  blockTypes: 0200000003000000
+  effectValue: 0
+  blockTypes: 0000000001000000
   blockId: -1
   probability: 1
   triggerValue: 0

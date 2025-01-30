@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: MagazineEffect
   effectName: "\uBC30\uCE58 \uC2DC \uD074\uB9AC\uC5B4 \uB418\uC9C0 \uC54A\uC73C\uBA74
-    \uAE30\uBCF8 \uBE14\uB85D \uC810\uC218 +5"
-  type: 0
+    50% \uD655\uB960\uB85C \uBC30\uC218 +1"
+  type: 2
   trigger: 2
-  effectValue: 5
-  blockTypes: 00000000010000000400000005000000060000000200000003000000
+  effectValue: 1
+  blockTypes: 
   blockId: -1
-  probability: 1
+  probability: 0.5
   triggerValue: 0

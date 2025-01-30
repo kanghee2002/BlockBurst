@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DecreaseGoldOnLineClear
   m_EditorClassIdentifier: 
   id: DecreaseGoldOnLineClear
-  effectName: "\uD074\uB9AC\uC5B4 \uC2DC \uACE8\uB4DC -1"
+  effectName: "\uC904 \uD074\uB9AC\uC5B4 \uC2DC \uACE8\uB4DC -1"
   type: 9
   trigger: 9
   effectValue: -1

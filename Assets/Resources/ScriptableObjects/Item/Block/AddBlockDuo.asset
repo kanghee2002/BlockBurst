@@ -16,7 +16,7 @@ MonoBehaviour:
   itemName: "Duo \uBE14\uB85D +2"
   effects:
   - {fileID: 11400000, guid: 0df4c49b8afe47043ace0dc143fee393, type: 2}
-  cost: 4
+  cost: 7
   type: 0
   block: {fileID: 11400000, guid: 54eeb4caf0b27c94596745f3d52c2ce3, type: 2}
   effectType: 1

@@ -350,13 +350,26 @@ public class GameManager : MonoBehaviour
         GameUIManager.instance.OnShopStart(shopItems, shopManager.rerollCost, isFirst);   
     }
 
+    public void OnItemDiscard(int index)
+    {
+        ItemData soldItem = runData.activeItems[index];
+        runData.activeItems.RemoveAt(index);
+
+        foreach (EffectData effect in soldItem.effects)
+        {
+            EffectManager.instance.RemoveEffect(effect);
+        }
+        GameUIManager.instance.DisplayItemSet(runData.activeItems);
+    }
+
     public int OnItemPurchased(int index)
     {
         ItemData shopItem = shopItems[index];
-        shopItems[index] = null;
+        
         int res = shopManager.PurchaseItem(shopItem);
         if (res != -1)
         {
+            shopItems[index] = null;
             GameUIManager.instance.DisplayItemSet(runData.activeItems);
         }
         else

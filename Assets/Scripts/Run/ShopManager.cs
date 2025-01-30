@@ -30,7 +30,12 @@ public class ShopManager : MonoBehaviour
 
     public int PurchaseItem(ItemData item)
     {
-        if (item == null || runData.gold < item.cost || runData.activeItems.Count > 11)
+        if (item.type == ItemType.ITEM && runData.activeItems.Count >= 10)
+        {
+            return -1;
+        }
+
+        if (item == null || runData.gold < item.cost)
         {
             return -1;
         } 

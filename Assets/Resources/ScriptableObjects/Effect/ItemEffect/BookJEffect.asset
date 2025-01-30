@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BookJEffect
   m_EditorClassIdentifier: 
   id: BookJEffect
-  effectName: "J \uBC30\uCE58 \uC2DC J \uC810\uC218 +3"
+  effectName: "J \uBC30\uCE58 \uC2DC J \uC810\uC218 +2"
   type: 0
   trigger: 1
-  effectValue: 3
+  effectValue: 2
   blockTypes: 04000000
   blockId: -1
   probability: 1

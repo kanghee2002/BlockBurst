@@ -16,6 +16,8 @@ public class GameData
     public int stageBaseScores;                                   // 챕터 당 기본 목표 점수
     public int stageBaseReward;                                      // 스테이지 클리어 골드
     public float difficulty;
+    public List<int> stageBaseScoreList;
+    public List<float> stageScoreMultiplier;
 
     public void Initialize()
     {
@@ -54,5 +56,21 @@ public class GameData
         stageBaseScores = 70;
         stageBaseReward = 5;
         difficulty = 1.0f;
+
+        stageBaseScoreList = new List<int>()
+        {
+            100,
+            300,
+            800,
+            2000,
+            5000,
+            12000,
+            27000,
+            50000,
+        };
+        stageScoreMultiplier = new List<float>()
+        {
+            1f, 1.5f, 2f
+        };
     }
 }

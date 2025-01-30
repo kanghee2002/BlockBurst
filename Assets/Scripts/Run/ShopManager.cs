@@ -9,7 +9,7 @@ public class ShopManager : MonoBehaviour
 
     private DeckManager deckManager;
 
-    [HideInInspector] public int rerollCost = 3;
+    public int rerollCost = 2;
 
     public void Initialize(ref RunData data, ItemData[] items)
     {
@@ -30,7 +30,7 @@ public class ShopManager : MonoBehaviour
 
     public int PurchaseItem(ItemData item)
     {
-        if (item == null || runData.gold < item.cost)
+        if (item == null || runData.gold < item.cost || runData.activeItems.Count > 11)
         {
             return -1;
         } 

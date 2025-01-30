@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: KeyEffect2
   m_EditorClassIdentifier: 
   id: KeyEffect2
-  effectName: "Z/S \uBE14\uB85D x2"
+  effectName: "Z/S \uBE14\uB85D x3"
   type: 17
   trigger: 0
-  effectValue: 2
+  effectValue: 3
   blockTypes: 0200000003000000
   blockId: -1
   probability: 1

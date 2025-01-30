@@ -47,6 +47,25 @@ public class EffectManager : MonoBehaviour
 
     public bool RemoveEffect(EffectData effect)
     {
+        if (effect.trigger == TriggerType.ON_ACQUIRE)
+        {
+            if (effect.type == EffectType.SCORE_MODIFIER)
+            {
+                foreach (BlockType blockType in effect.blockTypes)
+                {
+                    runData.baseBlockScores[blockType] -= effect.effectValue;
+                    blockGameData.blockScores[blockType] -= effect.effectValue;
+                }
+            }
+            else if (effect.type == EffectType.BASEMULTIPLIER_MODIFIER)
+            {
+                runData.baseMatchMultipliers[MatchType.ROW] -= effect.effectValue;
+            }
+            else if (effect.type == EffectType.BASEREROLL_MODIFIER)
+            {
+                runData.baseRerollCount -= effect.effectValue;
+            }
+        }
         return runData.activeEffects.Remove(effect);
     }
 

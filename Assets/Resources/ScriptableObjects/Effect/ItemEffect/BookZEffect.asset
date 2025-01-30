@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BookZEffect
   m_EditorClassIdentifier: 
   id: BookZEffect
-  effectName: "Z \uBC30\uCE58 \uC2DC Z \uC810\uC218 +4"
+  effectName: "Z \uBC30\uCE58 \uC2DC Z \uC810\uC218 +3"
   type: 0
   trigger: 1
-  effectValue: 4
+  effectValue: 3
   blockTypes: 02000000
   blockId: -1
   probability: 1

@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class RunInfoUI : MonoBehaviour
 {
+    [SerializeField] private PopupBlurImage popupBlurImage;
+
     [SerializeField] private TextMeshProUGUI currentElapsedTimeText;
     [SerializeField] private TextMeshProUGUI baseMultiplierText;
     [SerializeField] private TextMeshProUGUI defaultRerollCountText;
@@ -41,6 +43,7 @@ public class RunInfoUI : MonoBehaviour
     {
         gameObject.SetActive(true);
         UIUtils.OpenUI(rectTransform, "Y", insidePositionY, duration);
+        popupBlurImage.OpenPopupBlurImage(new Color(0.0f, 0.0f, 0.0f, 0.9f));
         
         // 경과 시간 업데이트 시작
         StartCoroutine(UpdateElapsedTime());
@@ -49,6 +52,7 @@ public class RunInfoUI : MonoBehaviour
     public void CloseRunInfoUI()
     {
         UIUtils.CloseUI(rectTransform, "Y", insidePositionY, outsidePositionY, duration);
+        popupBlurImage.ClosePopupBlurImage();
         isUpdatingTime = false; // 경과 시간 업데이트 중지
     }
 

@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: DecreaseMultiplierOnPlaceEffect
   m_EditorClassIdentifier: 
   id: DecreaseMultiplierOnPlaceEffect
-  effectName: "\uBC30\uCE58 \uC2DC 10% \uD655\uB960\uB85C \uBC30\uC218 -1"
+  effectName: "\uBC30\uCE58 \uC2DC 20% \uD655\uB960\uB85C \uBC30\uC218 -1"
   type: 2
   trigger: 1
   effectValue: -1
   blockTypes: 
   blockId: -1
-  probability: 0.1
+  probability: 0.2
   triggerValue: 0

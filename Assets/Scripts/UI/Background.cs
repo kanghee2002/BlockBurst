@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Background : MonoBehaviour
 {
@@ -8,13 +9,25 @@ public class Background : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     private const float rotationSpeed = 4.0f;
 
-    /*
+    
     private void Start()
     {
-        Color colorToSet = new Color(0.0627f, 0.8235f, 0.4588f, 1.0f);
-        SetColor(colorToSet);
+        StartCoroutine(ChangeColorPeriodically());
     }
-    */
+    private IEnumerator ChangeColorPeriodically()
+    {
+        while (true)
+        {
+            // 랜덤 색상 생성
+            Color randomColor = new Color(Random.value, Random.value, Random.value);
+
+            // DOTween으로 구현된 SetColor 호출
+            SetColor(randomColor);
+
+            yield return new WaitForSeconds(2.0f);
+        }
+    }
+
 
     private void Update()
     {
@@ -26,8 +39,10 @@ public class Background : MonoBehaviour
         }
     }
 
-    public void SetColor(Color colorToSet)
+    Tween currentTween;
+    public void SetColor(Color colorToSet, float duration = 2.0f)
     {
-        spriteRenderer.color = colorToSet;
+        currentTween?.Kill();
+        currentTween = spriteRenderer.DOColor(colorToSet, duration);
     }
 }

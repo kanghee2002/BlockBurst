@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
     float[] difficulties = new float[STAGE_CHOICE_COUNT];
 
     private List<Match> currentMatches;
-    private float scoreAnimationDelay;
+    private float scoreAnimationDelay;  // 블록 점수 간의 딜레이
 
     public float startTime; // 게임 시작 시간
     public int[] blockHistory;
@@ -125,7 +125,7 @@ public class GameManager : MonoBehaviour
             }
         }
         startTime = Time.time;
-        scoreAnimationDelay = 0.025f;
+        scoreAnimationDelay = 0.01f;
         currentMatches = new List<Match>();
 
         blockHistory = new int[Enum.GetValues(typeof(BlockType)).Length];
@@ -513,7 +513,7 @@ public class GameManager : MonoBehaviour
         }
 
         int delayCount = 0;
-        float delay = 0.5f;
+        float delay = 0.25f;    // 아이템 효과 간의 딜레이
         for (int i = 0; i < runData.activeItems.Count; i++)
         {
             ItemData currentItem = runData.activeItems[i];
@@ -547,7 +547,8 @@ public class GameManager : MonoBehaviour
         GameUIManager.instance.UpdateChip(0);
         UpdateBaseMultiplier();
 
-        yield return new WaitForSeconds(1.2f);
+        // 계산된 점수가 얻은 점수에 더해지기 전 딜레이
+        yield return new WaitForSeconds(0.75f);
 
         GameUIManager.instance.UpdateProduct(0);
         GameUIManager.instance.UpdateScore(blockGame.currentScore);
@@ -594,7 +595,8 @@ public class GameManager : MonoBehaviour
 
     public float GetMatchAnimationTime(List<Match> matches)
     {
-        float result = 0f, lastDelay = 0.5f;
+        float result = 0f;
+        float lastDelay = 0.3f;     // 매칭 이후 아이템 애니메이션 진행 전 딜레이
 
         foreach (Match match in matches)
         {

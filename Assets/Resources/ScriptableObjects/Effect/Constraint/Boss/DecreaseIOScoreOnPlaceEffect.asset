@@ -20,4 +20,4 @@ MonoBehaviour:
   blockTypes: 0000000001000000
   blockId: -1
   probability: 1
-  triggerValue: 5
+  triggerValue: 0

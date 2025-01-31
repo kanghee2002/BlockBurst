@@ -230,11 +230,11 @@ public class GameManager : MonoBehaviour
             //stage.goldReward = (int)(gameData.stageBaseReward * Mathf.Pow(difficulties[i], .33f));
             if (currentChapterIndex <= 8)
             {
-                stage.clearRequirement = (int)(gameData.stageBaseScoreList[currentChapterIndex - 1] * gameData.stageScoreMultiplier[currentStageIndex - 1]);
+                stage.clearRequirement = (int)(gameData.stageBaseScoreList[currentChapterIndex - 1] * (gameData.stageScoreMultiplier[currentStageIndex - 1] + stage.baseScoreMultiplier));
             }
             else
             {
-                stage.clearRequirement = (int)(gameData.stageBaseScoreList[gameData.stageBaseScoreList.Count - 1] * (currentChapterIndex - 7) * gameData.stageScoreMultiplier[currentStageIndex - 1]);
+                stage.clearRequirement = (int)(gameData.stageBaseScoreList[gameData.stageBaseScoreList.Count - 1] * (currentChapterIndex - 7) * (gameData.stageScoreMultiplier[currentStageIndex - 1] + stage.baseScoreMultiplier));
             }
             stage.goldReward = 8 + currentChapterIndex;
         }

@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43902bf98a9ab9c4d8d6db09a48e8201, type: 3}
-  m_Name: DecreaseGoldOnReroll
+  m_Name: DecreaseJScore
   m_EditorClassIdentifier: 
-  id: DecreaseGoldOnReroll
+  id: DecreaseJScore
   type: 0
   boardSize: {x: 8, y: 8}
   blockedCells: []
   constraints:
-  - {fileID: 11400000, guid: a955585cc30b78549ae9a63911e65a97, type: 2}
+  - {fileID: 11400000, guid: 0d04d6fa602b7d140b22e008fad882a8, type: 2}
   clearRequirement: 100
   goldReward: 5
-  baseScoreMultiplier: 0.5
+  baseScoreMultiplier: 0

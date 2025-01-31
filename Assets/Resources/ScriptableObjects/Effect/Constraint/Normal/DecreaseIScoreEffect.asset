@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
-  m_Name: DecreaseGoldOnLineClear
+  m_Name: DecreaseIScoreEffect
   m_EditorClassIdentifier: 
-  id: DecreaseGoldOnLineClear
-  effectName: "\uC904 \uD074\uB9AC\uC5B4 \uC2DC \uACE8\uB4DC -1"
-  type: 9
-  trigger: 9
-  effectValue: -1
-  blockTypes: 
+  id: DebuffIScoreEffect
+  effectName: "I \uBE14\uB85D \uD3EC\uD568 \uD074\uB9AC\uC5B4 \uC2DC I \uC810\uC218
+    -2"
+  type: 0
+  trigger: 11
+  effectValue: -2
+  blockTypes: 00000000
   blockId: -1
   probability: 1
   triggerValue: 0

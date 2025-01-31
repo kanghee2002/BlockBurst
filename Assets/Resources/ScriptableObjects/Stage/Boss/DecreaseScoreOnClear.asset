@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43902bf98a9ab9c4d8d6db09a48e8201, type: 3}
-  m_Name: DecreaseDrawBlockCount
+  m_Name: DecreaseScoreOnClear
   m_EditorClassIdentifier: 
-  id: DecreaseDrawBlockCount
+  id: DecreaseScoreOnClear
   type: 1
   boardSize: {x: 8, y: 8}
   blockedCells: []
   constraints:
-  - {fileID: 11400000, guid: 6857051b736f7d144b02a12aa47b4c3f, type: 2}
+  - {fileID: 11400000, guid: 2ad9189ed93ae9f4ebff2d4d93a6a3fd, type: 2}
   clearRequirement: 300
   goldReward: 10
+  baseScoreMultiplier: 0

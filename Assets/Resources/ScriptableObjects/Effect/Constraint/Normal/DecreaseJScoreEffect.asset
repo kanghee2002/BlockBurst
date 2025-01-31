@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
-  m_Name: DebuffLScoreEffect
+  m_Name: DecreaseJScoreEffect
   m_EditorClassIdentifier: 
-  id: DebuffLScoreEffect
-  effectName: "L \uBE14\uB85D \uC810\uC218 \uB9C8\uC774\uB108\uC2A4"
-  type: 1
-  trigger: 0
-  effectValue: -1
-  blockTypes: 05000000
+  id: DecreaseJScoreEffect
+  effectName: "J \uBE14\uB85D \uD3EC\uD568 \uD074\uB9AC\uC5B4 \uC2DC J \uC810\uC218
+    -3"
+  type: 0
+  trigger: 11
+  effectValue: -3
+  blockTypes: 04000000
   blockId: -1
   probability: 1
   triggerValue: 0

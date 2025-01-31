@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
-  m_Name: DebuffLScoreEffect
+  m_Name: DecreasZSScoreOnPlaceEffect
   m_EditorClassIdentifier: 
-  id: DebuffLScoreEffect
-  effectName: "L \uBE14\uB85D \uC810\uC218 \uB9C8\uC774\uB108\uC2A4"
-  type: 1
-  trigger: 0
-  effectValue: -1
-  blockTypes: 05000000
+  id: DecreasZSScoreOnPlaceEffect
+  effectName: "Z/S \uBC30\uCE58 \uC2DC Z/S \uC810\uC218 -7"
+  type: 0
+  trigger: 1
+  effectValue: -7
+  blockTypes: 0200000003000000
   blockId: -1
   probability: 1
-  triggerValue: 0
+  triggerValue: 5

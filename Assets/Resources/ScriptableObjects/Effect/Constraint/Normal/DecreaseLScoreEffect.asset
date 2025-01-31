@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
-  m_Name: DecreaseBoardSizeEffect
+  m_Name: DecreaseLScoreEffect
   m_EditorClassIdentifier: 
-  id: DecreaseBoardSizeEffect
-  effectName: "\uBCF4\uB4DC \uD06C\uAE30 -1"
-  type: 11
-  trigger: 0
-  effectValue: -1
-  blockTypes: 
+  id: DecreaseLScoreEffect
+  effectName: "L \uBE14\uB85D \uD3EC\uD568 \uD074\uB9AC\uC5B4 \uC2DC L \uC810\uC218
+    -3"
+  type: 0
+  trigger: 11
+  effectValue: -3
+  blockTypes: 05000000
   blockId: -1
   probability: 1
   triggerValue: 0

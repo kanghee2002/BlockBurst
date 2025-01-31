@@ -113,7 +113,7 @@ public class Board
         if (matches.Count == 0)
         {
             hasMatched = false;
-            EffectManager.instance.TriggerEffects(TriggerType.ON_BLOCK_PLACE_WITHOUT_LINE_CLEAR, blockTypes: new BlockType[] { block.Type });
+            EffectManager.instance.TriggerEffects(TriggerType.ON_BLOCK_PLACE_WITHOUT_LINE_CLEAR);
         }
         // 줄이 지워졌을 때
         else

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: DebuffOScoreEffect
   m_EditorClassIdentifier: 
   id: DebuffOScoreEffect
-  effectName: "O \uBE14\uB85D \uC810\uC218 0"
+  effectName: "O \uBE14\uB85D \uC810\uC218 \uB9C8\uC774\uB108\uC2A4"
   type: 1
   trigger: 0
-  effectValue: 0
+  effectValue: -1
   blockTypes: 01000000
   blockId: -1
   probability: 1

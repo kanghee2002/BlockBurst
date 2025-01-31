@@ -20,3 +20,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a955585cc30b78549ae9a63911e65a97, type: 2}
   clearRequirement: 100
   goldReward: 5
+  baseScoreMultiplier: 0.5

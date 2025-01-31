@@ -59,7 +59,7 @@ public class GameData
 
         stageBaseScoreList = new List<int>()
         {
-            100,
+            120,
             400,
             1000,
             2500,
@@ -70,7 +70,7 @@ public class GameData
         };
         stageScoreMultiplier = new List<float>()
         {
-            1f, 1.5f, 2f
+            1f, 2f, 4f
         };
     }
 }

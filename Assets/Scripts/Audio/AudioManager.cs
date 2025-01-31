@@ -44,8 +44,8 @@ public class AudioManager : MonoBehaviour
         timelineInfo = new TimelineInfo();
         stage1Callback = new FMOD.Studio.EVENT_CALLBACK(BeatEventCallback);
 
-        stage1.setParameterByName("shop_transit", 0);
         stage1 = RuntimeManager.CreateInstance("event:/stage1");
+        stage1.setParameterByName("shop_transit", 0);
         timelineHandle = GCHandle.Alloc(timelineInfo, GCHandleType.Pinned);
         stage1.setUserData(GCHandle.ToIntPtr(timelineHandle));
         stage1.setCallback(stage1Callback, EVENT_CALLBACK_TYPE.TIMELINE_MARKER | EVENT_CALLBACK_TYPE.TIMELINE_BEAT);

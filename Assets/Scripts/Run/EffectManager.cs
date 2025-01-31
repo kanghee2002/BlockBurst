@@ -224,6 +224,10 @@ public class EffectManager : MonoBehaviour
 
     private bool IsIncluded(BlockType[] arr1, BlockType[] arr2)
     {
+        if (arr2 != null)
+        {
+            if (arr2.Length == 0) return true;
+        }
         if (arr1 == null || arr2 == null) return true;
         return arr1.All(x => arr2.Contains(x));
     }

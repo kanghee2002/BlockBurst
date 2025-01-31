@@ -93,7 +93,7 @@ public class EffectManager : MonoBehaviour
     {
         foreach (EffectData effect in runData.activeEffects)
         {
-            if (effect.trigger == trigger && IsIncluded(effect.blockTypes, blockTypes) &&
+            if (effect.trigger == trigger && IsIncluded(blockTypes, effect.blockTypes) &&
                 effect.blockId == blockId && effect.triggerValue == triggerValue)
             {
                 ApplyEffect(effect, blockId);
@@ -224,6 +224,7 @@ public class EffectManager : MonoBehaviour
 
     private bool IsIncluded(BlockType[] arr1, BlockType[] arr2)
     {
+        if (arr1 == null || arr2 == null) return true;
         return arr1.All(x => arr2.Contains(x));
     }
 

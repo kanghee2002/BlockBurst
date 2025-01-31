@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
     StageData[] nextStageChoices = new StageData[STAGE_CHOICE_COUNT];
     float[] difficulties = new float[STAGE_CHOICE_COUNT];
 
+    private List<Match> currentMatches;
     private float scoreAnimationDelay;
 
     public float startTime; // 게임 시작 시간
@@ -125,6 +126,7 @@ public class GameManager : MonoBehaviour
         }
         startTime = Time.time;
         scoreAnimationDelay = 0.025f;
+        currentMatches = new List<Match>();
 
         blockHistory = new int[Enum.GetValues(typeof(BlockType)).Length];
 
@@ -224,8 +226,17 @@ public class GameManager : MonoBehaviour
         {
             StageData stage = nextStageChoices[i];
             difficulties[i] = gameData.difficulty * UnityEngine.Random.Range(gameData.stageBaseScoreMultipliers[0], gameData.stageBaseScoreMultipliers[1]);
-            stage.clearRequirement = (int)(gameData.stageBaseScores * difficulties[i] / 10f) * 10;
-            stage.goldReward = (int)(gameData.stageBaseReward * Mathf.Pow(difficulties[i], .33f));
+            //stage.clearRequirement = (int)(gameData.stageBaseScores * difficulties[i] / 10f) * 10;
+            //stage.goldReward = (int)(gameData.stageBaseReward * Mathf.Pow(difficulties[i], .33f));
+            if (currentChapterIndex <= 8)
+            {
+                stage.clearRequirement = (int)(gameData.stageBaseScoreList[currentChapterIndex - 1] * gameData.stageScoreMultiplier[currentStageIndex - 1]);
+            }
+            else
+            {
+                stage.clearRequirement = (int)(gameData.stageBaseScoreList[gameData.stageBaseScoreList.Count - 1] * (currentChapterIndex - 7) * gameData.stageScoreMultiplier[currentStageIndex - 1]);
+            }
+            stage.goldReward = 8 + currentChapterIndex;
         }
 
         // UI에 전달
@@ -339,13 +350,26 @@ public class GameManager : MonoBehaviour
         GameUIManager.instance.OnShopStart(shopItems, shopManager.rerollCost, isFirst);   
     }
 
+    public void OnItemDiscard(int index)
+    {
+        ItemData soldItem = runData.activeItems[index];
+        runData.activeItems.RemoveAt(index);
+
+        foreach (EffectData effect in soldItem.effects)
+        {
+            EffectManager.instance.RemoveEffect(effect);
+        }
+        GameUIManager.instance.DisplayItemSet(runData.activeItems);
+    }
+
     public int OnItemPurchased(int index)
     {
         ItemData shopItem = shopItems[index];
-        shopItems[index] = null;
+        
         int res = shopManager.PurchaseItem(shopItem);
         if (res != -1)
         {
+            shopItems[index] = null;
             GameUIManager.instance.DisplayItemSet(runData.activeItems);
         }
         else
@@ -459,14 +483,14 @@ public class GameManager : MonoBehaviour
         EffectManager.instance.EndTriggerEffect();
     }
 
-    public void PlayItemEffectAnimation(List<string> effectIdList, float matchAnimationTIme = 0f)
+    public void PlayItemEffectAnimation(List<string> effectIdList, float matchAnimationTime = 0f)
     {
-        StartCoroutine(ItemEffectAnimationCoriotine(effectIdList, matchAnimationTIme));
+        StartCoroutine(ItemEffectAnimationCoriotine(effectIdList, matchAnimationTime));
     }
 
-    private IEnumerator ItemEffectAnimationCoriotine(List<string> effectIdList, float matchAnimationTIme = 0f)
+    private IEnumerator ItemEffectAnimationCoriotine(List<string> effectIdList, float matchAnimationTime)
     {
-        yield return new WaitForSeconds(matchAnimationTIme);
+        yield return new WaitForSeconds(matchAnimationTime);
 
         // 임시 구현 (블록 강화 시각 효과)
         foreach (string effectId in effectIdList)
@@ -488,7 +512,6 @@ public class GameManager : MonoBehaviour
             }
         }
 
-
         int delayCount = 0;
         float delay = 0.5f;
         for (int i = 0; i < runData.activeItems.Count; i++)
@@ -509,7 +532,7 @@ public class GameManager : MonoBehaviour
         }
 
         // 매칭 진행 중이라면
-        if (matchAnimationTIme > 0f)
+        if (matchAnimationTime > 0f)
         {
             yield return new WaitForSeconds(0.3f);
 
@@ -544,10 +567,10 @@ public class GameManager : MonoBehaviour
             GameUIManager.instance.OnBlockPlaced(blockObj, block, pos);
 
             // Match 처리된 결과 가져오기 및 애니메이션 실행
-            List<Match> matches = board.GetLastMatches();
-            if (matches.Count > 0) {
-                Dictionary<Match, List<int>> scores = GetScoreDictionary(matches);
-                GameUIManager.instance.PlayMatchAnimation(matches, scores, scoreAnimationDelay);
+            currentMatches = board.GetLastMatches();
+            if (currentMatches.Count > 0) {
+                Dictionary<Match, List<int>> scores = GetScoreDictionary(currentMatches);
+                GameUIManager.instance.PlayMatchAnimation(currentMatches, scores, scoreAnimationDelay);
             }
 
             if (!isClearStage && stageManager.CheckStageClear(blockGame))
@@ -564,32 +587,9 @@ public class GameManager : MonoBehaviour
         return success;
     }
 
-    public void ForceLineClear(List<(MatchType, List<int>)> lines)
+    public void ForceLineClearBoard(MatchType matchType, List<int> indices)
     {
-        foreach ((MatchType matchType, List<int> indices) in lines) 
-        {
-            if (matchType == MatchType.ROW)
-            {
-                board.ForceRowMatches(indices);
-            }
-            else if (matchType == MatchType.COLUMN)
-            {
-                board.ForceColumnMatches(indices);
-            }
-        }
-
-        // Match 처리된 결과 가져오기 및 애니메이션 실행
-        List<Match> matches = board.GetLastMatches();
-        if (matches.Count > 0)
-        {
-            Dictionary<Match, List<int>> scores = GetScoreDictionary(matches);
-            GameUIManager.instance.PlayMatchAnimation(matches, scores, scoreAnimationDelay);
-        }
-
-        if (stageManager.CheckStageClear(blockGame))
-        {
-            StartCoroutine(DelayedEndStage(true));
-        }
+        board.ForceMatches(matchType, indices);
     }
 
     public float GetMatchAnimationTime(List<Match> matches)
@@ -608,7 +608,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (result != 0f)
+        if (matches.Count > 0)
         {
             result += lastDelay;
         }

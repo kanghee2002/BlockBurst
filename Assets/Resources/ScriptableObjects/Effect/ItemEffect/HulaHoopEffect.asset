@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: HulaHoopEffect
   effectName: "\uBCF4\uB4DC\uAC00 \uBC18 \uC774\uC0C1 \uCC28 \uC788\uC73C\uBA74 \uBC30\uC218
-    +2"
+    +5"
   type: 2
   trigger: 19
-  effectValue: 2
+  effectValue: 5
   blockTypes: 
   blockId: -1
   probability: 1

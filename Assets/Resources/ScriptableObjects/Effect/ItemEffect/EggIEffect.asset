@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: EggIEffect
   m_EditorClassIdentifier: 
   id: EggIEffect
-  effectName: "I \uD3EC\uD568 \uD074\uB9AC\uC5B4 \uC2DC \uBC30\uC218 +1"
+  effectName: "I \uD3EC\uD568 \uD074\uB9AC\uC5B4 \uC2DC \uBC30\uC218 +2"
   type: 2
   trigger: 11
-  effectValue: 1
+  effectValue: 2
   blockTypes: 00000000
   blockId: -1
   probability: 1

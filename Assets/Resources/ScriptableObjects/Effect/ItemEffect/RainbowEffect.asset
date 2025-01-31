@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: RainbowEffect
   effectName: "\uBAA8\uB450 \uB2E4\uB978 \uC885\uB958\uB85C \uD074\uB9AC\uC5B4 \uC2DC
-    \uBC30\uC218 +4"
+    \uBC30\uC218 +6"
   type: 2
   trigger: 13
-  effectValue: 4
+  effectValue: 6
   blockTypes: 
   blockId: -1
   probability: 1

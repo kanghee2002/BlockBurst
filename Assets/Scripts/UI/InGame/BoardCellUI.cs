@@ -20,6 +20,8 @@ public class BoardCellUI : MonoBehaviour
     private bool isBlocked = false;
     private Tween shadowTween;
 
+    private Sequence currentSequence;
+
     private void Awake() {
         cellImage = GetComponent<Image>();
         originalColor = cellImage.color;
@@ -33,6 +35,8 @@ public class BoardCellUI : MonoBehaviour
         cellIndex = index;
         cellImage.color = color;
         originalColor = color;
+
+        currentSequence = null;
     }
 
     public string GetBlockId() {
@@ -64,6 +68,15 @@ public class BoardCellUI : MonoBehaviour
     {
         GetComponent<Image>().sprite = cellUI.GetComponent<Image>().sprite;
         ClearShadow();
+    }
+
+    public void StopClearAnimation()
+    {
+        transform.DOKill();
+        cellImage.DOKill();
+        transform.localScale = Vector3.one;
+
+        currentSequence.Kill();
     }
 
     private void AnimateShadow(Color targetColor, bool setShadow) {
@@ -120,6 +133,17 @@ public class BoardCellUI : MonoBehaviour
         cellImage.color = new Color(0.5f, 0.5f, 0.5f);
     }
 
+    public void PlayClearAnimation(float preDelay, float postDelay)
+    {
+        currentSequence = DOTween.Sequence();
+
+        currentSequence
+            .AppendInterval(preDelay)
+            .AppendCallback(() => PlayHighlightAnimation())
+            .AppendInterval(postDelay)
+            .AppendCallback(() => PlayClearAnimation());
+    }
+
     public void PlayHighlightAnimation() {
         if (isBlocked) return;
 
@@ -134,29 +158,20 @@ public class BoardCellUI : MonoBehaviour
 
         Vector3 originalScale = transform.localScale;
 
-        DOTween.Kill(transform);
-        DOTween.Kill(cellImage);
-
-        cellImage.sprite = originalSprite;
-        cellImage.color = originalColor;
-
-        Sequence sequence = DOTween.Sequence();
-
-        sequence.Append(transform.DOScale(0, 0.3f).SetEase(Ease.InBack));
-
-        sequence.OnComplete(() => 
-        {
-            transform.localScale = originalScale;
-            ClearCell();
-        });
+        transform.DOScale(0, 0.3f).SetEase(Ease.InBack)
+            .OnComplete(() => 
+            {
+                transform.localScale = originalScale;
+                ClearCell();
+            });
     }
 
     // 점수 표시 애니메이션
-    public void PlayScoreAnimation(int score)
+    public void PlayScoreAnimation(int score, float preDelay)
     {
         if (isBlocked) return;
 
-        textTransform.gameObject.SetActive(true);
+        
         scoreText.text = score.ToString();
 
         Vector2 originalPosition = textTransform.anchoredPosition;
@@ -165,7 +180,9 @@ public class BoardCellUI : MonoBehaviour
 
         Sequence sequence = DOTween.Sequence();
 
-        sequence.Append(textTransform.DOAnchorPosY(originalPosition.y + yOffset, 0.3f)
+        sequence.AppendInterval(preDelay)
+            .AppendCallback(() => textTransform.gameObject.SetActive(true))
+            .Join(textTransform.DOAnchorPosY(originalPosition.y + yOffset, 0.3f)
             .SetEase(Ease.InOutQuad));
         sequence.Join(scoreText.DOFade(0f, 0.8f));
 

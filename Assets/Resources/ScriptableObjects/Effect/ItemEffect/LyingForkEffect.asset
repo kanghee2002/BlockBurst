@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: LyingForkEffect
   m_EditorClassIdentifier: 
   id: LyingForkEffect
-  effectName: "\uD074\uB9AC\uC5B4 \uC2DC 50% \uD655\uB960\uB85C \uBB34\uC791\uC704
+  effectName: "\uD074\uB9AC\uC5B4 \uC2DC 25% \uD655\uB960\uB85C \uBB34\uC791\uC704
     \uAC00\uB85C 1\uC904 \uD074\uB9AC\uC5B4"
   type: 20
   trigger: 9
   effectValue: 0
   blockTypes: 
   blockId: -1
-  probability: 0.5
+  probability: 0.25
   triggerValue: 0

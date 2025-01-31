@@ -16,7 +16,7 @@ MonoBehaviour:
   itemName: "Z \uCC45"
   effects:
   - {fileID: 11400000, guid: 55a5880483ae8534f961a7940fb4a9af, type: 2}
-  cost: 4
+  cost: 8
   type: 2
   block: {fileID: 0}
   effectType: 0

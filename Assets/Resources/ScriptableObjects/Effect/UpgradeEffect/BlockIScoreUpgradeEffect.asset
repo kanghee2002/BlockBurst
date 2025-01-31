@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BlockIScoreUpgradeEffect
   m_EditorClassIdentifier: 
   id: BlockIScoreUpgradeEffect
-  effectName: "I \uC810\uC218 +5"
+  effectName: "I \uC810\uC218 +3"
   type: 0
   trigger: 0
-  effectValue: 5
+  effectValue: 3
   blockTypes: 00000000
   blockId: -1
   probability: 1

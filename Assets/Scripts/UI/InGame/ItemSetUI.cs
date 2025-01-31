@@ -9,6 +9,7 @@ using TMPro;
 public class ItemSetUI : MonoBehaviour
 {
     [SerializeField] private GameObject itemIconPrefab;
+    [SerializeField] private TextMeshProUGUI itemCountText;
     [SerializeField] private float iconOverlap = 30f;    
     [SerializeField] private float hoverScale = 1.2f;    
     [SerializeField] private float hoverDuration = 0.2f; 
@@ -36,6 +37,12 @@ public class ItemSetUI : MonoBehaviour
 
             description.GetComponent<TextMeshProUGUI>().text = GetDescription(item);
 
+            Button discardButton = itemIcon.transform.GetChild(4).GetComponent<Button>();
+            int index = itemIcons.Count;
+            discardButton.onClick.RemoveAllListeners();
+            discardButton.onClick.AddListener(() => DiscardItem(index));
+
+            // Event
             EventTrigger trigger = itemIcon.AddComponent<EventTrigger>();
             
             EventTrigger.Entry enterEntry = new EventTrigger.Entry();
@@ -58,41 +65,16 @@ public class ItemSetUI : MonoBehaviour
 
             EventTrigger.Entry clickEntry = new EventTrigger.Entry();
             clickEntry.eventID = EventTriggerType.PointerClick;
-            clickEntry.callback.AddListener((data) => {  });
+            clickEntry.callback.AddListener((data) => {
+                OnItemClick(discardButton.gameObject);
+            });
             trigger.triggers.Add(clickEntry);
             
             itemIcon.transform.SetSiblingIndex(itemIcons.Count);
             itemIcons.Add(itemIcon);
         }
 
-        // 아이템 많을 때 임시 위치 조정
-        if (itemIcons.Count >= 12 && itemIcons.Count <= 22)       // 두 줄일 때
-        {
-            for (int i = 0; i < itemIcons.Count; i++)
-            {
-                RectTransform rectTransform = itemIcons[i].GetComponent<RectTransform>();
-                
-                // 첫 번째 줄
-                rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, 40f);   
-                
-                if (i > 10) // 두 번째 줄
-                {
-                    rectTransform.anchoredPosition = new Vector2(startPos + spacing * (i - 11), -40f);
-
-                }
-            }
-        }
-        else if (itemIcons.Count > 22)       // 세 줄 이상일 때
-        {
-            for (int i = 0; i < itemIcons.Count; i++)
-            {
-                RectTransform rectTransform = itemIcons[i].GetComponent<RectTransform>();
-
-                int line = i / 11;
-
-                rectTransform.anchoredPosition = new Vector2(startPos + spacing * (i - 11 * line), 80f + (-80f) * line);
-            }
-        }
+        itemCountText.text = items.Count + "/10";
     }
 
     private Sprite GetImage(ItemData item)
@@ -172,6 +154,23 @@ public class ItemSetUI : MonoBehaviour
     private void OnItemExit(GameObject description)
     {
         description.SetActive(false);
+    }
+
+    private void OnItemClick(GameObject discardButton)
+    {
+        if (discardButton.activeSelf)
+        {
+            discardButton.SetActive(false);
+        }
+        else
+        {
+            discardButton.SetActive(true);
+        }
+    }
+
+    private void DiscardItem(int index)
+    {
+        GameManager.instance.OnItemDiscard(index);
     }
 
     private string GetDescription(ItemData item)

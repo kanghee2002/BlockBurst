@@ -37,6 +37,7 @@ public class Board
                 cells[i, j].Initialize();
             }
         }
+        lastMatches = new List<Match>();
     }
 
     public void BlockCells(HashSet<Vector2Int> blockedCells)
@@ -189,7 +190,7 @@ public class Board
         lastMatches.AddRange(matches);
 
         // 아이템 시각 효과 실행
-        EffectManager.instance.EndTriggerEffectOnPlace(matches);
+        EffectManager.instance.EndTriggerEffectOnPlace(lastMatches);
 
         CalculateScore(matches);
 
@@ -334,10 +335,19 @@ public class Board
         return null;
     }
 
-    // 강제 행 매치 처리 (무작위로 줄 지우는 효과)
-    public List<Match> ForceRowMatches(List<int> rows)
+    // 강제 매치 처리 (무작위로 줄 지우는 효과)
+    public List<Match> ForceMatches(MatchType matchType, List<int> indices)
     {
-        List<Match> matches = CheckRowMatch(rows, true);
+        List<Match> matches = new List<Match>();
+
+        if (matchType == MatchType.ROW)
+        {
+            matches.AddRange(CheckRowMatch(indices, true));
+        }
+        else if (matchType == MatchType.COLUMN)
+        {
+            matches.AddRange(CheckColumnMatch(indices, true));
+        }
 
         // 지운 블록들 비우기
         ClearCells(matches);
@@ -352,27 +362,6 @@ public class Board
 
         TriggerHalfFullEffect(matches);
         
-        return matches;
-    }
-
-    // 강제 열 매치 처리 (무작위로 줄 지우는 효과)
-    public List<Match> ForceColumnMatches(List<int> rows)
-    {
-        List<Match> matches = CheckColumnMatch(rows, true);
-
-        // 지운 블록들 비우기
-        ClearCells(matches);
-
-        // 모두 지워질 때 효과를 가진 블록 중 지워진 것 있는지 확인
-        CheckOnClearEffectBlocks();
-
-        // 매치된 결과 저장
-        lastMatches.AddRange(matches);
-
-        CalculateScore(matches);
-
-        TriggerHalfFullEffect(matches);
-
         return matches;
     }
 
@@ -530,32 +519,4 @@ public class Board
             onClearEffectBlocks.RemoveAt(i);
         }
     }
-
-    /*
-    // Test Code  ////////////////////////////////////////////////////////////
-    [SerializeField] private Cell[] tmpCells;
-
-    private void Start()
-    {
-        cells = new Cell[8, 8];
-        for (int i = 0; i < 8; i++)
-        {
-            for (int j = 0; j < 8; j++)
-            {
-                tmpCells[i * 8 + j].transform.position = new Vector3(j, -i);
-
-                
-                if ((i + j) % 2 == 0)
-                {
-                    tmpCells[i * 8 + j].GetComponent<SpriteRenderer>().color = new Color(0.8f, 0.8f, 0.8f);
-                }
-
-                tmpCells[i * 8 + j].cellPosition = new Vector2Int(j, i);
-                cells[j, i] = tmpCells[i * 8 + j];
-                cells[j, i].Initialize();
-            }
-        }
-    }
-    //////////////////////////////////////////////////////////////////////
-    */
 }

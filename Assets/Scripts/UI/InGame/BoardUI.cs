@@ -93,6 +93,7 @@ public class BoardUI : MonoBehaviour
         foreach (Vector2Int shapePos in block.Shape)
         {
             Vector2Int cellPos = pos + shapePos;
+            boardCellsUI[cellPos.y, cellPos.x].StopClearAnimation();
             boardCellsUI[cellPos.y, cellPos.x].SetBlockInfo(block.Id);
             boardCellsUI[cellPos.y, cellPos.x].CopyVisualFrom(visualObj);
         }
@@ -100,7 +101,47 @@ public class BoardUI : MonoBehaviour
 
     public void ProcessMatchAnimation(List<Match> matches, Dictionary<Match, List<int>> scores, float delay)
     {
-        StartCoroutine(MatchAnimationCoroutine(matches, scores, delay));
+        float totalTime = 0f, delayedTime = 0f;
+
+        // 총 걸리는 시간 계산
+        foreach (Match match in matches)
+        {
+            if (match.matchType == MatchType.ROW)
+            {
+                totalTime += delay * width;
+            }
+            else if (match.matchType == MatchType.COLUMN)
+            {
+                totalTime += delay * height;
+            }
+        }
+
+        // 줄 지우는 효과
+        foreach (Match match in matches)
+        {
+            if (match.matchType == MatchType.ROW)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    boardCellsUI[match.index, x].PlayClearAnimation(delayedTime, totalTime - delayedTime + 0.3f);
+
+                    int score = scores[match][x];
+                    boardCellsUI[match.index, x].PlayScoreAnimation(score, delayedTime);
+                    delayedTime += delay;
+                }
+            }
+            else if (match.matchType == MatchType.COLUMN)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    boardCellsUI[y, match.index].PlayClearAnimation(delayedTime, totalTime - delayedTime + 0.3f);
+
+                    int score = scores[match][y];
+                    boardCellsUI[y, match.index].PlayScoreAnimation(score, delayedTime);
+                    delayedTime += delay;
+                }
+            }
+        }
 
         // matches의 blocks의 개수를 모두 더함
         int totalBlocks = 0;
@@ -109,74 +150,5 @@ public class BoardUI : MonoBehaviour
             totalBlocks += match.blocks.Count;
         }
         AudioManager.instance.SFXMatch(totalBlocks);
-    }
-
-    private IEnumerator MatchAnimationCoroutine(List<Match> matches, Dictionary<Match, List<int>> scores, float delay)
-    {
-        /*// 지워지는 셀들에 대해 ID 먼저 초기화
-        foreach (Match match in matches)
-        {
-            if (match.matchType == MatchType.ROW)
-            {
-                for (int x = 0; x < width; x++)
-                {
-                    boardCellsUI[match.index, x].SetBlockInfo("");
-                }
-            }
-            else if (match.matchType == MatchType.COLUMN)
-            {
-                for (int y = 0; y < height; y++)
-                {
-                    boardCellsUI[y, match.index].SetBlockInfo("");
-                }
-            }
-        }*/
-
-        // 하이라이트 효과
-        foreach (Match match in matches)
-        {
-            if (match.matchType == MatchType.ROW)
-            {
-                for (int x = 0; x < width; x++)
-                {
-                    boardCellsUI[match.index, x].PlayHighlightAnimation();
-                    
-                    int score = scores[match][x];
-                    boardCellsUI[match.index, x].PlayScoreAnimation(score);
-                    yield return new WaitForSeconds(delay);
-                }
-            }
-            else if (match.matchType == MatchType.COLUMN)
-            {
-                for (int y = 0; y < height; y++)
-                {
-                    boardCellsUI[y, match.index].PlayHighlightAnimation();
-
-                    int score = scores[match][y];
-                    boardCellsUI[y, match.index].PlayScoreAnimation(score);
-                    yield return new WaitForSeconds(delay);
-                }
-            }
-        }
-        yield return new WaitForSeconds(0.3f);
-
-        // 제거 애니메이션
-        foreach (Match match in matches)
-        {
-            if (match.matchType == MatchType.ROW)
-            {
-                for (int x = 0; x < width; x++)
-                {
-                    boardCellsUI[match.index, x].PlayClearAnimation();
-                }
-            }
-            else if (match.matchType == MatchType.COLUMN)
-            {
-                for (int y = 0; y < height; y++)
-                {
-                    boardCellsUI[y, match.index].PlayClearAnimation();
-                }
-            }
-        }
     }
 }

@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: BrokenKeyEffect1
   m_EditorClassIdentifier: 
   id: BrokenKeyEffect1
-  effectName: "I/O \uBE14\uB85D \uBAA8\uB450 \uC0AD\uC81C"
+  effectName: "T \uBE14\uB85D \uBAA8\uB450 \uC0AD\uC81C"
   type: 18
   trigger: 0
   effectValue: 0
-  blockTypes: 0000000001000000
+  blockTypes: 06000000
   blockId: -1
   probability: 1
   triggerValue: 0

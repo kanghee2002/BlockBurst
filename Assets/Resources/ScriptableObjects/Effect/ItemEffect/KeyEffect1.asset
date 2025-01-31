@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: KeyEffect1
   m_EditorClassIdentifier: 
   id: KeyEffect1
-  effectName: "\uAE30\uBCF8 \uBE14\uB85D \uC810\uC218 +30"
-  type: 0
+  effectName: "Z/S \uC678\uC758 \uAE30\uBCF8 \uBE14\uB85D \uC0AD\uC81C"
+  type: 18
   trigger: 0
-  effectValue: 30
-  blockTypes: 00000000010000000200000003000000040000000500000006000000
+  effectValue: 0
+  blockTypes: 0000000001000000040000000500000006000000
   blockId: -1
   probability: 1
   triggerValue: 0

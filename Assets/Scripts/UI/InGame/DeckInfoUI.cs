@@ -8,6 +8,8 @@ using System;
 
 public class DeckInfoUI : MonoBehaviour
 {
+    [SerializeField] private PopupBlurImage popupBlurImage;
+
     private RectTransform rectTransform;
 
     private const float insidePositionX = 0;
@@ -110,11 +112,13 @@ public class DeckInfoUI : MonoBehaviour
     {
         gameObject.SetActive(true);
         UIUtils.OpenUI(rectTransform, "X", insidePositionX, duration);
+        popupBlurImage.OpenPopupBlurImage(new Color(0.0f, 0.0f, 0.0f, 0.9f));
     }
 
     public void CloseDeckInfoUI()
     {
         UIUtils.CloseUI(rectTransform, "X", insidePositionX, outsidePositionX, duration);
+        popupBlurImage.ClosePopupBlurImage();
     }
 
     public void OnBasicSwitchButtonUIClick()

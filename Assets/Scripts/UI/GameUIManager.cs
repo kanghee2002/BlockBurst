@@ -18,7 +18,7 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private ItemBoardUI itemBoardUI;
     [SerializeField] private StageSelectionSignboardUI stageSelectionSignboardUI;
     [SerializeField] private StageSelectionBoardUI stageSelectionBoardUI;
-    
+
     [SerializeField] private RunInfoUI runInfoUI;
     [SerializeField] private OptionUI optionUI;
     [SerializeField] private DeckInfoUI deckInfoUI;

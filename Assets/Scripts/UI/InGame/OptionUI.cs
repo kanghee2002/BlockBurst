@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class OptionUI : MonoBehaviour
 {
+    [SerializeField] private PopupBlurImage popupBlurImage;
+
     private RectTransform rectTransform;
 
     private const float insidePositionY = 0;
@@ -20,10 +22,12 @@ public class OptionUI : MonoBehaviour
     {
         gameObject.SetActive(true);
         UIUtils.OpenUI(rectTransform, "Y", insidePositionY, duration);
+        popupBlurImage.OpenPopupBlurImage(new Color(0.0f, 0.0f, 0.0f, 0.9f));
     }
 
     public void CloseOptionUI()
     {
         UIUtils.CloseUI(rectTransform, "Y", insidePositionY, outsidePositionY, duration);
+        popupBlurImage.ClosePopupBlurImage();
     }
 }

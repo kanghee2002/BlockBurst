@@ -37,8 +37,9 @@ public class DeckManager : MonoBehaviour
         }
         else
         {
-            block = blockGameData.deck[0];
-            blockGameData.deck.RemoveAt(0);
+            int idx = Random.Range(0, blockGameData.deck.Count);
+            block = blockGameData.deck[idx];
+            blockGameData.deck.RemoveAt(idx);
         }
 
         EffectManager.instance.EndTriggerEffect();
@@ -73,10 +74,10 @@ public class DeckManager : MonoBehaviour
         }
     }
 
-    // 랜덤한 위치에 추가
+    // append
     public void AddBlockToBlockGameDeck(BlockData block)
     {
-        blockGameData.deck.Insert(Random.Range(0, blockGameData.deck.Count), block);
+        blockGameData.deck.Add(block);
     }
 
     public void AddBlockToRunDeck(BlockData block)

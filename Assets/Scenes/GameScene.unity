@@ -692,6 +692,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabBoardCellUI: {fileID: 5668075285194595410, guid: 8aa622ec88eb05341a77314c8b91cfa3, type: 3}
+  itemSetRect: {fileID: 1583208970}
+  deskMatRect: {fileID: 1415765597}
+  handUIRect: {fileID: 231077321}
 --- !u!1001 &94835057
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2449,7 +2452,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 292, y: -30}
+  m_AnchoredPosition: {x: 291.99994, y: -30}
   m_SizeDelta: {x: 256, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &231077322
@@ -2927,7 +2930,9 @@ MonoBehaviour:
   runInfoUI: {fileID: 438764287}
   optionUI: {fileID: 194651271}
   deckInfoUI: {fileID: 1019123825}
+  clearInfoUI: {fileID: 173150845}
   boardUI: {fileID: 90868073}
+  background: {fileID: 308968388}
 --- !u!4 &294469253
 Transform:
   m_ObjectHideFlags: 0

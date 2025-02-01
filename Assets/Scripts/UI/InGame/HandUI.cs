@@ -47,6 +47,11 @@ public class HandUI : MonoBehaviour
         }
     }
 
+    public void RotateBlock(int idx, Block block)
+    {
+        blockUIs[idx].GetComponent<BlockUI>().Initialize(block, idx);
+    }    
+
     public void OpenHandUI()
     {
         if (!isOpen)

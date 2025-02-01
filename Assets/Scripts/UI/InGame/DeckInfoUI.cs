@@ -45,17 +45,20 @@ public class DeckInfoUI : MonoBehaviour
         }
     }
 
-    public void Initialize(RunData runData, Dictionary<BlockType, int> scoreDictionary)
+    public void Initialize(RunData runData, BlockGameData blockGameData, bool isPlaying)
     {
-        List<BlockData> availableBlocks = runData.availableBlocks;
+        
+        Dictionary<BlockType, int> scoreDictionary = isPlaying ? blockGameData.blockScores : runData.baseBlockScores;
+        List<BlockData> availableBlocks = isPlaying ? blockGameData.deck : runData.availableBlocks;
         Dictionary<BlockType, int> countDictionary = new Dictionary<BlockType, int>();
+        
+        for (int i = 0; i < BlockTransforms.Length; i++)
+        {
+            countDictionary.Add((BlockType)i, 0);
+        }
 
         foreach (BlockData block in availableBlocks)
         {
-            if (!countDictionary.ContainsKey(block.type))
-            {
-                countDictionary.Add(block.type, 0);
-            }
             countDictionary[block.type]++;
         }
 
@@ -72,7 +75,7 @@ public class DeckInfoUI : MonoBehaviour
             }
             else
             {
-                if (!countDictionary.ContainsKey((BlockType)i) || countDictionary[(BlockType)i] == 0)
+                if (countDictionary[(BlockType)i] == 0)
                 {
                     // 투명하게
                     BlockTransforms[i].GetComponent<CanvasGroup>().alpha = 0f;

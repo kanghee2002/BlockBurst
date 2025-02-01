@@ -9,20 +9,19 @@ public class Background : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     private const float rotationSpeed = 4.0f;
 
-    
+    Tween currentTween;
+
     private void Start()
     {
-        StartCoroutine(ChangeColorPeriodically());
+        //StartCoroutine(ChangeColorPeriodically());
     }
+
+    // Don't use
     private IEnumerator ChangeColorPeriodically()
     {
         while (true)
         {
-            // ·£´ý »ö»ó »ý¼º
-            Color randomColor = new Color(Random.value, Random.value, Random.value);
-
-            // DOTweenÀ¸·Î ±¸ÇöµÈ SetColor È£Ãâ
-            SetColor(randomColor);
+            SetRandomColor();
 
             yield return new WaitForSeconds(2.0f);
         }
@@ -33,13 +32,18 @@ public class Background : MonoBehaviour
     {
         if (material != null)
         {
-            // ½Ã°£¿¡ µû¶ó Rotation °ªÀ» º¯°æ
-            float rotationValue = Mathf.Repeat(Time.time * rotationSpeed, 360f); // 0~360µµ ¹Ýº¹
-            material.SetFloat("_Rotation", rotationValue); // Shader GraphÀÇ Rotation º¯¼ö¿¡ °ª Àü´Þ
+            // ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Rotation ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            float rotationValue = Mathf.Repeat(Time.time * rotationSpeed, 360f); // 0~360ï¿½ï¿½ ï¿½Ýºï¿½
+            material.SetFloat("_Rotation", rotationValue); // Shader Graphï¿½ï¿½ Rotation ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
     }
 
-    Tween currentTween;
+    public void SetRandomColor()
+    {
+        Color randomColor = new Color(Random.value, Random.value, Random.value);
+        SetColor(randomColor);
+    }
+
     public void SetColor(Color colorToSet, float duration = 2.0f)
     {
         currentTween?.Kill();

@@ -15,9 +15,13 @@ public class ClearInfoUI : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
     }
 
-    public void OpenClearInfoUI()
+    public void Initialize(bool isCleared)
     {
         gameObject.SetActive(true);
+    }
+
+    public void OpenClearInfoUI()
+    {
         UIUtils.OpenUI(rectTransform, "Y", insidePositionY, duration);
     }
 

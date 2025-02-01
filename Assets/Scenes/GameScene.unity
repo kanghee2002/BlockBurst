@@ -3542,6 +3542,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee7d90488f7da9e41a412d9a7ca310b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  background: {fileID: 308968388}
   stageInfoUI: {fileID: 1154624342}
   scoreInfoUI: {fileID: 1947466356}
   actionInfoUI: {fileID: 836755883}
@@ -3559,7 +3560,6 @@ MonoBehaviour:
   deckInfoUI: {fileID: 1019123825}
   clearInfoUI: {fileID: 173150845}
   boardUI: {fileID: 90868073}
-  background: {fileID: 308968388}
 --- !u!4 &294469253
 Transform:
   m_ObjectHideFlags: 0
@@ -20404,8 +20404,8 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 308968387}
   - {fileID: 230092828}
+  - {fileID: 308968387}
   - {fileID: 294469253}
   - {fileID: 1630386387}
   - {fileID: 1937104743}

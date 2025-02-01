@@ -27,8 +27,6 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private ClearInfoUI clearInfoUI;
     [SerializeField] private BoardUI boardUI;
 
-    [SerializeField] private Background background;
-
     public enum SceneState
     {
         none,

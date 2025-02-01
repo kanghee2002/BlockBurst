@@ -9,23 +9,7 @@ public class Background : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     private const float rotationSpeed = 4.0f;
 
-    /*
-    private void Start()
-    {
-        //StartCoroutine(ChangeColorPeriodically());
-    }
-
-    // Don't use
-    private IEnumerator ChangeColorPeriodically()
-    {
-        while (true)
-        {
-            SetRandomColor();
-
-            yield return new WaitForSeconds(2.0f);
-        }
-    }
-    */
+    private Tween currentTween;
 
     private void Update()
     {

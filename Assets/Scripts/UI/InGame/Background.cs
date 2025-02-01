@@ -10,14 +10,14 @@ public class Background : MonoBehaviour
     private const float rotationSpeed = 4.0f;
 
     private Tween currentTween;
+    private static readonly Color DefaultColor = Color.white; // 기본 색상
 
     private void Update()
     {
         if (material != null)
         {
-            // �ð��� ���� Rotation ���� ����
-            float rotationValue = Mathf.Repeat(Time.time * rotationSpeed, 360f); // 0~360�� �ݺ�
-            material.SetFloat("_Rotation", rotationValue); // Shader Graph�� Rotation ������ �� ����
+            float rotationValue = Mathf.Repeat(Time.time * rotationSpeed, 360f);
+            material.SetFloat("_Rotation", rotationValue);
         }
     }
 
@@ -31,5 +31,30 @@ public class Background : MonoBehaviour
     {
         currentTween?.Kill();
         currentTween = spriteRenderer.DOColor(colorToSet, duration);
+    }
+
+    private void OnApplicationQuit()
+    {
+        ResetValues();
+    }
+
+    private void OnDestroy()
+    {
+        ResetValues();
+    }
+
+    private void ResetValues()
+    {
+        // 기본 색상으로 변경
+        spriteRenderer.color = DefaultColor;
+
+        // 머티리얼의 Rotation 값 초기화
+        if (material != null)
+        {
+            material.SetFloat("_Rotation", 0f);
+        }
+
+        // Tween 제거
+        currentTween?.Kill();
     }
 }

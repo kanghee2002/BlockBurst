@@ -6,6 +6,8 @@ public class GameUIManager : MonoBehaviour
 {
     public static GameUIManager instance;
 
+    [SerializeField] private Background background;
+
     [SerializeField] private StageInfoUI stageInfoUI;
     [SerializeField] private ScoreInfoUI scoreInfoUI;
     [SerializeField] private ActionInfoUI actionInfoUI;
@@ -270,6 +272,7 @@ public class GameUIManager : MonoBehaviour
             case SceneState.selecting:
                 stageSelectionSignboardUI.OpenStageSelectionSignboardUI();
                 stageSelectionBoardUI.OpenStageSelectionBoardUI();
+                background.SetColor(new Color(0.000f, 0.396f, 0.329f));
                 break;
             case SceneState.playing:
                 stageInfoUI.OpenStageInfoUI();
@@ -277,10 +280,12 @@ public class GameUIManager : MonoBehaviour
                 boardUI.OpenBoardUI();
                 rerollButtonUI.OpenRerollButtonUI();
                 handUI.OpenHandUI();
+                background.SetColor(new Color(0.651f, 0.796f, 0.588f));
                 break;
             case SceneState.shopping:
                 shopSignboardUI.OpenShopSignboardUI();
                 itemBoardUI.OpenItemBoardUI();
+                background.SetColor(new Color(0.953f, 0.659f, 0.200f));
                 break;
             default:
                 break;

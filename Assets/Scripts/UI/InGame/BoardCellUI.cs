@@ -8,6 +8,7 @@ using TMPro;
 public class BoardCellUI : MonoBehaviour 
 {
     private string blockId;
+    private int score;
     private Vector2Int cellIndex;
     private RectTransform textTransform;
     private TextMeshProUGUI scoreText;
@@ -51,8 +52,9 @@ public class BoardCellUI : MonoBehaviour
         return cellIndex;
     }
 
-    public void SetBlockInfo(string id) {
+    public void SetBlockInfo(string id, int score) {
         blockId = id;
+        this.score = score;
     }
 
     public void ClearCell()
@@ -62,12 +64,14 @@ public class BoardCellUI : MonoBehaviour
         blockId = "";
         cellImage.sprite = originalSprite;
         cellImage.color = originalColor;
+        GetComponent<CellEffectUI>().SetScoreEffect(0);
     }
 
     public void CopyVisualFrom(Transform cellUI)
     {
         GetComponent<Image>().sprite = cellUI.GetComponent<Image>().sprite;
         ClearShadow();
+        GetComponent<CellEffectUI>().SetScoreEffect(score);
     }
 
     public void StopClearAnimation()

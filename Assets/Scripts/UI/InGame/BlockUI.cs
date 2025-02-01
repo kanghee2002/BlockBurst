@@ -16,6 +16,7 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
     private int blockCellsUIRowCount;
     private const float block_size = 96f;
     private const float MAX_DISTANCE_TO_BOARD = 200f; // 보드로부터 최대 허용 거리
+    private const float ROTATION_THRESHOLD = 30f; // 회전을 위한 최소 드래그 거리
 
     private BoardUI boardUI;
     private BoardCellUI lastHighlightedCell;
@@ -88,6 +89,7 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
             
             GameObject blockCell = Instantiate(prefabBlockCellUI);
             blockCell.GetComponent<Image>().sprite = blockSprite;
+            blockCell.GetComponent<CellEffectUI>().SetScoreEffect(block.Score);
             blockCellsUI[normalizedY, normalizedX] = blockCell;
         }
 
@@ -135,10 +137,11 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (!isDragging)
+        // 드래그 거리가 너무 짧으면 회전
+        if (!isDragging || Vector2.Distance(eventData.pressPosition, eventData.position) < ROTATION_THRESHOLD)
         {
+            ReturnToHand(true);
             Rotate();
-            makeSmall(true);
         }
     }
 
@@ -184,7 +187,10 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
     {
         isDragging = false;
         ClearShadowCells();
-        
+        if (Vector2.Distance(eventData.pressPosition, eventData.position) < ROTATION_THRESHOLD)
+        {
+            return;
+        }
         BoardCellUI closestValidCell = FindClosestValidCell();
         if (closestValidCell != null)
         {
@@ -324,12 +330,18 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
         return closestBoardCellUI;
     }
     
-    private void ReturnToHand()
+    private void ReturnToHand(bool isInstant = false)
     {
         makeSmall(true);
-        rectTransform.DOLocalMove(originalPosition, 0.3f).SetEase(Ease.OutBack);
-
-        AudioManager.instance.SFXPlaceFail();
+        if (isInstant)
+        {
+            transform.localPosition = originalPosition;
+        }
+        else
+        {
+            rectTransform.DOLocalMove(originalPosition, 0.3f).SetEase(Ease.OutBack);
+            AudioManager.instance.SFXPlaceFail();
+        }
     }
 
     private void OnDestroy()

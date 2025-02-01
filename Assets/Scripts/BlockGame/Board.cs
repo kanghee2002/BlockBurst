@@ -20,6 +20,8 @@ public class Board
 
     private List<Match> lastMatches = new List<Match>();
 
+    private Dictionary<BlockType, int> placedBlockCounts;
+
     public void Initialize(BlockGameData blockGameData)
     {
         gameData = blockGameData;
@@ -38,6 +40,16 @@ public class Board
             }
         }
         lastMatches = new List<Match>();
+        placedBlockCounts = new Dictionary<BlockType, int>()
+        {
+            { BlockType.I, 0 },
+            { BlockType.O, 0 },
+            { BlockType.Z, 0 },
+            { BlockType.S, 0 },
+            { BlockType.J, 0 },
+            { BlockType.L, 0 },
+            { BlockType.T, 0 },
+        };
     }
 
     public void BlockCells(HashSet<Vector2Int> blockedCells)
@@ -67,6 +79,13 @@ public class Board
             // 블록의 OnClearEffects 트리거를 위해 추가
             onClearEffectBlocks.Add((block.Type, block.Id));
 
+            // 블록을 몇 번 배치했는지 추가 및 트리거
+            if (Enums.IsDefaultBlockType(block.Type))
+            {
+                placedBlockCounts[block.Type]++;
+                EffectManager.instance.TriggerEffects(TriggerType.ON_BLOCK_PLACE_WITH_COUNT, blockTypes: new BlockType[] { block.Type }, triggerValue: placedBlockCounts[block.Type]);
+            }
+
             foreach (Vector2Int shapePos in block.Shape)
             {
                 Vector2Int worldPos = pos + shapePos;
@@ -75,7 +94,6 @@ public class Board
 
             // 블록 배치 이펙트 트리거
             EffectManager.instance.TriggerEffects(TriggerType.ON_BLOCK_PLACE, blockTypes: new BlockType[] { block.Type });
-            //block.TriggerEffects(TriggerType.ON_BLOCK_PLACE);
 
             // 보드 상태 이펙트 체크
             if (IsHalfFull())

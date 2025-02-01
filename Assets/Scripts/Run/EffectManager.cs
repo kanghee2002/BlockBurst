@@ -74,7 +74,9 @@ public class EffectManager : MonoBehaviour
     {
         foreach (EffectData effect in runData.activeEffects)
         {
-            if (trigger == TriggerType.ON_LINE_CLEAR_WITH_COUNT && effect.triggerValue != 0)
+            if ((trigger == TriggerType.ON_LINE_CLEAR_WITH_COUNT ||
+                 trigger == TriggerType.ON_BLOCK_PLACE_WITH_COUNT)
+                 && effect.triggerValue != 0)
             {
                 triggerValue = triggerValue % effect.triggerValue + effect.triggerValue;
             }

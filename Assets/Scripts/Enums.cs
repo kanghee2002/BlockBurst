@@ -85,7 +85,8 @@ public enum TriggerType
     ON_BOARD_HALF_FULL,                     // * 보드가 반 이상 찼을 때
     ON_BOARD_NOT_HALF_FULL,                 // * 보드가 반 이상 차지 않았을 때
     ON_GOLD_CHANGE,                         // x 골드가 바뀔 때
-    ON_ENTER_STAGE                          // x 스테이지 진입할 때
+    ON_ENTER_STAGE,                         // x 스테이지 진입할 때
+    ON_BLOCK_PLACE_WITH_COUNT,              // * 특정 블록을 N번 배치할 때마다
 }
 
 public enum ItemType

@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: PuzzlePieceOEffect
   m_EditorClassIdentifier: 
   id: PuzzlePieceOEffect
-  effectName: "O\uB85C \uD074\uB9AC\uC5B4 \uC2DC \uBC30\uC218 +1"
-  type: 2
-  trigger: 3
+  effectName: "O\uBE14\uB85D\uC744 9\uBC88 \uBC30\uCE58\uD560 \uB54C\uB9C8\uB2E4
+    \uAE30\uBCF8 \uBC30\uC218 +1"
+  type: 3
+  trigger: 23
   effectValue: 1
   blockTypes: 01000000
   blockId: -1
   probability: 1
-  triggerValue: 0
+  triggerValue: 9

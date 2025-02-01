@@ -9,8 +9,7 @@ public class Background : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     private const float rotationSpeed = 4.0f;
 
-    Tween currentTween;
-
+    /*
     private void Start()
     {
         //StartCoroutine(ChangeColorPeriodically());
@@ -26,7 +25,7 @@ public class Background : MonoBehaviour
             yield return new WaitForSeconds(2.0f);
         }
     }
-
+    */
 
     private void Update()
     {

@@ -44,7 +44,7 @@ Material:
     - _Lerp: 1
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Scroll: 1.0106354
+    - _Scroll: 1.0026128
     - _scroll: 0
     m_Colors: []
   m_BuildTextureStacks: []

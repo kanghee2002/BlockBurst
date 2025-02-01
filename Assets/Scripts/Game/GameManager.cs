@@ -462,7 +462,9 @@ public class GameManager : MonoBehaviour
                 break;
             }
             handBlocksData.Add(blockData);
-            handBlocks.Add(new Block());
+            Block block = new Block();
+            block.Score = blockGame.blockScores[blockData.type];
+            handBlocks.Add(block);
             handBlocks[i].Initialize(handBlocksData[i], blockId++);
         }
         GameUIManager.instance.OnBlocksDrawn(handBlocks);

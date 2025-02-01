@@ -136,7 +136,7 @@ public class BoardUI : MonoBehaviour
         {
             Vector2Int cellPos = pos + shapePos;
             boardCellsUI[cellPos.y, cellPos.x].StopClearAnimation();
-            boardCellsUI[cellPos.y, cellPos.x].SetBlockInfo(block.Id);
+            boardCellsUI[cellPos.y, cellPos.x].SetBlockInfo(block.Id, block.Score);
             boardCellsUI[cellPos.y, cellPos.x].CopyVisualFrom(visualObj);
         }
     }

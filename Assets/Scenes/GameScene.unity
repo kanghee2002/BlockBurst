@@ -861,7 +861,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7be0fe7840fb3248973f902ebed5adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabBoardCellUI: {fileID: 5668075285194595410, guid: 8aa622ec88eb05341a77314c8b91cfa3, type: 3}
+  prefabBoardCellUI: {fileID: 2567228566445153721, guid: 1539e31fbae4f004bb591e40b48c4093, type: 3}
   itemSetRect: {fileID: 1583208970}
   deskMatRect: {fileID: 1415765597}
   handUIRect: {fileID: 231077321}
@@ -10315,7 +10315,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8378713409662279789, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 292
+      value: 291.99994
       objectReference: {fileID: 0}
     - target: {fileID: 8378713409662279789, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_AnchoredPosition.y

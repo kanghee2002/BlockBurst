@@ -10,6 +10,7 @@ public class Block
     public BlockType Type { get; private set; }
     public Vector2Int[] Shape { get; private set; }
     public int ReuseCount { get; private set; }
+    public int Score;
 
     public void Initialize(BlockData blockData, int id)
     {

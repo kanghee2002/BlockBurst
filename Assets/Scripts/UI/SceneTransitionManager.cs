@@ -28,12 +28,17 @@ public class SceneTransitionManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(FadeIn(1f));
+        StartCoroutine(FadeIn(0.1f));
     }
 
+    private bool transitionMutex = true;
     public void TransitionToScene(string sceneName)
     {
-        StartCoroutine(LoadSceneAsync(sceneName));
+        if (transitionMutex == true)
+        {
+            transitionMutex = false;
+            StartCoroutine(LoadSceneAsync(sceneName));
+        }
     }
     private IEnumerator LoadSceneAsync(string sceneName)
     {
@@ -52,6 +57,9 @@ public class SceneTransitionManager : MonoBehaviour
         
         // (선택 사항) 씬 로딩 완료 후 페이드 인 코루틴 호출 가능
         yield return StartCoroutine(FadeIn(0.5f));
+
+        transitionMutex = true;
+        yield return null;
     }
     private IEnumerator FadeOut(float duration = 1f)
     {

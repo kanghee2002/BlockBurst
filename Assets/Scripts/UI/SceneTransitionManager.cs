@@ -28,7 +28,7 @@ public class SceneTransitionManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(FadeIn(0.1f));
+        //StartCoroutine(FadeIn(0.1f));
     }
 
     private bool transitionMutex = true;

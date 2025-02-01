@@ -42,20 +42,20 @@ public class SceneTransitionManager : MonoBehaviour
     }
     private IEnumerator LoadSceneAsync(string sceneName)
     {
-        // (¼±ÅÃ »çÇ×) ÀüÈ¯ È¿°ú¸¦ À§ÇØ ÆäÀÌµå ¾Æ¿ô ÄÚ·çÆ¾ È£Ãâ °¡´É
+        // (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½È¯ È¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Æ¿ï¿½ ï¿½Ú·ï¿½Æ¾ È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         yield return StartCoroutine(FadeOut(0.5f));
 
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName);
 
-        // ·ÎµùÀÌ ¿Ï·áµÉ ¶§±îÁö ´ë±â
+        // ï¿½Îµï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
         while (!asyncOperation.isDone)
         {
-            // ·Îµù ÁøÇà »óÈ²¿¡ µû¶ó UI ¾÷µ¥ÀÌÆ® °¡´É
-            // ¿¹: progressBar.fillAmount = asyncOperation.progress;
+            // ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È²ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ UI ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+            // ï¿½ï¿½: progressBar.fillAmount = asyncOperation.progress;
             yield return null;
         }
         
-        // (¼±ÅÃ »çÇ×) ¾À ·Îµù ¿Ï·á ÈÄ ÆäÀÌµå ÀÎ ÄÚ·çÆ¾ È£Ãâ °¡´É
+        // (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ ï¿½Îµï¿½ ï¿½Ï·ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ ï¿½Ú·ï¿½Æ¾ È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         yield return StartCoroutine(FadeIn(0.5f));
 
         transitionMutex = true;

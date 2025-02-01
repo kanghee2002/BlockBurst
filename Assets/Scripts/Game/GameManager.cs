@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour
     public void GoToGameScene()
     {
         AudioManager.instance.SFXSelectMenu();
-        SceneManager.LoadScene("GameScene");
+        SceneTransitionManager.instance.TransitionToScene("GameScene");
     }
 
     public void StartNewGame()
@@ -146,7 +146,6 @@ public class GameManager : MonoBehaviour
         Debug.Log("Back to Main");
         //SceneManager.LoadScene("NewLogoScene");
         SceneTransitionManager.instance.TransitionToScene("NewLogoScene");
-
     }
 
     public void MakeNewRun()

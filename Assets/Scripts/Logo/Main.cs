@@ -8,6 +8,6 @@ public class Main : MonoBehaviour
     public void LoadGameScene()
     {
         AudioManager.instance.SFXSelectMenu();
-        SceneManager.LoadScene("GameScene");
+        SceneTransitionManager.instance.TransitionToScene("GameScene");
     }
 }

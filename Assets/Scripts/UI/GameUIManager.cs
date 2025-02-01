@@ -22,7 +22,10 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private RunInfoUI runInfoUI;
     [SerializeField] private OptionUI optionUI;
     [SerializeField] private DeckInfoUI deckInfoUI;
+    [SerializeField] private ClearInfoUI clearInfoUI;
     [SerializeField] private BoardUI boardUI;
+
+    [SerializeField] private Background background;
 
     public enum SceneState
     {
@@ -136,8 +139,7 @@ public class GameUIManager : MonoBehaviour
 
     public void OnDeckInfoCallback(RunData runData, BlockGameData blockGameData)
     {
-        Dictionary<BlockType, int> scoreDictionary = (sceneState == SceneState.playing) ? blockGameData.blockScores : runData.baseBlockScores;
-        deckInfoUI.Initialize(runData, scoreDictionary);
+        deckInfoUI.Initialize(runData, blockGameData, sceneState == SceneState.playing);
     }
 
     public void OnDeckInfoBackButtonUIPressed()
@@ -216,6 +218,8 @@ public class GameUIManager : MonoBehaviour
     {
         SceneState prevState = sceneState;
         sceneState = stateToSet;
+
+        background.SetRandomColor();
 
         StartCoroutine(ChangeSceneStateCoroutine(prevState, sceneState));
         if (prevState == SceneState.selecting && sceneState == SceneState.shopping)
@@ -320,6 +324,16 @@ public class GameUIManager : MonoBehaviour
         itemBoardUI.Initialize(items, rerollCost);
     }
 
+    public void OnRotateBlock(int idx)
+    {
+        GameManager.instance.OnRotateBlock(idx);
+    }
+
+    public void OnBlockRotateCallback(int idx, Block block)
+    {
+        handUI.RotateBlock(idx, block);
+    }
+
     public void OnBlockPlaced(GameObject blockObj, Block block, Vector2Int pos) {
         boardUI.OnBlockPlaced(blockObj, block, pos);
     }
@@ -392,5 +406,11 @@ public class GameUIManager : MonoBehaviour
     public void ENDSTAGE()
     {
         GameManager.instance.EndStage(true);
+    }
+
+    public void OnGameEnd(bool isCleared)
+    {
+        clearInfoUI.Initialize(isCleared);
+        clearInfoUI.OpenClearInfoUI();
     }
 }

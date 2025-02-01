@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     const int STAGE_CHOICE_COUNT = 2;
     public int currentChapterIndex = 1;
     public int currentStageIndex = 1;
+    const int CLEAR_CHAPTER = 3;
 
     public List<BlockData> handBlocksData = new List<BlockData>();
     public List<Block> handBlocks = new List<Block>();
@@ -96,6 +97,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // 지금 안 씀
     public void GoToGameScene()
     {
         AudioManager.instance.SFXSelectMenu();
@@ -135,15 +137,7 @@ public class GameManager : MonoBehaviour
     
     public void EndGame(bool isWin)
     {
-        // 게임 종료 처리
-        if (isWin)
-        {
-            Debug.Log("Game Win");
-        }
-        else
-        {
-            Debug.Log("Game Lose");
-        }
+        GameUIManager.instance.OnGameEnd(isWin);
     }
 
     public void BackToMain()
@@ -314,20 +308,27 @@ public class GameManager : MonoBehaviour
     {
         if (cleared)
         {
-            stageManager.GrantReward();
-            if (stageManager.currentStage.type == StageType.BOSS)
+            if (currentChapterIndex == CLEAR_CHAPTER && currentStageIndex == 3)
             {
-                currentChapterIndex++;
-                currentStageIndex = 1;
-                
+                EndGame(true);
             }
-            else 
+            else
             {
-                currentStageIndex++;
+                stageManager.GrantReward();
+                if (stageManager.currentStage.type == StageType.BOSS)
+                {
+                    currentChapterIndex++;
+                    currentStageIndex = 1;
+                    
+                }
+                else 
+                {
+                    currentStageIndex++;
+                }
+                StartShop(true);
+                UpdateDeckCount(runData.availableBlocks.Count, runData.availableBlocks.Count);
+                UpdateBaseMultiplier();
             }
-            StartShop(true);
-            UpdateDeckCount(runData.availableBlocks.Count, runData.availableBlocks.Count);
-            UpdateBaseMultiplier();
         } 
         else 
         {
@@ -483,6 +484,12 @@ public class GameManager : MonoBehaviour
             DrawBlocks();
         }
         EffectManager.instance.EndTriggerEffect();
+    }
+
+    public void OnRotateBlock(int idx)
+    {
+        handBlocks[idx].RotateShape();
+        GameUIManager.instance.OnBlockRotateCallback(idx, handBlocks[idx]);
     }
 
     public void PlayItemEffectAnimation(List<string> effectIdList, float matchAnimationTime = 0f)

@@ -52,8 +52,9 @@ public class ShopManager : MonoBehaviour
         {
             return null;
         }
-        ItemData item = currentItems[0];
-        currentItems.RemoveAt(0);
+        int idx = Random.Range(0, currentItems.Count);
+        ItemData item = currentItems[idx];
+        currentItems.RemoveAt(idx);
 
         if (item.type == ItemType.ADD_BLOCK ||
             item.type == ItemType.DELETE_BLOCK ||
@@ -139,8 +140,7 @@ public class ShopManager : MonoBehaviour
 
     public void AddItem(ItemData item)
     {
-        // 랜덤 인덱스에 삽입
-        int index = Random.Range(0, currentItems.Count);
-        currentItems.Insert(index, item);
+        // append
+        currentItems.Add(item);
     }
 }

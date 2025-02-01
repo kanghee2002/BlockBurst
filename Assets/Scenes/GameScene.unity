@@ -826,6 +826,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabBoardCellUI: {fileID: 5668075285194595410, guid: 8aa622ec88eb05341a77314c8b91cfa3, type: 3}
+  itemSetRect: {fileID: 1583208970}
+  deskMatRect: {fileID: 1415765597}
+  handUIRect: {fileID: 231077321}
 --- !u!1001 &94835057
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3554,7 +3557,9 @@ MonoBehaviour:
   runInfoUI: {fileID: 438764287}
   optionUI: {fileID: 194651271}
   deckInfoUI: {fileID: 1019123825}
+  clearInfoUI: {fileID: 173150845}
   boardUI: {fileID: 90868073}
+  background: {fileID: 308968388}
 --- !u!4 &294469253
 Transform:
   m_ObjectHideFlags: 0

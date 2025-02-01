@@ -45,10 +45,27 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
         raycastImage.raycastTarget = true;
     }
 
+    void Rotate()
+    {
+        GameUIManager.instance.OnRotateBlock(idx);
+    }
+
     public void Initialize(Block block, int index)
     {
         originalPosition = transform.localPosition;
         idx = index;
+
+        // Destroy existing block cells
+        if (blockCellsUI != null)
+        {
+            foreach (var cell in blockCellsUI)
+            {
+                if (cell != null)
+                {
+                    Destroy(cell);
+                }
+            }
+        }
 
         // Calculate dimensions based on shape data
         minX = block.Shape.Min(pos => pos.x);
@@ -120,6 +137,7 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
     {
         if (!isDragging)
         {
+            Rotate();
             makeSmall(true);
         }
     }
@@ -129,7 +147,7 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
         isDragging = true;
         Vector2 localPoint;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            canvas.transform as RectTransform,
+            transform.parent as RectTransform,
             eventData.position,
             eventData.pressEventCamera,
             out localPoint
@@ -143,7 +161,7 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
     {
         Vector2 localPoint;
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                canvas.transform as RectTransform,
+                transform.parent as RectTransform,
                 eventData.position,
                 eventData.pressEventCamera,
                 out localPoint))

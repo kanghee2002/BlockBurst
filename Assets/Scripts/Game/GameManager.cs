@@ -150,7 +150,9 @@ public class GameManager : MonoBehaviour
     {
         // 메인 화면으로 돌아가기
         Debug.Log("Back to Main");
-        SceneManager.LoadScene("NewLogoScene");
+        //SceneManager.LoadScene("NewLogoScene");
+        SceneTransitionManager.instance.TransitionToScene("NewLogoScene");
+
     }
 
     public void MakeNewRun()

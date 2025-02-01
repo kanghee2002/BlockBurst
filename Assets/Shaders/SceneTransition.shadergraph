@@ -704,7 +704,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "bcd04fec2af84764a93c3361e3c1d682",
     "m_Id": 0,
-    "m_DisplayName": "Lerp",
+    "m_DisplayName": "Scroll",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -972,10 +972,10 @@
     "m_Guid": {
         "m_GuidSerialized": "e421025b-63de-443d-8be8-6fab775af18a"
     },
-    "m_Name": "Lerp",
+    "m_Name": "Scroll",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "Lerp",
-    "m_DefaultReferenceName": "_Lerp",
+    "m_RefNameGeneratedByDisplayName": "Scroll",
+    "m_DefaultReferenceName": "_Scroll",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,

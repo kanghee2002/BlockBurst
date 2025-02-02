@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: SilverCrossEffect
   m_EditorClassIdentifier: 
   id: SilverCrossEffect
-  effectName: "\uAC00\uB85C, \uC138\uB85C \uB3D9\uC2DC \uD074\uB9AC\uC5B4 \uC2DC
-    \uAE30\uBCF8 \uBC30\uC218 +1"
+  effectName: "\uAC00\uB85C, \uC138\uB85C \uB3D9\uC2DC\uC5D0 \uC904 \uC9C0\uC6B8
+    \uB54C \uAE30\uBCF8 \uBC30\uC218 +1"
   type: 3
   trigger: 7
   effectValue: 1

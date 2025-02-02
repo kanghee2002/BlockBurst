@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WindowEffect1
   m_EditorClassIdentifier: 
   id: WindowEffect1
-  effectName: "I/O \uC678\uC758 \uAE30\uBCF8 \uBE14\uB85D \uC0AD\uC81C"
+  effectName: "I/O \uC678\uC758 \uAE30\uBCF8 \uBE14\uB85D \uBAA8\uB450 \uC0AD\uC81C"
   type: 18
   trigger: 0
   effectValue: 0

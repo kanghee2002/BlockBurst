@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DecreaseJScoreEffect
   m_EditorClassIdentifier: 
   id: DecreaseJScoreEffect
-  effectName: "J \uBE14\uB85D \uD3EC\uD568 \uD074\uB9AC\uC5B4 \uC2DC J \uC810\uC218
+  effectName: "J \uD3EC\uD568\uD574\\n\uC904 \uC9C0\uC6B8 \uB54C\\nJ \uC810\uC218
     -3"
   type: 0
   trigger: 11

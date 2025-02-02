@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlueKeyEffect1
   m_EditorClassIdentifier: 
   id: BlueKeyEffect1
-  effectName: "I/O \uBE14\uB85D \uC0AD\uC81C"
+  effectName: "I/O \uBE14\uB85D \uBAA8\uB450 \uC0AD\uC81C"
   type: 18
   trigger: 0
   effectValue: 0

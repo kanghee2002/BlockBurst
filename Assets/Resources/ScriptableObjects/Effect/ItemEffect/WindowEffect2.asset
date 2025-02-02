@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WindowEffect2
   m_EditorClassIdentifier: 
   id: WindowEffect2
-  effectName: "I/O \uBE14\uB85D x3"
+  effectName: "I/O \uBE14\uB85D x3 \uBCF5\uC0AC"
   type: 17
   trigger: 0
   effectValue: 3

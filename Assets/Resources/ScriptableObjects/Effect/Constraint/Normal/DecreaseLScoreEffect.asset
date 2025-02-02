@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DecreaseLScoreEffect
   m_EditorClassIdentifier: 
   id: DecreaseLScoreEffect
-  effectName: "L \uBE14\uB85D \uD3EC\uD568 \uD074\uB9AC\uC5B4 \uC2DC L \uC810\uC218
+  effectName: "L \uD3EC\uD568\uD574\\n\uC904 \uC9C0\uC6B8 \uB54C\\nL \uC810\uC218
     -3"
   type: 0
   trigger: 11

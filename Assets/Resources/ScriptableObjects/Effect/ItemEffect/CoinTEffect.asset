@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: CoinTEffect
   m_EditorClassIdentifier: 
   id: CoinTEffect
-  effectName: "T \uD3EC\uD568 \uD074\uB9AC\uC5B4 \uC2DC 50% \uD655\uB960\uB85C \uACE8\uB4DC
-    +1"
+  effectName: "T \uD3EC\uD568\uD574 \uC904 \uC9C0\uC6B8 \uB54C 50% \uD655\uB960\uB85C
+    \uACE8\uB4DC +1"
   type: 9
   trigger: 11
   effectValue: 1

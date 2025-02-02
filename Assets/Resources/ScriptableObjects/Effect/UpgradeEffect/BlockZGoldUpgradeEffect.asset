@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlockZGoldUpgradeEffect
   m_EditorClassIdentifier: 
   id: BlockZGoldUpgradeEffect
-  effectName: "Z\uB85C \uD074\uB9AC\uC5B4 \uC2DC \uACE8\uB4DC +1"
+  effectName: "Z\uB85C \uC904 \uC9C0\uC6B8 \uB54C \uACE8\uB4DC +1"
   type: 9
   trigger: 3
   effectValue: 1

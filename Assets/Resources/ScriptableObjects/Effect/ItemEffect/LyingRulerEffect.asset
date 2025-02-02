@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LyingRulerEffect
   m_EditorClassIdentifier: 
   id: LyingRulerEffect
-  effectName: "\uAC00\uB85C \uD074\uB9AC\uC5B4 \uC2DC \uBC30\uC218 +2"
+  effectName: "\uAC00\uB85C \uC904 \uC9C0\uC6B8 \uB54C \uBC30\uC218 +2"
   type: 2
   trigger: 5
   effectValue: 2

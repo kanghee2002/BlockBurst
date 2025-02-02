@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DecreaseIScoreEffect
   m_EditorClassIdentifier: 
   id: DebuffIScoreEffect
-  effectName: "I \uBE14\uB85D \uD3EC\uD568 \uD074\uB9AC\uC5B4 \uC2DC I \uC810\uC218
+  effectName: "I \uD3EC\uD568\uD574\\n\uC904 \uC9C0\uC6B8 \uB54C\\nI \uC810\uC218
     -2"
   type: 0
   trigger: 11

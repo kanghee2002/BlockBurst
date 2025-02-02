@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlockTrioEffect
   m_EditorClassIdentifier: 
   id: BlockTrioEffect
-  effectName: "Trio \uC804\uBD80 \uD074\uB9AC\uC5B4 \uC2DC \uBC30\uC218 +1"
+  effectName: "Trio \uC804\uBD80 \uC9C0\uC6B8 \uB54C \uBC30\uC218 +1"
   type: 2
   trigger: 4
   effectValue: 1

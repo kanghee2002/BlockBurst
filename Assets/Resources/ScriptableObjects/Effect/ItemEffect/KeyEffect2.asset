@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: KeyEffect2
   m_EditorClassIdentifier: 
   id: KeyEffect2
-  effectName: "Z/S \uBE14\uB85D x3"
+  effectName: "Z/S \uBE14\uB85D x3 \uBCF5\uC0AC"
   type: 17
   trigger: 0
   effectValue: 3

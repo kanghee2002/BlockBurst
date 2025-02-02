@@ -204,6 +204,8 @@ public class ItemSetUI : MonoBehaviour
 
     public void PlayEffectAnimation(string effectDescription, int index, float delay)
     {
+        float fadeDelay = 1f;
+
         GameObject currentItem = itemIcons[index];
 
         TextMeshProUGUI currentText = currentItem.transform.GetChild(3).GetComponent<TextMeshProUGUI>();
@@ -220,7 +222,7 @@ public class ItemSetUI : MonoBehaviour
 
         sequence.Append(currentText.rectTransform.DOAnchorPosY(originalPosition.y + yOffset, 0.3f)
             .SetEase(Ease.InOutQuad));
-        sequence.Join(currentText.DOFade(0f, delay).SetEase(Ease.OutQuad));
+        sequence.Join(currentText.DOFade(0f, delay + fadeDelay).SetEase(Ease.InOutQuad));
 
         sequence.OnComplete(() =>
         {

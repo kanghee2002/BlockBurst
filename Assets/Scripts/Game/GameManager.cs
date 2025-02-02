@@ -795,7 +795,7 @@ public class GameManager : MonoBehaviour
                 GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
                 break;
             case EffectType.RANDOM_LINE_CLEAR:
-                description = "<color=white>무작위 한 줄\n지움!</color>";
+                description = "<color=white>무작위\n한 줄 지움!</color>";
                 GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
                 break;
         }

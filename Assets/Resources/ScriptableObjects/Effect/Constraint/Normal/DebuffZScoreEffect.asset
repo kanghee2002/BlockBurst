@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: DebuffZScoreEffect
   m_EditorClassIdentifier: 
   id: DebuffZScoreEffect
-  effectName: "Z \uC810\uC218\uAC00\n\uC74C\uC218\uAC00 \uB428"
+  effectName: "Z \uC810\uC218\uAC00\\n\uC74C\uC218\uAC00 \uB428"
   type: 1
   trigger: 0
+  scope: 1
   effectValue: -1
   blockTypes: 02000000
   blockId: -1

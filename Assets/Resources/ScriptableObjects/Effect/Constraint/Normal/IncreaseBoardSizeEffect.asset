@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: IncreaseBoardSizeEffect
   m_EditorClassIdentifier: 
   id: IncreaseBoardSizeEffect
-  effectName: "\uBCF4\uB4DC \uD06C\uAE30\n\uD55C \uCE78 \uC99D\uAC00"
+  effectName: "\uBCF4\uB4DC \uD06C\uAE30\\n\uD55C \uCE78 \uC99D\uAC00"
   type: 11
   trigger: 0
+  scope: 1
   effectValue: 1
   blockTypes: 
   blockId: -1

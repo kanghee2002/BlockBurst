@@ -21,7 +21,7 @@ public class NextStageChoiceUI : MonoBehaviour
     {
         string debuffText = string.Join("\n", debuffTexts);
         
-        this.debuffText.text = debuffText;
+        this.debuffText.text = debuffText.Replace("\\n", "\n").Replace(",", "");
     }
 
     public void UpdateScoreAtLeast(int scoreAtLeast)

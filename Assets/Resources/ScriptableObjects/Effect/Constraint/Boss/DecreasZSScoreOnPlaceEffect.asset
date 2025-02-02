@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: DecreasZSScoreOnPlaceEffect
   m_EditorClassIdentifier: 
   id: DecreasZSScoreOnPlaceEffect
-  effectName: "Z/S \uBC30\uCE58\uD560 \uB54C\uB9C8\uB2E4\nZ/S \uC810\uC218 -7"
+  effectName: "Z/S \uBC30\uCE58\uD560 \uB54C\uB9C8\uB2E4,\\nZ/S \uC810\uC218 -7"
   type: 0
   trigger: 1
+  scope: 1
   effectValue: -7
   blockTypes: 0200000003000000
   blockId: -1

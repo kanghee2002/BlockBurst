@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: DebuffRerollEffect
   m_EditorClassIdentifier: 
   id: DebuffRerollEffect
-  effectName: "\uB9AC\uB864 \uD69F\uC218\n0\uC73C\uB85C \uC2DC\uC791"
+  effectName: "\uB9AC\uB864 \uD69F\uC218\\n0\uC73C\uB85C \uC2DC\uC791"
   type: 6
   trigger: 0
+  scope: 1
   effectValue: 0
   blockTypes: 
   blockId: -1

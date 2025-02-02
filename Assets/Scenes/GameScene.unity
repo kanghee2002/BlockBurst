@@ -15775,14 +15775,14 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 90}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1163912453}
   m_Father: {fileID: 178834249}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 128, y: -140}
+  m_AnchoredPosition: {x: 116, y: -140}
   m_SizeDelta: {x: 800, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1583208971
@@ -15797,12 +15797,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1a3a958847eae54598d25c51d579dc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rectTransform: {fileID: 1583208970}
   itemIconPrefab: {fileID: 2590677270669734416, guid: 7193ec8fa5d4ee341a3481b89dfd68f3, type: 3}
   itemCountText: {fileID: 1163912454}
   iconOverlap: 0
   hoverScale: 1.2
   hoverDuration: 0.2
   startPos: -275
+  deskMatRect: {fileID: 1415765597}
+  deckButtonUIRect: {fileID: 1793532058}
 --- !u!114 &1583208972
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,6 +8,9 @@ using TMPro;
 
 public class ItemSetUI : MonoBehaviour
 {
+    [SerializeField] private RectTransform rectTransform;
+    private Vector2 originalAnchoredPosition;
+
     [SerializeField] private GameObject itemIconPrefab;
     [SerializeField] private TextMeshProUGUI itemCountText;
     [SerializeField] private float iconOverlap = 30f;    
@@ -16,8 +19,23 @@ public class ItemSetUI : MonoBehaviour
     [SerializeField] private float startPos = -300f;
     private List<GameObject> itemIcons = new List<GameObject>();
 
+    [SerializeField] private RectTransform deskMatRect; // Left
+    [SerializeField] private RectTransform deckButtonUIRect; // Right
+
+    private void Start()
+    {
+        originalAnchoredPosition = rectTransform.anchoredPosition;
+    }
+
+    private void Update()
+    {
+        AutoSizing();
+    }
+
     public void Initialize(List<ItemData> items, int maxItemCount, int discardIndex = -1)
     {
+        AutoSizing();
+
         Clear();
 
         float iconWidth = itemIconPrefab.GetComponent<RectTransform>().rect.width;
@@ -84,6 +102,40 @@ public class ItemSetUI : MonoBehaviour
         }
 
         itemCountText.text = items.Count + "/" + maxItemCount;
+    }
+
+    void AutoSizing()
+    {
+        Canvas canvas = GetComponentInParent<Canvas>();
+        Camera cam = canvas.worldCamera ?? Camera.main;
+
+        // UI 요소들의 화면상 위치와 크기를 정확하게 계산
+        Vector2 deskMatScreen = cam.WorldToScreenPoint(deskMatRect.position);
+        Vector2 deckButtonUIScreen = cam.WorldToScreenPoint(deckButtonUIRect.position);
+
+        // 각 UI의 실제 경계 위치 계산 (화면 좌표계)
+        float deskMatRight = deskMatScreen.x + ((deskMatRect.rect.width / 2) * canvas.scaleFactor);
+        float deckButtonUILeft = deckButtonUIScreen.x - ((deckButtonUIRect.rect.width / 2) * canvas.scaleFactor);
+
+        // UI 단위로 변환
+        float availableWidth = (deckButtonUILeft - deskMatRight) / canvas.scaleFactor;
+        float availableHeight = 160f / canvas.scaleFactor;
+
+        // 실제 ItemSetUI의 필요 크기
+        float itemSetUIWidth = 800f;
+        float itemSetUIHeight = 160f;
+
+        // 여유 공간을 약간 둬서 경계에 딱 붙지 않도록 함
+        float scale = Mathf.Min(availableWidth / itemSetUIWidth, availableHeight / itemSetUIHeight) * 0.99f;
+
+        // 최소 크기 제한
+        scale = Mathf.Max(scale, 0.1f);
+
+        // 크기 적용
+        rectTransform.localScale = Vector3.one * scale;
+
+        // 아 모르겠다
+        rectTransform.anchoredPosition = new Vector2(originalAnchoredPosition.x, (float)Screen.height / 1080 * originalAnchoredPosition.y);
     }
 
     private Sprite GetImage(ItemData item)

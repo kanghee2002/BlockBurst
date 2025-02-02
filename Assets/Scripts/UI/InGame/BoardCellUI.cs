@@ -64,14 +64,12 @@ public class BoardCellUI : MonoBehaviour
         blockId = "";
         cellImage.sprite = originalSprite;
         cellImage.color = originalColor;
-        GetComponent<CellEffectUI>().SetScoreEffect(0);
     }
 
     public void CopyVisualFrom(Transform cellUI)
     {
-        GetComponent<Image>().sprite = cellUI.GetComponent<Image>().sprite;
         ClearShadow();
-        GetComponent<CellEffectUI>().SetScoreEffect(score);
+        cellImage.sprite = cellUI.GetComponent<Image>().sprite;
     }
 
     public void StopClearAnimation()

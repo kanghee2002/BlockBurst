@@ -72,8 +72,8 @@ public class CellEffectManager : MonoBehaviour
 
     public Texture2D ScoreEffect(Texture2D baseTexture, int score)
     {
-        // 점수가 0이하인 경우 전체 색상 변경
-        if (score <= 0)
+        // 점수가 0미만인 경우 전체 색상 변경
+        if (score < 0)
         {
             return ApplyColorToTexture(baseTexture, new Color(0f, 0f, 0f, 0.5f));
         }
@@ -272,7 +272,7 @@ public class CellEffectManager : MonoBehaviour
             
             // Canvas의 직계 자식이 아닌 실제 UI 요소들만 처리
             Transform parent = rt.parent;
-            if(parent != null && !parent.TryGetComponent<Canvas>(out _))
+            if(parent != null && parent.TryGetComponent<Canvas>(out _))
             {
                 rt.DOShakeAnchorPos(duration, strength, vibrato, randomness, fadeOut)
                 .SetUpdate(true);

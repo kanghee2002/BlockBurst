@@ -18,6 +18,8 @@ public class DeckInfoUI : MonoBehaviour
 
     [SerializeField] private GameObject basicContainer;
     [SerializeField] private GameObject specialContainer;
+    private CanvasGroup basicCanvasGroup;
+    private CanvasGroup specialCanvasGroup;
     
     [SerializeField] private GameObject BlockPrefab;
 
@@ -29,6 +31,9 @@ public class DeckInfoUI : MonoBehaviour
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
+
+        basicCanvasGroup = basicContainer.GetComponent<CanvasGroup>();
+        specialCanvasGroup = specialContainer.GetComponent<CanvasGroup>();
 
         // basicContainer의 자식들을 BlockTransforms에 저장
         BlockTransforms = new Transform[Enum.GetNames(typeof(BlockType)).Length];
@@ -45,11 +50,11 @@ public class DeckInfoUI : MonoBehaviour
                 BlockTransforms[i] = newObject.transform;
             }
         }
+        OnBasicSwitchButtonUIClick();
     }
 
     public void Initialize(RunData runData, BlockGameData blockGameData, bool isPlaying)
     {
-        
         Dictionary<BlockType, int> scoreDictionary = isPlaying ? blockGameData.blockScores : runData.baseBlockScores;
         List<BlockData> availableBlocks = isPlaying ? blockGameData.deck : runData.availableBlocks;
         Dictionary<BlockType, int> countDictionary = new Dictionary<BlockType, int>();
@@ -88,6 +93,7 @@ public class DeckInfoUI : MonoBehaviour
                     InitializeBlockUI(BlockTransforms[i], (BlockType)i, countDictionary[(BlockType)i], scoreDictionary[(BlockType)i]);
                     BlockTransforms[i].localPosition = new Vector3(0, ROW_REF - ROW_OFFSET * specialPos, 0);
                     specialPos++;
+                    Debug.Log("specialPos: " + specialPos);
                 }
             }
         }
@@ -126,12 +132,23 @@ public class DeckInfoUI : MonoBehaviour
 
     public void OnBasicSwitchButtonUIClick()
     {
-        basicContainer.SetActive(true);
-        specialContainer.SetActive(false);
+        basicCanvasGroup.alpha = 1f;
+        basicCanvasGroup.interactable = true;
+        basicCanvasGroup.blocksRaycasts = true;
+
+        specialCanvasGroup.alpha = 0f;
+        specialCanvasGroup.interactable = false;
+        specialCanvasGroup.blocksRaycasts = false;
     }
+
     public void OnSpecialSwitchButtonUIClick()
     {
-        specialContainer.SetActive(true);
-        basicContainer.SetActive(false);
+        specialCanvasGroup.alpha = 1f;
+        specialCanvasGroup.interactable = true;
+        specialCanvasGroup.blocksRaycasts = true;
+
+        basicCanvasGroup.alpha = 0f;
+        basicCanvasGroup.interactable = false;
+        basicCanvasGroup.blocksRaycasts = false;
     }
 }

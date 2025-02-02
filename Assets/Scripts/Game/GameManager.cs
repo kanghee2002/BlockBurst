@@ -307,9 +307,10 @@ public class GameManager : MonoBehaviour
     {
         if (cleared)
         {
-            if (currentChapterIndex == CLEAR_CHAPTER && currentStageIndex == 3)
+            if (currentChapterIndex == CLEAR_CHAPTER && stageManager.currentStage.type == StageType.BOSS)
             {
                 EndGame(true);
+                Debug.Log("Game Clear");
             }
             else
             {

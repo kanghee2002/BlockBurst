@@ -6658,13 +6658,14 @@ GameObject:
   m_Component:
   - component: {fileID: 556445265}
   - component: {fileID: 556445266}
+  - component: {fileID: 556445267}
   m_Layer: 5
   m_Name: SpecialContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &556445265
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6708,6 +6709,18 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 16}
   m_Constraint: 1
   m_ConstraintCount: 1
+--- !u!225 &556445267
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 556445264}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &568226212
 GameObject:
   m_ObjectHideFlags: 0
@@ -8601,6 +8614,7 @@ GameObject:
   m_Component:
   - component: {fileID: 837953188}
   - component: {fileID: 837953189}
+  - component: {fileID: 837953190}
   m_Layer: 5
   m_Name: BasicContainer
   m_TagString: Untagged
@@ -8651,6 +8665,18 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 16}
   m_Constraint: 1
   m_ConstraintCount: 1
+--- !u!225 &837953190
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 837953187}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &839517257
 GameObject:
   m_ObjectHideFlags: 0

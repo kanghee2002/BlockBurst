@@ -89,7 +89,7 @@ public class ItemBoardUI : MonoBehaviour
                 {
                     SetImage(card, items[index]);
                     card.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = items[index].itemName;
-                    card.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "$" + items[index].cost.ToString();
+                    card.transform.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = "<color=yellow>$" + items[index].cost.ToString() + "</color>";
                     card.GetComponent<ItemDescriptionUI>().Initialize(items[index]);
                 }
             });
@@ -133,7 +133,7 @@ public class ItemBoardUI : MonoBehaviour
             SetImage(itemUI, items[currentIndex]);
 
             itemUI.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = itemData.itemName;
-            itemUI.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "$" + itemData.cost.ToString();
+            itemUI.transform.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = "<color=yellow>$" + itemData.cost.ToString() + "</color>";
             itemUI.transform.GetChild(4).GetComponent<Button>().onClick.AddListener(() => {
                 GameUIManager.instance.OnItemShowcaseItemButtonPressed(currentIndex);
             });

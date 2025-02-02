@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AddBlockJ
   m_EditorClassIdentifier: 
   id: BlockJ
-  itemName: "J \uBE14\uB85D\n2\uAC1C \uCD94\uAC00"
+  itemName: "J \uBE14\uB85D \uCD94\uAC00"
   effects:
   - {fileID: 11400000, guid: 273bd500d1daa1b4799eb9f304522187, type: 2}
   cost: 2

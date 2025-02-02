@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AddBlockCross
   m_EditorClassIdentifier: 
   id: AddBlockCross
-  itemName: "Cross \uBE14\uB85D\n2\uAC1C \uCD94\uAC00"
+  itemName: "Cross \uBE14\uB85D \uCD94\uAC00"
   effects:
   - {fileID: 11400000, guid: cb4ad31c800554c4ba6df8929382fe4b, type: 2}
   - {fileID: 11400000, guid: 6b18156927470134cadc17ecaa6c7f7b, type: 2}

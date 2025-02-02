@@ -16,20 +16,29 @@ public class ItemSetUI : MonoBehaviour
     [SerializeField] private float startPos = -300f;
     private List<GameObject> itemIcons = new List<GameObject>();
 
-    public void Initialize(List<ItemData> items, int maxItemCount)
+    public void Initialize(List<ItemData> items, int maxItemCount, int discardIndex = -1)
     {
         Clear();
 
         float iconWidth = itemIconPrefab.GetComponent<RectTransform>().rect.width;
         float spacing = iconWidth - iconOverlap;
 
+        int addedIndex = 0;
+
         foreach (ItemData item in items)
         {
+            if (itemIcons.Count == discardIndex)
+            {
+                addedIndex++;
+            }
+
             GameObject itemIcon = Instantiate(itemIconPrefab, transform);
             
             RectTransform rectTransform = itemIcon.GetComponent<RectTransform>();
-            rectTransform.anchoredPosition = new Vector2(startPos + spacing * itemIcons.Count, 0);
+            rectTransform.anchoredPosition = new Vector2(startPos + spacing * (itemIcons.Count + addedIndex), 0);
             
+            rectTransform.DOAnchorPos(new Vector2(startPos + spacing * itemIcons.Count, 0), 0.1f).SetEase(Ease.OutBack);
+
             itemIcon.transform.GetChild(0).GetComponent<Image>().sprite = GetImage(item);
             SetUpgradeIcon(itemIcon, item);
 
@@ -158,6 +167,7 @@ public class ItemSetUI : MonoBehaviour
 
     private void OnItemClick(GameObject discardButton)
     {
+        AudioManager.instance.SFXSelectMenu();
         if (discardButton.activeSelf)
         {
             discardButton.SetActive(false);
@@ -165,11 +175,14 @@ public class ItemSetUI : MonoBehaviour
         else
         {
             discardButton.SetActive(true);
+            discardButton.transform.DOPunchScale(Vector3.one * 0.3f, duration: 0.1f, vibrato: 5)
+                .SetUpdate(true);
         }
     }
 
     private void DiscardItem(int index)
     {
+        AudioManager.instance.SFXSelectMenu();
         GameManager.instance.OnItemDiscard(index);
     }
 

@@ -16,9 +16,13 @@ public class ItemSetUI : MonoBehaviour
     [SerializeField] private float startPos = -300f;
     private List<GameObject> itemIcons = new List<GameObject>();
 
+    private float discardAnimationDelay;
+
     public void Initialize(List<ItemData> items, int maxItemCount, int discardIndex = -1)
     {
-        Clear();
+        discardAnimationDelay = 0.3f;
+
+        Clear(discardIndex);
 
         float iconWidth = itemIconPrefab.GetComponent<RectTransform>().rect.width;
         float spacing = iconWidth - iconOverlap;
@@ -37,7 +41,9 @@ public class ItemSetUI : MonoBehaviour
             RectTransform rectTransform = itemIcon.GetComponent<RectTransform>();
             rectTransform.anchoredPosition = new Vector2(startPos + spacing * (itemIcons.Count + addedIndex), 0);
             
-            rectTransform.DOAnchorPos(new Vector2(startPos + spacing * itemIcons.Count, 0), 0.1f).SetEase(Ease.OutBack);
+            rectTransform.DOAnchorPos(new Vector2(startPos + spacing * itemIcons.Count, 0), 0.2f)
+                .SetEase(Ease.OutBack)
+                .SetDelay(discardAnimationDelay);
 
             itemIcon.transform.GetChild(0).GetComponent<Image>().sprite = GetImage(item);
             SetUpgradeIcon(itemIcon, item);
@@ -145,12 +151,21 @@ public class ItemSetUI : MonoBehaviour
         itemUI.transform.GetChild(1).GetComponent<Image>().sprite = IconSprite;
     }
 
-    public void Clear()
+    public void Clear(int discardIndex)
     {
-        foreach (GameObject icon in itemIcons)
+        for (int i = 0; i < itemIcons.Count; i++)
         {
-            if (icon != null)
-                Destroy(icon);
+            if (itemIcons[i] != null)
+            {
+                if (i == discardIndex)
+                {
+                    PlayDiscardItemAnimation(itemIcons[i]);
+                }
+                else
+                {
+                    Destroy(itemIcons[i]);
+                }
+            }
         }
         itemIcons.Clear();
     }
@@ -184,6 +199,27 @@ public class ItemSetUI : MonoBehaviour
     {
         AudioManager.instance.SFXSelectMenu();
         GameManager.instance.OnItemDiscard(index);
+    }
+
+    private void PlayDiscardItemAnimation(GameObject discardedObject)
+    {
+        discardedObject.transform.GetChild(2).gameObject.SetActive(false);
+
+        discardedObject.transform.DOKill();
+
+        discardedObject.GetComponent<EventTrigger>().triggers.Clear();
+        
+        Sequence sequence = DOTween.Sequence();
+
+        float rotateAmount = 20f;
+        // 좌우 흔들기
+        sequence.Append(discardedObject.transform.DOScale(0f, discardAnimationDelay)
+            .SetEase(Ease.InQuad));
+        sequence.Join(discardedObject.transform.DORotate(new Vector3(0, 0, rotateAmount), discardAnimationDelay / 10)
+            .SetLoops(4, LoopType.Yoyo)
+            .SetEase(Ease.Linear));
+
+        sequence.OnComplete(() => Destroy(discardedObject));
     }
 
     private string GetDescription(ItemData item)

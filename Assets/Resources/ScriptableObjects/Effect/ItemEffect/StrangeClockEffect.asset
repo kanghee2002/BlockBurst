@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StrangeClockEffect
   m_EditorClassIdentifier: 
   id: StrangeClockEffect
-  effectName: "\uC904\uC744 7\uBC88 \uC9C0\uC6B8 \uB54C\uB9C8\uB2E4 \uBC30\uC218
+  effectName: "\uC904\uC744 7\uBC88\n\uC9C0\uC6B8 \uB54C\uB9C8\uB2E4\n\uBC30\uC218
     +10"
   type: 2
   trigger: 10

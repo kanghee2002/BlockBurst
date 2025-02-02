@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: DecreasJLScoreOnPlaceEffect
   m_EditorClassIdentifier: 
   id: DecreasJLScoreOnPlaceEffect
-  effectName: "J/L \uBC30\uCE58\uD560 \uB54C\uB9C8\uB2E4\\nJ/L \uC810\uC218 -6"
+  effectName: "J/L \uBC30\uCE58\uD560 \uB54C\uB9C8\uB2E4,\\nJ/L \uC810\uC218 -6"
   type: 0
   trigger: 1
+  scope: 1
   effectValue: -6
   blockTypes: 0400000005000000
   blockId: -1

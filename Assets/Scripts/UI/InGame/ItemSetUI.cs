@@ -18,9 +18,11 @@ public class ItemSetUI : MonoBehaviour
     [SerializeField] private float hoverDuration = 0.2f; 
     [SerializeField] private float startPos = -300f;
     private List<GameObject> itemIcons = new List<GameObject>();
-
+    
     [SerializeField] private RectTransform deskMatRect; // Left
     [SerializeField] private RectTransform deckButtonUIRect; // Right
+
+    private float discardAnimationDelay;
 
     private void Start()
     {
@@ -34,9 +36,15 @@ public class ItemSetUI : MonoBehaviour
 
     public void Initialize(List<ItemData> items, int maxItemCount, int discardIndex = -1)
     {
-        AutoSizing();
+        discardAnimationDelay = 0.3f;
 
-        Clear();
+    public void Initialize(List<ItemData> items, int maxItemCount, int discardIndex = -1)
+    {
+        discardAnimationDelay = 0.3f;
+        
+        AutoSizing();
+        
+        Clear(discardIndex);
 
         float iconWidth = itemIconPrefab.GetComponent<RectTransform>().rect.width;
         float spacing = iconWidth - iconOverlap;
@@ -55,7 +63,9 @@ public class ItemSetUI : MonoBehaviour
             RectTransform rectTransform = itemIcon.GetComponent<RectTransform>();
             rectTransform.anchoredPosition = new Vector2(startPos + spacing * (itemIcons.Count + addedIndex), 0);
             
-            rectTransform.DOAnchorPos(new Vector2(startPos + spacing * itemIcons.Count, 0), 0.1f).SetEase(Ease.OutBack);
+            rectTransform.DOAnchorPos(new Vector2(startPos + spacing * itemIcons.Count, 0), 0.2f)
+                .SetEase(Ease.OutBack)
+                .SetDelay(discardAnimationDelay);
 
             itemIcon.transform.GetChild(0).GetComponent<Image>().sprite = GetImage(item);
             SetUpgradeIcon(itemIcon, item);
@@ -109,32 +119,32 @@ public class ItemSetUI : MonoBehaviour
         Canvas canvas = GetComponentInParent<Canvas>();
         Camera cam = canvas.worldCamera ?? Camera.main;
 
-        // UI ¿ä¼ÒµéÀÇ È­¸é»ó À§Ä¡¿Í Å©±â¸¦ Á¤È®ÇÏ°Ô °è»ê
+        // UI ï¿½ï¿½Òµï¿½ï¿½ï¿½ È­ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ Å©ï¿½â¸¦ ï¿½ï¿½È®ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½
         Vector2 deskMatScreen = cam.WorldToScreenPoint(deskMatRect.position);
         Vector2 deckButtonUIScreen = cam.WorldToScreenPoint(deckButtonUIRect.position);
 
-        // °¢ UIÀÇ ½ÇÁ¦ °æ°è À§Ä¡ °è»ê (È­¸é ÁÂÇ¥°è)
+        // ï¿½ï¿½ UIï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ (È­ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½)
         float deskMatRight = deskMatScreen.x + ((deskMatRect.rect.width / 2) * canvas.scaleFactor);
         float deckButtonUILeft = deckButtonUIScreen.x - ((deckButtonUIRect.rect.width / 2) * canvas.scaleFactor);
 
-        // UI ´ÜÀ§·Î º¯È¯
+        // UI ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
         float availableWidth = (deckButtonUILeft - deskMatRight) / canvas.scaleFactor;
         float availableHeight = 160f / canvas.scaleFactor;
 
-        // ½ÇÁ¦ ItemSetUIÀÇ ÇÊ¿ä Å©±â
+        // ï¿½ï¿½ï¿½ï¿½ ItemSetUIï¿½ï¿½ ï¿½Ê¿ï¿½ Å©ï¿½ï¿½
         float itemSetUIWidth = 800f;
         float itemSetUIHeight = 160f;
 
-        // ¿©À¯ °ø°£À» ¾à°£ µÖ¼­ °æ°è¿¡ µü ºÙÁö ¾Êµµ·Ï ÇÔ
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½à°£ ï¿½Ö¼ï¿½ ï¿½ï¿½è¿¡ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Êµï¿½ï¿½ï¿½ ï¿½ï¿½
         float scale = Mathf.Min(availableWidth / itemSetUIWidth, availableHeight / itemSetUIHeight) * 0.99f;
 
-        // ÃÖ¼Ò Å©±â Á¦ÇÑ
+        // ï¿½Ö¼ï¿½ Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         scale = Mathf.Max(scale, 0.1f);
 
-        // Å©±â Àû¿ë
+        // Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         rectTransform.localScale = Vector3.one * scale;
 
-        // ¾Æ ¸ð¸£°Ú´Ù
+        // ï¿½ï¿½ ï¿½ð¸£°Ú´ï¿½
         rectTransform.anchoredPosition = new Vector2(originalAnchoredPosition.x, (float)Screen.height / 1080 * originalAnchoredPosition.y);
     }
 
@@ -197,12 +207,21 @@ public class ItemSetUI : MonoBehaviour
         itemUI.transform.GetChild(1).GetComponent<Image>().sprite = IconSprite;
     }
 
-    public void Clear()
+    public void Clear(int discardIndex)
     {
-        foreach (GameObject icon in itemIcons)
+        for (int i = 0; i < itemIcons.Count; i++)
         {
-            if (icon != null)
-                Destroy(icon);
+            if (itemIcons[i] != null)
+            {
+                if (i == discardIndex)
+                {
+                    PlayDiscardItemAnimation(itemIcons[i]);
+                }
+                else
+                {
+                    Destroy(itemIcons[i]);
+                }
+            }
         }
         itemIcons.Clear();
     }
@@ -238,6 +257,27 @@ public class ItemSetUI : MonoBehaviour
         GameManager.instance.OnItemDiscard(index);
     }
 
+    private void PlayDiscardItemAnimation(GameObject discardedObject)
+    {
+        discardedObject.transform.GetChild(2).gameObject.SetActive(false);
+
+        discardedObject.transform.DOKill();
+
+        discardedObject.GetComponent<EventTrigger>().triggers.Clear();
+        
+        Sequence sequence = DOTween.Sequence();
+
+        float rotateAmount = 20f;
+        // ì¢Œìš° í”ë“¤ê¸°
+        sequence.Append(discardedObject.transform.DOScale(0f, discardAnimationDelay)
+            .SetEase(Ease.InQuad));
+        sequence.Join(discardedObject.transform.DORotate(new Vector3(0, 0, rotateAmount), discardAnimationDelay / 10)
+            .SetLoops(4, LoopType.Yoyo)
+            .SetEase(Ease.Linear));
+
+        sequence.OnComplete(() => Destroy(discardedObject));
+    }
+
     private string GetDescription(ItemData item)
     {
         string description = "";
@@ -256,6 +296,8 @@ public class ItemSetUI : MonoBehaviour
 
     public void PlayEffectAnimation(string effectDescription, int index, float delay)
     {
+        float fadeDelay = 1f;
+
         GameObject currentItem = itemIcons[index];
 
         TextMeshProUGUI currentText = currentItem.transform.GetChild(3).GetComponent<TextMeshProUGUI>();
@@ -272,7 +314,7 @@ public class ItemSetUI : MonoBehaviour
 
         sequence.Append(currentText.rectTransform.DOAnchorPosY(originalPosition.y + yOffset, 0.3f)
             .SetEase(Ease.InOutQuad));
-        sequence.Join(currentText.DOFade(0f, delay).SetEase(Ease.OutQuad));
+        sequence.Join(currentText.DOFade(0f, delay + fadeDelay).SetEase(Ease.InOutQuad));
 
         sequence.OnComplete(() =>
         {

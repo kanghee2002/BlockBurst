@@ -89,6 +89,11 @@ public enum TriggerType
     ON_BLOCK_PLACE_WITH_COUNT,              // * 특정 블록을 N번 배치할 때마다
 }
 
+public enum EffectScope
+{
+    Run, Stage
+}
+
 public enum ItemType
 {
     ADD_BLOCK, DELETE_BLOCK, ITEM, UPGRADE

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BookTEffect
   m_EditorClassIdentifier: 
   id: BookTEffect
-  effectName: "T \uBC30\uCE58\uD560 \uB54C\uB9C8\uB2E4 T \uC810\uC218 +2"
+  effectName: "T \uBC30\uCE58\uD560\n\uB54C\uB9C8\uB2E4\nT \uC810\uC218 +2"
   type: 0
   trigger: 1
   effectValue: 2

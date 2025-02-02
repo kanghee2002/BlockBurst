@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: DecreaseGoldOnRerollEffect
   m_EditorClassIdentifier: 
   id: DecreaseGoldOnRerollEffect
-  effectName: "\uB9AC\uB864\uD560 \uB54C\uB9C8\\n\uACE8\uB4DC -1"
+  effectName: "\uB9AC\uB864\uD560 \uB54C\uB9C8\uB2E4\\n\uACE8\uB4DC -1"
   type: 9
   trigger: 17
+  scope: 1
   effectValue: -1
   blockTypes: 
   blockId: -1

@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: DecreaseIScoreEffect
   m_EditorClassIdentifier: 
   id: DebuffIScoreEffect
-  effectName: "I \uD3EC\uD568\uD574\\n\uC904 \uC9C0\uC6B8 \uB54C\\nI \uC810\uC218
+  effectName: "I \uD3EC\uD568\uD574\\n\uC904 \uC9C0\uC6B8 \uB54C,\\nI \uC810\uC218
     -2"
   type: 0
   trigger: 11
+  scope: 1
   effectValue: -2
   blockTypes: 00000000
   blockId: -1

@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: BombZEffect
   m_EditorClassIdentifier: 
   id: BombZEffect
-  effectName: "Z\uB85C \uC904 \uC9C0\uC6B8 \uB54C \uBB34\uC791\uC704 1\uC904 \uC9C0\uC6C0"
+  effectName: "Z \uBC30\uCE58\uD574\n\uC904 \uC9C0\uC6B8 \uB54C\n\uBB34\uC791\uC704
+    1\uC904 \uC9C0\uC6C0"
   type: 24
   trigger: 3
   effectValue: 0

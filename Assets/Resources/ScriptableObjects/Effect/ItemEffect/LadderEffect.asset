@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: LadderEffect
   m_EditorClassIdentifier: 
   id: LadderEffect
-  effectName: "\uC138\uB85C \uC904 \uC9C0\uC6B8 \uB54C 50% \uD655\uB960\uB85C \uBB34\uC791\uC704
-    \uAC00\uB85C 1\uC904 \uC9C0\uC6C0"
+  effectName: "\uC138\uB85C \uC904 \uC9C0\uC6B8 \uB54C\n50% \uD655\uB960\uB85C\n\uBB34\uC791\uC704\n\uAC00\uB85C
+    1\uC904 \uC9C0\uC6C0"
   type: 20
   trigger: 6
   effectValue: 0

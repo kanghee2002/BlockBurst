@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GrayCloverEffect
   m_EditorClassIdentifier: 
   id: GrayCloverEffect
-  effectName: "\uC904 \uC9C0\uC6B8 \uB54C\uB9C8\uB2E4 50% \uD655\uB960\uB85C \uB9AC\uB864
+  effectName: "\uC904 \uC9C0\uC6B8\n\uB54C\uB9C8\uB2E4\n50% \uD655\uB960\uB85C\n\uB9AC\uB864
     +1"
   type: 5
   trigger: 9

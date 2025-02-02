@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlockJGoldUpgradeEffect
   m_EditorClassIdentifier: 
   id: BlockJGoldUpgradeEffect
-  effectName: "J\uB85C \uC904 \uC9C0\uC6B8 \uB54C \uACE8\uB4DC +1"
+  effectName: "J \uBC30\uCE58\uD574\n\uC904 \uC9C0\uC6B8 \uB54C\n\uACE8\uB4DC +1"
   type: 9
   trigger: 3
   effectValue: 1

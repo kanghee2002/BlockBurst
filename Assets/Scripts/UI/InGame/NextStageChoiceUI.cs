@@ -21,16 +21,16 @@ public class NextStageChoiceUI : MonoBehaviour
     {
         string debuffText = string.Join("\n", debuffTexts);
         
-        this.debuffText.text = debuffText;
+        this.debuffText.text = debuffText.Replace("\\n", "\n").Replace(",", "");
     }
 
     public void UpdateScoreAtLeast(int scoreAtLeast)
     {
-        scoreAtLeastText.text = "점수 요구치 " + scoreAtLeast.ToString();
+        scoreAtLeastText.text = "점수 요구치\n<size=45><color=#FF0505>" + scoreAtLeast.ToString() + "</color></size>";
     }
 
     public void UpdateRewardGold(int rewardGold)
     {
-        rewardGoldText.text = "보상 $" + rewardGold.ToString();
+        rewardGoldText.text = "보상 <color=yellow>$" + rewardGold.ToString() + "</color>";
     }
 }

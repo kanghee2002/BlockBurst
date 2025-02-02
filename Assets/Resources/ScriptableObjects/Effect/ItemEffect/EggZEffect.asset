@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EggZEffect
   m_EditorClassIdentifier: 
   id: EggZEffect
-  effectName: "Z \uD3EC\uD568\uD574 \uC904 \uC9C0\uC6B8 \uB54C \uBC30\uC218 +3"
+  effectName: "Z \uD3EC\uD568\uD574\n\uC904 \uC9C0\uC6B8 \uB54C\n\uBC30\uC218 +3"
   type: 2
   trigger: 11
   effectValue: 3

@@ -16,6 +16,7 @@ MonoBehaviour:
   effectName: "\uB9AC\uB864\uD560 \uB54C\\n\uBC30\uC218 -1"
   type: 2
   trigger: 17
+  scope: 1
   effectValue: -1
   blockTypes: 
   blockId: -1

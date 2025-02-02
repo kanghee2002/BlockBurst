@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GrayClockEffect
   m_EditorClassIdentifier: 
   id: GrayClockEffect
-  effectName: "\uC904\uC744 5\uBC88 \uC9C0\uC6B8 \uB54C\uB9C8\uB2E4 \uAE30\uBCF8
+  effectName: "\uC904\uC744\n5\uBC88 \uC9C0\uC6B8 \uB54C\uB9C8\uB2E4\n\uAE30\uBCF8
     \uB9AC\uB864 +1"
   type: 7
   trigger: 10

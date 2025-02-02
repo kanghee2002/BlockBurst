@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: DecreaseSScoreEffect
   m_EditorClassIdentifier: 
   id: DecreaseSScoreEffect
-  effectName: "S \uD3EC\uD568\uD574\\n\uC904 \uC9C0\uC6B8 \uB54C\\nS \uC810\uC218
+  effectName: "S \uD3EC\uD568\uD574\\n\uC904 \uC9C0\uC6B8 \uB54C,\\nS \uC810\uC218
     -4"
   type: 0
   trigger: 11
+  scope: 1
   effectValue: -4
   blockTypes: 03000000
   blockId: -1

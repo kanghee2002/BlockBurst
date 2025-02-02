@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HulaHoopEffect
   m_EditorClassIdentifier: 
   id: HulaHoopEffect
-  effectName: "\uBCF4\uB4DC\uAC00 \uBC18 \uC774\uC0C1 \uCC28 \uC788\uC73C\uBA74 \uBC30\uC218
+  effectName: "\uBCF4\uB4DC\uAC00\n\uBC18 \uC774\uC0C1\n\uCC28 \uC788\uC73C\uBA74\n\uBC30\uC218
     +5"
   type: 2
   trigger: 19

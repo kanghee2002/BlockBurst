@@ -16,6 +16,7 @@ MonoBehaviour:
   effectName: "\uBCF4\uB4DC\\n\uAC00\uC7A5\uC790\uB9AC \uCE78\\n\uC81C\uD55C"
   type: 12
   trigger: 0
+  scope: 1
   effectValue: 0
   blockTypes: 
   blockId: -1

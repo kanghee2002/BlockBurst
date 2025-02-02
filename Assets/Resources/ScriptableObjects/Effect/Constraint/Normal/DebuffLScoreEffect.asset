@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: DebuffLScoreEffect
   m_EditorClassIdentifier: 
   id: DebuffLScoreEffect
-  effectName: "I  \uC810\uC218\uAC00\\n\uC74C\uC218\uAC00 \uB428"
+  effectName: "L \uC810\uC218\uAC00\\n\uC74C\uC218\uAC00 \uB428"
   type: 1
   trigger: 0
+  scope: 1
   effectValue: -1
   blockTypes: 05000000
   blockId: -1

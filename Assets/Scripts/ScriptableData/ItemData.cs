@@ -6,7 +6,7 @@ using UnityEngine;
 public class ItemData : ScriptableObject
 {
     public string id;                  // 아이디
-    public string itemName;            // 아이템 이름
+    [TextArea] public string itemName;            // 아이템 이름
     public List<EffectData> effects;   // 효과
     public int cost;                   // 가격
     public ItemType type;              // 타입

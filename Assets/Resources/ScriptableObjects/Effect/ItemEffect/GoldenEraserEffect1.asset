@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GoldenEraserEffect1
   m_EditorClassIdentifier: 
   id: GoldenEraserEffect1
-  effectName: "\uAE30\uBCF8 \uBC30\uC218 +2"
+  effectName: "\uAE30\uBCF8\n\uBC30\uC218 +2,"
   type: 3
   trigger: 0
   effectValue: 2

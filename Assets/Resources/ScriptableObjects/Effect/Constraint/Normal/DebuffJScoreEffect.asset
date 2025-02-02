@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DebuffJScoreEffect
   m_EditorClassIdentifier: 
   id: DebuffJScoreEffect
-  effectName: "J \uC810\uC218\uAC00\\n\uC74C\uC218\uAC00 \uB428"
+  effectName: "J \uC810\uC218\uAC00\n\uC74C\uC218\uAC00 \uB428"
   type: 1
   trigger: 0
   effectValue: -1

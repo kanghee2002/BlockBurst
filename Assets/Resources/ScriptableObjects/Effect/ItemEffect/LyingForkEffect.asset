@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: LyingForkEffect
   m_EditorClassIdentifier: 
   id: LyingForkEffect
-  effectName: "\uC904 \uC9C0\uC6B8 \uB54C 25% \uD655\uB960\uB85C \uBB34\uC791\uC704
-    \uAC00\uB85C 1\uC904 \uC9C0\uC6C0"
+  effectName: "\uC904 \uC9C0\uC6B8 \uB54C\n25% \uD655\uB960\uB85C\n\uBB34\uC791\uC704\n\uAC00\uB85C
+    1\uC904 \uC9C0\uC6C0"
   type: 20
   trigger: 9
   effectValue: 0

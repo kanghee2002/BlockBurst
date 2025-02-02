@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: BombJEffect
   m_EditorClassIdentifier: 
   id: BombJEffect
-  effectName: "J\uB85C \uC904 \uC9C0\uC6B8 \uB54C \uBB34\uC791\uC704 1\uC904 \uC9C0\uC6C0"
+  effectName: "J \uBC30\uCE58\uD574\n\uC904 \uC9C0\uC6B8 \uB54C\n\uBB34\uC791\uC704
+    1\uC904 \uC9C0\uC6C0"
   type: 24
   trigger: 3
   effectValue: 0

@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: AddBlockTrio
   m_EditorClassIdentifier: 
   id: BlockTrio
-  itemName: "Trio \uBE14\uB85D +2"
+  itemName: "Trio \uBE14\uB85D\n2\uAC1C \uCD94\uAC00"
   effects:
   - {fileID: 11400000, guid: bfd10b668b38df64f9ecdc7bcc18eb7c, type: 2}
   cost: 8
   type: 0
   block: {fileID: 11400000, guid: b1bda4724194ff543a2147600707da72, type: 2}
+  isPurchasableAgain: 0
   effectType: 1
   rarity: 1

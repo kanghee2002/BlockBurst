@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EggTEffect
   m_EditorClassIdentifier: 
   id: EggTEffect
-  effectName: "T \uD3EC\uD568\uD574 \uC904 \uC9C0\uC6B8 \uB54C \uBC30\uC218 +2"
+  effectName: "T \uD3EC\uD568\uD574\n\uC904 \uC9C0\uC6B8 \uB54C\n\uBC30\uC218 +2"
   type: 2
   trigger: 11
   effectValue: 2

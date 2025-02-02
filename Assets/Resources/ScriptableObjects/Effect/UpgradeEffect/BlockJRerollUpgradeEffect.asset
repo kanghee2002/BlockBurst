@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlockJRerollUpgradeEffect
   m_EditorClassIdentifier: 
   id: BlockJRerollUpgradeEffect
-  effectName: "J\uB85C \uC904 \uC9C0\uC6B8 \uB54C \uB9AC\uB864 +1"
+  effectName: "J \uBC30\uCE58\uD574\n\uC904 \uC9C0\uC6B8 \uB54C\n\uB9AC\uB864 +1"
   type: 5
   trigger: 3
   effectValue: 1

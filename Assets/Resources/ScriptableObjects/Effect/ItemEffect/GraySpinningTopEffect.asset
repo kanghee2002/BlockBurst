@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GraySpinningTopEffect
   m_EditorClassIdentifier: 
   id: GraySpinningTopEffect
-  effectName: "\uB9AC\uB864\uD560 \uB54C\uB9C8\uB2E4 50% \uD655\uB960\uB85C \uB9AC\uB864
+  effectName: "\uB9AC\uB864\uD560 \uB54C\uB9C8\uB2E4\n50% \uD655\uB960\uB85C\n\uB9AC\uB864
     +1"
   type: 5
   trigger: 17

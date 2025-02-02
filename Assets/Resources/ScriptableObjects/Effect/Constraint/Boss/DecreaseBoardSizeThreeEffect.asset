@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DecreaseBoardSizeThreeEffect
   m_EditorClassIdentifier: 
   id: DecreaseBoardSizeThreeEffect
-  effectName: "\uBCF4\uB4DC \uD06C\uAE30\\n3\uCE78 \uAC10\uC18C"
+  effectName: "\uBCF4\uB4DC \uD06C\uAE30\n3\uCE78 \uAC10\uC18C"
   type: 11
   trigger: 0
   effectValue: -3

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: RainbowEffect
   m_EditorClassIdentifier: 
   id: RainbowEffect
-  effectName: "\uBAA8\uB450 \uB2E4\uB978 \uC885\uB958\uB85C \uC904 \uC9C0\uC6B8 \uB54C
-    \uBC30\uC218 +6"
+  effectName: "\uBAA8\uB450\n\uB2E4\uB978 \uC885\uB958\uB85C\n\uC904 \uC9C0\uC6B8
+    \uB54C\n\uBC30\uC218 +6"
   type: 2
   trigger: 13
   effectValue: 6

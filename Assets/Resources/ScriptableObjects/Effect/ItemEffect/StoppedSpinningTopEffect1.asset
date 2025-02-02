@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StoppedSpinningTopEffect1
   m_EditorClassIdentifier: 
   id: StoppedSpinningTopEffect
-  effectName: "\uAE30\uBCF8 \uB9AC\uB864 +10"
+  effectName: "\uAE30\uBCF8 \uB9AC\uB864 +10,"
   type: 7
   trigger: 0
   effectValue: 10

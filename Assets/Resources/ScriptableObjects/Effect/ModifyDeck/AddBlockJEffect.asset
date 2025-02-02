@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AddBlockJEffect
   m_EditorClassIdentifier: 
   id: 
-  effectName: "J \uBE14\uB85D 2\uAC1C \uCD94\uAC00"
+  effectName: "J \uBE14\uB85D\n2\uAC1C \uCD94\uAC00"
   type: 0
   trigger: 0
   effectValue: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MagazineEffect
   m_EditorClassIdentifier: 
   id: MagazineEffect
-  effectName: "\uBC30\uCE58 \uC2DC \uD074\uB9AC\uC5B4 \uB418\uC9C0 \uC54A\uC73C\uBA74
+  effectName: "\uBC30\uCE58\uD560 \uB54C \uC904 \uC9C0\uC6CC\uC9C0\uC9C0 \uC54A\uC73C\uBA74
     50% \uD655\uB960\uB85C \uBC30\uC218 +1"
   type: 2
   trigger: 2

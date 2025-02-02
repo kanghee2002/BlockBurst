@@ -357,11 +357,16 @@ public class GameManager : MonoBehaviour
         ItemData soldItem = runData.activeItems[index];
         runData.activeItems.RemoveAt(index);
 
+        if (soldItem.isPurchasableAgain)
+        {
+            shopManager.AddItem(soldItem);
+        }
+
         foreach (EffectData effect in soldItem.effects)
         {
             EffectManager.instance.RemoveEffect(effect);
         }
-        GameUIManager.instance.DisplayItemSet(runData.activeItems);
+        GameUIManager.instance.DisplayItemSet(runData.activeItems, runData.maxItemCount, index);
     }
 
     public int OnItemPurchased(int index)
@@ -372,7 +377,7 @@ public class GameManager : MonoBehaviour
         if (res != -1)
         {
             shopItems[index] = null;
-            GameUIManager.instance.DisplayItemSet(runData.activeItems);
+            GameUIManager.instance.DisplayItemSet(runData.activeItems, runData.maxItemCount);
         }
         else
         {

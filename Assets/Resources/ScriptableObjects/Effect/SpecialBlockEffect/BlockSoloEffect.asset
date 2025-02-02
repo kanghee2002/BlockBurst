@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: BlockSoloEffect
   m_EditorClassIdentifier: 
   id: BlockSoloEffect
-  effectName: "Solo \uC804\uBD80 \uD074\uB9AC\uC5B4 \uC2DC \uB9AC\uB864 \uD69F\uC218
-    +2"
+  effectName: "Solo \uC804\uBD80 \uC9C0\uC6B8 \uB54C \uB9AC\uB864 \uD69F\uC218 +2"
   type: 5
   trigger: 4
   effectValue: 2

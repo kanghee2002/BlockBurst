@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TwoClockEffect
   m_EditorClassIdentifier: 
   id: TwoClockEffect
-  effectName: "2\uBC88 \uD074\uB9AC\uC5B4 \uD560 \uB54C\uB9C8\uB2E4 \uBC30\uC218
+  effectName: "\uC904\uC744 2\uBC88 \uC9C0\uC6B8 \uB54C\uB9C8\uB2E4 \uBC30\uC218
     +2"
   type: 2
   trigger: 10

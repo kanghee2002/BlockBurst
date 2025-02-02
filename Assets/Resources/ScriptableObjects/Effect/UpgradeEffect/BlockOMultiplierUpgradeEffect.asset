@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlockOMultiplierUpgradeEffect
   m_EditorClassIdentifier: 
   id: BlockOMultiplierUpgradeEffect
-  effectName: "O\uB85C \uD074\uB9AC\uC5B4 \uC2DC \uBC30\uC218 +1"
+  effectName: "O\uB85C \uC904 \uC9C0\uC6B8 \uB54C \uBC30\uC218 +1"
   type: 2
   trigger: 3
   effectValue: 1

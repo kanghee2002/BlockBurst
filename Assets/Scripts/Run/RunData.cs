@@ -13,6 +13,7 @@ public class RunData
     public Dictionary<BlockType, int> blockReuses;              // 블록별 재사용 횟수
     public int gold;                                            // 현재 보유 골드
     public int baseRerollCount;                                 // 기본 리롤 횟수
+    public int maxItemCount;                                       // 소지 가능 아이템 수
     public int baseBoardRows;                                   // 보드 크기
     public int baseBoardColumns;                                // 보드 크기
     public int baseDrawBlockCount;                              // 기본 드로우 블록 수
@@ -27,6 +28,7 @@ public class RunData
         blockReuses = new Dictionary<BlockType, int>();
         gold = gameData.startingGold;
         baseRerollCount = gameData.defaultRerollCount;
+        maxItemCount = gameData.maxItemCount;
         baseBoardRows = 8;
         baseBoardColumns = 8;
         baseDrawBlockCount = 3;

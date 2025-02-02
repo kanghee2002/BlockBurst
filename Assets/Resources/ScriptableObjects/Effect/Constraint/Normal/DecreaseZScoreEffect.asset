@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DecreaseZScoreEffect
   m_EditorClassIdentifier: 
   id: DecreaseZScoreEffect
-  effectName: "Z \uBE14\uB85D \uD3EC\uD568 \uD074\uB9AC\uC5B4 \uC2DC Z \uC810\uC218
+  effectName: "Z \uD3EC\uD568\uD574\\n\uC904 \uC9C0\uC6B8 \uB54C\\nZ \uC810\uC218
     -4"
   type: 0
   trigger: 11

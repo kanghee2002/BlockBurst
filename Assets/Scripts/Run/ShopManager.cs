@@ -30,12 +30,14 @@ public class ShopManager : MonoBehaviour
 
     public int PurchaseItem(ItemData item)
     {
-        if (item.type == ItemType.ITEM && runData.activeItems.Count >= 10)
+        if (item == null) return -1;
+
+        if (item.type == ItemType.ITEM && runData.activeItems.Count >= runData.maxItemCount)
         {
             return -1;
         }
 
-        if (item == null || runData.gold < item.cost)
+        if (runData.gold < item.cost)
         {
             return -1;
         } 
@@ -56,9 +58,7 @@ public class ShopManager : MonoBehaviour
         ItemData item = currentItems[idx];
         currentItems.RemoveAt(idx);
 
-        if (item.type == ItemType.ADD_BLOCK ||
-            item.type == ItemType.DELETE_BLOCK ||
-            item.type == ItemType.UPGRADE)
+        if (item.type != ItemType.ITEM)
         {
             AddItem(item);
         }

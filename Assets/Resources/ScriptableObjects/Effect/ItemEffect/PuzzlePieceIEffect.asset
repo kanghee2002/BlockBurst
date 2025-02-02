@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: PuzzlePieceIEffect
   m_EditorClassIdentifier: 
   id: PuzzlePieceIEffect
-  effectName: "I\uBE14\uB85D\uC744 9\uBC88 \uBC30\uCE58\uD560 \uB54C\uB9C8\uB2E4
-    \uAE30\uBCF8 \uBC30\uC218 +1"
+  effectName: "I\uB97C 9\uBC88 \uBC30\uCE58\uD560 \uB54C\uB9C8\uB2E4 \uAE30\uBCF8
+    \uBC30\uC218 +1"
   type: 3
   trigger: 23
   effectValue: 1

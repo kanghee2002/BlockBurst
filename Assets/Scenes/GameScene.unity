@@ -12609,8 +12609,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -40, y: -110}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 40, y: -55.000004}
+  m_SizeDelta: {x: 80, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1163912454
 MonoBehaviour:
@@ -12632,7 +12632,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0/10
+  m_text: 0/5
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2a59723d8f0743f4ba7c0c6d36676d1c, type: 2}
   m_sharedMaterial: {fileID: 92899030693641188, guid: 2a59723d8f0743f4ba7c0c6d36676d1c, type: 2}
@@ -15783,7 +15783,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 128, y: -140}
-  m_SizeDelta: {x: 900, y: 160}
+  m_SizeDelta: {x: 800, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1583208971
 MonoBehaviour:
@@ -15799,9 +15799,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemIconPrefab: {fileID: 2590677270669734416, guid: 7193ec8fa5d4ee341a3481b89dfd68f3, type: 3}
   itemCountText: {fileID: 1163912454}
-  iconOverlap: 45
+  iconOverlap: 0
   hoverScale: 1.2
   hoverDuration: 0.2
+  startPos: -275
 --- !u!114 &1583208972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21280,6 +21281,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneTransitionManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3062908164609615809, guid: 8c2476496f7469c4c991c4390686fba6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3398620252328586855, guid: 8c2476496f7469c4c991c4390686fba6, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -21366,15 +21371,15 @@ PrefabInstance:
       objectReference: {fileID: 230092827}
     - target: {fileID: 6885007017325651131, guid: 8c2476496f7469c4c991c4390686fba6, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6885007017325651131, guid: 8c2476496f7469c4c991c4390686fba6, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6885007017325651131, guid: 8c2476496f7469c4c991c4390686fba6, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 840
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

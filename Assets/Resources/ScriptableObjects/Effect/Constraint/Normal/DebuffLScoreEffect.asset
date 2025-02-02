@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DebuffLScoreEffect
   m_EditorClassIdentifier: 
   id: DebuffLScoreEffect
-  effectName: "L \uBE14\uB85D \uC810\uC218 \uB9C8\uC774\uB108\uC2A4"
+  effectName: "I  \uC810\uC218\uAC00\\n\uC74C\uC218\uAC00 \uB428"
   type: 1
   trigger: 0
   effectValue: -1

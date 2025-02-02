@@ -158,6 +158,8 @@ public class BoardUI : MonoBehaviour
             }
         }
 
+        int blockCount = 0;
+
         // 줄 지우는 효과
         foreach (Match match in matches)
         {
@@ -171,6 +173,7 @@ public class BoardUI : MonoBehaviour
                     boardCellsUI[match.index, x].PlayScoreAnimation(score, delayedTime);
                     delayedTime += delay;
                 }
+                blockCount += width;
             }
             else if (match.matchType == MatchType.COLUMN)
             {
@@ -182,15 +185,10 @@ public class BoardUI : MonoBehaviour
                     boardCellsUI[y, match.index].PlayScoreAnimation(score, delayedTime);
                     delayedTime += delay;
                 }
+                blockCount += height;
             }
         }
 
-        // matches의 blocks의 개수를 모두 더함
-        int totalBlocks = 0;
-        foreach (Match match in matches)
-        {
-            totalBlocks += match.blocks.Count;
-        }
-        AudioManager.instance.SFXMatch(totalBlocks);
+        AudioManager.instance.SFXMatch(blockCount);
     }
 }

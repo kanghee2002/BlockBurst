@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BookIEffect
   m_EditorClassIdentifier: 
   id: BookIEffect
-  effectName: "I \uBC30\uCE58 \uC2DC I \uC810\uC218 +1"
+  effectName: "I \uBC30\uCE58\uD560 \uB54C\uB9C8\uB2E4 I \uC810\uC218 +1"
   type: 0
   trigger: 1
   effectValue: 1

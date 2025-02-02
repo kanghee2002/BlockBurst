@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BombSEffect
   m_EditorClassIdentifier: 
   id: BombSEffect
-  effectName: "S\uB85C \uD074\uB9AC\uC5B4 \uC2DC \uBB34\uC791\uC704 1\uC904 \uD074\uB9AC\uC5B4"
+  effectName: "S\uB85C \uC904 \uC9C0\uC6B8 \uB54C \uBB34\uC791\uC704 1\uC904 \uC9C0\uC6C0"
   type: 24
   trigger: 3
   effectValue: 0

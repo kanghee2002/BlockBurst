@@ -391,9 +391,9 @@ public class GameUIManager : MonoBehaviour
         GameManager.instance.MakeNewRun();
     }
 
-    public void DisplayItemSet(List<ItemData> items)
+    public void DisplayItemSet(List<ItemData> items, int maxItemCount)
     {
-        itemSetUI.Initialize(items);
+        itemSetUI.Initialize(items, maxItemCount);
     }
 
     public void PlayItemEffectAnimation(string effectDescription, int index, float delay)

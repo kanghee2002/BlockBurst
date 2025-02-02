@@ -13,10 +13,10 @@ public class ItemSetUI : MonoBehaviour
     [SerializeField] private float iconOverlap = 30f;    
     [SerializeField] private float hoverScale = 1.2f;    
     [SerializeField] private float hoverDuration = 0.2f; 
-    private float startPos = -380f;
+    [SerializeField] private float startPos = -300f;
     private List<GameObject> itemIcons = new List<GameObject>();
 
-    public void Initialize(List<ItemData> items)
+    public void Initialize(List<ItemData> items, int maxItemCount)
     {
         Clear();
 
@@ -74,7 +74,7 @@ public class ItemSetUI : MonoBehaviour
             itemIcons.Add(itemIcon);
         }
 
-        itemCountText.text = items.Count + "/10";
+        itemCountText.text = items.Count + "/" + maxItemCount;
     }
 
     private Sprite GetImage(ItemData item)

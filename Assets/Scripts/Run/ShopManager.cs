@@ -30,7 +30,7 @@ public class ShopManager : MonoBehaviour
 
     public int PurchaseItem(ItemData item)
     {
-        if (item.type == ItemType.ITEM && runData.activeItems.Count >= 10)
+        if (item.type == ItemType.ITEM && runData.activeItems.Count >= runData.maxItemCount)
         {
             return -1;
         }

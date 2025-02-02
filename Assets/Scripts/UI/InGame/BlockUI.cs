@@ -32,6 +32,8 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
     private bool isDragging = false;
     float boardCellSize;
 
+    Block myBlock;
+
     void Awake()
     {
         canvas = GetComponentInParent<Canvas>();
@@ -53,6 +55,7 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
 
     public void Initialize(Block block, int index)
     {
+        myBlock = block;
         originalPosition = transform.localPosition;
         idx = index;
 
@@ -88,8 +91,7 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
             int normalizedY = pos.y - minY;
             
             GameObject blockCell = Instantiate(prefabBlockCellUI);
-            blockCell.GetComponent<Image>().sprite = blockSprite;
-            blockCell.GetComponent<CellEffectUI>().SetScoreEffect(block.Score);
+            blockCell.GetComponent<Image>().sprite = CellEffectManager.instance.ApplyEffect(blockSprite, block);
             blockCellsUI[normalizedY, normalizedX] = blockCell;
         }
 
@@ -203,6 +205,7 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
                 rectTransform.anchoredPosition = targetPosition;
 
                 AudioManager.instance.SFXPlaceBlock();
+                CellEffectManager.instance.PlaceEffect(myBlock);
             }
             else
             {

@@ -30,11 +30,14 @@ public class ItemSetUI : MonoBehaviour
     private List<Tween> blockRelatedShakeTweens;
     private List<Tween> shakeTweens;
 
+    private Vector2 effectTextPos;
+
     private void Start()
     {
         originalAnchoredPosition = rectTransform.anchoredPosition;
         blockRelatedShakeTweens = new List<Tween>();
         shakeTweens = new List<Tween>();
+        effectTextPos = itemIconPrefab.transform.GetChild(3).GetComponent<RectTransform>().anchoredPosition;
     }
 
     private void Update()
@@ -340,7 +343,7 @@ public class ItemSetUI : MonoBehaviour
 
     public void PlayEffectAnimation(string effectDescription, int index, float delay)
     {
-        float fadeDelay = 1f;
+        float fadeDelay = 0.3f;
 
         GameObject currentItem = itemIcons[index];
 
@@ -349,11 +352,14 @@ public class ItemSetUI : MonoBehaviour
         currentText.text = effectDescription;
 
         Vector2 originalPosition = currentText.rectTransform.anchoredPosition;
-        Color originalColor = currentText.color;
+        Color originalColor = new Color(1f, 1f, 1f, 1f);
         float yOffset = 10f;
 
-        currentItem.transform.DOPunchScale(Vector2.one * 1.2f, 0.3f, 10, 0.5f);
+        currentItem.transform.DOKill();
+        currentItem.transform.localScale = Vector3.one;
 
+        currentItem.transform.DOPunchScale(Vector2.one * 1.2f, 0.3f, 10, 0.5f);
+        
         Sequence sequence = DOTween.Sequence();
 
         sequence.Append(currentText.rectTransform.DOAnchorPosY(originalPosition.y + yOffset, 0.3f)
@@ -362,7 +368,8 @@ public class ItemSetUI : MonoBehaviour
 
         sequence.OnComplete(() =>
         {
-            currentText.rectTransform.anchoredPosition = originalPosition;
+            currentItem.transform.DOScale(Vector2.one, 0.2f);
+            currentText.rectTransform.anchoredPosition = effectTextPos;
             currentText.color = originalColor;
             currentText.gameObject.SetActive(false);
         });

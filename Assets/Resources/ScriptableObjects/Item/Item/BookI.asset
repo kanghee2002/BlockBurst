@@ -16,8 +16,9 @@ MonoBehaviour:
   itemName: "I \uCC45"
   effects:
   - {fileID: 11400000, guid: dd5aeb27edc8f2b41b374aa0e254a4d8, type: 2}
-  cost: 8
+  cost: 7
   type: 2
   block: {fileID: 0}
+  isPurchasableAgain: 0
   effectType: 0
   rarity: 1

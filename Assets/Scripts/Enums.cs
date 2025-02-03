@@ -96,7 +96,7 @@ public enum EffectScope
 
 public enum ItemType
 {
-    ADD_BLOCK, DELETE_BLOCK, ITEM, UPGRADE
+    ADD_BLOCK, CONVERT_BLOCK, ITEM, UPGRADE
 }
 
 public enum ItemEffectType

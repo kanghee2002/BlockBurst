@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: AddBlockDuo
   m_EditorClassIdentifier: 
-  id: BlockDuo
+  id: AddBlockDuo
   itemName: "Duo \uBE14\uB85D \uCD94\uAC00"
   effects:
   - {fileID: 11400000, guid: 0df4c49b8afe47043ace0dc143fee393, type: 2}

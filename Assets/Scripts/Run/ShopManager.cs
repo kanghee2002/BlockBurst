@@ -89,13 +89,17 @@ public class ShopManager : MonoBehaviour
                 }
             }
         }
-        else if (item.type == ItemType.DELETE_BLOCK)
+        else if (item.type == ItemType.CONVERT_BLOCK)
         {
-            int deleteCount = 2;
-            for (int i = 0; i < deleteCount; i++)
+            int convertCount = 2;
+            for (int i = 0; i < convertCount; i++)
             {
-                deckManager.RemoveBlockFromRunDeck(item.block);
+                deckManager.RemoveRandomBlockFromRunDeck(item.block.type);
             }
+            for (int i = 0; i < convertCount; i++)
+            {
+                deckManager.AddBlockToRunDeck(item.block);
+            } 
         }
         else if (item.type == ItemType.ITEM)
         {
@@ -116,7 +120,7 @@ public class ShopManager : MonoBehaviour
         }
 
         if (item.type == ItemType.ADD_BLOCK ||
-            item.type == ItemType.DELETE_BLOCK)
+            item.type == ItemType.CONVERT_BLOCK)
         {
             GameManager.instance.UpdateDeckCount(runData.availableBlocks.Count, runData.availableBlocks.Count);
         }

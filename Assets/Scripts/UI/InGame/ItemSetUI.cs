@@ -157,7 +157,7 @@ public class ItemSetUI : MonoBehaviour
         {
             return Resources.Load<Sprite>(itemPath + item.id);
         }
-        else if (item.type == ItemType.DELETE_BLOCK || item.type == ItemType.UPGRADE)
+        else if (item.type == ItemType.CONVERT_BLOCK || item.type == ItemType.UPGRADE)
         {
             return Resources.Load<Sprite>(blockPresetPath + item.block.type.ToString());
         }
@@ -169,13 +169,13 @@ public class ItemSetUI : MonoBehaviour
         string upgradePath = "Sprites/Item/Upgrade/";
         itemUI.transform.GetChild(1).gameObject.SetActive(false);
 
-        if (item.type != ItemType.DELETE_BLOCK && item.type != ItemType.UPGRADE)
+        if (item.type != ItemType.CONVERT_BLOCK && item.type != ItemType.UPGRADE)
             return;
 
         string IconPath = upgradePath;
-        if (item.type == ItemType.DELETE_BLOCK)
+        if (item.type == ItemType.CONVERT_BLOCK)
         {
-            IconPath += "DeleteUpgrade";
+            IconPath += "ConvertUpgrade";
         }
         else if (item.effects[0].type == EffectType.GOLD_MODIFIER)
         {

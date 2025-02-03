@@ -23,10 +23,14 @@ public class ItemSetUI : MonoBehaviour
     [SerializeField] private RectTransform deckButtonUIRect; // Right
 
     private float discardAnimationDelay;
+    private List<Tween> blockRelatedShakeTweens;
+    private List<Tween> boardRelatedShakeTweens;
 
     private void Start()
     {
         originalAnchoredPosition = rectTransform.anchoredPosition;
+        blockRelatedShakeTweens = new List<Tween>();
+        boardRelatedShakeTweens = new List<Tween>();
     }
 
     private void Update()
@@ -288,6 +292,46 @@ public class ItemSetUI : MonoBehaviour
         }
 
         return description;
+    }
+
+    public void StartShakeAnimation(int index, bool isBlockRelated, bool isBoardRelated)
+    {
+        GameObject currentItem = itemIcons[index];
+
+        Vector3 originalPosition = currentItem.transform.position;
+
+        Tween currentTween = currentItem.transform.DOPunchPosition(Vector3.one * 7f, 0.5f,
+            vibrato: 10, elasticity: 0.3f)
+            .SetLoops(-1, LoopType.Restart)
+            .SetEase(Ease.InOutQuad)
+            .OnKill(() => currentItem.transform.DOMove(originalPosition, 0.1f));
+
+        if (isBlockRelated)
+        {
+            blockRelatedShakeTweens.Add(currentTween);
+        }
+        else if (isBoardRelated)
+        {
+            boardRelatedShakeTweens.Add(currentTween);
+        }
+    }
+
+    public void StopShakeAnimation(bool isBlockRelated, bool isBoardRelated)
+    {
+        List<Tween> targetTwinList = new List<Tween>();
+        if (isBlockRelated)
+        {
+            targetTwinList = blockRelatedShakeTweens;
+        }
+        else if (isBoardRelated)
+        {
+            targetTwinList = boardRelatedShakeTweens;
+        }
+
+        foreach (Tween tween in targetTwinList)
+        {
+            tween.Kill();
+        }
     }
 
     public void PlayEffectAnimation(string effectDescription, int index, float delay)

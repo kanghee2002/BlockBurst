@@ -401,6 +401,22 @@ public class GameUIManager : MonoBehaviour
         itemSetUI.Initialize(items, maxItemCount, discardIndex);
     }
 
+    public void StartItemShakeAnimation(int index, bool isBlockRelated, bool isBoardRelated)
+    {
+        itemSetUI.StartShakeAnimation(index, isBlockRelated: isBlockRelated, isBoardRelated: isBoardRelated);
+    }
+
+    public void StopAllItemShakeAnimation()
+    {
+        StopItemShakeAnimation(true, false);
+        StopItemShakeAnimation(false, true);
+    }
+
+    public void StopItemShakeAnimation(bool isBlockRelated, bool isBoardRelated)
+    {
+        itemSetUI.StopShakeAnimation(isBlockRelated: isBlockRelated, isBoardRelated: isBoardRelated);
+    }
+
     public void PlayItemEffectAnimation(string effectDescription, int index, float delay)
     {
         itemSetUI.PlayEffectAnimation(effectDescription, index, delay);

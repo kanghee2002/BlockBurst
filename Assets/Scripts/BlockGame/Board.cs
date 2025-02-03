@@ -50,6 +50,8 @@ public class Board
             { BlockType.L, 0 },
             { BlockType.T, 0 },
         };
+
+        GameManager.instance.PlayBoardRelatedItemShakeAnimation(matchCount);
     }
 
     public void BlockCells(HashSet<Vector2Int> blockedCells)
@@ -197,6 +199,7 @@ public class Board
             EffectManager.instance.TriggerEffects(TriggerType.ON_CROSS_LINE_CLEAR);
         }
 
+        GameManager.instance.PlayBoardRelatedItemShakeAnimation(matchCount);
 
         // 지운 블록들 비우기
         ClearCells(matches);

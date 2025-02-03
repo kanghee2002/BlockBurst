@@ -149,6 +149,8 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        GameManager.instance.OnBeginDragBlock(myBlock);
+
         isDragging = true;
         Vector2 localPoint;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
@@ -187,6 +189,8 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        GameManager.instance.OnEndDragBlock(myBlock);
+
         isDragging = false;
         ClearShadowCells();
         if (Vector2.Distance(eventData.pressPosition, eventData.position) < ROTATION_THRESHOLD)

@@ -349,6 +349,7 @@ public class GameManager : MonoBehaviour
                 StartShop(true);
                 UpdateDeckCount(runData.availableBlocks.Count, runData.availableBlocks.Count);
                 UpdateBaseMultiplier();
+                GameUIManager.instance.StopAllItemShakeAnimation();
             }
         } 
         else 
@@ -523,6 +524,58 @@ public class GameManager : MonoBehaviour
     {
         handBlocks[idx].RotateShape();
         GameUIManager.instance.OnBlockRotateCallback(idx, handBlocks[idx]);
+    }
+
+    public void OnBeginDragBlock(Block block)
+    {
+        for (int i = 0; i < runData.activeItems.Count; i++) 
+        {
+            // 아이템의 효과가 드래그하는 블록과 관련이 있다면
+            if (runData.activeItems[i].effects
+                .Any(effect => 
+                effect.blockTypes.Contains(block.Type) &&
+                effect.trigger != TriggerType.ON_ACQUIRE
+                ))
+            {
+                GameUIManager.instance.StartItemShakeAnimation(i, isBlockRelated: true, isBoardRelated: false);
+            }
+        }
+    }
+
+    public void OnEndDragBlock(Block block)
+    {
+        GameUIManager.instance.StopItemShakeAnimation(isBlockRelated: true, isBoardRelated: false);
+    }
+
+    public void PlayBoardRelatedItemShakeAnimation(int matchCount)
+    {
+        GameUIManager.instance.StopItemShakeAnimation(isBlockRelated: false, isBoardRelated: true);
+
+        // 첫 줄 지우기 효과 관련
+        if (matchCount == 0)
+        {
+            for (int i = 0; i < runData.activeItems.Count; i++)
+            {
+                if (runData.activeItems[i].effects
+                    .Any(effect => effect.trigger == TriggerType.ON_FIRST_LINE_CLEAR))
+                {
+                    GameUIManager.instance.StartItemShakeAnimation(i, isBlockRelated: false, isBoardRelated: true);
+                }
+            }
+        }
+
+        matchCount++;
+        for (int i = 0; i < runData.activeItems.Count; i++)
+        {
+            // 아이템의 효과가 미래의 matchCount과 관련이 있다면
+            if (runData.activeItems[i].effects
+                .Any(effect => 
+                effect.trigger == TriggerType.ON_LINE_CLEAR_WITH_COUNT &&
+                effect.triggerValue == matchCount % effect.triggerValue + effect.triggerValue))
+            {
+                GameUIManager.instance.StartItemShakeAnimation(i, isBlockRelated: false, isBoardRelated: true);
+            }
+        }
     }
 
     public void PlayStageEffectAnimation()

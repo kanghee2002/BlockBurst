@@ -525,6 +525,11 @@ public class GameManager : MonoBehaviour
         GameUIManager.instance.OnBlockRotateCallback(idx, handBlocks[idx]);
     }
 
+    public void PlayStageEffectAnimation()
+    {
+        GameUIManager.instance.PlayStageEffectAnimation();
+    }
+
     public void PlayItemEffectAnimation(List<string> effectIdList, float matchAnimationTime = 0f)
     {
         StartCoroutine(ItemEffectAnimationCoriotine(effectIdList, matchAnimationTime));
@@ -533,6 +538,8 @@ public class GameManager : MonoBehaviour
     private IEnumerator ItemEffectAnimationCoriotine(List<string> effectIdList, float matchAnimationTime)
     {
         yield return new WaitForSeconds(matchAnimationTime);
+
+        UpdateBaseMultiplier();
 
         // 임시 구현 (블록 강화 시각 효과)
         foreach (string effectId in effectIdList)

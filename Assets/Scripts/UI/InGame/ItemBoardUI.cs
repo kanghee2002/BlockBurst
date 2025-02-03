@@ -180,7 +180,7 @@ public class ItemBoardUI : MonoBehaviour
             Sprite itemSprite = Resources.Load<Sprite>(path);
             itemUI.transform.GetChild(0).GetComponent<Image>().sprite = itemSprite;
         }
-        else if (item.type == ItemType.DELETE_BLOCK || item.type == ItemType.UPGRADE)
+        else if (item.type == ItemType.CONVERT_BLOCK || item.type == ItemType.UPGRADE)
         {
             // 블록 프리셋 배치
             string blockPath = blockPresetPath + item.block.type.ToString();
@@ -189,9 +189,9 @@ public class ItemBoardUI : MonoBehaviour
 
             // 아이콘 배치
             string IconPath = upgradePath;
-            if (item.type == ItemType.DELETE_BLOCK)
+            if (item.type == ItemType.CONVERT_BLOCK)
             {
-                IconPath += "DeleteUpgrade";
+                IconPath += "ConvertUpgrade";
             }
             else if (item.effects[0].type == EffectType.GOLD_MODIFIER)
             {

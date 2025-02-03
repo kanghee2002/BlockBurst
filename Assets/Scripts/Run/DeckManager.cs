@@ -96,6 +96,18 @@ public class DeckManager : MonoBehaviour
         runData.availableBlocks.Remove(block);
     }
 
+    public void RemoveRandomBlockFromRunDeck(BlockType? exceptionType = null)
+    {
+        int randomIndex = -1;
+        for (int i = 0; i < 10000; i++)
+        {
+            randomIndex = Random.Range(0, runData.availableBlocks.Count);
+            if (exceptionType != null && runData.availableBlocks[randomIndex].type == exceptionType) continue;
+            else break;
+        }
+        runData.availableBlocks.RemoveAt(randomIndex);
+    }
+
     // 덱 셔플
     private void ShuffleDeck()
     {

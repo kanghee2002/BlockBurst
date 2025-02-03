@@ -62,4 +62,23 @@ public class StageInfoUI : MonoBehaviour
     {
         scoreAtLeastText.text = scoreAtLeast.ToString();
     }
+
+    public void ProcessStageEffectAnimation()
+    {
+        float punchScale = 1.2f;
+        float animationDuration = 0.2f;
+
+        // 텍스트 점점 빨갛게, 커졌다가 원래 색으로, 작게 돌아가는 시퀀스
+        Sequence sequence = DOTween.Sequence();
+
+        sequence.Append(debuffText.transform.DOScale(punchScale, animationDuration)
+            .SetLoops(2, LoopType.Yoyo)
+            .SetEase(Ease.OutQuad));
+
+        sequence.Join(debuffText.DOColor(Color.red, animationDuration)
+            .SetLoops(2, LoopType.Yoyo)
+            .SetEase(Ease.OutQuad));
+
+        sequence.OnComplete(() => debuffText.transform.DOScale(Vector3.one, animationDuration));
+    }
 }

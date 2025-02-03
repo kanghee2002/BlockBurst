@@ -619,8 +619,6 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(matchAnimationTime);
 
-        UpdateBaseMultiplier();
-
         // 임시 구현 (블록 강화 시각 효과)
         foreach (string effectId in effectIdList)
         {

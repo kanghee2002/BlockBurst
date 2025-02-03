@@ -16,7 +16,7 @@ MonoBehaviour:
   itemName: "Z \uBE14\uB85D \uBCC0\uD658"
   effects:
   - {fileID: 11400000, guid: 6269a2b6a1a2bb54fb6ed18d3418def0, type: 2}
-  cost: 2
+  cost: 4
   type: 1
   block: {fileID: 11400000, guid: e939360afcef8914dbd213eb46618b27, type: 2}
   isPurchasableAgain: 0

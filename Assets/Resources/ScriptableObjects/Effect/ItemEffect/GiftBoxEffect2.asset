@@ -16,6 +16,7 @@ MonoBehaviour:
   effectName: "J/L/T \uBE14\uB85D\nx2 \uBCF5\uC0AC"
   type: 17
   trigger: 0
+  scope: 0
   effectValue: 2
   blockTypes: 040000000500000006000000
   blockId: -1

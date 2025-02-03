@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: GrayCubeEffect
   m_EditorClassIdentifier: 
   id: GrayCubeEffect
-  effectName: "\uAE30\uBCF8 \uB9AC\uB864 +3"
+  effectName: "\uAE30\uBCF8 \uB9AC\uB864 +5"
   type: 7
   trigger: 0
-  effectValue: 3
+  scope: 0
+  effectValue: 5
   blockTypes: 
   blockId: -1
   probability: 1

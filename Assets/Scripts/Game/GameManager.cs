@@ -253,7 +253,7 @@ public class GameManager : MonoBehaviour
             {
                 stage.clearRequirement = (int)(gameData.stageBaseScoreList[gameData.stageBaseScoreList.Count - 1] * (currentChapterIndex - 7) * (gameData.stageScoreMultiplier[currentStageIndex - 1] + stage.baseScoreMultiplier));
             }
-            stage.goldReward = 8 + currentChapterIndex;
+            stage.goldReward = 7 + (int)MathF.Pow(currentChapterIndex, 0.5f) * 3;
         }
 
         // UI에 전달

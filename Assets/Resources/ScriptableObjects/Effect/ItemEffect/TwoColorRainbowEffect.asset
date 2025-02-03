@@ -17,6 +17,7 @@ MonoBehaviour:
     \uC9C0\uC6B8 \uB54C\n\uBC30\uC218 +3"
   type: 2
   trigger: 12
+  scope: 0
   effectValue: 3
   blockTypes: 
   blockId: -1

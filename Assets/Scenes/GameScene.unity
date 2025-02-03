@@ -1700,15 +1700,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popupBlurImage: {fileID: 169173319}
-  seungRi: {fileID: 0}
-  elapsedTimeText: {fileID: 0}
-  maximumScoreText: {fileID: 0}
-  mostPlacedBlockImage: {fileID: 0}
-  chapterText: {fileID: 0}
-  placedBlockCountText: {fileID: 0}
-  stageText: {fileID: 0}
-  rerolledCountText: {fileID: 0}
-  buyedCountText: {fileID: 0}
+  seungRi: {fileID: 1958271448}
+  elapsedTimeText: {fileID: 1126335333}
+  maximumScoreText: {fileID: 898148462}
+  mostPlacedBlockImage: {fileID: 1288880038}
+  chapterText: {fileID: 60895702}
+  placedBlockCountText: {fileID: 1741356847}
+  stageText: {fileID: 1786500117}
+  rerolledCountText: {fileID: 205726576}
+  buyedCountText: {fileID: 799718455}
 --- !u!1001 &174056274
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9980,7 +9980,7 @@ GameObject:
   m_Component:
   - component: {fileID: 907082678}
   m_Layer: 5
-  m_Name: "\uC720\uB2C8\uD2F0 \uC720\uC544\uC774 \uAC1C \uC886\uAC19\uB124 \uC9C4\uC9DC"
+  m_Name: InfoContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

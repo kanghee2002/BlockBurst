@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: GoldenCloverEffect
   m_EditorClassIdentifier: 
   id: GoldenCloverEffect
-  effectName: "\uC904 \uC9C0\uC6B8 \uB54C\n50% \uD655\uB960\uB85C\n\uACE8\uB4DC +5"
+  effectName: "\uC904 \uC9C0\uC6B8 \uB54C\n50% \uD655\uB960\uB85C\n\uACE8\uB4DC +2"
   type: 9
   trigger: 9
-  effectValue: 5
+  scope: 0
+  effectValue: 2
   blockTypes: 
   blockId: -1
   probability: 0.5

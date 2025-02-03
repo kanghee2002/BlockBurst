@@ -18,9 +18,13 @@ public class ItemSetUI : MonoBehaviour
     [SerializeField] private float hoverDuration = 0.2f; 
     [SerializeField] private float startPos = -300f;
     private List<GameObject> itemIcons = new List<GameObject>();
-    
+
+    [Header("Auto Sizing")]
     [SerializeField] private RectTransform deskMatRect; // Left
     [SerializeField] private RectTransform deckButtonUIRect; // Right
+
+    [Header("Item Full Animation")]
+    [SerializeField] private Image showItemFullImage;
 
     private float discardAnimationDelay;
     private List<Tween> blockRelatedShakeTweens;
@@ -361,6 +365,32 @@ public class ItemSetUI : MonoBehaviour
             currentText.rectTransform.anchoredPosition = originalPosition;
             currentText.color = originalColor;
             currentText.gameObject.SetActive(false);
+        });
+    }
+
+    public void PlayItemFullAnimation()
+    {
+        if (showItemFullImage.gameObject.activeSelf)
+        {
+            return;
+        }
+        showItemFullImage.gameObject.SetActive(true);
+        showItemFullImage.color = new Color(0f, 0f, 0f, 0.8f);
+
+        float duration = 0.5f;
+
+        RectTransform textRect = showItemFullImage.transform.GetChild(0).GetComponent<RectTransform>();
+
+        Sequence sequence = DOTween.Sequence();
+
+        sequence.Append(textRect.DOPunchScale(Vector3.one * 1.2f, duration,
+            vibrato: 6, elasticity: 0.3f)
+            .SetEase(Ease.OutQuad));
+
+        sequence.OnComplete(() =>
+        {
+            textRect.DOScale(Vector3.one, duration);
+            showItemFullImage.gameObject.SetActive(false);
         });
     }
 }

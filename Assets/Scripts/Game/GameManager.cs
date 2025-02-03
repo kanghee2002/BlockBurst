@@ -471,6 +471,11 @@ public class GameManager : MonoBehaviour
         GameUIManager.instance.DisplayDeckCount(deckCount, maxDeckCount);
     }
 
+    public void PlayItemFullAnimation()
+    {
+        GameUIManager.instance.PlayItemFullAnimation();
+    }
+
     // ------------------------------
     // RUN LAYER - end
     // ------------------------------

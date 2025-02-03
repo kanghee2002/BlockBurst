@@ -34,6 +34,7 @@ public class ShopManager : MonoBehaviour
 
         if (item.type == ItemType.ITEM && runData.activeItems.Count >= runData.maxItemCount)
         {
+            GameManager.instance.PlayItemFullAnimation();
             return -1;
         }
 

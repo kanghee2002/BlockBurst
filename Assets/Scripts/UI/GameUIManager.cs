@@ -397,6 +397,11 @@ public class GameUIManager : MonoBehaviour
         GameManager.instance.MakeNewRun();
     }
 
+    public void PlayItemFullAnimation()
+    {
+        itemSetUI.PlayItemFullAnimation();
+    }
+
     public void DisplayItemSet(List<ItemData> items, int maxItemCount, int discardIndex = -1)
     {
         itemSetUI.Initialize(items, maxItemCount, discardIndex);

@@ -373,6 +373,11 @@ public class GameUIManager : MonoBehaviour
         goldInfoUI.UpdateGold(gold);
     }
 
+    public void PlayStageEffectAnimation()
+    {
+        stageInfoUI.ProcessStageEffectAnimation();
+    }
+
     public void DisplayRerollCount(int rerollCount) {
         rerollButtonUI.DisplayRerollCount(rerollCount);
     }

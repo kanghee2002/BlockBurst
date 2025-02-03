@@ -525,6 +525,11 @@ public class GameManager : MonoBehaviour
         GameUIManager.instance.OnBlockRotateCallback(idx, handBlocks[idx]);
     }
 
+    public void PlayStageEffectAnimation()
+    {
+        GameUIManager.instance.PlayStageEffectAnimation();
+    }
+
     public void PlayItemEffectAnimation(List<string> effectIdList, float matchAnimationTime = 0f)
     {
         StartCoroutine(ItemEffectAnimationCoriotine(effectIdList, matchAnimationTime));

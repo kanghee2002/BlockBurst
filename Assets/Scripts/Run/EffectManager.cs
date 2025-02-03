@@ -58,6 +58,10 @@ public class EffectManager : MonoBehaviour
     // 모든 트리거 호출 이후, 시각 효과를 위해 호출
     public void EndTriggerEffect()
     {
+        if (IsStageEffectTriggered(lastTriggeredEffects))
+        {
+            GameManager.instance.PlayStageEffectAnimation();
+        }
         GameManager.instance.PlayItemEffectAnimation(lastTriggeredEffects.ToList());
         lastTriggeredEffects.Clear();
     }
@@ -65,6 +69,10 @@ public class EffectManager : MonoBehaviour
     // 게임 중 블록을 놓았을 때, 시각 효과를 위해 호출
     public void EndTriggerEffectOnPlace(List<Match> matches)
     {
+        if (IsStageEffectTriggered(lastTriggeredEffects))
+        {
+            GameManager.instance.PlayStageEffectAnimation();
+        }
         float matchAnimationTime = GameManager.instance.GetMatchAnimationTime(matches);
         GameManager.instance.PlayItemEffectAnimation(lastTriggeredEffects.ToList(), matchAnimationTime);
         lastTriggeredEffects.Clear();
@@ -265,5 +273,19 @@ public class EffectManager : MonoBehaviour
             List<int> columnIndices = GetRandomIndices(blockGameData.boardColumns, 1);
             GameManager.instance.ForceLineClearBoard(MatchType.COLUMN, columnIndices);
         }
+    }
+
+    private bool IsStageEffectTriggered(List<string> effectIdList)
+    {
+        foreach (string effectId in effectIdList)
+        {
+            EffectData effect = runData.activeEffects.FirstOrDefault(x => x.id == effectId);
+
+            if (effect != null && effect.scope == EffectScope.Stage)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

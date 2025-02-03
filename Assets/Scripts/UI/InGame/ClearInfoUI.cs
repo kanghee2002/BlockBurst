@@ -18,6 +18,8 @@ public class ClearInfoUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI rerolledCountText;
     [SerializeField] private TextMeshProUGUI buyedCountText;
 
+    [SerializeField] private GameObject infiniteButton;
+
 
     private RectTransform rectTransform;
 
@@ -38,6 +40,8 @@ public class ClearInfoUI : MonoBehaviour
         int seconds = Mathf.FloorToInt(elapsedTime % 60);
 
         seungRi.text = isCleared ? "승리!" : "패배";
+        
+        infiniteButton.SetActive(isCleared);
 
         elapsedTimeText.text = $"{minutes:00}:{seconds:00}";
         maximumScoreText.text = history.maxScore.ToString();

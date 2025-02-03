@@ -207,6 +207,11 @@ public class Board
         // 모두 지워질 때 효과를 가진 블록 중 지워진 것 있는지 확인
         CheckOnClearEffectBlocks();
 
+        foreach (Match match in matches)
+        {
+            match.isForceMatch = false;
+        }
+
         // 매치된 결과 저장
         lastMatches.AddRange(matches);
 
@@ -375,6 +380,11 @@ public class Board
 
         // 모두 지워질 때 효과를 가진 블록 중 지워진 것 있는지 확인
         CheckOnClearEffectBlocks();
+
+        foreach (Match match in matches)
+        {
+            match.isForceMatch = true;
+        }
 
         // 매치된 결과 저장
         lastMatches.AddRange(matches);

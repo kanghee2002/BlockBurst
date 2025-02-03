@@ -148,6 +148,7 @@ public class ItemBoardUI : MonoBehaviour
     public void PurchaseItem(int idx)
     {
         itemUIs[idx].GetComponent<CanvasGroup>().alpha = 0;
+        itemUIs[idx].GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
 
     public void ClearItemShowcaseUI()

@@ -135,24 +135,26 @@ public class BoardCellUI : MonoBehaviour
         cellImage.color = new Color(0.5f, 0.5f, 0.5f);
     }
 
-    public void PlayClearAnimation(float preDelay, float postDelay)
+    public void PlayClearAnimation(float preDelay, float postDelay, bool isForceMatch)
     {
         currentSequence = DOTween.Sequence();
 
         currentSequence
             .AppendInterval(preDelay)
-            .AppendCallback(() => PlayHighlightAnimation())
+            .AppendCallback(() => PlayHighlightAnimation(isForceMatch))
             .AppendInterval(postDelay)
             .AppendCallback(() => PlayClearAnimation());
     }
 
-    public void PlayHighlightAnimation() {
+    public void PlayHighlightAnimation(bool isForceMatch) {
         if (isBlocked) return;
 
         cellImage.sprite = originalSprite;
         cellImage.color = originalColor;
 
-        cellImage.DOColor(new Color(1f, 1f, 1f), 0.2f).SetLoops(1, LoopType.Yoyo);
+        Color highlightColor = isForceMatch ? new Color(.2f, .5f, .7f) : new Color(1f, 1f, 1f);
+
+        cellImage.DOColor(highlightColor, 0.2f).SetLoops(1, LoopType.Yoyo);
     }
 
     public void PlayClearAnimation() {

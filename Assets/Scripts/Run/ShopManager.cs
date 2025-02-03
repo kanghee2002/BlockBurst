@@ -24,6 +24,11 @@ public class ShopManager : MonoBehaviour
                 AddItem(item);
                 AddItem(item);
             }
+            // 기본 블록을 좀 복사
+            if (item.type == ItemType.ADD_BLOCK && Enums.IsDefaultBlockType(item.block.type))
+            {
+                AddItem(item);
+            }
         }
         deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
     }
@@ -71,7 +76,16 @@ public class ShopManager : MonoBehaviour
     {
         if (item.type == ItemType.ADD_BLOCK)
         {
-            int addCount = 2;
+            int addCount = 0;
+            if (Enums.IsDefaultBlockType(item.block.type))
+            {
+                addCount = 2;
+            }
+            else
+            {
+                addCount = 1;
+            }
+
             for (int i = 0; i < addCount; i++)
             {
                 deckManager.AddBlockToRunDeck(item.block);

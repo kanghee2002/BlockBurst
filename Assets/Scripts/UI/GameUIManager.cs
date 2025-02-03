@@ -399,6 +399,7 @@ public class GameUIManager : MonoBehaviour
 
     public void MakeNewRun()
     {
+        AudioManager.instance.StopBackgroundMusic();
         GameManager.instance.MakeNewRun();
     }
 

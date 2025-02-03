@@ -60,6 +60,7 @@ public class ActionInfoUI : MonoBehaviour
 
     private IEnumerator ScoreUpdateAnimationCoroutine(Dictionary<Match, List<int>> scores, float delay)
     {
+        UpdateChip(0);
         foreach ((Match match, List<int> scoreList) in scores)
         {
             foreach (int score in scoreList)

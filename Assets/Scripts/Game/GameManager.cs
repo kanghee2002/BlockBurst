@@ -308,6 +308,7 @@ public class GameManager : MonoBehaviour
         blockGame.Initialize(runData);
 
         EffectManager.instance.InitializeBlockGameData(ref blockGame);
+        CellEffectManager.instance.Initialize(ref blockGame);
 
         // 스테이지 시작
         stageManager.StartStage(stage);

@@ -83,7 +83,6 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
         
         blockCellsUI = new GameObject[blockCellsUIRowCount, blockCellsUIColumnCount];
 
-        Sprite blockSprite = Resources.Load<Sprite>("Sprites/Block/" + block.Type.ToString());
         // Place blocks according to shape data
         foreach (Vector2Int pos in block.Shape)
         {
@@ -91,7 +90,7 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
             int normalizedY = pos.y - minY;
             
             GameObject blockCell = Instantiate(prefabBlockCellUI);
-            blockCell.GetComponent<Image>().sprite = CellEffectManager.instance.ApplyEffect(blockSprite, block);
+            blockCell.GetComponent<Image>().sprite = CellEffectManager.instance.ApplyEffect(block.Type);
             blockCellsUI[normalizedY, normalizedX] = blockCell;
         }
 

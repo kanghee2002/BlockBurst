@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Linq;
 
 public class ItemBoardUI : MonoBehaviour
 {
@@ -183,7 +184,21 @@ public class ItemBoardUI : MonoBehaviour
         else if (item.type == ItemType.CONVERT_BLOCK || item.type == ItemType.UPGRADE)
         {
             // 블록 프리셋 배치
-            string blockPath = blockPresetPath + item.block.type.ToString();
+            string blockPath = blockPresetPath;
+            if (item.type == ItemType.CONVERT_BLOCK)
+            {
+                blockPath += item.block.type.ToString();
+            }
+            else
+            {
+                foreach (EffectData effectData in item.effects)
+                {
+                    foreach (BlockType blockType in effectData.blockTypes)
+                    {
+                        blockPath += blockType.ToString();
+                    }
+                }
+            }
             Sprite blockPreset = Resources.Load<Sprite>(blockPath);
             itemUI.transform.GetChild(0).GetComponent<Image>().sprite = blockPreset;
 

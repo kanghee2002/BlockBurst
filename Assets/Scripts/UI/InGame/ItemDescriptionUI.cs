@@ -71,7 +71,22 @@ public class ItemDescriptionUI : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     private string GetDescription(ItemData item)
     {
-        string description = "";
+        string description = "<size=35>";
+        
+        if (item.type == ItemType.ITEM)
+        {
+            description += "[아이템]";
+        }
+        else if (item.type == ItemType.UPGRADE)
+        {
+            description += "[강화]";
+        }
+        else
+        {
+            description += "[덱]";
+        }
+
+        description += "</size>\n";
 
         for (int i = 0; i < item.effects.Count; i++)
         {

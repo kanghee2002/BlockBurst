@@ -24,9 +24,9 @@ public class GameManager : MonoBehaviour
     public BlockData[] blockTemplates;
 
     const int STAGE_CHOICE_COUNT = 2;
-    public int currentChapterIndex = 1;
-    public int currentStageIndex = 1;
-    const int CLEAR_CHAPTER = 3;
+    private int currentChapterIndex = 1;
+    private int currentStageIndex = 1;
+    private int CLEAR_CHAPTER = 1;
 
     public List<BlockData> handBlocksData = new List<BlockData>();
     public List<Block> handBlocks = new List<Block>();
@@ -44,8 +44,16 @@ public class GameManager : MonoBehaviour
     private List<Match> currentMatches;
     private float scoreAnimationDelay;  // 블록 점수 간의 딜레이
 
-    public float startTime; // 게임 시작 시간
-    public int[] blockHistory;
+    public struct History
+    {
+        public float startTime;
+        public int[] blockHistory;
+        public int rerollCount;
+        public int itemPurchaseCount;
+        public int maxScore;
+    }
+
+    private History history;
 
     bool isClearStage = false; // 중복 방지 플래그
 
@@ -126,18 +134,32 @@ public class GameManager : MonoBehaviour
                 gameData.defaultBlocks.Add(blockData);
             }
         }
-        startTime = Time.time;
+        InitializeHistory();
         scoreAnimationDelay = 0.01f;
         currentMatches = new List<Match>();
 
-        blockHistory = new int[Enum.GetValues(typeof(BlockType)).Length];
-
         StartNewRun();
+    }
+
+    public void InitializeHistory()
+    {
+        history.startTime = Time.time;
+        history.blockHistory = new int[Enum.GetNames(typeof(BlockType)).Length];
+        history.rerollCount = 0;
+        history.itemPurchaseCount = 0;
+        history.maxScore = 0;
     }
     
     public void EndGame(bool isWin)
     {
-        GameUIManager.instance.OnGameEnd(isWin);
+        BlockType mostPlacedBlockType = (BlockType)history.blockHistory.ToList().IndexOf(history.blockHistory.Max());
+        GameUIManager.instance.OnGameEnd(isWin, currentChapterIndex, currentStageIndex, history, mostPlacedBlockType);
+    }
+
+    public void InfiniteMode()
+    {
+        CLEAR_CHAPTER = -1;
+        EndStage(true);
     }
 
     public void BackToMain()
@@ -183,9 +205,9 @@ public class GameManager : MonoBehaviour
     public void OnRunInfoRequested()
     {
         // 최대로 사용된 블록 찾기
-        BlockType mostPlacedBlockType = (BlockType)blockHistory.ToList().IndexOf(blockHistory.Max());
+        BlockType mostPlacedBlockType = (BlockType)history.blockHistory.ToList().IndexOf(history.blockHistory.Max());
         // Run 정보 UI 열기
-        GameUIManager.instance.OnRunInfoCallback(runData, startTime, mostPlacedBlockType);
+        GameUIManager.instance.OnRunInfoCallback(runData, history.startTime, mostPlacedBlockType);
     }
 
     public void OnDeckInfoRequested()
@@ -310,7 +332,6 @@ public class GameManager : MonoBehaviour
             if (currentChapterIndex == CLEAR_CHAPTER && stageManager.currentStage.type == StageType.BOSS)
             {
                 EndGame(true);
-                Debug.Log("Game Clear");
             }
             else
             {
@@ -379,6 +400,8 @@ public class GameManager : MonoBehaviour
         {
             shopItems[index] = null;
             GameUIManager.instance.DisplayItemSet(runData.activeItems, runData.maxItemCount);
+
+            history.itemPurchaseCount++;  // 아이템 히스토리 업데이트
         }
         else
         {
@@ -475,6 +498,7 @@ public class GameManager : MonoBehaviour
         }
         GameUIManager.instance.OnBlocksDrawn(handBlocks);
         UpdateDeckCount(blockGame.deck.Count, runData.availableBlocks.Count);
+        GameOverCheck();
     }
 
     public void OnRerolled()
@@ -489,6 +513,8 @@ public class GameManager : MonoBehaviour
             }
             EffectManager.instance.TriggerEffects(TriggerType.ON_REROLL);
             DrawBlocks();
+
+            history.rerollCount++;    // 리롤 히스토리 업데이트
         }
         EffectManager.instance.EndTriggerEffect();
     }
@@ -574,7 +600,7 @@ public class GameManager : MonoBehaviour
         Block block = handBlocks[idx];
         bool success = board.PlaceBlock(block, pos);
         if (success) {
-            blockHistory[(int)handBlocksData[idx].type]++;  // 블록 히스토리 업데이트
+            history.blockHistory[(int)handBlocksData[idx].type]++;  // 블록 히스토리 업데이트
 
             // 손에서 블록 제거
             handBlocks[idx] = null;
@@ -593,7 +619,15 @@ public class GameManager : MonoBehaviour
             if (!isClearStage && stageManager.CheckStageClear(blockGame))
             {
                 isClearStage = true;
+                if (blockGame.currentScore >= history.maxScore)
+                {
+                    history.maxScore = blockGame.currentScore;
+                }
                 StartCoroutine(DelayedEndStage(true));
+            }
+            else
+            {
+                GameOverCheck();
             }
         }
 
@@ -602,6 +636,19 @@ public class GameManager : MonoBehaviour
             DrawBlocks();
         }
         return success;
+    }
+
+    public void GameOverCheck()
+    {
+        //Debug.Log("Game Over Check");
+        if (blockGame.deck.Count == 0 && handBlocks.All(block => block == null)) // 덱이 비었거나
+        {
+            EndGame(false);
+        }
+        else if (blockGame.rerollCount == 0 && handBlocksData.All(blockData => blockData == null || !board.CanPlaceSome(blockData))) // 둘 곳이 없을 때
+        {
+            EndGame(false);
+        }
     }
 
     public void ForceLineClearBoard(MatchType matchType, List<int> indices)

@@ -411,9 +411,14 @@ public class GameUIManager : MonoBehaviour
         GameManager.instance.EndStage(true);
     }
 
-    public void OnGameEnd(bool isCleared)
+    public void OnGameEnd(bool isCleared, int currentChapterIndex, int currentStageIndex, GameManager.History history, BlockType mostPlacedBlockType)
     {
-        clearInfoUI.Initialize(isCleared);
+        clearInfoUI.Initialize(isCleared, currentChapterIndex, currentStageIndex, history, mostPlacedBlockType);
         clearInfoUI.OpenClearInfoUI();
+    }
+
+    public void InfiniteMode()
+    {
+        GameManager.instance.InfiniteMode();
     }
 }

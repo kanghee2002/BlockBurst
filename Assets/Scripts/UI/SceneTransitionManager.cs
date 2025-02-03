@@ -11,7 +11,7 @@ public class SceneTransitionManager : MonoBehaviour
 {
     public static SceneTransitionManager instance;
     [SerializeField] private Material material;
-    private const float DefaultScrollValue = 0f; // 기본 값
+    private const float DefaultScrollValue = 1f; // 기본 값
 
     void Awake()
     {

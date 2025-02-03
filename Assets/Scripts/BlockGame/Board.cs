@@ -446,6 +446,31 @@ public class Board
         return true;
     }
 
+    // 회전 고려
+    public bool CanPlaceSome(BlockData blockData)
+    {
+        Block blockCopy = new Block();
+        blockCopy.Initialize(blockData, 0);
+        int row = cells.GetLength(0);
+        int column = cells.GetLength(1);
+
+        for (int i = 0; i < 4; i++)
+        {
+            for (int y = 0; y < row; y++)
+            {
+                for (int x = 0; x < column; x++)
+                {
+                    if (CanPlace(blockCopy, new Vector2Int(x, y)))
+                    {
+                        return true;
+                    }
+                }
+            }
+            blockCopy.RotateShape();
+        }
+        return false;
+    }
+
     private bool IsOutOfBoard(Vector2Int pos)
     {
         if (pos.x < 0 || pos.x >= cells.GetLength(1) || pos.y < 0 || pos.y >= cells.GetLength(0))

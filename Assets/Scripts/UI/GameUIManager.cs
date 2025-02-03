@@ -318,13 +318,14 @@ public class GameUIManager : MonoBehaviour
         return GameManager.instance.TryPlaceBlock(idx, pos, blockObj);
     }
 
-    public void OnShopStart(List<ItemData> items, int rerollCost, bool isFirst = false)
+    public void OnShopStart(List<ItemData> items, int rerollCost, int currentChapterIndex, int currentStageIndex, bool isFirst = false)
     {
         if (isFirst)
         {
             ChangeSceneState(SceneState.shopping);
         }
         itemBoardUI.Initialize(items, rerollCost);
+        shopSignboardUI.Initialize(currentChapterIndex, currentStageIndex);
     }
 
     public void OnRotateBlock(int idx)

@@ -372,7 +372,7 @@ public class GameManager : MonoBehaviour
         {
             shopItems.Add(shopManager.PopItem());
         }
-        GameUIManager.instance.OnShopStart(shopItems, shopManager.rerollCost, isFirst);   
+        GameUIManager.instance.OnShopStart(shopItems, shopManager.rerollCost, currentChapterIndex, currentStageIndex, isFirst);   
     }
 
     public void OnItemDiscard(int index)

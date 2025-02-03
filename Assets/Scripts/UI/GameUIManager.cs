@@ -202,7 +202,7 @@ public class GameUIManager : MonoBehaviour
         // stageData들을 받아와서 UI에 뿌려주는 메서드
         if (nextStageChoices.Length == 2)
         {
-            stageSelectionBoardUI.Initialize(nextStageChoices);
+            stageSelectionBoardUI.Initialize(nextStageChoices, currentStageIndex);
         }
         else
         {

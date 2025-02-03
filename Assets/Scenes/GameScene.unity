@@ -639,6 +639,7 @@ MonoBehaviour:
   nextStageChoiceUI:
   - {fileID: 2016505370}
   - {fileID: 666104021}
+  outerLayout: {fileID: 520343336}
 --- !u!1 &60895700
 GameObject:
   m_ObjectHideFlags: 0
@@ -1699,15 +1700,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popupBlurImage: {fileID: 169173319}
-  seungRi: {fileID: 1958271448}
-  elapsedTimeText: {fileID: 1126335333}
-  maximumScoreText: {fileID: 898148462}
-  mostPlacedBlockImage: {fileID: 1288880038}
-  chapterText: {fileID: 60895702}
-  placedBlockCountText: {fileID: 1741356847}
-  stageText: {fileID: 1786500117}
-  rerolledCountText: {fileID: 205726576}
-  buyedCountText: {fileID: 799718455}
+  seungRi: {fileID: 0}
+  elapsedTimeText: {fileID: 0}
+  maximumScoreText: {fileID: 0}
+  mostPlacedBlockImage: {fileID: 0}
+  chapterText: {fileID: 0}
+  placedBlockCountText: {fileID: 0}
+  stageText: {fileID: 0}
+  rerolledCountText: {fileID: 0}
+  buyedCountText: {fileID: 0}
 --- !u!1001 &174056274
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17877,6 +17878,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stageSelectionSignboardText: {fileID: 2144834624}
+  outerLayout: {fileID: 1613715695}
 --- !u!222 &1788253848
 CanvasRenderer:
   m_ObjectHideFlags: 0

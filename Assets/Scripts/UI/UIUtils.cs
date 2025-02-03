@@ -59,4 +59,21 @@ public static class UIUtils
         textTransform.DOPunchScale(Vector3.one * strength, duration, 1, 0.5f)
             .OnKill(() => textTransform.DOScale(Vector3.one, 0.2f));
     }
+    /// <summary>
+    /// 6자리 16진수 색상 코드를 Color로 변환합니다.
+    /// </summary>
+    /// <param name="hex"></param>
+    /// <returns></returns>
+    public static Color HexToColor(string hex)
+    {
+        if (ColorUtility.TryParseHtmlString("#" + hex, out Color color))
+        {
+            return color;
+        }
+        else
+        {
+            Debug.LogError("유효하지 않은 색상 코드: " + hex);
+            return Color.white; // 기본값
+        }
+    }
 }

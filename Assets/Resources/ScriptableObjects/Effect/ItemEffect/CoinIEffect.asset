@@ -17,6 +17,7 @@ MonoBehaviour:
     +1"
   type: 9
   trigger: 11
+  scope: 0
   effectValue: 1
   blockTypes: 00000000
   blockId: -1

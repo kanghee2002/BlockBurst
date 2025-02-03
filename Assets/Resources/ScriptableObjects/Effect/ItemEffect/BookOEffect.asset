@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: BookOEffect
   m_EditorClassIdentifier: 
   id: BookOEffect
-  effectName: "O \uBC30\uCE58\uD560 \n\uB54C\uB9C8\uB2E4\nO \uC810\uC218 +1"
+  effectName: "O \uBC30\uCE58\uD560 \n\uB54C\uB9C8\uB2E4\nO \uC810\uC218 +2"
   type: 0
   trigger: 1
-  effectValue: 1
+  scope: 0
+  effectValue: 2
   blockTypes: 01000000
   blockId: -1
   probability: 1

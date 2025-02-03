@@ -16,6 +16,7 @@ MonoBehaviour:
   effectName: "\uCCAB \uC904\n\uC9C0\uC6B8 \uB54C\n\uBC30\uC218 +5"
   type: 2
   trigger: 15
+  scope: 0
   effectValue: 5
   blockTypes: 
   blockId: -1

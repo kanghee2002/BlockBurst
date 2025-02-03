@@ -16,6 +16,7 @@ MonoBehaviour:
   effectName: "I/O \uBE14\uB85D\n\uBAA8\uB450 \uC0AD\uC81C,"
   type: 18
   trigger: 0
+  scope: 0
   effectValue: 0
   blockTypes: 0000000001000000
   blockId: -1

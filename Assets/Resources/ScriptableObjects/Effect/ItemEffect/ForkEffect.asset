@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: ForkEffect
   m_EditorClassIdentifier: 
   id: ForkEffect
-  effectName: "\uC904 \uC9C0\uC6B8 \uB54C\n25% \uD655\uB960\uB85C\n\uBB34\uC791\uC704\n\uC138\uB85C
+  effectName: "\uC904 \uC9C0\uC6B8 \uB54C\n50% \uD655\uB960\uB85C\n\uBB34\uC791\uC704\n\uC138\uB85C
     1\uC904 \uC9C0\uC6C0"
   type: 21
   trigger: 9
+  scope: 0
   effectValue: 0
   blockTypes: 
   blockId: -1
-  probability: 0.25
+  probability: 0.5
   triggerValue: 0

@@ -401,20 +401,30 @@ public class GameUIManager : MonoBehaviour
         itemSetUI.Initialize(items, maxItemCount, discardIndex);
     }
 
-    public void StartItemShakeAnimation(int index, bool isBlockRelated, bool isBoardRelated)
+    public void StartItemShakeAnimation(int index, bool isBlockRelated)
     {
-        itemSetUI.StartShakeAnimation(index, isBlockRelated: isBlockRelated, isBoardRelated: isBoardRelated);
+        itemSetUI.StartShakeAnimation(index, isBlockRelated);
+    }
+
+    public void StopItemShakeAnimation(bool isBlockRelated)
+    {
+        itemSetUI.StopShakeAnimation(isBlockRelated);
     }
 
     public void StopAllItemShakeAnimation()
     {
-        StopItemShakeAnimation(true, false);
-        StopItemShakeAnimation(false, true);
+        StopItemShakeAnimation(true);
+        StopItemShakeAnimation(false);
     }
 
-    public void StopItemShakeAnimation(bool isBlockRelated, bool isBoardRelated)
+    public void StartWarningStageEffectAnimation(bool isBlockRelated)
     {
-        itemSetUI.StopShakeAnimation(isBlockRelated: isBlockRelated, isBoardRelated: isBoardRelated);
+        stageInfoUI.StartWarningStageEffectAnimation(isBlockRelated);
+    }
+
+    public void StopWarningStageEffectAnimation(bool isBlockRelated)
+    {
+        stageInfoUI.StopWarningStageEffectAnimation(isBlockRelated);
     }
 
     public void PlayItemEffectAnimation(string effectDescription, int index, float delay)

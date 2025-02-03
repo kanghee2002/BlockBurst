@@ -18,6 +18,11 @@ public class StageInfoUI : MonoBehaviour
     private const float outsidePositionOffsetY = 540;
     private const float duration = 0.2f;
 
+    private Sequence currentWarningSequence;
+
+    private bool isBlockWarning;
+    private bool isWarning;
+
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -30,6 +35,10 @@ public class StageInfoUI : MonoBehaviour
         UpdateStage(stageIndex);
         UpdateDebuffText(stageData.constraints.Select(x => x.effectName).ToArray());
         UpdateScoreAtLeast(stageData.clearRequirement);
+
+        currentWarningSequence = null;
+        isBlockWarning = false;
+        isWarning = false;
     }
 
     public void OpenStageInfoUI()
@@ -79,6 +88,49 @@ public class StageInfoUI : MonoBehaviour
             .SetLoops(2, LoopType.Yoyo)
             .SetEase(Ease.OutQuad));
 
-        sequence.OnComplete(() => debuffText.transform.DOScale(Vector3.one, animationDuration));
+        sequence.OnComplete(() => {
+            debuffText.transform.DOScale(Vector3.one, animationDuration);
+            debuffText.DOColor(Color.white, 0.1f);
+        }
+        );
+    }
+
+    public void StartWarningStageEffectAnimation(bool isBlockRelated)
+    {
+        if (isBlockRelated) isBlockWarning = true;
+        else isWarning = true;
+
+        RectTransform debuffRect = debuffText.GetComponent<RectTransform>();
+
+        currentWarningSequence = DOTween.Sequence();
+
+        currentWarningSequence.Append(
+            debuffText.transform.DOPunchPosition(Vector3.one * 7f, 0.3f,
+            vibrato: 15, elasticity: 0.5f)
+            .SetLoops(-1, LoopType.Restart)
+            .SetEase(Ease.InOutQuad));
+
+        currentWarningSequence.Join(debuffText.DOColor(Color.red, 0.2f).SetEase(Ease.OutQuad));
+
+        currentWarningSequence.OnKill(() =>
+        {
+            debuffRect.DOAnchorPos(Vector3.zero, 0.1f);
+            debuffText.DOColor(Color.white, 0.1f);
+        }
+        );
+    }
+
+    public void StopWarningStageEffectAnimation(bool isBlockRelated)
+    {
+        if (isBlockRelated) isBlockWarning = false;
+        else isWarning = false;
+
+        if (currentWarningSequence != null)
+        {
+            if (!isBlockWarning && !isWarning)
+            {
+                currentWarningSequence.Kill();
+            }
+        }
     }
 }

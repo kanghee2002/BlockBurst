@@ -24,13 +24,13 @@ public class ItemSetUI : MonoBehaviour
 
     private float discardAnimationDelay;
     private List<Tween> blockRelatedShakeTweens;
-    private List<Tween> boardRelatedShakeTweens;
+    private List<Tween> shakeTweens;
 
     private void Start()
     {
         originalAnchoredPosition = rectTransform.anchoredPosition;
         blockRelatedShakeTweens = new List<Tween>();
-        boardRelatedShakeTweens = new List<Tween>();
+        shakeTweens = new List<Tween>();
     }
 
     private void Update()
@@ -294,7 +294,7 @@ public class ItemSetUI : MonoBehaviour
         return description;
     }
 
-    public void StartShakeAnimation(int index, bool isBlockRelated, bool isBoardRelated)
+    public void StartShakeAnimation(int index, bool isBlockRelated)
     {
         GameObject currentItem = itemIcons[index];
 
@@ -310,22 +310,22 @@ public class ItemSetUI : MonoBehaviour
         {
             blockRelatedShakeTweens.Add(currentTween);
         }
-        else if (isBoardRelated)
+        else
         {
-            boardRelatedShakeTweens.Add(currentTween);
+            shakeTweens.Add(currentTween);
         }
     }
 
-    public void StopShakeAnimation(bool isBlockRelated, bool isBoardRelated)
+    public void StopShakeAnimation(bool isBlockRelated)
     {
         List<Tween> targetTwinList = new List<Tween>();
         if (isBlockRelated)
         {
             targetTwinList = blockRelatedShakeTweens;
         }
-        else if (isBoardRelated)
+        else
         {
-            targetTwinList = boardRelatedShakeTweens;
+            targetTwinList = shakeTweens;
         }
 
         foreach (Tween tween in targetTwinList)

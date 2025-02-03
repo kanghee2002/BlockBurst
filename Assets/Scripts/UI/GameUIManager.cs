@@ -132,8 +132,8 @@ public class GameUIManager : MonoBehaviour
         if (popupState == PopupState.none)
         {
             popupState = PopupState.deckInfo;
-            deckInfoUI.OpenDeckInfoUI();
             GameManager.instance.OnDeckInfoRequested();
+            deckInfoUI.OpenDeckInfoUI();
         }
     }
 
@@ -219,19 +219,24 @@ public class GameUIManager : MonoBehaviour
         SceneState prevState = sceneState;
         sceneState = stateToSet;
 
+        Debug.Log($"SceneState changed from {prevState} to {sceneState}");
+
         background.SetRandomColor();
 
         StartCoroutine(ChangeSceneStateCoroutine(prevState, sceneState));
-        if (prevState == SceneState.selecting && sceneState == SceneState.shopping)
+        if (prevState == SceneState.playing && sceneState == SceneState.shopping)
         {
+            Debug.Log("상점으로 전환");
             AudioManager.instance.ShopTransitionIn();
         }
         else if (prevState == SceneState.shopping && sceneState == SceneState.selecting)
         {
+            Debug.Log("상점에서 나감");
             AudioManager.instance.ShopTransitionOut();
         }
         else 
         {
+            Debug.Log("일반 전환");
             AudioManager.instance.SFXtransition();
         }
     }
@@ -457,5 +462,6 @@ public class GameUIManager : MonoBehaviour
     public void InfiniteMode()
     {
         GameManager.instance.InfiniteMode();
+        clearInfoUI.CloseClearInfoUI();
     }
 }

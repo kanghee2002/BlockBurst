@@ -167,6 +167,7 @@ public class GameManager : MonoBehaviour
         // 메인 화면으로 돌아가기
         Debug.Log("Back to Main");
         //SceneManager.LoadScene("NewLogoScene");
+        AudioManager.instance.StopBackgroundMusic();
         SceneTransitionManager.instance.TransitionToScene("NewLogoScene");
     }
 
@@ -711,10 +712,6 @@ public class GameManager : MonoBehaviour
                     history.maxScore = blockGame.currentScore;
                 }
                 StartCoroutine(DelayedEndStage(true));
-            }
-            else
-            {
-                GameOverCheck();
             }
         }
 

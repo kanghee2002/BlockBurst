@@ -167,7 +167,7 @@ public class BoardUI : MonoBehaviour
             {
                 for (int x = 0; x < width; x++)
                 {
-                    boardCellsUI[match.index, x].PlayClearAnimation(delayedTime, totalTime - delayedTime + 0.3f);
+                    boardCellsUI[match.index, x].PlayClearAnimation(delayedTime, totalTime - delayedTime + 0.3f, match.isForceMatch);
 
                     int score = scores[match][x];
                     boardCellsUI[match.index, x].PlayScoreAnimation(score, delayedTime);
@@ -179,7 +179,7 @@ public class BoardUI : MonoBehaviour
             {
                 for (int y = 0; y < height; y++)
                 {
-                    boardCellsUI[y, match.index].PlayClearAnimation(delayedTime, totalTime - delayedTime + 0.3f);
+                    boardCellsUI[y, match.index].PlayClearAnimation(delayedTime, totalTime - delayedTime + 0.3f, match.isForceMatch);
 
                     int score = scores[match][y];
                     boardCellsUI[y, match.index].PlayScoreAnimation(score, delayedTime);

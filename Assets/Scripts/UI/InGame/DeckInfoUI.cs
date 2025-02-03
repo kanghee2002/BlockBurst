@@ -55,6 +55,7 @@ public class DeckInfoUI : MonoBehaviour
 
     public void Initialize(RunData runData, BlockGameData blockGameData, bool isPlaying)
     {
+        gameObject.SetActive(true);
         Dictionary<BlockType, int> scoreDictionary = isPlaying ? blockGameData.blockScores : runData.baseBlockScores;
         List<BlockData> availableBlocks = isPlaying ? blockGameData.deck : runData.availableBlocks;
         Dictionary<BlockType, int> countDictionary = new Dictionary<BlockType, int>();
@@ -92,8 +93,8 @@ public class DeckInfoUI : MonoBehaviour
                     BlockTransforms[i].GetComponent<CanvasGroup>().alpha = 1f;
                     InitializeBlockUI(BlockTransforms[i], (BlockType)i, countDictionary[(BlockType)i], scoreDictionary[(BlockType)i]);
                     BlockTransforms[i].localPosition = new Vector3(0, ROW_REF - ROW_OFFSET * specialPos, 0);
-                    specialPos++;
                     Debug.Log("specialPos: " + specialPos);
+                    specialPos++;
                 }
             }
         }
@@ -119,15 +120,14 @@ public class DeckInfoUI : MonoBehaviour
 
     public void OpenDeckInfoUI()
     {
-        gameObject.SetActive(true);
-        UIUtils.OpenUI(rectTransform, "X", insidePositionX, duration);
         popupBlurImage.OpenPopupBlurImage(new Color(0.0f, 0.0f, 0.0f, 0.9f));
+        UIUtils.OpenUI(rectTransform, "X", insidePositionX, duration);
     }
 
     public void CloseDeckInfoUI()
     {
-        UIUtils.CloseUI(rectTransform, "X", insidePositionX, outsidePositionX, duration);
         popupBlurImage.ClosePopupBlurImage();
+        UIUtils.CloseUI(rectTransform, "X", insidePositionX, outsidePositionX, duration);
     }
 
     public void OnBasicSwitchButtonUIClick()

@@ -26,7 +26,7 @@ public class NextStageChoiceUI : MonoBehaviour
 
     public void UpdateScoreAtLeast(int scoreAtLeast)
     {
-        scoreAtLeastText.text = "점수 요구치\n<size=45><color=#FF0505>" + scoreAtLeast.ToString() + "</color></size>";
+        scoreAtLeastText.text = "점수 요구치\n<size=45><color=#94EEFF>" + scoreAtLeast.ToString() + "</color></size>";
     }
 
     public void UpdateRewardGold(int rewardGold)

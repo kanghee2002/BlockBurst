@@ -1575,6 +1575,7 @@ MonoBehaviour:
   stageText: {fileID: 1786500117}
   rerolledCountText: {fileID: 205726576}
   buyedCountText: {fileID: 799718455}
+  infiniteButton: {fileID: 296743093}
 --- !u!1001 &174056274
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3259,6 +3260,11 @@ PrefabInstance:
 --- !u!224 &296743092 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8378713409662279789, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
+  m_PrefabInstance: {fileID: 296743091}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &296743093 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2725497868016357453, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
   m_PrefabInstance: {fileID: 296743091}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &299062493

@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     const int STAGE_CHOICE_COUNT = 2;
     private int currentChapterIndex = 1;
     private int currentStageIndex = 1;
-    private int CLEAR_CHAPTER = 1;
+    private int CLEAR_CHAPTER = 3;
 
     public List<BlockData> handBlocksData = new List<BlockData>();
     public List<Block> handBlocks = new List<Block>();
@@ -308,6 +308,7 @@ public class GameManager : MonoBehaviour
         blockGame.Initialize(runData);
 
         EffectManager.instance.InitializeBlockGameData(ref blockGame);
+        CellEffectManager.instance.Initialize(ref blockGame);
 
         // 스테이지 시작
         stageManager.StartStage(stage);
@@ -716,6 +717,10 @@ public class GameManager : MonoBehaviour
         // 손패 다 쓰면 드로우
         if (handBlocks.All(block => block == null)) {
             DrawBlocks();
+        }
+        else if (!isClearStage)
+        {
+            GameOverCheck();
         }
         return success;
     }

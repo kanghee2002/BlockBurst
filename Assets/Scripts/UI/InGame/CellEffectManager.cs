@@ -3,10 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using System;
 
 public class CellEffectManager : MonoBehaviour
 {
     public static CellEffectManager instance;
+
+    BlockGameData blockGameData;
+    Texture2D[] baseTextures;
+    Texture2D[] blockTextures;
+
     const float SCORE_EFFECT_INNER = 0.7f;
     const float SCORE_EFFECT_OUTER = 1.0f;
     Color SCORE_EFFECT_COLOR = new Color(0f, 0f, 0f, 1f);
@@ -24,20 +30,23 @@ public class CellEffectManager : MonoBehaviour
         }
     }
     
-    // Start is called before the first frame update
-    void Start()
+    public void Initialize(ref BlockGameData blockGame)
     {
-        /* test code
-        Image image = GetComponent<Image>();
-        Texture2D baseTexture = image.sprite.texture;
-        Texture2D maskedTexture = CreateRectangularGradientMask(baseTexture, Color.red, .8f, .9f);
-        Sprite newSprite = Sprite.Create(
-            maskedTexture,
-            new Rect(0, 0, maskedTexture.width, maskedTexture.height),
-            new Vector2(0.5f, 0.5f)
-        );
-        image.sprite = newSprite;
-        */
+        blockGameData = blockGame;
+        int blockCount = Enum.GetNames(typeof(BlockType)).Length;
+        baseTextures = new Texture2D[blockCount];
+        blockTextures = new Texture2D[blockCount];
+
+        for (int i = 0; i < blockCount; i++)
+        {
+            BlockType blockType = (BlockType)i;
+            Sprite blockSprite = Resources.Load<Sprite>("Sprites/Block/" + blockType.ToString());
+            if (blockSprite != null)
+            {
+                baseTextures[i] = blockSprite.texture;
+                blockTextures[i] = baseTextures[i];
+            }
+        }
     }
 
     private float CalculateIntensity(int score)
@@ -59,13 +68,15 @@ public class CellEffectManager : MonoBehaviour
         ShakeEverything(intensity * 30f);
     }
 
-    public Sprite ApplyEffect(Sprite baseSprite, Block block)
+    public Sprite ApplyEffect(BlockType blockType)
     {
-        Texture2D baseTexture = baseSprite.texture;
-        Texture2D maskedTexture = ScoreEffect(baseTexture, block.Score);
+        Texture2D baseTexture = baseTextures[(int)blockType];
+        Texture2D texture = ScoreEffect(baseTexture, blockGameData.blockScores[blockType]);
+        
+        blockTextures[(int)blockType] = texture;
         return Sprite.Create(
-            maskedTexture,
-            new Rect(0, 0, maskedTexture.width, maskedTexture.height),
+            texture,
+            new Rect(0, 0, texture.width, texture.height),
             new Vector2(0.5f, 0.5f)
         );
     }
@@ -86,12 +97,10 @@ public class CellEffectManager : MonoBehaviour
         return CreateRectangularGradientMask(baseTexture, SCORE_EFFECT_COLOR, SCORE_EFFECT_INNER + gap, SCORE_EFFECT_OUTER + gap);
     }
 
-    /*
-    private Texture2D UpgradeEffect(Texture2D baseTexture, int level)
+    private Texture2D UpgradeEffect(Texture2D baseTexture, string effectId)
     {
-
+        return baseTexture;
     }
-    */
 
     // base functions
     private Texture2D ApplyColorToTexture(Texture2D baseTexture, Color color)
@@ -247,6 +256,54 @@ public class CellEffectManager : MonoBehaviour
                     gradientColor.a *= basePixels[index].a;
                     resultPixels[index] = gradientColor;
                 }
+            }
+        }
+        
+        resultTexture.SetPixels(resultPixels);
+        resultTexture.Apply();
+        return resultTexture;
+    }
+
+    private Texture2D CreateDiagonalBandMask(Texture2D baseTexture, Color color, float startPos, float endPos)
+    {
+        // 새로운 텍스처 생성
+        Texture2D resultTexture = new Texture2D(baseTexture.width, baseTexture.height, TextureFormat.RGBA32, false);
+        
+        // 기존 텍스처의 픽셀을 복사
+        Color[] basePixels = baseTexture.GetPixels();
+        Color[] resultPixels = new Color[basePixels.Length];
+        System.Array.Copy(basePixels, resultPixels, basePixels.Length);
+        
+        float width = resultTexture.width;
+        float height = resultTexture.height;
+        
+        // 각 픽셀 순회
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                int index = y * (int)width + x;
+                
+                // 기존 픽셀의 알파값이 0이면 건너뛰기
+                if (basePixels[index].a <= 0)
+                    continue;
+                    
+                // 현재 픽셀의 대각선 상의 위치 계산 (0~1 사이의 값)
+                // x/width는 0~1, y/height는 0~1 사이의 값
+                // 우측 하단이 0, 좌측 상단이 1이 되도록 계산
+                float diagonalPos = ((width - x) / width + (y / height)) / 2f;
+                
+                // startPos와 endPos 사이에 있는 경우에만 색상 적용
+                if (diagonalPos >= startPos && diagonalPos <= endPos)
+                {
+                    resultPixels[index] = new Color(
+                        color.r,
+                        color.g,
+                        color.b,
+                        color.a * basePixels[index].a
+                    );
+                }
+                // 나머지 영역은 원본 유지
             }
         }
         

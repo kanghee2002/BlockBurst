@@ -372,7 +372,7 @@ public class GameManager : MonoBehaviour
         {
             shopItems.Add(shopManager.PopItem());
         }
-        GameUIManager.instance.OnShopStart(shopItems, shopManager.rerollCost, isFirst);   
+        GameUIManager.instance.OnShopStart(shopItems, shopManager.rerollCost, currentChapterIndex, currentStageIndex, isFirst);   
     }
 
     public void OnItemDiscard(int index)
@@ -471,6 +471,11 @@ public class GameManager : MonoBehaviour
         GameUIManager.instance.DisplayDeckCount(deckCount, maxDeckCount);
     }
 
+    public void PlayItemFullAnimation()
+    {
+        GameUIManager.instance.PlayItemFullAnimation();
+    }
+
     // ------------------------------
     // RUN LAYER - end
     // ------------------------------
@@ -537,19 +542,28 @@ public class GameManager : MonoBehaviour
                 effect.trigger != TriggerType.ON_ACQUIRE
                 ))
             {
-                GameUIManager.instance.StartItemShakeAnimation(i, isBlockRelated: true, isBoardRelated: false);
+                GameUIManager.instance.StartItemShakeAnimation(i, isBlockRelated: true);
+            }
+        }
+
+        foreach (EffectData effect in runData.activeEffects)
+        {
+            if (effect.scope == EffectScope.Stage && effect.blockTypes.Contains(block.Type))
+            {
+                GameUIManager.instance.StartWarningStageEffectAnimation(isBlockRelated: true);
             }
         }
     }
 
     public void OnEndDragBlock(Block block)
     {
-        GameUIManager.instance.StopItemShakeAnimation(isBlockRelated: true, isBoardRelated: false);
+        GameUIManager.instance.StopItemShakeAnimation(isBlockRelated: true);
+        GameUIManager.instance.StopWarningStageEffectAnimation(isBlockRelated: true);
     }
 
-    public void PlayBoardRelatedItemShakeAnimation(int matchCount)
+    public void PlayBoardRelatedAnimation(int matchCount)
     {
-        GameUIManager.instance.StopItemShakeAnimation(isBlockRelated: false, isBoardRelated: true);
+        GameUIManager.instance.StopItemShakeAnimation(isBlockRelated: false);
 
         // 첫 줄 지우기 효과 관련
         if (matchCount == 0)
@@ -559,7 +573,7 @@ public class GameManager : MonoBehaviour
                 if (runData.activeItems[i].effects
                     .Any(effect => effect.trigger == TriggerType.ON_FIRST_LINE_CLEAR))
                 {
-                    GameUIManager.instance.StartItemShakeAnimation(i, isBlockRelated: false, isBoardRelated: true);
+                    GameUIManager.instance.StartItemShakeAnimation(i, isBlockRelated: false);
                 }
             }
         }
@@ -573,7 +587,20 @@ public class GameManager : MonoBehaviour
                 effect.trigger == TriggerType.ON_LINE_CLEAR_WITH_COUNT &&
                 effect.triggerValue == matchCount % effect.triggerValue + effect.triggerValue))
             {
-                GameUIManager.instance.StartItemShakeAnimation(i, isBlockRelated: false, isBoardRelated: true);
+                GameUIManager.instance.StartItemShakeAnimation(i, isBlockRelated: false);
+            }
+        }
+
+        GameUIManager.instance.StopWarningStageEffectAnimation(isBlockRelated: false);
+        foreach (EffectData effect in runData.activeEffects)
+        {
+            if (effect.scope == EffectScope.Stage && effect.triggerValue != 0)
+            {
+                if  (effect.trigger == TriggerType.ON_LINE_CLEAR_WITH_COUNT &&
+                    effect.triggerValue == matchCount % effect.triggerValue + effect.triggerValue)
+                {
+                    GameUIManager.instance.StartWarningStageEffectAnimation(isBlockRelated: false);
+                }
             }
         }
     }

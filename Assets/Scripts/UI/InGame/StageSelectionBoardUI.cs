@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StageSelectionBoardUI : MonoBehaviour
 {
@@ -11,14 +12,18 @@ public class StageSelectionBoardUI : MonoBehaviour
     private const float outsidePositionOffsetY = -1080;
     private const float duration = 0.2f;
 
+    private const string GREEN_COLOR = "10D275";
+    private const string RED_COLOR = "D2101B";
+
     [SerializeField] private NextStageChoiceUI[] nextStageChoiceUI;
+    [SerializeField] private Image outerLayout;
 
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
     }
 
-    public void Initialize(StageData[] nextStageChoices)
+    public void Initialize(StageData[] nextStageChoices, int currentStageIndex)
     {
         gameObject.SetActive(true);
         if (nextStageChoices.Length == nextStageChoiceUI.Length)
@@ -32,6 +37,15 @@ public class StageSelectionBoardUI : MonoBehaviour
         {
             Debug.LogError("length of nextStageChoices and nextStageChoiceUI is different");
             return;
+        }
+
+        if (currentStageIndex == 3)
+        {
+            outerLayout.color = UIUtils.HexToColor(RED_COLOR);
+        }
+        else
+        {
+            outerLayout.color = UIUtils.HexToColor(GREEN_COLOR);
         }
     }
 

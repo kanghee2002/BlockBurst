@@ -18,19 +18,23 @@ public class ItemSetUI : MonoBehaviour
     [SerializeField] private float hoverDuration = 0.2f; 
     [SerializeField] private float startPos = -300f;
     private List<GameObject> itemIcons = new List<GameObject>();
-    
+
+    [Header("Auto Sizing")]
     [SerializeField] private RectTransform deskMatRect; // Left
     [SerializeField] private RectTransform deckButtonUIRect; // Right
 
+    [Header("Item Full Animation")]
+    [SerializeField] private Image showItemFullImage;
+
     private float discardAnimationDelay;
     private List<Tween> blockRelatedShakeTweens;
-    private List<Tween> boardRelatedShakeTweens;
+    private List<Tween> shakeTweens;
 
     private void Start()
     {
         originalAnchoredPosition = rectTransform.anchoredPosition;
         blockRelatedShakeTweens = new List<Tween>();
-        boardRelatedShakeTweens = new List<Tween>();
+        shakeTweens = new List<Tween>();
     }
 
     private void Update()
@@ -294,7 +298,7 @@ public class ItemSetUI : MonoBehaviour
         return description;
     }
 
-    public void StartShakeAnimation(int index, bool isBlockRelated, bool isBoardRelated)
+    public void StartShakeAnimation(int index, bool isBlockRelated)
     {
         GameObject currentItem = itemIcons[index];
 
@@ -310,22 +314,22 @@ public class ItemSetUI : MonoBehaviour
         {
             blockRelatedShakeTweens.Add(currentTween);
         }
-        else if (isBoardRelated)
+        else
         {
-            boardRelatedShakeTweens.Add(currentTween);
+            shakeTweens.Add(currentTween);
         }
     }
 
-    public void StopShakeAnimation(bool isBlockRelated, bool isBoardRelated)
+    public void StopShakeAnimation(bool isBlockRelated)
     {
         List<Tween> targetTwinList = new List<Tween>();
         if (isBlockRelated)
         {
             targetTwinList = blockRelatedShakeTweens;
         }
-        else if (isBoardRelated)
+        else
         {
-            targetTwinList = boardRelatedShakeTweens;
+            targetTwinList = shakeTweens;
         }
 
         foreach (Tween tween in targetTwinList)
@@ -361,6 +365,32 @@ public class ItemSetUI : MonoBehaviour
             currentText.rectTransform.anchoredPosition = originalPosition;
             currentText.color = originalColor;
             currentText.gameObject.SetActive(false);
+        });
+    }
+
+    public void PlayItemFullAnimation()
+    {
+        if (showItemFullImage.gameObject.activeSelf)
+        {
+            return;
+        }
+        showItemFullImage.gameObject.SetActive(true);
+        showItemFullImage.color = new Color(0f, 0f, 0f, 0.8f);
+
+        float duration = 0.5f;
+
+        RectTransform textRect = showItemFullImage.transform.GetChild(0).GetComponent<RectTransform>();
+
+        Sequence sequence = DOTween.Sequence();
+
+        sequence.Append(textRect.DOPunchScale(Vector3.one * 1.2f, duration,
+            vibrato: 6, elasticity: 0.3f)
+            .SetEase(Ease.OutQuad));
+
+        sequence.OnComplete(() =>
+        {
+            textRect.DOScale(Vector3.one, duration);
+            showItemFullImage.gameObject.SetActive(false);
         });
     }
 }

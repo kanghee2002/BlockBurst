@@ -202,7 +202,7 @@ public class GameUIManager : MonoBehaviour
         // stageData들을 받아와서 UI에 뿌려주는 메서드
         if (nextStageChoices.Length == 2)
         {
-            stageSelectionBoardUI.Initialize(nextStageChoices);
+            stageSelectionBoardUI.Initialize(nextStageChoices, currentStageIndex);
         }
         else
         {
@@ -318,13 +318,14 @@ public class GameUIManager : MonoBehaviour
         return GameManager.instance.TryPlaceBlock(idx, pos, blockObj);
     }
 
-    public void OnShopStart(List<ItemData> items, int rerollCost, bool isFirst = false)
+    public void OnShopStart(List<ItemData> items, int rerollCost, int currentChapterIndex, int currentStageIndex, bool isFirst = false)
     {
         if (isFirst)
         {
             ChangeSceneState(SceneState.shopping);
         }
         itemBoardUI.Initialize(items, rerollCost);
+        shopSignboardUI.Initialize(currentChapterIndex, currentStageIndex);
     }
 
     public void OnRotateBlock(int idx)
@@ -396,25 +397,40 @@ public class GameUIManager : MonoBehaviour
         GameManager.instance.MakeNewRun();
     }
 
+    public void PlayItemFullAnimation()
+    {
+        itemSetUI.PlayItemFullAnimation();
+    }
+
     public void DisplayItemSet(List<ItemData> items, int maxItemCount, int discardIndex = -1)
     {
         itemSetUI.Initialize(items, maxItemCount, discardIndex);
     }
 
-    public void StartItemShakeAnimation(int index, bool isBlockRelated, bool isBoardRelated)
+    public void StartItemShakeAnimation(int index, bool isBlockRelated)
     {
-        itemSetUI.StartShakeAnimation(index, isBlockRelated: isBlockRelated, isBoardRelated: isBoardRelated);
+        itemSetUI.StartShakeAnimation(index, isBlockRelated);
+    }
+
+    public void StopItemShakeAnimation(bool isBlockRelated)
+    {
+        itemSetUI.StopShakeAnimation(isBlockRelated);
     }
 
     public void StopAllItemShakeAnimation()
     {
-        StopItemShakeAnimation(true, false);
-        StopItemShakeAnimation(false, true);
+        StopItemShakeAnimation(true);
+        StopItemShakeAnimation(false);
     }
 
-    public void StopItemShakeAnimation(bool isBlockRelated, bool isBoardRelated)
+    public void StartWarningStageEffectAnimation(bool isBlockRelated)
     {
-        itemSetUI.StopShakeAnimation(isBlockRelated: isBlockRelated, isBoardRelated: isBoardRelated);
+        stageInfoUI.StartWarningStageEffectAnimation(isBlockRelated);
+    }
+
+    public void StopWarningStageEffectAnimation(bool isBlockRelated)
+    {
+        stageInfoUI.StopWarningStageEffectAnimation(isBlockRelated);
     }
 
     public void PlayItemEffectAnimation(string effectDescription, int index, float delay)

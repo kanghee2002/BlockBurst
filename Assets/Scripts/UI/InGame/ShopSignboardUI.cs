@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ShopSignboardUI : MonoBehaviour
@@ -12,6 +13,7 @@ public class ShopSignboardUI : MonoBehaviour
     private const float duration = 0.2f;
 
     [SerializeField] private GameObject prefabLight;
+    [SerializeField] private TextMeshProUGUI stageInfoText;
 
     void Awake()
     {
@@ -29,6 +31,13 @@ public class ShopSignboardUI : MonoBehaviour
     public void CloseShopSignboardUI()
     {
         UIUtils.CloseUI(rectTransform, "Y", insidePositionY, outsidePositionOffsetY, duration);
+    }
+
+    public void Initialize(int currentChapterIndex, int currentStageIndex)
+    {
+        string text = currentChapterIndex + " - " + currentStageIndex;
+
+        stageInfoText.text = text;
     }
 
     private void CreateLights()
@@ -50,8 +59,8 @@ public class ShopSignboardUI : MonoBehaviour
     {
         GameObject instance = Instantiate(prefabLight);
         instance.transform.SetParent(transform);
-        instance.transform.localScale = new Vector2(1, 1); // ½ºÄÉÀÏ ÃÊ±âÈ­
-        instance.transform.localPosition = localPosition; // ·ÎÄÃ ÁÂÇ¥¿¡ À§Ä¡ ¼³Á¤
+        instance.transform.localScale = new Vector2(1, 1); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
+        instance.transform.localPosition = localPosition; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
         instance.GetComponent<ShopSignboardNeonSign>().on = on;
     }
 }

@@ -68,10 +68,13 @@ public class DeckInfoUI : MonoBehaviour
         Dictionary<BlockType, int> scoreDictionary = isPlaying ? blockGameData.blockScores : runData.baseBlockScores;
         List<BlockData> availableBlocks = isPlaying ? blockGameData.deck : runData.availableBlocks;
         Dictionary<BlockType, int> countDictionary = new Dictionary<BlockType, int>();
-        
-        for (int i = 0; i < BlockTransforms.Length; i++)
+
+        foreach (BlockData block in runData.availableBlocks)
         {
-            countDictionary.Add((BlockType)i, 0);
+            if (!countDictionary.ContainsKey(block.type))
+            {
+                countDictionary[block.type] = 0;
+            }
         }
 
         foreach (BlockData block in availableBlocks)
@@ -92,7 +95,7 @@ public class DeckInfoUI : MonoBehaviour
             }
             else
             {
-                if (countDictionary[(BlockType)i] == 0)
+                if (!countDictionary.ContainsKey((BlockType)i))
                 {
                     // 투명하게
                     BlockTransforms[i].GetComponent<CanvasGroup>().alpha = 0f;

@@ -69,7 +69,7 @@ public class CellEffectManager : MonoBehaviour
 
     private float CalculateIntensity(int score)
     {
-        float intensity = Mathf.Log(score - 15, 100);
+        float intensity = Mathf.Log(score - 15, 100) / 3f;
         
         if (float.IsNaN(intensity) || intensity < 0)
             intensity = 0;
@@ -103,7 +103,7 @@ public class CellEffectManager : MonoBehaviour
     public void PlaceEffect(Block block)
     {
         // 점수에 따라 화면을 흔듦, 로그스케일로 계산
-        float intensity = CalculateIntensity(block.Score);
+        float intensity = CalculateIntensity(block.Score - 10);
         ShakeEverything(intensity * 30f);
     }
 
@@ -369,14 +369,14 @@ public class CellEffectManager : MonoBehaviour
                 // 우측 하단이 0, 좌측 상단이 1이 되도록 계산
                 float diagonalPos = ((width - x) / width + (y / height)) / 2f;
                 
-                // startPos와 endPos 사이에 있는 경우에만 색상 적용
+                // startPos와 endPos 사이에 있는 경우에만 색상 블렌딩 적용
                 if (diagonalPos >= startPos && diagonalPos <= endPos)
                 {
-                    resultPixels[index] = new Color(
-                        color.r,
-                        color.g,
-                        color.b,
-                        color.a * basePixels[index].a
+                    // Color.Lerp를 사용하여 기존 색상과 새로운 색상을 블렌딩
+                    resultPixels[index] = Color.Lerp(
+                        basePixels[index], 
+                        new Color(color.r, color.g, color.b, basePixels[index].a), 
+                        color.a
                     );
                 }
                 // 나머지 영역은 원본 유지

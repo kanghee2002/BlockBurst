@@ -90,7 +90,8 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
             int normalizedY = pos.y - minY;
             
             GameObject blockCell = Instantiate(prefabBlockCellUI);
-            blockCell.GetComponent<Image>().sprite = CellEffectManager.instance.ApplyEffect(block.Type);
+            Image blockCellImage = blockCell.GetComponent<Image>();
+            CellEffectManager.instance.ApplyEffect(ref blockCellImage, block.Type);
             blockCellsUI[normalizedY, normalizedX] = blockCell;
         }
 

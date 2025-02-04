@@ -30,8 +30,8 @@ public class HandUI : MonoBehaviour
         int idx = 0;
         foreach (Block block in hand)
         {
-            GameObject blockObj = Instantiate(blockPrefab, transform);
-            blockObj.transform.localPosition = new Vector3(0, (1 - idx) * 200, 0); // 위치는 임시
+            GameObject blockObj = Instantiate(blockPrefab, transform.GetChild(1));
+            blockObj.transform.localPosition = new Vector3(0, (1 - idx) * 200 / transform.GetChild(1).localScale.x, 0); // 위치는 임시
             var blockUI = blockObj.GetComponent<BlockUI>();
             blockUI.Initialize(block, idx);
             

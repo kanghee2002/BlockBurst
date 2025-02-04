@@ -190,6 +190,8 @@ public class GameManager : MonoBehaviour
         runData = new RunData();
         runData.Initialize(gameData);
 
+        
+        CellEffectManager.instance.Initialize();
         EffectManager.instance.Initialize(ref runData);
 
         stageManager.Initialize(ref runData);
@@ -308,7 +310,7 @@ public class GameManager : MonoBehaviour
         blockGame.Initialize(runData);
 
         EffectManager.instance.InitializeBlockGameData(ref blockGame);
-        CellEffectManager.instance.Initialize(ref blockGame);
+        CellEffectManager.instance.InitializeBlockGame(ref blockGame);
 
         // 스테이지 시작
         stageManager.StartStage(stage);

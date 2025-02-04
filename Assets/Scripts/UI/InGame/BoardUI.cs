@@ -36,7 +36,7 @@ public class BoardUI : MonoBehaviour
         // UI 요소들의 화면상 위치와 크기를 정확하게 계산
         Vector2 itemSetScreen = cam.WorldToScreenPoint(itemSetRect.position);
         Vector2 deskMatScreen = cam.WorldToScreenPoint(deskMatRect.position);
-        Vector2 handScreen = cam.WorldToScreenPoint(handUIRect.position);
+        Vector2 handScreen = cam.WorldToScreenPoint(handUIRect.transform.GetChild(0).GetComponent<RectTransform>().position);
 
         // 각 UI의 실제 경계 위치 계산 (화면 좌표계)
         float itemSetBottom = itemSetScreen.y - ((itemSetRect.rect.height / 2) * canvas.scaleFactor);
@@ -59,7 +59,7 @@ public class BoardUI : MonoBehaviour
         
         // 크기 적용
         rectTransform.localScale = Vector3.one * scale;
-        handUIRect.localScale = Vector3.one * scale;
+        handUIRect.transform.GetChild(1).GetComponent<RectTransform>().localScale = Vector3.one * scale;
 
         Debug.Log($"Final calculation - Available space: {availableWidth}x{availableHeight}, Board size: {boardWidth}x{boardHeight}, Scale: {scale}");
     }
@@ -131,13 +131,13 @@ public class BoardUI : MonoBehaviour
 
     private void DecomposeBlockToBoard(GameObject blockObj, Block block, Vector2Int pos)
     {
-        Transform visualObj = blockObj.transform.GetChild(1);
         foreach (Vector2Int shapePos in block.Shape)
         {
             Vector2Int cellPos = pos + shapePos;
             boardCellsUI[cellPos.y, cellPos.x].StopClearAnimation();
             boardCellsUI[cellPos.y, cellPos.x].SetBlockInfo(block.Id, block.Score);
-            boardCellsUI[cellPos.y, cellPos.x].CopyVisualFrom(visualObj);
+            Image image = boardCellsUI[cellPos.y, cellPos.x].GetComponent<Image>();
+            CellEffectManager.instance.ApplyEffect(ref image, block.Type);
         }
     }
 

@@ -5,6 +5,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System;
+using System.Linq;
 
 public class DeckInfoUI : MonoBehaviour
 {
@@ -22,11 +23,19 @@ public class DeckInfoUI : MonoBehaviour
     private CanvasGroup specialCanvasGroup;
     
     [SerializeField] private GameObject BlockPrefab;
+    [SerializeField] private GameObject EffectPrefab;
 
     public Transform[] BlockTransforms;
 
     const float ROW_OFFSET = 112;
     const float ROW_REF = 112 * 3;
+
+    Dictionary<string, string> effectNames = new Dictionary<string, string>() {
+        {"GOLD_MODIFIER", "GoldUpgrade"},
+        {"MULTIPLIER_MODIFIER", "MultiplierUpgrade"},
+        {"REROLL_MODIFIER", "RerollUpgrade"},
+        {"SCORE_MODIFIER", "ScoreUpgrade"},
+    };
 
     void Awake()
     {
@@ -99,13 +108,14 @@ public class DeckInfoUI : MonoBehaviour
             }
         }
     }
-
+    
     void InitializeBlockUI(Transform blockTransform, BlockType blockType, int count, int score)
     {
         TextMeshProUGUI blockTypeText = blockTransform.GetChild(1).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         TextMeshProUGUI blockCountText = blockTransform.GetChild(1).GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>();
         TextMeshProUGUI blockScoreText = blockTransform.GetChild(1).GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>();
         Image blockImage = blockTransform.GetChild(1).GetChild(1).GetComponent<Image>();
+        Transform effectContainer = blockTransform.GetChild(2);
 
         blockTypeText.text = blockType.ToString();
         blockCountText.text = count.ToString() + "개";
@@ -114,7 +124,49 @@ public class DeckInfoUI : MonoBehaviour
 
         if (!Enums.IsDefaultBlockType(blockType))
         {
-            blockTypeText.fontSize = 32;    // 특수 블록은 글자 크기를 줄인다.
+            blockTypeText.fontSize = 32;
+            TextMeshProUGUI effectText = effectContainer.GetChild(0).GetComponent<TextMeshProUGUI>();
+            effectText.text = "";
+            List<EffectData> specialEffects = Resources.Load<ItemData>("ScriptableObjects/Item/Block/AddBlock" + UIUtils.ToCamelCase(blockType.ToString())).effects;
+            foreach (EffectData effect in specialEffects)
+            {
+                effectText.text += effect.effectName.Replace("\n", " ");
+            }
+        }
+        else
+        {
+            // 기존 이펙트 UI 모두 제거
+            foreach (Transform child in effectContainer)
+            {
+                Destroy(child.gameObject);
+            }
+            Dictionary<string, int> effects = CellEffectManager.instance.blockEffects[(int)blockType];
+            if (effects != null && effects.Count > 0)
+            {
+                // effectNames의 순서대로 고정된 위치에 이펙트 생성
+                foreach (var effectPair in effectNames)
+                {
+                    string effectType = effectPair.Key;
+                    if (effects.ContainsKey(effectType))
+                    {
+                        // 이펙트 아이콘 생성
+                        Sprite effectSprite = Resources.Load<Sprite>("Sprites/Item/Upgrade/" + effectPair.Value);
+                        GameObject effectObject = Instantiate(EffectPrefab, effectContainer);
+                        effectObject.transform.GetChild(0).GetComponent<Image>().sprite = effectSprite;
+
+                        // 개수 표시 Text 생성
+                        TextMeshProUGUI effectCountText = effectObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+                        effectCountText.text = effects[effectType].ToString();
+                        // 색깔도
+                        effectCountText.color = CellEffectManager.instance.effectColors[effectType];
+
+                        // effectNames에서의 인덱스를 찾아서 위치 설정
+                        int effectIndex = Array.IndexOf(effectNames.Keys.ToArray(), effectType);
+                        float xOffset = 100f * effectIndex;
+                        effectObject.transform.localPosition = new Vector3(xOffset, 0, 0);
+                    }
+                }
+            }
         }
     }
 

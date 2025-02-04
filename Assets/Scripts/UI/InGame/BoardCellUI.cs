@@ -15,6 +15,7 @@ public class BoardCellUI : MonoBehaviour
     private Image cellImage;
     private Color originalColor;
     private Sprite originalSprite;
+    private Material originalMaterial;
     private bool isShadow = false;
     private bool isAnimating = false;
     private bool hideShadowReserved = false; // HideShadow 예약 플래그
@@ -27,6 +28,7 @@ public class BoardCellUI : MonoBehaviour
         cellImage = GetComponent<Image>();
         originalColor = cellImage.color;
         originalSprite = cellImage.sprite;
+        originalMaterial = new Material(cellImage.material);
         textTransform = transform.GetChild(0).GetComponent<RectTransform>();
         scoreText = textTransform.GetComponent<TextMeshProUGUI>();
     }
@@ -63,6 +65,7 @@ public class BoardCellUI : MonoBehaviour
         ClearShadow();
         blockId = "";
         cellImage.sprite = originalSprite;
+        cellImage.material = new Material(originalMaterial);
         cellImage.color = originalColor;
     }
 

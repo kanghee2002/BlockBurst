@@ -5,6 +5,38 @@ using DG.Tweening;
 
 public static class UIUtils
 {
+    
+    // 효과 타입별 색상 정의
+    public static readonly Dictionary<ItemEffectType, Color> effectColors = new Dictionary<ItemEffectType, Color>()
+    {
+        { ItemEffectType.SCORE, new Color(0x0b/255f, 0xa9/255f, 0x05/255f) }, // #0ba905
+        { ItemEffectType.DECK, new Color(0x47/255f, 0x38/255f, 0xff/255f) },  // #4738ff
+        { ItemEffectType.GOLD, new Color(0xd9/255f, 0xa7/255f, 0x38/255f) },  // #d9a738
+        { ItemEffectType.OTHER, new Color(0xfc/255f, 0x8b/255f, 0x4d/255f) }  // #fc8b4d
+    };
+
+    // 레어도별 색상 정의
+    public static readonly Dictionary<ItemRarity, Color> rarityColors = new Dictionary<ItemRarity, Color>()
+    {
+        { ItemRarity.SILVER, new Color(0xb0/255f, 0xa7/255f, 0xb8/255f) },   // #b0a7b8
+        { ItemRarity.GOLD, new Color(0xff/255f, 0xc8/255f, 0x57/255f) },     // #ffc857
+        { ItemRarity.PLATINUM, new Color(0xc0/255f, 0xf9/255f, 0xff/255f) }  // #c0f9ff
+    };
+
+    public static string ToCamelCase(this string str)
+    {
+        if (string.IsNullOrEmpty(str)) return str;
+        
+        // 첫 단어를 소문자로 시작
+        string firstWord = str[0].ToString().ToLowerInvariant();
+        
+        // 나머지 문자열이 있다면 그대로 붙임
+        if (str.Length > 1)
+            firstWord += str.Substring(1);
+            
+        return firstWord;
+    }
+
     /// <summary>
     /// UI를 열 때 사용합니다.
     /// </summary>

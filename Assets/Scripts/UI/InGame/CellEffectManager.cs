@@ -9,15 +9,26 @@ public class CellEffectManager : MonoBehaviour
 {
     public static CellEffectManager instance;
 
+    [SerializeField] private Shader glowShader;
+
     BlockGameData blockGameData;
     Texture2D[] baseTextures;
     Texture2D[] blockTextures;
 
-    List<ItemEffectType>[] blockEffects;
+    public Dictionary<string, int>[] blockEffects;
 
     const float SCORE_EFFECT_INNER = 0.7f;
     const float SCORE_EFFECT_OUTER = 1.0f;
     Color SCORE_EFFECT_COLOR = new Color(0f, 0f, 0f, 1f);
+
+    // 아이템 색
+    public Dictionary<string, Color> effectColors = new Dictionary<string, Color>()
+    {
+        { "GOLD_MODIFIER", new Color(237 / 255f, 169 / 255f, 60 / 255f, .5f) },
+        { "MULTIPLIER_MODIFIER", new Color(237 / 255f, 234 / 255f, 77 / 255f, .5f) },
+        { "REROLL_MODIFIER", new Color(246 / 255f, 246 / 255f, 246 / 255f, .5f) },
+        { "SCORE_MODIFIER", new Color(239 / 255f, 208 / 255f, 65 / 255f, .5f) },
+    };
 
     void Awake()
     {
@@ -31,14 +42,18 @@ public class CellEffectManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    
-    public void Initialize(ref BlockGameData blockGame)
+
+    public void InitializeBlockGame(ref BlockGameData blockGame)
     {
         blockGameData = blockGame;
+    }
+    
+    public void Initialize()
+    {
         int blockCount = Enum.GetNames(typeof(BlockType)).Length;
         baseTextures = new Texture2D[blockCount];
         blockTextures = new Texture2D[blockCount];
-        blockEffects = new List<ItemEffectType>[blockCount];
+        blockEffects = new Dictionary<string, int>[blockCount];
 
         for (int i = 0; i < blockCount; i++)
         {
@@ -54,7 +69,7 @@ public class CellEffectManager : MonoBehaviour
 
     private float CalculateIntensity(int score)
     {
-        float intensity = Mathf.Log(score - 10, 30);
+        float intensity = Mathf.Log(score - 15, 100);
         
         if (float.IsNaN(intensity) || intensity < 0)
             intensity = 0;
@@ -64,17 +79,24 @@ public class CellEffectManager : MonoBehaviour
         return intensity;
     }
     
-    public void AddEffect(BlockType[] blockTypes, ItemEffectType itemEffectType)
+    public void AddEffect(BlockType[] blockTypes, string effectType)
     {
         foreach (BlockType blockType in blockTypes)
         {
             int index = (int)blockType;
             if (blockEffects[index] == null)
             {
-                blockEffects[index] = new List<ItemEffectType>();
+                blockEffects[index] = new Dictionary<string, int>();
             }
-            blockEffects[index].Add(itemEffectType);
-            Debug.Log("AddEffect: " + blockType + ", " + itemEffectType);
+            
+            if (blockEffects[index].ContainsKey(effectType))
+            {
+                blockEffects[index][effectType]++;
+            }
+            else
+            {
+                blockEffects[index][effectType] = 1;
+            }
         }
     }
 
@@ -85,17 +107,42 @@ public class CellEffectManager : MonoBehaviour
         ShakeEverything(intensity * 30f);
     }
 
-    public Sprite ApplyEffect(BlockType blockType)
+    public void ApplyEffect(ref Image image, BlockType blockType)
     {
         Texture2D baseTexture = baseTextures[(int)blockType];
-        Texture2D texture = ScoreEffect(baseTexture, blockGameData.blockScores[blockType]);
-        
+        Texture2D texture = baseTexture;
+
+        if(blockEffects[(int)blockType] != null)
+        {
+            // effectColors의 순서대로 효과 적용
+            foreach (var effectColor in effectColors)
+            {
+                string effectType = effectColor.Key;
+                if (blockEffects[(int)blockType].ContainsKey(effectType))
+                {
+                    texture = UpgradeEffect(texture, effectType);
+                }
+            }
+        }
+
+        ApplyShader(ref image, blockGameData.blockScores[blockType]);
+
         blockTextures[(int)blockType] = texture;
-        return Sprite.Create(
+
+        Sprite sprite = Sprite.Create(
             texture,
             new Rect(0, 0, texture.width, texture.height),
             new Vector2(0.5f, 0.5f)
         );
+
+        image.sprite = sprite;
+    }
+
+    public void ApplyShader(ref Image image, int score)
+    {
+        float intensity = CalculateIntensity(score);
+        image.material = new Material(glowShader);
+        image.material.SetFloat("_Glow_Intensity", intensity);
     }
 
     public Texture2D ScoreEffect(Texture2D baseTexture, int score)
@@ -114,9 +161,21 @@ public class CellEffectManager : MonoBehaviour
         return CreateRectangularGradientMask(baseTexture, SCORE_EFFECT_COLOR, SCORE_EFFECT_INNER + gap, SCORE_EFFECT_OUTER + gap);
     }
 
-    private Texture2D UpgradeEffect(Texture2D baseTexture, string effectId)
+    private Texture2D UpgradeEffect(Texture2D baseTexture, string effectType)
     {
-        return baseTexture;
+        Color color = effectColors[effectType];
+        
+        // effectColors에서 해당 효과의 인덱스를 찾습니다
+        int effectIndex = 0;
+        foreach (var kvp in effectColors)
+        {
+            if (kvp.Key == effectType)
+                break;
+            effectIndex++;
+        }
+        
+        // 각 효과마다 다른 위치에 대각선 밴드를 그립니다
+        return CreateDiagonalBandMask(baseTexture, color, 0.2f * effectIndex + 0.1f, 0.2f * effectIndex + 0.2f);
     }
 
     // base functions

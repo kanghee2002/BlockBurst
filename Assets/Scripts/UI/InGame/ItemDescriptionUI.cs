@@ -15,23 +15,6 @@ public class ItemDescriptionUI : MonoBehaviour, IPointerEnterHandler, IPointerEx
     private string currentDescription;
     private CanvasGroup descriptionCanvasGroup;
 
-    // 효과 타입별 색상 정의
-    private readonly Dictionary<ItemEffectType, Color> effectColors = new Dictionary<ItemEffectType, Color>()
-    {
-        { ItemEffectType.SCORE, new Color(0x0b/255f, 0xa9/255f, 0x05/255f) }, // #0ba905
-        { ItemEffectType.DECK, new Color(0x47/255f, 0x38/255f, 0xff/255f) },  // #4738ff
-        { ItemEffectType.GOLD, new Color(0xd9/255f, 0xa7/255f, 0x38/255f) },  // #d9a738
-        { ItemEffectType.OTHER, new Color(0xfc/255f, 0x8b/255f, 0x4d/255f) }  // #fc8b4d
-    };
-
-    // 레어도별 색상 정의
-    private readonly Dictionary<ItemRarity, Color> rarityColors = new Dictionary<ItemRarity, Color>()
-    {
-        { ItemRarity.SILVER, new Color(0xb0/255f, 0xa7/255f, 0xb8/255f) },   // #b0a7b8
-        { ItemRarity.GOLD, new Color(0xff/255f, 0xc8/255f, 0x57/255f) },     // #ffc857
-        { ItemRarity.PLATINUM, new Color(0xc0/255f, 0xf9/255f, 0xff/255f) }  // #c0f9ff
-    };
-
     private void Awake()
     {
         descriptionCanvasGroup = itemDescriptionUI.GetComponent<CanvasGroup>();
@@ -46,9 +29,9 @@ public class ItemDescriptionUI : MonoBehaviour, IPointerEnterHandler, IPointerEx
     {
         this.item = item;
         currentDescription = GetDescription(item);
-        itemDescriptionUI.transform.GetChild(1).GetComponent<Image>().color = effectColors[item.effectType]; // 효과
+        itemDescriptionUI.transform.GetChild(1).GetComponent<Image>().color = UIUtils.effectColors[item.effectType]; // 효과
         itemDescriptionUI.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = currentDescription;
-        transform.GetChild(6).GetComponent<Image>().color = rarityColors[item.rarity]; // 레어도
+        transform.GetChild(6).GetComponent<Image>().color = UIUtils.rarityColors[item.rarity]; // 레어도
     }
 
     public void OnPointerEnter(PointerEventData eventData)

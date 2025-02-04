@@ -161,8 +161,8 @@ public class DeckInfoUI : MonoBehaviour
                         // 개수 표시 Text 생성
                         TextMeshProUGUI effectCountText = effectObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
                         effectCountText.text = effects[effectType].ToString();
-                        // 색깔도
-                        effectCountText.color = CellEffectManager.instance.effectColors[effectType];
+                        // 색깔 설정
+                        effectCountText.color = Color.white;
 
                         // effectNames에서의 인덱스를 찾아서 위치 설정
                         int effectIndex = Array.IndexOf(effectNames.Keys.ToArray(), effectType);

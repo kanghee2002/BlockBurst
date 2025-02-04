@@ -53,10 +53,11 @@ public class ClearInfoUI : MonoBehaviour
         buyedCountText.text = history.itemPurchaseCount.ToString();
     }
 
-    public void OpenClearInfoUI()
+    public void OpenClearInfoUI(bool isCleared)
     {
         UIUtils.OpenUI(rectTransform, "Y", insidePositionY, duration);
-        popupBlurImage.OpenPopupBlurImage(new Color(0.0f, 0.6f, 0.0f, 0.9f));
+        Color popupBlurColor = isCleared ? new Color(0.0f, 0.6f, 0.0f, 0.9f) : new Color(0.6f, 0.0f, 0.0f, 0.9f);
+        popupBlurImage.OpenPopupBlurImage(popupBlurColor);
     }
 
     public void CloseClearInfoUI()

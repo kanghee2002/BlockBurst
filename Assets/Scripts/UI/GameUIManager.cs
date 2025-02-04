@@ -457,7 +457,7 @@ public class GameUIManager : MonoBehaviour
     public void OnGameEnd(bool isCleared, int currentChapterIndex, int currentStageIndex, GameManager.History history, BlockType mostPlacedBlockType)
     {
         clearInfoUI.Initialize(isCleared, currentChapterIndex, currentStageIndex, history, mostPlacedBlockType);
-        clearInfoUI.OpenClearInfoUI();
+        clearInfoUI.OpenClearInfoUI(isCleared);
     }
 
     public void InfiniteMode()

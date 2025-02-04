@@ -28,6 +28,7 @@ public class DeckInfoUI : MonoBehaviour
     public Transform[] BlockTransforms;
 
     const float ROW_OFFSET = 112;
+    const float COLUMN_OFFSET = 112;
     const float ROW_REF = 112 * 3;
 
     Dictionary<string, string> effectNames = new Dictionary<string, string>() {
@@ -165,7 +166,7 @@ public class DeckInfoUI : MonoBehaviour
 
                         // effectNames에서의 인덱스를 찾아서 위치 설정
                         int effectIndex = Array.IndexOf(effectNames.Keys.ToArray(), effectType);
-                        float xOffset = 100f * effectIndex;
+                        float xOffset = COLUMN_OFFSET * effectIndex;
                         effectObject.transform.localPosition = new Vector3(xOffset, 0, 0);
                     }
                 }

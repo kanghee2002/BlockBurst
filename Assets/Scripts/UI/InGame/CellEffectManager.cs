@@ -13,6 +13,8 @@ public class CellEffectManager : MonoBehaviour
     Texture2D[] baseTextures;
     Texture2D[] blockTextures;
 
+    List<ItemEffectType>[] blockEffects;
+
     const float SCORE_EFFECT_INNER = 0.7f;
     const float SCORE_EFFECT_OUTER = 1.0f;
     Color SCORE_EFFECT_COLOR = new Color(0f, 0f, 0f, 1f);
@@ -36,6 +38,7 @@ public class CellEffectManager : MonoBehaviour
         int blockCount = Enum.GetNames(typeof(BlockType)).Length;
         baseTextures = new Texture2D[blockCount];
         blockTextures = new Texture2D[blockCount];
+        blockEffects = new List<ItemEffectType>[blockCount];
 
         for (int i = 0; i < blockCount; i++)
         {
@@ -59,6 +62,20 @@ public class CellEffectManager : MonoBehaviour
             intensity = 1;
 
         return intensity;
+    }
+    
+    public void AddEffect(BlockType[] blockTypes, ItemEffectType itemEffectType)
+    {
+        foreach (BlockType blockType in blockTypes)
+        {
+            int index = (int)blockType;
+            if (blockEffects[index] == null)
+            {
+                blockEffects[index] = new List<ItemEffectType>();
+            }
+            blockEffects[index].Add(itemEffectType);
+            Debug.Log("AddEffect: " + blockType + ", " + itemEffectType);
+        }
     }
 
     public void PlaceEffect(Block block)

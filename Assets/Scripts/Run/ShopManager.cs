@@ -131,6 +131,7 @@ public class ShopManager : MonoBehaviour
                 // 아이템처럼 취급
                 // 구매 시 등록 (BlockData의 effects로 등록 X)
                 EffectManager.instance.AddEffect(effect);
+                CellEffectManager.instance.AddEffect(effect.blockTypes, item.effectType);
             }
         }
 

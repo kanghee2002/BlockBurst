@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ShopManager : MonoBehaviour
 {
+    [Header("DEBUG")]
+    // 첫 상점에서 나올 아이템 지정
+    [SerializeField] private List<string> firstShopItemList;
+
     private RunData runData;
     private List<ItemData> currentItems;
 
@@ -60,6 +65,21 @@ public class ShopManager : MonoBehaviour
         {
             return null;
         }
+
+        // DEBUG or TUTORIAL /////////////////////////////////////////
+        if (firstShopItemList.Count > 0)
+        {
+            int index = currentItems.FindIndex(x => x.id == firstShopItemList[0]);
+            ItemData itemData = currentItems[index];
+            currentItems.RemoveAt(index);
+            firstShopItemList.RemoveAt(0);
+
+            if (itemData.type != ItemType.ITEM) AddItem(itemData);
+
+            return itemData;
+        }
+        ///////////////////////////////////////////////////////////////
+
         int idx = Random.Range(0, currentItems.Count);
         ItemData item = currentItems[idx];
         currentItems.RemoveAt(idx);

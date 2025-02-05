@@ -70,7 +70,7 @@ public class BoardUI : MonoBehaviour
         height = rows;
         width = columns;
 
-        AutoSizing(height, width);
+        //AutoSizing(height, width);
 
         // 기존 boardCell 비우기
         foreach (Transform child in transform)

@@ -42,14 +42,14 @@ public class ItemSetUI : MonoBehaviour
 
     private void Update()
     {
-        AutoSizing();
+        //AutoSizing();
     }
 
     public void Initialize(List<ItemData> items, int maxItemCount, int discardIndex = -1)
     {
         discardAnimationDelay = 0.3f;
         
-        AutoSizing();
+        //AutoSizing();
         
         Clear(discardIndex);
 

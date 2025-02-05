@@ -21,16 +21,18 @@ public class AudioManager : MonoBehaviour
     private static bool isPlaying = false;
     private RuntimeManager runtimeManager;
 
-    private EventInstance stage1;
+    private EventInstance stageSource;
 
     private GCHandle timelineHandle;
 
-    private TimelineInfo timelineInfo;
+    private TimelineInfo timelineInfo1;
 
 
     private float currentTempo;
 
-    private FMOD.Studio.EVENT_CALLBACK stage1Callback;
+    private FMOD.Studio.EVENT_CALLBACK stageSourceCallback;
+
+    private int currentChapter;
     
 
     void Awake() {
@@ -41,96 +43,116 @@ public class AudioManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
-        timelineInfo = new TimelineInfo();
-        stage1Callback = new FMOD.Studio.EVENT_CALLBACK(BeatEventCallback);
+        currentChapter = 1;
+        timelineInfo1 = new TimelineInfo();
+        stageSourceCallback = new FMOD.Studio.EVENT_CALLBACK(BeatEventCallback);
 
-        stage1 = RuntimeManager.CreateInstance("event:/stage1");
-        stage1.setParameterByName("shop_transit", 0);
-        timelineHandle = GCHandle.Alloc(timelineInfo, GCHandleType.Pinned);
-        stage1.setUserData(GCHandle.ToIntPtr(timelineHandle));
-        stage1.setCallback(stage1Callback, EVENT_CALLBACK_TYPE.TIMELINE_MARKER | EVENT_CALLBACK_TYPE.TIMELINE_BEAT);
+        stageSource = RuntimeManager.CreateInstance("event:/stage" + currentChapter);
+        stageSource.setParameterByName("shop_transit", 0);
+        timelineHandle = GCHandle.Alloc(timelineInfo1, GCHandleType.Pinned);
+        stageSource.setUserData(GCHandle.ToIntPtr(timelineHandle));
+        stageSource.setCallback(stageSourceCallback, EVENT_CALLBACK_TYPE.TIMELINE_MARKER | EVENT_CALLBACK_TYPE.TIMELINE_BEAT);
+        
+
+        // gotta add more stages later
         
     }
+
+    private IEnumerator shopTransition;
+    private IEnumerator stageTransitionIn;
+    private IEnumerator stageTransitionOut;
     void Start()
     {
         /*
-        timelineInfo = new TimelineInfo();
-        stage1Callback = new FMOD.Studio.EVENT_CALLBACK(BeatEventCallback);
+        timelineInfo1 = new TimelineInfo();
+        stageSourceCallback = new FMOD.Studio.EVENT_CALLBACK(BeatEventCallback);
 
-        stage1.setParameterByName("shop_transit", 0);
-        stage1 = RuntimeManager.CreateInstance("event:/stage1");
-        timelineHandle = GCHandle.Alloc(timelineInfo, GCHandleType.Pinned);
-        stage1.setUserData(GCHandle.ToIntPtr(timelineHandle));
-        stage1.setCallback(stage1Callback, EVENT_CALLBACK_TYPE.TIMELINE_MARKER | EVENT_CALLBACK_TYPE.TIMELINE_BEAT);
+        stageSource.setParameterByName("shop_transit", 0);
+        stageSource = RuntimeManager.CreateInstance("event:/stageSource");
+        timelineHandle = GCHandle.Alloc(timelineInfo1, GCHandleType.Pinned);
+        stageSource.setUserData(GCHandle.ToIntPtr(timelineHandle));
+        stageSource.setCallback(stageSourceCallback, EVENT_CALLBACK_TYPE.TIMELINE_MARKER | EVENT_CALLBACK_TYPE.TIMELINE_BEAT);
         */
     }
 
     void OnDestroy() {
-        stage1.setUserData(IntPtr.Zero);
+        stageSource.setUserData(IntPtr.Zero);
         timelineHandle.Free();
     }
 
-    public void BeginBackgroundMusic() {
+    public void RestartGame() { // 배경음악 초기화(1단계부터)
+        StopBackgroundMusic();
+        ChangeChapter(1);
+    }
+
+    public void BeginBackgroundMusic() { // 배경음악 재생 시작
         if(!isPlaying) {
-            stage1.start();
+            stageSource.start();
             isPlaying = true;
         }
     }
 
-    public void StopBackgroundMusic() {
+    public void StopBackgroundMusic() { // 배경음악 재생 중지
         if(isPlaying)
         {
-            stage1.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            stageSource.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
             isPlaying = false;
         }
 
     }
 
     public void ChangeStage(int stage) {
-        StartCoroutine(ChangeStageParameter(stage));
+        shopTransition = ChangeStageParameter(stage);
+        StartCoroutine(shopTransition);
+        //StartCoroutine(ChangeStageParameter(stage));
     }
 
     public void ShopTransitionIn() {
-        StartCoroutine(ShopTransition(true));
+        stageTransitionIn = ShopTransition(true);
+        StartCoroutine(stageTransitionIn);
     }
 
     public void ShopTransitionOut() {
-        StartCoroutine(ShopTransition(false));
+        stageTransitionOut = ShopTransition(false);
+        StartCoroutine(stageTransitionOut);
     }
 
     IEnumerator ChangeStageParameter(int stage) {
         
-        stage1.getParameterByName("stage_transit", out float currentStage);
-        float targetStage = stage;
-        while(Math.Abs(targetStage - currentStage) <= 0.01) {
-            stage1.setParameterByName("stage_transit", Mathf.Lerp(currentStage, targetStage, 0.02f));
+        stageSource.getParameterByName("stage_transit", out float currentStage);
+        float targetStage = Convert.ToSingle(stage);
+        Debug.Log(targetStage);
+        while(Math.Abs(targetStage - currentStage) >= 0.01) {
+            currentStage += (targetStage - currentStage) * 0.02f;
+            stageSource.setParameterByName("stage_transit", currentStage);
             yield return new WaitForSeconds(0.01f);
         }
-        stage1.setParameterByName("stage_transit", targetStage);
+        stageSource.setParameterByName("stage_transit", targetStage);
+
     }
 
     IEnumerator ShopTransition(bool intoShop) {
         if(intoShop) {
-            stage1.getParameterByName("shop_transit", out float currentStage);
+            stageSource.getParameterByName("shop_transit", out float currentStage);
             while(currentStage < 1) {
                 currentStage += 0.02f;
-                stage1.setParameterByName("shop_transit", currentStage);
+                stageSource.setParameterByName("shop_transit", currentStage);
                 yield return new WaitForSeconds(0.01f);
                 
             }
             currentStage = 1;
-            stage1.setParameterByName("shop_transit", currentStage);
+            stageSource.setParameterByName("shop_transit", currentStage);
         }
         else {
-            stage1.getParameterByName("shop_transit", out float currentStage);
+            stageSource.getParameterByName("shop_transit", out float currentStage);
             while(currentStage > 0) {
                 currentStage -= 0.02f;
-                stage1.setParameterByName("shop_transit", currentStage);
+                stageSource.setParameterByName("shop_transit", currentStage);
                 yield return new WaitForSeconds(0.01f);
 
             }
             currentStage = 0;
-            stage1.setParameterByName("shop_transit", currentStage);
+            stageSource.setParameterByName("shop_transit", currentStage);
         }
     }
 
@@ -139,6 +161,40 @@ public class AudioManager : MonoBehaviour
             RuntimeManager.PlayOneShot("event:/recharge_block");
             yield return new WaitForSeconds(0.2f);
         }
+    }
+
+    public void ChangeChapter(int chapter) {
+        stageSource.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        stageSource.setUserData(IntPtr.Zero);
+        timelineHandle.Free();
+        stageSource.release();
+        isPlaying = false;
+        try {
+            StopCoroutine(shopTransition);
+        }
+        catch(Exception e) {
+            Debug.Log(e);
+        }
+        try {
+            StopCoroutine(stageTransitionIn);
+        }
+        catch(Exception e) {
+            Debug.Log(e);
+        }
+        try {
+            StopCoroutine(stageTransitionOut);
+        }
+        catch(Exception e) {
+            Debug.Log(e);
+        }
+
+
+        currentChapter = chapter % 2;
+        if(currentChapter == 0) currentChapter = 2;
+        stageSource = RuntimeManager.CreateInstance("event:/stage" + currentChapter);
+        timelineHandle = GCHandle.Alloc(timelineInfo1, GCHandleType.Pinned);
+        stageSource.setUserData(GCHandle.ToIntPtr(timelineHandle));
+        stageSource.setCallback(stageSourceCallback, EVENT_CALLBACK_TYPE.TIMELINE_MARKER | EVENT_CALLBACK_TYPE.TIMELINE_BEAT);
     }
 
 
@@ -179,7 +235,7 @@ public class AudioManager : MonoBehaviour
 
     public void SFXtransition() { // 상점 -> 보드 뭐 이런 전환 시에
         EventInstance transitionSFX = RuntimeManager.CreateInstance("event:/transition");
-        int barMod = timelineInfo.currentMusicBar % 4;
+        int barMod = timelineInfo1.currentMusicBar % 4;
         Debug.Log("barMod: " + barMod);
         if(barMod == 1) {
             transitionSFX.setParameterByName("transition", 0);

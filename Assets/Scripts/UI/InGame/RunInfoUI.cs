@@ -13,6 +13,7 @@ public class RunInfoUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI baseMultiplierText;
     [SerializeField] private TextMeshProUGUI defaultRerollCountText;
     [SerializeField] private Image mostPlacedBlockImage;
+    [SerializeField] private TextMeshProUGUI tipText;
     private RectTransform rectTransform;
 
     private const float insidePositionY = 0;
@@ -23,12 +24,18 @@ public class RunInfoUI : MonoBehaviour
     private float runStartTime;
     private bool isUpdatingTime;
 
+    private readonly List<string> tips = new List<string>()
+    {
+        "줄 지우기는 다른 아이템의 효과를 발동시키지 않습니다!",
+        "배수는 점수 계산 후 기본 배수로 초기화됩니다!",
+    };
+
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
     }
 
-    public void Initialize(RunData runData, float startTime, BlockType mostPlacedBlockType)
+    public void Initialize(RunData runData, float startTime, BlockType? mostPlacedBlockType)
     {
         currentRunData = runData;
         runStartTime = startTime;
@@ -36,7 +43,12 @@ public class RunInfoUI : MonoBehaviour
         // 기본 데이터 UI에 표시
         baseMultiplierText.text = "x" + runData.baseMatchMultipliers[MatchType.ROW];
         defaultRerollCountText.text = runData.baseRerollCount.ToString();
-        mostPlacedBlockImage.sprite = Resources.Load<Sprite>($"Sprites/Block/Preset/{mostPlacedBlockType.ToString()}");
+        if (mostPlacedBlockType != null)
+        {
+            mostPlacedBlockImage.sprite = Resources.Load<Sprite>($"Sprites/Block/Preset/{mostPlacedBlockType.ToString()}");
+            mostPlacedBlockImage.color = new Color(1f, 1f, 1f, 1f);
+        }
+        tipText.text = tips[Random.Range(0, tips.Count)];
     }
 
     public void OpenRunInfoUI()

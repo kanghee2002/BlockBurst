@@ -21,4 +21,4 @@ MonoBehaviour:
   block: {fileID: 11400000, guid: 8ce73ce0dd6031a44b800d70efc05a9d, type: 2}
   isPurchasableAgain: 0
   effectType: 1
-  rarity: 0
+  rarity: 1

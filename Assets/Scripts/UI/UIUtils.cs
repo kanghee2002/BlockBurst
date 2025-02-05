@@ -9,18 +9,33 @@ public static class UIUtils
     // 효과 타입별 색상 정의
     public static readonly Dictionary<ItemEffectType, Color> effectColors = new Dictionary<ItemEffectType, Color>()
     {
-        { ItemEffectType.SCORE, new Color(0x0b/255f, 0xa9/255f, 0x05/255f) }, // #0ba905
-        { ItemEffectType.DECK, new Color(0x47/255f, 0x38/255f, 0xff/255f) },  // #4738ff
-        { ItemEffectType.GOLD, new Color(0xd9/255f, 0xa7/255f, 0x38/255f) },  // #d9a738
-        { ItemEffectType.OTHER, new Color(0xfc/255f, 0x8b/255f, 0x4d/255f) }  // #fc8b4d
+        { ItemEffectType.SCORE, new Color(0x47/255f, 0x38/255f, 0xff/255f) }, // #4738ff 파랑
+        { ItemEffectType.DECK, new Color(0xe3/255f, 0x6f/255f, 0x2a/255f) },  // #e36f2a 주황
+        { ItemEffectType.GOLD, new Color(0xd9/255f, 0xa7/255f, 0x38/255f) },  // #d9a738 노랑
+        { ItemEffectType.OTHER, new Color(0x8c/255f, 0x8c/255f, 0x8c/255f) }  // #8c8c8c 회색
     };
 
     // 레어도별 색상 정의
     public static readonly Dictionary<ItemRarity, Color> rarityColors = new Dictionary<ItemRarity, Color>()
     {
-        { ItemRarity.SILVER, new Color(0xb0/255f, 0xa7/255f, 0xb8/255f) },   // #b0a7b8
-        { ItemRarity.GOLD, new Color(0xff/255f, 0xc8/255f, 0x57/255f) },     // #ffc857
-        { ItemRarity.PLATINUM, new Color(0xc0/255f, 0xf9/255f, 0xff/255f) }  // #c0f9ff
+        { ItemRarity.SILVER, new Color(0x0b/255f, 0xa9/255f, 0x05/255f) },   // #0ba905 연두
+        { ItemRarity.GOLD, new Color(0x70/255f, 0x1b/255f, 0xd2/255f) },     // #701bd2 보라
+        { ItemRarity.PLATINUM, new Color(0xb7/255f, 0x1c/255f, 0x31/255f) }  // #b71c31 빨강
+    };
+
+    public static readonly Dictionary<ItemType, string> itemTypeNames = new Dictionary<ItemType, string>()
+    {
+        { ItemType.ITEM, "아이템" },
+        { ItemType.UPGRADE, "강화" },
+        { ItemType.ADD_BLOCK, "덱" },
+        { ItemType.CONVERT_BLOCK, "덱" },
+    };
+
+    public static readonly Dictionary<ItemRarity, string> itemRarityNames = new Dictionary<ItemRarity, string>()
+    {
+        { ItemRarity.SILVER, "일반" },
+        { ItemRarity.GOLD, "희귀" },
+        { ItemRarity.PLATINUM, "레어" },
     };
 
     public static string ToCamelCase(this string str)

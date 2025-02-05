@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlockJLTMultiplierUpgradeEffect
   m_EditorClassIdentifier: 
   id: BlockJLTMultiplierUpgradeEffect
-  effectName: "J, L, T \uBC30\uCE58\uD574\n\uC904 \uC9C0\uC6B8 \uB54C\n\uBC30\uC218
+  effectName: "J/L/T \uBC30\uCE58\uD574\n\uC904 \uC9C0\uC6B8 \uB54C\n\uBC30\uC218
     +1"
   type: 2
   trigger: 3

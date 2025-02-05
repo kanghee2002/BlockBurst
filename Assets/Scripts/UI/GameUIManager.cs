@@ -84,7 +84,7 @@ public class GameUIManager : MonoBehaviour
         }
     }
 
-    public void OnRunInfoCallback(RunData runData, float startTime, BlockType mostPlacedBlockType)
+    public void OnRunInfoCallback(RunData runData, float startTime, BlockType? mostPlacedBlockType)
     {
         runInfoUI.Initialize(runData, startTime, mostPlacedBlockType);
     }

@@ -10,6 +10,8 @@ public class ItemDescriptionUI : MonoBehaviour, IPointerEnterHandler, IPointerEx
 {
     [SerializeField] private GameObject itemDescriptionUI;
     [SerializeField] private float fadeTime = 0.2f;  // fade in/out 시간
+    [SerializeField] private Image rarityLayout;
+    [SerializeField] private TextMeshProUGUI itemTypeText;
 
     private ItemData item;
     private string currentDescription;
@@ -28,10 +30,13 @@ public class ItemDescriptionUI : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public void Initialize(ItemData item)
     {
         this.item = item;
-        currentDescription = GetDescription(item);
-        itemDescriptionUI.transform.GetChild(1).GetComponent<Image>().color = UIUtils.effectColors[item.effectType]; // 효과
+        currentDescription = GetDescription(item); 
+        itemDescriptionUI.transform.GetChild(1).GetComponent<Image>().color = UIUtils.effectColors[ItemEffectType.OTHER]; // 회색
         itemDescriptionUI.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = currentDescription;
         transform.GetChild(6).GetComponent<Image>().color = UIUtils.rarityColors[item.rarity]; // 레어도
+        rarityLayout.color = UIUtils.rarityColors[item.rarity];
+        rarityLayout.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = UIUtils.itemRarityNames[item.rarity];
+        itemTypeText.text = UIUtils.itemTypeNames[item.type];
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -54,23 +59,8 @@ public class ItemDescriptionUI : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     private string GetDescription(ItemData item)
     {
-        string description = "<size=35>";
+        string description = "";
         
-        if (item.type == ItemType.ITEM)
-        {
-            description += "[아이템]";
-        }
-        else if (item.type == ItemType.UPGRADE)
-        {
-            description += "[강화]";
-        }
-        else
-        {
-            description += "[덱]";
-        }
-
-        description += "</size>\n";
-
         for (int i = 0; i < item.effects.Count; i++)
         {
             description += item.effects[i].effectName;

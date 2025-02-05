@@ -351,9 +351,14 @@ public class GameManager : MonoBehaviour
                     currentStageIndex++;
                 }
                 StartShop(true);
+
+                // 게임 관련 UI 초기화
                 UpdateDeckCount(runData.availableBlocks.Count, runData.availableBlocks.Count);
                 UpdateBaseMultiplier();
+
                 GameUIManager.instance.StopAllItemShakeAnimation();
+                GameUIManager.instance.StopWarningStageEffectAnimation(true);
+                GameUIManager.instance.StopWarningStageEffectAnimation(false);
             }
         } 
         else 

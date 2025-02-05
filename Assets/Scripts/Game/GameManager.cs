@@ -208,7 +208,9 @@ public class GameManager : MonoBehaviour
     public void OnRunInfoRequested()
     {
         // 최대로 사용된 블록 찾기
-        BlockType mostPlacedBlockType = (BlockType)history.blockHistory.ToList().IndexOf(history.blockHistory.Max());
+        int maxCount = history.blockHistory.Max();
+        BlockType? mostPlacedBlockType =  maxCount > 0 ? (BlockType)history.blockHistory.ToList().IndexOf(maxCount) : null;
+
         // Run 정보 UI 열기
         GameUIManager.instance.OnRunInfoCallback(runData, history.startTime, mostPlacedBlockType);
     }

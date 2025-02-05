@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public DeckManager deckManager;
     public ShopManager shopManager;
     public StageManager stageManager;
+    public TutorialManager tutorialManager;
 
     public StageData[] stageTemplates;
     public ItemData[] itemTemplates;
@@ -101,6 +102,7 @@ public class GameManager : MonoBehaviour
             deckManager = FindObjectOfType<DeckManager>();
             shopManager = FindObjectOfType<ShopManager>();
             stageManager = FindObjectOfType<StageManager>();
+            tutorialManager = FindObjectOfType<TutorialManager>();
             StartNewGame();
         }
     }
@@ -485,6 +487,11 @@ public class GameManager : MonoBehaviour
     public void PlayItemFullAnimation()
     {
         GameUIManager.instance.PlayItemFullAnimation();
+    }
+
+    public void ProcessTutorialStep()
+    {
+        tutorialManager.ProceedNextStep();
     }
 
     // ------------------------------

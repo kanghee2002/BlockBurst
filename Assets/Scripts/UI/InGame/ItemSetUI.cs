@@ -245,6 +245,7 @@ public class ItemSetUI : MonoBehaviour
 
     private void OnItemClick(GameObject discardButton)
     {
+        DisableAllDiscardButton(discardButton);
         AudioManager.instance.SFXSelectMenu();
         if (discardButton.activeSelf)
         {
@@ -262,6 +263,18 @@ public class ItemSetUI : MonoBehaviour
     {
         AudioManager.instance.SFXSelectMenu();
         GameManager.instance.OnItemDiscard(index);
+    }
+
+    private void DisableAllDiscardButton(GameObject exception)
+    {
+        foreach (GameObject itemIcon in itemIcons)
+        {
+            GameObject discardButton = itemIcon.transform.GetChild(4).gameObject;
+
+            if (discardButton == exception) continue;
+
+            discardButton.SetActive(false);
+        }
     }
 
     private void PlayDiscardItemAnimation(GameObject discardedObject)

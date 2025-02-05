@@ -38,6 +38,15 @@ public class ShopManager : MonoBehaviour
         deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
     }
 
+    // 튜토리얼 용 함수
+    public void AddFirstItem(List<string> items)
+    {
+        foreach (string item in items)
+        {
+            firstShopItemList.Add(item);
+        }
+    }
+
     public int PurchaseItem(ItemData item)
     {
         if (item == null) return -1;

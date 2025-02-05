@@ -134,6 +134,8 @@ public class GameUIManager : MonoBehaviour
             popupState = PopupState.deckInfo;
             GameManager.instance.OnDeckInfoRequested();
             deckInfoUI.OpenDeckInfoUI();
+
+            GameManager.instance.ProcessTutorialStep();
         }
     }
 
@@ -193,6 +195,7 @@ public class GameUIManager : MonoBehaviour
         if (sceneState == SceneState.selecting && popupState == PopupState.none)
         {
             GameManager.instance.OnStageSelection(choiceIndex);
+            GameManager.instance.ProcessTutorialStep();
         }
     }
 

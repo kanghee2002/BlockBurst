@@ -24,7 +24,7 @@ public class RunInfoUI : MonoBehaviour
     private float runStartTime;
     private bool isUpdatingTime;
 
-    private List<string> tips = new List<string>()
+    private readonly List<string> tips = new List<string>()
     {
         "줄 지우기는 다른 아이템의 효과를 발동시키지 않습니다!",
         "배수는 점수 계산 후 기본 배수로 초기화됩니다!",

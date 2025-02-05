@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlockJLTScoreUpgradeEffect
   m_EditorClassIdentifier: 
   id: BlockJLTScoreUpgradeEffect
-  effectName: "J, L, T\n\uC810\uC218 +4"
+  effectName: "J/L/T\n\uC810\uC218 +4"
   type: 0
   trigger: 0
   scope: 0

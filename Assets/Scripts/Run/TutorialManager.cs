@@ -47,8 +47,11 @@ public class TutorialManager : MonoBehaviour
         public RectTransform highlightRect;
         public RectTransform clickableRect;
         public string description;
+
+        [Header("Additional")]
         public bool isNextButtonInactive;
         public bool isInactive;
+        public float highlightDelay;
     }
     [Header("Tutorial Step")]
     [SerializeField] private List<TutorialStep> tutorialSteps = new List<TutorialStep>();
@@ -155,7 +158,7 @@ public class TutorialManager : MonoBehaviour
             .SetEase(Ease.OutBack, overshoot: 1.2f);
 
         // 하이라이트 표시
-        SetHightlight(currentStep.highlightRect);
+        SetHightlight(currentStep.highlightRect, currentStep.highlightDelay);
      
         // 클릭 방지
         if (currentStep.isInactive)
@@ -195,7 +198,7 @@ public class TutorialManager : MonoBehaviour
         stepCount++;
     }
 
-    private void SetHightlight(RectTransform source)
+    private void SetHightlight(RectTransform source, float delay = 0f)
     {
         // 이전에 꺼져있었다면
         if (!highlightRect.gameObject.activeSelf)
@@ -286,8 +289,8 @@ public class TutorialManager : MonoBehaviour
             //UIUtils.OpenUI(highlightAreaRect, "Y", -178f, 0.2f);
         }
 
-        highlightRect.DOMove(highlightAreaRect.position, 0.5f);
-        highlightRect.DOSizeDelta(highlightAreaRect.rect.size, 0.5f);
+        highlightRect.DOMove(highlightAreaRect.position, 0.5f + delay);
+        highlightRect.DOSizeDelta(highlightAreaRect.rect.size, 0.5f + delay);
     }
 
     public void BlockInputExceptRect(RectTransform target)

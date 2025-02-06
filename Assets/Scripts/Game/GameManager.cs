@@ -375,6 +375,14 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(2.0f);
         EndStage(cleared);
+
+        yield return new WaitForSeconds(0.5f);
+
+        // 튜토리얼 진행 시 호출
+        if (currentChapterIndex == 1 && currentStageIndex == 2)
+        {
+            ProcessTutorialStep("EndStage");
+        }
     }
 
     public void StartShop(bool isFirst = false)
@@ -489,9 +497,9 @@ public class GameManager : MonoBehaviour
         GameUIManager.instance.PlayItemFullAnimation();
     }
 
-    public void ProcessTutorialStep()
+    public void ProcessTutorialStep(string sign)
     {
-        tutorialManager.ProceedNextStep();
+        tutorialManager.ProceedNextStep(sign);
     }
 
     // ------------------------------

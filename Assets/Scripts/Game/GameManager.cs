@@ -77,6 +77,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         LoadTemplates();
+        Application.targetFrameRate = 30; // for mobile build
     }
 
     void LoadTemplates()

@@ -23,6 +23,9 @@ public class BoardUI : MonoBehaviour
     private const float outsidePositionOffsetY = -1080;
     private const float duration = 0.2f;
 
+    const float MIN_SIZE = 0.8f;
+    const float MAX_SIZE = 1.3f;
+
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -54,8 +57,9 @@ public class BoardUI : MonoBehaviour
         // 여유 공간을 약간 둬서 경계에 딱 붙지 않도록 함
         float scale = Mathf.Min(availableWidth / boardWidth, availableHeight / boardHeight) * 0.9f;
 
-        // 최소 크기 제한
-        scale = Mathf.Max(scale, 0.1f);
+        // 최대, 최소 크기 제한
+        scale = Mathf.Max(scale, MIN_SIZE);
+        scale = Mathf.Min(scale, MAX_SIZE);
         
         // 크기 적용
         rectTransform.localScale = Vector3.one * scale;
@@ -70,7 +74,7 @@ public class BoardUI : MonoBehaviour
         height = rows;
         width = columns;
 
-        //AutoSizing(height, width);
+        AutoSizing(height, width);
 
         // 기존 boardCell 비우기
         foreach (Transform child in transform)

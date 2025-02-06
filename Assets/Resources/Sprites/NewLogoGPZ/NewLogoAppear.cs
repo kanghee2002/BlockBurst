@@ -12,13 +12,19 @@ public class NewLogoAppear : MonoBehaviour
 
     [SerializeField] private Animator anim;
     [SerializeField] private Button startButton;
+    [SerializeField] private Toggle tutorialToggle;
 
     private EventInstance eventInstance;
     void Start()
     {
         startButton.onClick.AddListener(OnStartButtonClick);
+        tutorialToggle.onValueChanged.AddListener(OnToggleTutorial);
         StartCoroutine(Wait());
         eventInstance = RuntimeManager.CreateInstance("event:/mainmenuloop");
+
+        // gameManager에 따름
+        bool isTutorial = GameManager.instance.GetTutorialValue();
+        tutorialToggle.isOn = isTutorial;
     }
 
     // Update is called once per frame
@@ -31,7 +37,13 @@ public class NewLogoAppear : MonoBehaviour
         RuntimeManager.PlayOneShot("event:/game_start_button");
         eventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
 
-        //////////////// 여기에 게임 씬으로 넘어가는 부분 추가바람 //////////////// plz add transition to game scene ///////////////////
+        SceneTransitionManager.instance.TransitionToScene("GameScene");
+    }
+
+    void OnToggleTutorial(bool value) {
+        AudioManager.instance.SFXSelectMenu();
+
+        GameManager.instance.SetTutorialValue(value);
     }
 
     IEnumerator Wait()
@@ -46,6 +58,7 @@ public class NewLogoAppear : MonoBehaviour
         
         
         StartCoroutine(AppearStartButton());
+        StartCoroutine(AppearTutorialToggle());
     }
 
     IEnumerator AppearStartButton() {
@@ -62,6 +75,21 @@ public class NewLogoAppear : MonoBehaviour
         currentPos = endPos;
         startButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(currentPos, 0);
 
+    }
+
+    IEnumerator AppearTutorialToggle() {
+        float startPos = 361f;
+        float endPos = -361f;
+        float currentPos = startPos;
+        float startY = -100f;
+
+        while(currentPos > endPos + 3f) {
+            currentPos += (endPos - currentPos) / 8;
+            yield return new WaitForSeconds(0.01f);
+            tutorialToggle.GetComponent<RectTransform>().anchoredPosition = new Vector2(currentPos, startY);
+        }
+        currentPos = endPos;
+        tutorialToggle.GetComponent<RectTransform>().anchoredPosition = new Vector2(currentPos, startY);
     }
 
 

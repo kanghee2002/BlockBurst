@@ -6,6 +6,7 @@ using UnityEngine;
 using static Unity.Collections.AllocatorManager;
 using static Unity.VisualScripting.Member;
 using static UnityEngine.GraphicsBuffer;
+using UnityEngine.UI;
 
 public class TutorialManager : MonoBehaviour
 {
@@ -125,6 +126,12 @@ public class TutorialManager : MonoBehaviour
         };
         GameManager.instance.shopManager.AddFirstItem(firstShopItems);
 
+        StartCoroutine(ProcessStepCoroutine());
+    }
+
+    IEnumerator ProcessStepCoroutine()
+    {
+        yield return null;
         ProcessStep();
     }
 

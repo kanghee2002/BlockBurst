@@ -90,6 +90,10 @@ public class DeckInfoUI : MonoBehaviour
         {
             if (Enums.IsDefaultBlockType((BlockType)i))
             {
+                if (!countDictionary.ContainsKey((BlockType)i))
+                {
+                    countDictionary[(BlockType)i] = 0;
+                }
                 InitializeBlockUI(BlockTransforms[i], (BlockType)i, countDictionary[(BlockType)i], scoreDictionary[(BlockType)i]);
                 BlockTransforms[i].localPosition = new Vector3(0, ROW_REF - ROW_OFFSET * basicPos, 0);
                 basicPos++;

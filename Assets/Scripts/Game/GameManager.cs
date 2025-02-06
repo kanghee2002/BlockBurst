@@ -105,12 +105,12 @@ public class GameManager : MonoBehaviour
             shopManager = FindObjectOfType<ShopManager>();
             stageManager = FindObjectOfType<StageManager>();
             tutorialManager = FindObjectOfType<TutorialManager>();
+            StartNewGame();
             if (isTutorial)
             {
                 isTutorial = false;
                 tutorialManager.Initialize();
             }
-            StartNewGame();
         }
     }
 
@@ -119,6 +119,16 @@ public class GameManager : MonoBehaviour
     {
         AudioManager.instance.SFXSelectMenu();
         SceneTransitionManager.instance.TransitionToScene("GameScene");
+    }
+
+    public void SetTutorialValue(bool isTutorial)
+    {
+        this.isTutorial = isTutorial;
+    }
+
+    public bool GetTutorialValue()
+    {
+        return isTutorial;
     }
 
     public void StartNewGame()
@@ -715,6 +725,7 @@ public class GameManager : MonoBehaviour
     }
 
     public bool TryPlaceBlock(int idx, Vector2Int pos, GameObject blockObj) {
+        if (isClearStage) return false;
         Block block = handBlocks[idx];
         bool success = board.PlaceBlock(block, pos);
         if (success) {

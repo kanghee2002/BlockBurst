@@ -97,7 +97,7 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator ProcessStepCoroutine()
     {
-        yield return null;
+        yield return new WaitForSeconds(0.5f);
         ProcessStep();
     }
 

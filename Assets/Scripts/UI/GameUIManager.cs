@@ -135,7 +135,7 @@ public class GameUIManager : MonoBehaviour
             GameManager.instance.OnDeckInfoRequested();
             deckInfoUI.OpenDeckInfoUI();
 
-            GameManager.instance.ProcessTutorialStep();
+            GameManager.instance.ProcessTutorialStep("Deck");
         }
     }
 
@@ -150,6 +150,8 @@ public class GameUIManager : MonoBehaviour
         {
             popupState = PopupState.none;
             deckInfoUI.CloseDeckInfoUI();
+
+            GameManager.instance.ProcessTutorialStep("DeckBack");
         }
     }
 
@@ -161,6 +163,8 @@ public class GameUIManager : MonoBehaviour
             //Debug.Log("다음 스테이지로 버튼 눌림");
             GameManager.instance.StartStageSelection();
             ChangeSceneState(SceneState.selecting);
+
+            GameManager.instance.ProcessTutorialStep("NextStage");
         }
     }
     
@@ -173,6 +177,8 @@ public class GameUIManager : MonoBehaviour
             itemBoardUI.PurchaseItem(index);
 
             AudioManager.instance.SFXShopBuy();
+
+            GameManager.instance.ProcessTutorialStep("Purchase");
         }
         else
         {
@@ -195,7 +201,7 @@ public class GameUIManager : MonoBehaviour
         if (sceneState == SceneState.selecting && popupState == PopupState.none)
         {
             GameManager.instance.OnStageSelection(choiceIndex);
-            GameManager.instance.ProcessTutorialStep();
+            GameManager.instance.ProcessTutorialStep("StageChoice");
         }
     }
 

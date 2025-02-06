@@ -15,8 +15,12 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private ButtonUI nextButton;
 
     [Header("Block Click")]
-    [SerializeField] private RectTransform blockClick;
+    [SerializeField] private RectTransform clickableRect;
     [SerializeField] private RectTransform[] blocks; // 클릭 막는 4개의 Rect
+
+    [Header("For Shopping")]
+    [SerializeField] private RectTransform itemShowcaseUI;
+    [SerializeField] private RectTransform itemSetUI;
 
     private enum Block
     {
@@ -31,12 +35,12 @@ public class TutorialManager : MonoBehaviour
     {
         public Vector2 characterPosition;
         public RectTransform highlightRect;
-        public bool isAllowClick;
+        public RectTransform clickableRect;
         public string description;
         public bool isNextButtonInactive;
-        public bool isInactiveInNextStep;
+        public bool isInactive;
     }
-
+    [Header("Tutorial Step")]
     [SerializeField] private List<TutorialStep> tutorialSteps = new List<TutorialStep>();
     
     private int stepCount;
@@ -87,6 +91,9 @@ public class TutorialManager : MonoBehaviour
 
     private bool isPlayingTutorial = false;
     private bool isWaitingForClick = false;
+    private bool isWaitingForSignal = false;
+
+    private int itemCount = 0;
 
     private void Start()
     {
@@ -99,7 +106,9 @@ public class TutorialManager : MonoBehaviour
 
         stepCount = 0;
         isPlayingTutorial = true;
-        isWaitingForClick = true;
+        isWaitingForClick = false;
+        isWaitingForSignal = false;
+        itemCount = 0;
 
         List<string> firstShopItems = new List<string>()
         {
@@ -112,10 +121,19 @@ public class TutorialManager : MonoBehaviour
         ProcessStep();
     }
 
-    public void ProceedNextStep()
+    public void ProceedNextStep(string sign)
     {
-        if (!isWaitingForClick) return;
-        ProcessStep();
+        if (isWaitingForClick && 
+           (sign == "StageChoice" || sign == "Deck" || sign == "DeckBack" ||
+            sign == "Purchase" || sign == "NextStage"))
+        {
+            ProcessStep();
+        }
+
+        else if (isWaitingForSignal && sign == "EndStage")
+        {
+            ProcessStep();
+        }
     }
 
     private void ProcessStep()
@@ -131,14 +149,22 @@ public class TutorialManager : MonoBehaviour
         
         // 하이라이트 표시
         SetHightlight(currentStep.highlightRect);
-        if (currentStep.highlightRect == null) highlightRect.gameObject.SetActive(false); 
+     
 
         // 클릭 방지
+        if (currentStep.isInactive)
+        {
+            DisableBlocks();
+        }
+        else
+        {
+            BlockInputExceptRect(currentStep.clickableRect);
+        }
 
         // 설명 표시
-        descriptionText.text = currentStep.description;
+        descriptionText.text = currentStep.description.Replace("\\n", "\n");
 
-        // 다음 버튼 뜰지 말지
+        // '다음 버튼' 뜰지 말지
         if (currentStep.isNextButtonInactive)
         {
             isWaitingForClick = true;
@@ -148,6 +174,13 @@ public class TutorialManager : MonoBehaviour
         {
             isWaitingForClick = false;
             nextButton.gameObject.SetActive(true); //TODO Animation
+        }
+
+        // 캐릭터 사라질지 말지
+        if (currentStep.isInactive)
+        {
+            isWaitingForSignal = true;
+            characterRect.gameObject.SetActive(false);
         }
 
         stepCount++;
@@ -161,6 +194,26 @@ public class TutorialManager : MonoBehaviour
         {
             highlightRect.gameObject.SetActive(false);
             return;
+        }
+        else if (source == characterRect)
+        {
+            highlightRect.sizeDelta = Vector2.zero;
+            return;
+        }
+        else if (source == itemShowcaseUI)
+        {
+            if (itemCount == 0 || itemCount == 1)
+            {
+                source = source.GetChild(itemCount).GetComponent<RectTransform>();
+            }
+            else if (itemCount >= 2)
+            {
+                source = source.GetChild(2).GetComponent<RectTransform>();
+            }
+        }
+        else if (source == itemSetUI)
+        {
+            source = source.GetChild(0).GetComponent<RectTransform>();
         }
 
         Canvas canvas = source.GetComponentInParent<Canvas>();
@@ -176,43 +229,84 @@ public class TutorialManager : MonoBehaviour
         // 4. 회전값도 동일하게 설정 (필요한 경우)
         highlightRect.rotation = source.rotation;
 
+        if (source.parent.name == "DeckInfoBackButtonUI" ||
+            source.name == "DeckInfoUI")
+        {
+            highlightRect.anchoredPosition = new Vector2(0f, highlightRect.anchoredPosition.y);
+        }
+        else if (source.name == "HandUI")
+        {
+            highlightRect.anchoredPosition = new Vector2(highlightRect.anchoredPosition.x - (source.anchoredPosition.x - (-188f)), highlightRect.anchoredPosition.y);
+        }
+        else if (stepCount > 30 &&  source.name == "ScoreAndRewardLayout")
+        {
+            UIUtils.OpenUI(highlightRect, "Y", -178f, 0.2f);
+        }
         // TODO animation
-
-        // 하이라이트 부분만 클릭 가능하게
-        BlockInputExceptRect(highlightRect);
     }
 
     public void BlockInputExceptRect(RectTransform target)
     {
-        Debug.Log("Current Target: " + target.name);
-        if (target == characterRect)
+        foreach (RectTransform block in blocks)
+        {
+            block.gameObject.SetActive(true);
+        }
+
+        if (target == null)
         {
             blocks[(int)Block.Left].sizeDelta = new Vector2(Screen.width / 2f, 0);
             blocks[(int)Block.Right].sizeDelta = new Vector2(Screen.width / 2f, 0);
             blocks[(int)Block.Top].sizeDelta = new Vector2(0, Screen.height / 2f);
             blocks[(int)Block.Bottom].sizeDelta = new Vector2(0, Screen.height / 2f);
+            return;
         }
-        Debug.Log("PosX: " + target.anchoredPosition.x);
+        else if (target == itemShowcaseUI)
+        {
+            if (itemCount == 0 || itemCount == 1)
+            {
+                target = target.GetChild(itemCount).GetComponent<RectTransform>(); ;
+            }
+            else if (itemCount >= 2)
+            {
+                target = target.GetChild(2).GetComponent<RectTransform>();
+            }
+            itemCount++;
+        }
+        else if (target == itemSetUI)
+        {
+            target = target.GetChild(0).GetComponent<RectTransform>();
+        }
+
+        /*Debug.Log("PosX: " + target.anchoredPosition.x);
         Debug.Log("PosY: " + target.anchoredPosition.y);
         Debug.Log("Width: " + target.rect.width);
-        Debug.Log("Height: " + target.rect.height);
+        Debug.Log("Height: " + target.rect.height);*/
 
+        MatchRect(target, clickableRect);
 
-        blocks[(int)Block.Left].sizeDelta = new Vector2(Screen.width / 2f + target.anchoredPosition.x - target.rect.width / 2f, 0);
-        blocks[(int)Block.Right].sizeDelta = new Vector2(Screen.width / 2f - target.anchoredPosition.x - target.rect.width / 2f, 0);
-        blocks[(int)Block.Top].sizeDelta = new Vector2(0, Screen.height / 2f - target.anchoredPosition.y - target.rect.height / 2f);
-        blocks[(int)Block.Bottom].sizeDelta = new Vector2(0, Screen.height / 2f + target.anchoredPosition.y - target.rect.height / 2f);
+        if (target.parent.name == "DeckInfoBackButtonUI" ||
+            target.name == "DeckInfoUI")
+        {
+            clickableRect.anchoredPosition = new Vector2(0f, clickableRect.anchoredPosition.y);
+        }
+        else if (target.name == "HandUIasdasdsd")
+        {
+            clickableRect.anchoredPosition = new Vector2(-188f, clickableRect.anchoredPosition.y);
+        }
+
+        blocks[(int)Block.Left].sizeDelta = new Vector2(Screen.width / 2f + clickableRect.anchoredPosition.x - clickableRect.rect.width / 2f, 0);
+        blocks[(int)Block.Right].sizeDelta = new Vector2(Screen.width / 2f - clickableRect.anchoredPosition.x - clickableRect.rect.width / 2f, 0);
+        blocks[(int)Block.Top].sizeDelta = new Vector2(0, Screen.height / 2f - clickableRect.anchoredPosition.y - clickableRect.rect.height / 2f);
+        blocks[(int)Block.Bottom].sizeDelta = new Vector2(0, Screen.height / 2f + clickableRect.anchoredPosition.y - clickableRect.rect.height / 2f);
     }
 
-    void SetBlock(RectTransform block, Vector2 size, Vector2 anchor)
+    private void DisableBlocks()
     {
-        block.anchorMin = anchor;
-        block.anchorMax = anchor;
-        block.pivot = anchor;
-        block.sizeDelta = size;
-        block.gameObject.SetActive(true);
+        foreach (RectTransform block in blocks)
+        {
+            block.gameObject.SetActive(false);
+        }
     }
-
 
     private void MatchRect(RectTransform source, RectTransform target)
     {

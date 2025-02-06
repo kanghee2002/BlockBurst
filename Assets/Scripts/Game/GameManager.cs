@@ -105,12 +105,12 @@ public class GameManager : MonoBehaviour
             shopManager = FindObjectOfType<ShopManager>();
             stageManager = FindObjectOfType<StageManager>();
             tutorialManager = FindObjectOfType<TutorialManager>();
-            StartNewGame();
             if (isTutorial)
             {
                 isTutorial = false;
                 tutorialManager.Initialize();
             }
+            StartNewGame();
         }
     }
 
@@ -260,6 +260,19 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < nextStageChoices.Length; i++)
         {
             nextStageChoices[i] = templates[indices[i]];
+        }
+
+        //디버깅, 튜토리얼 시에만 실행
+        List<string> stageNames = stageManager.firstStageList;
+        if (stageNames.Count > 0) 
+        {
+            for (int i = 0; i < nextStageChoices.Length; i++)
+            {
+                if (stageNames.Count == 0) break;
+                StageData stage = templates.FirstOrDefault(x => x.id == stageNames[0]);
+                stageNames.RemoveAt(0);
+                nextStageChoices[i] = stage;
+            }
         }
 
         // 스테이지 난이도 설정

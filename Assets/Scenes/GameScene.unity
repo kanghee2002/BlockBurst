@@ -11699,6 +11699,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf551a7ed3fc2a643b86d1148f52d6bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firstStageList: []
   currentStage: {fileID: 0}
 --- !u!1 &1154177418
 GameObject:
@@ -12984,8 +12985,8 @@ MonoBehaviour:
     isNextButtonInactive: 0
     isInactive: 0
   - characterPosition: {x: -660, y: 200}
-    highlightRect: {fileID: 563390983}
-    clickableRect: {fileID: 563390983}
+    highlightRect: {fileID: 39161165}
+    clickableRect: {fileID: 39161165}
     description: "\uACC4\uC18D \uB3C4\uC804\uD574\uBCF4\uC138\uC694!!"
     isNextButtonInactive: 1
     isInactive: 0

@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class StageManager : MonoBehaviour
 {
+    [Header("DEBUG")]
+    // 첫 스테이지 선택에 나올 스테이지 지정
+    public List<string> firstStageList;
+
     private RunData runData;    // GM에서 받아온 RunData
     public StageData currentStage;
 

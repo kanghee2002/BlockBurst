@@ -61,6 +61,7 @@ public class AudioManager : MonoBehaviour
     private IEnumerator shopTransition;
     private IEnumerator stageTransitionIn;
     private IEnumerator stageTransitionOut;
+    private IEnumerator talker;
     void Start()
     {
         /*
@@ -78,6 +79,16 @@ public class AudioManager : MonoBehaviour
     void OnDestroy() {
         stageSource.setUserData(IntPtr.Zero);
         timelineHandle.Free();
+    }
+
+    void ChangeBGMVolume(float volume) {
+        // Change FMOD VCA volume
+        RuntimeManager.GetVCA("vca:/BGM").setVolume(volume);
+    }
+
+    void ChangeSFXVolume(float volume) {
+        // Change FMOD VCA volume
+        RuntimeManager.GetVCA("vca:/SFX").setVolume(volume);
     }
 
     public void RestartGame() { // 배경음악 초기화(1단계부터)
@@ -99,6 +110,29 @@ public class AudioManager : MonoBehaviour
             isPlaying = false;
         }
 
+    }
+
+    public void TutorialTalker(string text, float interval = 0.075f) {
+        if(talker != null) {
+            StopCoroutine(talker);
+        }
+        talker = TutorialVoiceActuator(text, interval);
+        StartCoroutine(talker);
+    }
+
+    IEnumerator TutorialVoiceActuator(string text, float interval) {
+        // Play the oneshot effect on every letter except space, also stop this after 30 letters
+        int count = 0;
+        foreach(char c in text) {
+            if(c != ' ') {
+                RuntimeManager.PlayOneShot("event:/tutorial_talk");
+                count++;
+                if(count >= 30) {
+                    break;
+                }
+            }
+            yield return new WaitForSeconds(interval);
+        }
     }
 
     public void ChangeStage(int stage) {
@@ -235,12 +269,12 @@ public class AudioManager : MonoBehaviour
 
     public void SFXtransition() { // 상점 -> 보드 뭐 이런 전환 시에
         EventInstance transitionSFX = RuntimeManager.CreateInstance("event:/transition");
-        int barMod = timelineInfo1.currentMusicBar % 4;
+        int barMod = timelineInfo1.currentMusicBar % 8;
         Debug.Log("barMod: " + barMod);
-        if(barMod == 1) {
+        if(barMod == 1 || barMod == 2) {
             transitionSFX.setParameterByName("transition", 0);
         }
-        else if(barMod == 2) {
+        else if(barMod == 3 || barMod == 4) {
             transitionSFX.setParameterByName("transition", 1);
         }
         else {

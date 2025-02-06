@@ -136,6 +136,7 @@ public class TutorialManager : MonoBehaviour
 
         // 캐릭터 이동
         characterRect.gameObject.SetActive(true);
+        characterRect.DOKill();
         characterRect.localScale = Vector3.one;
 
         //characterRect.anchoredPosition = currentStep.characterPosition;
@@ -376,6 +377,7 @@ public class TutorialManager : MonoBehaviour
 
     private void PlayDisapearRect(RectTransform rect)
     {
+        rect.DOKill();
         rect.DOScale(0f, 0.3f).SetEase(Ease.InOutQuad)
             .OnComplete(() =>
             {
@@ -386,10 +388,10 @@ public class TutorialManager : MonoBehaviour
 
     private void PlayCharacterSpeakAnimation()
     {
-        /*characterRect.DOPunchScale(Vector3.one * 0.3f, duration: 0.7f, vibrato: 10)
+        characterRect.DOPunchScale(Vector3.one * 0.3f, duration: 1f, vibrato: 7)
             .OnComplete(() =>
             {
                 characterRect.localScale = Vector3.one;
-            });*/
+            });
     }
 }

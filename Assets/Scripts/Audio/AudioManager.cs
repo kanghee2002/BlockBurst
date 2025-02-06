@@ -284,6 +284,32 @@ public class AudioManager : MonoBehaviour
         transitionSFX.release();
     }
 
+    public void SFXStageClear() {
+        RuntimeManager.PlayOneShot("event:/stage_clear");
+    }
+
+    public void SFXGameOver() {
+        RuntimeManager.PlayOneShot("event:/game_over");
+        stageSource.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+    }
+
+    public void SFXGameWin() {
+        RuntimeManager.PlayOneShot("event:/game_win");
+    }
+
+    public void SFXEffectON() {
+        RuntimeManager.PlayOneShot("event:/effect_on");
+    }
+
+    public void SFXThrowItem() {
+        RuntimeManager.PlayOneShot("event:/throw_item");
+    }
+
+    public void SFXGold() {
+        RuntimeManager.PlayOneShot("event:/gold");
+    }
+
+
     static FMOD.RESULT BeatEventCallback(FMOD.Studio.EVENT_CALLBACK_TYPE type, IntPtr instancePtr, IntPtr parameterPtr) {
         EventInstance instance = new EventInstance(instancePtr);
         IntPtr timelineInfoPtr;

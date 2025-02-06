@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -11,6 +12,8 @@ public class TutorialManager : MonoBehaviour
 
     [SerializeField] private RectTransform characterRect;
     [SerializeField] private RectTransform highlightRect;
+    [SerializeField] private CutOutMaskUI shadow;
+    [SerializeField] private RectTransform textLayoutRect;
     [SerializeField] private TextMeshProUGUI descriptionText;
     [SerializeField] private ButtonUI nextButton;
 
@@ -18,9 +21,15 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private RectTransform clickableRect;
     [SerializeField] private RectTransform[] blocks; // 클릭 막는 4개의 Rect
 
+    [Header("Highlight Area")]
+    [SerializeField] private RectTransform highlightAreaRect;
+
     [Header("For Shopping")]
     [SerializeField] private RectTransform itemShowcaseUI;
     [SerializeField] private RectTransform itemSetUI;
+
+    [Header("Delay")]
+    [SerializeField] private float nextButtonDelay;
 
     private enum Block
     {
@@ -42,7 +51,7 @@ public class TutorialManager : MonoBehaviour
     }
     [Header("Tutorial Step")]
     [SerializeField] private List<TutorialStep> tutorialSteps = new List<TutorialStep>();
-    
+
     private int stepCount;
 
     // TODO: 텍스트에 색깔 넣기
@@ -95,10 +104,7 @@ public class TutorialManager : MonoBehaviour
 
     private int itemCount = 0;
 
-    private void Start()
-    {
-        //Initialize();
-    }
+    private float shadowAlpha;
 
     public void Initialize()
     {
@@ -109,6 +115,7 @@ public class TutorialManager : MonoBehaviour
         isWaitingForClick = false;
         isWaitingForSignal = false;
         itemCount = 0;
+        shadowAlpha = shadow.color.a;
 
         List<string> firstShopItems = new List<string>()
         {
@@ -142,15 +149,34 @@ public class TutorialManager : MonoBehaviour
 
         TutorialStep currentStep = tutorialSteps[stepCount];
 
+        // 캐릭터가 나타날 때 애니메이션
+        if (!characterRect.gameObject.activeSelf)
+        {
+            characterRect.DOPunchScale(Vector3.one * 1.2f, 0.3f);
+        }
+
         // 캐릭터 이동
         characterRect.gameObject.SetActive(true);
+        characterRect.localScale = Vector3.one;
 
-        characterRect.anchoredPosition = currentStep.characterPosition; // TODO Animation
-        
+        //characterRect.anchoredPosition = currentStep.characterPosition;
+        characterRect.DOAnchorPos(currentStep.characterPosition, 0.5f)
+            .SetEase(Ease.OutBack, overshoot: 1.2f);
+
+        // 설명 표시
+        textLayoutRect.gameObject.SetActive(true);
+
+        descriptionText.text = currentStep.description.Replace("\\n", "\n");
+
+        // 캐릭터와 함께 이동
+        textLayoutRect.anchoredPosition = new Vector2(characterRect.anchoredPosition.x, characterRect.anchoredPosition.y - 50f);
+        Vector2 nextTextPosition = new Vector2(currentStep.characterPosition.x, currentStep.characterPosition.y - 50f);
+        textLayoutRect.DOAnchorPos(nextTextPosition, 0.5f)
+            .SetEase(Ease.OutBack, overshoot: 1.2f);
+
         // 하이라이트 표시
         SetHightlight(currentStep.highlightRect);
      
-
         // 클릭 방지
         if (currentStep.isInactive)
         {
@@ -161,9 +187,6 @@ public class TutorialManager : MonoBehaviour
             BlockInputExceptRect(currentStep.clickableRect);
         }
 
-        // 설명 표시
-        descriptionText.text = currentStep.description.Replace("\\n", "\n");
-
         // '다음 버튼' 뜰지 말지
         if (currentStep.isNextButtonInactive)
         {
@@ -173,14 +196,20 @@ public class TutorialManager : MonoBehaviour
         else
         {
             isWaitingForClick = false;
-            nextButton.gameObject.SetActive(true); //TODO Animation
+            nextButton.gameObject.SetActive(false);
+            DOVirtual.DelayedCall(nextButtonDelay, PlayShowNextButton);
         }
 
         // 캐릭터 사라질지 말지
         if (currentStep.isInactive)
         {
             isWaitingForSignal = true;
-            characterRect.gameObject.SetActive(false);
+            PlayDisapearRect(characterRect);
+            PlayDisapearRect(textLayoutRect);
+        }
+        else
+        {
+            PlayCharacterSpeakAnimation();
         }
 
         stepCount++;
@@ -188,16 +217,45 @@ public class TutorialManager : MonoBehaviour
 
     private void SetHightlight(RectTransform source)
     {
+        // 이전에 꺼져있었다면
+        if (!highlightRect.gameObject.activeSelf)
+        {
+            // 점점 어두워지는 애니메이션
+            Color shadowColor = shadow.color;
+            shadowColor.a = 0f;
+            shadow.color = shadowColor;
+
+            shadow.DOFade(shadowAlpha, 0.5f);
+        }
+
         highlightRect.gameObject.SetActive(true);
 
         if (source == null)
         {
-            highlightRect.gameObject.SetActive(false);
+            // 이전에 켜져있었다면
+            if (highlightAreaRect.gameObject.activeSelf)
+            {
+                // 점점 밝아지는 애니메이션
+                shadow.DOFade(0f, 0.5f)
+                    .OnComplete(() =>
+                    {
+                        highlightRect.gameObject.SetActive(false);
+                        Color shadowColor = shadow.color;
+                        shadowColor.a = shadowAlpha;
+                        shadow.color = shadowColor;
+                    });
+            }
+            else
+            {
+                highlightRect.gameObject.SetActive(false);
+            }
             return;
         }
         else if (source == characterRect)
         {
-            highlightRect.sizeDelta = Vector2.zero;
+            highlightAreaRect.sizeDelta = Vector2.zero;
+            highlightRect.DOMove(highlightAreaRect.position, 0.5f);
+            highlightRect.DOSizeDelta(highlightAreaRect.rect.size, 0.5f);
             return;
         }
         else if (source == itemShowcaseUI)
@@ -223,26 +281,33 @@ public class TutorialManager : MonoBehaviour
         Vector2 sourceSize = source.rect.size;
 
         // 3. 위치와 크기 설정
-        highlightRect.position = source.position;
-        highlightRect.sizeDelta = sourceSize;
+        highlightAreaRect.position = source.position;
+        highlightAreaRect.sizeDelta = sourceSize;
+        //highlightRect.position = source.position;
+        //highlightRect.sizeDelta = sourceSize;
+        //highlightRect.DOMove(source.position, 0.5f);
+        //highlightRect.DOSizeDelta(sourceSize, 0.5f);
 
         // 4. 회전값도 동일하게 설정 (필요한 경우)
-        highlightRect.rotation = source.rotation;
+        highlightAreaRect.rotation = source.rotation;
 
         if (source.parent.name == "DeckInfoBackButtonUI" ||
             source.name == "DeckInfoUI")
         {
-            highlightRect.anchoredPosition = new Vector2(0f, highlightRect.anchoredPosition.y);
+            highlightAreaRect.anchoredPosition = new Vector2(0f, highlightAreaRect.anchoredPosition.y);
         }
         else if (source.name == "HandUI")
         {
-            highlightRect.anchoredPosition = new Vector2(highlightRect.anchoredPosition.x - (source.anchoredPosition.x - (-188f)), highlightRect.anchoredPosition.y);
+            highlightAreaRect.anchoredPosition = new Vector2(highlightAreaRect.anchoredPosition.x - (source.anchoredPosition.x - (-188f)), highlightAreaRect.anchoredPosition.y);
         }
         else if (stepCount > 30 &&  source.name == "ScoreAndRewardLayout")
         {
-            UIUtils.OpenUI(highlightRect, "Y", -178f, 0.2f);
+            highlightAreaRect.anchoredPosition = new Vector2(highlightAreaRect.anchoredPosition.x, -178f);
+            //UIUtils.OpenUI(highlightAreaRect, "Y", -178f, 0.2f);
         }
-        // TODO animation
+
+        highlightRect.DOMove(highlightAreaRect.position, 0.5f);
+        highlightRect.DOSizeDelta(highlightAreaRect.rect.size, 0.5f);
     }
 
     public void BlockInputExceptRect(RectTransform target)
@@ -322,5 +387,30 @@ public class TutorialManager : MonoBehaviour
 
         // 4. 회전값도 동일하게 설정 (필요한 경우)
         target.rotation = source.rotation;
+    }
+
+    private void PlayShowNextButton()
+    {
+        nextButton.gameObject.SetActive(true);
+        nextButton.transform.DOPunchScale(Vector3.one * 0.2f, duration: 0.2f);
+    }
+
+    private void PlayDisapearRect(RectTransform rect)
+    {
+        rect.DOScale(0f, 0.3f).SetEase(Ease.InOutQuad)
+            .OnComplete(() =>
+            {
+                rect.localScale = Vector3.one;
+                rect.gameObject.SetActive(false);
+            });
+    }
+
+    private void PlayCharacterSpeakAnimation()
+    {
+        /*characterRect.DOPunchScale(Vector3.one * 0.3f, duration: 0.7f, vibrato: 10)
+            .OnComplete(() =>
+            {
+                characterRect.localScale = Vector3.one;
+            });*/
     }
 }

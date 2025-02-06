@@ -1092,6 +1092,8 @@ RectTransform:
   - {fileID: 1878014325}
   - {fileID: 565023821}
   - {fileID: 129461113}
+  - {fileID: 130853843}
+  - {fileID: 1584208423}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1382,6 +1384,81 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 129461112}
+  m_CullTransparentMesh: 1
+--- !u!1 &130853842
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 130853843}
+  - component: {fileID: 130853845}
+  - component: {fileID: 130853844}
+  m_Layer: 5
+  m_Name: HighlightArea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &130853843
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 130853842}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 94935076}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &130853844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 130853842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &130853845
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 130853842}
   m_CullTransparentMesh: 1
 --- !u!1 &131216106
 GameObject:
@@ -6569,15 +6646,13 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2129016120}
-  - {fileID: 1752065956}
+  m_Children: []
   m_Father: {fileID: 94935076}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -660, y: 100}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 0, y: 117}
+  m_SizeDelta: {x: 175, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &565023822
 MonoBehaviour:
@@ -6592,14 +6667,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8867924, g: 0.36391956, b: 0.36391956, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 58a149fdad35f494ca3cceda2f78201c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -12660,6 +12735,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterRect: {fileID: 565023821}
   highlightRect: {fileID: 1416512547}
+  shadow: {fileID: 1225997146}
+  textLayoutRect: {fileID: 1584208423}
   descriptionText: {fileID: 425061193}
   nextButton: {fileID: 1752065957}
   clickableRect: {fileID: 129461113}
@@ -12668,8 +12745,10 @@ MonoBehaviour:
   - {fileID: 491959943}
   - {fileID: 600678341}
   - {fileID: 563924174}
+  highlightAreaRect: {fileID: 130853843}
   itemShowcaseUI: {fileID: 299935733}
   itemSetUI: {fileID: 1583208970}
+  nextButtonDelay: 0.7
   tutorialSteps:
   - characterPosition: {x: 0, y: 0}
     highlightRect: {fileID: 565023821}
@@ -12701,7 +12780,7 @@ MonoBehaviour:
     isInactive: 0
   - characterPosition: {x: 700, y: 90}
     highlightRect: {fileID: 563390983}
-    clickableRect: {fileID: 1416512547}
+    clickableRect: {fileID: 563390983}
     description: "\uC120\uD0DD\uC744 \uD074\uB9AD\uD574 \uC2A4\uD14C\uC774\uC9C0\uB97C
       \uC2DC\uC791\uD558\uC138\uC694!"
     isNextButtonInactive: 1
@@ -12736,7 +12815,7 @@ MonoBehaviour:
     isInactive: 0
   - characterPosition: {x: 0, y: 0}
     highlightRect: {fileID: 1916213973}
-    clickableRect: {fileID: 1416512547}
+    clickableRect: {fileID: 1916213973}
     description: "'\uB371'\uC744 \uB20C\uB7EC \uBE14\uB85D \uC774\uB984\uACFC \uC810\uC218\uB97C
       \uD655\uC778\uD574\uBCF4\uC138\uC694"
     isNextButtonInactive: 1
@@ -12751,12 +12830,12 @@ MonoBehaviour:
   - characterPosition: {x: 750, y: 50}
     highlightRect: {fileID: 1019123824}
     clickableRect: {fileID: 1341970923}
-    description: "\uB3CC\uC544\uAE30\uAE30\uB97C \uB20C\uB7EC \uB3CC\uC544\uAC00\uC138\uC694!"
+    description: "\uB3CC\uC544\uAC00\uAE30\uB97C \uB20C\uB7EC \uB3CC\uC544\uAC00\uC138\uC694!"
     isNextButtonInactive: 1
     isInactive: 0
   - characterPosition: {x: -400, y: 50}
     highlightRect: {fileID: 231077321}
-    clickableRect: {fileID: 1416512547}
+    clickableRect: {fileID: 231077321}
     description: "\uBE14\uB85D\uC740 \uB204\uB974\uBA74 \uD68C\uC804\uC2DC\uD0AC
       \uC218 \uC788\uC2B5\uB2C8\uB2E4"
     isNextButtonInactive: 0
@@ -12802,41 +12881,41 @@ MonoBehaviour:
     description: 
     isNextButtonInactive: 0
     isInactive: 1
-  - characterPosition: {x: -660, y: 100}
+  - characterPosition: {x: -660, y: 200}
     highlightRect: {fileID: 1045692801}
     clickableRect: {fileID: 0}
     description: "\uC2A4\uD14C\uC774\uC9C0\uB97C \uD074\uB9AC\uC5B4\uD574 \uB3C8\uC744
       \uB450\uB451\uD788 \uBC1B\uC558\uC2B5\uB2C8\uB2E4"
     isNextButtonInactive: 0
     isInactive: 0
-  - characterPosition: {x: -660, y: 100}
+  - characterPosition: {x: -660, y: 200}
     highlightRect: {fileID: 299935733}
     clickableRect: {fileID: 299935733}
     description: "\uC774 \uC0AC\uAE30\uC801\uC778 \uC544\uC774\uD15C\uC744 \uAD6C\uB9E4\uD574\uBCF4\uC138\uC694"
     isNextButtonInactive: 1
     isInactive: 0
-  - characterPosition: {x: -660, y: 100}
+  - characterPosition: {x: -660, y: 200}
     highlightRect: {fileID: 1583208970}
     clickableRect: {fileID: 1583208970}
     description: "'2\uC2DC \uC2DC\uACC4'\uB294 \uC904\uC744 2\uBC88 \uC9C0\uC6B8
       \uB54C\uB9C8\uB2E4 +2 \uBC30\uC218\uB97C \uCD94\uAC00\uD569\uB2C8\uB2E4!"
     isNextButtonInactive: 0
     isInactive: 0
-  - characterPosition: {x: -660, y: 100}
+  - characterPosition: {x: -660, y: 200}
     highlightRect: {fileID: 1583208970}
     clickableRect: {fileID: 1583208970}
     description: "\uADF8\uB7FC \uC904\uC744 2\uBC88 \uC9C0\uC6B8 \uB54C\uB9C8\uB2E4
       3\uBC30\uC758 \uC810\uC218\uB97C \uC5BB\uC744 \uC218 \uC788\uACA0\uAD70\uC694!"
     isNextButtonInactive: 0
     isInactive: 0
-  - characterPosition: {x: -660, y: 100}
+  - characterPosition: {x: -660, y: 200}
     highlightRect: {fileID: 1163912453}
     clickableRect: {fileID: 0}
     description: "\uC544\uC774\uD15C\uC740 \uD55C \uBC88\uC5D0 5\uAC1C\uAE4C\uC9C0\uB9CC
       \uAC00\uC9C8 \uC218 \uC788\uC2B5\uB2C8\uB2E4"
     isNextButtonInactive: 0
     isInactive: 0
-  - characterPosition: {x: -660, y: 100}
+  - characterPosition: {x: -660, y: 200}
     highlightRect: {fileID: 1583208970}
     clickableRect: {fileID: 1583208970}
     description: "\uC544\uC774\uD15C\uC744 \uD074\uB9AD\uD558\uBA74 \uBC84\uB9AC\uAE30
@@ -12844,46 +12923,46 @@ MonoBehaviour:
       \uAC00\uB4DD \uCC3C\uC744 \uB54C \uD65C\uC6A9\uD574\uBCF4\uC138\uC694!"
     isNextButtonInactive: 0
     isInactive: 0
-  - characterPosition: {x: -660, y: 100}
+  - characterPosition: {x: -660, y: 200}
     highlightRect: {fileID: 299935733}
     clickableRect: {fileID: 299935733}
     description: "\uC774\uC81C 'Duo \uBE14\uB85D'\uC744 \uAD6C\uB9E4\uD574\uBCF4\uC138\uC694"
     isNextButtonInactive: 1
     isInactive: 0
-  - characterPosition: {x: -660, y: 100}
+  - characterPosition: {x: -660, y: 200}
     highlightRect: {fileID: 565023821}
     clickableRect: {fileID: 0}
     description: "\uCD95\uD558\uD569\uB2C8\uB2E4! \uD2B9\uC218 \uBE14\uB85D\uC744
       \uB371\uC5D0 1\uAC1C \uCD94\uAC00\uD588\uC2B5\uB2C8\uB2E4"
     isNextButtonInactive: 0
     isInactive: 0
-  - characterPosition: {x: -660, y: 100}
+  - characterPosition: {x: -660, y: 200}
     highlightRect: {fileID: 565023821}
     clickableRect: {fileID: 0}
     description: "\uC774 \uD2B9\uC218 \uBE14\uB85D\uC740 \uBE14\uB85D\uC774 \uBAA8\uB450
       \uC9C0\uC6CC\uC9C8 \uB54C +2 \uACE8\uB4DC\uB97C \uD68D\uB4DD\uD569\uB2C8\uB2E4!"
     isNextButtonInactive: 0
     isInactive: 0
-  - characterPosition: {x: -660, y: 100}
+  - characterPosition: {x: -660, y: 200}
     highlightRect: {fileID: 299935733}
     clickableRect: {fileID: 299935733}
     description: "\uC774\uAC74 'I/O \uBE14\uB85D \uACE8\uB4DC \uAC15\uD654'\uC785\uB2C8\uB2E4"
     isNextButtonInactive: 0
     isInactive: 0
-  - characterPosition: {x: -660, y: 100}
+  - characterPosition: {x: -660, y: 200}
     highlightRect: {fileID: 299935733}
     clickableRect: {fileID: 299935733}
     description: "\uAC15\uD654\uB294 \uBE14\uB85D\uC5D0 \uB2A5\uB825\uC744 \uBD80\uC5EC\uD569\uB2C8\uB2E4."
     isNextButtonInactive: 0
     isInactive: 0
-  - characterPosition: {x: -660, y: 100}
+  - characterPosition: {x: -660, y: 200}
     highlightRect: {fileID: 299935733}
     clickableRect: {fileID: 299935733}
     description: "\uC774 \uAC15\uD654\uB294 I \uB610\uB294 O \uBE14\uB85D\uC744 \uBC30\uCE58\uD574\uC11C
       \uC904\uC744 \uC9C0\uC6B8 \uB54C +1 \uACE8\uB4DC\uB97C \uD68D\uB4DD\uD569\uB2C8\uB2E4!"
     isNextButtonInactive: 0
     isInactive: 0
-  - characterPosition: {x: -660, y: 100}
+  - characterPosition: {x: -660, y: 200}
     highlightRect: {fileID: 1916213973}
     clickableRect: {fileID: 0}
     description: "\uBE14\uB85D \uCD94\uAC00\uC640 \uAC15\uD654\uC5D4 \uD69F\uC218
@@ -12891,26 +12970,26 @@ MonoBehaviour:
       '\uB371'\uC744 \uB20C\uB7EC \uD655\uC778\uD558\uC138\uC694"
     isNextButtonInactive: 0
     isInactive: 0
-  - characterPosition: {x: -660, y: 100}
+  - characterPosition: {x: -660, y: 200}
     highlightRect: {fileID: 22414538}
     clickableRect: {fileID: 22414538}
     description: "\uC774\uC81C \uB2E4\uC74C \uC2A4\uD14C\uC774\uC9C0\uB85C \uC774\uB3D9\uD558\uC138\uC694!"
     isNextButtonInactive: 1
     isInactive: 0
-  - characterPosition: {x: -660, y: 100}
+  - characterPosition: {x: -660, y: 200}
     highlightRect: {fileID: 1944218407}
     clickableRect: {fileID: 0}
     description: "\uC2A4\uD14C\uC774\uC9C0\uC5D0\uC11C \uC2B9\uB9AC\uD560 \uB54C\uB9C8\uB2E4
       \uBAA9\uD45C \uC810\uC218\uAC00 \uC99D\uAC00\uD569\uB2C8\uB2E4"
     isNextButtonInactive: 0
     isInactive: 0
-  - characterPosition: {x: -660, y: 100}
+  - characterPosition: {x: -660, y: 200}
     highlightRect: {fileID: 563390983}
     clickableRect: {fileID: 563390983}
     description: "\uACC4\uC18D \uB3C4\uC804\uD574\uBCF4\uC138\uC694!!"
     isNextButtonInactive: 1
     isInactive: 0
-  - characterPosition: {x: 0, y: 0}
+  - characterPosition: {x: -660, y: 200}
     highlightRect: {fileID: 0}
     clickableRect: {fileID: 0}
     description: 
@@ -13901,8 +13980,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -12.42, y: -171}
+  m_SizeDelta: {x: 137.08, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1416512548
 MonoBehaviour:
@@ -15073,6 +15152,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1583208969}
   m_CullTransparentMesh: 0
+--- !u!1 &1584208422
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1584208423}
+  - component: {fileID: 1584208424}
+  m_Layer: 5
+  m_Name: TextLayout
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1584208423
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584208422}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2129016120}
+  - {fileID: 1752065956}
+  m_Father: {fileID: 94935076}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 67}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1584208424
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584208422}
+  m_CullTransparentMesh: 1
 --- !u!1 &1588037039
 GameObject:
   m_ObjectHideFlags: 0
@@ -16345,7 +16470,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 565023821}
+    m_TransformParent: {fileID: 1584208423}
     m_Modifications:
     - target: {fileID: 1736517047688857954, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: onClick.m_PersistentCalls.m_Calls.Array.size
@@ -16378,6 +16503,14 @@ PrefabInstance:
     - target: {fileID: 2725497868016357453, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_Name
       value: NextButtonUIContiner
+      objectReference: {fileID: 0}
+    - target: {fileID: 2725497868016357453, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075290569250800002, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
+      propertyPath: m_Color.a
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3075290569250800002, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_Color.b
@@ -16445,15 +16578,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8378713409662279789, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8378713409662279789, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8378713409662279789, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8378713409662279789, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -19956,13 +20089,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2129016119}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 425061192}
-  m_Father: {fileID: 565023821}
+  m_Father: {fileID: 1584208423}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}

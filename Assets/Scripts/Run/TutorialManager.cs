@@ -97,7 +97,7 @@ public class TutorialManager : MonoBehaviour
 
     private void Start()
     {
-        Initialize();
+        //Initialize();
     }
 
     public void Initialize()

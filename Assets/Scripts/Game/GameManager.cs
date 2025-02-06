@@ -45,6 +45,8 @@ public class GameManager : MonoBehaviour
     private List<Match> currentMatches;
     private float scoreAnimationDelay;  // 블록 점수 간의 딜레이
 
+    private bool isTutorial = true;
+
     public struct History
     {
         public float startTime;
@@ -103,6 +105,11 @@ public class GameManager : MonoBehaviour
             shopManager = FindObjectOfType<ShopManager>();
             stageManager = FindObjectOfType<StageManager>();
             tutorialManager = FindObjectOfType<TutorialManager>();
+            if (isTutorial)
+            {
+                isTutorial = false;
+                tutorialManager.Initialize();
+            }
             StartNewGame();
         }
     }

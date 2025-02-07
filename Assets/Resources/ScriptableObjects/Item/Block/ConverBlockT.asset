@@ -19,6 +19,6 @@ MonoBehaviour:
   cost: 4
   type: 1
   block: {fileID: 11400000, guid: 24a5634cee7354d4fa928d54f928a471, type: 2}
-  isPurchasableAgain: 0
+  isPurchasableAgain: 1
   effectType: 1
   rarity: 1

@@ -9786,7 +9786,7 @@ MonoBehaviour:
   blockTemplates: []
   handBlocksData: []
   shopItems: []
-  isTutorial: 1
+  isTutorial: 0
 --- !u!1 &966828379
 GameObject:
   m_ObjectHideFlags: 0
@@ -13599,6 +13599,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstShopItemList: []
+  currentItems: []
   rerollCost: 2
 --- !u!1 &1359025487
 GameObject:

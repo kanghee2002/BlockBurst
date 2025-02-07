@@ -10,11 +10,13 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private List<string> firstShopItemList;
 
     private RunData runData;
-    private List<ItemData> currentItems;
+    [SerializeField] private List<ItemData> currentItems;
 
     private DeckManager deckManager;
 
     public int rerollCost = 2;
+
+    private Dictionary<ItemType, int> itemWeights;
 
     public void Initialize(ref RunData data, ItemData[] items)
     {
@@ -36,6 +38,14 @@ public class ShopManager : MonoBehaviour
             }
         }
         deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
+
+        itemWeights = new Dictionary<ItemType, int>()
+        {
+            { ItemType.ADD_BLOCK, 25 },
+            { ItemType.CONVERT_BLOCK, 25 },
+            { ItemType.ITEM, 25 },
+            { ItemType.UPGRADE, 25 },
+        };
     }
 
     // 튜토리얼 용 함수
@@ -61,7 +71,13 @@ public class ShopManager : MonoBehaviour
         {
             return -1;
         } 
-        else {
+        else
+        {
+            if (item.type != ItemType.ITEM)
+            {
+                AddItem(item);
+            }
+
             GameManager.instance.UpdateGold(-item.cost);
             ApplyItem(item);
             return runData.gold;
@@ -89,14 +105,12 @@ public class ShopManager : MonoBehaviour
         }
         ///////////////////////////////////////////////////////////////
 
-        int idx = Random.Range(0, currentItems.Count);
-        ItemData item = currentItems[idx];
-        currentItems.RemoveAt(idx);
+        ItemType selectedItemType = SelectByWeight(itemWeights);
+        List<ItemData> filteredItems = currentItems.Where(item => item.type == selectedItemType).ToList();
 
-        if (item.type != ItemType.ITEM)
-        {
-            AddItem(item);
-        }
+        int idx = Random.Range(0, filteredItems.Count);
+        ItemData item = filteredItems[idx];
+        currentItems.Remove(item);
 
         return item;
     }
@@ -191,5 +205,37 @@ public class ShopManager : MonoBehaviour
     {
         // append
         currentItems.Add(item);
+    }
+
+    private int GetTotalWeights()
+    {
+        return itemWeights.Sum(x => x.Value);
+    }
+
+    private T SelectByWeight<T>(Dictionary<T, int> weights)
+    {
+        // 누적 가중치 만들기
+        List<(T, int)> weightThresholds = new List<(T, int)>();
+
+        int sum = 0;
+        foreach (var itemWeight in weights)
+        {
+            sum += itemWeight.Value;
+            weightThresholds.Add((itemWeight.Key, sum));
+        }
+
+        // 뽑기
+        int randomWeight = Random.Range(0, GetTotalWeights()) + 1;
+
+        for (int i = 0; i < weightThresholds.Count; i++)
+        {
+            if (weightThresholds[i].Item2 >= randomWeight)
+            {
+                return weightThresholds[i].Item1;
+            }
+        }
+
+        Debug.Log("Error: ShopManager Weighted Random");
+        return default(T);
     }
 }

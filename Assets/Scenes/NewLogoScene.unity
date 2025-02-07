@@ -165,7 +165,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 271891922}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
@@ -840,6 +840,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6885007017325651131, guid: 8c2476496f7469c4c991c4390686fba6, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6885007017325651131, guid: 8c2476496f7469c4c991c4390686fba6, type: 3}
+      propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6885007017325651131, guid: 8c2476496f7469c4c991c4390686fba6, type: 3}
@@ -1580,6 +1584,7 @@ MonoBehaviour:
   anim: {fileID: 1354886393}
   startButton: {fileID: 1121248633}
   tutorialToggle: {fileID: 1320449550}
+  logoText: {fileID: 1354886389}
 --- !u!1 &1387860731
 GameObject:
   m_ObjectHideFlags: 0

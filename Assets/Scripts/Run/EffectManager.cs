@@ -174,6 +174,11 @@ public class EffectManager : MonoBehaviour
                 GameManager.instance.UpdateGold(effect.effectValue, isMultiplying: true);
                 break;
             case EffectType.BOARD_SIZE_MODIFIER:
+                if (effect.scope == EffectScope.Run)
+                {
+                    runData.baseBoardRows += effect.effectValue;
+                    runData.baseBoardColumns += effect.effectValue;
+                }
                 blockGameData.boardRows += effect.effectValue;
                 blockGameData.boardColumns += effect.effectValue;
                 break;

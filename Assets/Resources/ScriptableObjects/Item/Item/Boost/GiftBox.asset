@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
-  m_Name: BlueKey
+  m_Name: GiftBox
   m_EditorClassIdentifier: 
-  id: BlueKey
-  itemName: "\uD478\uB978 \uC5F4\uC1E0"
+  id: GiftBox
+  itemName: "\uC120\uBB3C\uC0C1\uC790"
   effects:
-  - {fileID: 11400000, guid: 4a6395cd1819e4f4397e3674f0d66bfc, type: 2}
-  - {fileID: 11400000, guid: 82afeb7af9e5a6746b3f4cf84ce904f7, type: 2}
-  cost: 6
-  type: 2
+  - {fileID: 11400000, guid: f41999589cc8f4c4b843c820aee417c4, type: 2}
+  - {fileID: 11400000, guid: 0882c7f732922144a93aa9e27b5c982d, type: 2}
+  cost: 12
+  type: 3
   block: {fileID: 0}
   isPurchasableAgain: 0
-  effectType: 0
-  rarity: 1
+  effectType: 1
+  rarity: 2

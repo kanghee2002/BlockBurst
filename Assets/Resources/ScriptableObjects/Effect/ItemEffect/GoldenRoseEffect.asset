@@ -16,6 +16,7 @@ MonoBehaviour:
   effectName: "\uACE8\uB4DC x2"
   type: 10
   trigger: 0
+  scope: 0
   effectValue: 2
   blockTypes: 
   blockId: -1

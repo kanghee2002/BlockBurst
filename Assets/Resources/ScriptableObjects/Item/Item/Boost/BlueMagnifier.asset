@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
-  m_Name: GrayCube
+  m_Name: BlueMagnifier
   m_EditorClassIdentifier: 
-  id: GrayCube
-  itemName: "\uC7BF\uBE5B \uC815\uC721\uBA74\uCCB4"
+  id: BlueMagnifier
+  itemName: "\uD478\uB978 \uB3CB\uBCF4\uAE30"
   effects:
-  - {fileID: 11400000, guid: c775d7dd1e0efd2429e0047bfac4ba6e, type: 2}
-  cost: 4
-  type: 2
+  - {fileID: 11400000, guid: cb4712fe82487194989e044d6a82077f, type: 2}
+  cost: 7
+  type: 3
   block: {fileID: 0}
   isPurchasableAgain: 0
   effectType: 3
-  rarity: 0
+  rarity: 1

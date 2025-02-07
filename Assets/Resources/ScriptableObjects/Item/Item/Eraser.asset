@@ -18,7 +18,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9d38315ad01c69a47902a725a27f25ff, type: 2}
   - {fileID: 11400000, guid: a740e0e77fd94a04d808b1642c040542, type: 2}
   cost: 5
-  type: 2
+  type: 3
   block: {fileID: 0}
   isPurchasableAgain: 0
   effectType: 0

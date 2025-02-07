@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
-  m_Name: StoppedSpinningTop
+  m_Name: Key
   m_EditorClassIdentifier: 
-  id: StoppedSpinningTop
-  itemName: "\uBA48\uCD98 \uD33D\uC774"
+  id: Key
+  itemName: "\uC5F4\uC1E0"
   effects:
-  - {fileID: 11400000, guid: 39c30421d1e51224fb52d463b321ae43, type: 2}
-  - {fileID: 11400000, guid: cefa334787d427e409ec69cbac17a116, type: 2}
-  cost: 6
-  type: 2
+  - {fileID: 11400000, guid: ea5bcf551ad904c4cb5c3082219679f7, type: 2}
+  - {fileID: 11400000, guid: 110cf2f40bc613940b0058fdcab61888, type: 2}
+  cost: 12
+  type: 3
   block: {fileID: 0}
-  effectType: 3
-  rarity: 1
+  isPurchasableAgain: 0
+  effectType: 0
+  rarity: 2

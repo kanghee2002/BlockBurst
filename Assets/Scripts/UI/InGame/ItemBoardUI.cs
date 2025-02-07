@@ -176,7 +176,7 @@ public class ItemBoardUI : MonoBehaviour
             Sprite blockPreset = Resources.Load<Sprite>(path);
             itemUI.transform.GetChild(0).GetComponent<Image>().sprite = blockPreset;
         }
-        else if (item.type == ItemType.ITEM)
+        else if (item.type == ItemType.ITEM || item.type == ItemType.BOOST)
         {
             string path = itemPath + item.id;
             Sprite itemSprite = Resources.Load<Sprite>(path);

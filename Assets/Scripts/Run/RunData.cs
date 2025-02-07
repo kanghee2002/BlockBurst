@@ -9,6 +9,7 @@ public class RunData
     public Dictionary<MatchType, int> baseMatchMultipliers;     // 기본 배수
     public List<BlockData> availableBlocks;                     // 사용 가능한 블록들
     public List<ItemData> activeItems;                          // 활성화된 아이템들
+    public List<ItemData> activeBoosts;                         // 활성화된 부스트들
     public List<EffectData> activeEffects;                      // 활성화된 효과들
     public Dictionary<BlockType, int> blockReuses;              // 블록별 재사용 횟수
     public int gold;                                            // 현재 보유 골드
@@ -24,6 +25,7 @@ public class RunData
         baseMatchMultipliers = new Dictionary<MatchType, int>(gameData.defaultMatchMultipliers);
         availableBlocks = new List<BlockData>(gameData.defaultBlocks);
         activeItems = new List<ItemData>();
+        activeBoosts = new List<ItemData>();
         activeEffects = new List<EffectData>();
         blockReuses = new Dictionary<BlockType, int>();
         gold = gameData.startingGold;

@@ -26,6 +26,7 @@ public static class UIUtils
     public static readonly Dictionary<ItemType, string> itemTypeNames = new Dictionary<ItemType, string>()
     {
         { ItemType.ITEM, "아이템" },
+        { ItemType.BOOST, "부스트" },
         { ItemType.UPGRADE, "강화" },
         { ItemType.ADD_BLOCK, "덱" },
         { ItemType.CONVERT_BLOCK, "덱" },

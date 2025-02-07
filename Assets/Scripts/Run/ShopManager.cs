@@ -41,10 +41,11 @@ public class ShopManager : MonoBehaviour
 
         itemWeights = new Dictionary<ItemType, int>()
         {
-            { ItemType.ADD_BLOCK, 25 },
-            { ItemType.CONVERT_BLOCK, 25 },
-            { ItemType.ITEM, 25 },
-            { ItemType.UPGRADE, 25 },
+            { ItemType.ADD_BLOCK, 20 },
+            { ItemType.CONVERT_BLOCK, 20 },
+            { ItemType.ITEM, 32 },
+            { ItemType.BOOST, 8 },
+            { ItemType.UPGRADE, 20 },
         };
     }
 
@@ -73,7 +74,7 @@ public class ShopManager : MonoBehaviour
         } 
         else
         {
-            if (item.type != ItemType.ITEM)
+            if (item.isPurchasableAgain)
             {
                 AddItem(item);
             }
@@ -98,8 +99,6 @@ public class ShopManager : MonoBehaviour
             ItemData itemData = currentItems[index];
             currentItems.RemoveAt(index);
             firstShopItemList.RemoveAt(0);
-
-            if (itemData.type != ItemType.ITEM) AddItem(itemData);
 
             return itemData;
         }
@@ -162,6 +161,15 @@ public class ShopManager : MonoBehaviour
         else if (item.type == ItemType.ITEM)
         {
             runData.activeItems.Add(item);
+            foreach (EffectData effect in item.effects)
+            {
+                EffectManager.instance.AddEffect(effect);
+            }
+        }
+        else if (item.type == ItemType.BOOST)
+        {
+            // 진행정보 창에 추가 필요
+            runData.activeBoosts.Add(item);
             foreach (EffectData effect in item.effects)
             {
                 EffectManager.instance.AddEffect(effect);

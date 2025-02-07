@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
-  m_Name: BlueMagnifier
+  m_Name: BlueKey
   m_EditorClassIdentifier: 
-  id: BlueMagnifier
-  itemName: "\uD478\uB978 \uB3CB\uBCF4\uAE30"
+  id: BlueKey
+  itemName: "\uD478\uB978 \uC5F4\uC1E0"
   effects:
-  - {fileID: 11400000, guid: cb4712fe82487194989e044d6a82077f, type: 2}
-  - {fileID: 11400000, guid: abf3e17fd63f3f2449058a0236481a07, type: 2}
-  cost: 7
-  type: 2
+  - {fileID: 11400000, guid: 4a6395cd1819e4f4397e3674f0d66bfc, type: 2}
+  - {fileID: 11400000, guid: 82afeb7af9e5a6746b3f4cf84ce904f7, type: 2}
+  cost: 6
+  type: 3
   block: {fileID: 0}
   isPurchasableAgain: 0
-  effectType: 3
+  effectType: 0
   rarity: 1

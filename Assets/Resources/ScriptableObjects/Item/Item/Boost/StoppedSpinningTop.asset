@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
-  m_Name: BlueCube
+  m_Name: StoppedSpinningTop
   m_EditorClassIdentifier: 
-  id: BlueCube
-  itemName: "\uD478\uB978 \uC815\uC721\uBA74\uCCB4"
+  id: StoppedSpinningTop
+  itemName: "\uBA48\uCD98 \uD33D\uC774"
   effects:
-  - {fileID: 11400000, guid: 6c530266671bce24a964539c4dd77489, type: 2}
-  cost: 4
-  type: 2
+  - {fileID: 11400000, guid: 39c30421d1e51224fb52d463b321ae43, type: 2}
+  - {fileID: 11400000, guid: cefa334787d427e409ec69cbac17a116, type: 2}
+  cost: 6
+  type: 3
   block: {fileID: 0}
   isPurchasableAgain: 0
-  effectType: 0
-  rarity: 0
+  effectType: 3
+  rarity: 1

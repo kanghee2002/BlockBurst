@@ -473,6 +473,17 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        // 부스트 구매 시 시각 효과
+        if (res != - 1 && shopItem.type == ItemType.BOOST)
+        {
+            if (shopItem.effects.Any(effect =>
+            effect.type == EffectType.BASEMULTIPLIER_MODIFIER ||
+            effect.type == EffectType.BASEMULTIPLIER_MULTIPLIER))
+            {
+                UpdateBaseMultiplier();
+
+            }
+        }
         return res;
     }
 

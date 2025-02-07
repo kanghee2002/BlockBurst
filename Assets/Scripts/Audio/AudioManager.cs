@@ -81,12 +81,12 @@ public class AudioManager : MonoBehaviour
         timelineHandle.Free();
     }
 
-    void ChangeBGMVolume(float volume) {
+    public void ChangeBGMVolume(float volume) {
         // Change FMOD VCA volume
         RuntimeManager.GetVCA("vca:/BGM").setVolume(volume);
     }
 
-    void ChangeSFXVolume(float volume) {
+    public void ChangeSFXVolume(float volume) {
         // Change FMOD VCA volume
         RuntimeManager.GetVCA("vca:/SFX").setVolume(volume);
     }
@@ -127,7 +127,7 @@ public class AudioManager : MonoBehaviour
             if(c != ' ') {
                 RuntimeManager.PlayOneShot("event:/tutorial_talk");
                 count++;
-                if(count >= 30) {
+                if(count >= 7) {
                     break;
                 }
             }

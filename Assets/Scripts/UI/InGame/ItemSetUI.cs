@@ -261,7 +261,7 @@ public class ItemSetUI : MonoBehaviour
 
     private void DiscardItem(int index)
     {
-        AudioManager.instance.SFXSelectMenu();
+        AudioManager.instance.SFXThrowItem();
         GameManager.instance.OnItemDiscard(index);
     }
 

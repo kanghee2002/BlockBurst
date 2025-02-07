@@ -195,6 +195,8 @@ public class TutorialManager : MonoBehaviour
             PlayCharacterSpeakAnimation();
         }
 
+        AudioManager.instance.TutorialTalker(currentStep.description);
+
         stepCount++;
     }
 

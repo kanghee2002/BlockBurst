@@ -406,6 +406,8 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         EndStage(cleared);
 
+        AudioManager.instance.SFXStageClear();
+
         yield return new WaitForSeconds(0.5f);
 
         // 튜토리얼 진행 시 호출
@@ -487,8 +489,10 @@ public class GameManager : MonoBehaviour
         shopManager.RerollShop(remains);
     }
 
-    public void UpdateGold(int value, bool isMultiplying = false)
+    public void UpdateGold(int value, bool isMultiplying = false, bool isStageReward = false)
     {
+        int prevGold = runData.gold;
+
         if (isMultiplying)
         {
             runData.gold *= value;
@@ -498,7 +502,16 @@ public class GameManager : MonoBehaviour
             runData.gold += value;
             if (runData.gold < 0) runData.gold = 0;
         }
+
+        int currentGold = runData.gold;
+
         GameUIManager.instance.UpdateGold(runData.gold);
+
+        // 골드를 얻을 때, 스테이지 보상이 아닐 때만 실행
+        if (currentGold > prevGold && !isStageReward)
+        {
+            AudioManager.instance.SFXGold();
+        }
     }
 
     public void UpdateRerollCount(int value, bool isMultiplying = false)

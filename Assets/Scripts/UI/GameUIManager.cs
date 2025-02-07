@@ -408,7 +408,7 @@ public class GameUIManager : MonoBehaviour
 
     public void MakeNewRun()
     {
-        AudioManager.instance.StopBackgroundMusic();
+        AudioManager.instance.RestartGame();
         GameManager.instance.MakeNewRun();
     }
 
@@ -451,6 +451,8 @@ public class GameUIManager : MonoBehaviour
     public void PlayItemEffectAnimation(string effectDescription, int index, float delay)
     {
         itemSetUI.PlayEffectAnimation(effectDescription, index, delay);
+
+        AudioManager.instance.SFXEffectON();
     }
 
     public void BlockCells(HashSet<Vector2Int> cells)
@@ -467,11 +469,24 @@ public class GameUIManager : MonoBehaviour
     {
         clearInfoUI.Initialize(isCleared, currentChapterIndex, currentStageIndex, history, mostPlacedBlockType);
         clearInfoUI.OpenClearInfoUI(isCleared);
+
+        if (isCleared) AudioManager.instance.SFXGameWin();
+        else AudioManager.instance.SFXGameOver();
     }
 
     public void InfiniteMode()
     {
         GameManager.instance.InfiniteMode();
         clearInfoUI.CloseClearInfoUI();
+    }
+
+    public void OnBGMVolumeChanged(float value)
+    {
+        AudioManager.instance.ChangeBGMVolume(value);
+    }
+
+    public void OnSFXVolumeChanged(float value)
+    {
+        AudioManager.instance.ChangeSFXVolume(value);
     }
 }

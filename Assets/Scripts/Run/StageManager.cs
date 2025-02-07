@@ -46,7 +46,7 @@ public class StageManager : MonoBehaviour
     public void GrantReward()
     {
         // 보상 지급
-        GameManager.instance.UpdateGold(currentStage.goldReward);
+        GameManager.instance.UpdateGold(currentStage.goldReward, isStageReward: true);
         RemoveConstraints();
     }
 

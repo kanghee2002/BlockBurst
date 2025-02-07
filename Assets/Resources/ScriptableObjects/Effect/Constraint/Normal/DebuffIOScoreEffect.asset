@@ -10,16 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
-  m_Name: CoinTEffect
+  m_Name: DebuffIOScoreEffect
   m_EditorClassIdentifier: 
-  id: CoinTEffect
-  effectName: "T \uD3EC\uD568\uD574\n\uC904 \uC9C0\uC6B8 \uB54C\n50% \uD655\uB960\uB85C\n\uACE8\uB4DC
-    +1"
-  type: 9
-  trigger: 11
-  scope: 0
-  effectValue: 1
-  blockTypes: 06000000
+  id: DebuffIOScoreEffect
+  effectName: "I/O \uC810\uC218\uAC00\\n0\uC774 \uB428"
+  type: 1
+  trigger: 0
+  scope: 1
+  effectValue: 0
+  blockTypes: 0000000001000000
   blockId: -1
-  probability: 0.5
+  probability: 1
   triggerValue: 0

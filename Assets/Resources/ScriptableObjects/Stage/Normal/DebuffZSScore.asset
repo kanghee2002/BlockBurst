@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43902bf98a9ab9c4d8d6db09a48e8201, type: 3}
-  m_Name: DecreaseBoardSize
+  m_Name: DebuffZSScore
   m_EditorClassIdentifier: 
-  id: DecreaseBoardSizeOne
+  id: DebuffZScore
   type: 0
   boardSize: {x: 8, y: 8}
   blockedCells: []
   constraints:
-  - {fileID: 11400000, guid: c9921f807910ddd4eaafbf60ad393329, type: 2}
-  clearRequirement: 100
-  goldReward: 5
-  baseScoreMultiplier: 0.25
+  - {fileID: 11400000, guid: b163f096e962cc649b467d00638350ee, type: 2}
+  clearRequirement: 60
+  goldReward: 8
+  baseScoreMultiplier: -0.25

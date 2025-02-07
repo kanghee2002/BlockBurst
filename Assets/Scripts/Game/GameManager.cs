@@ -342,6 +342,8 @@ public class GameManager : MonoBehaviour
     {
         blockGame = new BlockGameData();
         blockGame.Initialize(runData);
+        
+        deckManager.Initialize(ref blockGame, ref runData);
 
         EffectManager.instance.InitializeBlockGameData(ref blockGame);
         CellEffectManager.instance.InitializeBlockGame(ref blockGame);
@@ -356,7 +358,6 @@ public class GameManager : MonoBehaviour
         SetInactiveBlockCells(blockGame);
         board.BlockCells(blockGame.inactiveCells);
 
-        deckManager.Initialize(ref blockGame, ref runData);
 
         DrawBlocks();
 

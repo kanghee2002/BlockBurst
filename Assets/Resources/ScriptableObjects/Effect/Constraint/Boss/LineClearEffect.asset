@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
-  m_Name: CoinTEffect
+  m_Name: LineClearEffect
   m_EditorClassIdentifier: 
-  id: CoinTEffect
-  effectName: "T \uD3EC\uD568\uD574\n\uC904 \uC9C0\uC6B8 \uB54C\n50% \uD655\uB960\uB85C\n\uACE8\uB4DC
-    +1"
-  type: 9
-  trigger: 11
-  scope: 0
-  effectValue: 1
-  blockTypes: 06000000
+  id: LineClearEffect
+  effectName: "\uC904\uC744\\n3\uBC88 \uC9C0\uC6B8 \uB54C\uB9C8\uB2E4\\n\uBB34\uC791\uC704
+    \uC904 \uC9C0\uC6C0"
+  type: 24
+  trigger: 10
+  scope: 1
+  effectValue: 0
+  blockTypes: 
   blockId: -1
-  probability: 0.5
-  triggerValue: 0
+  probability: 1
+  triggerValue: 3

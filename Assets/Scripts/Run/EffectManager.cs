@@ -201,7 +201,11 @@ public class EffectManager : MonoBehaviour
             case EffectType.BLOCK_DELETE:
                 foreach (BlockType blockType in effect.blockTypes)
                 {
-                    runData.availableBlocks.RemoveAll(data => data.type == blockType);
+                    if (effect.scope == EffectScope.Run)
+                    {
+                        runData.availableBlocks.RemoveAll(data => data.type == blockType);
+                    }
+                    blockGameData.deck.RemoveAll(data => data.type == blockType);
                 }
                 break;
             case EffectType.BLOCK_DELETE_WITH_COUNT:

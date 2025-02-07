@@ -13,12 +13,16 @@ public class NewLogoAppear : MonoBehaviour
     [SerializeField] private Animator anim;
     [SerializeField] private Button startButton;
     [SerializeField] private Toggle tutorialToggle;
+    [SerializeField] private GameObject logoText;
 
     private EventInstance eventInstance;
     void Start()
     {
         startButton.onClick.AddListener(OnStartButtonClick);
         tutorialToggle.onValueChanged.AddListener(OnToggleTutorial);
+        logoText.GetComponent<RectTransform>().anchoredPosition = new Vector2(Screen.width / 2, -1 * Screen.height / 2);
+        float scale = Screen.width / 1920f;
+        logoText.GetComponent<RectTransform>().localScale = new Vector2(scale, scale);
         StartCoroutine(Wait());
         eventInstance = RuntimeManager.CreateInstance("event:/mainmenuloop");
 
@@ -56,7 +60,8 @@ public class NewLogoAppear : MonoBehaviour
         anim.SetBool("Appear", false);
         yield return new WaitForSeconds(2);
         
-        
+        StartCoroutine(LogoTextMover());
+        StartCoroutine(LogoTextScaler());
         StartCoroutine(AppearStartButton());
         StartCoroutine(AppearTutorialToggle());
     }
@@ -74,6 +79,35 @@ public class NewLogoAppear : MonoBehaviour
         }
         currentPos = endPos;
         startButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(currentPos, 0);
+
+    }
+
+    IEnumerator LogoTextMover() {
+        float startX = Screen.width / 2;
+        float startY = -1 * Screen.height / 2;
+        float endX = 960;
+        float endY = -540;
+
+        while(Math.Abs(startX - endX) > 0.1f) {
+            startX += (endX - startX) / 8;
+            startY += (endY - startY) / 8;
+            yield return new WaitForSeconds(0.01f);
+            logoText.GetComponent<RectTransform>().anchoredPosition = new Vector2(startX, startY);
+        }   
+         logoText.GetComponent<RectTransform>().anchoredPosition = new Vector2(endX, endY);
+        
+    }
+
+    IEnumerator LogoTextScaler() {
+        float startScale = Screen.width / 1920f;
+        float endScale = 1f;
+
+        while(Math.Abs(startScale - endScale) > 0.01f) {
+            startScale += (endScale - startScale) / 8;
+            yield return new WaitForSeconds(0.01f);
+            logoText.GetComponent<RectTransform>().localScale = new Vector2(startScale, startScale);
+        }
+        logoText.GetComponent<RectTransform>().localScale = new Vector2(endScale, endScale);
 
     }
 

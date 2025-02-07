@@ -118,14 +118,20 @@ public class EffectManager : MonoBehaviour
             case EffectType.SCORE_MODIFIER:
                 foreach (BlockType blockType in effect.blockTypes)
                 {
-                    runData.baseBlockScores[blockType] += effect.effectValue;
+                    if (effect.scope == EffectScope.Run)
+                    {
+                        runData.baseBlockScores[blockType] += effect.effectValue;
+                    }
                     blockGameData.blockScores[blockType] += effect.effectValue;
                 }
                 break;
             case EffectType.SCORE_MULTIPLIER:
                 foreach (BlockType blockType in effect.blockTypes)
                 {
-                    //runData.baseBlockScores[blockType] += effect.effectValue;
+                    if (effect.scope == EffectScope.Run)
+                    {
+                        runData.baseBlockScores[blockType] *= effect.effectValue;
+                    }
                     blockGameData.blockScores[blockType] *= effect.effectValue;
                 }
                 break;
@@ -133,11 +139,17 @@ public class EffectManager : MonoBehaviour
                 blockGameData.matchMultipliers[matchType] += effect.effectValue;
                 break;
             case EffectType.BASEMULTIPLIER_MODIFIER:
-                runData.baseMatchMultipliers[matchType] += effect.effectValue;
+                if (effect.scope == EffectScope.Run)
+                {
+                    runData.baseMatchMultipliers[matchType] += effect.effectValue;
+                }
                 blockGameData.matchMultipliers[matchType] += effect.effectValue;
                 break;
             case EffectType.BASEMULTIPLIER_MULTIPLIER:
-                runData.baseMatchMultipliers[matchType] *= effect.effectValue;
+                if (effect.scope == EffectScope.Run)
+                {
+                    runData.baseMatchMultipliers[matchType] *= effect.effectValue;
+                }
                 blockGameData.matchMultipliers[matchType] *= effect.effectValue;
                 break;
             case EffectType.REROLL_MODIFIER:
@@ -146,7 +158,7 @@ public class EffectManager : MonoBehaviour
             case EffectType.REROLL_MULTIPLIER:
                 GameManager.instance.UpdateRerollCount(effect.effectValue, isMultiplying: true);
                 break;
-            case EffectType.BASEREROLL_MODIFIER:            
+            case EffectType.BASEREROLL_MODIFIER:           
                 runData.baseRerollCount += effect.effectValue;
                 if (runData.baseRerollCount < 0) runData.baseRerollCount = 0;
                 GameManager.instance.UpdateRerollCount(effect.effectValue);

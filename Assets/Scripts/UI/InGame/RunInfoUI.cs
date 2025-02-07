@@ -26,8 +26,11 @@ public class RunInfoUI : MonoBehaviour
 
     private readonly List<string> tips = new List<string>()
     {
-        "줄 지우기는 다른 아이템의 효과를 발동시키지 않습니다!",
+        "무작위 줄 지우기는 지우기 효과를 발동시키지 않습니다!",
         "배수는 점수 계산 후 기본 배수로 초기화됩니다!",
+        "한 번에 많은 줄을 지울수록 큰 점수를 얻을 수 있습니다!",
+        "우상단 덱을 통해 현재 블록 수와 점수를 알 수 있습니다!",
+        "메인 화면으로 가면 튜토리얼을 다시 할 수 있습니다!"
     };
 
     void Awake()
@@ -48,7 +51,18 @@ public class RunInfoUI : MonoBehaviour
             mostPlacedBlockImage.sprite = Resources.Load<Sprite>($"Sprites/Block/Preset/{mostPlacedBlockType.ToString()}");
             mostPlacedBlockImage.color = new Color(1f, 1f, 1f, 1f);
         }
-        tipText.text = tips[Random.Range(0, tips.Count)];
+
+        // 항상 새로운 팁 표시
+        for (int i = 0; i < 10000; i++)
+        {
+            string tip = tips[Random.Range(0, tips.Count)];
+            if (tipText.text != tip)
+            {
+                tipText.text = tip;
+                break;
+            }
+        }
+        
     }
 
     public void OpenRunInfoUI()

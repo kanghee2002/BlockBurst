@@ -13,6 +13,7 @@ public class NewLogoAppear : MonoBehaviour
     [SerializeField] private Animator anim;
     [SerializeField] private Button startButton;
     [SerializeField] private Toggle tutorialToggle;
+    [SerializeField] private GameObject startText;
 
     private EventInstance eventInstance;
     void Start()

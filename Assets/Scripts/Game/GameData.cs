@@ -28,7 +28,7 @@ public class GameData
         defaultBlocks = new List<BlockData>();
         stagePool = new List<StageData>();
         startingGold = 5;
-        defaultRerollCount = 3;
+        defaultRerollCount = 5;
         defaultBlockCount = 3;
         maxItemCount = 5;
 

@@ -12,6 +12,7 @@ public class ItemDescriptionUI : MonoBehaviour, IPointerEnterHandler, IPointerEx
     [SerializeField] private float fadeTime = 0.2f;  // fade in/out 시간
     [SerializeField] private Image rarityLayout;
     [SerializeField] private TextMeshProUGUI itemTypeText;
+    [SerializeField] private Image outline;
 
     private ItemData item;
     private string currentDescription;
@@ -33,7 +34,7 @@ public class ItemDescriptionUI : MonoBehaviour, IPointerEnterHandler, IPointerEx
         currentDescription = GetDescription(item); 
         itemDescriptionUI.transform.GetChild(1).GetComponent<Image>().color = UIUtils.effectColors[ItemEffectType.OTHER]; // 회색
         itemDescriptionUI.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = currentDescription;
-        transform.GetChild(6).GetComponent<Image>().color = UIUtils.rarityColors[item.rarity]; // 레어도
+        if (outline != null) outline.color = UIUtils.rarityColors[item.rarity]; // 레어도
         rarityLayout.color = UIUtils.rarityColors[item.rarity];
         rarityLayout.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = UIUtils.itemRarityNames[item.rarity];
         itemTypeText.text = UIUtils.itemTypeNames[item.type];

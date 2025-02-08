@@ -9,11 +9,19 @@ public class RunInfoUI : MonoBehaviour
 {
     [SerializeField] private PopupBlurImage popupBlurImage;
 
+    [Header("RunInfo")]
+    [SerializeField] private GameObject runInfoContainer;
     [SerializeField] private TextMeshProUGUI currentElapsedTimeText;
     [SerializeField] private TextMeshProUGUI baseMultiplierText;
     [SerializeField] private TextMeshProUGUI defaultRerollCountText;
     [SerializeField] private Image mostPlacedBlockImage;
     [SerializeField] private TextMeshProUGUI tipText;
+
+    [Header("BoostInfo")]
+    [SerializeField] private GameObject boostInfoContainer;
+    [SerializeField] private Transform boostInfoGridLayout;
+    [SerializeField] private ItemDescriptionUI boostIcon;
+
     private RectTransform rectTransform;
 
     private const float insidePositionY = 0;
@@ -41,6 +49,7 @@ public class RunInfoUI : MonoBehaviour
 
     public void Initialize(RunData runData, float startTime, BlockType? mostPlacedBlockType)
     {
+        // Initialize RunInfo
         currentRunData = runData;
         runStartTime = startTime;
 
@@ -63,7 +72,19 @@ public class RunInfoUI : MonoBehaviour
                 break;
             }
         }
-        
+
+        // Initialize BoostInfo
+        for (int i = boostInfoGridLayout.childCount - 1; i >= 0; i--)
+        {
+            Destroy(boostInfoGridLayout.GetChild(i).gameObject);
+        }
+
+        foreach (ItemData boostData in runData.activeBoosts)
+        {
+            GameObject boost = Instantiate(boostIcon.gameObject, boostInfoGridLayout);
+            boost.GetComponent<Image>().sprite = GetImage(boostData);
+            boost.GetComponent<ItemDescriptionUI>().Initialize(boostData);
+        }
     }
 
     public void OpenRunInfoUI()
@@ -98,35 +119,21 @@ public class RunInfoUI : MonoBehaviour
         }
     }
 
-    /*
-    public class RunData
+    private Sprite GetImage(ItemData item)
     {
-        // 스테이지 진행 데이터
-        public Dictionary<BlockType, int> baseBlockScores;          // 기본 블록 점수
-        public Dictionary<MatchType, int> baseMatchMultipliers;     // 기본 배수
-        public List<BlockData> availableBlocks;                     // 사용 가능한 블록들
-        public List<ItemData> activeItems;                          // 활성화된 아이템들
-        public List<EffectData> activeEffects;                      // 활성화된 효과들
-        public StageData currentStage;                              // 현재 스테이지
-        public Dictionary<BlockType, int> blockReuses;              // 블록별 재사용 횟수
-        public int gold;                                            // 현재 보유 골드
-        public int baseRerollCount;                                 // 기본 리롤 횟수
-        public int currentRerollCount;                              // 현재 리롤 횟수
-        public int boardSize;                                       // 보드 크기
-
-        public void Initialize(GameData gameData)
-        {
-            baseBlockScores = new Dictionary<BlockType, int>(gameData.defaultBlockScores);
-            baseMatchMultipliers = new Dictionary<MatchType, int>(gameData.defaultMatchMultipliers);
-            availableBlocks = new List<BlockData>(gameData.defaultBlocks);
-            activeEffects = new List<EffectData>();
-            blockReuses = new Dictionary<BlockType, int>();
-            gold = gameData.startingGold;
-            baseRerollCount = gameData.defaultRerollCount;
-            currentRerollCount = baseRerollCount;
-            boardSize = 8;
-        }
+        string itemPath = "Sprites/Item/Item/";
+        return Resources.Load<Sprite>(itemPath + item.id);
     }
 
-    */
+    public void OnRunInfoSwitchButtonUIClick()
+    {
+        runInfoContainer.SetActive(true);
+        boostInfoContainer.SetActive(false);
+    }
+
+    public void OnBoostInfoSwitchButtonUIClick()
+    {
+        runInfoContainer.SetActive(false);
+        boostInfoContainer.SetActive(true);
+    }
 }

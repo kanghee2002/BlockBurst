@@ -71,7 +71,9 @@ public class ItemBoardUI : MonoBehaviour
             DOTween.Kill(card.transform);
             DOTween.Kill(card.GetComponent<CanvasGroup>());
             card.transform.localPosition = originalPositions[i];
-            
+
+            card.transform.DOScale(1f, 0.2f);
+
             Vector3 originalPosition = card.transform.localPosition;
 
             // 간단한 시퀀스: 올라가면서 흔들거리다가 -> 데이터 변경 -> 내려오면서 멈춤
@@ -147,8 +149,13 @@ public class ItemBoardUI : MonoBehaviour
 
     public void PurchaseItem(int idx)
     {
-        itemUIs[idx].GetComponent<CanvasGroup>().alpha = 0;
-        itemUIs[idx].GetComponent<CanvasGroup>().blocksRaycasts = false;
+        GameObject card = itemUIs[idx];
+        CanvasGroup canvasGroup = card.GetComponent<CanvasGroup>();
+
+        card.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack)
+            .OnComplete(() => canvasGroup.alpha = 0);
+
+        canvasGroup.blocksRaycasts = false;
     }
 
     public void ClearItemShowcaseUI()

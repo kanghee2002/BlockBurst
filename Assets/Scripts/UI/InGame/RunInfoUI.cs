@@ -34,7 +34,7 @@ public class RunInfoUI : MonoBehaviour
 
     private readonly List<string> tips = new List<string>()
     {
-        "무작위 줄 지우기는 지우기 효과를 발동시키지 않습니다!",
+        "무작위 줄 지우기는 아이템 효과를 발동시키지 않습니다!",
         "배수는 점수 계산 후 기본 배수로 초기화됩니다!",
         "한 번에 많은 줄을 지울수록 큰 점수를 얻을 수 있습니다!",
         "우상단 덱을 통해 현재 블록 수와 점수를 알 수 있습니다!",

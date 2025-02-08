@@ -2800,7 +2800,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 291.99994, y: -30}
+  m_AnchoredPosition: {x: 291.99988, y: -30}
   m_SizeDelta: {x: 256, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &231077322
@@ -6523,7 +6523,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 117}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 175, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &565023822
@@ -9816,7 +9816,7 @@ MonoBehaviour:
   blockTemplates: []
   handBlocksData: []
   shopItems: []
-  isTutorial: 0
+  isTutorial: 1
 --- !u!1 &966828379
 GameObject:
   m_ObjectHideFlags: 0
@@ -10154,6 +10154,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 991913159}
   m_CullTransparentMesh: 1
+--- !u!224 &1002073048 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3282333780346931066, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
+  m_PrefabInstance: {fileID: 396917094}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1005229722
 GameObject:
   m_ObjectHideFlags: 0
@@ -13190,17 +13195,40 @@ MonoBehaviour:
     isNextButtonInactive: 0
     isInactive: 1
     highlightDelay: 0
-  - characterPosition: {x: 0, y: 0}
-    highlightRect: {fileID: 0}
+  - characterPosition: {x: -660, y: 200}
+    highlightRect: {fileID: 565023821}
     clickableRect: {fileID: 0}
-    description: "3\uBC88\uC9F8 \uC2A4\uD14C\uC774\uC9C0\uB9C8\uB2E4 \uAC15\uB825\uD55C
-      \uC81C\uD55C\uC744 \uAC00\uC9C4 \uBCF4\uC2A4 \uC2A4\uD14C\uC774\uC9C0\uAC00
-      \uB4F1\uC7A5\uD558\uB2C8 \uC8FC\uC758\uD558\uC138\uC694!"
+    description: "\uC5EC\uAE30\uAE4C\uC9C0 \uC624\uC2DC\uB2E4\uB2C8\\n\uC7AC\uB2A5\uC774
+      \uC788\uC73C\uC2DC\uAD70\uC694!"
     isNextButtonInactive: 0
     isInactive: 0
     highlightDelay: 0
-  - characterPosition: {x: 0, y: 0}
-    highlightRect: {fileID: 0}
+  - characterPosition: {x: -660, y: 200}
+    highlightRect: {fileID: 299935733}
+    clickableRect: {fileID: 299935733}
+    description: "\uC5EC\uAE30 <color=blue>\uBD80\uC2A4\uD2B8</color>\uAC00 \uC788\uB124\uC694.
+      \uAD6C\uB9E4\uD574\uBCF4\uC138\uC694!"
+    isNextButtonInactive: 1
+    isInactive: 0
+    highlightDelay: 0
+  - characterPosition: {x: -660, y: 200}
+    highlightRect: {fileID: 565023821}
+    clickableRect: {fileID: 0}
+    description: "<color=blue>\uBD80\uC2A4\uD2B8</color>\uB294 \uC774\uBC88 \uAC8C\uC784\uC5D0
+      \uC601\uAD6C\uC801\uC778 \uD6A8\uACFC\uB97C \uC81C\uACF5\uD569\uB2C8\uB2E4!"
+    isNextButtonInactive: 0
+    isInactive: 0
+    highlightDelay: 0
+  - characterPosition: {x: -660, y: 200}
+    highlightRect: {fileID: 1002073048}
+    clickableRect: {fileID: 0}
+    description: "\uD604\uC7AC \uAC00\uC9C4 <color=blue>\uBD80\uC2A4\uD2B8</color>\uB294
+      '\uC9C4\uD589 \uC815\uBCF4'\uC5D0\uC11C \uD655\uC778\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4!"
+    isNextButtonInactive: 0
+    isInactive: 0
+    highlightDelay: 0
+  - characterPosition: {x: -660, y: 200}
+    highlightRect: {fileID: 565023821}
     clickableRect: {fileID: 0}
     description: "\uADF8\uB7FC 3\uCC55\uD130\uAE4C\uC9C0 \uD074\uB9AC\uC5B4\uD574
       \uAC8C\uC784\uC744 \uC2B9\uB9AC\uD574\uBCF4\uC138\uC694. \uD589\uC6B4\uC744
@@ -13208,26 +13236,12 @@ MonoBehaviour:
     isNextButtonInactive: 0
     isInactive: 0
     highlightDelay: 0
-  - characterPosition: {x: 0, y: 0}
+  - characterPosition: {x: -660, y: 200}
     highlightRect: {fileID: 0}
     clickableRect: {fileID: 0}
     description: 
     isNextButtonInactive: 0
-    isInactive: 0
-    highlightDelay: 0
-  - characterPosition: {x: 0, y: 0}
-    highlightRect: {fileID: 0}
-    clickableRect: {fileID: 0}
-    description: 
-    isNextButtonInactive: 0
-    isInactive: 0
-    highlightDelay: 0
-  - characterPosition: {x: 0, y: 0}
-    highlightRect: {fileID: 0}
-    clickableRect: {fileID: 0}
-    description: 
-    isNextButtonInactive: 0
-    isInactive: 0
+    isInactive: 1
     highlightDelay: 0
 --- !u!4 &1262622799
 Transform:

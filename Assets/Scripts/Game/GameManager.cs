@@ -412,7 +412,9 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         // 튜토리얼 진행 시 호출
-        if (currentChapterIndex == 1 && currentStageIndex == 2)
+        if (currentChapterIndex == 1 &&
+            (currentStageIndex == 2 ||
+             currentStageIndex == 3))
         {
             ProcessTutorialStep("EndStage");
         }

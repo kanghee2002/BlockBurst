@@ -297,17 +297,23 @@ public class TutorialManager : MonoBehaviour
 
     public void BlockInputExceptRect(RectTransform target)
     {
+        //Debug.Log("Screen Width: " + Screen.width);
+        //Debug.Log("Screen Height: " + Screen.height);
+
         foreach (RectTransform block in blocks)
         {
             block.gameObject.SetActive(true);
         }
 
+        float resolutionRatioX = Screen.width / 1920f;
+        float resolutionRatioY = Screen.height / 1080f;
+
         if (target == null)
         {
-            blocks[(int)Block.Left].sizeDelta = new Vector2(Screen.width / 2f, 0);
-            blocks[(int)Block.Right].sizeDelta = new Vector2(Screen.width / 2f, 0);
-            blocks[(int)Block.Top].sizeDelta = new Vector2(0, Screen.height / 2f);
-            blocks[(int)Block.Bottom].sizeDelta = new Vector2(0, Screen.height / 2f);
+            blocks[(int)Block.Left].sizeDelta = new Vector2((Screen.width / 2f) / resolutionRatioX, 0);
+            blocks[(int)Block.Right].sizeDelta = new Vector2((Screen.width / 2f) / resolutionRatioX, 0);
+            blocks[(int)Block.Top].sizeDelta = new Vector2(0, (Screen.height / 2f) / resolutionRatioY);
+            blocks[(int)Block.Bottom].sizeDelta = new Vector2(0, (Screen.height / 2f) / resolutionRatioY);
             return;
         }
         else if (target == itemShowcaseUI)
@@ -344,10 +350,15 @@ public class TutorialManager : MonoBehaviour
             clickableRect.anchoredPosition = new Vector2(-188f, clickableRect.anchoredPosition.y);
         }
 
-        blocks[(int)Block.Left].sizeDelta = new Vector2(Screen.width / 2f + clickableRect.anchoredPosition.x - clickableRect.rect.width / 2f, 0);
-        blocks[(int)Block.Right].sizeDelta = new Vector2(Screen.width / 2f - clickableRect.anchoredPosition.x - clickableRect.rect.width / 2f, 0);
-        blocks[(int)Block.Top].sizeDelta = new Vector2(0, Screen.height / 2f - clickableRect.anchoredPosition.y - clickableRect.rect.height / 2f);
-        blocks[(int)Block.Bottom].sizeDelta = new Vector2(0, Screen.height / 2f + clickableRect.anchoredPosition.y - clickableRect.rect.height / 2f);
+        float anchorPosX = clickableRect.anchoredPosition.x * resolutionRatioX;
+        float anchorPosY = clickableRect.anchoredPosition.y * resolutionRatioY;
+        float rectWidth = clickableRect.rect.width * resolutionRatioX;
+        float rectHeight = clickableRect.rect.height * resolutionRatioY;
+
+        blocks[(int)Block.Left].sizeDelta = new Vector2((Screen.width / 2f + anchorPosX - rectWidth / 2f) / resolutionRatioX, 0);
+        blocks[(int)Block.Right].sizeDelta = new Vector2((Screen.width / 2f - anchorPosX - rectWidth / 2f) / resolutionRatioX, 0);
+        blocks[(int)Block.Top].sizeDelta = new Vector2(0, (Screen.height / 2f - anchorPosY - rectHeight / 2f) / resolutionRatioY);
+        blocks[(int)Block.Bottom].sizeDelta = new Vector2(0, (Screen.height / 2f + anchorPosY - rectHeight / 2f) / resolutionRatioY);
     }
 
     private void DisableBlocks()

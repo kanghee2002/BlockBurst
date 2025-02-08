@@ -104,8 +104,13 @@ public class ShopManager : MonoBehaviour
         }
         ///////////////////////////////////////////////////////////////
 
-        ItemType selectedItemType = SelectByWeight(itemWeights);
-        List<ItemData> filteredItems = currentItems.Where(item => item.type == selectedItemType).ToList();
+        List<ItemData> filteredItems = new List<ItemData>();
+        for (int i = 0; i < 10000; i++)
+        {
+            ItemType selectedItemType = SelectByWeight(itemWeights);
+            filteredItems = currentItems.Where(item => item.type == selectedItemType).ToList();
+            if (filteredItems.Count > 0) break;
+        }
 
         int idx = Random.Range(0, filteredItems.Count);
         ItemData item = filteredItems[idx];

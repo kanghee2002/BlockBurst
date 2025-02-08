@@ -83,6 +83,9 @@ public class TutorialManager : MonoBehaviour
         {
             "BlockBoardCorner",
             "IncreaseBoardSize",
+            "DecreaseDrawBlockCountTwo",
+            "BlockBoardFive",
+
         };
 
         GameManager.instance.stageManager.firstStageList.AddRange(firstStageName);
@@ -92,6 +95,7 @@ public class TutorialManager : MonoBehaviour
             "TwoClock",
             "AddBlockDuo",
             "BlockIOGoldUpgrade",
+            "GrayCube",
         };
         GameManager.instance.shopManager.AddFirstItem(firstShopItems);
 
@@ -249,9 +253,13 @@ public class TutorialManager : MonoBehaviour
             {
                 source = source.GetChild(itemCount).GetComponent<RectTransform>();
             }
-            else if (itemCount >= 2)
+            else if (itemCount < 5)
             {
                 source = source.GetChild(2).GetComponent<RectTransform>();
+            }
+            else if (itemCount >= 5)
+            {
+                source = source.GetChild(0).GetComponent<RectTransform>();
             }
         }
         else if (source == itemSetUI)
@@ -322,9 +330,13 @@ public class TutorialManager : MonoBehaviour
             {
                 target = target.GetChild(itemCount).GetComponent<RectTransform>(); ;
             }
-            else if (itemCount >= 2)
+            else if (itemCount == 2)
             {
                 target = target.GetChild(2).GetComponent<RectTransform>();
+            }
+            else if (itemCount >= 5)
+            {
+                target = target.GetChild(0).GetComponent<RectTransform>();
             }
             itemCount++;
         }

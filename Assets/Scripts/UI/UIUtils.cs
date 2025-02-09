@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 public static class UIUtils
 {
-    
     // 효과 타입별 색상 정의
     public static readonly Dictionary<ItemEffectType, Color> effectColors = new Dictionary<ItemEffectType, Color>()
     {
@@ -123,5 +125,58 @@ public static class UIUtils
             Debug.LogError("유효하지 않은 색상 코드: " + hex);
             return Color.white; // 기본값
         }
+    }
+
+    public static string SetBlockNameToIcon(string text)
+    {
+        string[] blockNames = Enum.GetNames(typeof(BlockType));
+
+        foreach (var blockName in blockNames)
+        {
+            if (text.Contains(blockName))
+            {
+                if (Enum.TryParse(blockName, out BlockType blockType))
+                {
+                    string pattern = @"\b" + Regex.Escape(blockName) + @"\b";
+                    string replacement = "<sprite=" + (int)blockType + ">";
+
+                    text = Regex.Replace(text, pattern, replacement);
+                }
+            }
+        }
+
+        return text;
+    }
+
+    public static string SetTextColor(string text, string specificColor = "")
+    {
+        string[] words = text.Split(new char[] {' ', '\n'});
+
+        int index = Array.IndexOf(words, "배수");
+
+        if (index != -1 && index + 1 < words.Length)
+        {
+            string count = words[index + 1];
+            count = "<color=red>" + count + "</color>";
+        }
+
+        index = Array.IndexOf(words, "점수");
+
+        if (index != -1 && index + 1 < words.Length)
+        {
+            string count = words[index + 1];
+            count = "<color=blue>" + count + "</color>";
+        }
+
+        index = Array.IndexOf(words, "골드");
+
+        if (index != -1 && index + 1 < words.Length)
+        {
+            Debug.Log("Gold");
+            string count = words[index + 1];
+            count = "<color=#8E8E00>" + count + "</color>";
+        }
+
+        return string.Join(' ', words);
     }
 }

@@ -13,12 +13,14 @@ MonoBehaviour:
   m_Name: GiftBoxEffect2
   m_EditorClassIdentifier: 
   id: GiftBoxEffect2
-  effectName: "J/L/T \uBE14\uB85D\nx2 \uBCF5\uC0AC"
+  effectName: "J/L/T x2 \uBCF5\uC0AC"
   type: 17
-  trigger: 0
   scope: 0
   effectValue: 2
+  trigger: 0
+  triggerMode: 0
+  triggerValue: 0
+  triggerCount: 0
   blockTypes: 040000000500000006000000
   blockId: -1
   probability: 1
-  triggerValue: 0

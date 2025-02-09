@@ -13,12 +13,14 @@ MonoBehaviour:
   m_Name: ConverBlockO
   m_EditorClassIdentifier: 
   id: 
-  effectName: "\uAE30\uBCF8 \uBE14\uB85D\n2\uAC1C\uB97C\nO\uB85C \uBCC0\uD658"
+  effectName: "\uAE30\uBCF8 \uBE14\uB85D\n2\uAC1C\uB97C\nO \uBCC0\uD658"
   type: 0
-  trigger: 0
   scope: 0
   effectValue: 0
+  trigger: 0
+  triggerMode: 0
+  triggerValue: 0
+  triggerCount: 0
   blockTypes: 
   blockId: -1
   probability: 1
-  triggerValue: 0

@@ -138,7 +138,7 @@ public class DeckInfoUI : MonoBehaviour
             List<EffectData> specialEffects = Resources.Load<ItemData>("ScriptableObjects/Item/Block/AddBlock" + UIUtils.ToCamelCase(blockType.ToString())).effects;
             foreach (EffectData effect in specialEffects)
             {
-                effectText.text += effect.effectName.Replace("\n", " ");
+                effectText.text += UIUtils.SetBlockNameToIcon(effect.effectName.Replace("\n", " "));
             }
         }
         else

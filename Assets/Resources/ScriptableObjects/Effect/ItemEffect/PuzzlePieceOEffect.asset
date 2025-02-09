@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: PuzzlePieceOEffect
   m_EditorClassIdentifier: 
   id: PuzzlePieceOEffect
-  effectName: "O\uB97C 6\uBC88\n\uBC30\uCE58\uD560 \uB54C\uB9C8\uB2E4\n\uAE30\uBCF8
-    \uBC30\uC218 +1"
+  effectName: "O 6\uBC88\n\uBC30\uCE58\uD560 \uB54C\uB9C8\uB2E4\n\uAE30\uBCF8 \uBC30\uC218
+    +1"
   type: 3
   scope: 0
   effectValue: 1

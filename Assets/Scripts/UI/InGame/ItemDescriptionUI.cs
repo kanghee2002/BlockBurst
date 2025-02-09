@@ -72,6 +72,8 @@ public class ItemDescriptionUI : MonoBehaviour, IPointerEnterHandler, IPointerEx
         }
         currentDescription = description;
 
+        description = UIUtils.SetBlockNameToIcon(currentDescription);
+
         return description;
     }
 }

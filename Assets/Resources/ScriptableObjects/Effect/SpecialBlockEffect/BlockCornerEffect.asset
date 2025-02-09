@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: BlockCornerEffect
   m_EditorClassIdentifier: 
   id: BlockCornerEffect
-  effectName: "Corner \uC804\uBD80\n\uC9C0\uC6B8 \uB54C\nCorner\n\uC810\uC218 +30"
+  effectName: "\uC774 \uBE14\uB85D \uC804\uBD80\n\uC9C0\uC6B8 \uB54C CORNER \uC810\uC218
+    +30"
   type: 0
-  trigger: 4
   scope: 0
   effectValue: 30
+  trigger: 4
+  triggerMode: 0
+  triggerValue: 0
+  triggerCount: 0
   blockTypes: 0c000000
   blockId: -1
   probability: 1
-  triggerValue: 0

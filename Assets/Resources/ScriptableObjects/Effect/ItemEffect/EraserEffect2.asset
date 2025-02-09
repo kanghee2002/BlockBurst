@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: EraserEffect2
   m_EditorClassIdentifier: 
   id: EraserEffect2
-  effectName: "O \uBE14\uB85D\n\uBAA8\uB450 \uC0AD\uC81C"
+  effectName: "O \uBAA8\uB450 \uC0AD\uC81C"
   type: 18
-  trigger: 0
+  scope: 0
   effectValue: 0
+  trigger: 0
+  triggerMode: 0
+  triggerValue: 0
+  triggerCount: 0
   blockTypes: 01000000
   blockId: -1
   probability: 1
-  triggerValue: 0

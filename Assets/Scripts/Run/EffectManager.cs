@@ -108,15 +108,24 @@ public class EffectManager : MonoBehaviour
             {
                 return true;
             }
+            else
+            {
+                return false;
+            }
         }
 
         effect.triggerCount++;
+
+        GameManager.instance.UpdateItemTriggerCount(effect);
 
         if (effect.triggerMode == TriggerMode.Interval)
         {
             if (effect.triggerValue == effect.triggerCount)
             {
                 effect.triggerCount = 0;
+                
+                GameManager.instance.UpdateItemTriggerCount(effect);
+                
                 return true;
             }
         }

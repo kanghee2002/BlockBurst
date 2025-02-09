@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 using TMPro;
+using System.Linq;
 
 public class ItemSetUI : MonoBehaviour
 {
@@ -311,7 +312,26 @@ public class ItemSetUI : MonoBehaviour
             }
         }
 
+        EffectData triggerEffect = item.effects.FirstOrDefault(effect => effect.triggerMode == TriggerMode.Interval);
+
+        if (triggerEffect != null)
+        {
+            description += "\n현재 횟수: " + triggerEffect.triggerCount;
+        }
+
         return description;
+    }
+
+    public void UpdateTriggerCountDescription(int index, int count)
+    {
+        TextMeshProUGUI descriptionText = itemIcons[index].transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+        
+        string[] words = descriptionText.text.Split(' ');
+        if (words.Length == 0) return;
+
+        words[words.Length - 1] = count.ToString();
+
+        descriptionText.text = string.Join(" ", words);
     }
 
     public void StartShakeAnimation(int index, bool isBlockRelated)

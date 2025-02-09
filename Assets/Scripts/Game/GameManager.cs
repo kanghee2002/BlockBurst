@@ -271,6 +271,7 @@ public class GameManager : MonoBehaviour
             {
                 if (stageNames.Count == 0) break;
                 StageData stage = templates.FirstOrDefault(x => x.id == stageNames[0]);
+                stage.constraints.ForEach(constraint => constraint.triggerCount = 0);
                 stageNames.RemoveAt(0);
                 nextStageChoices[i] = stage;
             }
@@ -392,7 +393,7 @@ public class GameManager : MonoBehaviour
                 UpdateDeckCount(runData.availableBlocks.Count, runData.availableBlocks.Count);
                 UpdateBaseMultiplier();
 
-                GameUIManager.instance.StopAllItemShakeAnimation();
+                GameUIManager.instance.StopItemShakeAnimation(isBlockRelated: true);
                 GameUIManager.instance.StopWarningStageEffectAnimation(true);
                 GameUIManager.instance.StopWarningStageEffectAnimation(false);
             }
@@ -647,41 +648,26 @@ public class GameManager : MonoBehaviour
 
     public void PlayBoardRelatedAnimation(int matchCount)
     {
-        GameUIManager.instance.StopItemShakeAnimation(isBlockRelated: false);
+        /*GameUIManager.instance.StopItemShakeAnimation(isBlockRelated: false);
 
         // 첫 줄 지우기 효과 관련
-        if (matchCount == 0)
-        {
-            for (int i = 0; i < runData.activeItems.Count; i++)
-            {
-                if (runData.activeItems[i].effects
-                    .Any(effect => effect.trigger == TriggerType.ON_FIRST_LINE_CLEAR))
-                {
-                    GameUIManager.instance.StartItemShakeAnimation(i, isBlockRelated: false);
-                }
-            }
-        }
-
-        matchCount++;
         for (int i = 0; i < runData.activeItems.Count; i++)
         {
-            // 아이템의 효과가 미래의 matchCount과 관련이 있다면
             if (runData.activeItems[i].effects
-                .Any(effect => 
-                effect.trigger == TriggerType.ON_LINE_CLEAR_WITH_COUNT &&
-                effect.triggerValue == matchCount % effect.triggerValue + effect.triggerValue))
+                .Any(effect => effect.trigger == TriggerType.ON_FIRST_LINE_CLEAR))
             {
-                GameUIManager.instance.StartItemShakeAnimation(i, isBlockRelated: false);
+                if (matchCount == 0) GameUIManager.instance.StartItemShakeAnimation(i, isBlockRelated: false);
             }
-        }
+        }*/
+
+        matchCount++;
 
         GameUIManager.instance.StopWarningStageEffectAnimation(isBlockRelated: false);
         foreach (EffectData effect in runData.activeEffects)
         {
-            if (effect.scope == EffectScope.Stage && effect.triggerValue != 0)
+            if (effect.scope == EffectScope.Stage && effect.triggerMode == TriggerMode.Interval)
             {
-                if  (effect.trigger == TriggerType.ON_LINE_CLEAR_WITH_COUNT &&
-                    effect.triggerValue == matchCount % effect.triggerValue + effect.triggerValue)
+                if (effect.triggerValue == effect.triggerCount + 1)
                 {
                     GameUIManager.instance.StartWarningStageEffectAnimation(isBlockRelated: false);
                 }
@@ -864,6 +850,23 @@ public class GameManager : MonoBehaviour
     public void UpdateBaseMultiplier()
     {
         GameUIManager.instance.UpdateMultiplier(runData.baseMatchMultipliers[MatchType.ROW]);
+    }
+
+    public void UpdateItemTriggerCount(EffectData effect)
+    {
+        int index = runData.activeItems.FindIndex(item => item.effects.Contains(effect));
+
+        if (index == -1) return;
+
+        GameUIManager.instance.StopItemShakeAnimation(isBlockRelated: false);
+
+        // 발동 직전 횟수라면
+        if (runData.activeItems[index].effects.Any(effect => effect.triggerValue == effect.triggerCount + 1))
+        {
+            GameUIManager.instance.StartItemShakeAnimation(index, isBlockRelated: false);
+        }
+
+        GameUIManager.instance.UpdateItemTriggerCount(index, effect.triggerCount);
     }
 
     // Match에 해당하는 점수 리스트 만들기

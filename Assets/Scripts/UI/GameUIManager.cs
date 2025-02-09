@@ -422,6 +422,11 @@ public class GameUIManager : MonoBehaviour
         itemSetUI.Initialize(items, maxItemCount, discardIndex);
     }
 
+    public void UpdateItemTriggerCount(int index, int count)
+    {
+        itemSetUI.UpdateTriggerCountDescription(index, count);
+    }
+
     public void StartItemShakeAnimation(int index, bool isBlockRelated)
     {
         itemSetUI.StartShakeAnimation(index, isBlockRelated);

@@ -44,7 +44,7 @@ public class ShopManager : MonoBehaviour
 
         itemWeights = new Dictionary<ItemType, int>()
         {
-            { ItemType.ADD_BLOCK, 40 },
+            { ItemType.ADD_BLOCK, 30 },
             { ItemType.CONVERT_BLOCK, 10 },
             { ItemType.ITEM, 32 },
             { ItemType.BOOST, 8 },

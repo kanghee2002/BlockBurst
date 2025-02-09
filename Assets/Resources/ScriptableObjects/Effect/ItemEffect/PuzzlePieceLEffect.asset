@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: PuzzlePieceLEffect
   m_EditorClassIdentifier: 
   id: PuzzlePieceLEffect
-  effectName: "L 5\uBC88\n\uBC30\uCE58\uD560 \uB54C\uB9C8\uB2E4\n\uAE30\uBCF8 \uBC30\uC218
+  effectName: "L 6\uBC88\n\uBC30\uCE58\uD560 \uB54C\uB9C8\uB2E4\n\uAE30\uBCF8 \uBC30\uC218
     +1"
   type: 3
   scope: 0
   effectValue: 1
   trigger: 23
   triggerMode: 2
-  triggerValue: 5
-  triggerCount: 0
+  triggerValue: 6
+  triggerCount: 2
   blockTypes: 05000000
   blockId: -1
   probability: 1

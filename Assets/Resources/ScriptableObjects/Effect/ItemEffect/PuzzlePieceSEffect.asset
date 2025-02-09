@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: PuzzlePieceSEffect
   m_EditorClassIdentifier: 
   id: PuzzlePieceSEffect
-  effectName: "S 4\uBC88\n\uBC30\uCE58\uD560 \uB54C\uB9C8\uB2E4\n\uAE30\uBCF8 \uBC30\uC218
+  effectName: "S 5\uBC88\n\uBC30\uCE58\uD560 \uB54C\uB9C8\uB2E4\n\uAE30\uBCF8 \uBC30\uC218
     +1"
   type: 3
   scope: 0
   effectValue: 1
   trigger: 23
   triggerMode: 2
-  triggerValue: 4
+  triggerValue: 5
   triggerCount: 0
   blockTypes: 03000000
   blockId: -1

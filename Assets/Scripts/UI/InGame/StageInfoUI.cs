@@ -105,6 +105,8 @@ public class StageInfoUI : MonoBehaviour
 
         RectTransform debuffRect = debuffText.GetComponent<RectTransform>();
 
+        if (currentWarningSequence != null) currentWarningSequence.Kill();
+
         currentWarningSequence = DOTween.Sequence();
 
         currentWarningSequence.Append(

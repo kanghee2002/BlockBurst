@@ -93,7 +93,7 @@ public class TutorialManager : MonoBehaviour
         List<string> firstShopItems = new List<string>()
         {
             "TwoClock",
-            "AddBlockDuo",
+            "GrayCube",
             "BlockIOGoldUpgrade",
             "GrayCube",
         };
@@ -156,7 +156,7 @@ public class TutorialManager : MonoBehaviour
         descriptionText.text = currentStep.description.Replace("\\n", "\n");
 
         // 캐릭터와 함께 이동
-        textLayoutRect.anchoredPosition = new Vector2(characterRect.anchoredPosition.x, characterRect.anchoredPosition.y - 50f);
+        textLayoutRect.anchoredPosition = new Vector2(characterRect.anchoredPosition.x, characterRect.anchoredPosition.y - 60f);
         Vector2 nextTextPosition = new Vector2(currentStep.characterPosition.x, currentStep.characterPosition.y - 50f);
         textLayoutRect.DOAnchorPos(nextTextPosition, 0.5f)
             .SetEase(Ease.OutBack, overshoot: 1.2f);

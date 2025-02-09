@@ -11,6 +11,7 @@ public class ItemDescriptionUI : MonoBehaviour, IPointerEnterHandler, IPointerEx
     [SerializeField] private GameObject itemDescriptionUI;
     [SerializeField] private float fadeTime = 0.2f;  // fade in/out 시간
     [SerializeField] private Image rarityLayout;
+    [SerializeField] private Image itemTypeLayout;
     [SerializeField] private TextMeshProUGUI itemTypeText;
     [SerializeField] private Image outline;
 
@@ -34,9 +35,15 @@ public class ItemDescriptionUI : MonoBehaviour, IPointerEnterHandler, IPointerEx
         currentDescription = GetDescription(item); 
         itemDescriptionUI.transform.GetChild(1).GetComponent<Image>().color = UIUtils.effectColors[ItemEffectType.OTHER]; // 회색
         itemDescriptionUI.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = currentDescription;
-        if (outline != null) outline.color = UIUtils.rarityColors[item.rarity]; // 레어도
+        if (outline != null)
+        {
+            if (item.type == ItemType.BOOST) outline.color = UIUtils.HexToColor("4738ff"); // 파란색
+            else outline.color = UIUtils.rarityColors[item.rarity]; // 레어도
+        }
         rarityLayout.color = UIUtils.rarityColors[item.rarity];
         rarityLayout.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = UIUtils.itemRarityNames[item.rarity];
+        if (item.type == ItemType.BOOST) itemTypeLayout.color = UIUtils.HexToColor("4738ff"); // 파란색
+        else itemTypeLayout.color = UIUtils.effectColors[ItemEffectType.OTHER]; // 회색
         itemTypeText.text = UIUtils.itemTypeNames[item.type];
     }
 

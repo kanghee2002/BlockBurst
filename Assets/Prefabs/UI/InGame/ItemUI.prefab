@@ -713,6 +713,7 @@ MonoBehaviour:
   itemDescriptionUI: {fileID: 6147930295243249184}
   fadeTime: 0.2
   rarityLayout: {fileID: 4948711268492721235}
+  itemTypeLayout: {fileID: 170912398105497554}
   itemTypeText: {fileID: 8511599429734395893}
   outline: {fileID: 881404316013592611}
 --- !u!225 &7873484853049470810
@@ -1034,6 +1035,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 885d99d0667108f46b2408a6c08e60f7, type: 3}
+--- !u!114 &170912398105497554 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4646506110810058208, guid: 885d99d0667108f46b2408a6c08e60f7, type: 3}
+  m_PrefabInstance: {fileID: 4766083131336434226}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1654521410120293269 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6112102881428879783, guid: 885d99d0667108f46b2408a6c08e60f7, type: 3}

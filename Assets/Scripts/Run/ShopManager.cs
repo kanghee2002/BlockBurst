@@ -36,6 +36,9 @@ public class ShopManager : MonoBehaviour
             {
                 AddItem(item);
             }
+
+            // 현재 트리거 값 초기화
+            item.effects.ForEach(effect => effect.triggerCount = 0);
         }
         deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
 

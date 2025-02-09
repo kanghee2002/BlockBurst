@@ -259,6 +259,7 @@ public class GameManager : MonoBehaviour
         // 섞인 인덱스에서 필요한 만큼만 가져와서 사용
         for (int i = 0; i < nextStageChoices.Length; i++)
         {
+            templates[indices[i]].constraints.ForEach(constraint => constraint.triggerCount = 0);
             nextStageChoices[i] = templates[indices[i]];
         }
 

@@ -16,9 +16,12 @@ MonoBehaviour:
   effectName: "\uC904\uC744 2\uBC88\n\uC9C0\uC6B8 \uB54C\uB9C8\uB2E4\n\uB9AC\uB864
     +3"
   type: 5
-  trigger: 10
+  scope: 0
   effectValue: 3
+  trigger: 10
+  triggerMode: 2
+  triggerValue: 2
+  triggerCount: 0
   blockTypes: 
   blockId: -1
   probability: 1
-  triggerValue: 2

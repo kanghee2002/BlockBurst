@@ -15,10 +15,12 @@ MonoBehaviour:
   id: ThreeBulletEffect
   effectName: "3\uC904 \uB3D9\uC2DC\uC5D0\n\uC9C0\uC6B8 \uB54C\n\uBC30\uC218 +6"
   type: 2
-  trigger: 8
   scope: 0
   effectValue: 6
+  trigger: 8
+  triggerMode: 1
+  triggerValue: 3
+  triggerCount: 0
   blockTypes: 
   blockId: -1
   probability: 1
-  triggerValue: 3

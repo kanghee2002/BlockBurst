@@ -13,13 +13,15 @@ MonoBehaviour:
   m_Name: DecreaseMultiplierOnClearEffect
   m_EditorClassIdentifier: 
   id: DecreaseMultiplierOnClearEffect
-  effectName: "\uC904\uC744\\n3\uBC88 \uC9C0\uC6B8 \uB54C\uB9C8\uB2E4\\n\uBC30\uC218
+  effectName: "\uC904\uC744\\n4\uBC88 \uC9C0\uC6B8 \uB54C\uB9C8\uB2E4\\n\uBC30\uC218
     -2"
   type: 2
-  trigger: 10
   scope: 1
   effectValue: -2
+  trigger: 10
+  triggerMode: 2
+  triggerValue: 4
+  triggerCount: 0
   blockTypes: 
   blockId: -1
   probability: 1
-  triggerValue: 3

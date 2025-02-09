@@ -82,19 +82,46 @@ public class EffectManager : MonoBehaviour
     {
         foreach (EffectData effect in runData.activeEffects)
         {
-            if ((trigger == TriggerType.ON_LINE_CLEAR_WITH_COUNT ||
-                 trigger == TriggerType.ON_BLOCK_PLACE_WITH_COUNT)
-                 && effect.triggerValue != 0)
-            {
-                triggerValue = triggerValue % effect.triggerValue + effect.triggerValue;
-            }
-
             if (effect.trigger == trigger && IsIncluded(blockTypes, effect.blockTypes) &&
-                effect.blockId == blockId && effect.triggerValue == triggerValue)
+                effect.blockId == blockId)
             {
+                if (!CheckTriggerCount(effect, triggerValue))
+                {
+                    continue;
+                }
+
                 ApplyEffect(effect, blockId);
             }
         }
+    }
+
+    private bool CheckTriggerCount(EffectData effect, int triggerValue)
+    {
+        if (effect.triggerMode == TriggerMode.None)
+        {
+            return true;
+        }
+
+        if (effect.triggerMode == TriggerMode.Exact)
+        {
+            if (effect.triggerValue == triggerValue) 
+            {
+                return true;
+            }
+        }
+
+        effect.triggerCount++;
+
+        if (effect.triggerMode == TriggerMode.Interval)
+        {
+            if (effect.triggerValue == effect.triggerCount)
+            {
+                effect.triggerCount = 0;
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public void ApplyEffect(EffectData effect, int blockId = -1)

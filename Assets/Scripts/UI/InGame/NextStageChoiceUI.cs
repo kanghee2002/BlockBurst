@@ -20,8 +20,10 @@ public class NextStageChoiceUI : MonoBehaviour
     public void UpdateDebuffText(string[] debuffTexts)
     {
         string debuffText = string.Join("\n", debuffTexts);
-        
-        this.debuffText.text = debuffText.Replace("\\n", "\n").Replace(",", "");
+        debuffText = UIUtils.SetBlockNameToIcon(debuffText);
+        debuffText = debuffText.Replace("\\n", "\n").Replace(",", "");
+
+        this.debuffText.text = debuffText;
     }
 
     public void UpdateScoreAtLeast(int scoreAtLeast)

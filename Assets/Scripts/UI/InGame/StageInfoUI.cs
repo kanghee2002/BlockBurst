@@ -63,8 +63,11 @@ public class StageInfoUI : MonoBehaviour
 
     public void UpdateDebuffText(string[] debuffTexts)
     {
-        string text = string.Join("\n", debuffTexts);
-        debuffText.text = text.Replace("\\n", " ").Replace(",", "\n");
+        string debuffText = string.Join("\n", debuffTexts);
+        debuffText = UIUtils.SetBlockNameToIcon(debuffText);
+        debuffText = debuffText.Replace("\\n", " ").Replace(",", "\n");
+
+        this.debuffText.text = debuffText;
     }
 
     public void UpdateScoreAtLeast(int scoreAtLeast)

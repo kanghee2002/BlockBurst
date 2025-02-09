@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
-  m_Name: ConverBlockI
+  m_Name: ConvertBlock1
   m_EditorClassIdentifier: 
-  id: ConverBlockI
-  itemName: "I \uBE14\uB85D \uBCC0\uD658"
+  id: ConvertBlock
+  itemName: "\uBE14\uB85D \uAD50\uD658"
   effects:
-  - {fileID: 11400000, guid: 53f1a098d1c0e7042ad8e60de11a0fd3, type: 2}
+  - {fileID: 11400000, guid: 9f0cae95a5b9e2d46bb5d1039bb334d2, type: 2}
   cost: 4
   type: 1
-  block: {fileID: 11400000, guid: dfd317ceae9fff3408a3fcb9a2dfa9ec, type: 2}
+  block: {fileID: 0}
   isPurchasableAgain: 1
   effectType: 1
   rarity: 1

@@ -157,13 +157,22 @@ public class ShopManager : MonoBehaviour
         else if (item.type == ItemType.CONVERT_BLOCK)
         {
             int convertCount = 2;
+
+            List<BlockType> highestScoreBlocks = runData.baseBlockScores
+                            .Where(kv => kv.Value == runData.baseBlockScores.Values.Max())
+                            .Select(kv => kv.Key)
+                            .ToList();
+
             for (int i = 0; i < convertCount; i++)
             {
-                deckManager.RemoveRandomBlockFromRunDeck(item.block.type);
+                deckManager.RemoveRandomBlockFromRunDeck(highestScoreBlocks);
             }
+
+            BlockType convertBlockType = highestScoreBlocks[Random.Range(0, highestScoreBlocks.Count)];
+            BlockData convertBlock = Resources.Load<BlockData>("ScriptableObjects/Block/Block" + convertBlockType + "Data");
             for (int i = 0; i < convertCount; i++)
             {
-                deckManager.AddBlockToRunDeck(item.block);
+                deckManager.AddBlockToRunDeck(convertBlock);
             } 
         }
         else if (item.type == ItemType.ITEM)

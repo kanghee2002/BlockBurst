@@ -183,28 +183,21 @@ public class ItemBoardUI : MonoBehaviour
             Sprite blockPreset = Resources.Load<Sprite>(path);
             itemUI.transform.GetChild(0).GetComponent<Image>().sprite = blockPreset;
         }
-        else if (item.type == ItemType.ITEM || item.type == ItemType.BOOST)
+        else if (item.type == ItemType.ITEM || item.type == ItemType.BOOST || item.type == ItemType.CONVERT_BLOCK)
         {
             string path = itemPath + item.id;
             Sprite itemSprite = Resources.Load<Sprite>(path);
             itemUI.transform.GetChild(0).GetComponent<Image>().sprite = itemSprite;
         }
-        else if (item.type == ItemType.CONVERT_BLOCK || item.type == ItemType.UPGRADE)
+        else if (item.type == ItemType.UPGRADE)
         {
             // 블록 프리셋 배치
             string blockPath = blockPresetPath;
-            if (item.type == ItemType.CONVERT_BLOCK)
+            foreach (EffectData effectData in item.effects)
             {
-                blockPath += item.block.type.ToString();
-            }
-            else
-            {
-                foreach (EffectData effectData in item.effects)
+                foreach (BlockType blockType in effectData.blockTypes)
                 {
-                    foreach (BlockType blockType in effectData.blockTypes)
-                    {
-                        blockPath += blockType.ToString();
-                    }
+                    blockPath += blockType.ToString();
                 }
             }
             Sprite blockPreset = Resources.Load<Sprite>(blockPath);
@@ -212,11 +205,7 @@ public class ItemBoardUI : MonoBehaviour
 
             // 아이콘 배치
             string IconPath = upgradePath;
-            if (item.type == ItemType.CONVERT_BLOCK)
-            {
-                IconPath += "ConvertUpgrade";
-            }
-            else if (item.effects[0].type == EffectType.GOLD_MODIFIER)
+            if (item.effects[0].type == EffectType.GOLD_MODIFIER)
             {
                 IconPath += "GoldUpgrade";
             }

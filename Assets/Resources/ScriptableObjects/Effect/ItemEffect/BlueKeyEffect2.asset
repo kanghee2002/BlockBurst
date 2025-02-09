@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: BlueKeyEffect2
   m_EditorClassIdentifier: 
   id: BlueKeyEffect2
-  effectName: "\uB098\uBA38\uC9C0\n\uAE30\uBCF8 \uBE14\uB85D\n\uC810\uC218 +20"
+  effectName: "\uB098\uBA38\uC9C0\n\uAE30\uBCF8 \uBE14\uB85D\n\uC810\uC218 +30"
   type: 0
-  trigger: 0
+  scope: 0
   effectValue: 20
+  trigger: 0
+  triggerMode: 0
+  triggerValue: 0
+  triggerCount: 0
   blockTypes: 0200000003000000040000000500000006000000
   blockId: -1
   probability: 1
-  triggerValue: 0

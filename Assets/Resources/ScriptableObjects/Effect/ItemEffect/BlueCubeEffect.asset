@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: BlueCubeEffect
   m_EditorClassIdentifier: 
   id: BlueCubeEffect
-  effectName: "\uAE30\uBCF8 \uBE14\uB85D\n\uC810\uC218 +5"
+  effectName: "\uAE30\uBCF8 \uBE14\uB85D\n\uC810\uC218 +20"
   type: 0
+  scope: 0
+  effectValue: 20
   trigger: 0
-  effectValue: 5
+  triggerMode: 0
+  triggerValue: 0
+  triggerCount: 0
   blockTypes: 00000000010000000200000003000000040000000500000006000000
   blockId: -1
   probability: 1
-  triggerValue: 0

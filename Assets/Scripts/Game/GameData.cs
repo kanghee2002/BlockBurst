@@ -40,13 +40,13 @@ public class GameData
         defaultBlockScores[BlockType.J] = 15;
         defaultBlockScores[BlockType.L] = 15;
         defaultBlockScores[BlockType.T] = 15;
-        defaultBlockScores[BlockType.SOLO] = 0;
-        defaultBlockScores[BlockType.DUO] = 0;
-        defaultBlockScores[BlockType.TRIO] = 0;
-        defaultBlockScores[BlockType.X] = 0;
-        defaultBlockScores[BlockType.CROSS] = 0;
-        defaultBlockScores[BlockType.CORNER] = 0;
-        defaultBlockScores[BlockType.M] = 0;
+        defaultBlockScores[BlockType.SOLO] = 10;
+        defaultBlockScores[BlockType.DUO] = 10;
+        defaultBlockScores[BlockType.TRIO] = 10;
+        defaultBlockScores[BlockType.X] = 10;
+        defaultBlockScores[BlockType.CROSS] = 10;
+        defaultBlockScores[BlockType.CORNER] = 10;
+        defaultBlockScores[BlockType.M] = 10;
         defaultBlockScores[BlockType.MEGASQUARE] = 0;
         defaultBlockScores[BlockType.ULTRASQUARE] = 0;
 
@@ -64,9 +64,9 @@ public class GameData
             120,
             500,
             2000,
-            8000,
-            21000,
-            44000,
+            6000,
+            20000,
+            40000,
             70000,
             100000,
         };

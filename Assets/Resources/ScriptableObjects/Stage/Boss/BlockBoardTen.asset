@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43902bf98a9ab9c4d8d6db09a48e8201, type: 3}
   m_Name: BlockBoardTen
   m_EditorClassIdentifier: 
-  id: BlockBoardTen
+  id: BossBlockBoard
   type: 1
   boardSize: {x: 8, y: 8}
   blockedCells: []
   constraints:
   - {fileID: 11400000, guid: 025123b84ce58744b8ebb809367e8f62, type: 2}
-  clearRequirement: 300
-  goldReward: 10
+  clearRequirement: 480
+  goldReward: 9
   baseScoreMultiplier: 0

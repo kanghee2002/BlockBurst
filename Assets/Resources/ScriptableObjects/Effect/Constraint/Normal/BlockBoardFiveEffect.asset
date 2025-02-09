@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: BlockBoardFiveEffect
   m_EditorClassIdentifier: 
-  id: BlockBoardFiveEffect
-  effectName: "\uBCF4\uB4DC \uBB34\uC791\uC704\\n5\uCE78 \uC81C\uD55C"
+  id: NormalBlockBoardEffect
+  effectName: "\uBCF4\uB4DC \uBB34\uC791\uC704\\n3\uCE78 \uC81C\uD55C"
   type: 13
-  trigger: 0
   scope: 1
-  effectValue: 5
+  effectValue: 3
+  trigger: 0
+  triggerMode: 0
+  triggerValue: 0
+  triggerCount: 0
   blockTypes: 
   blockId: -1
   probability: 1
-  triggerValue: 0

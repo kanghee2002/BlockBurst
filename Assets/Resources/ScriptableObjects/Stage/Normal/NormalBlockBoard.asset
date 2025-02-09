@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43902bf98a9ab9c4d8d6db09a48e8201, type: 3}
-  m_Name: DecreaseBoradSize
+  m_Name: NormalBlockBoard
   m_EditorClassIdentifier: 
-  id: DecreaseBoradSizeTwo
-  type: 1
+  id: NormalBlockBoard
+  type: 0
   boardSize: {x: 8, y: 8}
   blockedCells: []
   constraints:
-  - {fileID: 11400000, guid: e69080964d657fc4eb0b26705ec21bb6, type: 2}
-  clearRequirement: 360
-  goldReward: 7
-  baseScoreMultiplier: -1
+  - {fileID: 11400000, guid: 6f805edab9f9fe9479dcd6f3a7d3b8cf, type: 2}
+  clearRequirement: 7500
+  goldReward: 10
+  baseScoreMultiplier: 0.25

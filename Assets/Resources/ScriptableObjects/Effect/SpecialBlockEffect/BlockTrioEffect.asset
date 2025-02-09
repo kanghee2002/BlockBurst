@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: BlockTrioEffect
   effectName: "\uC774 \uBE14\uB85D \uC804\uBD80\n\uC9C0\uC6B8 \uB54C\n\uBC30\uC218
-    +1"
+    +2"
   type: 2
   scope: 0
-  effectValue: 1
+  effectValue: 2
   trigger: 4
   triggerMode: 0
   triggerValue: 0

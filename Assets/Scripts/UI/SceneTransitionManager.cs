@@ -14,6 +14,7 @@ public class SceneTransitionManager : MonoBehaviour
     
     private Vector2 originalSize;
     private RectTransform rectTransform;
+    private Scene currentLoadedScene;  // 현재 로드된 씬을 추적
 
     void Awake()
     {
@@ -25,6 +26,8 @@ public class SceneTransitionManager : MonoBehaviour
             SetTransitionImageSize();
             originalSize = rectTransform.sizeDelta;
             SetPanelsInitialPosition();
+            // 초기 씬 설정
+            currentLoadedScene = SceneManager.GetActiveScene();
         }
         else
         {
@@ -34,30 +37,26 @@ public class SceneTransitionManager : MonoBehaviour
 
     private void SetTransitionImageSize()
     {
-        // 화면의 대각선 길이보다 더 크게 설정하여 회전해도 빈 공간이 안 생기게 함
         float screenDiagonal = Mathf.Sqrt(Screen.width * Screen.width + Screen.height * Screen.height);
-        float imageSize = screenDiagonal * 1.5f; // 여유있게 1.5배
+        float imageSize = screenDiagonal * 1.5f;
         rectTransform.sizeDelta = new Vector2(imageSize, imageSize);
     }
+
     private void SetPanelsInitialPosition()
     {
-        // 패널들을 처음부터 화면보다 훨씬 크게 설정
         float screenSize = Mathf.Max(Screen.width, Screen.height) * 3f;
-        float overlap = 2f;  // 겹치는 정도
+        float overlap = 2f;
 
-        // 모든 패널 크기 설정
         topPanel.rectTransform.sizeDelta = new Vector2(screenSize, screenSize);
         bottomPanel.rectTransform.sizeDelta = new Vector2(screenSize, screenSize);
         leftPanel.rectTransform.sizeDelta = new Vector2(screenSize, screenSize);
         rightPanel.rectTransform.sizeDelta = new Vector2(screenSize, screenSize);
 
-        // pivot 설정
         topPanel.rectTransform.pivot = new Vector2(0.5f, 0f);
         bottomPanel.rectTransform.pivot = new Vector2(0.5f, 1f);
         leftPanel.rectTransform.pivot = new Vector2(1f, 0.5f);
         rightPanel.rectTransform.pivot = new Vector2(0f, 0.5f);
 
-        // 시작 위치 설정 (약간 겹치게)
         topPanel.rectTransform.anchoredPosition = new Vector2(0, originalSize.y * 0.5f - overlap);
         bottomPanel.rectTransform.anchoredPosition = new Vector2(0, -originalSize.y * 0.5f + overlap);
         leftPanel.rectTransform.anchoredPosition = new Vector2(-originalSize.x * 0.5f + overlap, 0);
@@ -67,9 +66,8 @@ public class SceneTransitionManager : MonoBehaviour
     private void UpdatePanelsPosition(Vector2 currentSize)
     {
         float halfSize = currentSize.x * 0.5f;
-        float overlap = 2f;  // 겹치는 정도
+        float overlap = 2f;
         
-        // 패널 위치 업데이트 (약간 겹치게)
         topPanel.rectTransform.anchoredPosition = new Vector2(0, halfSize - overlap);
         bottomPanel.rectTransform.anchoredPosition = new Vector2(0, -halfSize + overlap);
         leftPanel.rectTransform.anchoredPosition = new Vector2(-halfSize + overlap, 0);
@@ -88,16 +86,57 @@ public class SceneTransitionManager : MonoBehaviour
 
     private IEnumerator LoadSceneAsync(string sceneName)
     {
+        // 1. 전환 효과 시작
         yield return StartCoroutine(Shrink(0.5f));
 
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName);
-        while (!asyncOperation.isDone)
+        Scene currentScene = SceneManager.GetActiveScene();
+        bool isSameScene = currentScene.name == sceneName;
+
+        // 2. 새 씬을 로드
+        AsyncOperation asyncLoad;
+        if (isSameScene)
+        {
+            // 같은 씬일 경우 Single 모드로 로드하여 완전한 초기화 보장
+            asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
+        }
+        else 
+        {
+            asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+        }
+
+        while (!asyncLoad.isDone)
         {
             yield return null;
         }
 
+        if (!isSameScene)
+        {
+            // 다른 씬일 경우에만 Additive 로드 후처리
+            Scene newScene = SceneManager.GetSceneByName(sceneName);
+            SceneManager.SetActiveScene(newScene);
+
+            if (currentLoadedScene.isLoaded)
+            {
+                AsyncOperation asyncUnload = SceneManager.UnloadSceneAsync(currentLoadedScene);
+                while (!asyncUnload.isDone)
+                {
+                    yield return null;
+                }
+            }
+            currentLoadedScene = newScene;
+        }
+        else
+        {
+            // 같은 씬일 경우 현재 씬 참조 업데이트
+            currentLoadedScene = SceneManager.GetActiveScene();
+        }
+
+        // 3. 전환 효과 종료
         yield return StartCoroutine(Expand(0.5f));
         transitionMutex = true;
+
+        // 4. 가비지 컬렉션 요청
+        System.GC.Collect();
     }
 
     private IEnumerator Shrink(float duration)

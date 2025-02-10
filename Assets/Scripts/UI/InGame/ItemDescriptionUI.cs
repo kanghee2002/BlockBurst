@@ -45,6 +45,8 @@ public class ItemDescriptionUI : MonoBehaviour, IPointerEnterHandler, IPointerEx
         if (item.type == ItemType.BOOST) itemTypeLayout.color = UIUtils.HexToColor("4738ff"); // 파란색
         else itemTypeLayout.color = UIUtils.effectColors[ItemEffectType.OTHER]; // 회색
         itemTypeText.text = UIUtils.itemTypeNames[item.type];
+
+        descriptionCanvasGroup.alpha = 0f;
     }
 
     public void OnPointerEnter(PointerEventData eventData)

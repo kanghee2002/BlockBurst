@@ -81,6 +81,8 @@ public class GameUIManager : MonoBehaviour
             popupState = PopupState.runInfo;
             GameManager.instance.OnRunInfoRequested();
             runInfoUI.OpenRunInfoUI();
+
+            GameManager.instance.ProcessTutorialStep("Run");
         }
     }
 
@@ -95,6 +97,8 @@ public class GameUIManager : MonoBehaviour
         {
             popupState = PopupState.none;
             runInfoUI.CloseRunInfoUI();
+
+            GameManager.instance.ProcessTutorialStep("RunBack");
         }
     }
 

@@ -112,7 +112,8 @@ public class TutorialManager : MonoBehaviour
     {
         if (isWaitingForClick && 
            (sign == "StageChoice" || sign == "Deck" || sign == "DeckBack" ||
-            sign == "Purchase" || sign == "NextStage"))
+            sign == "Purchase" || sign == "NextStage" || sign == "Run" ||
+            sign == "RunBack"))
         {
             ProcessStep();
         }
@@ -122,7 +123,7 @@ public class TutorialManager : MonoBehaviour
             if (stepCount < 25)
             {
                 // 어둠의 경로로 돈 추가
-                GameManager.instance.UpdateGold(3);
+                GameManager.instance.UpdateGold(4);
             }
 
             ProcessStep();
@@ -298,6 +299,10 @@ public class TutorialManager : MonoBehaviour
             highlightAreaRect.anchoredPosition = new Vector2(highlightAreaRect.anchoredPosition.x, -178f);
             //UIUtils.OpenUI(highlightAreaRect, "Y", -178f, 0.2f);
         }
+        else if (source.name == "RunInfoUI")
+        {
+            highlightAreaRect.anchoredPosition = new Vector2(highlightAreaRect.anchoredPosition.x, 0f);
+        }
 
         highlightRect.DOMove(highlightAreaRect.position, 0.5f + delay);
         highlightRect.DOSizeDelta(highlightAreaRect.rect.size, 0.5f + delay);
@@ -360,6 +365,10 @@ public class TutorialManager : MonoBehaviour
         else if (target.name == "HandUIasdasdsd")
         {
             clickableRect.anchoredPosition = new Vector2(-188f, clickableRect.anchoredPosition.y);
+        }
+        else if (target.name == "RunInfoUI")
+        {
+            clickableRect.anchoredPosition = new Vector2(clickableRect.anchoredPosition.x, 0f);
         }
 
         float anchorPosX = clickableRect.anchoredPosition.x * resolutionRatioX;

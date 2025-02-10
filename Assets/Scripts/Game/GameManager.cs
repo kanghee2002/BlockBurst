@@ -192,7 +192,7 @@ public class GameManager : MonoBehaviour
 
     public void MakeNewRun()
     {
-        SceneManager.LoadScene("GameScene");
+        SceneTransitionManager.instance.TransitionToScene("GameScene");
     }
 
     // ------------------------------
@@ -796,12 +796,13 @@ public class GameManager : MonoBehaviour
 
     public void GameOverCheck()
     {
-        //Debug.Log("Game Over Check");
-        if (blockGame.deck.Count == 0 && handBlocks.All(block => block == null)) // 덱이 비었거나
-        {
-            EndGame(false);
-        }
-        else if (blockGame.rerollCount == 0 && handBlocksData.All(blockData => blockData == null || !board.CanPlaceSome(blockData))) // 둘 곳이 없을 때
+        bool isGameOver = !isClearStage // 스테이지 클리어가 아니고
+            && (blockGame.deck.Count == 0
+            && handBlocks.All(block => block == null))  // 덱이 비었거나
+            || (blockGame.rerollCount == 0
+            && handBlocksData.All(blockData => blockData == null || !board.CanPlaceSome(blockData)) // 둘 곳이 없을 때
+            );
+        if (isGameOver)
         {
             EndGame(false);
         }

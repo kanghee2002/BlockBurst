@@ -38,6 +38,14 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
 
     Block myBlock;
 
+    public Dictionary<string, string> effectNameDictionary = new Dictionary<string, string>()
+    {
+        { "GOLD_MODIFIER", "골드" },
+        { "MULTIPLIER_MODIFIER", "배수" },
+        { "REROLL_MODIFIER", "리롤" },
+        { "SCORE_MODIFIER", "점수" },
+    };
+
     void Awake()
     {
         canvas = GetComponentInParent<Canvas>();
@@ -65,7 +73,14 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
 
         if (Enums.IsDefaultBlockType(blockType))
         {
-            description = "Default Block\n";
+            Dictionary<string, int> blockEffect = CellEffectManager.instance.blockEffects[(int)blockType];
+            if (blockEffect != null)
+            {
+                foreach (var effect in blockEffect)
+                {
+                    description += effectNameDictionary[effect.Key] + " +" + effect.Value.ToString() + "\n";
+                }
+            }
         }
         else
         {
@@ -160,7 +175,10 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        DescriptionFadeIn();
+        if (!isDragging)
+        {
+            DescriptionFadeIn();
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -171,13 +189,20 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
     public void DescriptionFadeIn()
     {
         DOTween.Kill(descriptionText);
-        descriptionText.GetComponent<CanvasGroup>().alpha = 1f;
+        descriptionText.GetComponent<CanvasGroup>().DOFade(1f, .2f);
     }
 
-    public void DescriptionFadeOut()
+    public void DescriptionFadeOut(bool isInstant = false)
     {
         DOTween.Kill(descriptionText);
-        descriptionText.GetComponent<CanvasGroup>().alpha = 0f;
+        if (isInstant)
+        {
+            descriptionText.GetComponent<CanvasGroup>().alpha = 0f;
+        }
+        else
+        {
+            descriptionText.GetComponent<CanvasGroup>().DOFade(0f, .2f);
+        }
     }
 
     public void OnPointerDown(PointerEventData eventData)

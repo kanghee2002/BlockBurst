@@ -111,6 +111,7 @@ public class CellEffectManager : MonoBehaviour
     {
         Texture2D baseTexture = baseTextures[(int)blockType];
         Texture2D texture = baseTexture;
+        int score = blockGameData.blockScores[blockType];
 
         if(blockEffects[(int)blockType] != null)
         {
@@ -125,7 +126,13 @@ public class CellEffectManager : MonoBehaviour
             }
         }
 
-        ApplyShader(ref image, blockGameData.blockScores[blockType]);
+        // 점수가 0이하인 경우 전체 색상 변경
+        if (score <= 0)
+        {
+            texture = ApplyColorToTexture(texture, new Color(0f, 0f, 0f, 0.5f));
+        }
+
+        ApplyShader(ref image, score);
 
         blockTextures[(int)blockType] = texture;
 

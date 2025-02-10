@@ -17,7 +17,7 @@ public class ItemDescriptionUI : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     private ItemData item;
     private string currentDescription;
-    public CanvasGroup descriptionCanvasGroup;
+    private CanvasGroup descriptionCanvasGroup;
 
     private void Awake()
     {
@@ -53,14 +53,22 @@ public class ItemDescriptionUI : MonoBehaviour, IPointerEnterHandler, IPointerEx
         {
             return;
         }
-        // Fade In
-        DOTween.Kill(descriptionCanvasGroup);
-        descriptionCanvasGroup.DOFade(1f, fadeTime);
+        DescriptionFadeIn();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        // Fade Out
+        DescriptionFadeOut();
+    }
+
+    public void DescriptionFadeIn()
+    {
+        DOTween.Kill(descriptionCanvasGroup);
+        descriptionCanvasGroup.DOFade(1f, fadeTime);
+    }
+
+    public void DescriptionFadeOut()
+    {
         DOTween.Kill(descriptionCanvasGroup);
         descriptionCanvasGroup.DOFade(0f, fadeTime);
     }

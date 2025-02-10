@@ -30,18 +30,36 @@ public class BoardUI : MonoBehaviour
     {
         rectTransform = GetComponent<RectTransform>();
     }
-
+    
     void AutoSizing(int height, int width)
     {
         Canvas canvas = GetComponentInParent<Canvas>();
         Camera cam = canvas.worldCamera ?? Camera.main;
 
-        // UI 요소들의 화면상 위치와 크기를 정확하게 계산
-        Vector2 itemSetScreen = cam.WorldToScreenPoint(itemSetRect.position);
-        Vector2 deskMatScreen = cam.WorldToScreenPoint(deskMatRect.position);
-        Vector2 handScreen = cam.WorldToScreenPoint(handUIRect.transform.GetChild(0).GetComponent<RectTransform>().position);
+        // World 좌표를 Viewport 좌표로 변환 (0~1 범위)
+        Vector3 itemSetViewport = cam.WorldToViewportPoint(itemSetRect.position);
+        Vector3 deskMatViewport = cam.WorldToViewportPoint(deskMatRect.position);
+        Vector3 handViewport = cam.WorldToViewportPoint(handUIRect.transform.GetChild(0).GetComponent<RectTransform>().position);
 
-        // 각 UI의 실제 경계 위치 계산 (화면 좌표계)
+        // Viewport 좌표를 현재 화면 해상도에 맞게 변환
+        float screenHeight = Screen.height * cam.rect.height;
+        float screenWidth = Screen.width * cam.rect.width;
+        
+        // UI 요소들의 실제 화면상 위치 계산
+        Vector2 itemSetScreen = new Vector2(
+            itemSetViewport.x * screenWidth,
+            itemSetViewport.y * screenHeight
+        );
+        Vector2 deskMatScreen = new Vector2(
+            deskMatViewport.x * screenWidth,
+            deskMatViewport.y * screenHeight
+        );
+        Vector2 handScreen = new Vector2(
+            handViewport.x * screenWidth,
+            handViewport.y * screenHeight
+        );
+
+        // 각 UI의 실제 경계 위치 계산 (조정된 화면 좌표계)
         float itemSetBottom = itemSetScreen.y - ((itemSetRect.rect.height / 2) * canvas.scaleFactor);
         float deskMatRight = deskMatScreen.x + ((deskMatRect.rect.width / 2) * canvas.scaleFactor);
         float handLeft = handScreen.x - ((handUIRect.rect.width / 2) * canvas.scaleFactor);
@@ -65,7 +83,7 @@ public class BoardUI : MonoBehaviour
         rectTransform.localScale = Vector3.one * scale;
         handUIRect.transform.GetChild(1).GetComponent<RectTransform>().localScale = Vector3.one * scale;
 
-        Debug.Log($"Final calculation - Available space: {availableWidth}x{availableHeight}, Board size: {boardWidth}x{boardHeight}, Scale: {scale}");
+        Debug.Log($"Final calculation - Available space: {availableWidth}x{availableHeight}, Board size: {boardWidth}x{boardHeight}, Scale: {scale}, Viewport: {cam.rect}");
     }
 
     public void Initialize(int rows, int columns)

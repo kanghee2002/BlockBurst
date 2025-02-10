@@ -12936,7 +12936,7 @@ MonoBehaviour:
     isNextButtonInactive: 0
     isInactive: 0
     highlightDelay: 0
-  - characterPosition: {x: 700, y: 150}
+  - characterPosition: {x: 660, y: 150}
     highlightRect: {fileID: 1944218407}
     clickableRect: {fileID: 0}
     description: "\uC774 \uC2A4\uD14C\uC774\uC9C0\uB294 \uC774 <color=#005000>\uC810\uC218</color>\uB9CC
@@ -12944,7 +12944,7 @@ MonoBehaviour:
     isNextButtonInactive: 0
     isInactive: 0
     highlightDelay: 0
-  - characterPosition: {x: 700, y: 150}
+  - characterPosition: {x: 660, y: 150}
     highlightRect: {fileID: 1439490628}
     clickableRect: {fileID: 0}
     description: "\uB2E8, \uC2A4\uD14C\uC774\uC9C0\uB9C8\uB2E4\\n<color=#005000>\uC81C\uD55C
@@ -12952,7 +12952,7 @@ MonoBehaviour:
     isNextButtonInactive: 0
     isInactive: 0
     highlightDelay: 0
-  - characterPosition: {x: 700, y: 150}
+  - characterPosition: {x: 660, y: 150}
     highlightRect: {fileID: 563390983}
     clickableRect: {fileID: 563390983}
     description: "\uC120\uD0DD\uD558\uAE30\uB97C \uD074\uB9AD\uD574\\n\uC2A4\uD14C\uC774\uC9C0\uB97C
@@ -12992,7 +12992,7 @@ MonoBehaviour:
     isNextButtonInactive: 1
     isInactive: 0
     highlightDelay: 0
-  - characterPosition: {x: 750, y: 150}
+  - characterPosition: {x: 660, y: 150}
     highlightRect: {fileID: 1019123824}
     clickableRect: {fileID: 0}
     description: "\uAC01 \uBE14\uB85D\uC740 \uADF8 \uBAA8\uC591\uC5D0 \uB9DE\uB294
@@ -13001,7 +13001,7 @@ MonoBehaviour:
     isNextButtonInactive: 0
     isInactive: 0
     highlightDelay: 0
-  - characterPosition: {x: 750, y: 150}
+  - characterPosition: {x: 660, y: 150}
     highlightRect: {fileID: 1019123824}
     clickableRect: {fileID: 1341970923}
     description: "\uB3CC\uC544\uAC00\uAE30\uB97C \uB20C\uB7EC \uB3CC\uC544\uAC00\uC138\uC694!"

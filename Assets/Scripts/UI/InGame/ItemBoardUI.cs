@@ -68,6 +68,8 @@ public class ItemBoardUI : MonoBehaviour
             int index = i;
             GameObject card = itemUIs[i];
 
+            card.GetComponent<ItemDescriptionUI>().descriptionCanvasGroup.alpha = 0;
+
             DOTween.Kill(card.transform);
             DOTween.Kill(card.GetComponent<CanvasGroup>());
             card.transform.localPosition = originalPositions[i];
@@ -112,7 +114,6 @@ public class ItemBoardUI : MonoBehaviour
                     for (int j = 0; j < itemUIs.Length; j++)
                     {
                         itemUIs[j].GetComponent<CanvasGroup>().blocksRaycasts = true;
-                        itemUIs[j].GetComponent<ItemDescriptionUI>().descriptionCanvasGroup.alpha = 0;
                     }
                 });
             }

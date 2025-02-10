@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
         }
         LoadTemplates();
         QualitySettings.vSyncCount = 0;
-        Application.targetFrameRate = 60; // for mobile build
+        Application.targetFrameRate = 120; // for mobile build
     }
 
     void LoadTemplates()

@@ -62,8 +62,8 @@ public class GameData
         stageBaseScoreList = new List<int>()
         {
             120,
-            500,
-            2000,
+            600,
+            3000,
             6000,
             20000,
             50000,

@@ -69,7 +69,7 @@ public class CellEffectManager : MonoBehaviour
 
     private float CalculateIntensity(int score)
     {
-        float intensity = Mathf.Log(score - 15, 100) / 3f;
+        float intensity = Mathf.Log(score - 20, 100) / 3f;
         
         if (float.IsNaN(intensity) || intensity < 0)
             intensity = 0;

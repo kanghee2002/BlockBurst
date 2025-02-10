@@ -112,6 +112,7 @@ public class ItemBoardUI : MonoBehaviour
                     for (int j = 0; j < itemUIs.Length; j++)
                     {
                         itemUIs[j].GetComponent<CanvasGroup>().blocksRaycasts = true;
+                        itemUIs[j].GetComponent<ItemDescriptionUI>().descriptionCanvasGroup.alpha = 0;
                     }
                 });
             }

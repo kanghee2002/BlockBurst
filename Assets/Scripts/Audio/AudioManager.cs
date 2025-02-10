@@ -204,19 +204,22 @@ public class AudioManager : MonoBehaviour
         stageSource.release();
         isPlaying = false;
         try {
-            StopCoroutine(shopTransition);
+            if (shopTransition != null)
+                StopCoroutine(shopTransition);
         }
         catch(Exception e) {
             Debug.Log(e);
         }
         try {
-            StopCoroutine(stageTransitionIn);
+            if (stageTransitionIn != null)
+                StopCoroutine(stageTransitionIn);
         }
         catch(Exception e) {
             Debug.Log(e);
         }
         try {
-            StopCoroutine(stageTransitionOut);
+            if (stageTransitionOut != null)
+                StopCoroutine(stageTransitionOut);
         }
         catch(Exception e) {
             Debug.Log(e);

@@ -5,8 +5,9 @@ using UnityEngine.EventSystems;
 using System.Linq;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
 
-public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private GameObject prefabBlockCellUI;
     private GameObject[,] blockCellsUI;
@@ -32,6 +33,9 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
     private bool isDragging = false;
     float boardCellSize;
 
+    private string description = "";
+    private TextMeshProUGUI descriptionText;
+
     Block myBlock;
 
     void Awake()
@@ -40,6 +44,7 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
         boardUI = GameObject.Find("BoardUI").GetComponent<BoardUI>();
         rectTransform = GetComponent<RectTransform>();
         raycastImage = GetComponent<Image>();
+        descriptionText = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         if (raycastImage == null)
         {
             raycastImage = gameObject.AddComponent<Image>();
@@ -53,11 +58,35 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
         GameUIManager.instance.OnRotateBlock(idx);
     }
 
+    string GetDescription(Block block)
+    {
+        BlockType blockType = block.Type;
+        string description = "";
+
+        if (Enums.IsDefaultBlockType(blockType))
+        {
+            description = "Default Block\n";
+        }
+        else
+        {
+            List<EffectData> specialEffects = Resources.Load<ItemData>("ScriptableObjects/Item/Block/AddBlock" + UIUtils.ToCamelCase(blockType.ToString())).effects;
+            foreach (EffectData effect in specialEffects)
+            {
+                description += UIUtils.SetBlockNameToIcon(effect.effectName.Replace("\n", " "));
+            }
+        }
+
+        return description;
+    }
+
     public void Initialize(Block block, int index)
     {
         myBlock = block;
         originalPosition = transform.localPosition;
         idx = index;
+
+        description = GetDescription(block);
+        descriptionText.text = description;
 
         // Destroy existing block cells
         if (blockCellsUI != null)
@@ -129,6 +158,28 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
         transform.DOScale(targetScale, 0.2f).SetEase(Ease.OutQuad);
     }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        DescriptionFadeIn();
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        DescriptionFadeOut();
+    }
+
+    public void DescriptionFadeIn()
+    {
+        DOTween.Kill(descriptionText);
+        descriptionText.GetComponent<CanvasGroup>().alpha = 1f;
+    }
+
+    public void DescriptionFadeOut()
+    {
+        DOTween.Kill(descriptionText);
+        descriptionText.GetComponent<CanvasGroup>().alpha = 0f;
+    }
+
     public void OnPointerDown(PointerEventData eventData)
     {
         makeSmall(false);
@@ -152,6 +203,8 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
         GameManager.instance.OnBeginDragBlock(myBlock);
 
         isDragging = true;
+        DescriptionFadeOut();
+        
         Vector2 localPoint;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             transform.parent as RectTransform,

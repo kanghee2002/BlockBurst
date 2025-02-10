@@ -17,7 +17,7 @@ public class ItemDescriptionUI : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     private ItemData item;
     private string currentDescription;
-    private CanvasGroup descriptionCanvasGroup;
+    public CanvasGroup descriptionCanvasGroup;
 
     private void Awake()
     {

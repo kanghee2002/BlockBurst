@@ -142,6 +142,7 @@ public class ItemBoardUI : MonoBehaviour
             });
 
             itemUI.GetComponent<ItemDescriptionUI>().Initialize(items[currentIndex]);
+            itemUI.GetComponent<ItemDescriptionUI>().descriptionCanvasGroup.alpha = 0;
 
             originalPositions[i] = itemUI.transform.localPosition;
         }

@@ -83,9 +83,6 @@ public class TutorialManager : MonoBehaviour
         {
             "BlockBoardCorner",
             "IncreaseBoardSize",
-            "DecreaseDrawBlockCountTwo",
-            "BlockBoardFive",
-
         };
 
         GameManager.instance.stageManager.firstStageList.AddRange(firstStageName);
@@ -95,7 +92,6 @@ public class TutorialManager : MonoBehaviour
             "TwoClock",
             "GrayCube",
             "BlockIOGoldUpgrade",
-            "GrayCube",
         };
         GameManager.instance.shopManager.AddFirstItem(firstShopItems);
 
@@ -133,6 +129,13 @@ public class TutorialManager : MonoBehaviour
     private void ProcessStep()
     {
         if (!isPlayingTutorial) return;
+        
+        if (stepCount >= tutorialSteps.Count)
+        {
+            isPlayingTutorial = false;
+            return;
+        }
+
 
         TutorialStep currentStep = tutorialSteps[stepCount];
 

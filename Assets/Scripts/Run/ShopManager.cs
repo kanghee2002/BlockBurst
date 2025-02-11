@@ -163,14 +163,20 @@ public class ShopManager : MonoBehaviour
                             .Select(kv => kv.Key)
                             .ToList();
 
+            int removeCount = 0;
             for (int i = 0; i < convertCount; i++)
             {
-                deckManager.RemoveRandomBlockFromRunDeck(highestScoreBlocks);
+                if (deckManager.RemoveRandomBlockFromRunDeck(highestScoreBlocks))
+                {
+                    removeCount++;
+                }
+            
             }
 
             BlockType convertBlockType = highestScoreBlocks[Random.Range(0, highestScoreBlocks.Count)];
             BlockData convertBlock = Resources.Load<BlockData>("ScriptableObjects/Block/Block" + convertBlockType + "Data");
-            for (int i = 0; i < convertCount; i++)
+
+            for (int i = 0; i < removeCount; i++)
             {
                 deckManager.AddBlockToRunDeck(convertBlock);
             } 

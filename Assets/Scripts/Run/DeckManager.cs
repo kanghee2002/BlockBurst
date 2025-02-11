@@ -96,16 +96,25 @@ public class DeckManager : MonoBehaviour
         runData.availableBlocks.Remove(block);
     }
 
-    public void RemoveRandomBlockFromRunDeck(List<BlockType> exceptionType)
+    public bool RemoveRandomBlockFromRunDeck(List<BlockType> exceptionType)
     {
-        int randomIndex = -1;
-        for (int i = 0; i < 10000; i++)
-        {
-            randomIndex = Random.Range(0, runData.availableBlocks.Count);
-            if (exceptionType != null && exceptionType.Contains(runData.availableBlocks[randomIndex].type)) continue;
-            else break;
-        }
-        runData.availableBlocks.RemoveAt(randomIndex);
+        if (exceptionType == null) return false; 
+
+        List<BlockData> blocks = runData.availableBlocks.ToList();
+        blocks.RemoveAll(x => exceptionType.Contains(x.type));
+        blocks.RemoveAll(x => Enums.IsSpecialBlockType(x.type));
+
+        if (blocks.Count == 0 ) return false;
+
+        int randomIndex = Random.Range(0, blocks.Count);
+        BlockType randomType = blocks[randomIndex].type;
+        int removingIndex = runData.availableBlocks.FindIndex(x => x.type == randomType);
+
+        if (removingIndex == -1) return false;
+
+        runData.availableBlocks.RemoveAt(removingIndex);
+
+        return true;
     }
 
     // 덱 셔플

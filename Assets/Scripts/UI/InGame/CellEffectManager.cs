@@ -121,7 +121,7 @@ public class CellEffectManager : MonoBehaviour
                 string effectType = effectColor.Key;
                 if (blockEffects[(int)blockType].ContainsKey(effectType))
                 {
-                    texture = UpgradeEffect(texture, effectType);
+                    texture = UpgradeEffect(texture, effectType, blockEffects[(int)blockType][effectType]);
                 }
             }
         }
@@ -168,9 +168,13 @@ public class CellEffectManager : MonoBehaviour
         return CreateRectangularGradientMask(baseTexture, SCORE_EFFECT_COLOR, SCORE_EFFECT_INNER + gap, SCORE_EFFECT_OUTER + gap);
     }
 
-    private Texture2D UpgradeEffect(Texture2D baseTexture, string effectType)
+    private Texture2D UpgradeEffect(Texture2D baseTexture, string effectType, int effectCount)
     {
         Color color = effectColors[effectType];
+        int intensity = effectCount * .1f;
+        if (intensity > 1)
+            intensity = 1;
+        color.a = intensity;
         
         // effectColors에서 해당 효과의 인덱스를 찾습니다
         int effectIndex = 0;

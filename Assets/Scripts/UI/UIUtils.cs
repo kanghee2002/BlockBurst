@@ -38,7 +38,7 @@ public static class UIUtils
     {
         { ItemRarity.SILVER, "일반" },
         { ItemRarity.GOLD, "희귀" },
-        { ItemRarity.PLATINUM, "레어" },
+        { ItemRarity.PLATINUM, "전설" },
     };
 
     public static string ToCamelCase(this string str)

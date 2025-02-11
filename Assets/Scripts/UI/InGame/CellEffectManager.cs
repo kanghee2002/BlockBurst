@@ -171,7 +171,7 @@ public class CellEffectManager : MonoBehaviour
     private Texture2D UpgradeEffect(Texture2D baseTexture, string effectType, int effectCount)
     {
         Color color = effectColors[effectType];
-        int intensity = effectCount * .1f;
+        float intensity = effectCount * .1f;
         if (intensity > 1)
             intensity = 1;
         color.a = intensity;

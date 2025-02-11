@@ -138,6 +138,8 @@ public class GameManager : MonoBehaviour
         // 각종 초기화
         Debug.Log("Game Start");
 
+        CLEAR_CHAPTER = 3;
+
         currentChapterIndex = 1;
         currentStageIndex = 1;
 

@@ -39,6 +39,12 @@ public class ClearInfoUI : MonoBehaviour
         int minutes = Mathf.FloorToInt(elapsedTime / 60);
         int seconds = Mathf.FloorToInt(elapsedTime % 60);
 
+        int blockCount = 0;
+        foreach (int count in history.blockHistory)
+        {
+            blockCount += count;
+        }
+
         seungRi.text = isCleared ? "승리!" : "패배";
         
         infiniteButton.SetActive(isCleared);
@@ -47,7 +53,7 @@ public class ClearInfoUI : MonoBehaviour
         maximumScoreText.text = history.maxScore.ToString();
         mostPlacedBlockImage.sprite = Resources.Load<Sprite>($"Sprites/Block/Preset/{mostPlacedBlockType.ToString()}");
         chapterText.text = currentChapterIndex.ToString();
-        placedBlockCountText.text = history.blockHistory.Length.ToString();
+        placedBlockCountText.text = blockCount.ToString();
         stageText.text = currentStageIndex.ToString();
         rerolledCountText.text = history.rerollCount.ToString();
         buyedCountText.text = history.itemPurchaseCount.ToString();

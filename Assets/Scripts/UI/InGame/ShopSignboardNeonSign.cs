@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,12 +22,12 @@ public class ShopSignboardNeonSign : MonoBehaviour
             if (on == true)
             {
                 on = false;
-                image.color = new Color(0.8f, 0.8f, 0.8f, 1.0f);
+                image.DOColor(new Color(0.8f, 0.8f, 0.8f, 1.0f), 0.3f);
             }
             else if (on == false)
             {
                 on = true;
-                image.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+                image.DOColor(new Color(1.0f, 1.0f, 1.0f, 1.0f), 0.3f);
             }
 
             yield return new WaitForSeconds(0.4f);

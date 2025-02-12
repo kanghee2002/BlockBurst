@@ -81,7 +81,7 @@ public class TutorialManager : MonoBehaviour
 
         List<string> firstStageName = new List<string>()
         {
-            "BlockBoardCorner",
+            "DebuffJScore",
             "IncreaseBoardSize",
         };
 

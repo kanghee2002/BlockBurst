@@ -18,6 +18,9 @@ public class ShopManager : MonoBehaviour
 
     private Dictionary<ItemType, int> itemWeights;
 
+    // NDM
+    private Dictionary<ItemRarity, int> itemRarityWeights;
+
     public void Initialize(ref RunData data, ItemData[] items)
     {
         runData = data;
@@ -44,11 +47,24 @@ public class ShopManager : MonoBehaviour
 
         itemWeights = new Dictionary<ItemType, int>()
         {
-            { ItemType.ADD_BLOCK, 30 },
-            { ItemType.CONVERT_BLOCK, 10 },
-            { ItemType.ITEM, 32 },
+            //{ ItemType.ADD_BLOCK, 30 },
+            //{ ItemType.CONVERT_BLOCK, 10 },
+            //{ ItemType.ITEM, 32 },
+            //{ ItemType.BOOST, 8 },
+            //{ ItemType.UPGRADE, 10 },
+            { ItemType.ADD_BLOCK, 10 },
+            { ItemType.CONVERT_BLOCK, 5 },
+            { ItemType.ITEM, 50 },
             { ItemType.BOOST, 8 },
-            { ItemType.UPGRADE, 20 },
+            { ItemType.UPGRADE, 5 },
+        };
+
+        // NDM
+        itemRarityWeights = new Dictionary<ItemRarity, int>()
+        {
+            { ItemRarity.SILVER, 10 },
+            { ItemRarity.GOLD, 40},
+            { ItemRarity.PLATINUM, 40 },
         };
     }
 
@@ -115,7 +131,18 @@ public class ShopManager : MonoBehaviour
             if (filteredItems.Count > 0) break;
         }
 
-        int idx = Random.Range(0, filteredItems.Count);
+        //int idx = Random.Range(0, filteredItems.Count);
+
+        // NDM  /////////////////////////////////////////////////////////////////////////////////
+        int idx = 0;
+        if (filteredItems[0].type == ItemType.ITEM)
+        {
+            ItemRarity selectedItemRarity = SelectByWeight(itemRarityWeights);
+            filteredItems = filteredItems.Where(item => item.rarity == selectedItemRarity).ToList();
+            idx = Random.Range(0, filteredItems.Count);
+        }
+        //////////////////////////////////////////////////////////////////////////////////////
+
         ItemData item = filteredItems[idx];
         currentItems.Remove(item);
 
@@ -238,9 +265,9 @@ public class ShopManager : MonoBehaviour
         currentItems.Add(item);
     }
 
-    private int GetTotalWeights()
+    private int GetTotalWeights<T>(Dictionary<T, int> weights)
     {
-        return itemWeights.Sum(x => x.Value);
+        return weights.Sum(x => x.Value);
     }
 
     private T SelectByWeight<T>(Dictionary<T, int> weights)
@@ -256,7 +283,7 @@ public class ShopManager : MonoBehaviour
         }
 
         // 뽑기
-        int randomWeight = Random.Range(0, GetTotalWeights()) + 1;
+        int randomWeight = Random.Range(0, GetTotalWeights(itemWeights)) + 1;
 
         for (int i = 0; i < weightThresholds.Count; i++)
         {

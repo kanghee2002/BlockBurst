@@ -29,7 +29,7 @@ public class GameData
         stagePool = new List<StageData>();
         startingGold = 5;
         defaultRerollCount = 5;
-        defaultBlockCount = 3;
+        defaultBlockCount = 5;
         maxItemCount = 5;
 
         // 기본 블록 점수 설정
@@ -62,11 +62,11 @@ public class GameData
         stageBaseScoreList = new List<int>()
         {
             120,
-            600,
-            3000,
-            6000,
-            20000,
-            50000,
+            500,
+            1000,
+            4000,
+            15000,
+            40000,
             100000,
             200000,
         };

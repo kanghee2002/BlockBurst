@@ -18,6 +18,6 @@ MonoBehaviour:
   blockedCells: []
   constraints:
   - {fileID: 11400000, guid: 08034b89ba9ec914cad0831c740213c5, type: 2}
-  clearRequirement: 300
-  goldReward: 10
-  baseScoreMultiplier: 1
+  clearRequirement: 600
+  goldReward: 9
+  baseScoreMultiplier: 0

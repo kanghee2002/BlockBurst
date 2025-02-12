@@ -12923,7 +12923,7 @@ MonoBehaviour:
   highlightAreaRect: {fileID: 130853843}
   itemShowcaseUI: {fileID: 299935733}
   itemSetUI: {fileID: 1583208970}
-  nextButtonDelay: 0.7
+  nextButtonDelay: 0.5
   tutorialSteps:
   - characterPosition: {x: 0, y: 150}
     highlightRect: {fileID: 565023821}

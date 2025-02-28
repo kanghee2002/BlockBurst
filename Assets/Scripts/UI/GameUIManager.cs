@@ -27,6 +27,13 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private ClearInfoUI clearInfoUI;
     [SerializeField] private BoardUI boardUI;
 
+    [Header("UI Colors")]
+    [SerializeField] private List<Color> selectingBackgroundColors;
+    [SerializeField] private List<Color> playingBackgroundColors;
+    [SerializeField] private List<Color> shoppingBackgroundColors;
+    [SerializeField] private Color currentUIColor;
+
+
     public enum SceneState
     {
         none,
@@ -63,10 +70,12 @@ public class GameUIManager : MonoBehaviour
 
     public void Initialize(RunData runData)
     {
-        goldInfoUI.Initialize(runData.gold); 
-        actionInfoUI.Initialize(_chip: 0, _multiplier: runData.baseMatchMultipliers[MatchType.ROW], _product: 0);
         sceneState = SceneState.selecting;
         OpenSceneState(sceneState);
+
+        goldInfoUI.Initialize(runData.gold);
+        actionInfoUI.Initialize(_chip: 0, _multiplier: runData.baseMatchMultipliers[MatchType.ROW], _product: 0);
+        actionInfoUI.SetChipLayoutColor(currentUIColor);
 
         AudioManager.instance.BeginBackgroundMusic();
     }
@@ -234,7 +243,9 @@ public class GameUIManager : MonoBehaviour
 
         Debug.Log($"SceneState changed from {prevState} to {sceneState}");
 
-        background.SetRandomColor();
+        currentUIColor = new Color(Random.value, Random.value, Random.value);
+
+        background.SetColor(currentUIColor);
 
         StartCoroutine(ChangeSceneStateCoroutine(prevState, sceneState));
         if (prevState == SceneState.playing && sceneState == SceneState.shopping)
@@ -290,26 +301,29 @@ public class GameUIManager : MonoBehaviour
         switch (stateToOpen)
         {
             case SceneState.selecting:
+                currentUIColor = selectingBackgroundColors[Random.Range(0, selectingBackgroundColors.Count)];
+                actionInfoUI.SetChipLayoutColor(currentUIColor);
                 stageSelectionSignboardUI.OpenStageSelectionSignboardUI();
                 stageSelectionBoardUI.OpenStageSelectionBoardUI();
-                background.SetColor(new Color(0.000f, 0.396f, 0.329f));
                 break;
             case SceneState.playing:
-                stageInfoUI.OpenStageInfoUI();
-                scoreInfoUI.OpenScoreInfoUI();
+                currentUIColor = playingBackgroundColors[Random.Range(0, playingBackgroundColors.Count)];
+                actionInfoUI.SetChipLayoutColor(currentUIColor);
+                stageInfoUI.OpenStageInfoUI(currentUIColor);
+                //scoreInfoUI.OpenScoreInfoUI();
                 boardUI.OpenBoardUI();
                 rerollButtonUI.OpenRerollButtonUI();
                 handUI.OpenHandUI();
-                background.SetColor(new Color(0.651f, 0.796f, 0.588f));
                 break;
             case SceneState.shopping:
+                currentUIColor = shoppingBackgroundColors[Random.Range(0, shoppingBackgroundColors.Count)];
                 shopSignboardUI.OpenShopSignboardUI();
                 itemBoardUI.OpenItemBoardUI();
-                background.SetColor(new Color(0.953f, 0.659f, 0.200f));
                 break;
             default:
                 break;
         }
+        background.SetColor(currentUIColor);
     }
 
     public void OnStageStart(int chapterIndex, int stageIndex, StageData stageData, BlockGameData blockGame)

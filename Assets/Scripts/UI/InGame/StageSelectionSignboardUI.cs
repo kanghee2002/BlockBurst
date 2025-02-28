@@ -8,10 +8,11 @@ using TMPro;
 public class StageSelectionSignboardUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI stageSelectionSignboardText;
+    [SerializeField] private Image innerLayout;
     [SerializeField] private Image outerLayout;
     private RectTransform rectTransform;
-    // inside anchored position = (300,256)
-    private const float insidePositionY = 256;
+    // inside anchored position = (300,280)
+    private const float insidePositionY = 280;
     private const float outsidePositionOffsetY = 540;
     private const float duration = 0.2f;
 

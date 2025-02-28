@@ -1,20 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
 using System.Linq;
 
 public class StageInfoUI : MonoBehaviour
 {
+    [Header("Layout")]
+    [SerializeField] private Image chapterStageTextLayout;
+    [SerializeField] private Image debuffTextLayout;
+    [SerializeField] private Image scoreSliderFill;
+
+    [Header("Text")]
     [SerializeField] private TextMeshProUGUI chapterText;
     [SerializeField] private TextMeshProUGUI stageText;
     [SerializeField] private TextMeshProUGUI debuffText;
+    [SerializeField] private TextMeshProUGUI currentScoreText;
     [SerializeField] private TextMeshProUGUI scoreAtLeastText;
 
     private RectTransform rectTransform;
     // inside anchored position = (300,320)
-    private const float insidePositionY = 320;
+    private const float insidePositionY = 271;
     private const float outsidePositionOffsetY = 540;
     private const float duration = 0.2f;
 
@@ -41,9 +49,15 @@ public class StageInfoUI : MonoBehaviour
         isWarning = false;
     }
 
-    public void OpenStageInfoUI()
+    public void OpenStageInfoUI(Color uiColor)
     {
         UIUtils.OpenUI(rectTransform, "Y", insidePositionY, duration);
+
+        float colorScalar = 3f / 4f;
+        UIUtils.SetImageColorByScalar(chapterStageTextLayout, uiColor, colorScalar);
+        UIUtils.SetImageColorByScalar(debuffTextLayout, uiColor, colorScalar);
+        UIUtils.SetImageColorByScalar(scoreSliderFill, uiColor, 1f);
+        UIUtils.SetTextColorByScalar(currentScoreText, uiColor, 1f / 10f);
     }
 
     public void CloseStageInfoUI()

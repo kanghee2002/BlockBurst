@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using DG.Tweening;
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+using TMPro;
 
 public static class UIUtils
 {
@@ -97,6 +99,35 @@ public static class UIUtils
                 .SetEase(Ease.OutCubic);
         }
     }
+
+    /// <summary>
+    /// Image의 색상을 변경합니다.
+    /// </summary>
+    /// <param name="image">Image</param>
+    /// <param name="color">기준 색상</param>
+    /// <param name="scalar">색상 변경치</param>
+    public static void SetImageColorByScalar(Image image, Color color, float scalar)
+    {
+        Color scaledColor = new Color(color.r, color.g, color.b) * scalar;
+        Color resultColor = new Color(scaledColor.r, scaledColor.g, scaledColor.b, 1f);
+        image.DOColor(resultColor, 0.5f)
+            .SetEase(Ease.OutQuad);
+    }
+
+    /// <summary>
+    /// Text의 색상을 변경합니다.
+    /// </summary>
+    /// <param name="text">TextMeshProUGUI</param>
+    /// <param name="color">기준 색상</param>
+    /// <param name="scalar">색상 변경치</param>
+    public static void SetTextColorByScalar(TextMeshProUGUI text, Color color, float scalar)
+    {
+        Color scaledColor = new Color(color.r, color.g, color.b) * scalar;
+        Color resultColor = new Color(scaledColor.r, scaledColor.g, scaledColor.b, 1f);
+        text.DOColor(resultColor, 0.5f)
+            .SetEase(Ease.OutQuad);
+    }
+
 
     /// <summary>
     /// Text를 튕기는 애니메이션을 재생합니다.

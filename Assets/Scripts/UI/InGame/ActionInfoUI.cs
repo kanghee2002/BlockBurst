@@ -3,9 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ActionInfoUI : MonoBehaviour
 {
+    [Header("Layout")]
+    [SerializeField] private Image chipTextLayout;
+
+    [Header("Text")]
     [SerializeField] private TextMeshProUGUI chipText;
     [SerializeField] private TextMeshProUGUI multiplierText;
     [SerializeField] private TextMeshProUGUI productText;
@@ -20,21 +25,28 @@ public class ActionInfoUI : MonoBehaviour
         UpdateMuliplier(_multiplier);
         UpdateProduct(_product);
     }
+
+    public void SetChipLayoutColor(Color uiColor)
+    {
+        UIUtils.SetImageColorByScalar(chipTextLayout, uiColor, 2f / 3f);
+    }
+
     public void UpdateChip(int _chip)
     {
         chipText.text = _chip.ToString();
         BounceTextSize(chipText);
     }
+
     public void UpdateMuliplier(int _multiplier)
     {
-        multiplierText.text = _multiplier.ToString();
+        multiplierText.text = "X" + _multiplier.ToString();
         BounceTextSize(multiplierText);
     }
 
     public void AddMultiplier(int addingMultiplier)
     {
         int multiplier = GetCurrentMultiplier() + addingMultiplier;
-        multiplierText.text = multiplier.ToString();
+        multiplierText.text = "X" + multiplier.ToString();
 
         BounceTextSize(multiplierText);
     }
@@ -103,7 +115,8 @@ public class ActionInfoUI : MonoBehaviour
     private int GetCurrentMultiplier()
     {
         int multiplier = 0;
-        if (int.TryParse(multiplierText.text, out multiplier))
+        string text = multiplierText.text.Substring(1);
+        if (int.TryParse(text, out multiplier))
         {
             return multiplier;
         }

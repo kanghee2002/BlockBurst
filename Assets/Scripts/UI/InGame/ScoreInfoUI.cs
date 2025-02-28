@@ -22,7 +22,7 @@ public class ScoreInfoUI : MonoBehaviour
     
     public void Initialize(int _score)
     {
-        gameObject.SetActive(true);
+        //gameObject.SetActive(true);
         UpdateScore(_score);
     }
 

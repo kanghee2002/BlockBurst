@@ -145,11 +145,11 @@ public class BoardUI : MonoBehaviour
         }
         if (GameManager.instance.applicationType == ApplicationType.Windows)
         {
-            UIUtils.CloseUI(rectTransform, "Y", windowsInsidePositionY, duration);
+            UIUtils.CloseUI(rectTransform, "Y", windowsInsidePositionY, outsidePositionOffsetY, duration);
         }
         else
         {
-            UIUtils.CloseUI(rectTransform, "Y", mobileInsidePositionY, duration);
+            UIUtils.CloseUI(rectTransform, "Y", mobileInsidePositionY, outsidePositionOffsetY, duration);
         }
     }
 

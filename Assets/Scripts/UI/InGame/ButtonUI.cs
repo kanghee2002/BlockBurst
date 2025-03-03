@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using System;
 
 public class ButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler
 {
@@ -28,6 +29,8 @@ public class ButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private GameObject shadowObject;
 
+    [SerializeField] private bool isShadowEnabled = true;
+
     [SerializeField] private UnityEvent onClick;
     
     void Awake()
@@ -39,7 +42,10 @@ public class ButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         Initialize();
 
-        CreateShadow();
+        if (isShadowEnabled)
+        {
+            CreateShadow();
+        }
 
         CreateHitbox();
     }
@@ -60,6 +66,13 @@ public class ButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         pressedPositionOffset = new Vector2(0f, -0.08f * rectTransform.rect.height);
         pressedPosition = originalPosition + pressedPositionOffset;
     }
+
+    public void SetOnClickMethod(UnityAction action)
+    {
+        onClick.RemoveAllListeners();
+        onClick.AddListener(action);
+    }
+
     private void CreateShadow()
     {
         // 새 GameObject 생성
@@ -149,5 +162,10 @@ public class ButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         onClick?.Invoke();
 
         AudioManager.instance.SFXSelectMenu();
+    }
+
+    internal void SetOnClickMethod(object v)
+    {
+        throw new NotImplementedException();
     }
 }

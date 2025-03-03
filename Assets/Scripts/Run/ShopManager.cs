@@ -104,7 +104,7 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    public ItemData PopItem()
+    public ItemData PopItem(List<ItemType> itemTypes)
     {
         if (currentItems.Count == 0)
         {
@@ -126,22 +126,11 @@ public class ShopManager : MonoBehaviour
         List<ItemData> filteredItems = new List<ItemData>();
         for (int i = 0; i < 10000; i++)
         {
-            ItemType selectedItemType = SelectByWeight(itemWeights);
-            filteredItems = currentItems.Where(item => item.type == selectedItemType).ToList();
+            filteredItems = currentItems.Where(item => itemTypes.Contains(item.type)).ToList();
             if (filteredItems.Count > 0) break;
         }
 
-        //int idx = Random.Range(0, filteredItems.Count);
-
-        // NDM  /////////////////////////////////////////////////////////////////////////////////
-        int idx = 0;
-        if (filteredItems[0].type == ItemType.ITEM)
-        {
-            ItemRarity selectedItemRarity = SelectByWeight(itemRarityWeights);
-            filteredItems = filteredItems.Where(item => item.rarity == selectedItemRarity).ToList();
-            idx = Random.Range(0, filteredItems.Count);
-        }
-        //////////////////////////////////////////////////////////////////////////////////////
+        int idx = Random.Range(0, filteredItems.Count);
 
         ItemData item = filteredItems[idx];
         currentItems.Remove(item);

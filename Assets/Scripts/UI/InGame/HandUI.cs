@@ -7,7 +7,8 @@ public class HandUI : MonoBehaviour
 {
     private RectTransform rectTransform;
     // inside anchored position = (-188,0)
-    private const float insidePositionX = -188;
+    private const float windowsInsidePositionX = -188;
+    private const float mobileInsidePositionX = 0;
     private const float outsidePositionOffsetX = 480;
     private const float duration = 0.2f;
     
@@ -67,7 +68,11 @@ public class HandUI : MonoBehaviour
             isOpen = true;
             if (GameManager.instance.applicationType == ApplicationType.Windows)
             {
-                UIUtils.OpenUI(rectTransform, "X", insidePositionX, duration);
+                UIUtils.OpenUI(rectTransform, "X", windowsInsidePositionX, duration);
+            }
+            else
+            {
+                UIUtils.OpenUI(rectTransform, "X", mobileInsidePositionX, duration);
             }
             FadeInBlocks();
         }
@@ -81,7 +86,11 @@ public class HandUI : MonoBehaviour
             ClearHandUI();
             if (GameManager.instance.applicationType == ApplicationType.Windows)
             {
-                UIUtils.CloseUI(rectTransform, "X", insidePositionX, outsidePositionOffsetX, duration);
+                UIUtils.CloseUI(rectTransform, "X", windowsInsidePositionX, outsidePositionOffsetX, duration);
+            }
+            else
+            {
+                UIUtils.CloseUI(rectTransform, "X", mobileInsidePositionX, outsidePositionOffsetX, duration);
             }
         }
     }

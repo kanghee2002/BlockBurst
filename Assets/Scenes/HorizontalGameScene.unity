@@ -5187,7 +5187,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &472897142
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8993,7 +8993,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &824197910
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10587,6 +10587,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 107feb297c3375744ab3a96bb5861249, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  applicationType: 0
   deckManager: {fileID: 0}
   shopManager: {fileID: 0}
   stageManager: {fileID: 0}
@@ -12965,11 +12966,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chapterStageTextLayout: {fileID: 349842483}
-  debuffTextLayout: {fileID: 1413555337}
+  stageDescriptionTextLayout: {fileID: 1413555337}
   scoreSliderFill: {fileID: 1354633538}
   chapterText: {fileID: 1532043259}
   stageText: {fileID: 1334369143}
-  debuffText: {fileID: 23920032}
+  stageDescriptionText: {fileID: 23920032}
   currentScoreText: {fileID: 1587476636}
   scoreAtLeastText: {fileID: 1083273044}
 --- !u!1 &1163912452
@@ -22499,7 +22500,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2067685882
 RectTransform:
   m_ObjectHideFlags: 0

@@ -10,13 +10,13 @@ public class StageInfoUI : MonoBehaviour
 {
     [Header("Layout")]
     [SerializeField] private Image chapterStageTextLayout;
-    [SerializeField] private Image debuffTextLayout;
+    [SerializeField] private Image stageDescriptionTextLayout;
     [SerializeField] private Image scoreSliderFill;
 
     [Header("Text")]
     [SerializeField] private TextMeshProUGUI chapterText;
     [SerializeField] private TextMeshProUGUI stageText;
-    [SerializeField] private TextMeshProUGUI debuffText;
+    [SerializeField] private TextMeshProUGUI stageDescriptionText;
     [SerializeField] private TextMeshProUGUI currentScoreText;
     [SerializeField] private TextMeshProUGUI scoreAtLeastText;
 
@@ -41,7 +41,7 @@ public class StageInfoUI : MonoBehaviour
         gameObject.SetActive(true);
         UpdateChapter(chapterIndex);
         UpdateStage(stageIndex);
-        UpdateDebuffText(stageData.constraints.Select(x => x.effectName).ToArray());
+        UpdateStageDescriptionText(stageData.constraints.Select(x => x.effectName).ToArray());
         UpdateScoreAtLeast(stageData.clearRequirement);
 
         currentWarningSequence = null;
@@ -49,18 +49,21 @@ public class StageInfoUI : MonoBehaviour
         isWarning = false;
     }
 
-    public void OpenStageInfoUI(Color uiColor)
+    public void SetUIColor(Color uiColor)
+    {
+        float colorScalar = 3f / 4f;
+        UIUtils.SetImageColorByScalar(chapterStageTextLayout, uiColor, colorScalar);
+        UIUtils.SetImageColorByScalar(stageDescriptionTextLayout, uiColor, colorScalar);
+        UIUtils.SetImageColorByScalar(scoreSliderFill, uiColor, 1f);
+        UIUtils.SetTextColorByScalar(currentScoreText, uiColor, 1f / 10f);
+    }
+
+    public void OpenStageInfoUI()
     {
         if (GameManager.instance.applicationType == ApplicationType.Windows)
         {
             UIUtils.OpenUI(rectTransform, "Y", insidePositionY, duration);
         }
-
-        float colorScalar = 3f / 4f;
-        UIUtils.SetImageColorByScalar(chapterStageTextLayout, uiColor, colorScalar);
-        UIUtils.SetImageColorByScalar(debuffTextLayout, uiColor, colorScalar);
-        UIUtils.SetImageColorByScalar(scoreSliderFill, uiColor, 1f);
-        UIUtils.SetTextColorByScalar(currentScoreText, uiColor, 1f / 10f);
     }
 
     public void CloseStageInfoUI()
@@ -81,13 +84,13 @@ public class StageInfoUI : MonoBehaviour
         stageText.text = stage.ToString();
     }
 
-    public void UpdateDebuffText(string[] debuffTexts)
+    public void UpdateStageDescriptionText(string[] debuffTexts)
     {
         string debuffText = string.Join("\n", debuffTexts);
         debuffText = UIUtils.SetBlockNameToIcon(debuffText);
         debuffText = debuffText.Replace("\\n", " ").Replace(",", "\n");
 
-        this.debuffText.text = debuffText;
+        this.stageDescriptionText.text = debuffText;
     }
 
     public void UpdateScoreAtLeast(int scoreAtLeast)
@@ -103,17 +106,17 @@ public class StageInfoUI : MonoBehaviour
         // 텍스트 점점 빨갛게, 커졌다가 원래 색으로, 작게 돌아가는 시퀀스
         Sequence sequence = DOTween.Sequence();
 
-        sequence.Append(debuffText.transform.DOScale(punchScale, animationDuration)
+        sequence.Append(stageDescriptionText.transform.DOScale(punchScale, animationDuration)
             .SetLoops(2, LoopType.Yoyo)
             .SetEase(Ease.OutQuad));
 
-        sequence.Join(debuffText.DOColor(Color.red, animationDuration)
+        sequence.Join(stageDescriptionText.DOColor(Color.red, animationDuration)
             .SetLoops(2, LoopType.Yoyo)
             .SetEase(Ease.OutQuad));
 
         sequence.OnComplete(() => {
-            debuffText.transform.DOScale(Vector3.one, animationDuration);
-            debuffText.DOColor(Color.white, 0.1f);
+            stageDescriptionText.transform.DOScale(Vector3.one, animationDuration);
+            stageDescriptionText.DOColor(Color.white, 0.1f);
         }
         );
     }
@@ -123,24 +126,24 @@ public class StageInfoUI : MonoBehaviour
         if (isBlockRelated) isBlockWarning = true;
         else isWarning = true;
 
-        RectTransform debuffRect = debuffText.GetComponent<RectTransform>();
+        RectTransform stageDescriptionTextRect = stageDescriptionText.GetComponent<RectTransform>();
 
         if (currentWarningSequence != null) currentWarningSequence.Kill();
 
         currentWarningSequence = DOTween.Sequence();
 
         currentWarningSequence.Append(
-            debuffText.transform.DOPunchPosition(Vector3.one * 7f, 0.3f,
+            stageDescriptionText.transform.DOPunchPosition(Vector3.one * 7f, 0.3f,
             vibrato: 15, elasticity: 0.5f)
             .SetLoops(-1, LoopType.Restart)
             .SetEase(Ease.InOutQuad));
 
-        currentWarningSequence.Join(debuffText.DOColor(Color.red, 0.2f).SetEase(Ease.OutQuad));
+        currentWarningSequence.Join(stageDescriptionText.DOColor(Color.red, 0.2f).SetEase(Ease.OutQuad));
 
         currentWarningSequence.OnKill(() =>
         {
-            debuffRect.DOAnchorPos(Vector3.zero, 0.1f);
-            debuffText.DOColor(Color.white, 0.1f);
+            stageDescriptionTextRect.DOAnchorPos(Vector3.zero, 0.1f);
+            stageDescriptionText.DOColor(Color.white, 0.1f);
         }
         );
     }

@@ -35,7 +35,12 @@ public class GameManager : MonoBehaviour
     public List<Block> handBlocks = new List<Block>();
 
     public List<ItemData> shopItems = new List<ItemData>();
-    const int SHOP_ITEM_COUNT = 3;
+    private Dictionary<List<ItemType>, int> shopItemCounts = new Dictionary<List<ItemType>, int>()
+    {
+        { new List<ItemType>() { ItemType.ITEM }, 2 },
+        { new List<ItemType>() { ItemType.BOOST }, 1 },
+        { new List<ItemType>() { ItemType.ADD_BLOCK, ItemType.CONVERT_BLOCK, ItemType.UPGRADE }, 2 },
+    };
 
     private int blockId = 0;
 
@@ -103,7 +108,7 @@ public class GameManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "VerticalGameScene")
+        if (scene.name == "VerticalGameScene" || scene.name == "HorizontalGameScene")
         {
             deckManager = FindObjectOfType<DeckManager>();
             shopManager = FindObjectOfType<ShopManager>();
@@ -432,9 +437,12 @@ public class GameManager : MonoBehaviour
     {
         // 아이템 랜덤하게 뽑아서 UI에 전달
         shopItems.Clear();
-        for (int i = 0; i < SHOP_ITEM_COUNT; i++)
+        foreach ((List<ItemType> itemTypes, int count) in shopItemCounts)
         {
-            shopItems.Add(shopManager.PopItem());
+            for (int i = 0; i < count; i++)
+            {
+                shopItems.Add(shopManager.PopItem(itemTypes));
+            }
         }
         GameUIManager.instance.OnShopStart(shopItems, shopManager.rerollCost, currentChapterIndex, currentStageIndex, isFirst);   
     }
@@ -459,7 +467,9 @@ public class GameManager : MonoBehaviour
     public int OnItemPurchased(int index)
     {
         ItemData shopItem = shopItems[index];
-        
+
+        Debug.Log("Item: " + shopItem.itemName + " | index: " + index);
+
         int res = shopManager.PurchaseItem(shopItem);
         if (res != -1)
         {

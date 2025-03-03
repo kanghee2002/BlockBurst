@@ -5,24 +5,36 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System.Linq;
+using static UnityEditor.Progress;
+using System;
 
 public class ItemBoardUI : MonoBehaviour
 {
     private RectTransform rectTransform;
     [SerializeField] private Transform itemShowcaseTransform;
+    [SerializeField] private Transform boostShowcaseTransform;
+    [SerializeField] private Transform blockShowcaseTransform;
     [SerializeField] private GameObject itemPrefab;
+    [SerializeField] private GameObject mobileItemPrefab;
     [SerializeField] private TextMeshProUGUI rerollCostText;
-    GameObject[] itemUIs;
-    Vector3[] originalPositions;
 
-    private const float insidePositionY = -128; // 도착할 Y 위치
+    [Header("UI Color")]
+    [SerializeField] private Color itemShowcaseColor;
+    [SerializeField] private Color boostShowcaseColor;
+    [SerializeField] private Color blockItemShowcaseColor;
+
+    private GameObject[] currentItemUIs;
+
+    private Vector3[] originalPositions;
+
+    private const float windowsInsidePositionY = -128; // 도착할 Y 위치
+    private const float mobileInsidePositionY = -175; // 도착할 Y 위치
     private const float outsidePositionOffsetY = -800; // 숨겨질 Y 위치
     private const float duration = 0.2f; // 애니메이션 시간
 
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
-        rectTransform.anchoredPosition = new Vector2(192, insidePositionY + outsidePositionOffsetY);
     }
     
     public void Initialize(List<ItemData> items, int rerollCost)
@@ -43,12 +55,27 @@ public class ItemBoardUI : MonoBehaviour
     public void OpenItemBoardUI()
     {
         gameObject.SetActive(true);
-        UIUtils.OpenUI(rectTransform, "Y", insidePositionY, duration);
+        
+        if (GameManager.instance.applicationType == ApplicationType.Windows)
+        {
+            UIUtils.OpenUI(rectTransform, "Y", windowsInsidePositionY, duration);
+        }
+        else
+        {
+            UIUtils.OpenUI(rectTransform, "Y", mobileInsidePositionY, duration);
+        }
     }
 
     public void CloseItemBoardUI()
     {
-        UIUtils.CloseUI(rectTransform, "Y", insidePositionY, outsidePositionOffsetY, duration);
+        if (GameManager.instance.applicationType == ApplicationType.Windows)
+        {
+            UIUtils.CloseUI(rectTransform, "Y", windowsInsidePositionY, outsidePositionOffsetY, duration);
+        }
+        else
+        {
+            UIUtils.CloseUI(rectTransform, "Y", mobileInsidePositionY, outsidePositionOffsetY, duration);
+        }
     }
 
     private void PlayRerollAnimation(List<ItemData> items, int rerollCost)
@@ -58,21 +85,19 @@ public class ItemBoardUI : MonoBehaviour
         float duration = 0.3f;
         float staggerTime = 0.1f;
 
-        for (int i = 0; i < itemUIs.Length; i++)
-        {
-            itemUIs[i].GetComponent<CanvasGroup>().blocksRaycasts = false;
-        }
-
-        for (int i = 0; i < itemUIs.Length; i++)
+        for (int i = 0; i < currentItemUIs.Length; i++)
         {
             int index = i;
-            GameObject card = itemUIs[i];
+            GameObject card = currentItemUIs[i];
 
-            card.GetComponent<ItemDescriptionUI>().DescriptionFadeOut();
+            if (GameManager.instance.applicationType == ApplicationType.Windows)
+            {
+                card.GetComponent<ItemDescriptionUI>().DescriptionFadeOut();
+            }
 
             DOTween.Kill(card.transform);
             DOTween.Kill(card.GetComponent<CanvasGroup>());
-            card.transform.localPosition = originalPositions[i];
+            card.transform.localPosition = originalPositions[index];
 
             card.transform.DOScale(1f, 0.2f);
 
@@ -80,11 +105,11 @@ public class ItemBoardUI : MonoBehaviour
 
             // 간단한 시퀀스: 올라가면서 흔들거리다가 -> 데이터 변경 -> 내려오면서 멈춤
             Sequence cardSequence = DOTween.Sequence();
-            
+
             // 좌우 흔들기
             cardSequence.Append(card.transform.DOLocalMoveY(originalPosition.y + jumpHeight, duration)
                 .SetEase(Ease.OutQuad));
-            cardSequence.Join(card.transform.DORotate(new Vector3(0, 0, rotateAmount), duration/4)
+            cardSequence.Join(card.transform.DORotate(new Vector3(0, 0, rotateAmount), duration / 4)
                 .SetLoops(4, LoopType.Yoyo)
                 .SetEase(Ease.Linear));
 
@@ -92,10 +117,16 @@ public class ItemBoardUI : MonoBehaviour
             cardSequence.AppendCallback(() => {
                 if (index < items.Count)
                 {
+                    GameObject itemUI = currentItemUIs[index];
+                    ItemData itemData = items[index];
+
                     SetImage(card, items[index]);
-                    card.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = items[index].itemName;
-                    card.transform.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = "<color=yellow>$" + items[index].cost.ToString() + "</color>";
-                    card.GetComponent<ItemDescriptionUI>().Initialize(items[index]);
+                    itemUI.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = itemData.itemName;
+                    itemUI.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "$" + itemData.cost;
+                    itemUI.transform.GetChild(4).GetComponent<Button>().onClick.RemoveAllListeners();
+                    itemUI.transform.GetChild(4).GetComponent<Button>().onClick.AddListener(() => {
+                        GameUIManager.instance.OnItemShowcaseItemButtonUIPressed(itemData, index);
+                    });
                 }
             });
 
@@ -108,12 +139,12 @@ public class ItemBoardUI : MonoBehaviour
             cardSequence.Play();
 
             // 끝날 때에 맞추어 raycast 활성
-            if (i == itemUIs.Length - 1)
+            if (i == currentItemUIs.Length - 1)
             {
                 cardSequence.OnComplete(() => {
-                    for (int j = 0; j < itemUIs.Length; j++)
+                    for (int j = 0; j < currentItemUIs.Length; j++)
                     {
-                        itemUIs[j].GetComponent<CanvasGroup>().blocksRaycasts = true;
+                        currentItemUIs[j].GetComponent<CanvasGroup>().blocksRaycasts = true;
                     }
                 });
             }
@@ -124,36 +155,59 @@ public class ItemBoardUI : MonoBehaviour
 
     private void CreateItems(List<ItemData> items)
     {
-        itemUIs = new GameObject[items.Count];
-        originalPositions = new Vector3[itemUIs.Length];
+        int itemCount = items.Count(item => item.type == ItemType.ITEM);
+        int boostCount = items.Count(item => item.type == ItemType.BOOST);
+        int blockItemCount = items.Count(item => item.type != ItemType.ITEM && item.type != ItemType.BOOST);
 
-        for (int i = 0; i < items.Count; i++)
+        if (GameManager.instance.applicationType == ApplicationType.Mobile)
         {
-            int currentIndex = i;
-            ItemData itemData = items[currentIndex];
-            itemUIs[i] = Instantiate(itemPrefab, itemShowcaseTransform);
-            GameObject itemUI = itemUIs[i];
-            itemUI.transform.localPosition = new Vector3((currentIndex - 1) * 250, 0, 0);
+            int index = 0;
+            currentItemUIs = new GameObject[items.Count];
+            originalPositions = new Vector3[items.Count];
 
-            SetImage(itemUI, items[currentIndex]);
+            CreateSpecificItems(items, ref index, itemCount, itemShowcaseTransform, itemShowcaseColor);
+            CreateSpecificItems(items, ref index, boostCount, boostShowcaseTransform, boostShowcaseColor);
+            CreateSpecificItems(items, ref index, blockItemCount, blockShowcaseTransform, blockItemShowcaseColor);
+        }
+    }
 
-            itemUI.transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "구매 • $" + itemData.cost;
-            itemUI.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(() => {
-                GameUIManager.instance.OnItemShowcaseItemButtonPressed(currentIndex);
+    private void CreateSpecificItems(List<ItemData> items, ref int index, int count, Transform parent, Color uiColor)
+    {
+        float startingPosY = 110, itemInterval = 170;
+
+        for (int i = 0; i < count; i++)
+        {
+            int currentIndex = index;
+            ItemData itemData = items[index];
+            currentItemUIs[index] = Instantiate(mobileItemPrefab, parent);
+            GameObject itemUI = currentItemUIs[index];
+
+            itemUI.transform.localPosition = new Vector3(0, startingPosY - itemInterval * i, 0);
+
+            SetImage(itemUI, itemData);
+
+            itemUI.GetComponent<Image>().color = uiColor;
+            itemUI.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = itemData.itemName;
+            itemUI.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "$" + itemData.cost;
+            itemUI.transform.GetChild(4).GetComponent<Button>().onClick.AddListener(() => {
+                GameUIManager.instance.OnItemShowcaseItemButtonUIPressed(itemData, currentIndex);
             });
 
-            itemUI.GetComponent<ItemDescriptionUI>().Initialize(items[currentIndex]);
+            originalPositions[index] = itemUI.transform.localPosition;
 
-            originalPositions[i] = itemUI.transform.localPosition;
+            index++;
         }
     }
 
     public void PurchaseItem(int idx)
     {
-        GameObject card = itemUIs[idx];
+        GameObject card = currentItemUIs[idx];
         CanvasGroup canvasGroup = card.GetComponent<CanvasGroup>();
 
-        card.GetComponent<ItemDescriptionUI>().DescriptionFadeOut();
+        if (GameManager.instance.applicationType == ApplicationType.Windows)
+        {
+            card.GetComponent<ItemDescriptionUI>().DescriptionFadeOut();
+        }
 
         card.transform.DOScale(0f, 0.3f).SetEase(Ease.InBack)
             .OnComplete(() => canvasGroup.alpha = 0);
@@ -163,9 +217,9 @@ public class ItemBoardUI : MonoBehaviour
 
     public void ClearItemShowcaseUI()
     {
-        if (itemUIs != null)
+        if (currentItemUIs != null)
         {
-            foreach (GameObject itemUI in itemUIs)
+            foreach (GameObject itemUI in currentItemUIs)
             {
                 Destroy(itemUI);
             }

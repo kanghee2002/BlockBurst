@@ -27,6 +27,7 @@ public class StageSelectionSignboardUI : MonoBehaviour
     public void OpenStageSelectionSignboardUI()
     {
         if (GameManager.instance.applicationType == ApplicationType.Mobile) return;
+
         gameObject.SetActive(true);
         UIUtils.OpenUI(rectTransform, "Y", insidePositionY, duration);
     }
@@ -34,6 +35,7 @@ public class StageSelectionSignboardUI : MonoBehaviour
     public void CloseStageSelectionSignboardUI()
     {
         if (GameManager.instance.applicationType == ApplicationType.Mobile) return;
+
         UIUtils.CloseUI(rectTransform, "Y", insidePositionY, outsidePositionOffsetY, duration);
     }
     

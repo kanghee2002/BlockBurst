@@ -24,6 +24,7 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private RunInfoUI runInfoUI;
     [SerializeField] private OptionUI optionUI;
     [SerializeField] private DeckInfoUI deckInfoUI;
+    [SerializeField] private ItemDetailUI itemDetailUI;
     [SerializeField] private ClearInfoUI clearInfoUI;
     [SerializeField] private BoardUI boardUI;
 
@@ -48,7 +49,8 @@ public class GameUIManager : MonoBehaviour
         none,
         runInfo,
         option,
-        deckInfo
+        deckInfo,
+        itemDetail,
     }
     private PopupState popupState;
 
@@ -181,7 +183,28 @@ public class GameUIManager : MonoBehaviour
         }
     }
     
-    public void OnItemShowcaseItemButtonPressed(int index)
+    public void OnItemShowcaseItemButtonUIPressed(ItemData itemData, int index)
+    {
+        if (popupState == PopupState.none)
+        {
+            popupState = PopupState.itemDetail;
+
+            itemDetailUI.Initialize(itemData, index);
+            itemDetailUI.OpenItemDetailUI();
+        }
+    }
+
+    public void OnItemShowcaseCancelButtonUIPressed()
+    {
+        if (popupState == PopupState.itemDetail)
+        {
+            popupState = PopupState.none;
+
+            itemDetailUI.CloseItemDetailUI();
+        }
+    }
+
+    public void OnItemShowcasePurchaseButtonUIPressed(int index)
     {
         int gold = GameManager.instance.OnItemPurchased(index);
         if (gold != -1)
@@ -303,13 +326,15 @@ public class GameUIManager : MonoBehaviour
             case SceneState.selecting:
                 currentUIColor = selectingBackgroundColors[Random.Range(0, selectingBackgroundColors.Count)];
                 actionInfoUI.SetChipLayoutColor(currentUIColor);
+                stageInfoUI.SetUIColor(currentUIColor);
                 stageSelectionSignboardUI.OpenStageSelectionSignboardUI();
                 stageSelectionBoardUI.OpenStageSelectionBoardUI(currentUIColor);
                 break;
             case SceneState.playing:
                 currentUIColor = playingBackgroundColors[Random.Range(0, playingBackgroundColors.Count)];
                 actionInfoUI.SetChipLayoutColor(currentUIColor);
-                stageInfoUI.OpenStageInfoUI(currentUIColor);
+                stageInfoUI.OpenStageInfoUI();
+                stageInfoUI.SetUIColor(currentUIColor);
                 //scoreInfoUI.OpenScoreInfoUI();
                 boardUI.OpenBoardUI();
                 rerollButtonUI.OpenRerollButtonUI(currentUIColor);

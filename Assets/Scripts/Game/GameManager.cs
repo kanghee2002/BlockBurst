@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
 
+    public ApplicationType applicationType;
+
     public GameData gameData;
     public RunData runData;
     public BlockGameData blockGame;
@@ -101,7 +103,7 @@ public class GameManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "GameScene")
+        if (scene.name == "VerticalGameScene")
         {
             deckManager = FindObjectOfType<DeckManager>();
             shopManager = FindObjectOfType<ShopManager>();
@@ -120,7 +122,7 @@ public class GameManager : MonoBehaviour
     public void GoToGameScene()
     {
         AudioManager.instance.SFXSelectMenu();
-        SceneTransitionManager.instance.TransitionToScene("GameScene");
+        SceneTransitionManager.instance.TransitionToScene("VerticalGameScene");
     }
 
     public void SetTutorialValue(bool isTutorial)
@@ -196,7 +198,7 @@ public class GameManager : MonoBehaviour
 
     public void MakeNewRun()
     {
-        SceneTransitionManager.instance.TransitionToScene("GameScene");
+        SceneTransitionManager.instance.TransitionToScene("VerticalGameScene");
     }
 
     // ------------------------------

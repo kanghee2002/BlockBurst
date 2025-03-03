@@ -31,7 +31,15 @@ public class HandUI : MonoBehaviour
         foreach (Block block in hand)
         {
             GameObject blockObj = Instantiate(blockPrefab, transform.GetChild(1));
-            blockObj.transform.localPosition = new Vector3(0, (1 - idx) * 175 / transform.GetChild(1).GetComponent<RectTransform>().localScale.x, 0); // 위치는 임시
+            if (GameManager.instance.applicationType == ApplicationType.Windows)
+            {
+                blockObj.transform.localPosition = new Vector3(0, (1 - idx) * 175 / transform.GetChild(1).GetComponent<RectTransform>().localScale.x, 0); // 위치는 임시
+            }
+            else if (GameManager.instance.applicationType == ApplicationType.Mobile)
+            {
+                blockObj.transform.localPosition = new Vector3(-50 + idx * 100, 0); // 위치는 임시
+            }
+
             var blockUI = blockObj.GetComponent<BlockUI>();
             blockUI.Initialize(block, idx);
             
@@ -57,7 +65,10 @@ public class HandUI : MonoBehaviour
         if (!isOpen)
         {
             isOpen = true;
-            UIUtils.OpenUI(rectTransform, "X", insidePositionX, duration);
+            if (GameManager.instance.applicationType == ApplicationType.Windows)
+            {
+                UIUtils.OpenUI(rectTransform, "X", insidePositionX, duration);
+            }
             FadeInBlocks();
         }
     }
@@ -68,7 +79,10 @@ public class HandUI : MonoBehaviour
         {
             isOpen = false;
             ClearHandUI();
-            UIUtils.CloseUI(rectTransform, "X", insidePositionX, outsidePositionOffsetX, duration);
+            if (GameManager.instance.applicationType == ApplicationType.Windows)
+            {
+                UIUtils.CloseUI(rectTransform, "X", insidePositionX, outsidePositionOffsetX, duration);
+            }
         }
     }
 

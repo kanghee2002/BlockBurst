@@ -44,7 +44,7 @@ public class ButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         CreateHitbox();
     }
 
-    private void Initialize()
+    public void Initialize()
     {
         image = button.GetComponent<Image>();
 
@@ -77,6 +77,7 @@ public class ButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         Image shadowImage = shadowObject.AddComponent<Image>();
         shadowImage.sprite = image.sprite; // 원본 이미지와 동일한 Sprite 사용
         shadowImage.color = new Color(0f, 0f, 0f, 0.8f); // 반투명한 검정색
+        shadowImage.type = Image.Type.Sliced;
 
         // 그림자를 Raycast 타겟에서 제외 (클릭 감지 방지)
         shadowImage.raycastTarget = false;

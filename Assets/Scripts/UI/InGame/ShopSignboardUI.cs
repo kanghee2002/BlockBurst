@@ -8,7 +8,7 @@ public class ShopSignboardUI : MonoBehaviour
 {
     private RectTransform rectTransform;
     // inside anchored position = (300,256)
-    private const float insidePositionY = 256;
+    private const float insidePositionY = 280;
     private const float outsidePositionOffsetY = 540;
     private const float duration = 0.2f;
 
@@ -19,7 +19,7 @@ public class ShopSignboardUI : MonoBehaviour
     {
         rectTransform = GetComponent<RectTransform>();
 
-        CreateLights();
+        //CreateLights();
     }
 
     public void OpenShopSignboardUI()

@@ -169,7 +169,15 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
     void makeSmall(bool toSmall)
     {
         transform.DOKill();
-        Vector3 targetScale = toSmall ? new Vector3(0.5f, 0.5f, 1) : new Vector3(1, 1, 1);
+        Vector3 targetScale = Vector3.one;
+        if (GameManager.instance.applicationType == ApplicationType.Windows)
+        {
+            targetScale = toSmall ? new Vector3(0.5f, 0.5f, 1) : new Vector3(1, 1, 1);
+        }
+        else if (GameManager.instance.applicationType == ApplicationType.Mobile)
+        {
+            targetScale = toSmall ? new Vector3(0.3f, 0.3f, 1) : new Vector3(0.5f, 0.5f, 1);
+        }
         transform.DOScale(targetScale, 0.2f).SetEase(Ease.OutQuad);
     }
 

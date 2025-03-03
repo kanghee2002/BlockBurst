@@ -137,9 +137,8 @@ public class ItemBoardUI : MonoBehaviour
 
             SetImage(itemUI, items[currentIndex]);
 
-            itemUI.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = itemData.itemName;
-            itemUI.transform.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = "<color=yellow>$" + itemData.cost.ToString() + "</color>";
-            itemUI.transform.GetChild(4).GetComponent<Button>().onClick.AddListener(() => {
+            itemUI.transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "구매 • $" + itemData.cost;
+            itemUI.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(() => {
                 GameUIManager.instance.OnItemShowcaseItemButtonPressed(currentIndex);
             });
 

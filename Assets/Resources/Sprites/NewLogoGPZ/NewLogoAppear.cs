@@ -41,7 +41,7 @@ public class NewLogoAppear : MonoBehaviour
         RuntimeManager.PlayOneShot("event:/game_start_button");
         eventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
 
-        SceneTransitionManager.instance.TransitionToScene("GameScene");
+        SceneTransitionManager.instance.TransitionToScene("VerticalGameScene");
     }
 
     void OnToggleTutorial(bool value) {

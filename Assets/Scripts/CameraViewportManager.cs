@@ -5,7 +5,7 @@ public class SimpleLetterbox : MonoBehaviour
     [SerializeField] private float minAspectRatio = 5f / 3f;  // 최소 화면 비율
     private Camera cam;
 
-    private void Start()
+    /*private void Start()
     {
         cam = GetComponent<Camera>();
         cam.backgroundColor = Color.black;  // 레터박스 색상
@@ -25,5 +25,5 @@ public class SimpleLetterbox : MonoBehaviour
         {
             cam.rect = new Rect(0, 0, 1, 1);
         }
-    }
+    }*/
 }

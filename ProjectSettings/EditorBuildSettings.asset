@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/NewLogoScene.unity
     guid: 59a51e8bcbe184674a1b354bb3444f5a
   - enabled: 1
-    path: Assets/Scenes/GameScene.unity
+    path: Assets/Scenes/HorizontalGameScene.unity
     guid: 10a5e550b669da941b33f7a4cf94afde
+  - enabled: 1
+    path: Assets/Scenes/VerticalGameScene.unity
+    guid: e4a44b04e9dffa147a31238573b3dbb8
   m_configObjects: {}

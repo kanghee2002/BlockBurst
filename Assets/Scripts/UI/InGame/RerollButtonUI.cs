@@ -2,10 +2,12 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class RerollButtonUI : MonoBehaviour
 {
+    [SerializeField] private Image rerollButtonImage;
     [SerializeField] private TextMeshProUGUI rerollCountText;
     private RectTransform rectTransform;
 
@@ -24,14 +26,23 @@ public class RerollButtonUI : MonoBehaviour
         GameUIManager.instance.OnRerollButtonUIPressed();
     }
 
-    public void OpenRerollButtonUI()
+    public void OpenRerollButtonUI(Color uiColor)
     {
-        UIUtils.OpenUI(rectTransform, "X", insidePositionX, duration);
+        if (GameManager.instance.applicationType == ApplicationType.Windows)
+        {
+            UIUtils.OpenUI(rectTransform, "X", insidePositionX, duration);
+        }
+
+        rerollButtonImage.color = uiColor;
+        GetComponent<ButtonUI>().Initialize();
     }
 
     public void CloseRerollButtonUI()
     {
-        UIUtils.CloseUI(rectTransform, "X", insidePositionX, outsidePositionOffsetX, duration);
+        if (GameManager.instance.applicationType == ApplicationType.Windows)
+        {
+            UIUtils.CloseUI(rectTransform, "X", insidePositionX, outsidePositionOffsetX, duration);
+        }
     }
 
     public void Initialize(int rerollCount)

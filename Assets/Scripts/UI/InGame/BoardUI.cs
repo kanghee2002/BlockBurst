@@ -19,7 +19,8 @@ public class BoardUI : MonoBehaviour
     [SerializeField] private RectTransform deskMatRect; // Left
     [SerializeField] private RectTransform handUIRect; // Right
 
-    private const float insidePositionY = -96;
+    private const float windowsInsidePositionY = -96;
+    private const float mobileInsidePositionY = -140;
     private const float outsidePositionOffsetY = -1080;
     private const float duration = 0.2f;
 
@@ -33,6 +34,7 @@ public class BoardUI : MonoBehaviour
     
     void AutoSizing(int height, int width)
     {
+        if (GameManager.instance.applicationType == ApplicationType.Mobile) return;
         Canvas canvas = GetComponentInParent<Canvas>();
         Camera cam = canvas.worldCamera ?? Camera.main;
 
@@ -112,7 +114,7 @@ public class BoardUI : MonoBehaviour
                     = new Vector2(col - (width - 1f) / 2, -(row - (height - 1f) / 2)) * block_size;
                 
                 var boardCellUI = newObject.GetComponent<BoardCellUI>();
-                Color color = (row + col) % 2 == 0 ? new Color(0.2f, 0.2f, 0.2f, 1f) : new Color(.25f, .25f, .25f, 1f);
+                Color color = (row + col) % 2 == 0 ? new Color(0.225f, 0.225f, 0.225f, 0.8f) : new Color(0.275f, 0.275f, 0.275f, 0.8f);
                 boardCellUI.Initialize(new Vector2Int(col, row), color);
                 boardCellsUI[row, col] = boardCellUI;
             }
@@ -121,7 +123,14 @@ public class BoardUI : MonoBehaviour
 
     public void OpenBoardUI()
     {
-        UIUtils.OpenUI(rectTransform, "Y", insidePositionY, duration);
+        if (GameManager.instance.applicationType == ApplicationType.Windows)
+        {
+            UIUtils.OpenUI(rectTransform, "Y", windowsInsidePositionY, duration);
+        }
+        else
+        {
+            UIUtils.OpenUI(rectTransform, "Y", mobileInsidePositionY, duration);
+        }
     }
 
     public void CloseBoardUI()
@@ -134,7 +143,14 @@ public class BoardUI : MonoBehaviour
                 boardCellsUI[row, col].ClearCell();
             }
         }
-        UIUtils.CloseUI(rectTransform, "Y", insidePositionY, outsidePositionOffsetY, duration);
+        if (GameManager.instance.applicationType == ApplicationType.Windows)
+        {
+            UIUtils.CloseUI(rectTransform, "Y", windowsInsidePositionY, duration);
+        }
+        else
+        {
+            UIUtils.CloseUI(rectTransform, "Y", mobileInsidePositionY, duration);
+        }
     }
 
     public void BlockCells(HashSet<Vector2Int> cells)

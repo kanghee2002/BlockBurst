@@ -8,7 +8,8 @@ public class StageSelectionBoardUI : MonoBehaviour
 {
     private RectTransform rectTransform;
     // inside anchored position = (182,-128)
-    private const float insidePositionY = -128;
+    private const float windowsInsidePositionY = -128;
+    private const float mobileInsidePositionY = 300;
     private const float outsidePositionOffsetY = -1080;
     private const float duration = 0.2f;
 
@@ -49,14 +50,34 @@ public class StageSelectionBoardUI : MonoBehaviour
         }
     }
 
-    public void OpenStageSelectionBoardUI()
+    public void OpenStageSelectionBoardUI(Color uiColor)
     {
         gameObject.SetActive(true);
-        UIUtils.OpenUI(rectTransform, "Y", insidePositionY, duration);
+
+        if (GameManager.instance.applicationType == ApplicationType.Windows)
+        {
+            UIUtils.OpenUI(rectTransform, "Y", windowsInsidePositionY, duration);
+        }
+        else
+        {
+            UIUtils.OpenUI(rectTransform, "Y", mobileInsidePositionY, duration);
+        }
+
+        for (int i = 0; i < nextStageChoiceUI.Length; i++)
+        {
+            nextStageChoiceUI[i].SetLayoutsColor(uiColor);
+        }
     }
 
     public void CloseStageSelectionBoardUI()
     {
-        UIUtils.CloseUI(rectTransform, "Y", insidePositionY, outsidePositionOffsetY, duration);
+        if (GameManager.instance.applicationType == ApplicationType.Windows)
+        {
+            UIUtils.CloseUI(rectTransform, "Y", windowsInsidePositionY, outsidePositionOffsetY, duration);
+        }
+        else
+        {
+            UIUtils.CloseUI(rectTransform, "Y", mobileInsidePositionY, outsidePositionOffsetY, duration);
+        }
     }
 }

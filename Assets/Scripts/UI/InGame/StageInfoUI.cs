@@ -51,7 +51,10 @@ public class StageInfoUI : MonoBehaviour
 
     public void OpenStageInfoUI(Color uiColor)
     {
-        UIUtils.OpenUI(rectTransform, "Y", insidePositionY, duration);
+        if (GameManager.instance.applicationType == ApplicationType.Windows)
+        {
+            UIUtils.OpenUI(rectTransform, "Y", insidePositionY, duration);
+        }
 
         float colorScalar = 3f / 4f;
         UIUtils.SetImageColorByScalar(chapterStageTextLayout, uiColor, colorScalar);
@@ -62,7 +65,10 @@ public class StageInfoUI : MonoBehaviour
 
     public void CloseStageInfoUI()
     {
-        UIUtils.CloseUI(rectTransform, "Y", insidePositionY, outsidePositionOffsetY, duration);
+        if (GameManager.instance.applicationType == ApplicationType.Windows)
+        {
+            UIUtils.CloseUI(rectTransform, "Y", insidePositionY, outsidePositionOffsetY, duration);
+        }
     }
 
     public void UpdateChapter(int chapter)

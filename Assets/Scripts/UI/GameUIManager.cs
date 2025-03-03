@@ -304,7 +304,7 @@ public class GameUIManager : MonoBehaviour
                 currentUIColor = selectingBackgroundColors[Random.Range(0, selectingBackgroundColors.Count)];
                 actionInfoUI.SetChipLayoutColor(currentUIColor);
                 stageSelectionSignboardUI.OpenStageSelectionSignboardUI();
-                stageSelectionBoardUI.OpenStageSelectionBoardUI();
+                stageSelectionBoardUI.OpenStageSelectionBoardUI(currentUIColor);
                 break;
             case SceneState.playing:
                 currentUIColor = playingBackgroundColors[Random.Range(0, playingBackgroundColors.Count)];
@@ -312,7 +312,7 @@ public class GameUIManager : MonoBehaviour
                 stageInfoUI.OpenStageInfoUI(currentUIColor);
                 //scoreInfoUI.OpenScoreInfoUI();
                 boardUI.OpenBoardUI();
-                rerollButtonUI.OpenRerollButtonUI();
+                rerollButtonUI.OpenRerollButtonUI(currentUIColor);
                 handUI.OpenHandUI();
                 break;
             case SceneState.shopping:

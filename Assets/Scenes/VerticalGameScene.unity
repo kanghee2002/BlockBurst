@@ -2385,7 +2385,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1583208970}
-  - {fileID: 603746129}
   - {fileID: 231077321}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7594,17 +7593,17 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 603746128}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 90}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 676980231}
-  m_Father: {fileID: 178834249}
+  m_Father: {fileID: 1583208970}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 116, y: -140}
-  m_SizeDelta: {x: 800, y: 160}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &603746130
 MonoBehaviour:
@@ -7626,7 +7625,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 33ffecb01f0a8d949b547f7301e5c92e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: be7bdae7007fde4408defcd86f7cec7c, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8293,8 +8292,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -17398,6 +17397,7 @@ RectTransform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1163912453}
+  - {fileID: 603746129}
   m_Father: {fileID: 178834249}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
@@ -17420,10 +17420,14 @@ MonoBehaviour:
   rectTransform: {fileID: 1583208970}
   itemIconPrefab: {fileID: 2590677270669734416, guid: 7193ec8fa5d4ee341a3481b89dfd68f3, type: 3}
   itemCountText: {fileID: 1163912454}
-  iconOverlap: 0
   hoverScale: 1.2
   hoverDuration: 0.2
-  startPos: -275
+  windowsIconOverlap: 30
+  windowsStartPos: -300
+  windowsItemScale: 1
+  mobileStartPos: -100
+  mobileEndPos: 100
+  mobileItemScale: 0.75
   deskMatRect: {fileID: 1415765597}
   deckButtonUIRect: {fileID: 1793532058}
   showItemFullImage: {fileID: 603746130}
@@ -23120,7 +23124,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2023459213
 RectTransform:
   m_ObjectHideFlags: 0

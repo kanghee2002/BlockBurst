@@ -8896,12 +8896,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
+  m_fontSize: 23.4
   m_fontSizeBase: 30
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 20
+  m_fontSizeMax: 30
   m_fontStyle: 0
   m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
@@ -9831,7 +9831,7 @@ MonoBehaviour:
   itemPrefab: {fileID: 7193063742566573687, guid: f8dd76b756fadac4395881803f843a4e, type: 3}
   mobileItemPrefab: {fileID: 7193063742566573687, guid: b8939192875abcf40b6119930733136e, type: 3}
   rerollCostText: {fileID: 666947271}
-  itemShowcaseColor: {r: 0.99607843, g: 0.7411765, b: 0, a: 1}
+  itemShowcaseColor: {r: 1, g: 0.7440945, b: 0, a: 1}
   boostShowcaseColor: {r: 0.4, g: 0.78039217, b: 0.89411765, a: 1}
   blockItemShowcaseColor: {r: 0.74509805, g: 0.89411765, b: 0.4, a: 1}
 --- !u!114 &846563017
@@ -11904,8 +11904,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -125, y: -40}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -150, y: -40}
+  m_SizeDelta: {x: 252, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1042202279
 MonoBehaviour:
@@ -11954,12 +11954,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
+  m_fontSize: 39.05
   m_fontSizeBase: 40
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 20
+  m_fontSizeMax: 40
   m_fontStyle: 0
   m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
@@ -23120,7 +23120,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2023459213
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23161,6 +23161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popupBlurImage: {fileID: 169173319}
+  layout: {fileID: 1736230636}
   itemImage: {fileID: 1326669835}
   itemIcon: {fileID: 1968751311}
   itemNameText: {fileID: 1042202279}

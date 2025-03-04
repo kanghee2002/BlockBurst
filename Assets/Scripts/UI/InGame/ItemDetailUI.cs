@@ -10,6 +10,7 @@ public class ItemDetailUI : MonoBehaviour
     [SerializeField] private PopupBlurImage popupBlurImage;
 
     [Header("Item")]
+    [SerializeField] private Image layout;
     [SerializeField] private Image itemImage;
     [SerializeField] private Image itemIcon;
     [SerializeField] private TextMeshProUGUI itemNameText;
@@ -33,6 +34,7 @@ public class ItemDetailUI : MonoBehaviour
     public void Initialize(ItemData itemData, int index)
     {
         SetItemImage(itemData);
+        SetLayoutColor(itemData);
         itemNameText.text = itemData.itemName;
         currentDescription = GetDescription(itemData);
         itemDescriptionText.text = currentDescription;
@@ -126,6 +128,24 @@ public class ItemDetailUI : MonoBehaviour
             Sprite IconSprite = Resources.Load<Sprite>(IconPath);
             itemIcon.gameObject.SetActive(true);
             itemIcon.sprite = IconSprite;
+        }
+    }
+
+    private void SetLayoutColor(ItemData itemData)
+    {
+        float scalar = 9f / 10f;
+
+        if (itemData.type == ItemType.ITEM)
+        {
+            layout.color = UIUtils.itemTypeColors[ItemType.ITEM] * scalar;
+        }
+        else if (itemData.type == ItemType.BOOST)
+        {
+            layout.color = UIUtils.itemTypeColors[ItemType.BOOST] * scalar;
+        }
+        else
+        {
+            layout.color = UIUtils.itemTypeColors[ItemType.ADD_BLOCK] * scalar;
         }
     }
 

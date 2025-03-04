@@ -27,6 +27,13 @@ public static class UIUtils
         { ItemRarity.PLATINUM, new Color(0xb7/255f, 0x1c/255f, 0x31/255f) }  // #b71c31 빨강
     };
 
+    public static readonly Dictionary<ItemType, Color> itemTypeColors = new Dictionary<ItemType, Color>()
+    {
+        { ItemType.ITEM, new Color(0xff/255f, 0xbe/255f, 0x00/255f) },  // FFBE00 노랑
+        { ItemType.BOOST, new Color(0x66/255f, 0xc7/255f, 0xe4/255f) },  // 66C7E4 하늘
+        { ItemType.ADD_BLOCK, new Color(0xbe/255f, 0xe4/255f, 0x66/255f) },  // BEE466 연두
+    };
+
     public static readonly Dictionary<ItemType, string> itemTypeNames = new Dictionary<ItemType, string>()
     {
         { ItemType.ITEM, "아이템" },

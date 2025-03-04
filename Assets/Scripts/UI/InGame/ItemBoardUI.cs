@@ -165,9 +165,9 @@ public class ItemBoardUI : MonoBehaviour
             currentItemUIs = new GameObject[items.Count];
             originalPositions = new Vector3[items.Count];
 
-            CreateSpecificItems(items, ref index, itemCount, itemShowcaseTransform, itemShowcaseColor);
-            CreateSpecificItems(items, ref index, boostCount, boostShowcaseTransform, boostShowcaseColor);
-            CreateSpecificItems(items, ref index, blockItemCount, blockShowcaseTransform, blockItemShowcaseColor);
+            CreateSpecificItems(items, ref index, itemCount, itemShowcaseTransform, UIUtils.itemTypeColors[ItemType.ITEM]);
+            CreateSpecificItems(items, ref index, boostCount, boostShowcaseTransform, UIUtils.itemTypeColors[ItemType.BOOST]);
+            CreateSpecificItems(items, ref index, blockItemCount, blockShowcaseTransform, UIUtils.itemTypeColors[ItemType.ADD_BLOCK]);
         }
     }
 

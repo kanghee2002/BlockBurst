@@ -468,8 +468,6 @@ public class GameManager : MonoBehaviour
     {
         ItemData shopItem = shopItems[index];
 
-        Debug.Log("Item: " + shopItem.itemName + " | index: " + index);
-
         int res = shopManager.PurchaseItem(shopItem);
         if (res != -1)
         {

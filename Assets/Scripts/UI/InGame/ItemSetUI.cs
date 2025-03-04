@@ -14,10 +14,18 @@ public class ItemSetUI : MonoBehaviour
 
     [SerializeField] private GameObject itemIconPrefab;
     [SerializeField] private TextMeshProUGUI itemCountText;
-    [SerializeField] private float iconOverlap = 30f;    
-    [SerializeField] private float hoverScale = 1.2f;    
-    [SerializeField] private float hoverDuration = 0.2f; 
-    [SerializeField] private float startPos = -300f;
+    [SerializeField] private float hoverScale = 1.2f;
+    [SerializeField] private float hoverDuration = 0.2f;
+
+    [Header("Windows")]
+    [SerializeField] private float windowsIconOverlap = 30f;
+    [SerializeField] private float windowsStartPos = -300f;
+    [SerializeField] private float windowsItemScale = 1f;
+
+    [Header("Mobile")]
+    [SerializeField] private float mobileStartPos = -100f;
+    [SerializeField] private float mobileEndPos = 100f;
+    [SerializeField] private float mobileItemScale = 0.5f;
     private List<GameObject> itemIcons = new List<GameObject>();
 
     [Header("Auto Sizing")]
@@ -55,7 +63,20 @@ public class ItemSetUI : MonoBehaviour
         Clear(discardIndex);
 
         float iconWidth = itemIconPrefab.GetComponent<RectTransform>().rect.width;
-        float spacing = iconWidth - iconOverlap;
+        float spacing, startPos, scale;
+
+        if (GameManager.instance.applicationType == ApplicationType.Windows)
+        {
+            spacing = iconWidth - windowsIconOverlap;
+            startPos = windowsStartPos;
+            scale = windowsItemScale;
+        }
+        else
+        {
+            spacing = (mobileEndPos - mobileStartPos) / (maxItemCount - 1);
+            startPos = mobileStartPos;
+            scale = mobileItemScale;
+        }
 
         int addedIndex = 0;
 
@@ -70,7 +91,9 @@ public class ItemSetUI : MonoBehaviour
             
             RectTransform rectTransform = itemIcon.GetComponent<RectTransform>();
             rectTransform.anchoredPosition = new Vector2(startPos + spacing * (itemIcons.Count + addedIndex), 0);
-            
+
+            rectTransform.localScale = Vector3.one * scale;
+
             rectTransform.DOAnchorPos(new Vector2(startPos + spacing * itemIcons.Count, 0), 0.2f)
                 .SetEase(Ease.OutBack)
                 .SetDelay(discardAnimationDelay);
@@ -94,7 +117,7 @@ public class ItemSetUI : MonoBehaviour
             enterEntry.eventID = EventTriggerType.PointerEnter;
             enterEntry.callback.AddListener((data) => {
                 OnItemEnter(description);
-                itemIcon.transform.DOScale(hoverScale, hoverDuration).SetEase(Ease.OutQuad);
+                itemIcon.transform.DOScale(scale * hoverScale, hoverDuration).SetEase(Ease.OutQuad);
                 itemIcon.transform.SetAsLastSibling();
             });
             trigger.triggers.Add(enterEntry);
@@ -103,7 +126,7 @@ public class ItemSetUI : MonoBehaviour
             exitEntry.eventID = EventTriggerType.PointerExit;
             exitEntry.callback.AddListener((data) => {
                 OnItemExit(description);
-                itemIcon.transform.DOScale(1f, hoverDuration).SetEase(Ease.OutQuad);
+                itemIcon.transform.DOScale(scale, hoverDuration).SetEase(Ease.OutQuad);
                 itemIcon.transform.SetSiblingIndex(itemIcons.IndexOf(itemIcon));
             });
             trigger.triggers.Add(exitEntry);
@@ -111,7 +134,7 @@ public class ItemSetUI : MonoBehaviour
             EventTrigger.Entry clickEntry = new EventTrigger.Entry();
             clickEntry.eventID = EventTriggerType.PointerClick;
             clickEntry.callback.AddListener((data) => {
-                OnItemClick(discardButton.gameObject);
+                //OnItemClick(discardButton.gameObject);
             });
             trigger.triggers.Add(clickEntry);
             
@@ -376,7 +399,16 @@ public class ItemSetUI : MonoBehaviour
 
     public void PlayEffectAnimation(string effectDescription, int index, float delay)
     {
-        float fadeDelay = 0.3f;
+        float fadeDelay = 0.3f, scale;
+
+        if (GameManager.instance.applicationType == ApplicationType.Windows)
+        {
+            scale = windowsItemScale;
+        }
+        else
+        {
+            scale = mobileItemScale;
+        }
 
         GameObject currentItem = itemIcons[index];
 
@@ -389,9 +421,9 @@ public class ItemSetUI : MonoBehaviour
         float yOffset = 10f;
 
         currentItem.transform.DOKill();
-        currentItem.transform.localScale = Vector3.one;
+        currentItem.transform.localScale = Vector3.one * scale;
 
-        currentItem.transform.DOPunchScale(Vector2.one * 1.2f, 0.3f, 10, 0.5f);
+        currentItem.transform.DOPunchScale(Vector2.one * scale * 1.2f, 0.3f, 10, 0.5f);
         
         Sequence sequence = DOTween.Sequence();
 
@@ -401,7 +433,7 @@ public class ItemSetUI : MonoBehaviour
 
         sequence.OnComplete(() =>
         {
-            currentItem.transform.DOScale(Vector2.one, 0.2f);
+            currentItem.transform.DOScale(Vector2.one * scale, 0.2f);
             currentText.rectTransform.anchoredPosition = effectTextPos;
             currentText.color = originalColor;
             currentText.gameObject.SetActive(false);

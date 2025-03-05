@@ -10635,6 +10635,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 913060606}
   m_CullTransparentMesh: 1
+--- !u!114 &918565762 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8412147840268672577, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
+  m_PrefabInstance: {fileID: 1288723344}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &919314917
 GameObject:
   m_ObjectHideFlags: 0
@@ -14854,7 +14865,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2725497868016357453, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_Name
-      value: PurchaseButtonUI
+      value: InteractButtonUI
       objectReference: {fileID: 0}
     - target: {fileID: 3075290569250800002, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_Sprite
@@ -23171,7 +23182,8 @@ MonoBehaviour:
   itemNameText: {fileID: 1042202279}
   itemDescriptionText: {fileID: 768122728}
   itemPriceText: {fileID: 1649567196}
-  purchaseButtonUI: {fileID: 326767059}
+  interactButtonUI: {fileID: 326767059}
+  interactButtonText: {fileID: 918565762}
 --- !u!222 &2023459215
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -23344,7 +23356,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1736517047688857954, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: onClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnItemShowcaseCancelButtonUIPressed
+      value: OnItemDetailCancelButtonUIPressed
       objectReference: {fileID: 0}
     - target: {fileID: 1736517047688857954, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: onClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName

@@ -251,6 +251,18 @@ public class GameManager : MonoBehaviour
         GameUIManager.instance.OnDeckInfoCallback(runData, blockGame);
     }
 
+    public void OnItemInfoRequested(int index)
+    {
+        ItemData itemData = runData.activeItems[index];
+        GameUIManager.instance.OnItemInfoCallback(itemData, index);
+    }
+
+    public void OnShopItemInfoRequested(int index)
+    {
+        ItemData itemData = shopItems[index];
+        GameUIManager.instance.OnShopItemInfoCallback(itemData, index);
+    }
+
     public void StartStageSelection()
     {
         // stage Template에서 stagetype이 맞는 것을 랜덤하게 추출

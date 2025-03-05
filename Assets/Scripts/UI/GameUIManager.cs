@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GameUIManager : MonoBehaviour
 {
@@ -189,12 +191,17 @@ public class GameUIManager : MonoBehaviour
         {
             popupState = PopupState.itemDetail;
 
-            itemDetailUI.Initialize(itemData, index);
+            GameManager.instance.OnShopItemInfoRequested(index);
             itemDetailUI.OpenItemDetailUI();
         }
     }
 
-    public void OnItemShowcaseCancelButtonUIPressed()
+    public void OnShopItemInfoCallback(ItemData itemData, int index)
+    {
+        itemDetailUI.Initialize(itemData, index, isPurchase: true);
+    }
+
+    public void OnItemDetailCancelButtonUIPressed()
     {
         if (popupState == PopupState.itemDetail)
         {
@@ -209,6 +216,8 @@ public class GameUIManager : MonoBehaviour
         int gold = GameManager.instance.OnItemPurchased(index);
         if (gold != -1)
         {
+            OnItemDetailCancelButtonUIPressed();
+
             goldInfoUI.UpdateGold(gold);
             itemBoardUI.PurchaseItem(index);
 
@@ -229,6 +238,28 @@ public class GameUIManager : MonoBehaviour
             //Debug.Log("아이템 리롤 버튼 눌림");
             GameManager.instance.OnShopReroll();
         }
+    }
+
+    public void OnItemSetUIPressed(int index)
+    {
+        if (popupState == PopupState.none)
+        {
+            popupState = PopupState.itemDetail;
+
+            GameManager.instance.OnItemInfoRequested(index);
+            itemDetailUI.OpenItemDetailUI();
+        }
+    }
+
+    public void OnItemInfoCallback(ItemData itemData, int index)
+    {
+        itemDetailUI.Initialize(itemData, index, isPurchase: false);
+    }
+
+    public void OnItemSetDiscardButtonUIPressed(int index)
+    {
+        itemSetUI.DiscardItem(index);
+        OnItemDetailCancelButtonUIPressed();
     }
 
     // StageSelectionUI methods

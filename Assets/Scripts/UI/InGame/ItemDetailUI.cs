@@ -16,7 +16,8 @@ public class ItemDetailUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI itemNameText;
     [SerializeField] private TextMeshProUGUI itemDescriptionText;
     [SerializeField] private TextMeshProUGUI itemPriceText;
-    [SerializeField] private ButtonUI purchaseButtonUI;
+    [SerializeField] private ButtonUI interactButtonUI;
+    [SerializeField] private TextMeshProUGUI interactButtonText;
 
     private RectTransform rectTransform;
 
@@ -31,7 +32,7 @@ public class ItemDetailUI : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
     }
 
-    public void Initialize(ItemData itemData, int index)
+    public void Initialize(ItemData itemData, int index, bool isPurchase)
     {
         SetItemImage(itemData);
         SetLayoutColor(itemData);
@@ -40,12 +41,24 @@ public class ItemDetailUI : MonoBehaviour
         itemDescriptionText.text = currentDescription;
         itemPriceText.text = "$" + itemData.cost;
 
-        int itemIndex = index;
-        purchaseButtonUI.SetOnClickMethod(() =>
+        if (isPurchase)     // 상점의 아이템을 누른 경우
         {
-            GameUIManager.instance.OnItemShowcasePurchaseButtonUIPressed(itemIndex);
-            GameUIManager.instance.OnItemShowcaseCancelButtonUIPressed();
-        });
+            int itemIndex = index;
+            interactButtonUI.SetOnClickMethod(() =>
+            {
+                GameUIManager.instance.OnItemShowcasePurchaseButtonUIPressed(itemIndex);
+            });
+            interactButtonText.text = "구매";
+        }
+        else                // 소지 중인 아이템을 누른 경우
+        {
+            int itemIndex = index;
+            interactButtonUI.SetOnClickMethod(() =>
+            {
+                GameUIManager.instance.OnItemSetDiscardButtonUIPressed(itemIndex);
+            });
+            interactButtonText.text = "버리기";
+        }
     }
 
     private string GetDescription(ItemData item)
@@ -154,7 +167,6 @@ public class ItemDetailUI : MonoBehaviour
         gameObject.SetActive(true);
         UIUtils.OpenUI(rectTransform, "Y", insidePositionY, duration);
         popupBlurImage.OpenPopupBlurImage(new Color(0.0f, 0.0f, 0.0f, 0.9f));
-
     }
 
     public void CloseItemDetailUI()

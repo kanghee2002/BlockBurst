@@ -134,10 +134,10 @@ public class ItemSetUI : MonoBehaviour
             EventTrigger.Entry clickEntry = new EventTrigger.Entry();
             clickEntry.eventID = EventTriggerType.PointerClick;
             clickEntry.callback.AddListener((data) => {
-                //OnItemClick(discardButton.gameObject);
+                OnItemClick(index);
             });
             trigger.triggers.Add(clickEntry);
-            
+
             itemIcon.transform.SetSiblingIndex(itemIcons.Count);
             itemIcons.Add(itemIcon);
         }
@@ -267,10 +267,9 @@ public class ItemSetUI : MonoBehaviour
         description.SetActive(false);
     }
 
-    private void OnItemClick(GameObject discardButton)
+    private void OnItemClick(int index)
     {
-        DisableAllDiscardButton(discardButton);
-        AudioManager.instance.SFXSelectMenu();
+        /*DisableAllDiscardButton(discardButton);
         if (discardButton.activeSelf)
         {
             discardButton.SetActive(false);
@@ -280,10 +279,12 @@ public class ItemSetUI : MonoBehaviour
             discardButton.SetActive(true);
             discardButton.transform.DOPunchScale(Vector3.one * 0.3f, duration: 0.1f, vibrato: 5)
                 .SetUpdate(true);
-        }
+        }*/
+        AudioManager.instance.SFXSelectMenu();
+        GameUIManager.instance.OnItemSetUIPressed(index);
     }
 
-    private void DiscardItem(int index)
+    public void DiscardItem(int index)
     {
         AudioManager.instance.SFXThrowItem();
         GameManager.instance.OnItemDiscard(index);

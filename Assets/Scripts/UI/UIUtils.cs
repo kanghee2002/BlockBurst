@@ -115,7 +115,7 @@ public static class UIUtils
     /// <param name="image">Image</param>
     /// <param name="color">기준 색상</param>
     /// <param name="scalar">색상 변경치</param>
-    public static void SetImageColorByScalar(Image image, Color color, float scalar)
+    public static void SetImageColorByScalar(MaskableGraphic image, Color color, float scalar)
     {
         Color scaledColor = new Color(color.r, color.g, color.b) * scalar;
         Color resultColor = new Color(scaledColor.r, scaledColor.g, scaledColor.b, 1f);

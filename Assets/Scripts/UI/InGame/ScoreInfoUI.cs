@@ -7,7 +7,13 @@ using UnityEngine;
 
 public class ScoreInfoUI : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI scoreText;
+    [Header("Text")]
+    [SerializeField] private TextMeshProUGUI currentScoreText;
+    [SerializeField] private TextMeshProUGUI scoreAtLeastText;
+    [SerializeField] private TextMeshProUGUI descriptionText;
+
+    [Header("Score Slider")]
+    [SerializeField] private SlicedFilledImage scoreSlider;
 
     private RectTransform rectTransform;
     // inside anchored position = (300,80)
@@ -15,30 +21,86 @@ public class ScoreInfoUI : MonoBehaviour
     private const float outsidePositionOffsetY = 540;
     private const float duration = 0.2f;
 
+    private int currentScore;
+    private int scoreAtLeast;
+
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
     }
     
-    public void Initialize(int _score)
+    public void InitializePlaying(int currentScore, int scoreAtLeast)
     {
-        //gameObject.SetActive(true);
-        UpdateScore(_score);
+        currentScoreText.gameObject.SetActive(true);
+        scoreAtLeastText.gameObject.SetActive(true);
+        descriptionText.gameObject.SetActive(false);
+
+        UpdateScore(currentScore);
+        UpdateScoreAtLeast(scoreAtLeast);
+    }
+
+    public void InitializeShopping()
+    {
+        currentScoreText.gameObject.SetActive(false);
+        scoreAtLeastText.gameObject.SetActive(false);
+        descriptionText.gameObject.SetActive(true);
+        descriptionText.text = "구매하세요!";
+        UIUtils.BounceText(descriptionText.transform);
+    }
+
+    public void InitializeSelecting()
+    {
+        currentScoreText.gameObject.SetActive(false);
+        scoreAtLeastText.gameObject.SetActive(false);
+        descriptionText.gameObject.SetActive(true);
+        descriptionText.text = "선택하세요!";
+        UIUtils.BounceText(descriptionText.transform);
+    }
+
+    public void SetUIColor(Color uiColor)
+    {
+        UIUtils.SetImageColorByScalar(scoreSlider, uiColor, 1f);
+        UIUtils.SetTextColorByScalar(currentScoreText, uiColor, 1f / 10f);
+        UIUtils.SetTextColorByScalar(descriptionText, uiColor, 1f / 30f);
+    }
+
+    public void UpdateScoreAtLeast(int scoreAtLeast)
+    {
+        this.scoreAtLeast = scoreAtLeast;
+        scoreAtLeastText.text = scoreAtLeast.ToString();
+    }
+
+    public void UpdateScore(int score)
+    {
+        currentScoreText.text = score.ToString();
+        UIUtils.BounceText(currentScoreText.transform);
+
+        if (scoreAtLeast <= 0) return;
+
+        float scoreRatio = (float)score / scoreAtLeast;
+        float duration = 0.3f;
+
+        DOTween.To(
+            () => scoreSlider.fillAmount,       // 현재 fillAmount를 얻는 람다
+            x => scoreSlider.fillAmount = x,    // fillAmount 값을 설정하는 람다
+            scoreRatio,
+            duration
+        ).SetEase(Ease.InOutQuad);
     }
 
     public void OpenScoreInfoUI()
     {
-        UIUtils.OpenUI(rectTransform, "Y", insidePositionY, duration);
+        if (GameManager.instance.applicationType == ApplicationType.Windows)
+        {
+            UIUtils.OpenUI(rectTransform, "Y", insidePositionY, duration);
+        }
     }
 
     public void CloseScoreInfoUI()
     {
-        UIUtils.CloseUI(rectTransform, "Y", insidePositionY, outsidePositionOffsetY, duration);
-    }
-
-    public void UpdateScore(int _score)
-    {
-        scoreText.text = _score.ToString();
-        UIUtils.BounceText(scoreText.transform);
+        if (GameManager.instance.applicationType == ApplicationType.Windows)
+        {
+            UIUtils.CloseUI(rectTransform, "Y", insidePositionY, outsidePositionOffsetY, duration);
+        }
     }
 }

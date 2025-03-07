@@ -771,7 +771,7 @@ public class GameManager : MonoBehaviour
         UpdateBaseMultiplier();
 
         // 계산된 점수가 얻은 점수에 더해지기 전 딜레이
-        yield return new WaitForSeconds(0.75f);
+        yield return new WaitForSeconds(0.2f);
 
         GameUIManager.instance.UpdateProduct(0);
         GameUIManager.instance.UpdateScore(blockGame.currentScore);

@@ -275,6 +275,7 @@ public class GameUIManager : MonoBehaviour
     public void OnStageSelection(StageData[] nextStageChoices, int currentChapterIndex, int currentStageIndex)
     {
         stageSelectionSignboardUI.Initialize(currentChapterIndex, currentStageIndex);
+        scoreInfoUI.InitializeSelecting();
         // stageData들을 받아와서 UI에 뿌려주는 메서드
         if (nextStageChoices.Length == 2)
         {
@@ -358,6 +359,7 @@ public class GameUIManager : MonoBehaviour
                 currentUIColor = selectingBackgroundColors[Random.Range(0, selectingBackgroundColors.Count)];
                 actionInfoUI.SetChipLayoutColor(currentUIColor);
                 stageInfoUI.SetUIColor(currentUIColor);
+                scoreInfoUI.SetUIColor(currentUIColor);
                 stageSelectionSignboardUI.OpenStageSelectionSignboardUI();
                 stageSelectionBoardUI.OpenStageSelectionBoardUI(currentUIColor);
                 break;
@@ -366,6 +368,7 @@ public class GameUIManager : MonoBehaviour
                 actionInfoUI.SetChipLayoutColor(currentUIColor);
                 stageInfoUI.OpenStageInfoUI();
                 stageInfoUI.SetUIColor(currentUIColor);
+                scoreInfoUI.SetUIColor(currentUIColor);
                 //scoreInfoUI.OpenScoreInfoUI();
                 boardUI.OpenBoardUI();
                 rerollButtonUI.OpenRerollButtonUI(currentUIColor);
@@ -386,7 +389,7 @@ public class GameUIManager : MonoBehaviour
     {        
         boardUI.gameObject.SetActive(true);
         stageInfoUI.Initialize(chapterIndex, stageIndex, stageData);
-        scoreInfoUI.Initialize(0);
+        scoreInfoUI.InitializePlaying(currentScore: 0, scoreAtLeast: stageData.clearRequirement);
         rerollButtonUI.Initialize(blockGame.rerollCount);
 
         boardUI.Initialize(blockGame.boardRows, blockGame.boardColumns);
@@ -414,6 +417,7 @@ public class GameUIManager : MonoBehaviour
         }
         itemBoardUI.Initialize(items, rerollCost);
         shopSignboardUI.Initialize(currentChapterIndex, currentStageIndex);
+        scoreInfoUI.InitializeShopping();
     }
 
     public void OnRotateBlock(int idx)

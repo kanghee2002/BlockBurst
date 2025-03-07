@@ -11,20 +11,19 @@ public class StageInfoUI : MonoBehaviour
     [Header("Layout")]
     [SerializeField] private Image chapterStageTextLayout;
     [SerializeField] private Image stageDescriptionTextLayout;
-    [SerializeField] private Image scoreSliderFill;
 
     [Header("Text")]
     [SerializeField] private TextMeshProUGUI chapterText;
     [SerializeField] private TextMeshProUGUI stageText;
     [SerializeField] private TextMeshProUGUI stageDescriptionText;
-    [SerializeField] private TextMeshProUGUI currentScoreText;
-    [SerializeField] private TextMeshProUGUI scoreAtLeastText;
 
     private RectTransform rectTransform;
     // inside anchored position = (300,320)
     private const float insidePositionY = 271;
     private const float outsidePositionOffsetY = 540;
     private const float duration = 0.2f;
+
+    private int scoreAtLeast;
 
     private Sequence currentWarningSequence;
 
@@ -42,7 +41,6 @@ public class StageInfoUI : MonoBehaviour
         UpdateChapter(chapterIndex);
         UpdateStage(stageIndex);
         UpdateStageDescriptionText(stageData.constraints.Select(x => x.effectName).ToArray());
-        UpdateScoreAtLeast(stageData.clearRequirement);
 
         currentWarningSequence = null;
         isBlockWarning = false;
@@ -54,8 +52,6 @@ public class StageInfoUI : MonoBehaviour
         float colorScalar = 3f / 4f;
         UIUtils.SetImageColorByScalar(chapterStageTextLayout, uiColor, colorScalar);
         UIUtils.SetImageColorByScalar(stageDescriptionTextLayout, uiColor, colorScalar);
-        UIUtils.SetImageColorByScalar(scoreSliderFill, uiColor, 1f);
-        UIUtils.SetTextColorByScalar(currentScoreText, uiColor, 1f / 10f);
     }
 
     public void OpenStageInfoUI()
@@ -91,11 +87,6 @@ public class StageInfoUI : MonoBehaviour
         debuffText = debuffText.Replace("\\n", " ").Replace(",", "\n");
 
         this.stageDescriptionText.text = debuffText;
-    }
-
-    public void UpdateScoreAtLeast(int scoreAtLeast)
-    {
-        scoreAtLeastText.text = scoreAtLeast.ToString();
     }
 
     public void ProcessStageEffectAnimation()

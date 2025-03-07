@@ -17413,8 +17413,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -60, y: -380}
-  m_SizeDelta: {x: 300, y: 100}
+  m_AnchoredPosition: {x: -45, y: -380}
+  m_SizeDelta: {x: 330, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1583208971
 MonoBehaviour:
@@ -17436,8 +17436,8 @@ MonoBehaviour:
   windowsIconOverlap: 30
   windowsStartPos: -300
   windowsItemScale: 1
-  mobileStartPos: -100
-  mobileEndPos: 100
+  mobileStartPos: -120
+  mobileEndPos: 120
   mobileItemScale: 0.75
   deskMatRect: {fileID: 1415765597}
   deckButtonUIRect: {fileID: 1793532058}
@@ -20532,7 +20532,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3282333780346931066, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 110
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 3282333780346931066, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_SizeDelta.y
@@ -20636,7 +20636,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8378713409662279789, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 155
+      value: 170
       objectReference: {fileID: 0}
     - target: {fileID: 8378713409662279789, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_AnchoredPosition.y

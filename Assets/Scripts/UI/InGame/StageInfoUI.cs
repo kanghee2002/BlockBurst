@@ -11,10 +11,12 @@ public class StageInfoUI : MonoBehaviour
     [Header("Layout")]
     [SerializeField] private Image chapterStageTextLayout;
     [SerializeField] private Image stageDescriptionTextLayout;
+    [SerializeField] private GameObject scrollingTextMask;
 
     [Header("Text")]
     [SerializeField] private TextMeshProUGUI chapterText;
     [SerializeField] private TextMeshProUGUI stageText;
+    [SerializeField] private TextMeshProUGUI chapterStageText;
     [SerializeField] private TextMeshProUGUI stageDescriptionText;
 
     private RectTransform rectTransform;
@@ -23,7 +25,7 @@ public class StageInfoUI : MonoBehaviour
     private const float outsidePositionOffsetY = 540;
     private const float duration = 0.2f;
 
-    private int scoreAtLeast;
+    private Coroutine scrollingTextAnimationCoroutine;
 
     private Sequence currentWarningSequence;
 
@@ -35,16 +37,35 @@ public class StageInfoUI : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
     }
 
-    public void Initialize(int chapterIndex, int stageIndex, StageData stageData)
+    public void InitializePlaying(int chapterIndex, int stageIndex, StageData stageData)
     {
         gameObject.SetActive(true);
+        scrollingTextMask.SetActive(false);
+
+        if (scrollingTextAnimationCoroutine != null) StopCoroutine(scrollingTextAnimationCoroutine);
+
         UpdateChapter(chapterIndex);
         UpdateStage(stageIndex);
+        UpdateChapterStage(chapterIndex, stageIndex);
         UpdateStageDescriptionText(stageData.constraints.Select(x => x.effectName).ToArray());
 
         currentWarningSequence = null;
         isBlockWarning = false;
         isWarning = false;
+    }
+
+    public void InitializeShopping()
+    {
+        if (scrollingTextAnimationCoroutine != null) StopCoroutine(scrollingTextAnimationCoroutine);
+
+        PlayScrollingTextAnimation("SHOP · SHOP ·", 35);
+    }
+
+    public void InitializeSelecting()
+    {
+        if (scrollingTextAnimationCoroutine != null) StopCoroutine(scrollingTextAnimationCoroutine);
+
+        PlayScrollingTextAnimation("SELECT STAGE ·", 33);
     }
 
     public void SetUIColor(Color uiColor)
@@ -80,13 +101,60 @@ public class StageInfoUI : MonoBehaviour
         stageText.text = stage.ToString();
     }
 
+    public void UpdateChapterStage(int chapter, int stage)
+    {
+        chapterStageText.text = chapter + "-" + stage;
+    }
+
     public void UpdateStageDescriptionText(string[] debuffTexts)
     {
+        stageDescriptionText.gameObject.SetActive(true);
         string debuffText = string.Join("\n", debuffTexts);
         debuffText = UIUtils.SetBlockNameToIcon(debuffText);
         debuffText = debuffText.Replace("\\n", " ").Replace(",", "\n");
 
         this.stageDescriptionText.text = debuffText;
+    }
+
+    public void PlayScrollingTextAnimation(string text, int fontSize)
+    {
+        scrollingTextMask.SetActive(true);
+        stageDescriptionText.gameObject.SetActive(false);
+
+        RectTransform[] scrollingTexts = scrollingTextMask.transform.Cast<Transform>()
+                                    .OfType<RectTransform>()
+                                    .ToArray();
+
+        foreach (RectTransform scrollingTextRect in scrollingTexts)
+        {
+            TextMeshProUGUI scrollingText = scrollingTextRect.GetComponent<TextMeshProUGUI>();
+            scrollingText.text = text;
+            scrollingText.fontSize = fontSize;
+        }
+
+        UIUtils.BounceText(scrollingTextMask.transform);
+
+        scrollingTextAnimationCoroutine = StartCoroutine(ScrollingTextAnimationCoroutine(scrollingTexts));
+    }
+
+    private IEnumerator ScrollingTextAnimationCoroutine(RectTransform[] scrollingTexts)
+    {
+        float speed = 0.3f;
+
+        while (true)
+        {
+            foreach (RectTransform scrollingText in scrollingTexts)
+            {
+                scrollingText.position += Vector3.left * speed * Time.deltaTime;
+                
+                if (scrollingText.anchoredPosition.x < -360f)
+                {
+                    scrollingText.anchoredPosition = new Vector2(360f, scrollingText.anchoredPosition.y);
+                }
+            }
+
+            yield return null;
+        }
     }
 
     public void ProcessStageEffectAnimation()

@@ -276,6 +276,8 @@ public class GameUIManager : MonoBehaviour
     {
         stageSelectionSignboardUI.Initialize(currentChapterIndex, currentStageIndex);
         scoreInfoUI.InitializeSelecting();
+        stageInfoUI.InitializeSelecting();
+
         // stageData들을 받아와서 UI에 뿌려주는 메서드
         if (nextStageChoices.Length == 2)
         {
@@ -388,7 +390,7 @@ public class GameUIManager : MonoBehaviour
     public void OnStageStart(int chapterIndex, int stageIndex, StageData stageData, BlockGameData blockGame)
     {        
         boardUI.gameObject.SetActive(true);
-        stageInfoUI.Initialize(chapterIndex, stageIndex, stageData);
+        stageInfoUI.InitializePlaying(chapterIndex, stageIndex, stageData);
         scoreInfoUI.InitializePlaying(currentScore: 0, scoreAtLeast: stageData.clearRequirement);
         rerollButtonUI.Initialize(blockGame.rerollCount);
 
@@ -415,6 +417,7 @@ public class GameUIManager : MonoBehaviour
         {
             ChangeSceneState(SceneState.shopping);
         }
+        stageInfoUI.InitializeShopping();
         itemBoardUI.Initialize(items, rerollCost);
         shopSignboardUI.Initialize(currentChapterIndex, currentStageIndex);
         scoreInfoUI.InitializeShopping();

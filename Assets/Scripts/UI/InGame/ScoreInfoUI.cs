@@ -75,9 +75,7 @@ public class ScoreInfoUI : MonoBehaviour
         currentScoreText.text = score.ToString();
         UIUtils.BounceText(currentScoreText.transform);
 
-        if (scoreAtLeast <= 0) return;
-
-        float scoreRatio = (float)score / scoreAtLeast;
+        float scoreRatio = scoreAtLeast <= 0 ? 0 : (float)score / scoreAtLeast;
         float duration = 0.3f;
 
         DOTween.To(

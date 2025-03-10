@@ -321,8 +321,19 @@ public class TutorialManager : MonoBehaviour
             block.gameObject.SetActive(true);
         }
 
-        float resolutionRatioX = Screen.width / 1920f;
-        float resolutionRatioY = Screen.height / 1080f;
+        float resolutionRatioX;
+        float resolutionRatioY;
+
+        if (GameManager.instance.applicationType == ApplicationType.Windows)
+        {
+            resolutionRatioX = Screen.width / 1920f;
+            resolutionRatioY = Screen.height / 1080f;
+        }
+        else
+        {
+            resolutionRatioX = Screen.width / 462.85f;
+            resolutionRatioY = Screen.height / 1080f;
+        }
 
         if (target == null)
         {

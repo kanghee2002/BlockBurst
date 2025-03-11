@@ -367,8 +367,8 @@ public class GameUIManager : MonoBehaviour
                 break;
             case SceneState.playing:
                 currentUIColor = playingBackgroundColors[Random.Range(0, playingBackgroundColors.Count)];
-                actionInfoUI.SetChipLayoutColor(currentUIColor);
                 stageInfoUI.OpenStageInfoUI();
+                actionInfoUI.SetChipLayoutColor(currentUIColor);
                 stageInfoUI.SetUIColor(currentUIColor);
                 scoreInfoUI.SetUIColor(currentUIColor);
                 //scoreInfoUI.OpenScoreInfoUI();
@@ -380,6 +380,9 @@ public class GameUIManager : MonoBehaviour
                 currentUIColor = shoppingBackgroundColors[Random.Range(0, shoppingBackgroundColors.Count)];
                 shopSignboardUI.OpenShopSignboardUI();
                 itemBoardUI.OpenItemBoardUI();
+                actionInfoUI.SetChipLayoutColor(currentUIColor);
+                stageInfoUI.SetUIColor(currentUIColor);
+                scoreInfoUI.SetUIColor(currentUIColor);
                 break;
             default:
                 break;

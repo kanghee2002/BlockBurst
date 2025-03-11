@@ -27,8 +27,10 @@ public class DeckInfoUI : MonoBehaviour
 
     public Transform[] BlockTransforms;
 
-    const float ROW_OFFSET = 112;
-    const float COLUMN_OFFSET = 112;
+    const float WINDOWS_ROW_OFFSET = 112;
+    const float MOBILE_ROW_OFFSET = 84;
+    const float WINDOWS_COLUMN_OFFSET = 112;
+    const float MOBILE_COLUMN_OFFSET = 45;
     const float ROW_REF = 112 * 3;
 
     Dictionary<string, string> effectNames = new Dictionary<string, string>() {
@@ -95,7 +97,14 @@ public class DeckInfoUI : MonoBehaviour
                     countDictionary[(BlockType)i] = 0;
                 }
                 InitializeBlockUI(BlockTransforms[i], (BlockType)i, countDictionary[(BlockType)i], scoreDictionary[(BlockType)i]);
-                BlockTransforms[i].localPosition = new Vector3(0, ROW_REF - ROW_OFFSET * basicPos, 0);
+                if (GameManager.instance.applicationType == ApplicationType.Windows)
+                {
+                    BlockTransforms[i].localPosition = new Vector3(0, ROW_REF - WINDOWS_ROW_OFFSET * basicPos, 0);
+                }
+                else
+                {
+                    BlockTransforms[i].localPosition = new Vector3(0, ROW_REF - MOBILE_ROW_OFFSET * basicPos, 0);
+                }
                 basicPos++;
             }
             else
@@ -109,7 +118,14 @@ public class DeckInfoUI : MonoBehaviour
                 {
                     BlockTransforms[i].GetComponent<CanvasGroup>().alpha = 1f;
                     InitializeBlockUI(BlockTransforms[i], (BlockType)i, countDictionary[(BlockType)i], scoreDictionary[(BlockType)i]);
-                    BlockTransforms[i].localPosition = new Vector3(0, ROW_REF - ROW_OFFSET * specialPos, 0);
+                    if (GameManager.instance.applicationType == ApplicationType.Windows)
+                    {
+                        BlockTransforms[i].localPosition = new Vector3(0, ROW_REF - WINDOWS_ROW_OFFSET * specialPos, 0);
+                    }
+                    else
+                    {
+                        BlockTransforms[i].localPosition = new Vector3(0, ROW_REF - MOBILE_ROW_OFFSET * specialPos, 0);
+                    }
                     Debug.Log("specialPos: " + specialPos);
                     specialPos++;
                 }
@@ -170,7 +186,15 @@ public class DeckInfoUI : MonoBehaviour
 
                         // effectNames에서의 인덱스를 찾아서 위치 설정
                         int effectIndex = Array.IndexOf(effectNames.Keys.ToArray(), effectType);
-                        float xOffset = COLUMN_OFFSET * effectIndex;
+                        float xOffset;
+                        if (GameManager.instance.applicationType == ApplicationType.Windows)
+                        {
+                            xOffset = WINDOWS_COLUMN_OFFSET * effectIndex;
+                        }
+                        else
+                        {
+                            xOffset = MOBILE_COLUMN_OFFSET * effectIndex;
+                        }
                         effectObject.transform.localPosition = new Vector3(xOffset, 0, 0);
                     }
                 }

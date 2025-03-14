@@ -170,7 +170,7 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
         slowShakeSequence = UIUtils.PlaySlowShakeAnimation(transform, rotateAmount: 3f, duration: 2f, delay: Random.Range(0f, 3f));
     }
 
-    void makeSmall(bool toSmall)
+    private void makeSmall(bool toSmall)
     {
         transform.DOKill();
         Vector3 targetScale = Vector3.one;
@@ -252,7 +252,14 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
         );
         
         // 드래그 오프셋을 중앙 기준으로 계산
-        dragOffset = localPoint - (Vector2)transform.localPosition;
+        if (GameManager.instance.applicationType == ApplicationType.Windows)
+        {
+            dragOffset = localPoint - (Vector2)transform.localPosition;
+        }
+        else
+        {
+            dragOffset = localPoint - (Vector2)transform.localPosition - Vector2.up * 100f;
+        }
     }
 
     public void OnDrag(PointerEventData eventData)

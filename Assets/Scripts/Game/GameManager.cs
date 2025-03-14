@@ -100,6 +100,11 @@ public class GameManager : MonoBehaviour
 
     void SetApplicationType()
     {
+        if (Application.platform == RuntimePlatform.WindowsEditor)
+        {
+            return;
+        }
+
         if (Application.platform == RuntimePlatform.Android ||
             Application.platform == RuntimePlatform.IPhonePlayer)
         {

@@ -86,6 +86,8 @@ public class GameManager : MonoBehaviour
         LoadTemplates();
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 120; // for mobile build
+        SetApplicationType();
+
     }
 
     void LoadTemplates()
@@ -94,6 +96,19 @@ public class GameManager : MonoBehaviour
         stageTemplates = Resources.LoadAll<StageData>("ScriptableObjects/Stage");
         itemTemplates = Resources.LoadAll<ItemData>("ScriptableObjects/Item");
         blockTemplates = Resources.LoadAll<BlockData>("ScriptableObjects/Block");
+    }
+
+    void SetApplicationType()
+    {
+        if (Application.platform == RuntimePlatform.Android ||
+            Application.platform == RuntimePlatform.IPhonePlayer)
+        {
+            applicationType = ApplicationType.Mobile;
+        }
+        else
+        {
+            applicationType = ApplicationType.Windows;
+        }
     }
 
     void OnEnable()

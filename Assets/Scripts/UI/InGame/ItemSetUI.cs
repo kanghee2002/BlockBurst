@@ -263,12 +263,18 @@ public class ItemSetUI : MonoBehaviour
 
     private void OnItemEnter(GameObject description)
     {
-        description.SetActive(true);
+        if (GameManager.instance.applicationType == ApplicationType.Windows)
+        {
+            description.SetActive(true);
+        }
     }
 
     private void OnItemExit(GameObject description)
     {
-        description.SetActive(false);
+        if (GameManager.instance.applicationType == ApplicationType.Windows)
+        {
+            description.SetActive(false);
+        }
     }
 
     private void OnItemClick(int index)

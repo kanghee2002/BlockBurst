@@ -172,6 +172,43 @@ public class GameUIManager : MonoBehaviour
         }
     }
 
+    // Popup Blur Method
+    public void OnPopupBlurUIPressed()
+    {
+        // RunInfo
+        if (popupState == PopupState.runInfo)
+        {
+            popupState = PopupState.none;
+            runInfoUI.CloseRunInfoUI();
+
+            GameManager.instance.ProcessTutorialStep("RunBack");
+        }
+
+        // Option
+        else if (popupState == PopupState.option)
+        {
+            popupState = PopupState.none;
+            optionUI.CloseOptionUI();
+        }
+
+        // DeckInfo
+        else if (popupState == PopupState.deckInfo)
+        {
+            popupState = PopupState.none;
+            deckInfoUI.CloseDeckInfoUI();
+
+            GameManager.instance.ProcessTutorialStep("DeckBack");
+        }
+
+        // ItemDetail
+        else if (popupState == PopupState.itemDetail)
+        {
+            popupState = PopupState.none;
+
+            itemDetailUI.CloseItemDetailUI();
+        }
+    }
+
     // Item Board methods
     public void OnNextStageButtonUIPressed()
     {

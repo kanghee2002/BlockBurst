@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -36,7 +37,7 @@ public class ItemDetailUI : MonoBehaviour
         SetItemImage(itemData);
         SetLayoutColor(itemData);
         itemNameText.text = itemData.itemName;
-        currentDescription = GetDescription(itemData);
+        currentDescription = GetDescription(itemData, isPurchase);
         itemDescriptionText.text = currentDescription;
         itemPriceText.text = "$" + itemData.cost;
 
@@ -62,7 +63,7 @@ public class ItemDetailUI : MonoBehaviour
         UIUtils.PlaySlowShakeAnimation(itemImage.transform, rotateAmount: 4f, duration: 2f);
     }
 
-    private string GetDescription(ItemData item)
+    private string GetDescription(ItemData item, bool isPurchase)
     {
         string description = "";
 
@@ -72,6 +73,16 @@ public class ItemDetailUI : MonoBehaviour
             if (i != item.effects.Count - 1)
             {
                 description += "\n";
+            }
+        }
+
+        if (!isPurchase)
+        {
+            EffectData triggerEffect = item.effects.FirstOrDefault(effect => effect.triggerMode == TriggerMode.Interval);
+
+            if (triggerEffect != null)
+            {
+                description += $" (현재 횟수: {triggerEffect.triggerCount})";
             }
         }
 

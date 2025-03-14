@@ -374,8 +374,8 @@ public class ItemSetUI : MonoBehaviour
 
         Vector3 originalPosition = currentItem.transform.position;
 
-        Tween currentTween = currentItem.transform.DOPunchPosition(Vector3.one * 7f, 0.5f,
-            vibrato: 10, elasticity: 0.3f)
+        Tween currentTween = currentItem.transform.DOPunchPosition(Vector3.up * 8f, 0.5f,
+            vibrato: 5, elasticity: 0.3f)
             .SetLoops(-1, LoopType.Restart)
             .SetEase(Ease.InOutQuad)
             .OnKill(() => currentItem.transform.DOMove(originalPosition, 0.1f));

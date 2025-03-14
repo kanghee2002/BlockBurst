@@ -9,7 +9,7 @@ public class HandUI : MonoBehaviour
     // inside anchored position = (-188,0)
     private const float windowsInsidePositionX = -188;
     private const float mobileInsidePositionX = 0;
-    private const float outsidePositionOffsetX = 480;
+    private const float outsidePositionOffsetX = 680;
     private const float duration = 0.2f;
     
     [SerializeField] private GameObject blockPrefab;

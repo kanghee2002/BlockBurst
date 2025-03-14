@@ -76,12 +76,12 @@ public static class UIUtils
         if (axis == "X")
         {
             rectTransform.DOAnchorPosX(insidePosition, duration)
-                .SetEase(Ease.OutCubic);
+                .SetEase(Ease.OutBack, overshoot: 1f);
         }
         else if (axis == "Y")
         {
             rectTransform.DOAnchorPosY(insidePosition, duration)
-                .SetEase(Ease.OutCubic);
+                .SetEase(Ease.OutBack, overshoot: 1f);
         }
     }
 
@@ -98,13 +98,13 @@ public static class UIUtils
         if (axis == "X")
         {
             rectTransform.DOAnchorPosX(insidePosition + outsidePositionOffset, duration)
-              .SetEase(Ease.OutCubic);
+                .SetEase(Ease.InBack, overshoot: 1f);
             //rectTransform.anchoredPosition = new Vector2(insidePosition + outsidePositionOffset, rectTransform.anchoredPosition.y);
         }
         else if (axis == "Y")
         {
             rectTransform.DOAnchorPosY(insidePosition + outsidePositionOffset, duration)
-              .SetEase(Ease.OutCubic);
+                .SetEase(Ease.InBack, overshoot: 1f);
             //rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, insidePosition + outsidePositionOffset);
         }
     }

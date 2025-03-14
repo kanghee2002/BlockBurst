@@ -436,7 +436,7 @@ public class GameManager : MonoBehaviour
                 UpdateDeckCount(runData.availableBlocks.Count, runData.availableBlocks.Count);
                 UpdateBaseMultiplier();
 
-                GameUIManager.instance.StopItemShakeAnimation(isBlockRelated: true);
+                GameUIManager.instance.StopAllItemShakeAnimation();
                 GameUIManager.instance.StopWarningStageEffectAnimation(true);
                 GameUIManager.instance.StopWarningStageEffectAnimation(false);
             }

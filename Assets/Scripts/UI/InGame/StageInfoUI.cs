@@ -192,8 +192,8 @@ public class StageInfoUI : MonoBehaviour
         currentWarningSequence = DOTween.Sequence();
 
         currentWarningSequence.Append(
-            stageDescriptionText.transform.DOPunchPosition(Vector3.one * 7f, 0.3f,
-            vibrato: 15, elasticity: 0.5f)
+            stageDescriptionText.transform.DOPunchPosition(Vector3.one * 5f, 0.6f,
+            vibrato: 10, elasticity: 0.5f)
             .SetLoops(-1, LoopType.Restart)
             .SetEase(Ease.InOutQuad));
 

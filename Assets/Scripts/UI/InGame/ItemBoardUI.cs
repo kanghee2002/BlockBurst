@@ -29,7 +29,7 @@ public class ItemBoardUI : MonoBehaviour
 
     private const float windowsInsidePositionY = -128; // 도착할 Y 위치
     private const float mobileInsidePositionY = -175; // 도착할 Y 위치
-    private const float outsidePositionOffsetY = -800; // 숨겨질 Y 위치
+    private const float outsidePositionOffsetY = -1000; // 숨겨질 Y 위치
     private const float duration = 0.2f; // 애니메이션 시간
 
     private Sequence slowShakeSequence;

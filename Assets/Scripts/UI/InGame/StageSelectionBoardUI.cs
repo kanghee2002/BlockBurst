@@ -32,6 +32,9 @@ public class StageSelectionBoardUI : MonoBehaviour
             for (int i = 0; i < nextStageChoices.Length; i++)
             {
                 nextStageChoiceUI[i].Initialize(nextStageChoices[i]);
+
+                if (i == 0) UIUtils.PlaySlowShakeAnimation(nextStageChoiceUI[i].transform, delay: 0f);
+                else UIUtils.PlaySlowShakeAnimation(nextStageChoiceUI[i].transform, delay: Random.Range(1f, 3f));
             }
         } 
         else

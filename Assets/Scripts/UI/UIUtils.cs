@@ -109,6 +109,24 @@ public static class UIUtils
         }
     }
 
+    public static Sequence PlaySlowShakeAnimation(Transform transform, float rotateAmount = 0.5f, float duration = 4f, float delay = 0f)
+    {
+        Sequence sequence = DOTween.Sequence();
+
+        sequence.Append(transform.DORotate(new Vector3(0, 0, rotateAmount), duration))
+            .Append(transform.DORotate(new Vector3(0, 0, -rotateAmount), duration)
+            .SetLoops(-1, LoopType.Yoyo)
+            .SetEase(Ease.InOutQuad))
+            .SetDelay(delay);
+
+        sequence.OnKill(() =>
+        {
+            transform.DORotate(Vector3.zero, 1f);
+        });
+
+        return sequence;
+    }
+
     /// <summary>
     /// Image의 색상을 변경합니다.
     /// </summary>

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class ItemDetailUI : MonoBehaviour
 {
@@ -59,6 +58,8 @@ public class ItemDetailUI : MonoBehaviour
             });
             interactButtonText.text = "버리기";
         }
+
+        UIUtils.PlaySlowShakeAnimation(itemImage.transform, rotateAmount: 4f, duration: 2f);
     }
 
     private string GetDescription(ItemData item)

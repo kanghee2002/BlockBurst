@@ -41,6 +41,8 @@ public class ItemSetUI : MonoBehaviour
 
     private Vector2 effectTextPos;
 
+    private Sequence slowShakeSequence;
+
     private void Start()
     {
         originalAnchoredPosition = rectTransform.anchoredPosition;
@@ -140,6 +142,8 @@ public class ItemSetUI : MonoBehaviour
 
             itemIcon.transform.SetSiblingIndex(itemIcons.Count);
             itemIcons.Add(itemIcon);
+
+            slowShakeSequence = UIUtils.PlaySlowShakeAnimation(itemIcon.transform, rotateAmount: 5f, duration: 2f, delay: Random.Range(0f, 2f));
         }
 
         itemCountText.text = items.Count + "/" + maxItemCount;

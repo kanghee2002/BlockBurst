@@ -36,6 +36,8 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
     private string description = "";
     private TextMeshProUGUI descriptionText;
 
+    private Sequence slowShakeSequence;
+
     Block myBlock;
 
     public Dictionary<string, string> effectNameDictionary = new Dictionary<string, string>()
@@ -164,6 +166,8 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
         rectTransform.sizeDelta = new Vector2(width, height);
 
         makeSmall(true);
+
+        slowShakeSequence = UIUtils.PlaySlowShakeAnimation(transform, rotateAmount: 3f, duration: 2f, delay: Random.Range(0f, 3f));
     }
 
     void makeSmall(bool toSmall)
@@ -216,6 +220,7 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
     public void OnPointerDown(PointerEventData eventData)
     {
         makeSmall(false);
+        slowShakeSequence.Kill();
         boardCellSize = boardUI.boardCellsUI[0, 1].GetComponent<RectTransform>().position.x - boardUI.boardCellsUI[0, 0].GetComponent<RectTransform>().position.x;
 
         AudioManager.instance.SFXSelectBlock();
@@ -426,6 +431,7 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
     private void ReturnToHand(bool isInstant = false)
     {
         makeSmall(true);
+        slowShakeSequence = UIUtils.PlaySlowShakeAnimation(transform, rotateAmount: 3f, duration: 2f, delay: Random.Range(0f, 3f));
         if (isInstant)
         {
             transform.localPosition = originalPosition;

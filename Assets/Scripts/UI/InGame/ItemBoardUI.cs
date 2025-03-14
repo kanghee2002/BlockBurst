@@ -5,8 +5,8 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System.Linq;
-using static UnityEditor.Progress;
 using System;
+using Random = UnityEngine.Random;
 
 public class ItemBoardUI : MonoBehaviour
 {
@@ -31,6 +31,8 @@ public class ItemBoardUI : MonoBehaviour
     private const float mobileInsidePositionY = -175; // 도착할 Y 위치
     private const float outsidePositionOffsetY = -800; // 숨겨질 Y 위치
     private const float duration = 0.2f; // 애니메이션 시간
+
+    private Sequence slowShakeSequence;
 
     void Awake()
     {
@@ -83,7 +85,7 @@ public class ItemBoardUI : MonoBehaviour
         float jumpHeight = 10f;
         float rotateAmount = 10f;
         float duration = 0.3f;
-        float staggerTime = 0.1f;
+        float staggerTime = 0.05f;
 
         for (int i = 0; i < currentItemUIs.Length; i++)
         {
@@ -95,7 +97,6 @@ public class ItemBoardUI : MonoBehaviour
                 card.GetComponent<ItemDescriptionUI>().DescriptionFadeOut();
             }
 
-            DOTween.Kill(card.transform);
             DOTween.Kill(card.GetComponent<CanvasGroup>());
             card.transform.localPosition = originalPositions[index];
 
@@ -192,6 +193,8 @@ public class ItemBoardUI : MonoBehaviour
             itemUI.transform.GetChild(4).GetComponent<Button>().onClick.AddListener(() => {
                 GameUIManager.instance.OnItemShowcaseItemButtonUIPressed(itemData, currentIndex);
             });
+
+            UIUtils.PlaySlowShakeAnimation(itemUI.transform.GetChild(0), rotateAmount: 5f, duration: 3f, delay: Random.Range(0f, 3f));
 
             originalPositions[index] = itemUI.transform.localPosition;
 

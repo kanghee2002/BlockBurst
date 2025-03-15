@@ -460,15 +460,17 @@ public class ItemSetUI : MonoBehaviour
         showItemFullImage.gameObject.SetActive(true);
         showItemFullImage.color = new Color(0f, 0f, 0f, 0.8f);
 
-        float duration = 0.5f;
+        float duration = 0.5f, endDelay = 0.2f;
 
         RectTransform textRect = showItemFullImage.transform.GetChild(0).GetComponent<RectTransform>();
 
         Sequence sequence = DOTween.Sequence();
 
         sequence.Append(textRect.DOPunchScale(Vector3.one * 1.2f, duration,
-            vibrato: 6, elasticity: 0.3f)
+            vibrato: 7, elasticity: 0.3f)
             .SetEase(Ease.OutQuad));
+
+        sequence.AppendInterval(endDelay);
 
         sequence.OnComplete(() =>
         {

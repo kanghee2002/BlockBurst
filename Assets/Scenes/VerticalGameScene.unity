@@ -7755,7 +7755,7 @@ RectTransform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 676980231}
-  m_Father: {fileID: 1583208970}
+  m_Father: {fileID: 2023459213}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -8422,7 +8422,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC790\uB9AC \uC5C6\uC74C!"
+  m_text: "\uC544\uC774\uD15C \uC790\uB9AC \uBD80\uC871!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2a59723d8f0743f4ba7c0c6d36676d1c, type: 2}
   m_sharedMaterial: {fileID: 92899030693641188, guid: 2a59723d8f0743f4ba7c0c6d36676d1c, type: 2}
@@ -17943,7 +17943,6 @@ RectTransform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1163912453}
-  - {fileID: 603746129}
   m_Father: {fileID: 178834249}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
@@ -23644,6 +23643,7 @@ RectTransform:
   - {fileID: 1908807243}
   - {fileID: 2123217180}
   - {fileID: 12812305}
+  - {fileID: 603746129}
   m_Father: {fileID: 798070447}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}

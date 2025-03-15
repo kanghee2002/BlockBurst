@@ -161,6 +161,22 @@ public class GameUIManager : MonoBehaviour
         deckInfoUI.Initialize(runData, blockGameData, sceneState == SceneState.playing);
     }
 
+    public void OnDeckInfoBoostUIPressed(int index)
+    {
+        // 팝업 블러로 닫기 -> DeckInfo.isShowingBoostDetail로 관리
+
+        if (popupState == PopupState.deckInfo)
+        {
+            GameManager.instance.OnBoostInfoRequested(index);
+            itemDetailUI.OpenItemDetailUI();
+        }
+    }
+
+    public void OnBoostInfoCallback(ItemData boostData, int index)
+    {
+        itemDetailUI.Initialize(boostData, index, isBoost: true, isPurchase: false);
+    }
+
     public void OnDeckInfoBackButtonUIPressed()
     {
         if (popupState == PopupState.deckInfo)
@@ -194,10 +210,19 @@ public class GameUIManager : MonoBehaviour
         // DeckInfo
         else if (popupState == PopupState.deckInfo)
         {
-            popupState = PopupState.none;
-            deckInfoUI.CloseDeckInfoUI();
+            if (deckInfoUI.isShowingBoostDetail)
+            {
+                deckInfoUI.isShowingBoostDetail = false;
 
-            GameManager.instance.ProcessTutorialStep("DeckBack");
+                itemDetailUI.CloseItemDetailUI(false);
+            }
+            else
+            {
+                popupState = PopupState.none;
+                deckInfoUI.CloseDeckInfoUI();
+
+                GameManager.instance.ProcessTutorialStep("DeckBack");
+            }
         }
 
         // ItemDetail
@@ -205,7 +230,7 @@ public class GameUIManager : MonoBehaviour
         {
             popupState = PopupState.none;
 
-            itemDetailUI.CloseItemDetailUI();
+            itemDetailUI.CloseItemDetailUI(true);
         }
     }
 
@@ -222,7 +247,7 @@ public class GameUIManager : MonoBehaviour
         }
     }
     
-    public void OnItemShowcaseItemButtonUIPressed(ItemData itemData, int index)
+    public void OnItemShowcaseItemButtonUIPressed(int index)
     {
         if (popupState == PopupState.none)
         {
@@ -235,7 +260,7 @@ public class GameUIManager : MonoBehaviour
 
     public void OnShopItemInfoCallback(ItemData itemData, int index)
     {
-        itemDetailUI.Initialize(itemData, index, isPurchase: true);
+        itemDetailUI.Initialize(itemData, index, isBoost: false, isPurchase: true);
     }
 
     public void OnItemDetailCancelButtonUIPressed()
@@ -244,7 +269,13 @@ public class GameUIManager : MonoBehaviour
         {
             popupState = PopupState.none;
 
-            itemDetailUI.CloseItemDetailUI();
+            itemDetailUI.CloseItemDetailUI(true);
+        }
+        else if (popupState == PopupState.deckInfo)
+        {
+            deckInfoUI.isShowingBoostDetail = false;
+
+            itemDetailUI.CloseItemDetailUI(false);
         }
     }
 
@@ -290,7 +321,7 @@ public class GameUIManager : MonoBehaviour
 
     public void OnItemInfoCallback(ItemData itemData, int index)
     {
-        itemDetailUI.Initialize(itemData, index, isPurchase: false);
+        itemDetailUI.Initialize(itemData, index, isBoost: false, isPurchase: false);
     }
 
     public void OnItemSetDiscardButtonUIPressed(int index)

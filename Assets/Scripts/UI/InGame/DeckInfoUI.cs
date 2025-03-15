@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine.UI;
 using System;
 using System.Linq;
+using UnityEngine.EventSystems;
 
 public class DeckInfoUI : MonoBehaviour
 {
@@ -27,6 +28,11 @@ public class DeckInfoUI : MonoBehaviour
 
     public Transform[] BlockTransforms;
 
+    [Header("BoostInfo")]
+    [SerializeField] private GameObject boostInfoContainer;
+    [SerializeField] private Transform boostInfoGridLayout;
+    [SerializeField] private GameObject boostIcon;
+
     const float WINDOWS_ROW_OFFSET = 112;
     const float MOBILE_ROW_OFFSET = 84;
     const float WINDOWS_COLUMN_OFFSET = 112;
@@ -39,6 +45,8 @@ public class DeckInfoUI : MonoBehaviour
         {"REROLL_MODIFIER", "RerollUpgrade"},
         {"SCORE_MODIFIER", "ScoreUpgrade"},
     };
+
+    [HideInInspector] public bool isShowingBoostDetail;
 
     void Awake()
     {
@@ -130,6 +138,33 @@ public class DeckInfoUI : MonoBehaviour
                     specialPos++;
                 }
             }
+        }
+
+        // Initialize BoostInfo
+        for (int i = boostInfoGridLayout.childCount - 1; i >= 0; i--)
+        {
+            Destroy(boostInfoGridLayout.GetChild(i).gameObject);
+        }
+
+        for (int i = 0; i < runData.activeBoosts.Count; i++)
+        {
+            ItemData boostData = runData.activeBoosts[i];
+
+            GameObject boost = Instantiate(boostIcon, boostInfoGridLayout);
+            boost.GetComponent<Image>().sprite = GetImage(boostData);
+            //boost.GetComponent<ItemDescriptionUI>().Initialize(boostData);
+
+            // Event
+            EventTrigger trigger = boost.AddComponent<EventTrigger>();
+            
+            int index = i;
+            EventTrigger.Entry clickEntry = new EventTrigger.Entry();
+            clickEntry.eventID = EventTriggerType.PointerClick;
+            clickEntry.callback.AddListener((data) => {
+                isShowingBoostDetail = true;
+                GameUIManager.instance.OnDeckInfoBoostUIPressed(index);
+            });
+            trigger.triggers.Add(clickEntry);
         }
     }
     
@@ -223,6 +258,8 @@ public class DeckInfoUI : MonoBehaviour
         specialCanvasGroup.alpha = 0f;
         specialCanvasGroup.interactable = false;
         specialCanvasGroup.blocksRaycasts = false;
+
+        boostInfoContainer.SetActive(false);
     }
 
     public void OnSpecialSwitchButtonUIClick()
@@ -234,5 +271,26 @@ public class DeckInfoUI : MonoBehaviour
         basicCanvasGroup.alpha = 0f;
         basicCanvasGroup.interactable = false;
         basicCanvasGroup.blocksRaycasts = false;
+
+        boostInfoContainer.SetActive(false);
+    }
+
+    public void OnBoostInfoSwitchButtonUIClick()
+    {
+        specialCanvasGroup.alpha = 0f;
+        specialCanvasGroup.interactable = false;
+        specialCanvasGroup.blocksRaycasts = false;
+
+        basicCanvasGroup.alpha = 0f;
+        basicCanvasGroup.interactable = false;
+        basicCanvasGroup.blocksRaycasts = false;
+
+        boostInfoContainer.SetActive(true);
+    }
+
+    private Sprite GetImage(ItemData item)
+    {
+        string itemPath = "Sprites/Item/Item/";
+        return Resources.Load<Sprite>(itemPath + item.id);
     }
 }

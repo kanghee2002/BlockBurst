@@ -126,7 +126,7 @@ public class ItemBoardUI : MonoBehaviour
                     itemUI.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "$" + itemData.cost;
                     itemUI.transform.GetChild(4).GetComponent<Button>().onClick.RemoveAllListeners();
                     itemUI.transform.GetChild(4).GetComponent<Button>().onClick.AddListener(() => {
-                        GameUIManager.instance.OnItemShowcaseItemButtonUIPressed(itemData, index);
+                        GameUIManager.instance.OnItemShowcaseItemButtonUIPressed(index);
                     });
                 }
             });
@@ -191,7 +191,7 @@ public class ItemBoardUI : MonoBehaviour
             itemUI.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = itemData.itemName;
             itemUI.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "$" + itemData.cost;
             itemUI.transform.GetChild(4).GetComponent<Button>().onClick.AddListener(() => {
-                GameUIManager.instance.OnItemShowcaseItemButtonUIPressed(itemData, currentIndex);
+                GameUIManager.instance.OnItemShowcaseItemButtonUIPressed(currentIndex);
             });
 
             UIUtils.PlaySlowShakeAnimation(itemUI.transform.GetChild(0), rotateAmount: 5f, duration: 3f, delay: Random.Range(0f, 3f));

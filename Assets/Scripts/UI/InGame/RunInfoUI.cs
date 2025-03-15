@@ -17,11 +17,6 @@ public class RunInfoUI : MonoBehaviour
     [SerializeField] private Image mostPlacedBlockImage;
     [SerializeField] private TextMeshProUGUI tipText;
 
-    [Header("BoostInfo")]
-    [SerializeField] private GameObject boostInfoContainer;
-    [SerializeField] private Transform boostInfoGridLayout;
-    [SerializeField] private ItemDescriptionUI boostIcon;
-
     private RectTransform rectTransform;
 
     private const float insidePositionY = 0;
@@ -82,19 +77,6 @@ public class RunInfoUI : MonoBehaviour
                 break;
             }
         }
-
-        // Initialize BoostInfo
-        for (int i = boostInfoGridLayout.childCount - 1; i >= 0; i--)
-        {
-            Destroy(boostInfoGridLayout.GetChild(i).gameObject);
-        }
-
-        foreach (ItemData boostData in runData.activeBoosts)
-        {
-            GameObject boost = Instantiate(boostIcon.gameObject, boostInfoGridLayout);
-            boost.GetComponent<Image>().sprite = GetImage(boostData);
-            boost.GetComponent<ItemDescriptionUI>().Initialize(boostData);
-        }
     }
 
     public void OpenRunInfoUI()
@@ -127,23 +109,5 @@ public class RunInfoUI : MonoBehaviour
 
             yield return null; // 매 프레임 업데이트
         }
-    }
-
-    private Sprite GetImage(ItemData item)
-    {
-        string itemPath = "Sprites/Item/Item/";
-        return Resources.Load<Sprite>(itemPath + item.id);
-    }
-
-    public void OnRunInfoSwitchButtonUIClick()
-    {
-        runInfoContainer.SetActive(true);
-        boostInfoContainer.SetActive(false);
-    }
-
-    public void OnBoostInfoSwitchButtonUIClick()
-    {
-        runInfoContainer.SetActive(false);
-        boostInfoContainer.SetActive(true);
     }
 }

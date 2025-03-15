@@ -32,7 +32,7 @@ public class ItemDetailUI : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
     }
 
-    public void Initialize(ItemData itemData, int index, bool isPurchase)
+    public void Initialize(ItemData itemData, int index, bool isBoost, bool isPurchase)
     {
         SetItemImage(itemData);
         SetLayoutColor(itemData);
@@ -41,8 +41,15 @@ public class ItemDetailUI : MonoBehaviour
         itemDescriptionText.text = currentDescription;
         itemPriceText.text = "$" + itemData.cost;
 
-        if (isPurchase)     // 상점의 아이템을 누른 경우
+
+        if (isBoost)                // 덱 창에서 부스트 누른 경우 
         {
+            interactButtonUI.gameObject.SetActive(false);
+        }
+        else if (isPurchase)        // 상점의 아이템을 누른 경우
+        {
+            interactButtonUI.gameObject.SetActive(true);
+
             int itemIndex = index;
             interactButtonUI.SetOnClickMethod(() =>
             {
@@ -50,8 +57,10 @@ public class ItemDetailUI : MonoBehaviour
             });
             interactButtonText.text = "구매";
         }
-        else                // 소지 중인 아이템을 누른 경우
+        else                        // 소지 중인 아이템을 누른 경우
         {
+            interactButtonUI.gameObject.SetActive(true);
+
             int itemIndex = index;
             interactButtonUI.SetOnClickMethod(() =>
             {
@@ -159,19 +168,21 @@ public class ItemDetailUI : MonoBehaviour
     private void SetLayoutColor(ItemData itemData)
     {
         float scalar = 9f / 10f;
+        ItemType itemType = itemData.type;
 
         if (itemData.type == ItemType.ITEM)
         {
-            layout.color = UIUtils.itemTypeColors[ItemType.ITEM] * scalar;
+            itemType = ItemType.ITEM;
         }
         else if (itemData.type == ItemType.BOOST)
         {
-            layout.color = UIUtils.itemTypeColors[ItemType.BOOST] * scalar;
+            itemType = ItemType.BOOST;
         }
         else
         {
-            layout.color = UIUtils.itemTypeColors[ItemType.ADD_BLOCK] * scalar;
+            itemType = ItemType.ADD_BLOCK;
         }
+        UIUtils.SetImageColorByScalar(layout, UIUtils.itemTypeColors[itemType], scalar, duration: 0.1f);
     }
 
     public void OpenItemDetailUI()
@@ -181,9 +192,13 @@ public class ItemDetailUI : MonoBehaviour
         popupBlurImage.OpenPopupBlurImage(new Color(0.0f, 0.0f, 0.0f, 0.9f));
     }
 
-    public void CloseItemDetailUI()
+    public void CloseItemDetailUI(bool isClosingPopupBlur)
     {
         UIUtils.CloseUI(rectTransform, "Y", insidePositionY, outsidePositionY, duration);
-        popupBlurImage.ClosePopupBlurImage();
+        
+        if (isClosingPopupBlur)
+        {
+            popupBlurImage.ClosePopupBlurImage();
+        }
     }
 }

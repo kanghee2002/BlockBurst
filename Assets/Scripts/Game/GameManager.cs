@@ -271,6 +271,12 @@ public class GameManager : MonoBehaviour
         GameUIManager.instance.OnDeckInfoCallback(runData, blockGame);
     }
 
+    public void OnBoostInfoRequested(int index)
+    {
+        ItemData boostData = runData.activeBoosts[index];
+        GameUIManager.instance.OnBoostInfoCallback(boostData, index);
+    }
+
     public void OnItemInfoRequested(int index)
     {
         ItemData itemData = runData.activeItems[index];

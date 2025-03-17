@@ -9,8 +9,9 @@ public class EffectData : ScriptableObject
     [TextArea] public string effectName;            // 효과 이름
     public EffectType type;                         // 효과 타입
     public EffectScope scope;                       // 효과 범위
-    public int effectValue;                         // 데이터 수정치
-
+    public int baseEffectValue;                     // 기본 데이터 수정치
+    [HideInInspector] public int effectValue;       // 데이터 수정치
+    
     [Header("Trigger Setting")]
     public TriggerType trigger;                     // 발동 조건
     public TriggerMode triggerMode = TriggerMode.None;
@@ -19,6 +20,6 @@ public class EffectData : ScriptableObject
 
     [Header("Additional")]
     public BlockType[] blockTypes = null;
-    public int blockId = -1;
     public float probability = 1;                   // 발동 확률
+    public EffectData modifyingEffect;              // 수정할 데이터
 }

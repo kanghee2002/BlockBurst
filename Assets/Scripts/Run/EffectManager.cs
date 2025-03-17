@@ -78,19 +78,18 @@ public class EffectManager : MonoBehaviour
         lastTriggeredEffects.Clear();
     }
 
-    public void TriggerEffects(TriggerType trigger, int triggerValue = 0, BlockType[] blockTypes = null, int blockId = -1) 
+    public void TriggerEffects(TriggerType trigger, int triggerValue = 0, BlockType[] blockTypes = null) 
     {
         foreach (EffectData effect in runData.activeEffects)
         {
-            if (effect.trigger == trigger && IsIncluded(blockTypes, effect.blockTypes) &&
-                effect.blockId == blockId)
+            if (effect.trigger == trigger && IsIncluded(blockTypes, effect.blockTypes))
             {
                 if (!CheckTriggerCount(effect, triggerValue))
                 {
                     continue;
                 }
 
-                ApplyEffect(effect, blockId);
+                ApplyEffect(effect);
             }
         }
     }
@@ -133,7 +132,7 @@ public class EffectManager : MonoBehaviour
         return false;
     }
 
-    public void ApplyEffect(EffectData effect, int blockId = -1)
+    public void ApplyEffect(EffectData effect)
     {
         MatchType matchType = MatchType.ROW;
 
@@ -252,11 +251,11 @@ public class EffectManager : MonoBehaviour
             case EffectType.BLOCK_DELETE_WITH_COUNT:
                 // TODO
                 break;
-            case EffectType.ROW_LINE_CLEAR:
+            case EffectType.RANDOM_ROW_LINE_CLEAR:
                 List<int> rowIndices = GetRandomIndices(blockGameData.boardRows, 1);
                 GameManager.instance.ForceLineClearBoard(MatchType.ROW, rowIndices);
                 break;
-            case EffectType.COLUMN_LINE_CLEAR:
+            case EffectType.RANDOM_COLUMN_LINE_CLEAR:
                 List<int> columnIndices = GetRandomIndices(blockGameData.boardColumns, 1);
                 GameManager.instance.ForceLineClearBoard(MatchType.COLUMN, columnIndices);
                 break;
@@ -269,6 +268,17 @@ public class EffectManager : MonoBehaviour
                 break;
             case EffectType.DRAW_BLOCK_COUNT_MODIFIER:
                 blockGameData.drawBlockCount = effect.effectValue;
+                break;
+            case EffectType.ROW_LINE_CLEAR:
+                rowIndices = Enumerable.Range(0, Mathf.Min(effect.effectValue, runData.baseBoardRows)).ToList();
+                GameManager.instance.ForceLineClearBoard(MatchType.ROW, rowIndices);
+                break;
+            case EffectType.COLUMN_LINE_CLEAR:
+                columnIndices = Enumerable.Range(0, Mathf.Min(effect.effectValue, runData.baseBoardColumns)).ToList();
+                GameManager.instance.ForceLineClearBoard(MatchType.COLUMN, columnIndices);
+                break;
+            case EffectType.EFFECT_VALUE_MODIFIER:
+                effect.modifyingEffect.effectValue += effect.effectValue;
                 break;
             default:
                 break;

@@ -78,7 +78,7 @@ public class ItemDetailUI : MonoBehaviour
 
         for (int i = 0; i < item.effects.Count; i++)
         {
-            description += item.effects[i].effectName.Replace("\n", " ");
+            description += item.effects[i].effectName.Replace("\n", " ").Replace("EffectValue", item.effects[i].effectValue.ToString());
             if (i != item.effects.Count - 1)
             {
                 description += "\n";

@@ -330,9 +330,6 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < nextStageChoices.Length; i++)
         {
             StageData stage = nextStageChoices[i];
-            difficulties[i] = gameData.difficulty * UnityEngine.Random.Range(gameData.stageBaseScoreMultipliers[0], gameData.stageBaseScoreMultipliers[1]);
-            //stage.clearRequirement = (int)(gameData.stageBaseScores * difficulties[i] / 10f) * 10;
-            //stage.goldReward = (int)(gameData.stageBaseReward * Mathf.Pow(difficulties[i], .33f));
             if (currentChapterIndex <= 8)
             {
                 stage.clearRequirement = (int)(gameData.stageBaseScoreList[currentChapterIndex - 1] * (gameData.stageScoreMultiplier[currentStageIndex - 1] + stage.baseScoreMultiplier));
@@ -352,8 +349,6 @@ public class GameManager : MonoBehaviour
     {
         // 선택된 스테이지로 진행
         StageData selectedStage = nextStageChoices[choiceIndex];
-
-        gameData.difficulty = difficulties[choiceIndex];
 
         StartStage(selectedStage);
         GameUIManager.instance.OnStageStart(currentChapterIndex, currentStageIndex, selectedStage, blockGame);
@@ -425,6 +420,8 @@ public class GameManager : MonoBehaviour
             }
             else
             {
+                EffectManager.instance.TriggerEffects(TriggerType.ON_END_STAGE);
+
                 stageManager.GrantReward();
                 if (stageManager.currentStage.type == StageType.BOSS)
                 {

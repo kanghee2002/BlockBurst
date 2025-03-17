@@ -14,12 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: PuzzlePieceEffect
   effectName: "\uD2B9\uC218 \uBE14\uB85D\uC73C\uB85C\n\uC904 \uC9C0\uC6B8 \uB54C\n\uBC30\uC218
-    +3"
+    +15"
   type: 2
-  trigger: 3
   scope: 0
-  effectValue: 3
-  blockTypes: 0700000008000000090000000a0000000b0000000c0000000d000000
-  blockId: -1
-  probability: 1
+  effectValue: 15
+  textValue: 0
+  trigger: 3
+  triggerMode: 0
   triggerValue: 0
+  triggerCount: 0
+  blockTypes: 0700000008000000090000000a0000000b0000000c0000000d000000
+  probability: 1
+  isDynamicEffectValue: 0
+  modifyingEffect: {fileID: 0}

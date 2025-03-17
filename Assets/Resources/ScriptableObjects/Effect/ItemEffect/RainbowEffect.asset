@@ -14,11 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: RainbowEffect
   effectName: "\uBAA8\uB450\n\uB2E4\uB978 \uC885\uB958\uB85C\n\uC904 \uC9C0\uC6B8
-    \uB54C\n\uBC30\uC218 +6"
+    \uB54C\n\uBC30\uC218 +15"
   type: 2
+  scope: 0
+  effectValue: 15
+  textValue: 0
   trigger: 13
-  effectValue: 6
-  blockTypes: 
-  blockId: -1
-  probability: 1
+  triggerMode: 0
   triggerValue: 0
+  triggerCount: 0
+  blockTypes: 
+  probability: 1
+  isDynamicEffectValue: 0
+  modifyingEffect: {fileID: 0}

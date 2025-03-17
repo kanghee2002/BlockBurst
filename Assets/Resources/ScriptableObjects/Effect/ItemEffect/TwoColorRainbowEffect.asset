@@ -14,14 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: TwoColorRainbowEffect
   effectName: "\uAC19\uC740 \uC885\uB958\n\uBE14\uB85D \uD3EC\uD568\uD574\n\uC904
-    \uC9C0\uC6B8 \uB54C\n\uBC30\uC218 +4"
+    \uC9C0\uC6B8 \uB54C\n\uBC30\uC218 +15"
   type: 2
   scope: 0
-  effectValue: 4
+  effectValue: 15
+  textValue: 0
   trigger: 12
   triggerMode: 0
   triggerValue: 0
   triggerCount: 0
   blockTypes: 
-  blockId: -1
   probability: 1
+  isDynamicEffectValue: 0
+  modifyingEffect: {fileID: 0}

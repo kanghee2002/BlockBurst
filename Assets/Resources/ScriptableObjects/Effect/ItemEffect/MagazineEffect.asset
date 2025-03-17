@@ -13,12 +13,17 @@ MonoBehaviour:
   m_Name: MagazineEffect
   m_EditorClassIdentifier: 
   id: MagazineEffect
-  effectName: "\uBC30\uCE58\uD560 \uB54C\n\uC904 \uC9C0\uC6CC\uC9C0\uC9C0\n\uC54A\uC73C\uBA74\n50%
-    \uD655\uB960\uB85C\n\uBC30\uC218 +1"
+  effectName: "\uBC30\uCE58\uD560 \uB54C\n\uC904 \uC9C0\uC6CC\uC9C0\uC9C0\n\uC54A\uC73C\uBA74\n\uBC30\uC218
+    +2"
   type: 2
+  scope: 0
+  effectValue: 2
+  textValue: 0
   trigger: 2
-  effectValue: 1
-  blockTypes: 
-  blockId: -1
-  probability: 0.5
+  triggerMode: 0
   triggerValue: 0
+  triggerCount: 0
+  blockTypes: 
+  probability: 1
+  isDynamicEffectValue: 0
+  modifyingEffect: {fileID: 0}

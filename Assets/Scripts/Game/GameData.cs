@@ -12,11 +12,8 @@ public class GameData
     public int startingGold;                                        // 시작 골드
     public int defaultRerollCount;                                  // 기본 리롤 횟수
     public int defaultBlockCount;                                   // 기본 블록 수
-    public int maxItemCount;                                    // 소지 가능 아이템 수
-    public float[] stageBaseScoreMultipliers;                       // 스테이지 목표 점수 배수
-    public int stageBaseScores;                                   // 챕터 당 기본 목표 점수
-    public int stageBaseReward;                                      // 스테이지 클리어 골드
-    public float difficulty;
+    public int maxItemCount;                                        // 소지 가능 아이템 수
+    public int stageBaseReward;                                     // 스테이지 클리어 골드
     public List<int> stageBaseScoreList;
     public List<float> stageScoreMultiplier;
 
@@ -29,7 +26,7 @@ public class GameData
         stagePool = new List<StageData>();
         startingGold = 5;
         defaultRerollCount = 5;
-        defaultBlockCount = 5;
+        defaultBlockCount = 3;
         maxItemCount = 5;
 
         // 기본 블록 점수 설정
@@ -53,26 +50,22 @@ public class GameData
         // 기본 배수 설정
         defaultMatchMultipliers[MatchType.ROW] = 1;
 
-        stageBaseScoreMultipliers = new float[2] { 1.3f, 1.7f };
-
-        stageBaseScores = 70;
         stageBaseReward = 5;
-        difficulty = 1.0f;
 
         stageBaseScoreList = new List<int>()
         {
             120,
-            500,
             1000,
-            2500,
-            6000,
-            20000,
-            50000,
-            100000,
+            7000,
+            40000,
+            300000,
+            200000,
+            400000,
+            700000,
         };
         stageScoreMultiplier = new List<float>()
         {
-            1f, 2f, 4f
+            1f, 3f, 5f
         };
     }
 }

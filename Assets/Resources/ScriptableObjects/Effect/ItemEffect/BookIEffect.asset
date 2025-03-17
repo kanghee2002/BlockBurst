@@ -15,10 +15,14 @@ MonoBehaviour:
   id: BookIEffect
   effectName: "I \uBC30\uCE58\uD560\n\uB54C\uB9C8\uB2E4\nI \uC810\uC218 +2"
   type: 0
-  trigger: 1
   scope: 0
   effectValue: 2
-  blockTypes: 00000000
-  blockId: -1
-  probability: 1
+  textValue: 0
+  trigger: 1
+  triggerMode: 0
   triggerValue: 0
+  triggerCount: 0
+  blockTypes: 00000000
+  probability: 1
+  isDynamicEffectValue: 0
+  modifyingEffect: {fileID: 0}

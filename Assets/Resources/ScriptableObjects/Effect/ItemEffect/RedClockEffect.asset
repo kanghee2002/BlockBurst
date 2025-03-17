@@ -13,15 +13,17 @@ MonoBehaviour:
   m_Name: RedClockEffect
   m_EditorClassIdentifier: 
   id: RedClockEffect
-  effectName: "\uC904\uC744\n7\uBC88 \uC9C0\uC6B8 \uB54C\uB9C8\uB2E4\n\uAE30\uBCF8
-    \uBC30\uC218 +1"
+  effectName: "\uC904\uC744\n12\uBC88 \uC9C0\uC6B8 \uB54C\uB9C8\uB2E4\n\uAE30\uBCF8
+    \uBC30\uC218 +6"
   type: 3
   scope: 0
-  effectValue: 1
+  effectValue: 6
+  textValue: 0
   trigger: 10
   triggerMode: 2
-  triggerValue: 7
+  triggerValue: 10
   triggerCount: 0
   blockTypes: 
-  blockId: -1
   probability: 1
+  isDynamicEffectValue: 0
+  modifyingEffect: {fileID: 0}

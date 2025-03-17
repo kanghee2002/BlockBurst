@@ -14,12 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: RedBookEffect
   effectName: "\uC5F0\uC18D\uC73C\uB85C\n\uC904 \uC9C0\uC6B8 \uB54C\n\uBC30\uC218
-    +2"
+    +6"
   type: 2
-  trigger: 14
   scope: 0
-  effectValue: 2
-  blockTypes: 
-  blockId: -1
-  probability: 1
+  effectValue: 6
+  textValue: 0
+  trigger: 14
+  triggerMode: 0
   triggerValue: 0
+  triggerCount: 0
+  blockTypes: 
+  probability: 1
+  isDynamicEffectValue: 0
+  modifyingEffect: {fileID: 0}

@@ -13,14 +13,16 @@ MonoBehaviour:
   m_Name: EggOEffect
   m_EditorClassIdentifier: 
   id: EggOEffect
-  effectName: "O \uD3EC\uD568\uD574\n\uC904 \uC9C0\uC6B8 \uB54C\n\uBC30\uC218 +1"
+  effectName: "O \uD3EC\uD568\uD574\n\uC904 \uC9C0\uC6B8 \uB54C\n\uBC30\uC218 +5"
   type: 2
   scope: 0
-  effectValue: 1
+  effectValue: 5
+  textValue: 0
   trigger: 11
   triggerMode: 0
   triggerValue: 0
   triggerCount: 0
   blockTypes: 01000000
-  blockId: -1
   probability: 1
+  isDynamicEffectValue: 0
+  modifyingEffect: {fileID: 0}

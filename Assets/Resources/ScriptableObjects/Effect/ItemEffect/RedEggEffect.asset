@@ -13,12 +13,16 @@ MonoBehaviour:
   m_Name: RedEggEffect
   m_EditorClassIdentifier: 
   id: RedEggEffect
-  effectName: "\uCCAB \uC904\n\uC9C0\uC6B8 \uB54C\n\uBC30\uC218 +5"
+  effectName: "\uCCAB \uC904\n\uC9C0\uC6B8 \uB54C\n\uBC30\uC218 +15"
   type: 2
-  trigger: 15
   scope: 0
-  effectValue: 5
-  blockTypes: 
-  blockId: -1
-  probability: 1
+  effectValue: 15
+  textValue: 0
+  trigger: 15
+  triggerMode: 0
   triggerValue: 0
+  triggerCount: 0
+  blockTypes: 
+  probability: 1
+  isDynamicEffectValue: 0
+  modifyingEffect: {fileID: 0}

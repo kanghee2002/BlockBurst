@@ -15,10 +15,14 @@ MonoBehaviour:
   id: BookSEffect
   effectName: "S \uBC30\uCE58\uD560\n\uB54C\uB9C8\uB2E4\nS \uC810\uC218 +4"
   type: 0
-  trigger: 1
   scope: 0
   effectValue: 4
-  blockTypes: 03000000
-  blockId: -1
-  probability: 1
+  textValue: 0
+  trigger: 1
+  triggerMode: 0
   triggerValue: 0
+  triggerCount: 0
+  blockTypes: 03000000
+  probability: 1
+  isDynamicEffectValue: 0
+  modifyingEffect: {fileID: 0}

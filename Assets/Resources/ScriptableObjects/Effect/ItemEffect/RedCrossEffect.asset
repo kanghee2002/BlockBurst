@@ -14,12 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: RedCrossEffect
   effectName: "\uAC00\uB85C, \uC138\uB85C\n\uB3D9\uC2DC\uC5D0\n\uC904 \uC9C0\uC6B8
-    \uB54C\n\uBC30\uC218 +4"
+    \uB54C\n\uBC30\uC218 +20"
   type: 2
-  trigger: 7
   scope: 0
-  effectValue: 4
-  blockTypes: 
-  blockId: -1
-  probability: 1
+  effectValue: 20
+  textValue: 0
+  trigger: 7
+  triggerMode: 0
   triggerValue: 0
+  triggerCount: 0
+  blockTypes: 
+  probability: 1
+  isDynamicEffectValue: 0
+  modifyingEffect: {fileID: 0}

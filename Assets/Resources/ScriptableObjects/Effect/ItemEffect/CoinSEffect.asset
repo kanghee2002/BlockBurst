@@ -13,13 +13,16 @@ MonoBehaviour:
   m_Name: CoinSEffect
   m_EditorClassIdentifier: 
   id: CoinSEffect
-  effectName: "S \uD3EC\uD568\uD574\n\uC904 \uC9C0\uC6B8 \uB54C\n50% \uD655\uB960\uB85C\n\uACE8\uB4DC
-    +1"
+  effectName: "S \uD3EC\uD568\uD574\n\uC904 \uC9C0\uC6B8 \uB54C\n\uACE8\uB4DC +1"
   type: 9
-  trigger: 11
   scope: 0
   effectValue: 1
-  blockTypes: 03000000
-  blockId: -1
-  probability: 0.5
+  textValue: 0
+  trigger: 11
+  triggerMode: 0
   triggerValue: 0
+  triggerCount: 0
+  blockTypes: 03000000
+  probability: 1
+  isDynamicEffectValue: 0
+  modifyingEffect: {fileID: 0}

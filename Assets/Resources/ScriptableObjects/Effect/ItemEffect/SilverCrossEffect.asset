@@ -14,11 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: SilverCrossEffect
   effectName: "\uAC00\uB85C, \uC138\uB85C\n\uB3D9\uC2DC\uC5D0 \uC904\n\uC9C0\uC6B8
-    \uB54C\n\uAE30\uBCF8 \uBC30\uC218 +1"
+    \uB54C\n\uAE30\uBCF8 \uBC30\uC218 +3"
   type: 3
+  scope: 0
+  effectValue: 3
+  textValue: 0
   trigger: 7
-  effectValue: 1
-  blockTypes: 
-  blockId: -1
-  probability: 1
+  triggerMode: 0
   triggerValue: 0
+  triggerCount: 0
+  blockTypes: 
+  probability: 1
+  isDynamicEffectValue: 0
+  modifyingEffect: {fileID: 0}

@@ -16,13 +16,12 @@ MonoBehaviour:
   effectName: "\uB9AC\uB864\uD560 \uB54C\uB9C8\uB2E4\n\uBC30\uC218 +10"
   type: 2
   scope: 0
+  baseEffectValue: 10
   effectValue: 10
-  textValue: 0
   trigger: 17
   triggerMode: 0
   triggerValue: 0
   triggerCount: 0
   blockTypes: 
   probability: 1
-  isDynamicEffectValue: 0
   modifyingEffect: {fileID: 0}

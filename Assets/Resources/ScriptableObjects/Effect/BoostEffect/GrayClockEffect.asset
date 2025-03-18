@@ -17,11 +17,12 @@ MonoBehaviour:
     \uB9AC\uB864 +1"
   type: 7
   scope: 0
+  baseEffectValue: 1
   effectValue: 1
   trigger: 10
   triggerMode: 2
   triggerValue: 7
   triggerCount: 0
   blockTypes: 
-  blockId: -1
   probability: 1
+  modifyingEffect: {fileID: 0}

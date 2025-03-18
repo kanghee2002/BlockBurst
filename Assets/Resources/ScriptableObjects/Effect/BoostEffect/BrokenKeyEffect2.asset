@@ -15,10 +15,13 @@ MonoBehaviour:
   id: BrokenKeyEffect2
   effectName: "\uB098\uBA38\uC9C0\n\uAE30\uBCF8 \uBE14\uB85D\n\uC810\uC218 +15"
   type: 0
-  trigger: 0
   scope: 0
+  baseEffectValue: 15
   effectValue: 15
-  blockTypes: 000000000100000002000000030000000400000005000000
-  blockId: -1
-  probability: 1
+  trigger: 0
+  triggerMode: 0
   triggerValue: 0
+  triggerCount: 0
+  blockTypes: 000000000100000002000000030000000400000005000000
+  probability: 1
+  modifyingEffect: {fileID: 0}

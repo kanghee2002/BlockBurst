@@ -15,9 +15,13 @@ MonoBehaviour:
   id: WindowEffect1
   effectName: "I/O \uC678\uC758\n\uAE30\uBCF8 \uBE14\uB85D\n\uBAA8\uB450 \uC0AD\uC81C,"
   type: 18
-  trigger: 0
+  scope: 0
+  baseEffectValue: 0
   effectValue: 0
-  blockTypes: 0200000003000000040000000500000006000000
-  blockId: -1
-  probability: 1
+  trigger: 0
+  triggerMode: 0
   triggerValue: 0
+  triggerCount: 0
+  blockTypes: 0200000003000000040000000500000006000000
+  probability: 1
+  modifyingEffect: {fileID: 0}

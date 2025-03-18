@@ -15,10 +15,13 @@ MonoBehaviour:
   id: GoldenEraserEffect2
   effectName: "\uAE30\uBCF8 \uB9AC\uB864 -3"
   type: 7
-  trigger: 0
   scope: 0
+  baseEffectValue: -3
   effectValue: -3
-  blockTypes: 
-  blockId: -1
-  probability: 1
+  trigger: 0
+  triggerMode: 0
   triggerValue: 0
+  triggerCount: 0
+  blockTypes: 
+  probability: 1
+  modifyingEffect: {fileID: 0}

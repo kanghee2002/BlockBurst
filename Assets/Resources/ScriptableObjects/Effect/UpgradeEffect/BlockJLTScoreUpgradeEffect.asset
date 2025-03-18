@@ -16,11 +16,12 @@ MonoBehaviour:
   effectName: "J/L/T\n\uC810\uC218 +10"
   type: 0
   scope: 0
+  baseEffectValue: 10
   effectValue: 10
   trigger: 0
   triggerMode: 0
   triggerValue: 0
   triggerCount: 0
   blockTypes: 040000000500000006000000
-  blockId: -1
   probability: 1
+  modifyingEffect: {fileID: 0}

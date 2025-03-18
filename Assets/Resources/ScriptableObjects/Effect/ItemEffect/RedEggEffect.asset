@@ -16,13 +16,12 @@ MonoBehaviour:
   effectName: "\uCCAB \uC904\n\uC9C0\uC6B8 \uB54C\n\uBC30\uC218 +15"
   type: 2
   scope: 0
+  baseEffectValue: 15
   effectValue: 15
-  textValue: 0
   trigger: 15
   triggerMode: 0
   triggerValue: 0
   triggerCount: 0
   blockTypes: 
   probability: 1
-  isDynamicEffectValue: 0
   modifyingEffect: {fileID: 0}

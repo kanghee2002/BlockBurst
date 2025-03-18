@@ -24,5 +24,4 @@ MonoBehaviour:
   triggerCount: 0
   blockTypes: 00000000010000000200000003000000040000000500000006000000
   probability: 1
-  isDynamicEffectValue: 0
   modifyingEffect: {fileID: 0}

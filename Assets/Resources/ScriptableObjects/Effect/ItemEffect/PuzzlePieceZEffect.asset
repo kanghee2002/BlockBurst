@@ -17,13 +17,12 @@ MonoBehaviour:
     +5"
   type: 3
   scope: 0
+  baseEffectValue: 5
   effectValue: 5
-  textValue: 0
   trigger: 23
   triggerMode: 2
   triggerValue: 6
   triggerCount: 0
   blockTypes: 02000000
   probability: 1
-  isDynamicEffectValue: 0
   modifyingEffect: {fileID: 0}

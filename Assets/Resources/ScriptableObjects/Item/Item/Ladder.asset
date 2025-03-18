@@ -15,7 +15,7 @@ MonoBehaviour:
   id: Ladder
   itemName: "\uC0AC\uB2E4\uB9AC"
   effects:
-  - {fileID: 11400000, guid: 56e8aa01fdb3f8748a8f85724d6f02cc, type: 2}
+  - {fileID: 11400000, guid: d313cf3833726684fa4260c53a90051f, type: 2}
   cost: 5
   type: 2
   block: {fileID: 0}

@@ -16,11 +16,12 @@ MonoBehaviour:
   effectName: "I 2\uAC1C \uCD94\uAC00"
   type: 0
   scope: 0
+  baseEffectValue: 0
   effectValue: 0
   trigger: 0
   triggerMode: 0
   triggerValue: 0
   triggerCount: 0
   blockTypes: 
-  blockId: -1
   probability: 1
+  modifyingEffect: {fileID: 0}

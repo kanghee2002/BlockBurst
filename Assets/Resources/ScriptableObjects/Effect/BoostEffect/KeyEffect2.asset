@@ -15,10 +15,13 @@ MonoBehaviour:
   id: KeyEffect2
   effectName: "Z/S \uBE14\uB85D\nx2 \uBCF5\uC0AC"
   type: 17
-  trigger: 0
   scope: 0
+  baseEffectValue: 2
   effectValue: 2
-  blockTypes: 0200000003000000
-  blockId: -1
-  probability: 1
+  trigger: 0
+  triggerMode: 0
   triggerValue: 0
+  triggerCount: 0
+  blockTypes: 0200000003000000
+  probability: 1
+  modifyingEffect: {fileID: 0}

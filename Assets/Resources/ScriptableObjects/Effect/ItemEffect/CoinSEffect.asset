@@ -16,13 +16,12 @@ MonoBehaviour:
   effectName: "S \uD3EC\uD568\uD574\n\uC904 \uC9C0\uC6B8 \uB54C\n\uACE8\uB4DC +1"
   type: 9
   scope: 0
+  baseEffectValue: 1
   effectValue: 1
-  textValue: 0
   trigger: 11
   triggerMode: 0
   triggerValue: 0
   triggerCount: 0
   blockTypes: 03000000
   probability: 1
-  isDynamicEffectValue: 0
   modifyingEffect: {fileID: 0}

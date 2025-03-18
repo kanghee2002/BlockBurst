@@ -16,9 +16,13 @@ MonoBehaviour:
   effectName: "\uC904 \uC9C0\uC6B8\n\uB54C\uB9C8\uB2E4\n50% \uD655\uB960\uB85C\n\uB9AC\uB864
     +1"
   type: 5
-  trigger: 9
+  scope: 0
+  baseEffectValue: 1
   effectValue: 1
-  blockTypes: 
-  blockId: -1
-  probability: 0.5
+  trigger: 9
+  triggerMode: 0
   triggerValue: 0
+  triggerCount: 0
+  blockTypes: 
+  probability: 0.5
+  modifyingEffect: {fileID: 0}

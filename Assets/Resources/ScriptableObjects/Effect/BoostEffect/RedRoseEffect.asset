@@ -15,9 +15,13 @@ MonoBehaviour:
   id: RedRoseEffect
   effectName: "\uAE30\uBCF8 \uBC30\uC218 x2"
   type: 4
-  trigger: 0
+  scope: 0
+  baseEffectValue: 2
   effectValue: 2
-  blockTypes: 
-  blockId: -1
-  probability: 1
+  trigger: 0
+  triggerMode: 0
   triggerValue: 0
+  triggerCount: 0
+  blockTypes: 
+  probability: 1
+  modifyingEffect: {fileID: 0}

@@ -17,13 +17,12 @@ MonoBehaviour:
     \uB54C\n\uBC30\uC218 +20"
   type: 2
   scope: 0
+  baseEffectValue: 20
   effectValue: 20
-  textValue: 0
   trigger: 7
   triggerMode: 0
   triggerValue: 0
   triggerCount: 0
   blockTypes: 
   probability: 1
-  isDynamicEffectValue: 0
   modifyingEffect: {fileID: 0}

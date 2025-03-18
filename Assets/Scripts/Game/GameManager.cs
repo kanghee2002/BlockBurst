@@ -6,6 +6,7 @@ using System.IO;
 using System;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
+using UnityEditor;
 
 public class GameManager : MonoBehaviour
 {
@@ -1077,4 +1078,11 @@ public class GameManager : MonoBehaviour
     // BLOCKGAME LAYER - end
     // ------------------------------
 
+    // 코드로 ScriptableObject의 값을 변경한 걸 Git의 변경사항으로 적용함
+    public void SaveScriptableObjectChanges(ScriptableObject scriptableObject)
+    {
+        EditorUtility.SetDirty(scriptableObject); // 변경 사항을 Dirty 상태로 만듦
+        AssetDatabase.SaveAssets(); // 에셋 저장
+        AssetDatabase.Refresh(); // Unity 에디터 새로고침
+    }
 }

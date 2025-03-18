@@ -15,9 +15,13 @@ MonoBehaviour:
   id: BlockCrossEffect2
   effectName: 
   type: 21
-  trigger: 1
+  scope: 0
+  baseEffectValue: 0
   effectValue: 0
-  blockTypes: 0b000000
-  blockId: -1
-  probability: 1
+  trigger: 1
+  triggerMode: 0
   triggerValue: 0
+  triggerCount: 0
+  blockTypes: 0b000000
+  probability: 1
+  modifyingEffect: {fileID: 0}

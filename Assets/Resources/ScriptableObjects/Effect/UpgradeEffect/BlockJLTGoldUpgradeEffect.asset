@@ -16,10 +16,13 @@ MonoBehaviour:
   effectName: "J/L/T \uBC30\uCE58\uD574\n\uC904 \uC9C0\uC6B8 \uB54C\n\uACE8\uB4DC
     +1"
   type: 9
-  trigger: 3
   scope: 0
+  baseEffectValue: 1
   effectValue: 1
-  blockTypes: 040000000500000006000000
-  blockId: -1
-  probability: 1
+  trigger: 3
+  triggerMode: 0
   triggerValue: 0
+  triggerCount: 0
+  blockTypes: 040000000500000006000000
+  probability: 1
+  modifyingEffect: {fileID: 0}

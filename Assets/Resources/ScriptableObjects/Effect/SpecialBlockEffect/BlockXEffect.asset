@@ -15,9 +15,13 @@ MonoBehaviour:
   id: BlockXEffect
   effectName: "\uBC30\uCE58\uD560 \uB54C\n\uBAA8\uB4E0 \uBE14\uB85D\n\uD074\uB9AC\uC5B4"
   type: 22
-  trigger: 1
+  scope: 0
+  baseEffectValue: 0
   effectValue: 0
-  blockTypes: 0a000000
-  blockId: -1
-  probability: 1
+  trigger: 1
+  triggerMode: 0
   triggerValue: 0
+  triggerCount: 0
+  blockTypes: 0a000000
+  probability: 1
+  modifyingEffect: {fileID: 0}

@@ -17,11 +17,12 @@ MonoBehaviour:
     \uBE14\uB85D\uC73C\uB85C \uBC14\uAFC8"
   type: 0
   scope: 0
+  baseEffectValue: 0
   effectValue: 0
   trigger: 0
   triggerMode: 0
   triggerValue: 0
   triggerCount: 0
   blockTypes: 
-  blockId: -1
   probability: 1
+  modifyingEffect: {fileID: 0}

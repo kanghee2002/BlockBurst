@@ -33,7 +33,7 @@ public class NextStageChoiceUI : MonoBehaviour
     {
         string debuffText = string.Join("\n", debuffTexts);
         debuffText = UIUtils.SetBlockNameToIcon(debuffText);
-        debuffText = debuffText.Replace("\\n", "\n").Replace(",", "");
+        debuffText = debuffText.Replace("\\n", " ").Replace(",", "");
 
         this.debuffText.text = debuffText;
     }

@@ -410,7 +410,7 @@ public class ItemSetUI : MonoBehaviour
 
     public void PlayEffectAnimation(string effectDescription, int index, float delay)
     {
-        float fadeDelay = 0.3f, scale;
+        float fadeDelay = 1f, scale;
 
         if (GameManager.instance.applicationType == ApplicationType.Windows)
         {

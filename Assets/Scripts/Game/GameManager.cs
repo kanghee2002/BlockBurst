@@ -1051,11 +1051,13 @@ public class GameManager : MonoBehaviour
                 // TODO
                 break;
             case EffectType.ROW_LINE_CLEAR:
-                description = "<color=white>가로 한 줄\n지움!</color>";
+            case EffectType.RANDOM_ROW_LINE_CLEAR:
+                description = "<color=white>가로\n지움!</color>";
                 GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
                 break;
             case EffectType.COLUMN_LINE_CLEAR:
-                description = "<color=white>세로 한 줄\n지움!</color>";
+            case EffectType.RANDOM_COLUMN_LINE_CLEAR:
+                description = "<color=white>세로\n지움!</color>";
                 GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
                 break;
             case EffectType.BOARD_CLEAR:
@@ -1068,6 +1070,10 @@ public class GameManager : MonoBehaviour
                 break;
             case EffectType.RANDOM_LINE_CLEAR:
                 description = "<color=white>무작위\n한 줄 지움!</color>";
+                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
+                break;
+            case EffectType.EFFECT_VALUE_MODIFIER:
+                description = "<color=red>" + value + "</color>";
                 GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
                 break;
         }

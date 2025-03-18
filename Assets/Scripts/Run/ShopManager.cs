@@ -40,7 +40,7 @@ public class ShopManager : MonoBehaviour
                 AddItem(item);
             }
 
-            // 현재 트리거 값 초기화
+            // 아이템 초기 값 초기화
             item.effects.ForEach(effect =>
             {
                 effect.effectValue = effect.baseEffectValue;

@@ -10,7 +10,7 @@ public class EffectData : ScriptableObject
     public EffectType type;                         // 효과 타입
     public EffectScope scope;                       // 효과 범위
     public int baseEffectValue;                     // 기본 데이터 수정치
-    [HideInInspector] public int effectValue;       // 데이터 수정치
+    public int effectValue;                         // 데이터 수정치
     
     [Header("Trigger Setting")]
     public TriggerType trigger;                     // 발동 조건

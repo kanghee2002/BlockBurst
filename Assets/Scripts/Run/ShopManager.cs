@@ -14,15 +14,16 @@ public class ShopManager : MonoBehaviour
 
     private DeckManager deckManager;
 
-    public int rerollCost = 2;
+    [HideInInspector] public int currentRerollCost;
+    [HideInInspector] public int baseRerollCost;
 
-    private Dictionary<ItemType, int> itemWeights;
-
-    // NDM
     private Dictionary<ItemRarity, int> itemRarityWeights;
 
     public void Initialize(ref RunData data, ItemData[] items)
     {
+        baseRerollCost = 2;
+        currentRerollCost = baseRerollCost;
+
         runData = data;
         currentItems = new List<ItemData>();
         foreach (ItemData item in items)
@@ -49,26 +50,12 @@ public class ShopManager : MonoBehaviour
         }
         deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
 
-        itemWeights = new Dictionary<ItemType, int>()
-        {
-            //{ ItemType.ADD_BLOCK, 30 },
-            //{ ItemType.CONVERT_BLOCK, 10 },
-            //{ ItemType.ITEM, 32 },
-            //{ ItemType.BOOST, 8 },
-            //{ ItemType.UPGRADE, 10 },
-            { ItemType.ADD_BLOCK, 10 },
-            { ItemType.CONVERT_BLOCK, 5 },
-            { ItemType.ITEM, 50 },
-            { ItemType.BOOST, 8 },
-            { ItemType.UPGRADE, 5 },
-        };
-
-        // NDM
         itemRarityWeights = new Dictionary<ItemRarity, int>()
         {
-            { ItemRarity.SILVER, 10 },
-            { ItemRarity.GOLD, 40},
-            { ItemRarity.PLATINUM, 40 },
+            { ItemRarity.COMMON, 40 },
+            { ItemRarity.RARE, 30},
+            { ItemRarity.EPIC, 20 },
+            { ItemRarity.LEGENDARY, 10 },
         };
     }
 
@@ -127,16 +114,22 @@ public class ShopManager : MonoBehaviour
         }
         ///////////////////////////////////////////////////////////////
 
+        // 타입에 해당하는 아이템 선별
         List<ItemData> filteredItems = new List<ItemData>();
+        filteredItems = currentItems.Where(item => itemTypes.Contains(item.type)).ToList();
+
+        // 희귀도에 따른 아이템 선별
+        List<ItemData> selectedItems = new List<ItemData>();
         for (int i = 0; i < 10000; i++)
         {
-            filteredItems = currentItems.Where(item => itemTypes.Contains(item.type)).ToList();
-            if (filteredItems.Count > 0) break;
+            ItemRarity selectedItemRarity = SelectByWeight(itemRarityWeights);
+            selectedItems = filteredItems.Where(item => item.rarity == selectedItemRarity).ToList();
+            if (selectedItems.Count > 0) break;
         }
 
-        int idx = Random.Range(0, filteredItems.Count);
+        int idx = Random.Range(0, selectedItems.Count);
 
-        ItemData item = filteredItems[idx];
+        ItemData item = selectedItems[idx];
         currentItems.Remove(item);
 
         return item;
@@ -250,12 +243,18 @@ public class ShopManager : MonoBehaviour
                 AddItem(item);
             }
         }
+        currentRerollCost++;
     }
 
     public void AddItem(ItemData item)
     {
         // append
         currentItems.Add(item);
+    }
+
+    public void InitializeRerollCost()
+    {
+        currentRerollCost = baseRerollCost;
     }
 
     private int GetTotalWeights<T>(Dictionary<T, int> weights)
@@ -276,11 +275,11 @@ public class ShopManager : MonoBehaviour
         }
 
         // 뽑기
-        int randomWeight = Random.Range(0, GetTotalWeights(itemWeights)) + 1;
+        int randomWeight = Random.Range(0, sum + 1);
 
         for (int i = 0; i < weightThresholds.Count; i++)
         {
-            if (weightThresholds[i].Item2 >= randomWeight)
+            if (randomWeight <= weightThresholds[i].Item2)
             {
                 return weightThresholds[i].Item1;
             }

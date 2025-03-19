@@ -120,7 +120,7 @@ public enum ItemEffectType
 
 public enum ItemRarity
 {
-    SILVER, GOLD, PLATINUM
+    COMMON, RARE, EPIC, LEGENDARY
 }
 
 public class Enums

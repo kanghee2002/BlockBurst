@@ -10133,7 +10133,7 @@ MonoBehaviour:
   blockShowcaseTransform: {fileID: 1710928292}
   itemPrefab: {fileID: 7193063742566573687, guid: f8dd76b756fadac4395881803f843a4e, type: 3}
   mobileItemPrefab: {fileID: 7193063742566573687, guid: b8939192875abcf40b6119930733136e, type: 3}
-  rerollCostText: {fileID: 666947271}
+  rerollCostText: {fileID: 1472882537}
   itemShowcaseColor: {r: 1, g: 0.7440945, b: 0, a: 1}
   boostShowcaseColor: {r: 0.4, g: 0.78039217, b: 0.89411765, a: 1}
   blockItemShowcaseColor: {r: 0.74509805, g: 0.89411765, b: 0.4, a: 1}
@@ -16403,7 +16403,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firstShopItemList: []
   currentItems: []
-  rerollCost: 2
+  currentRerollCost: 0
+  baseRerollCost: 0
 --- !u!1 &1359025487
 GameObject:
   m_ObjectHideFlags: 0
@@ -17540,6 +17541,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1448874905}
   m_CullTransparentMesh: 1
+--- !u!114 &1472882537 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8412147840268672577, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
+  m_PrefabInstance: {fileID: 174056274}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1477645926
 GameObject:
   m_ObjectHideFlags: 0

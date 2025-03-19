@@ -51,7 +51,12 @@ public class ItemBoardUI : MonoBehaviour
         gameObject.SetActive(true);
         ClearItemShowcaseUI();
         CreateItems(items);
-        rerollCostText.text = "$" + rerollCost;
+        UpdateRerollCost(rerollCost);
+    }
+
+    public void UpdateRerollCost(int rerollCost)
+    {
+        rerollCostText.text = "새로고침 • $" + rerollCost;
     }
 
     public void OpenItemBoardUI()
@@ -151,7 +156,7 @@ public class ItemBoardUI : MonoBehaviour
             }
         }
 
-        rerollCostText.text = "$" + rerollCost;
+        UpdateRerollCost(rerollCost);
     }
 
     private void CreateItems(List<ItemData> items)

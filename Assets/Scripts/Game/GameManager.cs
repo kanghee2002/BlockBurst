@@ -480,7 +480,8 @@ public class GameManager : MonoBehaviour
                 shopItems.Add(shopManager.PopItem(itemTypes));
             }
         }
-        GameUIManager.instance.OnShopStart(shopItems, shopManager.rerollCost, currentChapterIndex, currentStageIndex, isFirst);   
+        if (isFirst) shopManager.InitializeRerollCost();
+        GameUIManager.instance.OnShopStart(shopItems, shopManager.currentRerollCost, currentChapterIndex, currentStageIndex, isFirst);   
     }
 
     public void OnItemDiscard(int index)
@@ -543,16 +544,17 @@ public class GameManager : MonoBehaviour
 
     public void OnShopReroll()
     {
-        if (runData.gold < shopManager.rerollCost)
+        if (runData.gold < shopManager.currentRerollCost)
         {
             UpdateGold(0);
             return;
         }
 
-        UpdateGold(-shopManager.rerollCost);
+        UpdateGold(-shopManager.currentRerollCost);
         List<ItemData> remains = shopItems.Where(item => item != null).ToList();
         StartShop();
         shopManager.RerollShop(remains);
+        GameUIManager.instance.UpdateShopRerollCost(shopManager.currentRerollCost);
     }
 
     public void UpdateGold(int value, bool isMultiplying = false, bool isStageReward = false)
@@ -1087,8 +1089,10 @@ public class GameManager : MonoBehaviour
     // 코드로 ScriptableObject의 값을 변경한 걸 Git의 변경사항으로 적용함
     public void SaveScriptableObjectChanges(ScriptableObject scriptableObject)
     {
-        EditorUtility.SetDirty(scriptableObject); // 변경 사항을 Dirty 상태로 만듦
-        AssetDatabase.SaveAssets(); // 에셋 저장
-        AssetDatabase.Refresh(); // Unity 에디터 새로고침
+        #if UNITY_EDITOR
+            EditorUtility.SetDirty(scriptableObject); // 변경 사항을 Dirty 상태로 만듦
+            AssetDatabase.SaveAssets(); // 에셋 저장
+            AssetDatabase.Refresh(); // Unity 에디터 새로고침
+        #endif
     }
 }

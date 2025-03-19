@@ -494,6 +494,11 @@ public class GameUIManager : MonoBehaviour
         scoreInfoUI.InitializeShopping();
     }
 
+    public void UpdateShopRerollCost(int rerollCost)
+    {
+        itemBoardUI.UpdateRerollCost(rerollCost);
+    }
+ 
     public void OnRotateBlock(int idx)
     {
         GameManager.instance.OnRotateBlock(idx);

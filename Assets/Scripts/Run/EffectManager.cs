@@ -280,6 +280,34 @@ public class EffectManager : MonoBehaviour
             case EffectType.EFFECT_VALUE_MODIFIER:
                 effect.modifyingEffect.effectValue += effect.effectValue;
                 break;
+            case EffectType.SHOP_REROLL_COST_MODIFIER:
+                runData.shopBaseRerollCost += effect.effectValue;
+                GameManager.instance.UpdateShopRerollCost(effect.effectValue);
+                break;
+            case EffectType.SHOP_REROLL_COST_GROWTH_MODIFIER:
+                runData.shopRerollCostGrowth = effect.effectValue;
+                break;
+            case EffectType.SHOP_ITEM_COUNT_MODIFIER:
+                runData.shopItemCounts[ItemType.ITEM] = effect.effectValue;
+                break;
+            case EffectType.SHOP_BOOST_COUNT_MODIFIER:
+                runData.shopItemCounts[ItemType.BOOST] = effect.effectValue;
+                break;
+            case EffectType.SHOP_BLOCK_COUNT_MODIFIER:
+                runData.shopItemCounts[ItemType.ADD_BLOCK] = effect.effectValue;
+                break;
+            case EffectType.COMMON_WEIGHTS_MULTIPLIER:
+                runData.itemRarityWeights[ItemRarity.COMMON] *= effect.effectValue;
+                break;
+            case EffectType.RARE_WEIGHTS_MULTIPLIER:
+                runData.itemRarityWeights[ItemRarity.RARE] *= effect.effectValue;
+                break;
+            case EffectType.EPIC_WEIGHTS_MULTIPLIER:
+                runData.itemRarityWeights[ItemRarity.EPIC] *= effect.effectValue;
+                break;
+            case EffectType.LEGENDARY_WEIGHTS_MULTIPLIER:
+                runData.itemRarityWeights[ItemRarity.LEGENDARY] *= effect.effectValue;
+                break;
             default:
                 break;
         }

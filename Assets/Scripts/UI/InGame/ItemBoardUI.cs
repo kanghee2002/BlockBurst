@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using System.Linq;
 using System;
 using Random = UnityEngine.Random;
+using static UnityEditor.Progress;
 
 public class ItemBoardUI : MonoBehaviour
 {
@@ -95,7 +96,13 @@ public class ItemBoardUI : MonoBehaviour
         for (int i = 0; i < currentItemUIs.Length; i++)
         {
             int index = i;
-            GameObject card = currentItemUIs[i];
+            GameObject card = currentItemUIs[index];
+
+            if (items[index] == null)
+            {
+                card.transform.DOScale(0f, 0.2f).OnComplete(() => card.SetActive(false));
+                continue;
+            }
 
             if (GameManager.instance.applicationType == ApplicationType.Windows)
             {
@@ -105,9 +112,10 @@ public class ItemBoardUI : MonoBehaviour
             DOTween.Kill(card.GetComponent<CanvasGroup>());
             card.transform.localPosition = originalPositions[index];
 
-            card.transform.DOScale(1f, 0.2f);
-
             Vector3 originalPosition = card.transform.localPosition;
+
+            card.transform.DOKill();
+            card.transform.DOScale(1f, 0.2f);
 
             // 간단한 시퀀스: 올라가면서 흔들거리다가 -> 데이터 변경 -> 내려오면서 멈춤
             Sequence cardSequence = DOTween.Sequence();
@@ -125,6 +133,7 @@ public class ItemBoardUI : MonoBehaviour
                 {
                     GameObject itemUI = currentItemUIs[index];
                     ItemData itemData = items[index];
+                    itemUI.SetActive(true);
 
                     SetImage(card, items[index]);
                     itemUI.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = itemData.itemName;
@@ -135,7 +144,7 @@ public class ItemBoardUI : MonoBehaviour
                     });
                 }
             });
-
+            
             // 내려오기
             cardSequence.Append(card.transform.DOLocalMove(originalPosition, duration));
             cardSequence.Join(card.transform.DORotate(Vector3.zero, duration));
@@ -161,35 +170,46 @@ public class ItemBoardUI : MonoBehaviour
 
     private void CreateItems(List<ItemData> items)
     {
-        int itemCount = items.Count(item => item.type == ItemType.ITEM);
-        int boostCount = items.Count(item => item.type == ItemType.BOOST);
-        int blockItemCount = items.Count(item => item.type != ItemType.ITEM && item.type != ItemType.BOOST);
+        //int itemCount = items.Count(item => item.type == ItemType.ITEM);
+        //int boostCount = items.Count(item => item.type == ItemType.BOOST);
+        //int blockItemCount = items.Count(item => item.type != ItemType.ITEM && item.type != ItemType.BOOST);
 
         if (GameManager.instance.applicationType == ApplicationType.Mobile)
         {
-            int index = 0;
-            currentItemUIs = new GameObject[items.Count];
-            originalPositions = new Vector3[items.Count];
+            int maxItemCount = 6, index = 0;
+            currentItemUIs = new GameObject[maxItemCount];
+            originalPositions = new Vector3[maxItemCount];
 
-            CreateSpecificItems(items, ref index, itemCount, itemShowcaseTransform, UIUtils.itemTypeColors[ItemType.ITEM]);
-            CreateSpecificItems(items, ref index, boostCount, boostShowcaseTransform, UIUtils.itemTypeColors[ItemType.BOOST]);
-            CreateSpecificItems(items, ref index, blockItemCount, blockShowcaseTransform, UIUtils.itemTypeColors[ItemType.ADD_BLOCK]);
+            CreateSpecificItems(items, ref index, itemShowcaseTransform, UIUtils.itemTypeColors[ItemType.ITEM]);
+            CreateSpecificItems(items, ref index, boostShowcaseTransform, UIUtils.itemTypeColors[ItemType.BOOST]);
+            CreateSpecificItems(items, ref index, blockShowcaseTransform, UIUtils.itemTypeColors[ItemType.ADD_BLOCK]);
         }
     }
 
-    private void CreateSpecificItems(List<ItemData> items, ref int index, int count, Transform parent, Color uiColor)
+    private void CreateSpecificItems(List<ItemData> items, ref int index, Transform parent, Color uiColor)
     {
+        int maxItemCount = 2;
         float startingPosY = 110, itemInterval = 170;
 
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < maxItemCount; i++)
         {
             int currentIndex = index;
-            ItemData itemData = items[index];
             currentItemUIs[index] = Instantiate(mobileItemPrefab, parent);
             GameObject itemUI = currentItemUIs[index];
 
             itemUI.transform.localPosition = new Vector3(0, startingPosY - itemInterval * i, 0);
 
+            originalPositions[index] = itemUI.transform.localPosition;
+
+            if (items[index] == null)
+            {
+                itemUI.GetComponent<Image>().color = uiColor;
+                currentItemUIs[index].SetActive(false);
+                index++;
+                break;
+            }
+
+            ItemData itemData = items[index];
             SetImage(itemUI, itemData);
 
             itemUI.GetComponent<Image>().color = uiColor;
@@ -200,8 +220,6 @@ public class ItemBoardUI : MonoBehaviour
             });
 
             UIUtils.PlaySlowShakeAnimation(itemUI.transform.GetChild(0), rotateAmount: 5f, duration: 3f, delay: Random.Range(0f, 3f));
-
-            originalPositions[index] = itemUI.transform.localPosition;
 
             index++;
         }

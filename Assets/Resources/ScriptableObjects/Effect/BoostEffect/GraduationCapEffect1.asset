@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
-  m_Name: ForkEffect
+  m_Name: GraduationCapEffect1
   m_EditorClassIdentifier: 
-  id: ForkEffect
-  effectName: "\uC138\uB85C \uC904\uC744 \uC9C0\uC6B8 \uB54C\n\uBCF4\uB4DC\uC758
-    \uC67C\uCABD\uC5D0\uC11C 4\uC904\uC744 \uCD94\uAC00\uB85C \uC9C0\uC6C1\uB2C8\uB2E4"
-  type: 26
+  id: GraduationCapEffect1
+  effectName: "\uC0C1\uC810\uC5D0 \uB354 \uC774\uC0C1 \uC544\uC774\uD15C\uC774 \uB4F1\uC7A5\uD558\uC9C0
+    \uC54A\uC9C0\uB9CC \uB9E4 \uC2A4\uD14C\uC774\uC9C0 \uC885\uB8CC \uC2DC +10 \uACE8\uB4DC\uB97C
+    \uC5BB\uC2B5\uB2C8\uB2E4"
+  type: 30
   scope: 0
-  baseEffectValue: 4
-  effectValue: 4
-  trigger: 6
+  baseEffectValue: 0
+  effectValue: 0
+  trigger: 0
   triggerMode: 0
   triggerValue: 0
   triggerCount: 0

@@ -14,10 +14,15 @@ public class RunData
     public Dictionary<BlockType, int> blockReuses;              // 블록별 재사용 횟수
     public int gold;                                            // 현재 보유 골드
     public int baseRerollCount;                                 // 기본 리롤 횟수
-    public int maxItemCount;                                       // 소지 가능 아이템 수
+    public int maxItemCount;                                    // 소지 가능 아이템 수
     public int baseBoardRows;                                   // 보드 크기
     public int baseBoardColumns;                                // 보드 크기
     public int baseDrawBlockCount;                              // 기본 드로우 블록 수
+    public int shopBaseRerollCost;                              // 상점 리롤 비용
+    public int shopRerollCostGrowth;                            // 상점 리롤 비용 증가값
+    public Dictionary<ItemType, int> shopItemCounts;      // 상점에 등장하는 아이템 가짓수
+    public Dictionary<ItemRarity, int> itemRarityWeights;       // 상점 희귀도 등급
+
 
     public void Initialize(GameData gameData)
     {
@@ -34,5 +39,20 @@ public class RunData
         baseBoardRows = 8;
         baseBoardColumns = 8;
         baseDrawBlockCount = 3;
+        shopBaseRerollCost = 2;
+        shopRerollCostGrowth = 1;
+        shopItemCounts = new Dictionary<ItemType, int>()
+        {
+            { ItemType.ITEM, 2 },
+            { ItemType.BOOST, 1 },
+            { ItemType.ADD_BLOCK, 2 },
+        };
+        itemRarityWeights = new Dictionary<ItemRarity, int>()
+        {
+            { ItemRarity.COMMON, 40 },
+            { ItemRarity.RARE, 30},
+            { ItemRarity.EPIC, 20 },
+            { ItemRarity.LEGENDARY, 10 },
+        };
     }
 }

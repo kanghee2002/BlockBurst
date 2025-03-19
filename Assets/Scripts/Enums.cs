@@ -39,34 +39,43 @@ public enum StageType
 
 public enum EffectType
 {
-    SCORE_MODIFIER,             // 점수 수정
-    SCORE_MULTIPLIER,           // 점수 N배
-    MULTIPLIER_MODIFIER,        // 배수 수정
-    BASEMULTIPLIER_MODIFIER,    // 기본 배수 수정
-    BASEMULTIPLIER_MULTIPLIER,  // 기본 배수 N배
-    REROLL_MODIFIER,            // 리롤 횟수 수정
-    REROLL_MULTIPLIER,          // 리롤 횟수 N배
-    BASEREROLL_MODIFIER,        // 기본 리롤 횟수 수정
-    BASEREROLL_MULTIPLIER,      // 기본 리롤 횟수 N배
-    GOLD_MODIFIER,              // 골드 수정
-    GOLD_MULTIPLIER,            // 골드 N배
-    BOARD_SIZE_MODIFIER,        // 보드 크기 수정 (아이템은 X)
-    BOARD_CORNER_BLOCK,         // 보드 가장자리 제한
-    BOARD_RANDOM_BLOCK,         // 보드 무작위 N칸 제한
-    DECK_MODIFIER,              // x 덱 수정
-    BLOCK_REUSE_MODIFIER,       // x 블록 재사용
-    SQUARE_CLEAR,               // x 사각형 클리어
-    BLOCK_MULTIPLIER,           // 덱의 특정 블록 N배
-    BLOCK_DELETE,               // 덱의 특정 블록 모두 삭제
-    BLOCK_DELETE_WITH_COUNT,    // x 덱의 특정 블록 N개 삭제
-    RANDOM_ROW_LINE_CLEAR,      // 무작위 가로 1줄 지움
-    RANDOM_COLUMN_LINE_CLEAR,   // 무작위 세로 1줄 지움
-    BOARD_CLEAR,                // x 보드의 모든 블록 지움
-    DRAW_BLOCK_COUNT_MODIFIER,  // 블록 선택지 수정
-    RANDOM_LINE_CLEAR,          // 무작위 1줄 지움
-    ROW_LINE_CLEAR,             // 가로 N줄 지움 (위쪽에서부터)
-    COLUMN_LINE_CLEAR,          // 세로 N줄 지움 (왼쪽에서부터)
-    EFFECT_VALUE_MODIFIER,      // 다른 효과 수치 수정
+    SCORE_MODIFIER,                     // 점수 수정
+    SCORE_MULTIPLIER,                   // 점수 N배
+    MULTIPLIER_MODIFIER,                // 배수 수정
+    BASEMULTIPLIER_MODIFIER,            // 기본 배수 수정
+    BASEMULTIPLIER_MULTIPLIER,          // 기본 배수 N배
+    REROLL_MODIFIER,                    // 리롤 횟수 수정
+    REROLL_MULTIPLIER,                  // 리롤 횟수 N배
+    BASEREROLL_MODIFIER,                // 기본 리롤 횟수 수정
+    BASEREROLL_MULTIPLIER,              // 기본 리롤 횟수 N배
+    GOLD_MODIFIER,                      // 골드 수정
+    GOLD_MULTIPLIER,                    // 골드 N배
+    BOARD_SIZE_MODIFIER,                // 보드 크기 수정 (아이템은 X)
+    BOARD_CORNER_BLOCK,                 // 보드 가장자리 제한
+    BOARD_RANDOM_BLOCK,                 // 보드 무작위 N칸 제한
+    DECK_MODIFIER,                      // x 덱 수정
+    BLOCK_REUSE_MODIFIER,               // x 블록 재사용
+    SQUARE_CLEAR,                       // x 사각형 클리어
+    BLOCK_MULTIPLIER,                   // 덱의 특정 블록 N배
+    BLOCK_DELETE,                       // 덱의 특정 블록 모두 삭제
+    BLOCK_DELETE_WITH_COUNT,            // x 덱의 특정 블록 N개 삭제
+    RANDOM_ROW_LINE_CLEAR,              // 무작위 가로 1줄 지움
+    RANDOM_COLUMN_LINE_CLEAR,           // 무작위 세로 1줄 지움
+    BOARD_CLEAR,                        // x 보드의 모든 블록 지움
+    DRAW_BLOCK_COUNT_MODIFIER,          // 블록 선택지 수정
+    RANDOM_LINE_CLEAR,                  // 무작위 1줄 지움
+    ROW_LINE_CLEAR,                     // 가로 N줄 지움 (위쪽에서부터)
+    COLUMN_LINE_CLEAR,                  // 세로 N줄 지움 (왼쪽에서부터)
+    EFFECT_VALUE_MODIFIER,              // 다른 효과 수치 수정
+    SHOP_REROLL_COST_MODIFIER,          // 상점 리롤 비용 수정
+    SHOP_REROLL_COST_GROWTH_MODIFIER,   // 상점 리롤 비용 증가값 수정
+    SHOP_ITEM_COUNT_MODIFIER,           // 상점 아이템 개수 수정
+    SHOP_BOOST_COUNT_MODIFIER,          // 상점 부스트 개수 수정
+    SHOP_BLOCK_COUNT_MODIFIER,          // 상점 블록 개수 수정
+    COMMON_WEIGHTS_MULTIPLIER,          // 상점 일반 등장 확률 N배
+    RARE_WEIGHTS_MULTIPLIER,            // 상점 희귀 등장 확률 N배
+    EPIC_WEIGHTS_MULTIPLIER,            // 상점 특급 등장 확률 N배
+    LEGENDARY_WEIGHTS_MULTIPLIER,       // 상점 전설 등장 확률 N배
 }
 
 public enum TriggerType

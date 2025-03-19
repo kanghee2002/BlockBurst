@@ -17,11 +17,16 @@ public class ShopManager : MonoBehaviour
     [HideInInspector] public int currentRerollCost;
     [HideInInspector] public int baseRerollCost;
 
-    private Dictionary<ItemRarity, int> itemRarityWeights;
+    private Dictionary<ItemType, List<ItemType>> shopItemDictionary = new Dictionary<ItemType, List<ItemType>>()
+        {
+            { ItemType.ITEM, new List<ItemType>() { ItemType.ITEM } },
+            { ItemType.BOOST, new List<ItemType>() { ItemType.BOOST } },
+            { ItemType.ADD_BLOCK, new List<ItemType>() { ItemType.ADD_BLOCK, ItemType.CONVERT_BLOCK, ItemType.UPGRADE } },
+        };
 
     public void Initialize(ref RunData data, ItemData[] items)
     {
-        baseRerollCost = 2;
+        baseRerollCost = data.shopBaseRerollCost;
         currentRerollCost = baseRerollCost;
 
         runData = data;
@@ -49,14 +54,6 @@ public class ShopManager : MonoBehaviour
             });
         }
         deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
-
-        itemRarityWeights = new Dictionary<ItemRarity, int>()
-        {
-            { ItemRarity.COMMON, 40 },
-            { ItemRarity.RARE, 30},
-            { ItemRarity.EPIC, 20 },
-            { ItemRarity.LEGENDARY, 10 },
-        };
     }
 
     // 튜토리얼 용 함수
@@ -95,7 +92,7 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    public ItemData PopItem(List<ItemType> itemTypes)
+    public ItemData PopItem(ItemType itemType)
     {
         if (currentItems.Count == 0)
         {
@@ -107,22 +104,26 @@ public class ShopManager : MonoBehaviour
         {
             int index = currentItems.FindIndex(x => x.id == firstShopItemList[0]);
             ItemData itemData = currentItems[index];
-            currentItems.RemoveAt(index);
-            firstShopItemList.RemoveAt(0);
+            if (itemType == itemData.type)
+            {
+                currentItems.RemoveAt(index);
+                firstShopItemList.RemoveAt(0);
 
-            return itemData;
+                return itemData;
+            }
         }
         ///////////////////////////////////////////////////////////////
 
         // 타입에 해당하는 아이템 선별
         List<ItemData> filteredItems = new List<ItemData>();
+        List<ItemType> itemTypes = shopItemDictionary[itemType];
         filteredItems = currentItems.Where(item => itemTypes.Contains(item.type)).ToList();
 
         // 희귀도에 따른 아이템 선별
         List<ItemData> selectedItems = new List<ItemData>();
         for (int i = 0; i < 10000; i++)
         {
-            ItemRarity selectedItemRarity = SelectByWeight(itemRarityWeights);
+            ItemRarity selectedItemRarity = SelectByWeight(runData.itemRarityWeights);
             selectedItems = filteredItems.Where(item => item.rarity == selectedItemRarity).ToList();
             if (selectedItems.Count > 0) break;
         }
@@ -243,7 +244,7 @@ public class ShopManager : MonoBehaviour
                 AddItem(item);
             }
         }
-        currentRerollCost++;
+        currentRerollCost += runData.shopRerollCostGrowth;
     }
 
     public void AddItem(ItemData item)
@@ -254,6 +255,7 @@ public class ShopManager : MonoBehaviour
 
     public void InitializeRerollCost()
     {
+        baseRerollCost = runData.shopBaseRerollCost;
         currentRerollCost = baseRerollCost;
     }
 

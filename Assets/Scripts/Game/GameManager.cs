@@ -36,12 +36,6 @@ public class GameManager : MonoBehaviour
     public List<Block> handBlocks = new List<Block>();
 
     public List<ItemData> shopItems = new List<ItemData>();
-    private Dictionary<List<ItemType>, int> shopItemCounts = new Dictionary<List<ItemType>, int>()
-    {
-        { new List<ItemType>() { ItemType.ITEM }, 2 },
-        { new List<ItemType>() { ItemType.BOOST }, 1 },
-        { new List<ItemType>() { ItemType.ADD_BLOCK, ItemType.CONVERT_BLOCK, ItemType.UPGRADE }, 2 },
-    };
 
     private int blockId = 0;
 
@@ -473,11 +467,15 @@ public class GameManager : MonoBehaviour
     {
         // 아이템 랜덤하게 뽑아서 UI에 전달
         shopItems.Clear();
-        foreach ((List<ItemType> itemTypes, int count) in shopItemCounts)
+        foreach ((ItemType itemType, int count) in runData.shopItemCounts)
         {
             for (int i = 0; i < count; i++)
             {
-                shopItems.Add(shopManager.PopItem(itemTypes));
+                shopItems.Add(shopManager.PopItem(itemType));
+            }
+            for (int i = 0; i < 2 - count; i++)
+            {
+                shopItems.Add(null);
             }
         }
         if (isFirst) shopManager.InitializeRerollCost();
@@ -536,7 +534,6 @@ public class GameManager : MonoBehaviour
             effect.type == EffectType.BASEMULTIPLIER_MULTIPLIER))
             {
                 UpdateBaseMultiplier();
-
             }
         }
         return res;
@@ -554,6 +551,12 @@ public class GameManager : MonoBehaviour
         List<ItemData> remains = shopItems.Where(item => item != null).ToList();
         StartShop();
         shopManager.RerollShop(remains);
+        UpdateShopRerollCost(0);
+    }
+
+    public void UpdateShopRerollCost(int addingValue)
+    {
+        shopManager.currentRerollCost += addingValue;
         GameUIManager.instance.UpdateShopRerollCost(shopManager.currentRerollCost);
     }
 

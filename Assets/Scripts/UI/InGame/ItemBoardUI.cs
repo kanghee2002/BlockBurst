@@ -7,7 +7,6 @@ using UnityEngine.UI;
 using System.Linq;
 using System;
 using Random = UnityEngine.Random;
-using static UnityEditor.Progress;
 
 public class ItemBoardUI : MonoBehaviour
 {

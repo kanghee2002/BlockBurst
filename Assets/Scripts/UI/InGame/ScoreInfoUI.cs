@@ -67,12 +67,17 @@ public class ScoreInfoUI : MonoBehaviour
     public void UpdateScoreAtLeast(int scoreAtLeast)
     {
         this.scoreAtLeast = scoreAtLeast;
-        scoreAtLeastText.text = scoreAtLeast.ToString();
+
+        if (scoreAtLeast >= 1000000) scoreAtLeastText.text = $"<size=45>{scoreAtLeast}</size>";
+        else if (scoreAtLeast >= 10000000) scoreAtLeastText.text = $"<size=40>{scoreAtLeast}</size>";
+        else scoreAtLeastText.text = scoreAtLeast.ToString();
     }
 
     public void UpdateScore(int score)
     {
-        currentScoreText.text = score.ToString();
+        if (score >= 1000000) currentScoreText.text = $"<size=45>{score}</size>";
+        else if (score >= 10000000) currentScoreText.text = $"<size=40>{score}</size>";
+        else currentScoreText.text = score.ToString();
         UIUtils.BounceText(currentScoreText.transform);
 
         float scoreRatio = scoreAtLeast <= 0 ? 0 : (float)score / scoreAtLeast;

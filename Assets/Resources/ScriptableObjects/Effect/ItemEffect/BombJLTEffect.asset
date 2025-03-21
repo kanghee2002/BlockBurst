@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
-  m_Name: BombJLEffect
+  m_Name: BombJLTEffect
   m_EditorClassIdentifier: 
-  id: BombJLEffect
-  effectName: "J/L \uBC30\uCE58\uD574\n\uC904\uC744 \uC9C0\uC6B8 \uB54C\n\uBCF4\uB4DC\uC758
+  id: BombJLTEffect
+  effectName: "J/L/T \uBC30\uCE58\uD574\n\uC904\uC744 \uC9C0\uC6B8 \uB54C\n\uBCF4\uB4DC\uC758
     \uC704\uC5D0\uC11C 3\uC904\uC744 \uCD94\uAC00\uB85C \uC9C0\uC6C1\uB2C8\uB2E4"
   type: 25
   scope: 0
@@ -23,6 +23,6 @@ MonoBehaviour:
   triggerMode: 0
   triggerValue: 0
   triggerCount: 0
-  blockTypes: 0400000005000000
+  blockTypes: 040000000500000006000000
   probability: 1
   modifyingEffect: {fileID: 0}

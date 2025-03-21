@@ -40,12 +40,21 @@ public class NextStageChoiceUI : MonoBehaviour
 
     public void UpdateScoreAtLeast(int scoreAtLeast)
     {
-        scoreAtLeastText.text = "목표 점수\n<size=45><color=#94EEFF>" + scoreAtLeast.ToString() + "</color></size>";
-
+        int textSize = 45;
+        
         if (scoreAtLeast >= 10000000)
         {
-            scoreAtLeastText.text = "목표 점수\n<size=40><color=#94EEFF>" + scoreAtLeast.ToString() + "</color></size>";
+            textSize = 30;
         }
+        else if (scoreAtLeast >= 1000000)
+        {
+            textSize = 35;
+        }
+        else if (scoreAtLeast >= 100000)
+        {
+            textSize = 40;
+        }
+        scoreAtLeastText.text = $"목표 점수\n<size={textSize}><color=#94EEFF>{scoreAtLeast}</color></size>";
     }
 
     public void UpdateRewardGold(int rewardGold)

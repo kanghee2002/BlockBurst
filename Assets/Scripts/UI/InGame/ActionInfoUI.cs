@@ -92,6 +92,8 @@ public class ActionInfoUI : MonoBehaviour
     {
         float originalSize = text.fontSize;
 
+        if (originalSize >= 100f) return;
+
         DOTween.To(() => text.fontSize, x => text.fontSize = x, originalSize + punchSize, duration)
         .SetLoops(2, LoopType.Yoyo)
             .SetEase(Ease.OutQuad)

@@ -417,6 +417,8 @@ public class GameManager : MonoBehaviour
             {
                 EffectManager.instance.TriggerEffects(TriggerType.ON_END_STAGE);
 
+                EffectManager.instance.EndTriggerEffect();
+
                 stageManager.GrantReward();
                 if (stageManager.currentStage.type == StageType.BOSS)
                 {
@@ -658,6 +660,12 @@ public class GameManager : MonoBehaviour
                 EffectManager.instance.TriggerEffects(TriggerType.ON_REROLL_WITHOUT_PLACE);
             }
             EffectManager.instance.TriggerEffects(TriggerType.ON_REROLL);
+
+            foreach (BlockData blockData in handBlocksData)
+            {
+                EffectManager.instance.TriggerEffects(TriggerType.ON_REROLL_SPECIFIC_BLOCK, blockTypes: new BlockType[] { blockData.type });
+            }
+
             DrawBlocks();
 
             history.rerollCount++;    // 리롤 히스토리 업데이트
@@ -1080,6 +1088,11 @@ public class GameManager : MonoBehaviour
             case EffectType.EFFECT_VALUE_MODIFIER:
                 description = "<color=red>" + value + "</color>";
                 GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
+                break;
+            case EffectType.MULTIPLIER_MULTIPLER:
+                description = "<color=red>배수\n2배!</color>";
+                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
+                UpdateMultiplier();
                 break;
         }
         

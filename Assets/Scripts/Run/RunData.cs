@@ -52,7 +52,7 @@ public class RunData
             { ItemRarity.COMMON, 40 },
             { ItemRarity.RARE, 30},
             { ItemRarity.EPIC, 20 },
-            { ItemRarity.LEGENDARY, 10 },
+            { ItemRarity.LEGENDARY, 5 },
         };
     }
 }

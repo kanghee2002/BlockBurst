@@ -10,18 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
-  m_Name: BlockMEffect
+  m_Name: BlueCrossEffect
   m_EditorClassIdentifier: 
-  id: BlockMEffect
-  effectName: "\uC774 \uBE14\uB85D \uB9AC\uB864\uD560 \uB54C M \uC810\uC218 +10"
+  id: BlueCrossEffect
+  effectName: "\uAC00\uB85C, \uC138\uB85C\n\uB3D9\uC2DC\uC5D0 \uC904\n\uC9C0\uC6B8
+    \uB54C\n\uAE30\uBCF8 \uBE14\uB85D \uC810\uC218 +10"
   type: 0
   scope: 0
   baseEffectValue: 10
-  effectValue: 10
-  trigger: 25
+  effectValue: 3
+  trigger: 7
   triggerMode: 0
   triggerValue: 0
   triggerCount: 0
-  blockTypes: 0d000000
+  blockTypes: 00000000010000000200000003000000040000000500000006000000
   probability: 1
   modifyingEffect: {fileID: 0}

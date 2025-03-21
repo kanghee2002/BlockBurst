@@ -308,6 +308,9 @@ public class EffectManager : MonoBehaviour
             case EffectType.LEGENDARY_WEIGHTS_MULTIPLIER:
                 runData.itemRarityWeights[ItemRarity.LEGENDARY] *= effect.effectValue;
                 break;
+            case EffectType.MULTIPLIER_MULTIPLER:
+                blockGameData.matchMultipliers[matchType] *= effect.effectValue;
+                break;
             default:
                 break;
         }

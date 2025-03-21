@@ -81,6 +81,9 @@ public class Board
             // 블록의 OnClearEffects 트리거를 위해 추가
             onClearEffectBlocks.Add((block.Type, block.Id));
 
+            // 블록 배치 이펙트 트리거
+            EffectManager.instance.TriggerEffects(TriggerType.ON_BLOCK_PLACE, blockTypes: new BlockType[] { block.Type });
+
             // 블록을 몇 번 배치했는지 추가 및 트리거
             if (Enums.IsDefaultBlockType(block.Type))
             {
@@ -93,9 +96,6 @@ public class Board
                 Vector2Int worldPos = pos + shapePos;
                 cells[worldPos.y, worldPos.x].SetBlock(block.Type, block.Id);
             }
-
-            // 블록 배치 이펙트 트리거
-            EffectManager.instance.TriggerEffects(TriggerType.ON_BLOCK_PLACE, blockTypes: new BlockType[] { block.Type });
 
             // 보드 상태 이펙트 체크
             if (IsHalfFull())

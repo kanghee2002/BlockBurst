@@ -76,6 +76,7 @@ public enum EffectType
     RARE_WEIGHTS_MULTIPLIER,            // 상점 희귀 등장 확률 N배
     EPIC_WEIGHTS_MULTIPLIER,            // 상점 특급 등장 확률 N배
     LEGENDARY_WEIGHTS_MULTIPLIER,       // 상점 전설 등장 확률 N배
+    MULTIPLIER_MULTIPLER,               // 배수 N배
 }
 
 public enum TriggerType
@@ -105,6 +106,7 @@ public enum TriggerType
     ON_ENTER_STAGE,                         // 스테이지 진입할 때
     ON_BLOCK_PLACE_WITH_COUNT,              // 특정 블록을 N번 배치할 때
     ON_END_STAGE,                           // 스테이지 끝날 때
+    ON_REROLL_SPECIFIC_BLOCK,               // 특정 블록을 리롤할 때
 }
 
 public enum TriggerMode

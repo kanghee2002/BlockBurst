@@ -10,18 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
-  m_Name: BlockMEffect
+  m_Name: RedStoneEffect
   m_EditorClassIdentifier: 
-  id: BlockMEffect
-  effectName: "\uC774 \uBE14\uB85D \uB9AC\uB864\uD560 \uB54C M \uC810\uC218 +10"
-  type: 0
+  id: RedStoneEffect
+  effectName: "\uB9E4 \uC2A4\uD14C\uC774\uC9C0 \uC2DC\uC791 \uC2DC \uAE30\uBCF8 \uBC30\uC218
+    +2\uC744 \uC5BB\uC2B5\uB2C8\uB2E4."
+  type: 3
   scope: 0
-  baseEffectValue: 10
-  effectValue: 10
-  trigger: 25
+  baseEffectValue: 2
+  effectValue: 2
+  trigger: 22
   triggerMode: 0
   triggerValue: 0
   triggerCount: 0
-  blockTypes: 0d000000
+  blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 0}

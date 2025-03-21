@@ -10,18 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
-  m_Name: BlockMEffect
+  m_Name: GearJLTEffect
   m_EditorClassIdentifier: 
-  id: BlockMEffect
-  effectName: "\uC774 \uBE14\uB85D \uB9AC\uB864\uD560 \uB54C M \uC810\uC218 +10"
+  id: GearJLTEffect
+  effectName: "J/L/T \uBE14\uB85D\uC744 \uB9AC\uB864\uD560 \uB54C\uB9C8\uB2E4 J/L/T
+    \uBE14\uB85D \uC810\uC218 +1"
   type: 0
   scope: 0
-  baseEffectValue: 10
-  effectValue: 10
+  baseEffectValue: 1
+  effectValue: 3
   trigger: 25
   triggerMode: 0
   triggerValue: 0
   triggerCount: 0
-  blockTypes: 0d000000
+  blockTypes: 040000000500000006000000
   probability: 1
   modifyingEffect: {fileID: 0}

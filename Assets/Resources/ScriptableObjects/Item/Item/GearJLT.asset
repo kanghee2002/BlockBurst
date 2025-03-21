@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
-  m_Name: SilverCross
+  m_Name: GearJLT
   m_EditorClassIdentifier: 
-  id: SilverCross
-  itemName: "\uC740\uBE5B \uC2ED\uC790\uAC00"
+  id: GearJLT
+  itemName: "\uBE14\uB85D \uD1B1\uB2C8\uBC14\uD034"
   effects:
-  - {fileID: 11400000, guid: b25918f1fac48f648b18499eb5c95815, type: 2}
-  cost: 8
+  - {fileID: 11400000, guid: 8249c385c1c56ea448f6459020d9fd67, type: 2}
+  cost: 7
   type: 2
   block: {fileID: 0}
   isPurchasableAgain: 0
-  effectType: 0
-  rarity: 2
+  effectType: 3
+  rarity: 0

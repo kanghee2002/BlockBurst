@@ -80,6 +80,7 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
             {
                 foreach (var effect in blockEffect)
                 {
+                    if (effect.Key == "SCORE_MODIFIER") continue;
                     description += effectNameDictionary[effect.Key] + " +" + effect.Value.ToString() + "\n";
                 }
             }

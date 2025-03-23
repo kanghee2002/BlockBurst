@@ -18,6 +18,11 @@ public class DeckInfoUI : MonoBehaviour
     private const float outsidePositionX = 1920;
     private const float duration = 0.2f;
 
+    [Header("Layout")]
+    [SerializeField] private Image outerLayout;
+    [SerializeField] private Image innerLayout;
+
+    [Header("Container")]
     [SerializeField] private GameObject basicContainer;
     [SerializeField] private GameObject specialContainer;
     private CanvasGroup basicCanvasGroup;
@@ -34,16 +39,16 @@ public class DeckInfoUI : MonoBehaviour
     [SerializeField] private GameObject boostIcon;
 
     const float WINDOWS_ROW_OFFSET = 112;
-    const float MOBILE_ROW_OFFSET = 84;
+    const float MOBILE_ROW_OFFSET = 70;
     const float WINDOWS_COLUMN_OFFSET = 112;
     const float MOBILE_COLUMN_OFFSET = 45;
-    const float ROW_REF = 112 * 3;
+    const float ROW_REF = 320;
 
     Dictionary<string, string> effectNames = new Dictionary<string, string>() {
         {"GOLD_MODIFIER", "GoldUpgrade"},
         {"MULTIPLIER_MODIFIER", "MultiplierUpgrade"},
         {"REROLL_MODIFIER", "RerollUpgrade"},
-        {"SCORE_MODIFIER", "ScoreUpgrade"},
+        //{"SCORE_MODIFIER", "ScoreUpgrade"},
     };
 
     [HideInInspector] public bool isShowingBoostDetail;
@@ -286,6 +291,26 @@ public class DeckInfoUI : MonoBehaviour
         basicCanvasGroup.blocksRaycasts = false;
 
         boostInfoContainer.SetActive(true);
+    }
+
+    public void SetLayoutsColor(Color uiColor)
+    {
+        // 기본 블록
+        UIUtils.SetImageColorByScalar(outerLayout, uiColor, 1f / 5f, duration: 0.05f);
+        UIUtils.SetImageColorByScalar(innerLayout, uiColor, 2f / 5f, duration: 0.05f);
+        foreach (Transform child in basicContainer.transform)
+        {
+            UIUtils.SetImageColorByScalar(child.GetChild(0).GetComponent<Image>(), uiColor, 4f / 5f, duration: 0.05f);
+        }
+
+        // 특수 블록
+        foreach (Transform child in specialContainer.transform)
+        {
+            UIUtils.SetImageColorByScalar(child.GetChild(0).GetComponent<Image>(), uiColor, 4f / 5f, duration: 0.05f);
+        }
+
+        // 부스트
+        UIUtils.SetImageColorByScalar(boostInfoGridLayout.GetComponent<Image>(), uiColor, 4f / 5f, duration: 0.05f);
     }
 
     private Sprite GetImage(ItemData item)

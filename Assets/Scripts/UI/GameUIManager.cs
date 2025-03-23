@@ -121,6 +121,7 @@ public class GameUIManager : MonoBehaviour
         if (popupState == PopupState.none)
         {
             popupState = PopupState.option;
+            optionUI.SetLayoutsColor(currentUIColor);
             optionUI.OpenOptionUI();
         }
     }
@@ -150,6 +151,7 @@ public class GameUIManager : MonoBehaviour
         {
             popupState = PopupState.deckInfo;
             GameManager.instance.OnDeckInfoRequested();
+            deckInfoUI.SetLayoutsColor(currentUIColor);
             deckInfoUI.OpenDeckInfoUI();
 
             GameManager.instance.ProcessTutorialStep("Deck");

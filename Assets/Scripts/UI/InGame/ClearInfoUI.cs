@@ -12,6 +12,7 @@ public class ClearInfoUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI elapsedTimeText;
     [SerializeField] private TextMeshProUGUI maximumScoreText;
     [SerializeField] private Image mostPlacedBlockImage;
+    [SerializeField] private TextMeshProUGUI chapterStageText;
     [SerializeField] private TextMeshProUGUI chapterText;
     [SerializeField] private TextMeshProUGUI placedBlockCountText;
     [SerializeField] private TextMeshProUGUI stageText;
@@ -52,6 +53,7 @@ public class ClearInfoUI : MonoBehaviour
         elapsedTimeText.text = $"{minutes:00}:{seconds:00}";
         maximumScoreText.text = history.maxScore.ToString();
         mostPlacedBlockImage.sprite = Resources.Load<Sprite>($"Sprites/Block/Preset/{mostPlacedBlockType.ToString()}");
+        chapterStageText.text = currentChapterIndex + " - " + currentStageIndex;
         chapterText.text = currentChapterIndex.ToString();
         placedBlockCountText.text = blockCount.ToString();
         stageText.text = currentStageIndex.ToString();

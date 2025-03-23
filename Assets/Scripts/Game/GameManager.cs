@@ -663,7 +663,10 @@ public class GameManager : MonoBehaviour
 
             foreach (BlockData blockData in handBlocksData)
             {
-                EffectManager.instance.TriggerEffects(TriggerType.ON_REROLL_SPECIFIC_BLOCK, blockTypes: new BlockType[] { blockData.type });
+                if (blockData != null)
+                {
+                    EffectManager.instance.TriggerEffects(TriggerType.ON_REROLL_SPECIFIC_BLOCK, blockTypes: new BlockType[] { blockData.type });
+                }
             }
 
             DrawBlocks();

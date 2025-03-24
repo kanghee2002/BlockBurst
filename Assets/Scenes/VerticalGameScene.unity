@@ -3532,6 +3532,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   background: {fileID: 308968388}
+  optionButtonUI: {fileID: 890644437}
   stageInfoUI: {fileID: 1154624342}
   scoreInfoUI: {fileID: 1947466356}
   actionInfoUI: {fileID: 836755883}
@@ -10746,6 +10747,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8378713409662279789, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
   m_PrefabInstance: {fileID: 890644435}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &890644437 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1736517047688857954, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
+  m_PrefabInstance: {fileID: 890644435}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40a5666f9c52d7e41ab1fb7dbea142f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &898148460
 GameObject:
   m_ObjectHideFlags: 0
@@ -11543,7 +11555,7 @@ MonoBehaviour:
   blockTemplates: []
   handBlocksData: []
   shopItems: []
-  isTutorial: 1
+  isTutorial: 0
 --- !u!1 &966828379
 GameObject:
   m_ObjectHideFlags: 0
@@ -15403,7 +15415,7 @@ MonoBehaviour:
   highlightAreaRect: {fileID: 130853843}
   itemShowcaseUI: {fileID: 299935733}
   itemSetUI: {fileID: 1583208970}
-  nextButtonDelay: 0
+  nextButtonDelay: 0.5
   tutorialSteps:
   - characterPosition: {x: -160, y: 0}
     highlightRect: {fileID: 565023821}

@@ -9,6 +9,7 @@ using System;
 public class ButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler
 {
     private bool isPressed = false;
+    private bool isColorInitialized = false;
     
     private GameObject button;
     private Image image;
@@ -55,13 +56,22 @@ public class ButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         image = button.GetComponent<Image>();
 
         rectTransform = button.GetComponent<RectTransform>();
-        originalColor = image.color;
+        if (!isColorInitialized) 
+        {
+            originalColor = image.color;
+        }
         originalScale = rectTransform.localScale;
         originalPosition = rectTransform.anchoredPosition;
 
-        hoverColor = Color.Lerp(originalColor, Color.white, brightnessIncrease);
+        if (!isColorInitialized)
+        {
+            hoverColor = Color.Lerp(originalColor, Color.white, brightnessIncrease);
+        }
 
-        pressedColor = Color.Lerp(originalColor, Color.black, brightnessDecrease);
+        if (!isColorInitialized)
+        {
+            pressedColor = Color.Lerp(originalColor, Color.black, brightnessDecrease);
+        }
         pressedScale = originalScale * new Vector2(0.99f, 0.99f);
         pressedPositionOffset = new Vector2(0f, -0.08f * rectTransform.rect.height);
         pressedPosition = originalPosition + pressedPositionOffset;
@@ -71,6 +81,26 @@ public class ButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         onClick.RemoveAllListeners();
         onClick.AddListener(action);
+    }
+
+    public void SetUIColor(Color uiColor)
+    {
+        float scalar = 1f;
+        Color newColor = uiColor * scalar;
+        
+        if (button == null || image == null)
+        {
+            button = transform.GetChild(0).gameObject;
+            image = button.GetComponent<Image>();
+        }
+
+        UIUtils.SetImageColorByScalar(image, uiColor, scalar);
+
+        originalColor = newColor;
+        hoverColor = Color.Lerp(originalColor, Color.white, brightnessIncrease);
+        pressedColor = Color.Lerp(originalColor, Color.black, brightnessDecrease);
+
+        isColorInitialized = true;
     }
 
     private void CreateShadow()

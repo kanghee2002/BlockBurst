@@ -1816,7 +1816,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 107feb297c3375744ab3a96bb5861249, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  applicationType: 0
+  applicationType: 1
   deckManager: {fileID: 0}
   shopManager: {fileID: 0}
   stageManager: {fileID: 0}

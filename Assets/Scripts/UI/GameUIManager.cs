@@ -10,6 +10,7 @@ public class GameUIManager : MonoBehaviour
 
     [SerializeField] private Background background;
 
+    [SerializeField] private ButtonUI optionButtonUI;
     [SerializeField] private StageInfoUI stageInfoUI;
     [SerializeField] private ScoreInfoUI scoreInfoUI;
     [SerializeField] private ActionInfoUI actionInfoUI;
@@ -431,6 +432,7 @@ public class GameUIManager : MonoBehaviour
         {
             case SceneState.selecting:
                 currentUIColor = selectingBackgroundColors[Random.Range(0, selectingBackgroundColors.Count)];
+                optionButtonUI.SetUIColor(currentUIColor);
                 actionInfoUI.SetChipLayoutColor(currentUIColor);
                 stageInfoUI.SetUIColor(currentUIColor);
                 scoreInfoUI.SetUIColor(currentUIColor);
@@ -440,6 +442,7 @@ public class GameUIManager : MonoBehaviour
             case SceneState.playing:
                 currentUIColor = playingBackgroundColors[Random.Range(0, playingBackgroundColors.Count)];
                 stageInfoUI.OpenStageInfoUI();
+                optionButtonUI.SetUIColor(currentUIColor);
                 actionInfoUI.SetChipLayoutColor(currentUIColor);
                 stageInfoUI.SetUIColor(currentUIColor);
                 scoreInfoUI.SetUIColor(currentUIColor);
@@ -452,6 +455,7 @@ public class GameUIManager : MonoBehaviour
                 currentUIColor = shoppingBackgroundColors[Random.Range(0, shoppingBackgroundColors.Count)];
                 shopSignboardUI.OpenShopSignboardUI();
                 itemBoardUI.OpenItemBoardUI();
+                optionButtonUI.SetUIColor(currentUIColor);
                 actionInfoUI.SetChipLayoutColor(currentUIColor);
                 stageInfoUI.SetUIColor(currentUIColor);
                 scoreInfoUI.SetUIColor(currentUIColor);

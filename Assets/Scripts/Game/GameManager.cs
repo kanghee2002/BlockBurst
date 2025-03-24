@@ -83,6 +83,10 @@ public class GameManager : MonoBehaviour
         Application.targetFrameRate = 120; // for mobile build
         SetApplicationType();
 
+        if (applicationType == ApplicationType.Windows)
+        {
+            SceneTransitionManager.instance.TransitionToScene("NewLogoScene");
+        }
     }
 
     void LoadTemplates()
@@ -213,7 +217,15 @@ public class GameManager : MonoBehaviour
         Debug.Log("Back to Main");
         //SceneManager.LoadScene("NewLogoScene");
         AudioManager.instance.StopBackgroundMusic();
-        SceneTransitionManager.instance.TransitionToScene("NewLogoScene");
+        
+        if (applicationType == ApplicationType.Windows)
+        {
+            SceneTransitionManager.instance.TransitionToScene("NewLogoScene");
+        }
+        else
+        {
+            SceneTransitionManager.instance.TransitionToScene("LogoVerti");
+        }
     }
 
     public void MakeNewRun()

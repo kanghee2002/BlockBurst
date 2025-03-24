@@ -104,7 +104,7 @@ public class ShopManager : MonoBehaviour
         {
             int index = currentItems.FindIndex(x => x.id == firstShopItemList[0]);
             ItemData itemData = currentItems[index];
-            if (itemType == itemData.type)
+            if (shopItemDictionary[itemType].Contains(itemData.type))
             {
                 currentItems.RemoveAt(index);
                 firstShopItemList.RemoveAt(0);

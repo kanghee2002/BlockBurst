@@ -96,6 +96,11 @@ public class DeckManager : MonoBehaviour
         runData.availableBlocks.Remove(block);
     }
 
+    public void RemoveBlockFromRunDeck(BlockType blockType)
+    {
+        runData.availableBlocks.Remove(runData.availableBlocks.Find(block => block.type == blockType));
+    }
+
     public bool RemoveRandomBlockFromRunDeck(List<BlockType> exceptionType)
     {
         if (exceptionType == null) return false; 

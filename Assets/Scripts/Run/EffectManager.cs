@@ -249,7 +249,13 @@ public class EffectManager : MonoBehaviour
                 }
                 break;
             case EffectType.BLOCK_DELETE_WITH_COUNT:
-                // TODO
+                for (int i = 0; i < effect.effectValue; i++)
+                {
+                    foreach (BlockType blockType in effect.blockTypes)
+                    {
+                        GameManager.instance.RemoveBlockFromRunDeck(blockType);
+                    }
+                }
                 break;
             case EffectType.RANDOM_ROW_LINE_CLEAR:
                 List<int> rowIndices = GetRandomIndices(blockGameData.boardRows, 1);

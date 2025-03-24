@@ -574,6 +574,11 @@ public class GameManager : MonoBehaviour
         GameUIManager.instance.UpdateShopRerollCost(shopManager.currentRerollCost);
     }
 
+    public void RemoveBlockFromRunDeck(BlockType blockType)
+    {
+        deckManager.RemoveBlockFromRunDeck(blockType);
+    }
+
     public void UpdateGold(int value, bool isMultiplying = false, bool isStageReward = false)
     {
         int prevGold = runData.gold;

@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,6 +19,8 @@ public class BoardUI : MonoBehaviour
     [SerializeField] private RectTransform itemSetRect; // Up
     [SerializeField] private RectTransform deskMatRect; // Left
     [SerializeField] private RectTransform handUIRect; // Right
+
+    [SerializeField] private RectTransform stageClearText;
 
     private const float windowsInsidePositionY = -96;
     private const float mobileInsidePositionY = -140;
@@ -99,7 +102,10 @@ public class BoardUI : MonoBehaviour
         // 기존 boardCell 비우기
         foreach (Transform child in transform)
         {
-            Destroy(child.gameObject);
+            if (child.GetComponent<BoardCellUI>() != null)
+            {
+                Destroy(child.gameObject);
+            }
         }
 
         boardCellsUI = new BoardCellUI[height, width];
@@ -119,6 +125,9 @@ public class BoardUI : MonoBehaviour
                 boardCellsUI[row, col] = boardCellUI;
             }
         }
+
+        stageClearText.SetAsLastSibling();
+        stageClearText.gameObject.SetActive(false);
     }
 
     public void OpenBoardUI()
@@ -228,5 +237,29 @@ public class BoardUI : MonoBehaviour
         }
 
         AudioManager.instance.SFXMatch(blockCount);
+    }
+
+    public void ProcessStageClearAnimation(float delay)
+    {
+        // 총 걸리는 시간 계산
+        float totalTime = height * width * delay;
+
+        for (int y = 0; y < height; y++)
+        {
+            float delayedTime = 0f;
+            for (int x = 0; x < width; x++)
+            {
+                boardCellsUI[y, x].PlayHighlightAnimation(delayedTime, isForceMatch: false);
+                delayedTime += delay;
+            }
+        }
+
+        AudioManager.instance.SFXMatch(width);
+
+        Sequence sequence = DOTween.Sequence();
+
+        sequence.SetDelay(totalTime);
+        sequence.AppendCallback(() => stageClearText.gameObject.SetActive(true));
+        sequence.Append(stageClearText.DOPunchScale(Vector3.one * 1.5f, duration: 0.3f, vibrato: 5, elasticity: 0.3f));
     }
 }

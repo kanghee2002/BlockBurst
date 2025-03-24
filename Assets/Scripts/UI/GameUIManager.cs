@@ -630,6 +630,11 @@ public class GameUIManager : MonoBehaviour
         boardUI.BlockCells(cells);
     }
 
+    public void PlayStageClearAnimation(float delay)
+    {
+        boardUI.ProcessStageClearAnimation(delay);
+    }
+
     public void ENDSTAGE()
     {
         GameManager.instance.EndStage(true);
@@ -638,6 +643,7 @@ public class GameUIManager : MonoBehaviour
     public void OnGameEnd(bool isCleared, int currentChapterIndex, int currentStageIndex, GameManager.History history, BlockType mostPlacedBlockType)
     {
         clearInfoUI.Initialize(isCleared, currentChapterIndex, currentStageIndex, history, mostPlacedBlockType);
+        clearInfoUI.SetLayoutsColor(currentUIColor);
         clearInfoUI.OpenClearInfoUI(isCleared);
 
         if (isCleared) AudioManager.instance.SFXGameWin();

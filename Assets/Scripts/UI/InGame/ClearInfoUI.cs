@@ -21,6 +21,9 @@ public class ClearInfoUI : MonoBehaviour
 
     [SerializeField] private GameObject infiniteButton;
 
+    [Header("Layout")]
+    [SerializeField] private Image outer;
+    [SerializeField] private Image inner;
 
     private RectTransform rectTransform;
 
@@ -59,6 +62,12 @@ public class ClearInfoUI : MonoBehaviour
         stageText.text = currentStageIndex.ToString();
         rerolledCountText.text = history.rerollCount.ToString();
         buyedCountText.text = history.itemPurchaseCount.ToString();
+    }
+
+    public void SetLayoutsColor(Color uiColor)
+    {
+        UIUtils.SetImageColorByScalar(outer, uiColor, 1f / 3f, duration: 0.05f);
+        UIUtils.SetImageColorByScalar(inner, uiColor, 2f / 3f, duration: 0.05f);
     }
 
     public void OpenClearInfoUI(bool isCleared)

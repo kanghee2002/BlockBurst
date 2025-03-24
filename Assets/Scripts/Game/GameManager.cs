@@ -461,7 +461,12 @@ public class GameManager : MonoBehaviour
 
     IEnumerator DelayedEndStage(bool cleared)
     {
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(1.5f);
+
+        GameUIManager.instance.PlayStageClearAnimation(scoreAnimationDelay);
+
+        yield return new WaitForSeconds(1.5f);
+
         EndStage(cleared);
 
         AudioManager.instance.SFXStageClear();

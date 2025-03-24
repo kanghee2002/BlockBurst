@@ -144,12 +144,12 @@ public class BoardCellUI : MonoBehaviour
 
         currentSequence
             .AppendInterval(preDelay)
-            .AppendCallback(() => PlayHighlightAnimation(isForceMatch))
+            .AppendCallback(() => PlayHighlightAnimation(0f, isForceMatch))
             .AppendInterval(postDelay)
             .AppendCallback(() => PlayClearAnimation());
     }
 
-    public void PlayHighlightAnimation(bool isForceMatch) {
+    public void PlayHighlightAnimation(float preDelay, bool isForceMatch) {
         if (isBlocked) return;
 
         cellImage.sprite = originalSprite;
@@ -157,7 +157,9 @@ public class BoardCellUI : MonoBehaviour
 
         Color highlightColor = isForceMatch ? new Color(.2f, .5f, .7f) : new Color(1f, 1f, 1f);
 
-        cellImage.DOColor(highlightColor, 0.2f).SetLoops(1, LoopType.Yoyo);
+        cellImage.DOColor(highlightColor, 0.2f)
+            .SetLoops(1, LoopType.Yoyo)
+            .SetDelay(preDelay);
     }
 
     public void PlayClearAnimation() {

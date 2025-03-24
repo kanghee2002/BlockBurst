@@ -10,12 +10,15 @@ public class ItemDetailUI : MonoBehaviour
     [SerializeField] private PopupBlurImage popupBlurImage;
 
     [Header("Item")]
-    [SerializeField] private Image layout;
+    [SerializeField] private Image outer;
+    [SerializeField] private Image inner;
     [SerializeField] private Image itemImage;
     [SerializeField] private Image itemIcon;
+    [SerializeField] private Image rarityLayout;
     [SerializeField] private TextMeshProUGUI itemNameText;
     [SerializeField] private TextMeshProUGUI itemDescriptionText;
     [SerializeField] private TextMeshProUGUI itemPriceText;
+    [SerializeField] private TextMeshProUGUI itemRarityText;
     [SerializeField] private ButtonUI interactButtonUI;
     [SerializeField] private TextMeshProUGUI interactButtonText;
 
@@ -40,7 +43,7 @@ public class ItemDetailUI : MonoBehaviour
         currentDescription = GetDescription(itemData, isPurchase);
         itemDescriptionText.text = currentDescription;
         itemPriceText.text = "$" + itemData.cost;
-
+        itemRarityText.text = UIUtils.itemRarityNames[itemData.rarity];
 
         if (isBoost)                // 덱 창에서 부스트 누른 경우 
         {
@@ -167,7 +170,6 @@ public class ItemDetailUI : MonoBehaviour
 
     private void SetLayoutColor(ItemData itemData)
     {
-        float scalar = 9f / 10f;
         ItemType itemType = itemData.type;
 
         if (itemData.type == ItemType.ITEM)
@@ -182,7 +184,11 @@ public class ItemDetailUI : MonoBehaviour
         {
             itemType = ItemType.ADD_BLOCK;
         }
-        UIUtils.SetImageColorByScalar(layout, UIUtils.itemTypeColors[itemType], scalar, duration: 0.1f);
+        
+        UIUtils.SetImageColorByScalar(outer, UIUtils.itemTypeColors[itemType], 7f / 10f, duration: 0.1f);
+        UIUtils.SetImageColorByScalar(inner, UIUtils.itemTypeColors[itemType], 9f / 10f, duration: 0.1f);
+
+        rarityLayout.color = UIUtils.rarityColors[itemData.rarity];
     }
 
     public void OpenItemDetailUI()

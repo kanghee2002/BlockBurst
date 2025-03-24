@@ -22,10 +22,10 @@ public static class UIUtils
     // 레어도별 색상 정의
     public static readonly Dictionary<ItemRarity, Color> rarityColors = new Dictionary<ItemRarity, Color>()
     {
-        { ItemRarity.COMMON, new Color(0x0b/255f, 0xa9/255f, 0x05/255f) },   // #0ba905 연두
-        { ItemRarity.RARE, new Color(0x00/255f, 0x88/255f, 0xff/255f) },     // #0088ff 파랑
-        { ItemRarity.EPIC, new Color(0x70/255f, 0x1b/255f, 0xd2/255f) },     // #701bd2 보라
-        { ItemRarity.LEGENDARY, new Color(0xb7/255f, 0x1c/255f, 0x31/255f) }  // #b71c31 빨강
+        { ItemRarity.COMMON, new Color(0x46/255f, 0xd9/255f, 0x41/255f) },   // #46D941 연두
+        { ItemRarity.RARE, new Color(0x4f/255f, 0xad/255f, 0xff/255f) },     // #4FADFF 파랑
+        { ItemRarity.EPIC, new Color(0xa3/255f, 0x53/255f, 0xff/255f) },     // #A353FF 보라
+        { ItemRarity.LEGENDARY, new Color(0xd2/255f, 0x00/255f, 0x1d/255f) }  // #D2001D 빨강
     };
 
     public static readonly Dictionary<ItemType, Color> itemTypeColors = new Dictionary<ItemType, Color>()

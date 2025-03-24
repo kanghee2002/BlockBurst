@@ -81,7 +81,7 @@ public class TutorialManager : MonoBehaviour
 
         List<string> firstStageName = new List<string>()
         {
-            "DebuffJScore",
+            "DebuffSpecial",
             "IncreaseBoardSize",
         };
 
@@ -90,8 +90,10 @@ public class TutorialManager : MonoBehaviour
         List<string> firstShopItems = new List<string>()
         {
             "TwoClock",
+            "RedEgg",
             "GrayCube",
             "BlockIOGoldUpgrade",
+            "AddBlockDuo",
         };
         GameManager.instance.shopManager.AddFirstItem(firstShopItems);
 
@@ -100,7 +102,7 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator ProcessStepCoroutine()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.01f);
         ProcessStep();
     }
 
@@ -109,7 +111,7 @@ public class TutorialManager : MonoBehaviour
         if (isWaitingForClick && 
            (sign == "StageChoice" || sign == "Deck" || sign == "DeckBack" ||
             sign == "Purchase" || sign == "NextStage" || sign == "Run" ||
-            sign == "RunBack"))
+            sign == "RunBack" || sign == "ItemClicked"))
         {
             ProcessStep();
         }
@@ -160,8 +162,8 @@ public class TutorialManager : MonoBehaviour
         descriptionText.text = currentStep.description.Replace("\\n", "\n");
 
         // 캐릭터와 함께 이동
-        textLayoutRect.anchoredPosition = new Vector2(characterRect.anchoredPosition.x, characterRect.anchoredPosition.y - 60f);
-        Vector2 nextTextPosition = new Vector2(currentStep.characterPosition.x, currentStep.characterPosition.y - 50f);
+        //textLayoutRect.anchoredPosition = new Vector2(characterRect.anchoredPosition.x, characterRect.anchoredPosition.y - 60f);
+        Vector2 nextTextPosition = new Vector2(currentStep.characterPosition.x + 210f, currentStep.characterPosition.y);
         textLayoutRect.DOAnchorPos(nextTextPosition, 0.5f)
             .SetEase(Ease.OutBack, overshoot: 1.2f);
 
@@ -253,13 +255,21 @@ public class TutorialManager : MonoBehaviour
         }
         else if (source == itemShowcaseUI)
         {
-            if (itemCount == 0 || itemCount == 1)
+            if (itemCount == 0)
             {
-                source = source.GetChild(itemCount).GetComponent<RectTransform>();
+                source = source.GetChild(0).GetChild(1).GetComponent<RectTransform>();
             }
-            else if (itemCount < 5)
+            else if (itemCount == 1)
             {
-                source = source.GetChild(2).GetComponent<RectTransform>();
+                source = source.GetChild(1).GetChild(1).GetComponent<RectTransform>();
+            }
+            else if (itemCount == 2)
+            {
+                source = source.GetChild(2).GetChild(1).GetComponent<RectTransform>();
+            }
+            else if (itemCount == 3)
+            {
+                source = source.GetChild(2).GetChild(2).GetComponent<RectTransform>();
             }
             else if (itemCount >= 5)
             {
@@ -293,16 +303,16 @@ public class TutorialManager : MonoBehaviour
         {
             highlightAreaRect.anchoredPosition = new Vector2(0f, highlightAreaRect.anchoredPosition.y);
         }
-        else if (source.name == "HandUI")
+        else if (source.name == "HandUI" || source.name == "Outer")
         {
-            highlightAreaRect.anchoredPosition = new Vector2(highlightAreaRect.anchoredPosition.x - (source.anchoredPosition.x - (-188f)), highlightAreaRect.anchoredPosition.y);
+            highlightAreaRect.anchoredPosition = new Vector2(0f, highlightAreaRect.anchoredPosition.y);
         }
         else if (stepCount > 30 &&  source.name == "ScoreAndRewardLayout")
         {
             highlightAreaRect.anchoredPosition = new Vector2(highlightAreaRect.anchoredPosition.x, -178f);
             //UIUtils.OpenUI(highlightAreaRect, "Y", -178f, 0.2f);
         }
-        else if (source.name == "RunInfoUI")
+        else if (source.name == "RunInfoUI" || source.name == "ItemDetailUI")
         {
             highlightAreaRect.anchoredPosition = new Vector2(highlightAreaRect.anchoredPosition.x, 0f);
         }
@@ -345,13 +355,21 @@ public class TutorialManager : MonoBehaviour
         }
         else if (target == itemShowcaseUI)
         {
-            if (itemCount == 0 || itemCount == 1)
+            if (itemCount == 0)
             {
-                target = target.GetChild(itemCount).GetComponent<RectTransform>(); ;
+                target = target.GetChild(0).GetChild(1).GetComponent<RectTransform>();
+            }
+            else if (itemCount == 1)
+            {
+                target = target.GetChild(1).GetChild(1).GetComponent<RectTransform>();
             }
             else if (itemCount == 2)
             {
-                target = target.GetChild(2).GetComponent<RectTransform>();
+                target = target.GetChild(2).GetChild(1).GetComponent<RectTransform>();
+            }
+            else if (itemCount == 3)
+            {
+                target = target.GetChild(2).GetChild(2).GetComponent<RectTransform>();
             }
             else if (itemCount >= 5)
             {
@@ -383,6 +401,10 @@ public class TutorialManager : MonoBehaviour
         else if (target.name == "RunInfoUI")
         {
             clickableRect.anchoredPosition = new Vector2(clickableRect.anchoredPosition.x, 0f);
+        }
+        else if (target.parent.name == "InteractButtonUI")
+        {
+            clickableRect.anchoredPosition = new Vector2(clickableRect.anchoredPosition.x, -60f);
         }
 
         float anchorPosX = clickableRect.anchoredPosition.x * resolutionRatioX;

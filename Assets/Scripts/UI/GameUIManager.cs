@@ -257,6 +257,8 @@ public class GameUIManager : MonoBehaviour
 
             GameManager.instance.OnShopItemInfoRequested(index);
             itemDetailUI.OpenItemDetailUI();
+
+            GameManager.instance.ProcessTutorialStep("ItemClicked");
         }
     }
 

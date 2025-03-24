@@ -90,7 +90,8 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
             List<EffectData> specialEffects = Resources.Load<ItemData>("ScriptableObjects/Item/Block/AddBlock" + UIUtils.ToCamelCase(blockType.ToString())).effects;
             foreach (EffectData effect in specialEffects)
             {
-                description += UIUtils.SetBlockNameToIcon(effect.effectName.Replace("\n", " "));
+                string tmp = UIUtils.SetBlockNameToIcon(effect.effectName.Replace("\n", " "));
+                description += UIUtils.GetEffectValueText(tmp, effect);
             }
         }
 

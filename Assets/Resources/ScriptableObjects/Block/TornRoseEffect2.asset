@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: TornRoseEffect2
   m_EditorClassIdentifier: 
   id: TornRoseEffect2
-  effectName: "\uAE30\uBCF8 \uBC30\uC218 +3"
+  effectName: "+EffectValue \uAE30\uBCF8 \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 3
   scope: 0
-  baseEffectValue: 3
-  effectValue: 3
+  baseEffectValue: 10
+  effectValue: 10
   trigger: 0
   triggerMode: 0
   triggerValue: 0

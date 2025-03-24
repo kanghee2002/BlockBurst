@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: DebuffSpecialScoreEffect1
   m_EditorClassIdentifier: 
   id: DebuffSpecialScoreEffect1
-  effectName: "\uD2B9\uC218 \uBE14\uB85D\\n\uC810\uC218\uAC00 -10\uC774 \uB428"
+  effectName: "\uD2B9\uC218 \uBE14\uB85D \uC810\uC218\uAC00 0\uC810\uC774 \uB429\uB2C8\uB2E4"
   type: 1
-  trigger: 0
   scope: 1
+  baseEffectValue: 0
   effectValue: 0
-  blockTypes: 0700000008000000090000000a0000000b0000000c0000000d000000
-  blockId: -1
-  probability: 1
+  trigger: 0
+  triggerMode: 0
   triggerValue: 0
+  triggerCount: 0
+  blockTypes: 0700000008000000090000000a0000000b0000000c0000000d000000
+  probability: 1
+  modifyingEffect: {fileID: 0}

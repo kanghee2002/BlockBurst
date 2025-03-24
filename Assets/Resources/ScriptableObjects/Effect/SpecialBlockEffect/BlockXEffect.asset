@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: BlockXEffect
   m_EditorClassIdentifier: 
   id: BlockXEffect
-  effectName: "\uBC30\uCE58\uD560 \uB54C\n\uBAA8\uB4E0 \uBE14\uB85D\n\uD074\uB9AC\uC5B4"
+  effectName: "\uC774 \uBE14\uB85D\uC744 \uBC30\uCE58\uD560 \uB54C\n\uBCF4\uB4DC\uC758
+    \uBAA8\uB4E0 \uBE14\uB85D\uC744 \uC9C0\uC6C1\uB2C8\uB2E4"
   type: 22
   scope: 0
   baseEffectValue: 0

@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: GearZSEffect
   m_EditorClassIdentifier: 
   id: GearZSEffect
-  effectName: "Z/S \uBE14\uB85D\uC744 \uB9AC\uB864\uD560 \uB54C\uB9C8\uB2E4 Z/S \uBE14\uB85D
-    \uC810\uC218 +3"
+  effectName: "Z/S 3\uBC88 \uB9AC\uB864\uD560 \uB54C\uB9C8\uB2E4\nZ/S +EffectValue
+    \uBE14\uB85D \uC810\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 0
   scope: 0
   baseEffectValue: 3
   effectValue: 3
   trigger: 25
-  triggerMode: 0
-  triggerValue: 0
+  triggerMode: 2
+  triggerValue: 3
   triggerCount: 0
   blockTypes: 0200000003000000
   probability: 1

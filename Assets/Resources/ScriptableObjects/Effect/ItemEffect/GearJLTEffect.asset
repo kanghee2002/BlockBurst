@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: GearJLTEffect
   m_EditorClassIdentifier: 
   id: GearJLTEffect
-  effectName: "J/L/T \uBE14\uB85D\uC744 \uB9AC\uB864\uD560 \uB54C\uB9C8\uB2E4 J/L/T
-    \uBE14\uB85D \uC810\uC218 +1"
+  effectName: "J/L/T 6\uBC88 \uB9AC\uB864\uD560 \uB54C\uB9C8\uB2E4\nJ/L/T +EffectValue
+    \uBE14\uB85D \uC810\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 0
   scope: 0
-  baseEffectValue: 1
-  effectValue: 3
+  baseEffectValue: 2
+  effectValue: 2
   trigger: 25
-  triggerMode: 0
-  triggerValue: 0
+  triggerMode: 2
+  triggerValue: 6
   triggerCount: 0
   blockTypes: 040000000500000006000000
   probability: 1

@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: GoldenStoneEffect
   m_EditorClassIdentifier: 
   id: GoldenStoneEffect
-  effectName: "\uB9E4 \uC2A4\uD14C\uC774\uC9C0 \uC885\uB8CC \uC2DC \uCD94\uAC00\uB85C
-    +3 \uACE8\uB4DC\uB97C \uC5BB\uC2B5\uB2C8\uB2E4."
+  effectName: "\uB9E4 \uC2A4\uD14C\uC774\uC9C0 \uC885\uB8CC \uC2DC\n\uCD94\uAC00\uB85C
+    $EffectValue \uACE8\uB4DC\uB97C \uC5BB\uC2B5\uB2C8\uB2E4."
   type: 9
   scope: 0
   baseEffectValue: 3
-  effectValue: 2
+  effectValue: 3
   trigger: 24
   triggerMode: 0
   triggerValue: 0

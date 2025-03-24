@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: RedCrossEffect
   m_EditorClassIdentifier: 
   id: RedCrossEffect
-  effectName: "\uAC00\uB85C, \uC138\uB85C\n\uB3D9\uC2DC\uC5D0\n\uC904 \uC9C0\uC6B8
-    \uB54C\n\uBC30\uC218 +20"
+  effectName: "\uAC00\uB85C, \uC138\uB85C \uB3D9\uC2DC\uC5D0 \uC904\uC744 \uC9C0\uC6B8
+    \uB54C\n+EffectValue \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 2
   scope: 0
   baseEffectValue: 20

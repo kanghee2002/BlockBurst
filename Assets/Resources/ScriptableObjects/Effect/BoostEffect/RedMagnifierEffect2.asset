@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RedMagnifierEffect2
   m_EditorClassIdentifier: 
   id: RedMagnifierEffect2
-  effectName: "\uAE30\uBCF8 \uBC30\uC218 +10"
+  effectName: "+EffectValue \uAE30\uBCF8 \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 3
   scope: 0
   baseEffectValue: 10

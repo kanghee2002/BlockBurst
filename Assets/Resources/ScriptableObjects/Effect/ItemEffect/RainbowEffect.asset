@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: RainbowEffect
   m_EditorClassIdentifier: 
   id: RainbowEffect
-  effectName: "\uBAA8\uB450\n\uB2E4\uB978 \uC885\uB958\uB85C\n\uC904 \uC9C0\uC6B8
-    \uB54C\n\uBC30\uC218 +15"
+  effectName: "\uC904\uC744 \uC9C0\uC6B8 \uB54C \uBAA8\uB450 \uB2E4\uB978 \uC885\uB958\uBA74\n+EffectValue
+    \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 2
   scope: 0
-  baseEffectValue: 15
+  baseEffectValue: 20
   effectValue: 15
   trigger: 13
   triggerMode: 0

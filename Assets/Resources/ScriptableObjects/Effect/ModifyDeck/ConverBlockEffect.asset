@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: ConverBlockEffect
   m_EditorClassIdentifier: 
   id: 
-  effectName: "\uAE30\uBCF8 \uBE14\uB85D\n2\uAC1C\uB97C\n\uAC00\uC7A5 \uC810\uC218\n\uB192\uC740
-    \uBE14\uB85D\uC73C\uB85C \uBC14\uAFC8"
+  effectName: "\uAE30\uBCF8 \uBE14\uB85D \uC911 \uBB34\uC791\uC704 2\uAC1C\uB97C\n\uAC00\uC7A5
+    \uC810\uC218 \uB192\uC740 \uBE14\uB85D\uC73C\uB85C \uBC14\uAFC9\uB2C8\uB2E4"
   type: 0
   scope: 0
   baseEffectValue: 0

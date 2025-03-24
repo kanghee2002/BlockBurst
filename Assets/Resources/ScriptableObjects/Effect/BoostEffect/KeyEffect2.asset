@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: KeyEffect2
   m_EditorClassIdentifier: 
   id: KeyEffect2
-  effectName: "Z/S \uBE14\uB85D\nx2 \uBCF5\uC0AC"
+  effectName: "Z/S \uAC00 EffectValue\uBC30\uB85C \uBCF5\uC0AC\uB429\uB2C8\uB2E4"
   type: 17
   scope: 0
   baseEffectValue: 2

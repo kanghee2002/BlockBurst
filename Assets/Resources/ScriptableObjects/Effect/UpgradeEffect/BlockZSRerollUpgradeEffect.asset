@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: BlockZSRerollUpgradeEffect
   m_EditorClassIdentifier: 
   id: BlockZSRerollUpgradeEffect
-  effectName: "Z/S \uBC30\uCE58\uD574\n\uC904 \uC9C0\uC6B8 \uB54C\n\uB9AC\uB864 +1"
+  effectName: "Z/S \uBC30\uCE58\uD574\uC11C \uC904\uC744 \uC9C0\uC6B8 \uB54C\n+EffectValue
+    \uB9AC\uB864 \uD69F\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 5
   scope: 0
   baseEffectValue: 1

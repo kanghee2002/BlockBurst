@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: KeyEffect1
   m_EditorClassIdentifier: 
   id: KeyEffect1
-  effectName: "Z/S \uC678\uC758\n\uAE30\uBCF8 \uBE14\uB85D\n\uBAA8\uB450 \uC0AD\uC81C,"
+  effectName: "Z/S \uC678\uC758 \uAE30\uBCF8 \uBE14\uB85D\uC774\n\uB371\uC5D0\uC11C
+    \uBAA8\uB450 \uC0AD\uC81C\uB418\uC9C0\uB9CC,"
   type: 18
   scope: 0
   baseEffectValue: 0

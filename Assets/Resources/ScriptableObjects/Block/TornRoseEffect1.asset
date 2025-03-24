@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TornRoseEffect1
   m_EditorClassIdentifier: 
   id: TornRoseEffect1
-  effectName: "\uACE8\uB4DC\uB97C\n\uC804\uBD80 \uC783\uACE0,"
+  effectName: "\uACE8\uB4DC\uB97C \uC804\uBD80 \uC783\uACE0,"
   type: 10
   scope: 0
   baseEffectValue: 0

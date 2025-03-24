@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlueMagnifierEffect
   m_EditorClassIdentifier: 
   id: BlueMagnifierEffect
-  effectName: "\uBCF4\uB4DC \uD06C\uAE30\n1\uCE78 \uC99D\uAC00"
+  effectName: "\uBCF4\uB4DC \uD06C\uAE30\uAC00\nEffectValue\uCE78 \uC99D\uAC00\uD569\uB2C8\uB2E4"
   type: 11
   scope: 0
   baseEffectValue: 1

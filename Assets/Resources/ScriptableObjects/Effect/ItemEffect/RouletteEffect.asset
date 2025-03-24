@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: RouletteEffect
   m_EditorClassIdentifier: 
   id: RouletteEffect
-  effectName: "15\uBC88 \uB9AC\uB864\uD560 \uB54C\uB9C8\uB2E4 \uBC30\uC218\uB97C
-    2\uBC30\uB85C \uB9CC\uB4ED\uB2C8\uB2E4."
+  effectName: "\uB9AC\uB864\uB97C 15\uBC88 \uD560 \uB54C\uB9C8\uB2E4\nXEffectValue
+    \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 37
   scope: 0
   baseEffectValue: 2
@@ -22,7 +22,7 @@ MonoBehaviour:
   trigger: 17
   triggerMode: 2
   triggerValue: 15
-  triggerCount: 4
+  triggerCount: 0
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 0}

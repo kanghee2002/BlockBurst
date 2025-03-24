@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BrokenKeyEffect1
   m_EditorClassIdentifier: 
   id: BrokenKeyEffect1
-  effectName: "T \uBAA8\uB450 \uC0AD\uC81C,"
+  effectName: "\uB371\uC5D0\uC11C T \uAC00 \uBAA8\uB450 \uC0AD\uC81C\uB418\uC9C0\uB9CC,"
   type: 18
   scope: 0
   baseEffectValue: 0

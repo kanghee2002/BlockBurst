@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: BlockZSMultiplierUpgradeEffect
   m_EditorClassIdentifier: 
   id: BlockZSMultiplierUpgradeEffect
-  effectName: "Z/S \uBC30\uCE58\uD574\n\uC904 \uC9C0\uC6B8 \uB54C\n\uBC30\uC218 +1"
+  effectName: "Z/S \uBC30\uCE58\uD574\uC11C \uC904\uC744 \uC9C0\uC6B8 \uB54C\n+EffectValue
+    \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 2
   scope: 0
-  baseEffectValue: 1
-  effectValue: 1
+  baseEffectValue: 5
+  effectValue: 5
   trigger: 3
   triggerMode: 0
   triggerValue: 0

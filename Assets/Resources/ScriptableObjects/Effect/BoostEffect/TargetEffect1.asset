@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TargetEffect1
   m_EditorClassIdentifier: 
   id: TargetEffect1
-  effectName: "\uBCF4\uB4DC \uAC00\uC7A5\uC790\uB9AC \uCE78\n\uC81C\uD55C"
+  effectName: "\uBCF4\uB4DC \uAC00\uC7A5\uC790\uB9AC \uCE78\uC774 \uB9C9\uD788\uC9C0\uB9CC,"
   type: 12
   scope: 0
   baseEffectValue: 0

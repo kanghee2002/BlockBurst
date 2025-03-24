@@ -13,14 +13,16 @@ MonoBehaviour:
   m_Name: NormalBlockBoardEffect
   m_EditorClassIdentifier: 
   id: NormalBlockBoardEffect
-  effectName: "\uBCF4\uB4DC \uBB34\uC791\uC704\\n3\uCE78 \uC81C\uD55C"
+  effectName: "\uBCF4\uB4DC\uC758 \uBB34\uC791\uC704 3\uCE78\uC5D0\n\uBE14\uB85D\uC744
+    \uB458 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4"
   type: 13
   scope: 1
+  baseEffectValue: 3
   effectValue: 3
   trigger: 0
   triggerMode: 0
   triggerValue: 0
   triggerCount: 0
   blockTypes: 
-  blockId: -1
   probability: 1
+  modifyingEffect: {fileID: 0}

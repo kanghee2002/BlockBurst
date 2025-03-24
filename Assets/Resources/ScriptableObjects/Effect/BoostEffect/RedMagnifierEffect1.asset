@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: RedMagnifierEffect1
   m_EditorClassIdentifier: 
   id: RedMagnifierEffect1
-  effectName: "\uBCF4\uB4DC \uD06C\uAE30\n2\uCE78 \uAC10\uC18C,"
+  effectName: "\uBCF4\uB4DC \uD06C\uAE30\uAC00 1\uCE78 \uAC10\uC18C\uD558\uC9C0\uB9CC,"
   type: 11
   scope: 0
-  baseEffectValue: -2
+  baseEffectValue: -1
   effectValue: -2
   trigger: 0
   triggerMode: 0

@@ -208,6 +208,24 @@ public static class UIUtils
         return text;
     }
 
+    public static string GetEffectValueText(string text, EffectData effectData)
+    {
+
+        string value = Math.Abs(effectData.effectValue).ToString();
+
+        text = text.Replace("+EffectValue 블록 점수", "<color=blue>+EffectValue</color> 블록 점수");
+        text = text.Replace("+EffectValue 배수", "<color=red>+EffectValue</color> 배수");
+        text = text.Replace("XEffectValue 배수", "<color=red>XEffectValue</color> 배수");
+        text = text.Replace("+EffectValue 기본 배수", "<color=red>+EffectValue</color> 기본 배수");
+        text = text.Replace("+EffectValue 리롤 횟수", "<color=green>+EffectValue</color> 리롤 횟수");
+        text = text.Replace("+EffectValue 기본 리롤 횟수", "<color=green>+EffectValue</color> 기본 리롤 횟수");
+        text = text.Replace("$EffectValue", "<color=yellow>$EffectValue</color>");
+
+        string result = text.Replace("EffectValue", value);
+
+        return result;
+    }
+
     public static string SetTextColor(string text, string specificColor = "")
     {
         string[] words = text.Split(new char[] {' ', '\n'});

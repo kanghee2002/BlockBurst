@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: EraserEffect1
   m_EditorClassIdentifier: 
   id: EraserEffect1
-  effectName: "\uAE30\uBCF8 \uBC30\uC218 +1,"
+  effectName: "+EffectValue \uAE30\uBCF8 \uBC30\uC218\uB97C \uC5BB\uC9C0\uB9CC,"
   type: 3
   scope: 0
-  baseEffectValue: 1
+  baseEffectValue: 10
   effectValue: 1
   trigger: 0
   triggerMode: 0

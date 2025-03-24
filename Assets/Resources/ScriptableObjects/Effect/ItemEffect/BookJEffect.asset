@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: BookJEffect
   m_EditorClassIdentifier: 
   id: BookJEffect
-  effectName: "J \uBC30\uCE58\uD560\n\uB54C\uB9C8\uB2E4\nJ \uC810\uC218 +3"
+  effectName: "J \uBC30\uCE58\uD560 \uB54C\uB9C8\uB2E4\nJ +EffectValue \uBE14\uB85D
+    \uC810\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 0
   scope: 0
   baseEffectValue: 3

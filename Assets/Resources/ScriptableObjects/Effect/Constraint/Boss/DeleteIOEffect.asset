@@ -13,14 +13,15 @@ MonoBehaviour:
   m_Name: DeleteIOEffect
   m_EditorClassIdentifier: 
   id: DeleteIOEffect
-  effectName: "I/O \uC0AD\uC81C\uB428"
+  effectName: "I/O \uB97C \uC0AC\uC6A9\uD560 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4"
   type: 18
   scope: 1
+  baseEffectValue: 0
   effectValue: 0
   trigger: 0
   triggerMode: 0
   triggerValue: 0
   triggerCount: 0
   blockTypes: 0000000001000000
-  blockId: -1
   probability: 1
+  modifyingEffect: {fileID: 0}

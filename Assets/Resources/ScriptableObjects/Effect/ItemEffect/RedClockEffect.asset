@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: RedClockEffect
   m_EditorClassIdentifier: 
   id: RedClockEffect
-  effectName: "\uC904\uC744\n12\uBC88 \uC9C0\uC6B8 \uB54C\uB9C8\uB2E4\n\uAE30\uBCF8
-    \uBC30\uC218 +6"
+  effectName: "\uC904\uC744 12\uBC88 \uC9C0\uC6B8 \uB54C\uB9C8\uB2E4\n+EffectValue
+    \uAE30\uBCF8 \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 3
   scope: 0
   baseEffectValue: 6

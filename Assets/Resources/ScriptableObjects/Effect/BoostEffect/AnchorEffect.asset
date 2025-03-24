@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: AnchorEffect
   m_EditorClassIdentifier: 
   id: AnchorEffect
-  effectName: "\uC0C1\uC810 \uB9AC\uB864 \uBE44\uC6A9\uC774 \uB354 \uC774\uC0C1 \uC99D\uAC00\uD558\uC9C0
-    \uC54A\uC2B5\uB2C8\uB2E4"
+  effectName: "\uC0C1\uC810 \uB9AC\uB864 \uBE44\uC6A9\uC774 30% \uD655\uB960\uB85C
+    \uC99D\uAC00\uD558\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4"
   type: 29
   scope: 0
   baseEffectValue: 0
-  effectValue: 1
+  effectValue: 0
   trigger: 0
   triggerMode: 0
   triggerValue: 0
   triggerCount: 0
   blockTypes: 
-  probability: 1
+  probability: 0.3
   modifyingEffect: {fileID: 0}

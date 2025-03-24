@@ -13,12 +13,16 @@ MonoBehaviour:
   m_Name: DecreaseDrawBlockCountOneEffect
   m_EditorClassIdentifier: 
   id: DecreaseDrawBlockCountOneEffect
-  effectName: "\uC190 \uD328\uAC00\\n1\uAC1C\uB85C \uAC10\uC18C"
+  effectName: "\uBC30\uCE58 \uAC00\uB2A5\uD55C \uBE14\uB85D\uC774 3\uAC1C\uC5D0\uC11C
+    1\uAC1C\uB85C \uAC10\uC18C\uD569\uB2C8\uB2E4"
   type: 23
-  trigger: 0
   scope: 1
+  baseEffectValue: 1
   effectValue: 1
-  blockTypes: 
-  blockId: -1
-  probability: 1
+  trigger: 0
+  triggerMode: 0
   triggerValue: 0
+  triggerCount: 0
+  blockTypes: 
+  probability: 1
+  modifyingEffect: {fileID: 0}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EraserEffect2
   m_EditorClassIdentifier: 
   id: EraserEffect2
-  effectName: "O \uBAA8\uB450 \uC0AD\uC81C"
+  effectName: "\uB371\uC5D0\uC11C O \uAC00 \uBAA8\uB450 \uC0AD\uC81C\uB429\uB2C8\uB2E4"
   type: 18
   scope: 0
   baseEffectValue: 0

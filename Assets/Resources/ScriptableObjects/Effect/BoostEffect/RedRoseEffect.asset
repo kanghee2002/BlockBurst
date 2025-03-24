@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RedRoseEffect
   m_EditorClassIdentifier: 
   id: RedRoseEffect
-  effectName: "\uAE30\uBCF8 \uBC30\uC218 x2"
+  effectName: "\uAE30\uBCF8 \uBC30\uC218\uAC00 EffectValue\uBC30\uB85C \uC99D\uAC00\uD569\uB2C8\uB2E4"
   type: 4
   scope: 0
   baseEffectValue: 2

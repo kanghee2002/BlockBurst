@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: BlockTrioEffect
   m_EditorClassIdentifier: 
   id: BlockTrioEffect
-  effectName: "\uC774 \uBE14\uB85D \uC804\uBD80\n\uC9C0\uC6B8 \uB54C\n\uBC30\uC218
-    +2"
+  effectName: "\uC774 \uBE14\uB85D\uC744 \uC804\uBD80 \uC9C0\uC6B8 \uB54C\n+EffectValue
+    \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 2
   scope: 0
-  baseEffectValue: 2
-  effectValue: 2
+  baseEffectValue: 4
+  effectValue: 4
   trigger: 4
   triggerMode: 0
   triggerValue: 0

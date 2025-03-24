@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: GrayRoseEffect
   m_EditorClassIdentifier: 
   id: GrayRoseEffect
-  effectName: "\uAE30\uBCF8 \uB9AC\uB864 x2"
+  effectName: "\uAE30\uBCF8 \uB9AC\uB864 \uD69F\uC218\uAC00 EffectValue\uBC30\uB85C
+    \uC99D\uAC00\uD569\uB2C8\uB2E4"
   type: 8
   scope: 0
   baseEffectValue: 2

@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: MagazineEffect
   m_EditorClassIdentifier: 
   id: MagazineEffect
-  effectName: "\uBC30\uCE58\uD560 \uB54C\n\uC904 \uC9C0\uC6CC\uC9C0\uC9C0\n\uC54A\uC73C\uBA74\n\uBC30\uC218
-    +2"
+  effectName: "\uBC30\uCE58\uD560 \uB54C \uC904\uC774 \uC9C0\uC6CC\uC9C0\uC9C0\n\uC54A\uC73C\uBA74
+    +EffectValue \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 2
   scope: 0
-  baseEffectValue: 2
-  effectValue: 2
+  baseEffectValue: 3
+  effectValue: 3
   trigger: 2
   triggerMode: 0
   triggerValue: 0

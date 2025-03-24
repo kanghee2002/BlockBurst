@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WindowEffect2
   m_EditorClassIdentifier: 
   id: WindowEffect2
-  effectName: "I/O x3 \uBCF5\uC0AC"
+  effectName: "I/O \uAC00 EffectValue\uBC30\uB85C \uBCF5\uC0AC\uB429\uB2C8\uB2E4"
   type: 17
   scope: 0
   baseEffectValue: 3

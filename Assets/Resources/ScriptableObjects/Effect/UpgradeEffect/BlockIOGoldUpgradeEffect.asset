@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: BlockIOGoldUpgradeEffect
   m_EditorClassIdentifier: 
   id: BlockIOGoldUpgradeEffect
-  effectName: "I/O \uBC30\uCE58\uD574\n\uC904 \uC9C0\uC6B8 \uB54C\n\uACE8\uB4DC +1"
+  effectName: "I/O \uBC30\uCE58\uD574\uC11C \uC904\uC744 \uC9C0\uC6B8 \uB54C\n$EffectValue
+    \uACE8\uB4DC\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 9
   scope: 0
   baseEffectValue: 1

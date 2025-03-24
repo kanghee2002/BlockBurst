@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CouponEffect
   m_EditorClassIdentifier: 
   id: CouponEffect
-  effectName: "\uC0C1\uC810 \uB9AC\uB864 \uBE44\uC6A9\uC774 $1 \uAC10\uC18C\uD569\uB2C8\uB2E4"
+  effectName: "\uC0C1\uC810 \uB9AC\uB864 \uBE44\uC6A9\uC774 $EffectValue \uAC10\uC18C\uD569\uB2C8\uB2E4"
   type: 28
   scope: 0
   baseEffectValue: -1

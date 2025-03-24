@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: BrushEffect
   effectName: "\uC0C1\uC810\uC5D0\uC11C \uD2B9\uAE09 \uB4F1\uAE09\uC774 \uB4F1\uC7A5\uD560
-    \uD655\uB960\uC774 2\uBC30 \uC99D\uAC00\uD569\uB2C8\uB2E4"
+    \uD655\uB960\uC774 EffectValue\uBC30 \uC99D\uAC00\uD569\uB2C8\uB2E4"
   type: 35
   scope: 0
   baseEffectValue: 2
-  effectValue: 1
+  effectValue: 2
   trigger: 0
   triggerMode: 0
   triggerValue: 0

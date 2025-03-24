@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: StoppedSpinningTopEffect2
   m_EditorClassIdentifier: 
   id: StoppedSpinningTopEffect
-  effectName: "\uB9AC\uB864\uD560 \uB54C\n\uACE8\uB4DC -1"
+  effectName: "\uB9AC\uB864\uD560 \uB54C\uB9C8\uB2E4 $EffectValue \uACE8\uB4DC\uB97C
+    \uC783\uC2B5\uB2C8\uB2E4"
   type: 9
   scope: 0
   baseEffectValue: -1

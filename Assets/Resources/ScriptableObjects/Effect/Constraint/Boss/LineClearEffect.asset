@@ -13,15 +13,16 @@ MonoBehaviour:
   m_Name: LineClearEffect
   m_EditorClassIdentifier: 
   id: LineClearEffect
-  effectName: "\uC904\uC744\\n3\uBC88 \uC9C0\uC6B8 \uB54C\uB9C8\uB2E4\\n\uBB34\uC791\uC704
-    \uC904 \uC9C0\uC6C0"
+  effectName: "\uC904\uC744 \uC9C0\uC6B8 \uB54C\uB9C8\uB2E4 \uCD94\uAC00\uB85C\n\uBB34\uC791\uC704
+    1\uC904\uC744 \uC9C0\uC6CC\uBC84\uB9BD\uB2C8\uB2E4"
   type: 24
   scope: 1
+  baseEffectValue: 1
   effectValue: 0
   trigger: 10
-  triggerMode: 2
-  triggerValue: 3
-  triggerCount: 0
+  triggerMode: 0
+  triggerValue: 0
+  triggerCount: 1
   blockTypes: 
-  blockId: -1
   probability: 1
+  modifyingEffect: {fileID: 0}

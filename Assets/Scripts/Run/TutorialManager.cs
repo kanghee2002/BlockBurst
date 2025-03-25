@@ -111,7 +111,8 @@ public class TutorialManager : MonoBehaviour
         if (isWaitingForClick && 
            (sign == "StageChoice" || sign == "Deck" || sign == "DeckBack" ||
             sign == "Purchase" || sign == "NextStage" || sign == "Run" ||
-            sign == "RunBack" || sign == "ItemClicked"))
+            sign == "RunBack" || sign == "ItemClicked" || sign == "Reroll" ||
+            sign == "ShopReroll"))
         {
             ProcessStep();
         }
@@ -137,7 +138,6 @@ public class TutorialManager : MonoBehaviour
             isPlayingTutorial = false;
             return;
         }
-
 
         TutorialStep currentStep = tutorialSteps[stepCount];
 
@@ -183,7 +183,10 @@ public class TutorialManager : MonoBehaviour
         // '다음 버튼' 뜰지 말지
         if (currentStep.isNextButtonInactive)
         {
-            isWaitingForClick = true;
+            if (!currentStep.isInactive)
+            {
+                isWaitingForClick = true;
+            }
             nextButton.gameObject.SetActive(false);
         }
         else

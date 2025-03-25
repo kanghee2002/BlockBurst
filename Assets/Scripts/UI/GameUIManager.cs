@@ -142,6 +142,8 @@ public class GameUIManager : MonoBehaviour
         if (sceneState == SceneState.playing && popupState == PopupState.none)
         {
             GameManager.instance.OnRerolled();
+
+            GameManager.instance.ProcessTutorialStep("Reroll");
         }
     }
 
@@ -310,6 +312,8 @@ public class GameUIManager : MonoBehaviour
         {
             //Debug.Log("아이템 리롤 버튼 눌림");
             GameManager.instance.OnShopReroll();
+
+            GameManager.instance.ProcessTutorialStep("ShopReroll");
         }
     }
 

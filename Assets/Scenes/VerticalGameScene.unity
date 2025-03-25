@@ -11786,7 +11786,7 @@ MonoBehaviour:
   blockTemplates: []
   handBlocksData: []
   shopItems: []
-  isTutorial: 0
+  isTutorial: 1
 --- !u!1 &966828379
 GameObject:
   m_ObjectHideFlags: 0
@@ -15739,7 +15739,7 @@ MonoBehaviour:
     clickableRect: {fileID: 358785955}
     description: "<color=#005000>\uB9AC\uB864</color>\uC744 \uD074\uB9AD\uD574 \uC0C8\uB85C\uC6B4
       \uBE14\uB85D\uC744 \uAC00\uC838\uC62C \uC218 \uC788\uC2B5\uB2C8\uB2E4"
-    isNextButtonInactive: 0
+    isNextButtonInactive: 1
     isInactive: 0
     highlightDelay: 0
   - characterPosition: {x: -160, y: 0}
@@ -15851,7 +15851,7 @@ MonoBehaviour:
     clickableRect: {fileID: 953752856}
     description: "\uC0C1\uD488\uB4E4\uC774 \uB9C8\uC74C\uC5D0 \uB4E4\uC9C0 \uC54A\uC73C\uBA74
       \uC0C8\uB85C \uBF51\uC744 \uC218\uB3C4 \uC788\uC2B5\uB2C8\uB2E4!"
-    isNextButtonInactive: 0
+    isNextButtonInactive: 1
     isInactive: 0
     highlightDelay: 0
   - characterPosition: {x: -160, y: 300}

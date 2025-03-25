@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: RedStoneEffect
   effectName: "\uB9E4 \uC2A4\uD14C\uC774\uC9C0 \uC2DC\uC791 \uC2DC\n+EffectValue
-    \uAE30\uBCF8 \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4."
+    \uAE30\uBCF8 \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 3
   scope: 0
   baseEffectValue: 2

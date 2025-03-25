@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GrayCloverEffect
   m_EditorClassIdentifier: 
   id: GrayCloverEffect
-  effectName: "\uC904 \uC9C0\uC6B8 \uB54C\uB9C8\uB2E4 50% \uD655\uB960\uB85C\n+EffectValue
+  effectName: "\uC904 \uC9C0\uC6B8 \uB54C\uB9C8\uB2E4 20% \uD655\uB960\uB85C\n+EffectValue
     \uB9AC\uB864 \uD69F\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 5
   scope: 0
@@ -24,5 +24,5 @@ MonoBehaviour:
   triggerValue: 0
   triggerCount: 0
   blockTypes: 
-  probability: 0.5
+  probability: 0.2
   modifyingEffect: {fileID: 0}

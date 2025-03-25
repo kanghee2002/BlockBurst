@@ -76,6 +76,12 @@ public class Board
 
         if (CanPlace(block, pos))
         {
+            foreach (Vector2Int shapePos in block.Shape)
+            {
+                Vector2Int worldPos = pos + shapePos;
+                cells[worldPos.y, worldPos.x].SetBlock(block.Type, block.Id);
+            }
+
             isPlaced = true;
 
             // 블록의 OnClearEffects 트리거를 위해 추가
@@ -90,13 +96,6 @@ public class Board
                 placedBlockCounts[block.Type]++;
                 EffectManager.instance.TriggerEffects(TriggerType.ON_BLOCK_PLACE_WITH_COUNT, blockTypes: new BlockType[] { block.Type }, triggerValue: placedBlockCounts[block.Type]);
             }
-
-            foreach (Vector2Int shapePos in block.Shape)
-            {
-                Vector2Int worldPos = pos + shapePos;
-                cells[worldPos.y, worldPos.x].SetBlock(block.Type, block.Id);
-            }
-
             // 보드 상태 이펙트 체크
             if (IsHalfFull())
             {

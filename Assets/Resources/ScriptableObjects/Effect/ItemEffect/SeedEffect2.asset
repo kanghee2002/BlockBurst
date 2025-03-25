@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: SeedEffect2
   m_EditorClassIdentifier: 
   id: SeedEffect2
-  effectName: "\uB9E4 \uC2A4\uD14C\uC774\uC9C0 \uC885\uB8CC \uC2DC +EffectValue \uBC30\uC218\uB97C
-    \uC5BB\uC2B5\uB2C8\uB2E4"
+  effectName: "\uB9E4 \uC2A4\uD14C\uC774\uC9C0 \uC885\uB8CC \uC2DC \uBC30\uC218\uAC00
+    +EffectValue \uC99D\uAC00\uD569\uB2C8\uB2E4"
   type: 27
   scope: 0
   baseEffectValue: 3
-  effectValue: 5
+  effectValue: 3
   trigger: 24
   triggerMode: 0
   triggerValue: 0

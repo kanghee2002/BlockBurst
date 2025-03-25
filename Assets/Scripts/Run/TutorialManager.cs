@@ -82,7 +82,7 @@ public class TutorialManager : MonoBehaviour
         List<string> firstStageName = new List<string>()
         {
             "DebuffSpecial",
-            "IncreaseBoardSize",
+            "DebuffZScore",
         };
 
         GameManager.instance.stageManager.firstStageList.AddRange(firstStageName);
@@ -266,6 +266,7 @@ public class TutorialManager : MonoBehaviour
             else if (itemCount == 2)
             {
                 source = source.GetChild(2).GetChild(1).GetComponent<RectTransform>();
+                itemCount++;
             }
             else if (itemCount == 3)
             {

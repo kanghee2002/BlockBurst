@@ -17,11 +17,11 @@ MonoBehaviour:
     \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 3
   scope: 0
-  baseEffectValue: 5
+  baseEffectValue: 7
   effectValue: 5
   trigger: 23
   triggerMode: 2
-  triggerValue: 6
+  triggerValue: 5
   triggerCount: 0
   blockTypes: 02000000
   probability: 1

@@ -17,7 +17,7 @@ MonoBehaviour:
     \uBE14\uB85D \uC810\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 0
   scope: 0
-  baseEffectValue: 10
+  baseEffectValue: 3
   effectValue: 10
   trigger: 25
   triggerMode: 0

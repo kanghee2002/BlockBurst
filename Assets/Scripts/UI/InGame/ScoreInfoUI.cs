@@ -61,12 +61,12 @@ public class ScoreInfoUI : MonoBehaviour
     {
         UIUtils.SetImageColorByScalar(scoreSlider, uiColor, 1f);
         UIUtils.SetTextColorByScalar(currentScoreText, uiColor, 1f / 10f);
-        UIUtils.SetTextColorByScalar(descriptionText, uiColor, 1f / 30f);
     }
 
     public void UpdateScoreAtLeast(int scoreAtLeast)
     {
         this.scoreAtLeast = scoreAtLeast;
+        scoreAtLeastText.color = Color.white;
 
         if (scoreAtLeast >= 1000000) scoreAtLeastText.text = $"<size=45>{scoreAtLeast}</size>";
         else if (scoreAtLeast >= 10000000) scoreAtLeastText.text = $"<size=40>{scoreAtLeast}</size>";
@@ -89,6 +89,8 @@ public class ScoreInfoUI : MonoBehaviour
             scoreRatio,
             duration
         ).SetEase(Ease.InOutQuad);
+
+        UIUtils.SetTextColorByScalar(scoreAtLeastText, Color.white, 1f - scoreRatio);
     }
 
     public void OpenScoreInfoUI()

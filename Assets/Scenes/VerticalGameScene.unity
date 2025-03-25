@@ -370,7 +370,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uD2B9\uC218 \uBE14\uB85D \uC810\uC218\uAC00 0\uC774 \uB428"
+  m_text: "\uC904\uC744 \uC9C0\uC6B8 \uB54C\uB9C8\uB2E4 \uCD94\uAC00\uB85C\n\uBB34\uC791\uC704
+    1\uC904\uC744 \uC9C0\uC6CC\uBC84\uB9BD\uB2C8\uB2E4"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2a59723d8f0743f4ba7c0c6d36676d1c, type: 2}
   m_sharedMaterial: {fileID: 92899030693641188, guid: 2a59723d8f0743f4ba7c0c6d36676d1c, type: 2}
@@ -397,12 +398,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 22
+  m_fontSize: 18
   m_fontSizeBase: 22
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 25
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -7952,7 +7953,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -15831,7 +15832,7 @@ MonoBehaviour:
     highlightDelay: 0
   - characterPosition: {x: -160, y: 300}
     highlightRect: {fileID: 299935733}
-    clickableRect: {fileID: 299935733}
+    clickableRect: {fileID: 0}
     description: "\uC774\uAC74 \uBE14\uB85D\uC5D0 \uB2A5\uB825\uC744 \uBD80\uC5EC\uD558\uB294
       <color=purple>\uAC15\uD654</color>\uC785\uB2C8\uB2E4!"
     isNextButtonInactive: 0
@@ -15839,7 +15840,7 @@ MonoBehaviour:
     highlightDelay: 0
   - characterPosition: {x: -160, y: 300}
     highlightRect: {fileID: 299935733}
-    clickableRect: {fileID: 299935733}
+    clickableRect: {fileID: 0}
     description: "\uADF8\uB9AC\uACE0 \uC774\uAC74 \uD2B9\uBCC4\uD55C \uD6A8\uACFC\uB97C
       \uAC00\uC9C4 <color=#005000>\uD2B9\uC218 \uBE14\uB85D</color>\uC785\uB2C8\uB2E4!"
     isNextButtonInactive: 0
@@ -15856,7 +15857,7 @@ MonoBehaviour:
   - characterPosition: {x: -160, y: 300}
     highlightRect: {fileID: 94835059}
     clickableRect: {fileID: 94835059}
-    description: "\uC774\uC81C \uB2E4\uC74C \uC2A4\uD14C\uC774\uC9C0\uB85C \uC774\uB3D9\uD574\uBCF4\uC138\uC694!\\n<color=#005000>3\uCC55\uD130</color>\uAE4C\uC9C0
+    description: "\uC774\uC81C \uB2E4\uC74C \uC2A4\uD14C\uC774\uC9C0\uB85C \uC774\uB3D9\uD574\uBCF4\uC138\uC694.\\n<color=#005000>3\uCC55\uD130</color>\uAE4C\uC9C0
       \uD589\uC6B4\uC744 \uBE55\uB2C8\uB2E4!"
     isNextButtonInactive: 1
     isInactive: 0
@@ -21199,11 +21200,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8378713409662279789, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -70
+      value: -80
       objectReference: {fileID: 0}
     - target: {fileID: 8378713409662279789, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 70
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 8378713409662279789, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -25523,7 +25524,6 @@ GameObject:
   - component: {fileID: 2129016120}
   - component: {fileID: 2129016122}
   - component: {fileID: 2129016121}
-  - component: {fileID: 2129016123}
   m_Layer: 5
   m_Name: DescriptionLayout
   m_TagString: Untagged
@@ -25589,62 +25589,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2129016119}
   m_CullTransparentMesh: 1
---- !u!114 &2129016123
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2129016119}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 2129016121}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1262622798}
-        m_TargetAssemblyTypeName: TutorialManager, Assembly-CSharp
-        m_MethodName: ProceedNextStep
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &2144834622
 GameObject:
   m_ObjectHideFlags: 0

@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
 
     private List<Match> currentMatches;
     private float scoreAnimationDelay;  // 블록 점수 간의 딜레이
+    private float scoreDelayedTime;     // 점수 계산하는데 걸린 시간
 
     [SerializeField] private bool isTutorial = true;
 
@@ -99,13 +100,15 @@ public class GameManager : MonoBehaviour
 
     void SetApplicationType()
     {
-        if (Application.platform == RuntimePlatform.WindowsEditor)
+        if (Application.platform == RuntimePlatform.WindowsEditor ||
+            Application.platform == RuntimePlatform.OSXEditor)
         {
             return;
         }
 
         if (Application.platform == RuntimePlatform.Android ||
-            Application.platform == RuntimePlatform.IPhonePlayer)
+            Application.platform == RuntimePlatform.IPhonePlayer ||
+            Application.platform == RuntimePlatform.WebGLPlayer)
         {
             applicationType = ApplicationType.Mobile;
         }
@@ -185,6 +188,7 @@ public class GameManager : MonoBehaviour
         }
         InitializeHistory();
         scoreAnimationDelay = 0.01f;
+        scoreDelayedTime = 0f;
         currentMatches = new List<Match>();
 
         StartNewRun();
@@ -411,8 +415,9 @@ public class GameManager : MonoBehaviour
         SetInactiveBlockCells(blockGame);
         board.BlockCells(blockGame.inactiveCells);
 
-
         DrawBlocks();
+
+        PlayActivatedItemAnimation();
 
         isClearStage = false;
     }
@@ -465,11 +470,11 @@ public class GameManager : MonoBehaviour
 
         GameUIManager.instance.PlayStageClearAnimation(scoreAnimationDelay);
 
+        AudioManager.instance.SFXStageClear();
+
         yield return new WaitForSeconds(1.5f);
 
         EndStage(cleared);
-
-        AudioManager.instance.SFXStageClear();
 
         yield return new WaitForSeconds(0.5f);
 
@@ -633,6 +638,11 @@ public class GameManager : MonoBehaviour
     public void PlayItemFullAnimation()
     {
         GameUIManager.instance.PlayItemFullAnimation();
+    }
+
+    public void PlayNotEnoughGoldAnimation()
+    {
+        GameUIManager.instance.PlayNotEnoughGoldAnimation();
     }
 
     public void ProcessTutorialStep(string sign)
@@ -833,7 +843,8 @@ public class GameManager : MonoBehaviour
         UpdateBaseMultiplier();
 
         // 계산된 점수가 얻은 점수에 더해지기 전 딜레이
-        yield return new WaitForSeconds(0.2f);
+        float delay = 0.2f;
+        yield return new WaitForSeconds(delay);
 
         GameUIManager.instance.UpdateProduct(0);
         GameUIManager.instance.UpdateScore(blockGame.currentScore);
@@ -956,6 +967,18 @@ public class GameManager : MonoBehaviour
         }
 
         GameUIManager.instance.UpdateItemTriggerCount(index, effect.triggerCount);
+    }
+
+    public void PlayActivatedItemAnimation()
+    {
+        for (int i = 0; i < runData.activeItems.Count; i++)
+        {
+            ItemData item = runData.activeItems[i];
+            if (item.effects.Any(effect => effect.triggerValue == effect.triggerCount + 1))
+            {
+                GameUIManager.instance.StartItemShakeAnimation(i, isBlockRelated: false);
+            }
+        }
     }
 
     // Match에 해당하는 점수 리스트 만들기
@@ -1115,7 +1138,7 @@ public class GameManager : MonoBehaviour
                 GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
                 break;
             case EffectType.MULTIPLIER_MULTIPLER:
-                description = "<color=red>배수\n2배!</color>";
+                description = "<color=red>X" + effect.effectValue + "</color>";
                 GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
                 UpdateMultiplier();
                 break;

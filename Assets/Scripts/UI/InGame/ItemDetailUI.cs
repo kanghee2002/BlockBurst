@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,7 @@ public class ItemDetailUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI itemRarityText;
     [SerializeField] private ButtonUI interactButtonUI;
     [SerializeField] private TextMeshProUGUI interactButtonText;
+    [SerializeField] private Image showNotEnoughGoldImage;
 
     private RectTransform rectTransform;
 
@@ -167,6 +169,35 @@ public class ItemDetailUI : MonoBehaviour
             itemIcon.gameObject.SetActive(true);
             itemIcon.sprite = IconSprite;
         }
+    }
+
+    public void PlayNotEnoughGoldAnimation()
+    {
+
+        if (showNotEnoughGoldImage.gameObject.activeSelf)
+        {
+            return;
+        }
+        showNotEnoughGoldImage.gameObject.SetActive(true);
+        showNotEnoughGoldImage.color = new Color(0f, 0f, 0f, 0.8f);
+
+        float duration = 0.5f, endDelay = 0.2f;
+
+        RectTransform textRect = showNotEnoughGoldImage.transform.GetChild(0).GetComponent<RectTransform>();
+
+        Sequence sequence = DOTween.Sequence();
+
+        sequence.Append(textRect.DOPunchScale(Vector3.one * 1.2f, duration,
+            vibrato: 7, elasticity: 0.3f)
+            .SetEase(Ease.OutQuad));
+
+        sequence.AppendInterval(endDelay);
+
+        sequence.OnComplete(() =>
+        {
+            textRect.DOScale(Vector3.one, duration);
+            showNotEnoughGoldImage.gameObject.SetActive(false);
+        });
     }
 
     private void SetLayoutColor(ItemData itemData)

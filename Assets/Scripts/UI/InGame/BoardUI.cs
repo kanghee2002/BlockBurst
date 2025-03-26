@@ -20,6 +20,7 @@ public class BoardUI : MonoBehaviour
     [SerializeField] private RectTransform deskMatRect; // Left
     [SerializeField] private RectTransform handUIRect; // Right
 
+    [Header("StageClearAnimation")]
     [SerializeField] private RectTransform stageClearText;
 
     private const float windowsInsidePositionY = -96;
@@ -125,7 +126,6 @@ public class BoardUI : MonoBehaviour
                 boardCellsUI[row, col] = boardCellUI;
             }
         }
-
         stageClearText.SetAsLastSibling();
         stageClearText.gameObject.SetActive(false);
     }
@@ -246,19 +246,15 @@ public class BoardUI : MonoBehaviour
 
         for (int y = 0; y < height; y++)
         {
-            float delayedTime = 0f;
             for (int x = 0; x < width; x++)
             {
-                boardCellsUI[y, x].PlayHighlightAnimation(delayedTime, isForceMatch: false);
-                delayedTime += delay;
+                boardCellsUI[y, x].PlayStageClearAnimation();
             }
         }
 
-        AudioManager.instance.SFXMatch(width);
-
         Sequence sequence = DOTween.Sequence();
 
-        sequence.SetDelay(totalTime);
+        sequence.SetDelay(0.7f);
         sequence.AppendCallback(() => stageClearText.gameObject.SetActive(true));
         sequence.Append(stageClearText.DOPunchScale(Vector3.one * 1.5f, duration: 0.3f, vibrato: 5, elasticity: 0.3f));
     }

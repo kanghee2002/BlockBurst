@@ -13,6 +13,7 @@ public class BoardCellUI : MonoBehaviour
     private RectTransform textTransform;
     private TextMeshProUGUI scoreText;
     private Image cellImage;
+    private Vector3 originalPosition;
     private Color originalColor;
     private Sprite originalSprite;
     private Material originalMaterial;
@@ -38,6 +39,7 @@ public class BoardCellUI : MonoBehaviour
         cellIndex = index;
         cellImage.color = color;
         originalColor = color;
+        originalPosition = transform.position;
 
         currentSequence = null;
     }
@@ -202,5 +204,21 @@ public class BoardCellUI : MonoBehaviour
                 scoreText.color = originalColor;
                 textTransform.gameObject.SetActive(false);
             });
+    }
+
+    public void PlayStageClearAnimation()
+    {
+        Vector2 randomDirection = Random.insideUnitCircle.normalized;
+        float distance = Random.Range(1500f, 2000f);
+
+        RectTransform rectTransform = GetComponent<RectTransform>();
+
+        Sequence sequence = DOTween.Sequence();
+
+        sequence.Append(rectTransform.DOJumpAnchorPos(randomDirection * distance, 500f, 1, 0.6f)
+            .SetEase(Ease.OutQuad));
+        sequence.AppendInterval(0.5f)
+            .OnComplete(() => transform.position = originalPosition);
+
     }
 }

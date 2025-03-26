@@ -372,13 +372,15 @@ public class ItemSetUI : MonoBehaviour
     {
         GameObject currentItem = itemIcons[index];
 
-        Vector3 originalPosition = currentItem.transform.position;
+        RectTransform itemRect = currentItem.GetComponent<RectTransform>();
+
+        float originalPosX = itemRect.anchoredPosition.x;
 
         Tween currentTween = currentItem.transform.DOPunchPosition(Vector3.up * 8f, 0.5f,
             vibrato: 5, elasticity: 0.3f)
             .SetLoops(-1, LoopType.Restart)
             .SetEase(Ease.InOutQuad)
-            .OnKill(() => currentItem.transform.DOMove(originalPosition, 0.1f));
+            .OnKill(() => itemRect.DOAnchorPos(new Vector2(originalPosX, 0f), 0.1f));
 
         if (isBlockRelated)
         {

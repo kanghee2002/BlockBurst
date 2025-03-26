@@ -77,6 +77,7 @@ public class ShopManager : MonoBehaviour
 
         if (runData.gold < item.cost)
         {
+            GameManager.instance.PlayNotEnoughGoldAnimation();
             return -1;
         } 
         else

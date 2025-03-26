@@ -586,6 +586,11 @@ public class GameUIManager : MonoBehaviour
         itemSetUI.PlayItemFullAnimation();
     }
 
+    public void PlayNotEnoughGoldAnimation()
+    {
+        itemDetailUI.PlayNotEnoughGoldAnimation();
+    }
+
     public void DisplayItemSet(List<ItemData> items, int maxItemCount, int discardIndex = -1)
     {
         itemSetUI.Initialize(items, maxItemCount, discardIndex);

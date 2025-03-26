@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: BackgroundMaterial - Copy
-  m_Shader: {fileID: -6465566751694194690, guid: b96d775c8de6646ae93975a2dcfffc4a, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 77c11dfcb83b94ecb84bc53f04a51cab, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []

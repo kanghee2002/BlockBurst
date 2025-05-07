@@ -34,7 +34,7 @@ public class ShopManager : MonoBehaviour
         foreach (ItemData item in items)
         {
             AddItem(item);
-            // 특수 블록을 좀 복사
+            /*// 특수 블록을 좀 복사
             if (item.type == ItemType.ADD_BLOCK && Enums.IsSpecialBlockType(item.block.type))
             {
                 AddItem(item);
@@ -44,7 +44,7 @@ public class ShopManager : MonoBehaviour
             if (item.type == ItemType.ADD_BLOCK && Enums.IsDefaultBlockType(item.block.type))
             {
                 AddItem(item);
-            }
+            }*/
 
             // 아이템 초기 값 초기화
             item.effects.ForEach(effect =>
@@ -141,15 +141,7 @@ public class ShopManager : MonoBehaviour
     {
         if (item.type == ItemType.ADD_BLOCK)
         {
-            int addCount = 0;
-            if (Enums.IsDefaultBlockType(item.block.type))
-            {
-                addCount = 2;
-            }
-            else
-            {
-                addCount = 1;
-            }
+            int addCount = 1;
 
             for (int i = 0; i < addCount; i++)
             {
@@ -171,7 +163,7 @@ public class ShopManager : MonoBehaviour
         }
         else if (item.type == ItemType.CONVERT_BLOCK)
         {
-            int convertCount = 2;
+            int convertCount = 1;
 
             List<BlockType> highestScoreBlocks = runData.baseBlockScores
                             .Where(kv => kv.Value == runData.baseBlockScores.Values.Max())

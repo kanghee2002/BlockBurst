@@ -56,12 +56,12 @@ public class GameData
         {
             120,
             1000,
-            4000,
-            30000,
-            100000,
+            3000,
+            20000,
+            80000,
+            200000,
             700000,
-            2000000,
-            4000000,
+            1500000,
         };
         stageScoreMultiplier = new List<float>()
         {

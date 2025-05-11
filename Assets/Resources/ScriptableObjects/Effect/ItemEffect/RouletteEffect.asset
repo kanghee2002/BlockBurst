@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RouletteEffect
   m_EditorClassIdentifier: 
   id: RouletteEffect
-  effectName: "\uB9AC\uB864\uB97C 20\uBC88 \uD560 \uB54C\uB9C8\uB2E4\nXEffectValue
+  effectName: "\uB9AC\uB864\uC744 20\uBC88 \uD560 \uB54C\uB9C8\uB2E4\nXEffectValue
     \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 37
   scope: 0

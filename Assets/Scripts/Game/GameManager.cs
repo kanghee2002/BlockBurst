@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     public ShopManager shopManager;
     public StageManager stageManager;
     public TutorialManager tutorialManager;
+    public DataManager dataManager;
 
     public StageData[] stageTemplates;
     public ItemData[] itemTemplates;
@@ -192,6 +193,36 @@ public class GameManager : MonoBehaviour
         currentMatches = new List<Match>();
 
         StartNewRun();
+    }
+
+    public void ContinueGame()
+    {
+        gameData = dataManager.LoadGameData();
+        runData = dataManager.LoadRunData();
+
+        CLEAR_CHAPTER = 3;
+
+        //currentChapterIndex = 1;
+        //currentStageIndex = 1;
+
+        scoreAnimationDelay = 0.01f;
+        scoreDelayedTime = 0f;
+        currentMatches = new List<Match>();
+
+
+        CellEffectManager.instance.Initialize();
+        EffectManager.instance.Initialize(ref runData);
+
+        stageManager.Initialize(ref runData);
+
+        shopManager.Initialize(ref runData, itemTemplates);
+
+        UpdateDeckCount(runData.availableBlocks.Count, runData.availableBlocks.Count);
+
+        GameUIManager.instance.Initialize(runData);
+
+        // Need to Modify
+        //StartStageSelection();
     }
 
     public void InitializeHistory()

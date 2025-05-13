@@ -649,7 +649,7 @@ public class GameUIManager : MonoBehaviour
         GameManager.instance.EndStage(true);
     }
 
-    public void OnGameEnd(bool isCleared, int currentChapterIndex, int currentStageIndex, GameManager.History history, BlockType mostPlacedBlockType)
+    public void OnGameEnd(bool isCleared, int currentChapterIndex, int currentStageIndex, RunData.History history, BlockType mostPlacedBlockType)
     {
         clearInfoUI.Initialize(isCleared, currentChapterIndex, currentStageIndex, history, mostPlacedBlockType);
         clearInfoUI.SetLayoutsColor(currentUIColor);

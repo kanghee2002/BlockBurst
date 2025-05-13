@@ -4,7 +4,19 @@ using UnityEngine;
 
 public class RunData
 {
+    public struct History
+    {
+        public float startTime;
+        public int[] blockHistory;
+        public int rerollCount;
+        public int itemPurchaseCount;
+        public int maxScore;
+    }
+
     // 스테이지 진행 데이터
+    public int currentChapterIndex;
+    public int currentStageIndex;
+    public History history;
     public Dictionary<BlockType, int> baseBlockScores;          // 기본 블록 점수
     public Dictionary<MatchType, int> baseMatchMultipliers;     // 기본 배수
     public List<BlockData> availableBlocks;                     // 사용 가능한 블록들
@@ -20,12 +32,15 @@ public class RunData
     public int baseDrawBlockCount;                              // 기본 드로우 블록 수
     public int shopBaseRerollCost;                              // 상점 리롤 비용
     public int shopRerollCostGrowth;                            // 상점 리롤 비용 증가값
-    public Dictionary<ItemType, int> shopItemCounts;      // 상점에 등장하는 아이템 가짓수
+    public Dictionary<ItemType, int> shopItemCounts;            // 상점에 등장하는 아이템 가짓수
     public Dictionary<ItemRarity, int> itemRarityWeights;       // 상점 희귀도 등급
 
 
     public void Initialize(GameData gameData)
     {
+        currentChapterIndex = 1;
+        currentStageIndex = 1;
+        history = new History();
         baseBlockScores = new Dictionary<BlockType, int>(gameData.defaultBlockScores);
         baseMatchMultipliers = new Dictionary<MatchType, int>(gameData.defaultMatchMultipliers);
         availableBlocks = new List<BlockData>(gameData.defaultBlocks);
@@ -56,3 +71,4 @@ public class RunData
         };
     }
 }
+

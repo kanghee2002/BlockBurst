@@ -18,19 +18,19 @@ public class GameManager : MonoBehaviour
     public RunData runData;
     public BlockGameData blockGame;
 
+    public DataManager dataManager;
     public DeckManager deckManager;
     public ShopManager shopManager;
     public StageManager stageManager;
     public TutorialManager tutorialManager;
-    public DataManager dataManager;
 
     public StageData[] stageTemplates;
     public ItemData[] itemTemplates;
     public BlockData[] blockTemplates;
 
-    const int STAGE_CHOICE_COUNT = 2;
-    private int currentChapterIndex = 1;
-    private int currentStageIndex = 1;
+    public Board board;
+
+    private const int STAGE_CHOICE_COUNT = 2;
     private int CLEAR_CHAPTER = 3;
 
     public List<BlockData> handBlocksData = new List<BlockData>();
@@ -40,27 +40,14 @@ public class GameManager : MonoBehaviour
 
     private int blockId = 0;
 
-    public Board board;
-
-    StageData[] nextStageChoices = new StageData[STAGE_CHOICE_COUNT];
-    float[] difficulties = new float[STAGE_CHOICE_COUNT];
+    private StageData[] nextStageChoices = new StageData[STAGE_CHOICE_COUNT];
+    private float[] difficulties = new float[STAGE_CHOICE_COUNT];
 
     private List<Match> currentMatches;
     private float scoreAnimationDelay;  // 블록 점수 간의 딜레이
     private float scoreDelayedTime;     // 점수 계산하는데 걸린 시간
 
     [SerializeField] private bool isTutorial = true;
-
-    public struct History
-    {
-        public float startTime;
-        public int[] blockHistory;
-        public int rerollCount;
-        public int itemPurchaseCount;
-        public int maxScore;
-    }
-
-    private History history;
 
     bool isClearStage = false; // 중복 방지 플래그
 
@@ -90,6 +77,20 @@ public class GameManager : MonoBehaviour
             SceneTransitionManager.instance.TransitionToScene("NewLogoScene");
         }
     }
+
+    // ------------------------------------
+    // TEST
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            dataManager.SaveGameData(gameData);
+            dataManager.SaveRunData(runData);
+        }
+    }
+
+    // ------------------------------------
 
     void LoadTemplates()
     {
@@ -133,6 +134,7 @@ public class GameManager : MonoBehaviour
     {
         if (scene.name == "VerticalGameScene" || scene.name == "HorizontalGameScene")
         {
+            dataManager = FindObjectOfType<DataManager>();
             deckManager = FindObjectOfType<DeckManager>();
             shopManager = FindObjectOfType<ShopManager>();
             stageManager = FindObjectOfType<StageManager>();
@@ -165,13 +167,10 @@ public class GameManager : MonoBehaviour
 
     public void StartNewGame()
     {
-        // 각종 초기화
+        /*// 각종 초기화
         Debug.Log("Game Start");
 
         CLEAR_CHAPTER = 3;
-
-        currentChapterIndex = 1;
-        currentStageIndex = 1;
 
         gameData = new GameData();
         gameData.Initialize();
@@ -187,57 +186,66 @@ public class GameManager : MonoBehaviour
                 gameData.defaultBlocks.Add(blockData);
             }
         }
-        InitializeHistory();
         scoreAnimationDelay = 0.01f;
         scoreDelayedTime = 0f;
         currentMatches = new List<Match>();
 
-        StartNewRun();
+        StartNewRun();*/
+
+        ContinueGame();
     }
 
     public void ContinueGame()
     {
         gameData = dataManager.LoadGameData();
-        runData = dataManager.LoadRunData();
+        runData = dataManager.LoadRunData(gameData);
 
         CLEAR_CHAPTER = 3;
 
-        //currentChapterIndex = 1;
-        //currentStageIndex = 1;
+        foreach (BlockData blockData in blockTemplates)
+        {
+            if (Enums.IsSpecialBlockType(blockData.type))
+            {
+                continue;
+            }
+            for (int i = 0; i < gameData.defaultBlockCount; i++)
+            {
+                gameData.defaultBlocks.Add(blockData);
+            }
+        }
+
+        InitializeHistory();
 
         scoreAnimationDelay = 0.01f;
         scoreDelayedTime = 0f;
         currentMatches = new List<Match>();
 
-
         CellEffectManager.instance.Initialize();
         EffectManager.instance.Initialize(ref runData);
 
         stageManager.Initialize(ref runData);
-
         shopManager.Initialize(ref runData, itemTemplates);
 
         UpdateDeckCount(runData.availableBlocks.Count, runData.availableBlocks.Count);
 
         GameUIManager.instance.Initialize(runData);
 
-        // Need to Modify
-        //StartStageSelection();
+        StartStageSelection();
     }
 
     public void InitializeHistory()
     {
-        history.startTime = Time.time;
-        history.blockHistory = new int[Enum.GetNames(typeof(BlockType)).Length];
-        history.rerollCount = 0;
-        history.itemPurchaseCount = 0;
-        history.maxScore = 0;
+        runData.history.startTime = Time.time;
+        runData.history.blockHistory = new int[Enum.GetNames(typeof(BlockType)).Length];
+        runData.history.rerollCount = 0;
+        runData.history.itemPurchaseCount = 0;
+        runData.history.maxScore = 0;
     }
     
     public void EndGame(bool isWin)
     {
-        BlockType mostPlacedBlockType = (BlockType)history.blockHistory.ToList().IndexOf(history.blockHistory.Max());
-        GameUIManager.instance.OnGameEnd(isWin, currentChapterIndex, currentStageIndex, history, mostPlacedBlockType);
+        BlockType mostPlacedBlockType = (BlockType)runData.history.blockHistory.ToList().IndexOf(runData.history.blockHistory.Max());
+        GameUIManager.instance.OnGameEnd(isWin, runData.currentChapterIndex, runData.currentStageIndex, runData.history, mostPlacedBlockType);
     }
 
     public void InfiniteMode()
@@ -282,7 +290,8 @@ public class GameManager : MonoBehaviour
         runData = new RunData();
         runData.Initialize(gameData);
 
-        
+        InitializeHistory();
+
         CellEffectManager.instance.Initialize();
         EffectManager.instance.Initialize(ref runData);
 
@@ -300,11 +309,11 @@ public class GameManager : MonoBehaviour
     public void OnRunInfoRequested()
     {
         // 최대로 사용된 블록 찾기
-        int maxCount = history.blockHistory.Max();
-        BlockType? mostPlacedBlockType =  maxCount > 0 ? (BlockType)history.blockHistory.ToList().IndexOf(maxCount) : null;
+        int maxCount = runData.history.blockHistory.Max();
+        BlockType? mostPlacedBlockType =  maxCount > 0 ? (BlockType)runData.history.blockHistory.ToList().IndexOf(maxCount) : null;
 
         // Run 정보 UI 열기
-        GameUIManager.instance.OnRunInfoCallback(runData, history.startTime, mostPlacedBlockType);
+        GameUIManager.instance.OnRunInfoCallback(runData, runData.history.startTime, mostPlacedBlockType);
     }
 
     public void OnDeckInfoRequested()
@@ -334,7 +343,7 @@ public class GameManager : MonoBehaviour
     public void StartStageSelection()
     {
         // stage Template에서 stagetype이 맞는 것을 랜덤하게 추출
-        StageType stageType = currentStageIndex == 3 ? StageType.BOSS : StageType.NORMAL;
+        StageType stageType = runData.currentStageIndex == 3 ? StageType.BOSS : StageType.NORMAL;
         var templates = stageTemplates.Where(stage => stage.type == stageType).ToArray();
         
         // 사용할 인덱스들을 미리 섞어서 준비
@@ -372,19 +381,19 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < nextStageChoices.Length; i++)
         {
             StageData stage = nextStageChoices[i];
-            if (currentChapterIndex <= 8)
+            if (runData.currentChapterIndex <= 8)
             {
-                stage.clearRequirement = (int)(gameData.stageBaseScoreList[currentChapterIndex - 1] * (gameData.stageScoreMultiplier[currentStageIndex - 1] + stage.baseScoreMultiplier));
+                stage.clearRequirement = (int)(gameData.stageBaseScoreList[runData.currentChapterIndex - 1] * (gameData.stageScoreMultiplier[runData.currentStageIndex - 1] + stage.baseScoreMultiplier));
             }
             else
             {
-                stage.clearRequirement = (int)(gameData.stageBaseScoreList[gameData.stageBaseScoreList.Count - 1] * Mathf.Pow(2f, 3 * (currentChapterIndex - 9) + currentStageIndex + 2) * (gameData.stageScoreMultiplier[currentStageIndex - 1] + stage.baseScoreMultiplier));
+                stage.clearRequirement = (int)(gameData.stageBaseScoreList[gameData.stageBaseScoreList.Count - 1] * Mathf.Pow(2f, 3 * (runData.currentChapterIndex - 9) + runData.currentStageIndex + 2) * (gameData.stageScoreMultiplier[runData.currentStageIndex - 1] + stage.baseScoreMultiplier));
             }
-            stage.goldReward = 5 + (int)MathF.Pow(currentChapterIndex + 2, 0.5f) * 3 + Random.Range(0, 2);
+            stage.goldReward = 5 + (int)MathF.Pow(runData.currentChapterIndex + 2, 0.5f) * 3 + Random.Range(0, 2);
         }
 
         // UI에 전달
-        GameUIManager.instance.OnStageSelection(nextStageChoices, currentChapterIndex, currentStageIndex);
+        GameUIManager.instance.OnStageSelection(nextStageChoices, runData.currentChapterIndex, runData.currentStageIndex);
     }
 
     public void OnStageSelection(int choiceIndex)
@@ -393,7 +402,7 @@ public class GameManager : MonoBehaviour
         StageData selectedStage = nextStageChoices[choiceIndex];
 
         StartStage(selectedStage);
-        GameUIManager.instance.OnStageStart(currentChapterIndex, currentStageIndex, selectedStage, blockGame);
+        GameUIManager.instance.OnStageStart(runData.currentChapterIndex, runData.currentStageIndex, selectedStage, blockGame);
         GameUIManager.instance.BlockCells(blockGame.inactiveCells);
     }
 
@@ -457,7 +466,7 @@ public class GameManager : MonoBehaviour
     {
         if (cleared)
         {
-            if (currentChapterIndex == CLEAR_CHAPTER && stageManager.currentStage.type == StageType.BOSS)
+            if (runData.currentChapterIndex == CLEAR_CHAPTER && stageManager.currentStage.type == StageType.BOSS)
             {
                 EndGame(true);
             }
@@ -470,13 +479,13 @@ public class GameManager : MonoBehaviour
                 stageManager.GrantReward();
                 if (stageManager.currentStage.type == StageType.BOSS)
                 {
-                    currentChapterIndex++;
-                    currentStageIndex = 1;
+                    runData.currentChapterIndex++;
+                    runData.currentStageIndex = 1;
                     
                 }
                 else 
                 {
-                    currentStageIndex++;
+                    runData.currentStageIndex++;
                 }
                 StartShop(true);
 
@@ -510,9 +519,9 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         // 튜토리얼 진행 시 호출
-        if (currentChapterIndex == 1 &&
-            (currentStageIndex == 2 ||
-             currentStageIndex == 3))
+        if (runData.currentChapterIndex == 1 &&
+            (runData.currentStageIndex == 2 ||
+             runData.currentStageIndex == 3))
         {
             ProcessTutorialStep("EndStage");
         }
@@ -534,7 +543,7 @@ public class GameManager : MonoBehaviour
             }
         }
         if (isFirst) shopManager.InitializeRerollCost();
-        GameUIManager.instance.OnShopStart(shopItems, shopManager.currentRerollCost, currentChapterIndex, currentStageIndex, isFirst);   
+        GameUIManager.instance.OnShopStart(shopItems, shopManager.currentRerollCost, runData.currentChapterIndex, runData.currentStageIndex, isFirst);   
     }
 
     public void OnItemDiscard(int index)
@@ -564,7 +573,7 @@ public class GameManager : MonoBehaviour
             shopItems[index] = null;
             GameUIManager.instance.DisplayItemSet(runData.activeItems, runData.maxItemCount);
 
-            history.itemPurchaseCount++;  // 아이템 히스토리 업데이트
+            runData.history.itemPurchaseCount++;  // 아이템 히스토리 업데이트
         }
         else
         {
@@ -734,7 +743,7 @@ public class GameManager : MonoBehaviour
 
             DrawBlocks();
 
-            history.rerollCount++;    // 리롤 히스토리 업데이트
+            runData.history.rerollCount++;    // 리롤 히스토리 업데이트
         }
         EffectManager.instance.EndTriggerEffect();
     }
@@ -886,7 +895,7 @@ public class GameManager : MonoBehaviour
         Block block = handBlocks[idx];
         bool success = board.PlaceBlock(block, pos);
         if (success) {
-            history.blockHistory[(int)handBlocksData[idx].type]++;  // 블록 히스토리 업데이트
+            runData.history.blockHistory[(int)handBlocksData[idx].type]++;  // 블록 히스토리 업데이트
 
             // 손에서 블록 제거
             handBlocks[idx] = null;
@@ -905,9 +914,9 @@ public class GameManager : MonoBehaviour
             if (!isClearStage && stageManager.CheckStageClear(blockGame))
             {
                 isClearStage = true;
-                if (blockGame.currentScore >= history.maxScore)
+                if (blockGame.currentScore >= runData.history.maxScore)
                 {
-                    history.maxScore = blockGame.currentScore;
+                    runData.history.maxScore = blockGame.currentScore;
                 }
                 StartCoroutine(DelayedEndStage(true));
             }

@@ -1,37 +1,79 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class DataManager : MonoBehaviour
 {
-    string savedRunData;
-    string savedGameData;
+    private string path;
 
-    public void SaveRunData(RunData runData, int chapterIndex, int stageIndex)
+    private void Awake()
     {
-        // Add chapterIndex, stageIndex to RunData
-        // Add history to RunData
+        path = Application.dataPath + "/Data/";
     }
 
     public void SaveGameData(GameData gameData)
     {
+        string savedJson = JsonUtility.ToJson(gameData, true);
+        string dataPath = Path.Combine(path, "GameData.json");
+        File.WriteAllText(dataPath, savedJson);
 
+        Debug.Log("Finish Saving GameData");
     }
 
-    public RunData LoadRunData()
+    public void SaveRunData(RunData runData)
     {
-        RunData loadedRunData = JsonUtility.FromJson<RunData>(savedRunData);
+        string savedJson = JsonUtility.ToJson(runData, true);
+        string dataPath = Path.Combine(path, "RunData.json");
+        File.WriteAllText(dataPath, savedJson);
 
-
-        return loadedRunData;
+        Debug.Log("Finish Saving RunData");
     }
+
 
     public GameData LoadGameData()
     {
-        GameData loadedGameData = JsonUtility.FromJson<GameData>(savedGameData);
+        string dataPath = Path.Combine(path, "GameData.json");
+        if (!File.Exists(dataPath))
+        {
+            Debug.Log("There doesn't exist Game Data");
+            //return null;
+        }
+        
+        //string loadedJson = File.ReadAllText(dataPath);
+        //GameData gameData = JsonUtility.FromJson<GameData>(loadedJson);
 
+        // ---------------------------------
+        // TEST
 
-        return loadedGameData;
+        GameData gameData = new GameData();
+        gameData.Initialize();
+
+        // ---------------------------------
+
+        return gameData;
     }
 
+    public RunData LoadRunData(GameData gameData)
+    {
+        string dataPath = Path.Combine(path, "RunData.json");
+        if (!File.Exists(dataPath))
+        {
+            Debug.Log("There doesn't exist Run Data");
+            //return null;
+        }
+
+        //string loadedJson = File.ReadAllText(dataPath);
+        //RunData runData = JsonUtility.FromJson<RunData>(loadedJson);
+
+        // ---------------------------------
+        // TEST
+
+        RunData runData = new RunData();
+        runData.Initialize(gameData);
+
+        // ---------------------------------
+
+        return runData;
+    }
 }

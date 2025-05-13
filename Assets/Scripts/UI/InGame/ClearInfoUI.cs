@@ -36,7 +36,7 @@ public class ClearInfoUI : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
     }
 
-    public void Initialize(bool isCleared, int currentChapterIndex, int currentStageIndex, GameManager.History history, BlockType mostPlacedBlockType)
+    public void Initialize(bool isCleared, int currentChapterIndex, int currentStageIndex, RunData.History history, BlockType mostPlacedBlockType)
     {
         gameObject.SetActive(true);
         float elapsedTime = Time.time - history.startTime;

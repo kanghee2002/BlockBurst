@@ -198,9 +198,6 @@ public class GameManager : MonoBehaviour
     public void ContinueGame()
     {
         gameData = dataManager.LoadGameData();
-        runData = dataManager.LoadRunData(gameData);
-
-        CLEAR_CHAPTER = 3;
 
         foreach (BlockData blockData in blockTemplates)
         {
@@ -213,6 +210,9 @@ public class GameManager : MonoBehaviour
                 gameData.defaultBlocks.Add(blockData);
             }
         }
+        runData = dataManager.LoadRunData(gameData);
+
+        CLEAR_CHAPTER = 3;
 
         InitializeHistory();
 

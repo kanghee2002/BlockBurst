@@ -23,7 +23,6 @@ public class RunData
     public List<ItemData> activeItems;                          // 활성화된 아이템들
     public List<ItemData> activeBoosts;                         // 활성화된 부스트들
     public List<EffectData> activeEffects;                      // 활성화된 효과들
-    public Dictionary<BlockType, int> blockReuses;              // 블록별 재사용 횟수
     public int gold;                                            // 현재 보유 골드
     public int baseRerollCount;                                 // 기본 리롤 횟수
     public int maxItemCount;                                    // 소지 가능 아이템 수
@@ -34,7 +33,6 @@ public class RunData
     public int shopRerollCostGrowth;                            // 상점 리롤 비용 증가값
     public Dictionary<ItemType, int> shopItemCounts;            // 상점에 등장하는 아이템 가짓수
     public Dictionary<ItemRarity, int> itemRarityWeights;       // 상점 희귀도 등급
-
 
     public void Initialize(GameData gameData)
     {
@@ -47,7 +45,6 @@ public class RunData
         activeItems = new List<ItemData>();
         activeBoosts = new List<ItemData>();
         activeEffects = new List<EffectData>();
-        blockReuses = new Dictionary<BlockType, int>();
         gold = gameData.startingGold;
         baseRerollCount = gameData.defaultRerollCount;
         maxItemCount = gameData.maxItemCount;

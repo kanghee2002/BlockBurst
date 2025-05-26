@@ -51,7 +51,8 @@ public class DataManager : MonoBehaviour
         }
 
         string jsonData = JsonUtility.ToJson(runData, true);
-        string dataPath = Path.Combine(path, "RunData.json");
+        string dataPath = Path.Combine(path, "RunData/");
+        dataPath = Path.Combine(dataPath, "RunData.json");
         File.WriteAllText(dataPath, jsonData);
 
         Debug.Log("Finish Saving RunData");
@@ -83,7 +84,8 @@ public class DataManager : MonoBehaviour
 
     public RunData LoadRunData(GameData gameData)
     {
-        string dataPath = Path.Combine(path, "RunData.json");
+        string dataPath = Path.Combine(path, "RunData/");
+        dataPath = Path.Combine(dataPath, "RunData.json");
         if (!File.Exists(dataPath))
         {
             Debug.Log("There doesn't exist Run Data");
@@ -113,19 +115,19 @@ public class DataManager : MonoBehaviour
         {
             if (keyType == typeof(BlockType))
             {
-                SaveDictionaryData(dictionary as Dictionary<BlockType, int>);
+                SaveDictionaryData(dictionary as Dictionary<BlockType, int>, "RunData/");
             }
             else if (keyType == typeof(MatchType))
             {
-                SaveDictionaryData(dictionary as Dictionary<MatchType, int>);
+                SaveDictionaryData(dictionary as Dictionary<MatchType, int>, "RunData/");
             }
             else if (keyType == typeof(ItemType))
             {
-                SaveDictionaryData(dictionary as Dictionary<ItemType, int>);
+                SaveDictionaryData(dictionary as Dictionary<ItemType, int>, "RunData/");
             }
             else if (keyType == typeof(ItemRarity))
             {
-                SaveDictionaryData(dictionary as Dictionary<ItemRarity, int>);
+                SaveDictionaryData(dictionary as Dictionary<ItemRarity, int>, "RunData/");
             }
             else
             {
@@ -157,44 +159,30 @@ public class DataManager : MonoBehaviour
         return dictionaryData;
     }
 
-    private void SaveDictionaryData<TKey, TValue>(Dictionary<TKey, TValue> dictionary)
+    private void SaveDictionaryData<TKey, TValue>(Dictionary<TKey, TValue> dictionary, string additionalPath = "")
     {
         DictionaryData<TKey, TValue> data = ConvertToDictionaryData(dictionary);
         string jsonData = JsonUtility.ToJson(data, true);
-        string dataPath = Path.Combine(path, "dictionary" + dictionaryCount + ".json");
+        string dataPath = Path.Combine(path, additionalPath);
+        dataPath = Path.Combine(dataPath, "dictionary" + dictionaryCount + ".json");
         File.WriteAllText(dataPath, jsonData);
 
         dictionaryCount++;
     }
 
-
-    private (List<TKey>, List<TValue>) SplitDictionaryToLists<TKey, TValue>(Dictionary<TKey, TValue> dictionary)
+    private Dictionary<TKey, TValue> ConvertToDictionary<TKey, TValue>(DictionaryData<TKey, TValue> dictionaryData)
     {
-        List<TKey> keyList = new List<TKey>();
-        List<TValue> valueList = new List<TValue>();
+        Dictionary<TKey, TValue> dictionary = new Dictionary<TKey, TValue>();
 
-        foreach (KeyValuePair<TKey, TValue> kvp in dictionary)
+        if (dictionaryData.keys.Count != dictionaryData.values.Count)
         {
-            keyList.Add(kvp.Key);
-            valueList.Add(kvp.Value);
-        }
-
-        return (keyList, valueList);
-    }
-
-    private Dictionary<TKey, TValue> MergeListsToDictionary<TKey, TValue>(List<TKey> keyList, List<TValue> valueList)
-    {
-        if (keyList.Count != valueList.Count)
-        {
-            Debug.Log("Key and Value Count are different!");
+            Debug.LogError("Dictionary 불러오기 에러: key와 value의 개수가 맞지 않음");
             return null;
         }
 
-        Dictionary<TKey, TValue> dictionary = new Dictionary<TKey, TValue>();
-
-        for (int i = 0; i < keyList.Count; i++)
+        for (int i = 0; i < dictionaryData.keys.Count; i++)
         {
-            dictionary.Add(keyList[i], valueList[i]);
+            dictionary.Add(dictionaryData.keys[i], dictionaryData.values[i]);
         }
 
         return dictionary;

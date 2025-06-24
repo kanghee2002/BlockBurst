@@ -646,7 +646,7 @@ public class GameUIManager : MonoBehaviour
 
     public void ENDSTAGE()
     {
-        GameManager.instance.EndStage(true);
+        GameManager.instance.EndStage();
     }
 
     public void OnGameEnd(bool isCleared, int currentChapterIndex, int currentStageIndex, RunData.History history, BlockType mostPlacedBlockType)

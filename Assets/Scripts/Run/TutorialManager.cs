@@ -89,7 +89,7 @@ public class TutorialManager : MonoBehaviour
 
         List<string> firstShopItems = new List<string>()
         {
-            "TwoClock",
+            "EggJ",
             "RedEgg",
             "GrayCube",
             "BlockIOGoldUpgrade",

@@ -11934,11 +11934,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   applicationType: 1
+  playerData: {fileID: 0}
+  dataManager: {fileID: 0}
   deckManager: {fileID: 0}
   shopManager: {fileID: 0}
   stageManager: {fileID: 0}
   tutorialManager: {fileID: 0}
-  dataManager: {fileID: 0}
   stageTemplates: []
   itemTemplates: []
   blockTemplates: []
@@ -14225,7 +14226,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1123168499
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15959,8 +15960,8 @@ MonoBehaviour:
   - characterPosition: {x: -160, y: 300}
     highlightRect: {fileID: 1583208970}
     clickableRect: {fileID: 0}
-    description: "'2\uC2DC \uC2DC\uACC4'\uB294 \uC904\uC744 2\uBC88\\n\uC9C0\uC6B8
-      \uB54C\uB9C8\uB2E4 <color=red>+10 \uBC30\uC218</color>\uB97C\\n\uCD94\uAC00\uD569\uB2C8\uB2E4!"
+    description: "'<sprite=4> \uC54C'\uC740 <sprite=4> \uD3EC\uD568\uD574 \uC904\uC744\\n\uC9C0\uC6B8
+      \uB54C\uB9C8\uB2E4 <color=red>+8 \uBC30\uC218</color>\uB97C\\n\uCD94\uAC00\uD569\uB2C8\uB2E4!"
     isNextButtonInactive: 0
     isInactive: 0
     highlightDelay: 0

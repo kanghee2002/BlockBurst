@@ -134,6 +134,11 @@ public enum ItemRarity
     COMMON, RARE, EPIC, LEGENDARY
 }
 
+public enum DeckType
+{
+    Default, Window, 
+}
+
 public class Enums
 {
     public static bool IsDefaultBlockType(BlockType blockType)

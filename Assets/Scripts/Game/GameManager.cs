@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
 
     public ApplicationType applicationType;
 
+    public PlayerData playerData;
     public GameData gameData;
     public RunData runData;
     public BlockGameData blockGame;
@@ -67,6 +68,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        LoadPlayerData();
         LoadTemplates();
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 120; // for mobile build
@@ -85,14 +87,14 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            dataManager.SaveGameData(gameData);
-            dataManager.SaveRunData(runData);
+
+            //dataManager.SaveRunData(runData);
         }
     }
 
     // ------------------------------------
 
-    void LoadTemplates()
+    private void LoadTemplates()
     {
         // 경로에서 scriptable objects를 로드
         stageTemplates = Resources.LoadAll<StageData>("ScriptableObjects/Stage");
@@ -100,7 +102,19 @@ public class GameManager : MonoBehaviour
         blockTemplates = Resources.LoadAll<BlockData>("ScriptableObjects/Block");
     }
 
-    void SetApplicationType()
+    private void LoadPlayerData()
+    {
+        playerData = DataManager.instance.LoadPlayerData();
+
+        if (playerData == null)
+        {
+            playerData = new PlayerData();
+
+            DataManager.instance.SavePlayerData(playerData);
+        }
+    }
+
+    private void SetApplicationType()
     {
         if (Application.platform == RuntimePlatform.WindowsEditor ||
             Application.platform == RuntimePlatform.OSXEditor)
@@ -167,7 +181,7 @@ public class GameManager : MonoBehaviour
 
     public void StartNewGame()
     {
-        /*// 각종 초기화
+        // 각종 초기화
         Debug.Log("Game Start");
 
         CLEAR_CHAPTER = 3;
@@ -190,15 +204,13 @@ public class GameManager : MonoBehaviour
         scoreDelayedTime = 0f;
         currentMatches = new List<Match>();
 
-        StartNewRun();*/
-
-        ContinueGame();
+        StartNewRun();
+        
+        //ContinueGame();
     }
 
     public void ContinueGame()
     {
-        gameData = dataManager.LoadGameData();
-
         foreach (BlockData blockData in blockTemplates)
         {
             if (Enums.IsSpecialBlockType(blockData.type))
@@ -251,7 +263,7 @@ public class GameManager : MonoBehaviour
     public void InfiniteMode()
     {
         CLEAR_CHAPTER = -1;
-        EndStage(true);
+        EndStage();
     }
 
     public void BackToMain()
@@ -462,49 +474,43 @@ public class GameManager : MonoBehaviour
         isClearStage = false;
     }
 
-    public void EndStage(bool cleared)
+    public void EndStage()
     {
-        if (cleared)
+        DataManager.instance.SavePlayerData(playerData);
+
+        if (runData.currentChapterIndex == CLEAR_CHAPTER && stageManager.currentStage.type == StageType.BOSS)
         {
-            if (runData.currentChapterIndex == CLEAR_CHAPTER && stageManager.currentStage.type == StageType.BOSS)
-            {
-                EndGame(true);
-            }
-            else
-            {
-                EffectManager.instance.TriggerEffects(TriggerType.ON_END_STAGE);
-
-                EffectManager.instance.EndTriggerEffect();
-
-                stageManager.GrantReward();
-                if (stageManager.currentStage.type == StageType.BOSS)
-                {
-                    runData.currentChapterIndex++;
-                    runData.currentStageIndex = 1;
-                    
-                }
-                else 
-                {
-                    runData.currentStageIndex++;
-                }
-                StartShop(true);
-
-                // 게임 관련 UI 초기화
-                UpdateDeckCount(runData.availableBlocks.Count, runData.availableBlocks.Count);
-                UpdateBaseMultiplier();
-
-                GameUIManager.instance.StopAllItemShakeAnimation();
-                GameUIManager.instance.StopWarningStageEffectAnimation(true);
-                GameUIManager.instance.StopWarningStageEffectAnimation(false);
-            }
-        } 
-        else 
+            EndGame(true);
+        }
+        else
         {
-            EndGame(false);
+            EffectManager.instance.TriggerEffects(TriggerType.ON_END_STAGE);
+
+            EffectManager.instance.EndTriggerEffect();
+
+            stageManager.GrantReward();
+            if (stageManager.currentStage.type == StageType.BOSS)
+            {
+                runData.currentChapterIndex++;
+                runData.currentStageIndex = 1;
+            }
+            else 
+            {
+                runData.currentStageIndex++;
+            }
+            StartShop(true);
+
+            // 게임 관련 UI 초기화
+            UpdateDeckCount(runData.availableBlocks.Count, runData.availableBlocks.Count);
+            UpdateBaseMultiplier();
+
+            GameUIManager.instance.StopAllItemShakeAnimation();
+            GameUIManager.instance.StopWarningStageEffectAnimation(true);
+            GameUIManager.instance.StopWarningStageEffectAnimation(false);
         }
     }
 
-    IEnumerator DelayedEndStage(bool cleared)
+    IEnumerator DelayedEndStage()
     {
         yield return new WaitForSeconds(1.5f);
 
@@ -514,7 +520,7 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(1.5f);
 
-        EndStage(cleared);
+        EndStage();
 
         yield return new WaitForSeconds(0.5f);
 
@@ -573,6 +579,7 @@ public class GameManager : MonoBehaviour
             shopItems[index] = null;
             GameUIManager.instance.DisplayItemSet(runData.activeItems, runData.maxItemCount);
 
+            playerData.UpdateItemPurchaseCount();
             runData.history.itemPurchaseCount++;  // 아이템 히스토리 업데이트
         }
         else
@@ -743,6 +750,7 @@ public class GameManager : MonoBehaviour
 
             DrawBlocks();
 
+            playerData.UpdateRerollCount();
             runData.history.rerollCount++;    // 리롤 히스토리 업데이트
         }
         EffectManager.instance.EndTriggerEffect();
@@ -895,8 +903,10 @@ public class GameManager : MonoBehaviour
         Block block = handBlocks[idx];
         bool success = board.PlaceBlock(block, pos);
         if (success) {
+            playerData.UpdateBlockPlaceCount(block);
             runData.history.blockHistory[(int)handBlocksData[idx].type]++;  // 블록 히스토리 업데이트
-
+            // 해금 확인 함수
+            
             // 손에서 블록 제거
             handBlocks[idx] = null;
             handBlocksData[idx] = null;
@@ -916,9 +926,10 @@ public class GameManager : MonoBehaviour
                 isClearStage = true;
                 if (blockGame.currentScore >= runData.history.maxScore)
                 {
+                    playerData.UpdateMaxScore(blockGame.currentScore);
                     runData.history.maxScore = blockGame.currentScore;
                 }
-                StartCoroutine(DelayedEndStage(true));
+                StartCoroutine(DelayedEndStage());
             }
         }
 

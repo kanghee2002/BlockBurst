@@ -15,24 +15,40 @@ public class DataManager : MonoBehaviour
         public List<TValue> values;
     }
 
+    public static DataManager instance = null;
+
     private string path;
     private int dictionaryCount;
 
+    private PlayerData playerData;
+
     private void Awake()
     {
+        // singleton
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+
         path = Application.dataPath + "/Data/";
-        dictionaryCount = 0;
+
+
     }
 
-    public void SaveGameData(GameData gameData)
+    // 해금, 통계
+    public void SavePlayerData(PlayerData playerData)
     {
-        string savedJson = JsonUtility.ToJson(gameData, true);
-        string dataPath = Path.Combine(path, "GameData.json");
+        string savedJson = JsonUtility.ToJson(playerData, true);
+        string dataPath = Path.Combine(path, "PlayerData.json");
         File.WriteAllText(dataPath, savedJson);
-
-        Debug.Log("Finish Saving GameData");
     }
 
+    // 이어하기
     public void SaveRunData(RunData runData)
     {
         dictionaryCount = 0;
@@ -58,28 +74,19 @@ public class DataManager : MonoBehaviour
         Debug.Log("Finish Saving RunData");
     }
 
-
-    public GameData LoadGameData()
+    public PlayerData LoadPlayerData()
     {
-        string dataPath = Path.Combine(path, "GameData.json");
+        string dataPath = Path.Combine(path, "PlayerData.json");
         if (!File.Exists(dataPath))
         {
-            Debug.Log("There doesn't exist Game Data");
-            //return null;
+            Debug.Log("There doesn't exist Player Data");
+            return null;
         }
-        
-        //string loadedJson = File.ReadAllText(dataPath);
-        //GameData gameData = JsonUtility.FromJson<GameData>(loadedJson);
 
-        // ---------------------------------
-        // TEST
+        string loadedJson = File.ReadAllText(dataPath);
+        PlayerData playerData = JsonUtility.FromJson<PlayerData>(loadedJson);
 
-        GameData gameData = new GameData();
-        gameData.Initialize();
-
-        // ---------------------------------
-
-        return gameData;
+        return playerData;
     }
 
     public RunData LoadRunData(GameData gameData)

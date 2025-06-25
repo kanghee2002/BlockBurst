@@ -20,8 +20,6 @@ public class DataManager : MonoBehaviour
     private string path;
     private int dictionaryCount;
 
-    private PlayerData playerData;
-
     private void Awake()
     {
         // singleton
@@ -36,8 +34,6 @@ public class DataManager : MonoBehaviour
         }
 
         path = Application.dataPath + "/Data/";
-
-
     }
 
     // 해금, 통계

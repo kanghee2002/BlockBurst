@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
     // GAME LAYER - start
     // ------------------------------
 
-    void Awake()
+    private void Awake()
     {
         // singleton
         if (instance == null)
@@ -69,6 +69,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         LoadPlayerData();
+
         LoadTemplates();
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 120; // for mobile build
@@ -306,10 +307,13 @@ public class GameManager : MonoBehaviour
 
         CellEffectManager.instance.Initialize();
         EffectManager.instance.Initialize(ref runData);
+        UnlockManager.instance.Initialize(playerData);
+
+        ItemData[] unlockedItems = UnlockManager.instance.GetUnlockedItems(itemTemplates);
 
         stageManager.Initialize(ref runData);
 
-        shopManager.Initialize(ref runData, itemTemplates);
+        shopManager.Initialize(ref runData, unlockedItems);
 
         UpdateDeckCount(runData.availableBlocks.Count, runData.availableBlocks.Count);
 
@@ -695,6 +699,19 @@ public class GameManager : MonoBehaviour
     public void ProcessTutorialStep(string sign)
     {
         tutorialManager.ProceedNextStep(sign);
+    }
+
+    public void AddUnlockedItem(string itemID)
+    {
+        ItemData itemData = itemTemplates.FirstOrDefault(item => item.id == itemID);
+        
+        if (itemData == null)
+        {
+            Debug.LogError("추가하려는 해금 아이템이 존재하지 않음: " + itemID);
+            return;
+        }
+
+        shopManager.AddItem(itemData);
     }
 
     // ------------------------------

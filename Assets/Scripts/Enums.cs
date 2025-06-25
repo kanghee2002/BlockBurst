@@ -136,7 +136,7 @@ public enum ItemRarity
 
 public enum DeckType
 {
-    Default, Window, 
+    Window, 
 }
 
 public class Enums

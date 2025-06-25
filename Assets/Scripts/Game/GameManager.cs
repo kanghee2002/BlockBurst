@@ -358,6 +358,15 @@ public class GameManager : MonoBehaviour
 
     public void StartStageSelection()
     {
+        // 상점 아이템을 다시 리스트에 추가
+        foreach (ItemData item in shopItems)
+        {
+            if (item != null)
+            {
+                shopManager.AddItem(item);
+            }
+        }
+
         // stage Template에서 stagetype이 맞는 것을 랜덤하게 추출
         StageType stageType = runData.currentStageIndex == 3 ? StageType.BOSS : StageType.NORMAL;
         var templates = stageTemplates.Where(stage => stage.type == stageType).ToArray();
@@ -561,10 +570,7 @@ public class GameManager : MonoBehaviour
         ItemData soldItem = runData.activeItems[index];
         runData.activeItems.RemoveAt(index);
 
-        if (soldItem.isPurchasableAgain)
-        {
-            shopManager.AddItem(soldItem);
-        }
+        shopManager.AddItem(soldItem);
 
         foreach (EffectData effect in soldItem.effects)
         {

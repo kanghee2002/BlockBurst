@@ -86,7 +86,6 @@ public class ShopManager : MonoBehaviour
             {
                 AddItem(item);
             }
-
             GameManager.instance.UpdateGold(-item.cost);
             ApplyItem(item);
             return runData.gold;

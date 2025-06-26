@@ -23,6 +23,7 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private ItemBoardUI itemBoardUI;
     [SerializeField] private StageSelectionSignboardUI stageSelectionSignboardUI;
     [SerializeField] private StageSelectionBoardUI stageSelectionBoardUI;
+    [SerializeField] private UnlockNotificationUI unlockNotificationUI;
 
     [SerializeField] private RunInfoUI runInfoUI;
     [SerializeField] private OptionUI optionUI;
@@ -663,6 +664,11 @@ public class GameUIManager : MonoBehaviour
     {
         GameManager.instance.InfiniteMode();
         clearInfoUI.CloseClearInfoUI();
+    }
+
+    public void PlayUnlockAnimation(Sprite sprite)
+    {
+        unlockNotificationUI.PlayUnlockAnimation(sprite, currentUIColor);
     }
 
     public void OnBGMVolumeChanged(float value)

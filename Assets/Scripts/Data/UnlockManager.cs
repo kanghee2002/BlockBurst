@@ -59,11 +59,9 @@ public class UnlockManager : MonoBehaviour
         {
             playerData.AddUnlockedItem(wheel);
             
-            // 해금 애니메이션
-
             GameManager.instance.AddUnlockedItem(wheel);
 
-            Debug.Log("아이템 추가!");
+            GameManager.instance.PlayUnlockAnimation(null);
 
             onRerollCountUpdate -= CheckWheelCondtion;
         }

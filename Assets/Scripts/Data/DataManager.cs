@@ -34,6 +34,11 @@ public class DataManager : MonoBehaviour
         }
 
         path = Application.dataPath + "/Data/";
+
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            path = Application.persistentDataPath;
+        }
     }
 
     // 해금, 통계

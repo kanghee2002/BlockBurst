@@ -68,7 +68,6 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        LoadPlayerData();
 
         LoadTemplates();
         QualitySettings.vSyncCount = 0;
@@ -184,6 +183,8 @@ public class GameManager : MonoBehaviour
     {
         // 각종 초기화
         Debug.Log("Game Start");
+
+        LoadPlayerData();
 
         CLEAR_CHAPTER = 3;
 
@@ -718,6 +719,11 @@ public class GameManager : MonoBehaviour
         }
 
         shopManager.AddItem(itemData);
+    }
+
+    public void PlayUnlockAnimation(Sprite sprite)
+    {
+        GameUIManager.instance.PlayUnlockAnimation(sprite);
     }
 
     // ------------------------------

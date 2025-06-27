@@ -857,10 +857,10 @@ public class GameManager : MonoBehaviour
 
     public void PlayItemEffectAnimation(List<string> effectIdList, float matchAnimationTime = 0f)
     {
-        StartCoroutine(ItemEffectAnimationCoriotine(effectIdList, matchAnimationTime));
+        StartCoroutine(ItemEffectAnimationCoroutine(effectIdList, matchAnimationTime));
     }
 
-    private IEnumerator ItemEffectAnimationCoriotine(List<string> effectIdList, float matchAnimationTime)
+    private IEnumerator ItemEffectAnimationCoroutine(List<string> effectIdList, float matchAnimationTime)
     {
         yield return new WaitForSeconds(matchAnimationTime);
 

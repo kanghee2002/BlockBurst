@@ -37,38 +37,27 @@ public class UnlockNotificationUI : MonoBehaviour
         if (!isPlayingAnimation)
         {
             isPlayingAnimation = true;
-            StartCoroutine(UnlockAnimation());
+            StartCoroutine(UnlockAnimationCoroutine());
         }
     }
 
-    private IEnumerator UnlockAnimation()
+    private IEnumerator UnlockAnimationCoroutine()
     {
         while (animationQueue.Count > 0)
         {
             (Sprite sprite, Color uiColor) = animationQueue.Dequeue();
 
-            Sequence shakeSequence = DOTween.Sequence();
-
-            shakeSequence.AppendInterval(animationDelay / 2f);
-            shakeSequence.Append(transform.DOLocalRotate(new Vector3(0, 0, 20), animationDelay / 4f)
-                .SetLoops(2, LoopType.Yoyo)
-                .SetEase(Ease.InOutSine));
-            shakeSequence.Join(transform.DOPunchScale(new Vector3(0.25f, 0.25f, 0.25f), animationDelay / 2f));
-            shakeSequence.Append(transform.DOLocalRotate(new Vector3(0, 0, -20), animationDelay / 4f)
-                .SetLoops(2, LoopType.Yoyo)
-                .SetEase(Ease.InOutSine))
-                .SetAutoKill(false);
 
             OpenUnlockNotificationUI(uiColor);
             yield return new WaitForSeconds(duration);
 
-            shakeSequence.Play();
+            PlayShakeSequence(1f);
             yield return new WaitForSeconds(animationDelay + interval);
 
-            shakeSequence.Restart();
+            PlayShakeSequence(1f);
             yield return new WaitForSeconds(animationDelay + interval);
 
-            shakeSequence.Restart();
+            PlayShakeSequence(1f);
             yield return new WaitForSeconds(animationDelay + interval);
 
             CloseUnlockNotificationUI();
@@ -76,6 +65,28 @@ public class UnlockNotificationUI : MonoBehaviour
         }
 
         isPlayingAnimation = false;
+    }
+
+    private void PlayShakeSequence(float strength)
+    {
+        Sequence shakeSequence = DOTween.Sequence();
+
+        float rotationAmount = 20f;
+        float punchScale = 0.1f;
+
+        rotationAmount *= strength;
+        punchScale *= strength;
+
+        shakeSequence.AppendInterval(animationDelay / 2f);
+        shakeSequence.Append(transform.DOLocalRotate(new Vector3(0, 0, rotationAmount), animationDelay / 4f)
+            .SetLoops(2, LoopType.Yoyo)
+            .SetEase(Ease.InOutSine));
+        shakeSequence.Join(transform.DOPunchScale(Vector3.one * punchScale, animationDelay / 2f));
+        shakeSequence.Append(transform.DOLocalRotate(new Vector3(0, 0, -rotationAmount), animationDelay / 4f)
+            .SetLoops(2, LoopType.Yoyo)
+            .SetEase(Ease.InOutSine));
+
+        shakeSequence.Play();
     }
 
     private void OpenUnlockNotificationUI(Color uiColor)

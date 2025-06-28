@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // ------------------------------------
+    // ------------------------------------------------------------------------
     // TEST
 
     private void Update()
@@ -92,7 +92,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // ------------------------------------
+    public void TEST_BUTTON()
+    {
+        shopManager.AddFirstItem(new List<string>() { "Wheel" });
+    }
+
+    // ------------------------------------------------------------------------
 
     private void LoadTemplates()
     {

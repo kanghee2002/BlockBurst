@@ -37,7 +37,7 @@ public class DataManager : MonoBehaviour
 
         if (Application.platform == RuntimePlatform.Android)
         {
-            path = Application.persistentDataPath;
+            path = Application.persistentDataPath + "/";
         }
     }
 

@@ -680,4 +680,9 @@ public class GameUIManager : MonoBehaviour
     {
         AudioManager.instance.ChangeSFXVolume(value);
     }
+
+    public void TEST_BUTTON()
+    {
+        GameManager.instance.TEST_BUTTON();
+    }
 }

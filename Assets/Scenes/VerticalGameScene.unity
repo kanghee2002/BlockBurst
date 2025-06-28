@@ -9620,7 +9620,7 @@ GameObject:
   - component: {fileID: 758968910}
   - component: {fileID: 758968909}
   m_Layer: 5
-  m_Name: UnlockedImage
+  m_Name: TargetImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12242,7 +12242,7 @@ MonoBehaviour:
     maxMultiplier: 0
     maxBaseRerollCount: 0
     maxGold: 0
-    hasWon: 0
+    winCount: 0
     hasOnlyIO: 0
     hasOnlyZS: 0
     hasOnlyJLT: 0
@@ -15479,11 +15479,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d2aff44813af854d8af359eec82b600, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlockInfos:
-  - targetType: 0
-    targetName: Wheel
-    conditionDescription: 
-    requirement: 0
 --- !u!4 &1179251931
 Transform:
   m_ObjectHideFlags: 0
@@ -25713,7 +25708,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   layout: {fileID: 329922628}
-  unlockedImage: {fileID: 758968909}
+  targetImage: {fileID: 758968909}
 --- !u!1 &2054132478
 GameObject:
   m_ObjectHideFlags: 0

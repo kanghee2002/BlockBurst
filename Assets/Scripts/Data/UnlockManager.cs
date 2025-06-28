@@ -9,25 +9,34 @@ public class UnlockManager : MonoBehaviour
 {
     public static UnlockManager instance = null;
 
-    public Action<int> onIplaceCountUpdate;
-    public Action<int> onOplaceCountUpdate;
-    public Action<int> onZplaceCountUpdate;
-    public Action<int> onSplaceCountUpdate;
-    public Action<int> onJplaceCountUpdate;
-    public Action<int> onLplaceCountUpdate;
-    public Action<int> onTplaceCountUpdate;
+    public Action<int> onPlaceCountIUpdate;
+    public Action<int> onPlaceCountOUpdate;
+    public Action<int> onPlaceCountZUpdate;
+    public Action<int> onPlaceCountSUpdate;
+    public Action<int> onPlaceCountJUpdate;
+    public Action<int> onPlaceCountLUpdate;
+    public Action<int> onPlaceCountTUpdate;
     public Action<int> onRerollCountUpdate;
     public Action<int> onItemPurchaseCountUpdate;
     public Action<int> onMaxScoreUpdate;
     public Action<int> onMaxChapterUpdate;
-    public Action<bool> onHasWonUpdate;
+    public Action<int> onWinCountUpdate;
+    public Action<int> onBoardHalfFullCountUpdate;
+    public Action<int> onIOrerollCountUpdate;
+    public Action<int> onZSrerollCountUpdate;
+    public Action<int> onJLTrerollCountUpdate;
+    public Action<int> onMaxBaseMultiplierUpdate;
+    public Action<int> onMaxMultiplierUpdate;
+    public Action<int> onMaxBaseRerollCountUpdate;
+    public Action<int> onMaxGoldUpdate;
+    public Action<int> onHasOnlyIOUpdate;
+    public Action<int> onHasOnlyZSUpdate;
+    public Action<int> onHasOnlyJLTUpdate;
 
     // 모든 해금 아이템 리스트
     private UnlockInfoList UnlockInfoList;
 
     private PlayerData playerData;
-
-    private const string wheel = "Wheel";
 
     private void Awake()
     {
@@ -43,14 +52,6 @@ public class UnlockManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            GameManager.instance.PlayUnlockAnimation(null);
-        }
-    }
-
     public void Initialize(PlayerData playerData)
     {
         this.playerData = playerData;
@@ -58,41 +59,61 @@ public class UnlockManager : MonoBehaviour
         UnlockInfoList = new UnlockInfoList();
         UnlockInfoList.Initialize();
 
-        foreach (UnlockInfo<int> unlockInfo in UnlockInfoList.intList)
+        // 해금되지 않은 경우만 Action 등록
+        foreach (UnlockInfo unlockInfo in UnlockInfoList.list)
         {
-            SetSubscribe(unlockInfo, true);
-        }
-
-        foreach (UnlockInfo<bool> unlockInfo in UnlockInfoList.boolList)
-        {
-
+            if (unlockInfo.targetType == UnlockTarget.Item &&
+                !playerData.IsItemUnlocked(unlockInfo.targetName))
+            {
+                SetSubscribe(unlockInfo, true);
+            }
+            
+            if (unlockInfo.targetType == UnlockTarget.Deck &&
+                !playerData.IsDeckUnlocked(unlockInfo.targetName))
+            {
+                SetSubscribe(unlockInfo, true);
+            }
         }
     }
 
-    public void SetSubscribe<T>(UnlockInfo<T> unlockInfo, bool isSubscribing)
+    public void SetSubscribe(UnlockInfo unlockInfo, bool isSubscribing)
     {
         switch (unlockInfo.trigger)
         {
+            case UnlockTrigger.IplaceCount:
+                if (isSubscribing) onPlaceCountIUpdate += unlockInfo.condition;
+                else onPlaceCountIUpdate -= unlockInfo.condition;
+                break;
+            case UnlockTrigger.OplaceCount:
+                if (isSubscribing) onPlaceCountOUpdate += unlockInfo.condition;
+                else onPlaceCountOUpdate -= unlockInfo.condition;
+                break;
             case UnlockTrigger.RerollCount:
-                //if (isSubscribing) onRerollCountUpdate += unlockInfo.condition;
+                if (isSubscribing) onRerollCountUpdate += unlockInfo.condition;
+                else onRerollCountUpdate -= unlockInfo.condition;
+                break;
+            case UnlockTrigger.ItemPurchaseCount:
+                if (isSubscribing) onItemPurchaseCountUpdate += unlockInfo.condition;
+                else onItemPurchaseCountUpdate -= unlockInfo.condition;
                 break;
         }
     }
 
-    public void TryUnlock(UnlockTarget unlockTarget, string targetName)
+    public void Unlock(UnlockInfo unlockInfo, string targetName)
     {
         // Unlock
-        if (unlockTarget == UnlockTarget.Item)
+        if (unlockInfo.targetType == UnlockTarget.Item)
         {
             GameManager.instance.AddUnlockedItem(targetName);
         }
-        else if (unlockTarget == UnlockTarget.Deck)
+        else if (unlockInfo.targetType == UnlockTarget.Deck)
         {
-            //
+            //TODO
         }
-        GameManager.instance.PlayUnlockAnimation(null);
 
-        Debug.Log(targetName + " Unlokced!");
+        SetSubscribe(unlockInfo, false);
+        
+        GameManager.instance.PlayUnlockAnimation(unlockInfo);
     }
 
     // 해금된 아이템만 반환
@@ -100,21 +121,26 @@ public class UnlockManager : MonoBehaviour
     {
         ItemData[] unlockedItems = itemTemplats.ToArray();
 
-        List<string> lockedItemIDs = GetLockedItems();
+        List<string> lockedItemIDs = GetLockedTargets();
 
         unlockedItems = unlockedItems.Where(x => !lockedItemIDs.Contains(x.id)).ToArray();
 
         return unlockedItems;
     }
 
-    // 현재 해금되지 않은 아이템 리스트
-    private List<string> GetLockedItems()
+    // 현재 해금되지 않은 목록 반환
+    private List<string> GetLockedTargets()
     {
-        List<string> currentLockedItems = UnlockInfoList.intList.Select(x => x.targetName).ToList();
+        List<string> currentLockedItems = UnlockInfoList.list.Select(x => x.targetName).ToList();
 
         foreach (string itemID in playerData.unlockedItems)
         {
             currentLockedItems.Remove(itemID);
+        }
+
+        foreach (PlayerData.DeckInfo deckInfo in playerData.unlockedDecks)
+        {
+            currentLockedItems.Remove(deckInfo.deckName);
         }
 
         return currentLockedItems;

@@ -3,49 +3,54 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Unity.VisualScripting;
+using System.Linq;
 
-public class UnlockInfo<T>
+public class UnlockInfo
 {
     public UnlockTarget targetType;
     public string targetName;
     public string description;
     public UnlockTrigger trigger;
-    public Action<T> condition;
-    public T requirement;
-    public Func<T, T, bool> comparer;
+    public Action<int> condition;
+    public int requirement;
 
-    public void CheckCondition(T value)
+    public void CheckCondition(int value)
     {
-        Debug.Log("Checking...");
-        if (comparer(value, requirement))
+        Debug.Log("Checking Unlock: " + targetName);
+        if (value >= requirement)
         {
-            UnlockManager.instance.TryUnlock(targetType, targetName);
-
-            //Unbind();
+            UnlockManager.instance.Unlock(this, targetName);
         }
     }
 }
 
 public class UnlockInfoList
 {
-    public List<UnlockInfo<int>> intList { get; private set; }
-    public List<UnlockInfo<bool>> boolList { get; private set; }
+    public List<UnlockInfo> list { get; private set; }
 
     public void Initialize()
     {
-        intList = new List<UnlockInfo<int>>(); 
+        list = new List<UnlockInfo>();
 
-        UnlockInfo<int> wheelInfo = new UnlockInfo<int>();
+        UnlockInfo wheelInfo = new UnlockInfo();
         wheelInfo.targetType = UnlockTarget.Item;
         wheelInfo.targetName = "Wheel";
         wheelInfo.trigger = UnlockTrigger.RerollCount;
         wheelInfo.condition = wheelInfo.CheckCondition;
         wheelInfo.requirement = 3;
         wheelInfo.description = "블록 리롤" + wheelInfo.requirement + "번 하기";
-        wheelInfo.comparer = (value, req) => value >= req;
 
-        UnlockManager.instance.onRerollCountUpdate += wheelInfo.CheckCondition;
+        list.Add(wheelInfo);
 
-        intList.Add(wheelInfo);
+        UnlockInfo puzzlePieceI = new UnlockInfo();
+        puzzlePieceI.targetType = UnlockTarget.Item;
+        puzzlePieceI.targetName = "PuzzlePieceI";
+        puzzlePieceI.trigger = UnlockTrigger.IplaceCount;
+        puzzlePieceI.condition = puzzlePieceI.CheckCondition;
+        puzzlePieceI.requirement = 1;
+        puzzlePieceI.description = "I를" + puzzlePieceI.requirement + "번 배치하기";
+
+        list.Add(puzzlePieceI);
+
     }
 }

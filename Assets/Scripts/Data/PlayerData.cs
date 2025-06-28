@@ -26,56 +26,59 @@ public class PlayerData
     // 저장되는 데이터
     public List<DeckInfo> unlockedDecks;
     public List<string> unlockedItems;
-    public int IplaceCount;
-    public int OplaceCount;
-    public int ZplaceCount;
-    public int SplaceCount;
-    public int JplaceCount;
-    public int LplaceCount;
-    public int TplaceCount;
+    public int placeCountI;
+    public int placeCountO;
+    public int placeCountZ;
+    public int placeCountS;
+    public int placeCountJ;
+    public int placeCountL;
+    public int placeCountT;
     public int rerollCount;
     public int itemPurchaseCount;
     public int maxScore;
     public int maxChapter;
     public int maxStage;
+    public int winCount;
     public int boardHalfFullCount;
-    public int IOrerollCount;
-    public int ZSrerollCount;
-    public int JLTrerollCount;
+    public int rerollCountIO;
+    public int rerollCountZS;
+    public int rerollCountJLT;
     public int maxBaseMultiplier;
     public int maxMultiplier;
     public int maxBaseRerollCount;
     public int maxGold;
-    public bool hasWon;
-    public bool hasOnlyIO;
-    public bool hasOnlyZS;
-    public bool hasOnlyJLT;
+    public int hasOnlyIO;
+    public int hasOnlyZS;
+    public int hasOnlyJLT;
 
     public PlayerData()
     {
         unlockedDecks = new List<DeckInfo>();
         unlockedItems = new List<string>();
-        IplaceCount = 0;
-        OplaceCount = 0;
-        ZplaceCount = 0;
-        SplaceCount = 0;
-        JplaceCount = 0;
-        LplaceCount = 0;
-        TplaceCount = 0;
+        placeCountI = 0;
+        placeCountO = 0;
+        placeCountZ = 0;
+        placeCountS = 0;
+        placeCountJ = 0;
+        placeCountL = 0;
+        placeCountT = 0;
         rerollCount = 0;
         itemPurchaseCount = 0;
         maxScore = 0;
         maxChapter = 0;
         maxStage = 0;
+        winCount = 0;
         boardHalfFullCount = 0;
-        IOrerollCount = 0;
-        ZSrerollCount = 0;
-        JLTrerollCount = 0;
+        rerollCountIO = 0;
+        rerollCountZS = 0;
+        rerollCountJLT = 0;
         maxBaseMultiplier = 0;
         maxMultiplier = 0;
         maxBaseRerollCount = 0;
         maxGold = 0;
-        hasWon = false;
+        hasOnlyIO = 0;
+        hasOnlyZS = 0;
+        hasOnlyJLT = 0;
     }
 
     // 덱 해금 추가
@@ -113,6 +116,12 @@ public class PlayerData
         }
     }
 
+    // 아이템 해금 추가
+    public void AddUnlockedItem(string itemID)
+    {
+        unlockedItems.Add(itemID);
+    }
+
     public bool IsDeckUnlocked(string deckName)
     {
         if (unlockedDecks.FindIndex(deck => deck.deckName == deckName) == -1)
@@ -130,61 +139,48 @@ public class PlayerData
         return unlockedItems.Contains(itemName);
     }
 
-    // 아이템 해금 추가
-    public void AddUnlockedItem(string itemID)
-    {
-        unlockedItems.Add(itemID);
-    }
-
     // 데이터 업데이트
     public void UpdateBlockPlaceCount(Block block)
     {
         if (block.Type == BlockType.I)
         {
-            IplaceCount++;
-            UnlockManager.instance.onIplaceCountUpdate?.Invoke(IplaceCount);
+            placeCountI++;
+            UnlockManager.instance.onPlaceCountIUpdate?.Invoke(placeCountI);
         }
         else if (block.Type == BlockType.O)
         {
-            OplaceCount++;
-            UnlockManager.instance.onOplaceCountUpdate?.Invoke(OplaceCount);
+            placeCountO++;
+            UnlockManager.instance.onPlaceCountOUpdate?.Invoke(placeCountO);
         }
         else if (block.Type == BlockType.Z)
         {
-            ZplaceCount++;
-            UnlockManager.instance.onZplaceCountUpdate?.Invoke(ZplaceCount);
+            placeCountZ++;
+            UnlockManager.instance.onPlaceCountZUpdate?.Invoke(placeCountZ);
         }
         else if (block.Type == BlockType.S)
         {
-            SplaceCount++;
-            UnlockManager.instance.onSplaceCountUpdate?.Invoke(SplaceCount);
+            placeCountS++;
+            UnlockManager.instance.onPlaceCountSUpdate?.Invoke(placeCountS);
         }
         else if (block.Type == BlockType.J)
         {
-            JplaceCount++;
-            UnlockManager.instance.onJplaceCountUpdate?.Invoke(JplaceCount);
+            placeCountJ++;
+            UnlockManager.instance.onPlaceCountJUpdate?.Invoke(placeCountJ);
         }
         else if (block.Type == BlockType.L)
         {
-            LplaceCount++;
-            UnlockManager.instance.onLplaceCountUpdate?.Invoke(LplaceCount);
+            placeCountL++;
+            UnlockManager.instance.onPlaceCountLUpdate?.Invoke(placeCountL);
         }
         else if (block.Type == BlockType.T)
         {
-            TplaceCount++;
-            UnlockManager.instance.onTplaceCountUpdate?.Invoke(TplaceCount);
+            placeCountT++;
+            UnlockManager.instance.onPlaceCountTUpdate?.Invoke(placeCountT);
         }
     }
-
     public void UpdateRerollCount()
     {
         rerollCount++;
-
-        if (UnlockManager.instance.onRerollCountUpdate == null)
-        {
-            Debug.Log("NULL!");
-        }
-
         UnlockManager.instance.onRerollCountUpdate?.Invoke(rerollCount);
     }
     public void UpdateItemPurchaseCount()
@@ -203,12 +199,14 @@ public class PlayerData
         maxStage = stage;
         UnlockManager.instance.onMaxChapterUpdate?.Invoke(chapter);
     }
-    public void UpdateHasWon(bool value)
+    public void UpdateWinCount(int value)
     {
-        if (hasWon != value)
-        {
-            UnlockManager.instance.onHasWonUpdate?.Invoke(value);
-        }
-        hasWon = value;
+        winCount++;
+        UnlockManager.instance.onWinCountUpdate?.Invoke(winCount);
+    }
+    public void UpdateBoardHalfFullCount()
+    {
+        boardHalfFullCount++;
+        UnlockManager.instance.onBoardHalfFullCountUpdate?.Invoke(boardHalfFullCount);
     }
 }

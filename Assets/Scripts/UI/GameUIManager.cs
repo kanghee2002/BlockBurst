@@ -666,9 +666,9 @@ public class GameUIManager : MonoBehaviour
         clearInfoUI.CloseClearInfoUI();
     }
 
-    public void PlayUnlockAnimation(Sprite sprite)
+    public void PlayUnlockAnimation(UnlockInfo unlockInfo)
     {
-        unlockNotificationUI.PlayUnlockAnimation(sprite, currentUIColor);
+        unlockNotificationUI.PlayUnlockAnimation(unlockInfo, currentUIColor);
     }
 
     public void OnBGMVolumeChanged(float value)

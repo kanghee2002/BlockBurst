@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // ------------------------------------
+    // ------------------------------------------------------------------------
     // TEST
 
     private void Update()
@@ -92,7 +92,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // ------------------------------------
+    public void TEST_BUTTON()
+    {
+        shopManager.AddFirstItem(new List<string>() { "Wheel" });
+    }
+
+    // ------------------------------------------------------------------------
 
     private void LoadTemplates()
     {
@@ -494,6 +499,8 @@ public class GameManager : MonoBehaviour
 
         if (runData.currentChapterIndex == CLEAR_CHAPTER && stageManager.currentStage.type == StageType.BOSS)
         {
+            playerData.UpdateWinCount();
+
             EndGame(true);
         }
         else
@@ -511,6 +518,12 @@ public class GameManager : MonoBehaviour
             else 
             {
                 runData.currentStageIndex++;
+            }
+            if ((runData.currentChapterIndex > playerData.maxChapter) ||
+                (runData.currentChapterIndex == playerData.maxChapter &&
+                 runData.currentStageIndex > playerData.maxStage))
+            {
+                playerData.UpdateMaxChapterStage(runData.currentChapterIndex, runData.currentStageIndex);
             }
             StartShop(true);
 
@@ -718,12 +731,14 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        playerData.AddUnlockedItem(itemID);
+
         shopManager.AddItem(itemData);
     }
 
-    public void PlayUnlockAnimation(Sprite sprite)
+    public void PlayUnlockAnimation(UnlockInfo unlockInfo)
     {
-        GameUIManager.instance.PlayUnlockAnimation(sprite);
+        GameUIManager.instance.PlayUnlockAnimation(unlockInfo);
     }
 
     // ------------------------------
@@ -934,7 +949,6 @@ public class GameManager : MonoBehaviour
         if (success) {
             playerData.UpdateBlockPlaceCount(block);
             runData.history.blockHistory[(int)handBlocksData[idx].type]++;  // 블록 히스토리 업데이트
-            // 해금 확인 함수
             
             // 손에서 블록 제거
             handBlocks[idx] = null;
@@ -953,9 +967,13 @@ public class GameManager : MonoBehaviour
             if (!isClearStage && stageManager.CheckStageClear(blockGame))
             {
                 isClearStage = true;
-                if (blockGame.currentScore >= runData.history.maxScore)
+                if (blockGame.currentScore >= playerData.maxScore)
                 {
                     playerData.UpdateMaxScore(blockGame.currentScore);
+                }
+
+                if (blockGame.currentScore >= runData.history.maxScore)
+                {
                     runData.history.maxScore = blockGame.currentScore;
                 }
                 StartCoroutine(DelayedEndStage());

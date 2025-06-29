@@ -10,11 +10,15 @@ public class PlayerData
     public struct DeckInfo
     {
         public DeckType deckType;
+        public string deckName;
         public int level;
+
+        public const int MAX_LEVEL = 5;
 
         public DeckInfo(DeckType deckType, int level)
         {
             this.deckType = deckType;
+            this.deckName = deckType.ToString();
             this.level = level;
         }
     }
@@ -22,41 +26,73 @@ public class PlayerData
     // 저장되는 데이터
     public List<DeckInfo> unlockedDecks;
     public List<string> unlockedItems;
-    public int IOplaceCount;
-    public int ZSplaceCount;
-    public int JLTplaceCount;
+    public int placeCountI;
+    public int placeCountO;
+    public int placeCountZ;
+    public int placeCountS;
+    public int placeCountJ;
+    public int placeCountL;
+    public int placeCountT;
     public int rerollCount;
     public int itemPurchaseCount;
     public int maxScore;
-    public bool hasWon;
-
-    private const int MAX_LEVEL = 5;
+    public int maxChapter;
+    public int maxStage;
+    public int winCount;
+    public int rerollCountIO;
+    public int rerollCountZS;
+    public int rerollCountJLT;
+    public int maxBaseMultiplier;
+    public int maxMultiplier;
+    public int maxBaseRerollCount;
+    public int maxGold;
+    public int hasOnlyIO;
+    public int hasOnlyZS;
+    public int hasOnlyJL;
 
     public PlayerData()
     {
         unlockedDecks = new List<DeckInfo>();
         unlockedItems = new List<string>();
-        IOplaceCount = 0;
-        ZSplaceCount = 0;
-        JLTplaceCount = 0;
+        placeCountI = 0;
+        placeCountO = 0;
+        placeCountZ = 0;
+        placeCountS = 0;
+        placeCountJ = 0;
+        placeCountL = 0;
+        placeCountT = 0;
         rerollCount = 0;
         itemPurchaseCount = 0;
         maxScore = 0;
-        hasWon = false;
+        maxChapter = 0;
+        maxStage = 0;
+        winCount = 0;
+        rerollCountIO = 0;
+        rerollCountZS = 0;
+        rerollCountJLT = 0;
+        maxBaseMultiplier = 0;
+        maxMultiplier = 0;
+        maxBaseRerollCount = 0;
+        maxGold = 0;
+        hasOnlyIO = 0;
+        hasOnlyZS = 0;
+        hasOnlyJL = 0;
     }
 
     // 덱 해금 추가
-    public void AddUnlockedDeck(DeckType deckType)
+    public void AddUnlockedDeck(string deckName)
     {
-        int index = unlockedDecks.FindIndex(x => x.deckType == deckType);
+        int index = unlockedDecks.FindIndex(x => x.deckName == deckName);
 
         if (index != -1)
         {
-            Debug.LogError("해금하려는 덱이 이미 존재함: " + deckType); ;
+            Debug.LogError("해금하려는 덱이 이미 존재함: " + deckName); ;
             return;
         }
 
-        unlockedDecks.Add(new DeckInfo(deckType, 1));
+        DeckType deckType = Enums.GetEnumByString<DeckType>(deckName);
+        DeckInfo deckInfo = new DeckInfo(deckType, 1);
+        unlockedDecks.Add(deckInfo);
     }
 
     // 덱 레벨 업데이트
@@ -70,11 +106,11 @@ public class PlayerData
             return;
         }
 
-        DeckInfo deckinfo = unlockedDecks[index];
+        DeckInfo deckInfo = unlockedDecks[index];
         
-        if (deckinfo.level < MAX_LEVEL)
+        if (deckInfo.level < DeckInfo.MAX_LEVEL)
         {
-            deckinfo.level++;
+            deckInfo.level++;
         }
     }
 
@@ -84,26 +120,58 @@ public class PlayerData
         unlockedItems.Add(itemID);
     }
 
-    // 데이터 업데이트
-    public void UpdateBlockPlaceCount(Block block)
+    public bool IsDeckUnlocked(string deckName)
     {
-        if (block.Type == BlockType.I || block.Type == BlockType.O)
+        if (unlockedDecks.FindIndex(deck => deck.deckName == deckName) == -1)
         {
-            IOplaceCount++;
-            UnlockManager.instance.onIOplaceCountUpdate?.Invoke(IOplaceCount);
+            return false;
         }
-        else if (block.Type == BlockType.Z || block.Type == BlockType.S)
+        else
         {
-            ZSplaceCount++;
-            UnlockManager.instance.onZSplaceCountUpdate?.Invoke(ZSplaceCount);
-        }
-        else if (block.Type == BlockType.J || block.Type == BlockType.L || block.Type == BlockType.T)
-        {
-            JLTplaceCount++;
-            UnlockManager.instance.onJLTplaceCountUpdate?.Invoke(JLTplaceCount);
+            return true;
         }
     }
 
+    public bool IsItemUnlocked(string itemName)
+    {
+        return unlockedItems.Contains(itemName);
+    }
+
+    // 데이터 업데이트
+    public void UpdateBlockPlaceCount(Block block)
+    {
+        switch (block.Type)
+        {
+            case BlockType.I:
+                placeCountI++;
+                UnlockManager.instance.onPlaceCountIUpdate?.Invoke(placeCountI);
+                break;
+            case BlockType.O:
+                placeCountO++;
+                UnlockManager.instance.onPlaceCountOUpdate?.Invoke(placeCountO);
+                break;
+            case BlockType.Z:
+                placeCountZ++;
+                UnlockManager.instance.onPlaceCountZUpdate?.Invoke(placeCountZ);
+                break;
+            case BlockType.S:
+                placeCountS++;
+                UnlockManager.instance.onPlaceCountSUpdate?.Invoke(placeCountS);
+                break;
+            case BlockType.J:
+                placeCountJ++;
+                UnlockManager.instance.onPlaceCountJUpdate?.Invoke(placeCountJ);
+                break;
+            case BlockType.L:
+                placeCountL++;
+                UnlockManager.instance.onPlaceCountLUpdate?.Invoke(placeCountL);
+                break;
+            case BlockType.T:
+                placeCountT++;
+                UnlockManager.instance.onPlaceCountTUpdate?.Invoke(placeCountT);
+                break;
+        }
+    }
     public void UpdateRerollCount()
     {
         rerollCount++;
@@ -119,12 +187,72 @@ public class PlayerData
         maxScore = score;
         UnlockManager.instance.onMaxScoreUpdate?.Invoke(maxScore);
     }
-    public void UpdateHasWon(bool value)
+    public void UpdateMaxChapterStage(int chapter, int stage)
     {
-        if (hasWon != value)
+        maxChapter = chapter;
+        maxStage = stage;
+        UnlockManager.instance.onMaxChapterUpdate?.Invoke(chapter);
+    }
+    public void UpdateWinCount()
+    {
+        winCount++;
+        UnlockManager.instance.onWinCountUpdate?.Invoke(winCount);
+    }
+    public void UpdateBlockRerollCount(BlockData block)
+    {
+        switch (block.type)
         {
-            UnlockManager.instance.onHasWonUpdate?.Invoke(value);
+            case BlockType.I:
+            case BlockType.O:
+                rerollCountIO++;
+                UnlockManager.instance.onRerollCountIOUpdate?.Invoke(rerollCountIO);
+                break;
+            case BlockType.Z:
+            case BlockType.S:
+                rerollCountZS++;
+                UnlockManager.instance.onRerollCountZSUpdate?.Invoke(rerollCountZS);
+                break;
+            case BlockType.J:
+            case BlockType.L:
+            case BlockType.T:
+                rerollCountJLT++;
+                UnlockManager.instance.onRerollCountJLTUpdate?.Invoke(rerollCountJLT);
+                break;
         }
-        hasWon = value;
+    }
+    public void UpdateMaxBaseMultiplier(int value)
+    {
+        maxBaseMultiplier = value;
+        UnlockManager.instance.onMaxBaseMultiplierUpdate?.Invoke(maxBaseMultiplier);
+    }
+    public void UpdateMaxMultiplier(int value)
+    {
+        maxMultiplier = value;
+        UnlockManager.instance.onMaxMultiplierUpdate?.Invoke(maxMultiplier);
+    }
+    public void UpdateMaxBaseRerollCount(int value)
+    {
+        maxBaseRerollCount = value;
+        UnlockManager.instance.onMaxBaseRerollCountUpdate?.Invoke(maxBaseRerollCount);
+    }
+    public void UpdateMaxGold(int value)
+    {
+        maxGold = value;
+        UnlockManager.instance.onMaxGoldUpdate?.Invoke(maxGold);
+    }
+    public void UpdateHasOnlyIO()
+    {
+        hasOnlyIO++;
+        UnlockManager.instance.onHasOnlyIOUpdate?.Invoke(hasOnlyIO);
+    }
+    public void UpdateHasOnlyZS()
+    {
+        hasOnlyZS++;
+        UnlockManager.instance.onHasOnlyZSUpdate?.Invoke(hasOnlyZS);
+    }
+    public void UpdateHasOnlyJL()
+    {
+        hasOnlyJL++;
+        UnlockManager.instance.onHasOnlyJLUpdate?.Invoke(hasOnlyJL);
     }
 }

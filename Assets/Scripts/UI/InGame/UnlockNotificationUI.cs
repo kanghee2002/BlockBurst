@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class UnlockNotificationUI : MonoBehaviour
 {
     [SerializeField] private Image layout;
-    [SerializeField] private Image unlockedImage;
+    [SerializeField] private Image targetImage;
 
     private const float windowsInsidePositionX = 150;
     private const float mobileInsidePositionX = 150;
@@ -30,9 +30,9 @@ public class UnlockNotificationUI : MonoBehaviour
     }
 
 
-    public void PlayUnlockAnimation(Sprite sprite, Color uiColor)
+    public void PlayUnlockAnimation(UnlockInfo unlockInfo, Color uiColor)
     {
-        animationQueue.Enqueue((sprite, uiColor));
+        animationQueue.Enqueue((GetSprite(unlockInfo), uiColor));
 
         if (!isPlayingAnimation)
         {
@@ -47,6 +47,9 @@ public class UnlockNotificationUI : MonoBehaviour
         {
             (Sprite sprite, Color uiColor) = animationQueue.Dequeue();
 
+            targetImage.sprite = sprite;
+
+            yield return new WaitForSeconds(0.1f);
 
             OpenUnlockNotificationUI(uiColor);
             yield return new WaitForSeconds(duration);
@@ -91,8 +94,6 @@ public class UnlockNotificationUI : MonoBehaviour
 
     private void OpenUnlockNotificationUI(Color uiColor)
     {
-        gameObject.SetActive(true);
-
         if (GameManager.instance.applicationType == ApplicationType.Windows)
         {
             UIUtils.OpenUI(rectTransform, "X", windowsInsidePositionX, duration);
@@ -117,13 +118,23 @@ public class UnlockNotificationUI : MonoBehaviour
         }
     }
 
+    private Sprite GetSprite(UnlockInfo unlockInfo)
+    {
+        string itemPath = "Sprites/Item/Item/";
+
+        Sprite sprite = null;
+
+        if (unlockInfo.targetType == UnlockTarget.Item)
+        {
+            string path = itemPath + unlockInfo.targetName;
+            sprite = Resources.Load<Sprite>(path);
+        }
+
+        return sprite;
+    }
+
     private void SetLayoutColor(Color uiColor)
     {
         UIUtils.SetImageColorByScalar(layout, uiColor, 1f / 3f);
-    }
-
-    private Sequence GetShakeSequence()
-    {
-        return null;
     }
 }

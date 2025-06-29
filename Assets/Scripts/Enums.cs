@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -136,8 +137,43 @@ public enum ItemRarity
 
 public enum DeckType
 {
-    Window, 
+    Default, YoYo, 
 }
+
+// 해금 관련 -----------------------------------------------------------
+public enum UnlockTarget 
+{
+    Item, Deck 
+};
+
+public enum UnlockTrigger
+{
+    placeCountI,
+    placeCountO,
+    placeCountZ,
+    placeCountS,
+    placeCountJ,
+    placeCountL,
+    placeCountT,
+    RerollCount,
+    ItemPurchaseCount,
+    MaxScore,
+    MaxChapter,
+    HasWon,
+    WinCount,
+    BoardHalfFullCount,
+    RerollCountIO,
+    RerollCountZS,
+    RerollCountJLT,
+    MaxBaseMultiplier,
+    MaxMultiplier,
+    MaxBaseRerollCount,
+    MaxGold,
+    HasOnlyIO,
+    HasOnlyZS,
+    HasOnlyJL,
+}
+// -----------------------------------------------------------------------
 
 public class Enums
 {
@@ -161,5 +197,10 @@ public class Enums
     public static bool IsSpecialBlockType(BlockType blockType)
     {
         return !IsDefaultBlockType(blockType);
+    }
+
+    public static T GetEnumByString<T>(string enumName)
+    {
+        return (T)Enum.Parse(typeof(T), enumName);
     }
 }

@@ -666,9 +666,9 @@ public class GameUIManager : MonoBehaviour
         clearInfoUI.CloseClearInfoUI();
     }
 
-    public void PlayUnlockAnimation(Sprite sprite)
+    public void PlayUnlockAnimation(UnlockInfo unlockInfo)
     {
-        unlockNotificationUI.PlayUnlockAnimation(sprite, currentUIColor);
+        unlockNotificationUI.PlayUnlockAnimation(unlockInfo, currentUIColor);
     }
 
     public void OnBGMVolumeChanged(float value)
@@ -679,5 +679,10 @@ public class GameUIManager : MonoBehaviour
     public void OnSFXVolumeChanged(float value)
     {
         AudioManager.instance.ChangeSFXVolume(value);
+    }
+
+    public void TEST_BUTTON()
+    {
+        GameManager.instance.TEST_BUTTON();
     }
 }

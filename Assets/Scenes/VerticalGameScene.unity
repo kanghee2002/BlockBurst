@@ -12222,27 +12222,27 @@ MonoBehaviour:
   playerData:
     unlockedDecks: []
     unlockedItems: []
-    IplaceCount: 0
-    OplaceCount: 0
-    ZplaceCount: 0
-    SplaceCount: 0
-    JplaceCount: 0
-    LplaceCount: 0
-    TplaceCount: 0
+    placeCountI: 0
+    placeCountO: 0
+    placeCountZ: 0
+    placeCountS: 0
+    placeCountJ: 0
+    placeCountL: 0
+    placeCountT: 0
     rerollCount: 0
     itemPurchaseCount: 0
     maxScore: 0
     maxChapter: 0
     maxStage: 0
+    winCount: 0
     boardHalfFullCount: 0
-    IOrerollCount: 0
-    ZSrerollCount: 0
-    JLTrerollCount: 0
+    rerollCountIO: 0
+    rerollCountZS: 0
+    rerollCountJLT: 0
     maxBaseMultiplier: 0
     maxMultiplier: 0
     maxBaseRerollCount: 0
     maxGold: 0
-    winCount: 0
     hasOnlyIO: 0
     hasOnlyZS: 0
     hasOnlyJLT: 0

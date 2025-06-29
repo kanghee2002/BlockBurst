@@ -499,6 +499,8 @@ public class GameManager : MonoBehaviour
 
         if (runData.currentChapterIndex == CLEAR_CHAPTER && stageManager.currentStage.type == StageType.BOSS)
         {
+            playerData.UpdateWinCount();
+
             EndGame(true);
         }
         else
@@ -516,6 +518,12 @@ public class GameManager : MonoBehaviour
             else 
             {
                 runData.currentStageIndex++;
+            }
+            if ((runData.currentChapterIndex > playerData.maxChapter) ||
+                (runData.currentChapterIndex == playerData.maxChapter &&
+                 runData.currentStageIndex > playerData.maxStage))
+            {
+                playerData.UpdateMaxChapterStage(runData.currentChapterIndex, runData.currentStageIndex);
             }
             StartShop(true);
 
@@ -722,6 +730,8 @@ public class GameManager : MonoBehaviour
             Debug.LogError("추가하려는 해금 아이템이 존재하지 않음: " + itemID);
             return;
         }
+
+        playerData.AddUnlockedItem(itemID);
 
         shopManager.AddItem(itemData);
     }
@@ -957,9 +967,13 @@ public class GameManager : MonoBehaviour
             if (!isClearStage && stageManager.CheckStageClear(blockGame))
             {
                 isClearStage = true;
-                if (blockGame.currentScore >= runData.history.maxScore)
+                if (blockGame.currentScore >= playerData.maxScore)
                 {
                     playerData.UpdateMaxScore(blockGame.currentScore);
+                }
+
+                if (blockGame.currentScore >= runData.history.maxScore)
+                {
                     runData.history.maxScore = blockGame.currentScore;
                 }
                 StartCoroutine(DelayedEndStage());

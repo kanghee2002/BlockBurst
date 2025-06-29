@@ -148,18 +148,30 @@ public enum UnlockTarget
 
 public enum UnlockTrigger
 {
-    IplaceCount,
-    OplaceCount,
-    ZplaceCount,
-    SplaceCount,
-    JplaceCount,
-    LplaceCount,
-    TplaceCount,
+    placeCountI,
+    placeCountO,
+    placeCountZ,
+    placeCountS,
+    placeCountJ,
+    placeCountL,
+    placeCountT,
     RerollCount,
     ItemPurchaseCount,
     MaxScore,
     MaxChapter,
     HasWon,
+    WinCount,
+    BoardHalfFullCount,
+    RerollCountIO,
+    RerollCountZS,
+    RerollCountJLT,
+    MaxBaseMultiplier,
+    MaxMultiplier,
+    MaxBaseRerollCount,
+    MaxGold,
+    HasOnlyIO,
+    HasOnlyZS,
+    HasOnlyJL,
 }
 // -----------------------------------------------------------------------
 

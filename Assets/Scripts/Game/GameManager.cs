@@ -19,7 +19,6 @@ public class GameManager : MonoBehaviour
     public RunData runData;
     public BlockGameData blockGame;
 
-    public DataManager dataManager;
     public DeckManager deckManager;
     public ShopManager shopManager;
     public StageManager stageManager;
@@ -153,7 +152,6 @@ public class GameManager : MonoBehaviour
     {
         if (scene.name == "VerticalGameScene" || scene.name == "HorizontalGameScene")
         {
-            dataManager = FindObjectOfType<DataManager>();
             deckManager = FindObjectOfType<DeckManager>();
             shopManager = FindObjectOfType<ShopManager>();
             stageManager = FindObjectOfType<StageManager>();
@@ -229,7 +227,7 @@ public class GameManager : MonoBehaviour
                 gameData.defaultBlocks.Add(blockData);
             }
         }
-        runData = dataManager.LoadRunData(gameData);
+        runData = DataManager.instance.LoadRunData(gameData);
 
         CLEAR_CHAPTER = 3;
 
@@ -499,9 +497,8 @@ public class GameManager : MonoBehaviour
 
         if (runData.currentChapterIndex == CLEAR_CHAPTER && stageManager.currentStage.type == StageType.BOSS)
         {
-            playerData.UpdateWinCount();
-
             EndGame(true);
+            DataManager.instance.UpdateWinCount();
         }
         else
         {
@@ -519,12 +516,8 @@ public class GameManager : MonoBehaviour
             {
                 runData.currentStageIndex++;
             }
-            if ((runData.currentChapterIndex > playerData.maxChapter) ||
-                (runData.currentChapterIndex == playerData.maxChapter &&
-                 runData.currentStageIndex > playerData.maxStage))
-            {
-                playerData.UpdateMaxChapterStage(runData.currentChapterIndex, runData.currentStageIndex);
-            }
+            DataManager.instance.UpdateMaxChapterStage(runData.currentChapterIndex, runData.currentStageIndex);
+
             StartShop(true);
 
             // 게임 관련 UI 초기화
@@ -603,7 +596,7 @@ public class GameManager : MonoBehaviour
             shopItems[index] = null;
             GameUIManager.instance.DisplayItemSet(runData.activeItems, runData.maxItemCount);
 
-            playerData.UpdateItemPurchaseCount();
+            DataManager.instance.UpdateItemPurchaseCount();
             runData.history.itemPurchaseCount++;  // 아이템 히스토리 업데이트
         }
         else
@@ -647,6 +640,7 @@ public class GameManager : MonoBehaviour
         StartShop();
         shopManager.RerollShop(remains);
         UpdateShopRerollCost(0);
+        DataManager.instance.UpdateShopRerollCount();
     }
 
     public void UpdateShopRerollCost(int addingValue)
@@ -782,19 +776,21 @@ public class GameManager : MonoBehaviour
             {
                 EffectManager.instance.TriggerEffects(TriggerType.ON_REROLL_WITHOUT_PLACE);
             }
+
+            DataManager.instance.UpdateRerollCount();
             EffectManager.instance.TriggerEffects(TriggerType.ON_REROLL);
 
             foreach (BlockData blockData in handBlocksData)
             {
                 if (blockData != null)
                 {
+                    DataManager.instance.UpdateBlockRerollCount(blockData);
                     EffectManager.instance.TriggerEffects(TriggerType.ON_REROLL_SPECIFIC_BLOCK, blockTypes: new BlockType[] { blockData.type });
                 }
             }
 
             DrawBlocks();
 
-            playerData.UpdateRerollCount();
             runData.history.rerollCount++;    // 리롤 히스토리 업데이트
         }
         EffectManager.instance.EndTriggerEffect();
@@ -947,7 +943,6 @@ public class GameManager : MonoBehaviour
         Block block = handBlocks[idx];
         bool success = board.PlaceBlock(block, pos);
         if (success) {
-            playerData.UpdateBlockPlaceCount(block);
             runData.history.blockHistory[(int)handBlocksData[idx].type]++;  // 블록 히스토리 업데이트
             
             // 손에서 블록 제거
@@ -967,17 +962,16 @@ public class GameManager : MonoBehaviour
             if (!isClearStage && stageManager.CheckStageClear(blockGame))
             {
                 isClearStage = true;
-                if (blockGame.currentScore >= playerData.maxScore)
-                {
-                    playerData.UpdateMaxScore(blockGame.currentScore);
-                }
-
                 if (blockGame.currentScore >= runData.history.maxScore)
                 {
                     runData.history.maxScore = blockGame.currentScore;
                 }
                 StartCoroutine(DelayedEndStage());
+
+                DataManager.instance.UpdateMaxScore(blockGame.currentScore);
             }
+
+            DataManager.instance.UpdateBlockPlaceCount(block);
         }
 
         // 손패 다 쓰면 드로우

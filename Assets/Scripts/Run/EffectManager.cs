@@ -320,6 +320,10 @@ public class EffectManager : MonoBehaviour
             default:
                 break;
         }
+        DataManager.instance.UpdateMaxBaseMultiplier(runData.baseMatchMultipliers[matchType]);
+        DataManager.instance.UpdateMaxMultiplier(blockGameData.matchMultipliers[matchType]);
+        DataManager.instance.UpdateMaxBaseRerollCount(runData.baseRerollCount);
+        DataManager.instance.UpdateMaxGold(runData.gold);
     }
 
     private bool IsIncluded(BlockType[] arr1, BlockType[] arr2)

@@ -18,6 +18,7 @@ public class UnlockManager : MonoBehaviour
     public Action<int> onPlaceCountTUpdate;
     public Action<int> onRerollCountUpdate;
     public Action<int> onItemPurchaseCountUpdate;
+    public Action<int> onShopRerollCountUpdate;
     public Action<int> onMaxScoreUpdate;
     public Action<int> onMaxChapterUpdate;
     public Action<int> onWinCountUpdate;
@@ -166,6 +167,10 @@ public class UnlockManager : MonoBehaviour
             case UnlockTrigger.ItemPurchaseCount:
                 if (isSubscribing) onItemPurchaseCountUpdate += unlockInfo.condition;
                 else onItemPurchaseCountUpdate -= unlockInfo.condition;
+                break;
+            case UnlockTrigger.ShopRerollCount:
+                if (isSubscribing) onShopRerollCountUpdate += unlockInfo.condition;
+                else onShopRerollCountUpdate -= unlockInfo.condition;
                 break;
             case UnlockTrigger.MaxScore:
                 if (isSubscribing) onMaxScoreUpdate += unlockInfo.condition;

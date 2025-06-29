@@ -2677,7 +2677,6 @@ RectTransform:
   m_Children:
   - {fileID: 1583208970}
   - {fileID: 231077321}
-  - {fileID: 2034394593}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -10097,6 +10096,7 @@ RectTransform:
   - {fileID: 1019123824}
   - {fileID: 173150844}
   - {fileID: 2023459213}
+  - {fileID: 2034394593}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -12231,11 +12231,11 @@ MonoBehaviour:
     placeCountT: 0
     rerollCount: 0
     itemPurchaseCount: 0
+    shopRerollCount: 0
     maxScore: 0
     maxChapter: 0
     maxStage: 0
     winCount: 0
-    boardHalfFullCount: 0
     rerollCountIO: 0
     rerollCountZS: 0
     rerollCountJLT: 0
@@ -12245,8 +12245,7 @@ MonoBehaviour:
     maxGold: 0
     hasOnlyIO: 0
     hasOnlyZS: 0
-    hasOnlyJLT: 0
-  dataManager: {fileID: 0}
+    hasOnlyJL: 0
   deckManager: {fileID: 0}
   shopManager: {fileID: 0}
   stageManager: {fileID: 0}
@@ -25680,7 +25679,7 @@ RectTransform:
   - {fileID: 329922627}
   - {fileID: 758968908}
   - {fileID: 1722243386}
-  m_Father: {fileID: 178834249}
+  m_Father: {fileID: 798070447}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

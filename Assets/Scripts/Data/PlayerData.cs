@@ -35,6 +35,7 @@ public class PlayerData
     public int placeCountT;
     public int rerollCount;
     public int itemPurchaseCount;
+    public int shopRerollCount;
     public int maxScore;
     public int maxChapter;
     public int maxStage;
@@ -63,9 +64,10 @@ public class PlayerData
         placeCountT = 0;
         rerollCount = 0;
         itemPurchaseCount = 0;
+        shopRerollCount = 0;
         maxScore = 0;
-        maxChapter = 0;
-        maxStage = 0;
+        maxChapter = 1;
+        maxStage = 1;
         winCount = 0;
         rerollCountIO = 0;
         rerollCountZS = 0;
@@ -135,124 +137,5 @@ public class PlayerData
     public bool IsItemUnlocked(string itemName)
     {
         return unlockedItems.Contains(itemName);
-    }
-
-    // 데이터 업데이트
-    public void UpdateBlockPlaceCount(Block block)
-    {
-        switch (block.Type)
-        {
-            case BlockType.I:
-                placeCountI++;
-                UnlockManager.instance.onPlaceCountIUpdate?.Invoke(placeCountI);
-                break;
-            case BlockType.O:
-                placeCountO++;
-                UnlockManager.instance.onPlaceCountOUpdate?.Invoke(placeCountO);
-                break;
-            case BlockType.Z:
-                placeCountZ++;
-                UnlockManager.instance.onPlaceCountZUpdate?.Invoke(placeCountZ);
-                break;
-            case BlockType.S:
-                placeCountS++;
-                UnlockManager.instance.onPlaceCountSUpdate?.Invoke(placeCountS);
-                break;
-            case BlockType.J:
-                placeCountJ++;
-                UnlockManager.instance.onPlaceCountJUpdate?.Invoke(placeCountJ);
-                break;
-            case BlockType.L:
-                placeCountL++;
-                UnlockManager.instance.onPlaceCountLUpdate?.Invoke(placeCountL);
-                break;
-            case BlockType.T:
-                placeCountT++;
-                UnlockManager.instance.onPlaceCountTUpdate?.Invoke(placeCountT);
-                break;
-        }
-    }
-    public void UpdateRerollCount()
-    {
-        rerollCount++;
-        UnlockManager.instance.onRerollCountUpdate?.Invoke(rerollCount);
-    }
-    public void UpdateItemPurchaseCount()
-    {
-        itemPurchaseCount++;
-        UnlockManager.instance.onItemPurchaseCountUpdate?.Invoke(itemPurchaseCount);
-    }
-    public void UpdateMaxScore(int score)
-    {
-        maxScore = score;
-        UnlockManager.instance.onMaxScoreUpdate?.Invoke(maxScore);
-    }
-    public void UpdateMaxChapterStage(int chapter, int stage)
-    {
-        maxChapter = chapter;
-        maxStage = stage;
-        UnlockManager.instance.onMaxChapterUpdate?.Invoke(chapter);
-    }
-    public void UpdateWinCount()
-    {
-        winCount++;
-        UnlockManager.instance.onWinCountUpdate?.Invoke(winCount);
-    }
-    public void UpdateBlockRerollCount(BlockData block)
-    {
-        switch (block.type)
-        {
-            case BlockType.I:
-            case BlockType.O:
-                rerollCountIO++;
-                UnlockManager.instance.onRerollCountIOUpdate?.Invoke(rerollCountIO);
-                break;
-            case BlockType.Z:
-            case BlockType.S:
-                rerollCountZS++;
-                UnlockManager.instance.onRerollCountZSUpdate?.Invoke(rerollCountZS);
-                break;
-            case BlockType.J:
-            case BlockType.L:
-            case BlockType.T:
-                rerollCountJLT++;
-                UnlockManager.instance.onRerollCountJLTUpdate?.Invoke(rerollCountJLT);
-                break;
-        }
-    }
-    public void UpdateMaxBaseMultiplier(int value)
-    {
-        maxBaseMultiplier = value;
-        UnlockManager.instance.onMaxBaseMultiplierUpdate?.Invoke(maxBaseMultiplier);
-    }
-    public void UpdateMaxMultiplier(int value)
-    {
-        maxMultiplier = value;
-        UnlockManager.instance.onMaxMultiplierUpdate?.Invoke(maxMultiplier);
-    }
-    public void UpdateMaxBaseRerollCount(int value)
-    {
-        maxBaseRerollCount = value;
-        UnlockManager.instance.onMaxBaseRerollCountUpdate?.Invoke(maxBaseRerollCount);
-    }
-    public void UpdateMaxGold(int value)
-    {
-        maxGold = value;
-        UnlockManager.instance.onMaxGoldUpdate?.Invoke(maxGold);
-    }
-    public void UpdateHasOnlyIO()
-    {
-        hasOnlyIO++;
-        UnlockManager.instance.onHasOnlyIOUpdate?.Invoke(hasOnlyIO);
-    }
-    public void UpdateHasOnlyZS()
-    {
-        hasOnlyZS++;
-        UnlockManager.instance.onHasOnlyZSUpdate?.Invoke(hasOnlyZS);
-    }
-    public void UpdateHasOnlyJL()
-    {
-        hasOnlyJL++;
-        UnlockManager.instance.onHasOnlyJLUpdate?.Invoke(hasOnlyJL);
     }
 }

@@ -94,11 +94,15 @@ public class DeckManager : MonoBehaviour
     public void RemoveBlockFromRunDeck(BlockData block)
     {
         runData.availableBlocks.Remove(block);
+
+        DataManager.instance.UpdateHasOnlySpecificBlock(runData.availableBlocks);
     }
 
     public void RemoveBlockFromRunDeck(BlockType blockType)
     {
         runData.availableBlocks.Remove(runData.availableBlocks.Find(block => block.type == blockType));
+
+        DataManager.instance.UpdateHasOnlySpecificBlock(runData.availableBlocks);
     }
 
     public bool RemoveRandomBlockFromRunDeck(List<BlockType> exceptionType)
@@ -118,6 +122,8 @@ public class DeckManager : MonoBehaviour
         if (removingIndex == -1) return false;
 
         runData.availableBlocks.RemoveAt(removingIndex);
+
+        DataManager.instance.UpdateHasOnlySpecificBlock(runData.availableBlocks);
 
         return true;
     }

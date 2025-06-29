@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using UnityEngine;
 using System.Reflection;
-using System;
+using UnityEditor.SceneManagement;
+using UnityEngine;
 
 public class DataManager : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class DataManager : MonoBehaviour
 
     private string path;
     private int dictionaryCount;
+
+    private PlayerData playerData;
 
     private void Awake()
     {
@@ -44,6 +47,8 @@ public class DataManager : MonoBehaviour
     // 해금, 통계
     public void SavePlayerData(PlayerData playerData)
     {
+        this.playerData = playerData;
+
         string savedJson = JsonUtility.ToJson(playerData, true);
         string dataPath = Path.Combine(path, "PlayerData.json");
         File.WriteAllText(dataPath, savedJson);
@@ -85,7 +90,7 @@ public class DataManager : MonoBehaviour
         }
 
         string loadedJson = File.ReadAllText(dataPath);
-        PlayerData playerData = JsonUtility.FromJson<PlayerData>(loadedJson);
+        playerData = JsonUtility.FromJson<PlayerData>(loadedJson);
 
         return playerData;
     }
@@ -195,4 +200,153 @@ public class DataManager : MonoBehaviour
 
         return dictionary;
     }
+
+    // 데이터 업데이트 함수 ------------------------------------------------
+    public void UpdateBlockPlaceCount(Block block)
+    {
+        switch (block.Type)
+        {
+            case BlockType.I:
+                playerData.placeCountI++;
+                UnlockManager.instance.onPlaceCountIUpdate?.Invoke(playerData.placeCountI);
+                break;
+            case BlockType.O:
+                playerData.placeCountO++;
+                UnlockManager.instance.onPlaceCountOUpdate?.Invoke(playerData.placeCountO);
+                break;
+            case BlockType.Z:
+                playerData.placeCountZ++;
+                UnlockManager.instance.onPlaceCountZUpdate?.Invoke(playerData.placeCountZ);
+                break;
+            case BlockType.S:
+                playerData.placeCountS++;
+                UnlockManager.instance.onPlaceCountSUpdate?.Invoke(playerData.placeCountS);
+                break;
+            case BlockType.J:
+                playerData.placeCountJ++;
+                UnlockManager.instance.onPlaceCountJUpdate?.Invoke(playerData.placeCountJ);
+                break;
+            case BlockType.L:
+                playerData.placeCountL++;
+                UnlockManager.instance.onPlaceCountLUpdate?.Invoke(playerData.placeCountL);
+                break;
+            case BlockType.T:
+                playerData.placeCountT++;
+                UnlockManager.instance.onPlaceCountTUpdate?.Invoke(playerData.placeCountT);
+                break;
+        }
+    }
+    public void UpdateRerollCount()
+    {
+        playerData.rerollCount++;
+        UnlockManager.instance.onRerollCountUpdate?.Invoke(playerData.rerollCount);
+    }
+    public void UpdateItemPurchaseCount()
+    {
+        playerData.itemPurchaseCount++;
+        UnlockManager.instance.onItemPurchaseCountUpdate?.Invoke(playerData.itemPurchaseCount);
+    }
+    public void UpdateShopRerollCount()
+    {
+        playerData.shopRerollCount++;
+        UnlockManager.instance.onShopRerollCountUpdate?.Invoke(playerData.shopRerollCount);
+    }
+    public void UpdateMaxScore(int score)
+    {
+        if (score > playerData.maxScore)
+        {
+
+            playerData.maxScore = score;
+            UnlockManager.instance.onMaxScoreUpdate?.Invoke(playerData.maxScore);
+        }
+    }
+    public void UpdateMaxChapterStage(int chapter, int stage)
+    {
+        if ((chapter > playerData.maxChapter) ||
+            (chapter == playerData.maxChapter &&
+             stage > playerData.maxStage))
+        {
+            playerData.maxChapter = chapter;
+            playerData.maxStage = stage;
+            UnlockManager.instance.onMaxChapterUpdate?.Invoke(chapter);
+        }
+    }
+    public void UpdateWinCount()
+    {
+        playerData.winCount++;
+        UnlockManager.instance.onWinCountUpdate?.Invoke(playerData.winCount);
+    }
+    public void UpdateBlockRerollCount(BlockData block)
+    {
+        switch (block.type)
+        {
+            case BlockType.I:
+            case BlockType.O:
+                playerData.rerollCountIO++;
+                UnlockManager.instance.onRerollCountIOUpdate?.Invoke(playerData.rerollCountIO);
+                break;
+            case BlockType.Z:
+            case BlockType.S:
+                playerData.rerollCountZS++;
+                UnlockManager.instance.onRerollCountZSUpdate?.Invoke(playerData.rerollCountZS);
+                break;
+            case BlockType.J:
+            case BlockType.L:
+            case BlockType.T:
+                playerData.rerollCountJLT++;
+                UnlockManager.instance.onRerollCountJLTUpdate?.Invoke(playerData.rerollCountJLT);
+                break;
+        }
+    }
+    public void UpdateMaxBaseMultiplier(int value)
+    {
+        if (value > playerData.maxBaseMultiplier)
+        {
+            playerData.maxBaseMultiplier = value;
+            UnlockManager.instance.onMaxBaseMultiplierUpdate?.Invoke(playerData.maxBaseMultiplier);
+        }
+    }
+    public void UpdateMaxMultiplier(int value)
+    {
+        if (value > playerData.maxMultiplier)
+        {
+            playerData.maxMultiplier = value;
+            UnlockManager.instance.onMaxMultiplierUpdate?.Invoke(playerData.maxMultiplier);
+        }
+    }
+    public void UpdateMaxBaseRerollCount(int value)
+    {
+        if (value > playerData.maxBaseRerollCount)
+        {
+            playerData.maxBaseRerollCount = value;
+            UnlockManager.instance.onMaxBaseRerollCountUpdate?.Invoke(playerData.maxBaseRerollCount);
+        }
+    }
+    public void UpdateMaxGold(int value)
+    {
+        if (value > playerData.maxGold)
+        {
+            playerData.maxGold = value;
+            UnlockManager.instance.onMaxGoldUpdate?.Invoke(playerData.maxGold);
+        }
+    }
+    public void UpdateHasOnlySpecificBlock(List<BlockData> deck)
+    {
+        if (deck.All(block => block.type == BlockType.I || block.type == BlockType.O))
+        {
+            playerData.hasOnlyIO++;
+            UnlockManager.instance.onHasOnlyIOUpdate?.Invoke(playerData.hasOnlyIO);
+        }
+        else if (deck.All(block => block.type == BlockType.Z || block.type == BlockType.S))
+        {
+            playerData.hasOnlyZS++;
+            UnlockManager.instance.onHasOnlyZSUpdate?.Invoke(playerData.hasOnlyZS);
+        }
+        else if (deck.All(block => block.type == BlockType.J || block.type == BlockType.L))
+        {
+            playerData.hasOnlyJL++;
+            UnlockManager.instance.onHasOnlyJLUpdate?.Invoke(playerData.hasOnlyJL);
+        }
+    }
+    // ---------------------------------------------------------------------
 }

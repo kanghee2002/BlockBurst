@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fa6f765182bfdf4cbe2d3152f17e458, type: 3}
+  m_Name: MirrorDeckData
+  m_EditorClassIdentifier: 
+  id: MirrorDeck
+  type: 4
+  defaultRerlollCount: 5
+  effects:
+  - {fileID: 11400000, guid: 787b877fd70ee3e43b1bd40bf4bb9c62, type: 2}
+  - {fileID: 11400000, guid: cb4ad31c800554c4ba6df8929382fe4b, type: 2}
+  - {fileID: 11400000, guid: 6b18156927470134cadc17ecaa6c7f7b, type: 2}
+  - {fileID: 11400000, guid: 0df4c49b8afe47043ace0dc143fee393, type: 2}
+  - {fileID: 11400000, guid: a436e57dd3f9c0d4db5e69f73b331112, type: 2}
+  - {fileID: 11400000, guid: 7804b6837fb61e545bc59ffa6e8f69aa, type: 2}
+  - {fileID: 11400000, guid: bfd10b668b38df64f9ecdc7bcc18eb7c, type: 2}
+  - {fileID: 11400000, guid: 3d93da855ee643b448443a43932108a8, type: 2}
+  defaultBlocks: 0c0000000b0000000b000000070000000d0000000800000008000000090000000c0000000c0000000c0000000d0000000a000000090000000c0000000d0000000a00000009000000070000000c00000007000000

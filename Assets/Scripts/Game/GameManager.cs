@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     public StageManager stageManager;
     public TutorialManager tutorialManager;
 
+    public DeckData[] deckTemplates;
     public StageData[] stageTemplates;
     public ItemData[] itemTemplates;
     public BlockData[] blockTemplates;
@@ -101,6 +102,7 @@ public class GameManager : MonoBehaviour
     private void LoadTemplates()
     {
         // 경로에서 scriptable objects를 로드
+        deckTemplates = Resources.LoadAll<DeckData>("ScriptableObjects/Deck");
         stageTemplates = Resources.LoadAll<StageData>("ScriptableObjects/Stage");
         itemTemplates = Resources.LoadAll<ItemData>("ScriptableObjects/Item");
         blockTemplates = Resources.LoadAll<BlockData>("ScriptableObjects/Block");
@@ -161,7 +163,7 @@ public class GameManager : MonoBehaviour
                 isTutorial = false;
                 tutorialManager.Initialize();
             }
-            StartNewGame();
+            //StartNewGame();
         }
     }
 
@@ -182,7 +184,7 @@ public class GameManager : MonoBehaviour
         return isTutorial;
     }
 
-    public void StartNewGame()
+    public void StartNewGame(DeckType deckType, int level)
     {
         // 각종 초기화
         Debug.Log("Game Start");
@@ -191,20 +193,12 @@ public class GameManager : MonoBehaviour
 
         CLEAR_CHAPTER = 3;
 
+        DeckData deckData = deckTemplates.FirstOrDefault(deck => deck.type == deckType);
+        deckData.Initialize();
+
         gameData = new GameData();
-        gameData.Initialize();
+        gameData.Initialize(blockTemplates, deckData);
         
-        foreach (BlockData blockData in blockTemplates)
-        {
-            if (Enums.IsSpecialBlockType(blockData.type))
-            {
-                continue;
-            }
-            for (int i = 0; i < gameData.defaultBlockCount; i++)
-            {
-                gameData.defaultBlocks.Add(blockData);
-            }
-        }
         scoreAnimationDelay = 0.01f;
         scoreDelayedTime = 0f;
         currentMatches = new List<Match>();
@@ -216,7 +210,7 @@ public class GameManager : MonoBehaviour
 
     public void ContinueGame()
     {
-        foreach (BlockData blockData in blockTemplates)
+        /*foreach (BlockData blockData in blockTemplates)
         {
             if (Enums.IsSpecialBlockType(blockData.type))
             {
@@ -247,7 +241,7 @@ public class GameManager : MonoBehaviour
 
         GameUIManager.instance.Initialize(runData);
 
-        StartStageSelection();
+        StartStageSelection();*/
     }
 
     public void InitializeHistory()

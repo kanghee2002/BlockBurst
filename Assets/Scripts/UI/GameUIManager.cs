@@ -10,6 +10,8 @@ public class GameUIManager : MonoBehaviour
 
     [SerializeField] private Background background;
 
+    [SerializeField] private DeckSelectionBoardUI deckSelectionBoardUI;
+    [SerializeField] private GameInfoUI gameInfoUI;
     [SerializeField] private ButtonUI optionButtonUI;
     [SerializeField] private StageInfoUI stageInfoUI;
     [SerializeField] private ScoreInfoUI scoreInfoUI;
@@ -76,6 +78,11 @@ public class GameUIManager : MonoBehaviour
 
     public void Initialize(RunData runData)
     {
+        deckSelectionBoardUI.CloseDeckSelectionBoardUI();
+
+        gameInfoUI.OpenStageSelectionSignboardUI();
+        itemSetUI.OpenItemSetUI();
+
         sceneState = SceneState.selecting;
         OpenSceneState(sceneState);
 

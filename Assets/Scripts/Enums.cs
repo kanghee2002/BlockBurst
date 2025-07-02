@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public enum ApplicationType
 {
@@ -24,8 +25,6 @@ public enum BlockType
     CROSS,
     CORNER,
     M,
-    MEGASQUARE,
-    ULTRASQUARE,
 }
 
 public enum MatchType
@@ -59,10 +58,10 @@ public enum EffectType
     SQUARE_CLEAR,                       // x 사각형 클리어
     BLOCK_MULTIPLIER,                   // 덱의 특정 블록 N배
     BLOCK_DELETE,                       // 덱의 특정 블록 모두 삭제
-    BLOCK_DELETE_WITH_COUNT,            // x 덱의 특정 블록 N개 삭제
+    BLOCK_DELETE_WITH_COUNT,            // 덱의 특정 블록 N개 삭제
     RANDOM_ROW_LINE_CLEAR,              // 무작위 가로 1줄 지움
     RANDOM_COLUMN_LINE_CLEAR,           // 무작위 세로 1줄 지움
-    BOARD_CLEAR,                        // x 보드의 모든 블록 지움
+    BOARD_CLEAR,                        // 보드의 모든 블록 지움
     DRAW_BLOCK_COUNT_MODIFIER,          // 블록 선택지 수정
     RANDOM_LINE_CLEAR,                  // 무작위 1줄 지움
     ROW_LINE_CLEAR,                     // 가로 N줄 지움 (위쪽에서부터)
@@ -137,7 +136,7 @@ public enum ItemRarity
 
 public enum DeckType
 {
-    Default, YoYo, 
+    Default, YoYo, Dice, Telescope, Mirror,
 }
 
 // 해금 관련 -----------------------------------------------------------
@@ -202,5 +201,16 @@ public class Enums
     public static T GetEnumByString<T>(string enumName)
     {
         return (T)Enum.Parse(typeof(T), enumName);
+    }
+
+    public static Array GetEnumArray<T>()
+    {
+        return Enum.GetValues(typeof(T));
+    }
+
+    public static T GetRandomEnum<T>()
+    {
+        Array array = GetEnumArray<T>();
+        return (T)array.GetValue(Random.Range(0, array.Length));
     }
 }

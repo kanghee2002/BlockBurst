@@ -35,6 +35,10 @@ public class ItemSetUI : MonoBehaviour
     [Header("Item Full Animation")]
     [SerializeField] private Image showItemFullImage;
 
+    private const float insidePositionY = -380;
+    private const float outsidePositionOffsetY = 1000;
+    private const float duration = 0.2f;
+
     private float discardAnimationDelay;
     private List<Tween> blockRelatedShakeTweens;
     private List<Tween> shakeTweens;
@@ -479,5 +483,16 @@ public class ItemSetUI : MonoBehaviour
             textRect.DOScale(Vector3.one, duration);
             showItemFullImage.gameObject.SetActive(false);
         });
+    }
+
+    public void OpenItemSetUI()
+    {
+        gameObject.SetActive(true);
+        UIUtils.OpenUI(rectTransform, "Y", insidePositionY, duration);
+    }
+
+    public void CloseItemSetUI()
+    {
+        UIUtils.CloseUI(rectTransform, "Y", insidePositionY, outsidePositionOffsetY, duration);
     }
 }

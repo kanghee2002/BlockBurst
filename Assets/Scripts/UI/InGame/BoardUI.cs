@@ -36,9 +36,8 @@ public class BoardUI : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
     }
     
-    void AutoSizing(int height, int width)
+    private void AutoSizingWindows(int height, int width)
     {
-        if (GameManager.instance.applicationType == ApplicationType.Mobile) return;
         Canvas canvas = GetComponentInParent<Canvas>();
         Camera cam = canvas.worldCamera ?? Camera.main;
 
@@ -92,22 +91,36 @@ public class BoardUI : MonoBehaviour
         Debug.Log($"Final calculation - Available space: {availableWidth}x{availableHeight}, Board size: {boardWidth}x{boardHeight}, Scale: {scale}, Viewport: {cam.rect}");
     }
 
+    private void AutoSizingMobile(int height, int width)
+    {
+        float scale = 0.5f;
+
+        if (height > 9)
+        {
+            scale = (0.5f - (0.05f * (height - 9)));
+        }
+        rectTransform.localScale = Vector3.one * scale;
+    }
+
     public void Initialize(int rows, int columns)
     {
         gameObject.SetActive(true);
         height = rows;
         width = columns;
 
-        AutoSizing(height, width);
+        if (GameManager.instance.applicationType == ApplicationType.Mobile)
+            AutoSizingMobile(height, width);
+        else
+            AutoSizingWindows(height, width);
 
         // 기존 boardCell 비우기
         foreach (Transform child in transform)
-        {
-            if (child.GetComponent<BoardCellUI>() != null)
             {
-                Destroy(child.gameObject);
+                if (child.GetComponent<BoardCellUI>() != null)
+                {
+                    Destroy(child.gameObject);
+                }
             }
-        }
 
         boardCellsUI = new BoardCellUI[height, width];
 

@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -7,11 +7,13 @@ using System;
 public class DeckData : ScriptableObject
 {
     public string id;
-    public DeckType type;
-    public int defaultRerlollCount;
-    public List<EffectData> effects;
-    [HideInInspector] public List<BlockType> defaultBlocks;
-
+    public DeckType type;                                       // 덱 타입
+    public int defaultRerlollCount;                             // 기본 리롤 횟수
+    public int maxItemCount;                                    // 소지 가능 아이템 수
+    public int baseBoardRows;                                   // 보드 크기
+    public int baseBoardColumns;                                // 보드 크기
+    public List<EffectData> effects;                            // 기본 효과
+    [HideInInspector] public List<BlockType> defaultBlocks;     // 블록 덱
 
     public void Initialize()
     {
@@ -28,6 +30,7 @@ public class DeckData : ScriptableObject
             case DeckType.Default:
             case DeckType.YoYo:
             case DeckType.Telescope:
+            case DeckType.Bomb:
                 foreach (BlockType blockType in Enums.GetEnumArray<BlockType>())
                 {
                     if (Enums.IsDefaultBlockType(blockType))

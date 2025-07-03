@@ -136,7 +136,7 @@ public enum ItemRarity
 
 public enum DeckType
 {
-    Default, YoYo, Dice, Telescope, Mirror,
+    Default, YoYo, Dice, Telescope, Mirror, Bomb
 }
 
 // 해금 관련 -----------------------------------------------------------

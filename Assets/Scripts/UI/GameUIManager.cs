@@ -82,6 +82,7 @@ public class GameUIManager : MonoBehaviour
 
         gameInfoUI.OpenStageSelectionSignboardUI();
         itemSetUI.OpenItemSetUI();
+        DisplayItemSet(runData.activeItems, runData.maxItemCount);
 
         sceneState = SceneState.selecting;
         OpenSceneState(sceneState);

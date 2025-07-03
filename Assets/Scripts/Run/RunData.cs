@@ -44,12 +44,12 @@ public class RunData
         availableBlocks = new List<BlockData>(gameData.defaultBlocks);
         activeItems = new List<ItemData>();
         activeBoosts = new List<ItemData>();
-        activeEffects = new List<EffectData>();
+        activeEffects = new List<EffectData>(gameData.defaultEffects);
         gold = gameData.startingGold;
         baseRerollCount = gameData.defaultRerollCount;
         maxItemCount = gameData.maxItemCount;
-        baseBoardRows = 8;
-        baseBoardColumns = 8;
+        baseBoardRows = gameData.baseBoardRows;
+        baseBoardColumns = gameData.baseBoardColumns;
         baseDrawBlockCount = 3;
         shopBaseRerollCost = 2;
         shopRerollCostGrowth = 1;

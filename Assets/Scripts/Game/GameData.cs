@@ -8,10 +8,13 @@ public class GameData
     public Dictionary<BlockType, int> defaultBlockScores;           // 기본 블록 점수
     public Dictionary<MatchType, int> defaultMatchMultipliers;      // 기본 배수
     public List<BlockData> defaultBlocks;                           // 기본 블록 몰록
+    public List<EffectData> defaultEffects;                         // 기본 효과 목록
     public List<StageData> stagePool;                               // 스테이지 풀
     public int startingGold;                                        // 시작 골드
     public int defaultRerollCount;                                  // 기본 리롤 횟수
-    public int maxItemCount;                                        // 소지 가능 아이템 수
+    public int maxItemCount;                                        // 소지 가능 아이템 아이템 수
+    public int baseBoardRows;                                       // 보드 크기
+    public int baseBoardColumns;                                    // 보드 크기 수
     public int stageBaseReward;                                     // 스테이지 클리어 골드
     public List<int> stageBaseScoreList;
     public List<float> stageScoreMultiplier;
@@ -22,10 +25,13 @@ public class GameData
         defaultBlockScores = new Dictionary<BlockType, int>();
         defaultMatchMultipliers = new Dictionary<MatchType, int>();
         defaultBlocks = new List<BlockData>();
+        defaultEffects = new List<EffectData>(deckData.effects);
         stagePool = new List<StageData>();
         startingGold = 5;
         defaultRerollCount = deckData.defaultRerlollCount;
-        maxItemCount = 5;
+        maxItemCount = deckData.maxItemCount;
+        baseBoardRows = deckData.baseBoardRows;
+        baseBoardColumns = deckData.baseBoardColumns;
 
         // 기본 블록 설정
         foreach (BlockType blockType in deckData.defaultBlocks)

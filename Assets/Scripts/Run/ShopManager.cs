@@ -34,17 +34,6 @@ public class ShopManager : MonoBehaviour
         foreach (ItemData item in items)
         {
             AddItem(item);
-            /*// 특수 블록을 좀 복사
-            if (item.type == ItemType.ADD_BLOCK && Enums.IsSpecialBlockType(item.block.type))
-            {
-                AddItem(item);
-                AddItem(item);
-            }
-            // 기본 블록을 좀 복사
-            if (item.type == ItemType.ADD_BLOCK && Enums.IsDefaultBlockType(item.block.type))
-            {
-                AddItem(item);
-            }*/
 
             // 아이템 초기 값 초기화
             item.effects.ForEach(effect =>

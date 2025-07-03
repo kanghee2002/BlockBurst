@@ -15,7 +15,7 @@ public class UnlockNotificationUI : MonoBehaviour
 
     private const float duration = 0.2f;
     private const float interval = 0.5f;
-    private const float animationDelay = 0.25f;
+    private const float animationDelay = 0.3f;
 
     private RectTransform rectTransform;
 
@@ -49,7 +49,7 @@ public class UnlockNotificationUI : MonoBehaviour
 
             targetImage.sprite = sprite;
 
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.3f);
 
             OpenUnlockNotificationUI(uiColor);
             yield return new WaitForSeconds(duration);
@@ -81,13 +81,13 @@ public class UnlockNotificationUI : MonoBehaviour
         punchScale *= strength;
 
         shakeSequence.AppendInterval(animationDelay / 2f);
-        shakeSequence.Append(transform.DOLocalRotate(new Vector3(0, 0, rotationAmount), animationDelay / 4f)
+        shakeSequence.Append(rectTransform.DOLocalRotate(new Vector3(0, 0, rotationAmount), animationDelay / 4f)
             .SetLoops(2, LoopType.Yoyo)
-            .SetEase(Ease.InOutSine));
-        shakeSequence.Join(transform.DOPunchScale(Vector3.one * punchScale, animationDelay / 2f));
-        shakeSequence.Append(transform.DOLocalRotate(new Vector3(0, 0, -rotationAmount), animationDelay / 4f)
+            .SetEase(Ease.Linear));
+        shakeSequence.Join(rectTransform.DOPunchScale(Vector3.one * punchScale, animationDelay / 2f));
+        shakeSequence.Append(rectTransform.DOLocalRotate(new Vector3(0, 0, -rotationAmount), animationDelay / 4f)
             .SetLoops(2, LoopType.Yoyo)
-            .SetEase(Ease.InOutSine));
+            .SetEase(Ease.Linear));
 
         shakeSequence.Play();
     }
@@ -114,7 +114,13 @@ public class UnlockNotificationUI : MonoBehaviour
         }
         else
         {
-            UIUtils.CloseUI(rectTransform, "X", mobileInsidePositionX, outsidePositionOffsetX, duration);
+            //UIUtils.CloseUI(rectTransform, "X", mobileInsidePositionX, outsidePositionOffsetX, duration);
+
+            // 해금 애니메이션 끝날 때 블록 놓으면 제자리로 돌아가지 않는 버그 임시 해결
+            rectTransform.DOAnchorPosX(mobileInsidePositionX + outsidePositionOffsetX, duration)
+                .SetEase(Ease.InBack, overshoot: 1f)
+                .OnKill(() => rectTransform.DOAnchorPosX(mobileInsidePositionX + outsidePositionOffsetX, duration)
+                .SetEase(Ease.InBack, overshoot: 1f));  
         }
     }
 

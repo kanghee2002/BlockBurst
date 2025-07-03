@@ -5,14 +5,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Stage", menuName = "BlockBurst/Stage")]
 public class StageData : ScriptableObject
 {
-    public string id;                       // 스테이지 ID
-    public StageType type;                  // Normal, Boss
-    public Vector2Int boardSize;            // 보드 사이즈
-    public List<Vector2Int> blockedCells;   // 막힌 셀
-    public List<EffectData> constraints;    // 제약 조건
-    public int clearRequirement;            // 클리어 조건 (임시로 int)
-    public int goldReward;                  // 보상 골드
-    public float baseScoreMultiplier;       // 기본 목표 점수 배수
+    public string id;                                       // 스테이지 ID
+    public StageType type;                                  // Normal, Boss
+    public Vector2Int boardSize;                            // 보드 사이즈
+    public List<Vector2Int> blockedCells;                   // 막힌 셀
+    public List<EffectData> constraints;                    // 제약 조건
+    public float baseScoreMultiplier;                       // 기본 목표 점수 배수
+    [HideInInspector] public int clearRequirement;          // 클리어 조건 (임시로 int)
+    [HideInInspector] public int goldReward;                // 보상 골드
 }
 
 // 일단 안 씀

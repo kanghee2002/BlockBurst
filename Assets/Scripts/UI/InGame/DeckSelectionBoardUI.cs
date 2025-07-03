@@ -27,6 +27,7 @@ public class DeckSelectionBoardUI : MonoBehaviour
     public void Initialize()
     {
         selectedDeckType = DeckType.Default;
+        selectedLevel = 0;
 
         SetDeckDescription();
         SetLevelDescription();

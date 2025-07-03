@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameData
@@ -19,7 +20,7 @@ public class GameData
     public List<int> stageBaseScoreList;
     public List<float> stageScoreMultiplier;
 
-    public void Initialize(BlockData[] blockTemplates, DeckData deckData)
+    public void Initialize(BlockData[] blockTemplates, DeckData deckData, LevelData levelData)
     {
         // 기본값 설정
         defaultBlockScores = new Dictionary<BlockType, int>();
@@ -71,16 +72,35 @@ public class GameData
         {
             120,
             1000,
-            3000,
-            20000,
-            80000,
-            200000,
-            700000,
-            1500000,
+            4000,
+            15000,
+            50000,
+            150000,
+            500000,
+            1600000,
         };
+
         stageScoreMultiplier = new List<float>()
         {
-            1f, 3f, 5f
+            1f, 2f, 3f
         };
+
+        // 레벨 설정
+
+        for (int i = 0; i < levelData.additionalStageScores.Count; i++)
+        {
+            stageBaseScoreList[i] += levelData.additionalStageScores[i];
+        }
+
+        stageBaseReward += levelData.additionalStageReward;
+
+        defaultRerollCount += levelData.additionalBaseRerollCount;
+
+        foreach (BlockType blockType in defaultBlockScores.Keys.ToList())
+        {
+            defaultBlockScores[blockType] += levelData.additionalBlockScore;
+        }
+
+        maxItemCount += levelData.additionalMaxItemCount;
     }
 }

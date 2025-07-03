@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     public TutorialManager tutorialManager;
 
     public DeckData[] deckTemplates;
+    public LevelData[] levelTemplates;
     public StageData[] stageTemplates;
     public ItemData[] itemTemplates;
     public BlockData[] blockTemplates;
@@ -103,6 +104,7 @@ public class GameManager : MonoBehaviour
     {
         // 경로에서 scriptable objects를 로드
         deckTemplates = Resources.LoadAll<DeckData>("ScriptableObjects/Deck");
+        levelTemplates = Resources.LoadAll<LevelData>("ScriptableObjects/Level");
         stageTemplates = Resources.LoadAll<StageData>("ScriptableObjects/Stage");
         itemTemplates = Resources.LoadAll<ItemData>("ScriptableObjects/Item");
         blockTemplates = Resources.LoadAll<BlockData>("ScriptableObjects/Block");
@@ -196,8 +198,10 @@ public class GameManager : MonoBehaviour
         DeckData deckData = deckTemplates.FirstOrDefault(deck => deck.type == deckType);
         deckData.Initialize();
 
+        LevelData levelData = levelTemplates.FirstOrDefault(data => data.level == level);
+
         gameData = new GameData();
-        gameData.Initialize(blockTemplates, deckData);
+        gameData.Initialize(blockTemplates, deckData, levelData);
         
         scoreAnimationDelay = 0.01f;
         scoreDelayedTime = 0f;
@@ -404,15 +408,19 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < nextStageChoices.Length; i++)
         {
             StageData stage = nextStageChoices[i];
+            int stageBaseScore = gameData.stageBaseScoreList[runData.currentChapterIndex - 1];
+            float scoreMultiplier = gameData.stageScoreMultiplier[runData.currentStageIndex - 1];
+            float stageScoreMultiplier = stage.baseScoreMultiplier;
+
             if (runData.currentChapterIndex <= 8)
             {
-                stage.clearRequirement = (int)(gameData.stageBaseScoreList[runData.currentChapterIndex - 1] * (gameData.stageScoreMultiplier[runData.currentStageIndex - 1] + stage.baseScoreMultiplier));
+                stage.clearRequirement = (int)(stageBaseScore * (scoreMultiplier + stageScoreMultiplier));
             }
             else
             {
                 stage.clearRequirement = (int)(gameData.stageBaseScoreList[gameData.stageBaseScoreList.Count - 1] * Mathf.Pow(2f, 3 * (runData.currentChapterIndex - 9) + runData.currentStageIndex + 2) * (gameData.stageScoreMultiplier[runData.currentStageIndex - 1] + stage.baseScoreMultiplier));
             }
-            stage.goldReward = 5 + (int)MathF.Pow(runData.currentChapterIndex + 2, 0.5f) * 3 + Random.Range(0, 2);
+            stage.goldReward = gameData.stageBaseReward + (int)MathF.Pow(runData.currentChapterIndex + 2, 0.5f) * 3 + Random.Range(0, 2);
         }
 
         // UI에 전달

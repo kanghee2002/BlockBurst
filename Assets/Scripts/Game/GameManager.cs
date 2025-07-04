@@ -70,6 +70,8 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        playerData = null;
+
         LoadTemplates();
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 120; // for mobile build
@@ -112,6 +114,11 @@ public class GameManager : MonoBehaviour
 
     private void LoadPlayerData()
     {
+        if (playerData != null)
+        {
+            return;
+        }
+
         playerData = DataManager.instance.LoadPlayerData();
 
         if (playerData == null)
@@ -154,6 +161,8 @@ public class GameManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        LoadPlayerData();
+
         if (scene.name == "VerticalGameScene" || scene.name == "HorizontalGameScene")
         {
             deckManager = FindObjectOfType<DeckManager>();
@@ -190,8 +199,6 @@ public class GameManager : MonoBehaviour
     {
         // 각종 초기화
         Debug.Log("Game Start");
-
-        LoadPlayerData();
 
         CLEAR_CHAPTER = 3;
 

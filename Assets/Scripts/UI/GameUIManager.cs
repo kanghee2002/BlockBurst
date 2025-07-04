@@ -11,7 +11,9 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private Background background;
 
     [SerializeField] private DeckSelectionBoardUI deckSelectionBoardUI;
-    [SerializeField] private GameInfoUI gameInfoUI;
+    [SerializeField] private PlayerDataBoardUI playerDataBoardUI;
+    [SerializeField] private BasicUI gameInfoUI;
+    [SerializeField] private BasicUI lobbyUI;
     [SerializeField] private ButtonUI optionButtonUI;
     [SerializeField] private StageInfoUI stageInfoUI;
     [SerializeField] private ScoreInfoUI scoreInfoUI;
@@ -57,6 +59,8 @@ public class GameUIManager : MonoBehaviour
         option,
         deckInfo,
         itemDetail,
+        deckSelection,
+        playerData,
     }
     private PopupState popupState;
 
@@ -80,8 +84,9 @@ public class GameUIManager : MonoBehaviour
     {
         deckSelectionBoardUI.CloseDeckSelectionBoardUI();
 
-        gameInfoUI.OpenStageSelectionSignboardUI();
+        gameInfoUI.OpenUI();
         itemSetUI.OpenItemSetUI();
+        lobbyUI.CloseUI();
         DisplayItemSet(runData.activeItems, runData.maxItemCount);
 
         sceneState = SceneState.selecting;
@@ -202,6 +207,35 @@ public class GameUIManager : MonoBehaviour
         }
     }
 
+    public void OnDeckSelectionButtonUIPressed()
+    {
+        if (popupState == PopupState.none)
+        {
+            popupState = PopupState.deckSelection;
+            deckSelectionBoardUI.Initialize();
+            deckSelectionBoardUI.OpenDeckSelectionBoardUI();
+        }
+    }
+
+    public void OnStatisticsButtonUIPressed()
+    {
+        if (popupState == PopupState.none)
+        {
+            popupState = PopupState.playerData;
+            playerDataBoardUI.Initialize();
+            playerDataBoardUI.OpenPlayerDataBoardUI();
+        }
+    }
+
+    public void OnPlayButtonUIPressed(DeckType deckType, int level)
+    {
+        if (popupState == PopupState.deckSelection)
+        {
+            popupState = PopupState.none;
+            GameManager.instance.StartNewGame(deckType, level);
+        }
+    }
+
     // Popup Blur Method
     public void OnPopupBlurUIPressed()
     {
@@ -245,6 +279,20 @@ public class GameUIManager : MonoBehaviour
             popupState = PopupState.none;
 
             itemDetailUI.CloseItemDetailUI(true);
+        }
+
+        else if (popupState == PopupState.deckSelection)
+        {
+            popupState = PopupState.none;
+
+            deckSelectionBoardUI.CloseDeckSelectionBoardUI();
+        }
+
+        else if (popupState == PopupState.playerData)
+        {
+            popupState = PopupState.none;
+
+            playerDataBoardUI.ClosePlayerDataBoardUI();
         }
     }
 

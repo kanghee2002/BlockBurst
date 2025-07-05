@@ -5214,6 +5214,7 @@ MonoBehaviour:
   background: {fileID: 308968388}
   deckSelectionBoardUI: {fileID: 121018450}
   playerDataBoardUI: {fileID: 2113994237}
+  statisticsContainerUI: {fileID: 1530335417}
   unlockInfoContainerUI: {fileID: 1633136976}
   gameInfoUI: {fileID: 1753060888}
   lobbyUI: {fileID: 104001561}

@@ -25,6 +25,7 @@ public class PlayerData
     }
 
     // 저장되는 데이터
+    public bool tutorialValue;
     public List<DeckInfo> unlockedDecks;
     public List<string> unlockedItems;
     public int placeCountI;
@@ -54,6 +55,7 @@ public class PlayerData
 
     public PlayerData()
     {
+        tutorialValue = true;
         unlockedDecks = new List<DeckInfo>();
         unlockedItems = new List<string>();
         placeCountI = 0;

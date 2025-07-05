@@ -97,8 +97,6 @@ public class GameUIManager : MonoBehaviour
         goldInfoUI.Initialize(runData.gold);
         actionInfoUI.Initialize(_chip: 0, _multiplier: runData.baseMatchMultipliers[MatchType.ROW], _product: 0);
         actionInfoUI.SetChipLayoutColor(currentUIColor);
-
-        AudioManager.instance.BeginBackgroundMusic();
     }
 
     // BUTTON METHODS

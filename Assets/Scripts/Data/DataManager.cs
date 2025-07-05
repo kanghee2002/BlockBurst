@@ -207,6 +207,11 @@ public class DataManager : MonoBehaviour
     }
 
     // 데이터 업데이트 함수 ------------------------------------------------
+    public void SetTutorialValue(bool value)
+    {
+        playerData.tutorialValue = value;
+    }
+    
     public void UpdateBlockPlaceCount(Block block)
     {
         switch (block.Type)

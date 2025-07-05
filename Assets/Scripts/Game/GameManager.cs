@@ -162,6 +162,8 @@ public class GameManager : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         LoadPlayerData();
+        SetTutorialValue(playerData.tutorialValue);
+
         UnlockManager.instance.Initialize(playerData);
 
         if (scene.name == "VerticalGameScene" || scene.name == "HorizontalGameScene")
@@ -176,6 +178,8 @@ public class GameManager : MonoBehaviour
                 tutorialManager.Initialize();
             }
             //StartNewGame();
+
+            AudioManager.instance.BeginBackgroundMusic();
         }
     }
 
@@ -189,6 +193,8 @@ public class GameManager : MonoBehaviour
     public void SetTutorialValue(bool isTutorial)
     {
         this.isTutorial = isTutorial;
+        DataManager.instance.SetTutorialValue(isTutorial);
+
     }
 
     public bool GetTutorialValue()

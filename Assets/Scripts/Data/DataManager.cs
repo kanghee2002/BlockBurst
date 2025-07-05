@@ -54,6 +54,11 @@ public class DataManager : MonoBehaviour
         File.WriteAllText(dataPath, savedJson);
     }
 
+    public void OnPlayerDataRequested()
+    {
+        GameUIManager.instance.OnPlayerDataCallback(playerData);
+    }
+
     // 이어하기
     public void SaveRunData(RunData runData)
     {

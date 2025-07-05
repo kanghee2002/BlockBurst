@@ -12,6 +12,7 @@ public class GameUIManager : MonoBehaviour
 
     [SerializeField] private DeckSelectionBoardUI deckSelectionBoardUI;
     [SerializeField] private PlayerDataBoardUI playerDataBoardUI;
+    [SerializeField] private StatisticsContainerUI statisticsContainerUI;
     [SerializeField] private UnlockContainerUI unlockInfoContainerUI;
     [SerializeField] private BasicUI gameInfoUI;
     [SerializeField] private BasicUI lobbyUI;
@@ -225,6 +226,7 @@ public class GameUIManager : MonoBehaviour
             popupState = PopupState.playerData;
             playerDataBoardUI.OpenPlayerDataBoardUI();
 
+            DataManager.instance.OnPlayerDataRequested();
             UnlockManager.instance.OnUnlockInfoRequested();
         }
     }
@@ -232,6 +234,11 @@ public class GameUIManager : MonoBehaviour
     public void OnUnlockInfoCallback(UnlockInfo[] unlockInfoTemplates, List<string> unlockedItems)
     {
         unlockInfoContainerUI.Initialize(unlockInfoTemplates, unlockedItems);
+    }
+
+    public void OnPlayerDataCallback(PlayerData playerData)
+    {
+        statisticsContainerUI.Initialize(playerData);
     }
 
     public void OnPlayButtonUIPressed(DeckType deckType, int level)

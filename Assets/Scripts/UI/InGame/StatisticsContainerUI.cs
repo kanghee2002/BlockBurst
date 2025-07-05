@@ -12,20 +12,58 @@ public class StatisticsContainerUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI maxRerollCountText;
     [SerializeField] private TextMeshProUGUI maxGoldText;
     
-    public void Initialize(int maxScore, int maxChapter, int maxStage,
-        BlockType mostPlacedBlockType, int maxPlaceCount,
-        int maxMultiplier, int maxRerollCount, int maxGold)
+    public void Initialize(PlayerData playerData)
     {
-        maxScoreText.text = maxScore.ToString();
+        maxScoreText.text = playerData.maxScore.ToString();
 
-        maxChapterStageText.text = maxChapter + " - " + maxStage;
+        maxChapterStageText.text = playerData.maxChapter + " - " + playerData.maxStage;
 
-        maxPlaceCountText.text = string.Format("<sprite={0}> ({1})", (int)mostPlacedBlockType, maxPlaceCount);
+        (BlockType mostPlacedBlockType, int placeCount) = GetMostPlacedBlock(playerData);
+        maxPlaceCountText.text = string.Format("<sprite={0}> ({1})", (int)mostPlacedBlockType, placeCount);
 
-        maxMultiplierText.text = maxMultiplier.ToString();
+        maxMultiplierText.text = playerData.maxMultiplier.ToString();
 
-        maxRerollCountText.text = maxRerollCount.ToString();
+        maxRerollCountText.text = playerData.maxBaseRerollCount.ToString();
 
-        maxGoldText.text = maxGold.ToString();
+        maxGoldText.text = playerData.maxGold.ToString();
+    }
+
+    private (BlockType, int) GetMostPlacedBlock(PlayerData playerData)
+    {
+        BlockType blockType = BlockType.I;
+        int count = playerData.placeCountI;
+
+        if (playerData.placeCountO > count)
+        {
+            blockType = BlockType.O;
+            count = playerData.placeCountO;
+        }
+        if (playerData.placeCountZ > count)
+        {
+            blockType = BlockType.Z;
+            count = playerData.placeCountZ;
+        }
+        if (playerData.placeCountS > count)
+        {
+            blockType = BlockType.S;
+            count = playerData.placeCountS;
+        }
+        if (playerData.placeCountJ > count)
+        {
+            blockType = BlockType.J;
+            count = playerData.placeCountJ;
+        }
+        if (playerData.placeCountL > count)
+        {
+            blockType = BlockType.L;
+            count = playerData.placeCountL;
+        }
+        if (playerData.placeCountT > count)
+        {
+            blockType = BlockType.T;
+            count = playerData.placeCountT;
+        }
+
+        return (blockType, count);
     }
 }

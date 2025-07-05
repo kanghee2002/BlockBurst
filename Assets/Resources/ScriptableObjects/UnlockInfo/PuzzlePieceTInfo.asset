@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetType: 0
   targetName: PuzzlePieceT
-  description: 
+  description: "T Requirement\uBC88 \uBC30\uCE58\uD558\uAE30"
   trigger: 6
   requirement: 1

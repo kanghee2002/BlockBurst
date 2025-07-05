@@ -20,11 +20,6 @@ public class PlayerDataBoardUI : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
     }
 
-    public void Initialize()
-    {
-
-    }
-
     public void OnStatisticsSwtichButtonUIClick()
     {
         statisticsContainerUI.gameObject.SetActive(true);

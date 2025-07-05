@@ -162,6 +162,7 @@ public class GameManager : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         LoadPlayerData();
+        UnlockManager.instance.Initialize(playerData);
 
         if (scene.name == "VerticalGameScene" || scene.name == "HorizontalGameScene")
         {
@@ -316,7 +317,6 @@ public class GameManager : MonoBehaviour
 
         CellEffectManager.instance.Initialize();
         EffectManager.instance.Initialize(ref runData);
-        UnlockManager.instance.Initialize(playerData);
 
         ItemData[] unlockedItems = UnlockManager.instance.GetUnlockedItems(itemTemplates);
 

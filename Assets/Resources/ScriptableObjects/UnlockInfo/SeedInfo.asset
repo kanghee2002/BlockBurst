@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetType: 0
   targetName: Seed
-  description: 
+  description: "\uBC30\uC218 Requirement \uC774\uC0C1 \uB2EC\uC131\uD558\uAE30"
   trigger: 18
   requirement: 10

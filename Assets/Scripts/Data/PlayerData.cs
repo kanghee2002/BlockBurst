@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [Serializable]
@@ -137,5 +138,15 @@ public class PlayerData
     public bool IsItemUnlocked(string itemName)
     {
         return unlockedItems.Contains(itemName);
+    }
+
+    public List<DeckInfo> GetUnlockedDecks()
+    {
+        return unlockedDecks.ToList();
+    }
+
+    public List<string> GetUnlockedItems()
+    {
+        return unlockedItems.ToList();
     }
 }

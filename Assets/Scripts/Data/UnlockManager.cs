@@ -39,6 +39,8 @@ public class UnlockManager : MonoBehaviour
 
     private PlayerData playerData;
 
+    private bool isInitialized;
+
     private void Awake()
     {
         // singleton
@@ -58,10 +60,18 @@ public class UnlockManager : MonoBehaviour
         {
             info.Initialize();
         }
+
+        isInitialized = false;
     }
 
     public void Initialize(PlayerData playerData)
     {
+        if (isInitialized)
+        {
+            return;
+        }
+        isInitialized = true;
+
         this.playerData = playerData;
 
         // 해금되지 않은 경우만 Action 등록
@@ -98,6 +108,11 @@ public class UnlockManager : MonoBehaviour
         GameManager.instance.PlayUnlockAnimation(unlockInfo);
     }
 
+    public void OnUnlockInfoRequested()
+    {
+        GameUIManager.instance.OnUnlockInfoCallback(unlockInfoTemplates, playerData.GetUnlockedItems());
+    }
+
     // 해금된 아이템만 반환
     public ItemData[] GetUnlockedItems(ItemData[] itemTemplats)
     {
@@ -115,12 +130,12 @@ public class UnlockManager : MonoBehaviour
     {
         List<string> currentLockedItems = unlockInfoTemplates.Select(x => x.targetName).ToList();
 
-        foreach (string itemID in playerData.unlockedItems)
+        foreach (string itemID in playerData.GetUnlockedItems())
         {
             currentLockedItems.Remove(itemID);
         }
 
-        foreach (PlayerData.DeckInfo deckInfo in playerData.unlockedDecks)
+        foreach (PlayerData.DeckInfo deckInfo in playerData.GetUnlockedDecks())
         {
             currentLockedItems.Remove(deckInfo.deckName);
         }
@@ -128,7 +143,7 @@ public class UnlockManager : MonoBehaviour
         return currentLockedItems;
     }
 
-    public void SetSubscribe(UnlockInfo unlockInfo, bool isSubscribing)
+    private void SetSubscribe(UnlockInfo unlockInfo, bool isSubscribing)
     {
         switch (unlockInfo.trigger)
         {

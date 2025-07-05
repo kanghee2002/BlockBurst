@@ -12,6 +12,7 @@ public class GameUIManager : MonoBehaviour
 
     [SerializeField] private DeckSelectionBoardUI deckSelectionBoardUI;
     [SerializeField] private PlayerDataBoardUI playerDataBoardUI;
+    [SerializeField] private UnlockContainerUI unlockInfoContainerUI;
     [SerializeField] private BasicUI gameInfoUI;
     [SerializeField] private BasicUI lobbyUI;
     [SerializeField] private ButtonUI optionButtonUI;
@@ -222,9 +223,15 @@ public class GameUIManager : MonoBehaviour
         if (popupState == PopupState.none)
         {
             popupState = PopupState.playerData;
-            playerDataBoardUI.Initialize();
             playerDataBoardUI.OpenPlayerDataBoardUI();
+
+            UnlockManager.instance.OnUnlockInfoRequested();
         }
+    }
+
+    public void OnUnlockInfoCallback(UnlockInfo[] unlockInfoTemplates, List<string> unlockedItems)
+    {
+        unlockInfoContainerUI.Initialize(unlockInfoTemplates, unlockedItems);
     }
 
     public void OnPlayButtonUIPressed(DeckType deckType, int level)

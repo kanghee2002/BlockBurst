@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
     public Board board;
 
     private const int STAGE_CHOICE_COUNT = 2;
-    private int CLEAR_CHAPTER = 3;
+    private int CLEAR_CHAPTER = 4;
 
     public List<BlockData> handBlocksData = new List<BlockData>();
     public List<Block> handBlocks = new List<Block>();
@@ -207,7 +207,7 @@ public class GameManager : MonoBehaviour
         // 각종 초기화
         Debug.Log("Game Start");
 
-        CLEAR_CHAPTER = 3;
+        CLEAR_CHAPTER = 4;
 
         DeckData deckData = deckTemplates.FirstOrDefault(deck => deck.type == deckType);
         deckData.Initialize();

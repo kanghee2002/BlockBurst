@@ -20,6 +20,18 @@ public class UnlockContainerUI : MonoBehaviour
 
     public void Initialize(UnlockInfo[] unlockInfoTemplates, List<string> unlockedItems)
     {
+        // 이미 한 번 생성되었다면 정보만 초기화
+        if (containers.childCount > 0)
+        {
+            for (int i = 0; i < unlockInfoTemplates.Length; i++)
+            {
+                GameObject container = containers.GetChild(i).gameObject;
+                UnlockInfo unlockInfo = unlockInfoTemplates[i];
+                SetContainer(unlockedItems.Contains(unlockInfo.targetName), container, unlockInfo);
+            }
+            return;
+        }
+
         unlockInfoList = new List<GameObject>();
 
         currentPage = 1;
@@ -54,23 +66,23 @@ public class UnlockContainerUI : MonoBehaviour
 
     private void SetContainer(bool isUnlocked, GameObject container, UnlockInfo unlockInfo)
     {
-        if (isUnlocked)
-        {
-            container.transform.GetChild(0).GetComponent<Image>().sprite = GetImage(isUnlocked, unlockInfo.targetName);
-            container.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = GetDescription(isUnlocked, unlockInfo);
-        }
-        else
-        {
-            container.transform.GetChild(0).GetComponent<Image>().sprite = GetImage(isUnlocked, unlockInfo.targetName);
-            container.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = GetDescription(isUnlocked, unlockInfo);
-        }
+        container.transform.GetChild(0).GetComponent<Image>().sprite = GetImage(isUnlocked, unlockInfo.targetName);
+        container.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = GetDescription(isUnlocked, unlockInfo);
     }
 
     private Sprite GetImage(bool isUnlocked, string itemID)
     {
-        string path = "Sprites/Item/Item/" + itemID;
-        Sprite sprite = Resources.Load<Sprite>(path);
-
+        string path;
+        Sprite sprite;
+        if (isUnlocked)
+        {
+            path = "Sprites/Item/Item/" + itemID;
+        }
+        else
+        {
+            path = "Sprites/UI/Lock";
+        }
+        sprite = Resources.Load<Sprite>(path);
         return sprite;
     }
 

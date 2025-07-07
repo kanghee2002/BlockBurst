@@ -371,6 +371,11 @@ public class GameManager : MonoBehaviour
         GameUIManager.instance.OnShopItemInfoCallback(itemData, index);
     }
 
+    public void OnDeckLevelInfoRequested()
+    {
+        GameUIManager.instance.OnDeckLevelInfoCallback(deckTemplates, levelTemplates);
+    }
+
     public void StartStageSelection()
     {
         // 상점 아이템을 다시 리스트에 추가

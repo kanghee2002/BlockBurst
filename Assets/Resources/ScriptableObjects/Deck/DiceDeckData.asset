@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: DiceDeckData
   m_EditorClassIdentifier: 
   id: DiceDeck
+  deckName: "\uC8FC\uC0AC\uC704 \uB371"
   type: 2
+  description: "\uAE30\uBCF8 \uBE14\uB85D \uC218\uAC00 \uBB34\uC791\uC704\uB85C \uC815\uD574\uC9D1\uB2C8\uB2E4"
   defaultRerlollCount: 5
   maxItemCount: 5
   baseBoardRows: 8

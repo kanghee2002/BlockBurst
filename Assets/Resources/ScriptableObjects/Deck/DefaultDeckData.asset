@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: DefaultDeckData
   m_EditorClassIdentifier: 
   id: DefaultDeck
+  deckName: "\uAE30\uBCF8 \uB371"
   type: 0
+  description: "\uAE30\uBCF8\uC801\uC778 \uB371"
   defaultRerlollCount: 5
   maxItemCount: 5
   baseBoardRows: 8

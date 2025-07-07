@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: BombDeckData
   m_EditorClassIdentifier: 
   id: BombDeck
+  deckName: "\uD3ED\uD0C4 \uB371"
   type: 5
+  description: "\uC904\uC744 \uC9C0\uC6B0\uBA74 \uBCF4\uB4DC\uC758 \uBAA8\uB4E0 \uBE14\uB85D\uC744
+    \uC9C0\uC6C1\uB2C8\uB2E4"
   defaultRerlollCount: 5
   maxItemCount: 5
   baseBoardRows: 8

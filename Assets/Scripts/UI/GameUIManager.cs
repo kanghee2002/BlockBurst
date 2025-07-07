@@ -212,6 +212,7 @@ public class GameUIManager : MonoBehaviour
         if (popupState == PopupState.none)
         {
             popupState = PopupState.deckSelection;
+            GameManager.instance.OnDeckLevelInfoRequested();
             deckSelectionBoardUI.Initialize();
             deckSelectionBoardUI.OpenDeckSelectionBoardUI();
         }
@@ -246,6 +247,11 @@ public class GameUIManager : MonoBehaviour
             popupState = PopupState.none;
             GameManager.instance.StartNewGame(deckType, level);
         }
+    }
+
+    public void OnDeckLevelInfoCallback(DeckData[] deckTemplates, LevelData[] levelTemplates)
+    {
+        deckSelectionBoardUI.InitializeDeckLevelInfo(deckTemplates, levelTemplates);
     }
 
     // Popup Blur Method

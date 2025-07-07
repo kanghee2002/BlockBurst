@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -7,7 +7,9 @@ using System;
 public class DeckData : ScriptableObject
 {
     public string id;
+    public string deckName;                                     // 덱 이름
     public DeckType type;                                       // 덱 타입
+    [TextArea] public string description;                                  // 덱 설명
     public int defaultRerlollCount;                             // 기본 리롤 횟수
     public int maxItemCount;                                    // 소지 가능 아이템 수
     public int baseBoardRows;                                   // 보드 크기

@@ -146,6 +146,8 @@ public class DeckSelectionBoardUI : MonoBehaviour
 
         selectedDeckText.text = currentDeck.deckName;
         deckDescriptionText.text = currentDeck.description;
+
+        SetDeckImage();
     }
 
     private void SetLevelDescription()
@@ -163,6 +165,15 @@ public class DeckSelectionBoardUI : MonoBehaviour
         {
             levelDuplicatedApplyText.gameObject.SetActive(false);
         }
+    }
+
+    private void SetDeckImage()
+    {
+        string path = "Sprites/Deck/" + selectedDeckType.ToString();
+
+        Sprite deckSprite = Resources.Load<Sprite>(path);
+
+        deckImage.sprite = deckSprite;
     }
 
     public void OpenDeckSelectionBoardUI()

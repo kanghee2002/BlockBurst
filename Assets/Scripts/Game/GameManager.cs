@@ -535,6 +535,7 @@ public class GameManager : MonoBehaviour
 
             DataManager.instance.UpdateDeckWinCount(runData.currentDeck.type);
             DataManager.instance.UpdateDeckLevel(runData.currentDeck.type, runData.currentLevel.level);
+            DataManager.instance.UpdateClearedMaxLevel(runData.currentLevel.level);
         }
         else
         {

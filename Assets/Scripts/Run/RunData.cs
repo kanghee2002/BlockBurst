@@ -16,6 +16,8 @@ public class RunData
     // 스테이지 진행 데이터
     public int currentChapterIndex;
     public int currentStageIndex;
+    public DeckData currentDeck;
+    public LevelData currentLevel;
     public History history;
     public Dictionary<BlockType, int> baseBlockScores;          // 기본 블록 점수
     public Dictionary<MatchType, int> baseMatchMultipliers;     // 기본 배수
@@ -38,6 +40,8 @@ public class RunData
     {
         currentChapterIndex = 1;
         currentStageIndex = 1;
+        currentDeck = gameData.currentDeck;
+        currentLevel = gameData.currentLevel;
         history = new History();
         baseBlockScores = new Dictionary<BlockType, int>(gameData.defaultBlockScores);
         baseMatchMultipliers = new Dictionary<MatchType, int>(gameData.defaultMatchMultipliers);

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e5d6495931287004b85fc19752c7e3e6, type: 3}
-  m_Name: ShovelInfo
+  m_Name: DiceInfo
   m_EditorClassIdentifier: 
-  targetType: 0
-  targetName: Shovel
-  description: "\uAC8C\uC784 Requirement\uD68C \uC2B9\uB9AC\uD558\uAE30"
-  trigger: 12
-  requirement: 2
+  targetType: 1
+  targetName: Dice
+  description: "\uC694\uC694 \uB371\uC73C\uB85C \uAC8C\uC784 \uC2B9\uB9AC\uD558\uAE30"
+  trigger: 25
+  requirement: 1

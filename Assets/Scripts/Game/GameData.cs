@@ -6,6 +6,8 @@ using UnityEngine;
 public class GameData
 {
     // 기본 게임 데이터
+    public DeckData currentDeck;
+    public LevelData currentLevel;
     public Dictionary<BlockType, int> defaultBlockScores;           // 기본 블록 점수
     public Dictionary<MatchType, int> defaultMatchMultipliers;      // 기본 배수
     public List<BlockData> defaultBlocks;                           // 기본 블록 몰록
@@ -23,6 +25,8 @@ public class GameData
     public void Initialize(BlockData[] blockTemplates, DeckData deckData, LevelData levelData)
     {
         // 기본값 설정
+        currentDeck = deckData;
+        currentLevel = levelData;
         defaultBlockScores = new Dictionary<BlockType, int>();
         defaultMatchMultipliers = new Dictionary<MatchType, int>();
         defaultBlocks = new List<BlockData>();

@@ -67,7 +67,7 @@ public class UnlockContainerUI : MonoBehaviour
     private void SetContainer(bool isUnlocked, GameObject container, UnlockInfo unlockInfo)
     {
         container.transform.GetChild(0).GetComponent<Image>().sprite = GetImage(isUnlocked, unlockInfo.targetName);
-        container.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = GetDescription(isUnlocked, unlockInfo);
+        container.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = unlockInfo.GetDescription();
     }
 
     private Sprite GetImage(bool isUnlocked, string itemID)
@@ -84,17 +84,6 @@ public class UnlockContainerUI : MonoBehaviour
         }
         sprite = Resources.Load<Sprite>(path);
         return sprite;
-    }
-
-    private string GetDescription(bool isUnlocked, UnlockInfo unlockInfo)
-    {
-        string result = unlockInfo.description;
-
-        result = result.Replace("Requirement", unlockInfo.requirement.ToString());
-
-        result = UIUtils.SetBlockNameToIcon(result);
-
-        return result;
     }
 
     public void OnNextButtonUIPressed()

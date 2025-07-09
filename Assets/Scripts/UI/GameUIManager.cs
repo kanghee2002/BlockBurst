@@ -213,6 +213,8 @@ public class GameUIManager : MonoBehaviour
         {
             popupState = PopupState.deckSelection;
             GameManager.instance.OnDeckLevelInfoRequested();
+            DataManager.instance.OnDeckSelectionPlayerDataRequested();
+            UnlockManager.instance.OnDeckUnlockInfoRequested();
             deckSelectionBoardUI.Initialize();
             deckSelectionBoardUI.OpenDeckSelectionBoardUI();
         }
@@ -225,9 +227,14 @@ public class GameUIManager : MonoBehaviour
             popupState = PopupState.playerData;
             playerDataBoardUI.OpenPlayerDataBoardUI();
 
-            DataManager.instance.OnPlayerDataRequested();
+            DataManager.instance.OnStatisticsPlayerDataRequested();
             UnlockManager.instance.OnUnlockInfoRequested();
         }
+    }
+
+    public void OnDeckUnlockInfoRequested(UnlockInfo[] deckUnlockInfoTemplates)
+    {
+        deckSelectionBoardUI.InitializeDeckUnlockInfo(deckUnlockInfoTemplates);
     }
 
     public void OnUnlockInfoCallback(UnlockInfo[] unlockInfoTemplates, List<string> unlockedItems)
@@ -235,10 +242,15 @@ public class GameUIManager : MonoBehaviour
         unlockInfoContainerUI.Initialize(unlockInfoTemplates, unlockedItems);
     }
 
-    public void OnPlayerDataCallback(PlayerData playerData)
+    public void OnStatisticsPlayerDataCallback(PlayerData playerData)
     {
         statisticsContainerUI.Initialize(playerData);
     }
+
+    public void OnDeckSelectionPlayerDataCallback(PlayerData playerData)
+    {
+        deckSelectionBoardUI.InitializePlayerData(playerData);
+    } 
 
     public void OnPlayButtonUIPressed(DeckType deckType, int level)
     {

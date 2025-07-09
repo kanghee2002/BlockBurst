@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class DataManager : MonoBehaviour
@@ -40,7 +39,7 @@ public class DataManager : MonoBehaviour
 
         if (Application.platform == RuntimePlatform.Android)
         {
-            path = Application.persistentDataPath + "/";
+            path = Application.persistentDataPath;
         }
     }
 
@@ -54,9 +53,14 @@ public class DataManager : MonoBehaviour
         File.WriteAllText(dataPath, savedJson);
     }
 
-    public void OnPlayerDataRequested()
+    public void OnStatisticsPlayerDataRequested()
     {
-        GameUIManager.instance.OnPlayerDataCallback(playerData);
+        GameUIManager.instance.OnStatisticsPlayerDataCallback(playerData);
+    }
+
+    public void OnDeckSelectionPlayerDataRequested()
+    {
+        GameUIManager.instance.OnDeckSelectionPlayerDataCallback(playerData);
     }
 
     // 이어하기
@@ -96,6 +100,15 @@ public class DataManager : MonoBehaviour
 
         string loadedJson = File.ReadAllText(dataPath);
         playerData = JsonUtility.FromJson<PlayerData>(loadedJson);
+
+        // TEST ---------------------------------------------------------------
+        GameManager.instance.TEST_TEXT("Player Data Exist!\n");
+        if (playerData == null) GameManager.instance.TEST_TEXT("But NULL\n");
+
+        GameManager.instance.TEST_TEXT("CONTAINING TUTO VALUE? : " + loadedJson.Contains("tutorialValue") + "\n");
+        GameManager.instance.TEST_TEXT("MAX CHAPTER : " + playerData.maxChapter + "\n");
+        GameManager.instance.TEST_TEXT("Place I : " + playerData.placeCountI + "\n");
+        // --------------------------------------------------------------------
 
         return playerData;
     }
@@ -204,6 +217,48 @@ public class DataManager : MonoBehaviour
         }
 
         return dictionary;
+    }
+
+    // 덱 해금 추가
+    public void AddUnlockedDeck(string deckName)
+    {
+        int index = playerData.unlockedDecks.FindIndex(x => x.deckName == deckName);
+
+        if (index != -1)
+        {
+            Debug.LogError("해금하려는 덱이 이미 존재함: " + deckName); ;
+            return;
+        }
+
+        DeckType deckType = Enums.GetEnumByString<DeckType>(deckName);
+        DeckInfo deckInfo = new DeckInfo(deckType, 0);
+        playerData.unlockedDecks.Add(deckInfo);
+    }
+
+    // 덱 레벨 업데이트
+    public void UpdateDeckLevel(DeckType deckType, int clearedLevel)
+    {
+        int index = playerData.unlockedDecks.FindIndex(x => x.deckType == deckType);
+
+        if (index == -1)
+        {
+            Debug.LogError("레벨 업데이트하려는 덱이 존재하지 않음" + deckType);
+            return;
+        }
+
+        DeckInfo deckInfo = playerData.unlockedDecks[index];
+
+        if (deckInfo.level == clearedLevel && deckInfo.level < DeckInfo.MAX_LEVEL)
+        {
+            deckInfo.level++;
+            playerData.unlockedDecks[index] = deckInfo;
+        }
+    }
+
+    // 아이템 해금 추가
+    public void AddUnlockedItem(string itemID)
+    {
+        playerData.unlockedItems.Add(itemID);
     }
 
     // 데이터 업데이트 함수 ------------------------------------------------
@@ -356,6 +411,46 @@ public class DataManager : MonoBehaviour
         {
             playerData.hasOnlyJL++;
             UnlockManager.instance.onHasOnlyJLUpdate?.Invoke(playerData.hasOnlyJL);
+        }
+    }
+
+    public void UpdateDeckWinCount(DeckType deckType)
+    {
+        switch (deckType)
+        {
+            case DeckType.Default:
+                playerData.defaultDeckWinCount++;
+                UnlockManager.instance.onDefaultDeckWinCountUpdate?.Invoke(playerData.defaultDeckWinCount);
+                break;
+            case DeckType.YoYo:
+                playerData.yoyoDeckWinCount++;
+                UnlockManager.instance.onYoYoDeckWinCountUpdate?.Invoke(playerData.yoyoDeckWinCount);
+                break;
+            case DeckType.Dice:
+                playerData.diceDeckWinCount++;
+                UnlockManager.instance.onDiceDeckWinCountUpdate?.Invoke(playerData.diceDeckWinCount);
+                break;
+            case DeckType.Telescope:
+                playerData.telescopeDeckWinCount++;
+                UnlockManager.instance.onTelescopeDeckWinCountUpdate?.Invoke(playerData.telescopeDeckWinCount);
+                break;
+            case DeckType.Mirror:
+                playerData.mirrorDeckWinCount++;
+                UnlockManager.instance.onMirrorDeckWinCountUpdate?.Invoke(playerData.mirrorDeckWinCount);
+                break;
+            case DeckType.Bomb:
+                playerData.bombDeckWinCount++;
+                UnlockManager.instance.onBombDeckWinCountUpdate?.Invoke(playerData.bombDeckWinCount);
+                break;
+        }
+    }
+
+    public void UpdateClearedMaxLevel(int value)
+    {
+        if (value > playerData.clearedMaxLevel)
+        {
+            playerData.clearedMaxLevel = value;
+            UnlockManager.instance.onClearedMaxLevelUpdate?.Invoke(playerData.clearedMaxLevel);
         }
     }
     // ---------------------------------------------------------------------

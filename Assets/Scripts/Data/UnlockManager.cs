@@ -33,6 +33,13 @@ public class UnlockManager : MonoBehaviour
     public Action<int> onHasOnlyIOUpdate;
     public Action<int> onHasOnlyZSUpdate;
     public Action<int> onHasOnlyJLUpdate;
+    public Action<int> onDefaultDeckWinCountUpdate;
+    public Action<int> onYoYoDeckWinCountUpdate;
+    public Action<int> onDiceDeckWinCountUpdate;
+    public Action<int> onTelescopeDeckWinCountUpdate;
+    public Action<int> onMirrorDeckWinCountUpdate;
+    public Action<int> onBombDeckWinCountUpdate;
+    public Action<int> onClearedMaxLevelUpdate;
 
     // 모든 해금 아이템 리스트
     private UnlockInfo[] unlockInfoTemplates;
@@ -100,7 +107,7 @@ public class UnlockManager : MonoBehaviour
         }
         else if (unlockInfo.targetType == UnlockTarget.Deck)
         {
-            //TODO
+            DataManager.instance.AddUnlockedDeck(targetName);
         }
 
         SetSubscribe(unlockInfo, false);
@@ -108,9 +115,16 @@ public class UnlockManager : MonoBehaviour
         GameManager.instance.PlayUnlockAnimation(unlockInfo);
     }
 
+    public void OnDeckUnlockInfoRequested()
+    {
+        UnlockInfo[] deckUnlockInfoTemplates = unlockInfoTemplates.Where(info => info.targetType == UnlockTarget.Deck).ToArray();
+        GameUIManager.instance.OnDeckUnlockInfoRequested(deckUnlockInfoTemplates);
+    }
+
     public void OnUnlockInfoRequested()
     {
-        GameUIManager.instance.OnUnlockInfoCallback(unlockInfoTemplates, playerData.GetUnlockedItems());
+        UnlockInfo[] itemUnlockInfoTemplates = unlockInfoTemplates.Where(info => info.targetType == UnlockTarget.Item).ToArray();
+        GameUIManager.instance.OnUnlockInfoCallback(itemUnlockInfoTemplates, playerData.GetUnlockedItems());
     }
 
     // 해금된 아이템만 반환
@@ -135,7 +149,7 @@ public class UnlockManager : MonoBehaviour
             currentLockedItems.Remove(itemID);
         }
 
-        foreach (PlayerData.DeckInfo deckInfo in playerData.GetUnlockedDecks())
+        foreach (DeckInfo deckInfo in playerData.GetUnlockedDecks())
         {
             currentLockedItems.Remove(deckInfo.deckName);
         }
@@ -242,6 +256,34 @@ public class UnlockManager : MonoBehaviour
             case UnlockTrigger.HasOnlyJL:
                 if (isSubscribing) onHasOnlyJLUpdate += unlockInfo.condition;
                 else onHasOnlyJLUpdate -= unlockInfo.condition;
+                break;
+            case UnlockTrigger.DefaultDeckWinCount:
+                if (isSubscribing) onDefaultDeckWinCountUpdate += unlockInfo.condition;
+                else onDefaultDeckWinCountUpdate -= unlockInfo.condition;
+                break;
+            case UnlockTrigger.YoYoDeckWinCount:
+                if (isSubscribing) onYoYoDeckWinCountUpdate += unlockInfo.condition;
+                else onYoYoDeckWinCountUpdate -= unlockInfo.condition;
+                break;
+            case UnlockTrigger.DiceDeckWinCount:
+                if (isSubscribing) onDiceDeckWinCountUpdate += unlockInfo.condition;
+                else onDiceDeckWinCountUpdate -= unlockInfo.condition;
+                break;
+            case UnlockTrigger.TelescopeDeckWinCount:
+                if (isSubscribing) onTelescopeDeckWinCountUpdate += unlockInfo.condition;
+                else onTelescopeDeckWinCountUpdate -= unlockInfo.condition;
+                break;
+            case UnlockTrigger.MirrorDeckWinCount:
+                if (isSubscribing) onMirrorDeckWinCountUpdate += unlockInfo.condition;
+                else onMirrorDeckWinCountUpdate -= unlockInfo.condition;
+                break;
+            case UnlockTrigger.BombDeckWinCount:
+                if (isSubscribing) onBombDeckWinCountUpdate += unlockInfo.condition;
+                else onBombDeckWinCountUpdate -= unlockInfo.condition;
+                break;
+            case UnlockTrigger.ClearedMaxLevel:
+                if (isSubscribing) onClearedMaxLevelUpdate += unlockInfo.condition;
+                else onClearedMaxLevelUpdate -= unlockInfo.condition;
                 break;
         }
     }

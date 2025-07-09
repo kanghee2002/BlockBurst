@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,25 +10,10 @@ public class DeckSelectionBoardUI : MonoBehaviour
 {
     [SerializeField] private PopupBlurImage popupBlurImage;
 
-    [SerializeField] private Image deckImage;
-    [SerializeField] private TextMeshProUGUI selectedDeckText;
-    [SerializeField] private TextMeshProUGUI deckDescriptionText;
-    [SerializeField] private TextMeshProUGUI selectedLevelText;
-    [SerializeField] private TextMeshProUGUI levelDescriptionText;
-    [SerializeField] private TextMeshProUGUI levelDuplicatedApplyText;
+    [SerializeField] private Transform deckContainer;
+    [SerializeField] private ButtonUI playButtonUI;
 
-    private struct DeckDescription
-    {
-        public DeckType deckType;
-        public string deckName;
-        public string description;
-    }
-
-    private struct LevelDescription
-    {
-        public int level;
-        public string description;
-    }
+    [SerializeField] private DeckDescriptionUI deckDescriptionUI;
 
     private RectTransform rectTransform;
 
@@ -34,81 +21,186 @@ public class DeckSelectionBoardUI : MonoBehaviour
     private const float outsidePositionOffsetX = 1000;
     private const float duration = 0.2f;
 
-    private const int maxLevel = 5;
+    private Color canPlayColor;
+    private Color cantPlayColor;
 
-    private List<DeckDescription> deckDescriptions;
-    private List<LevelDescription> levelDescriptions;
+    private List<DeckDescriptionUI> deckDescriptions;
 
-    private DeckType selectedDeckType;
+    private int selectedDeckIndex;
     private int selectedLevel;
+
 
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
+
+        canPlayColor = new Color(0.35f, 0.89f, 0.25f);
+        cantPlayColor = new Color(0.35f, 0.35f, 0.35f);
+    }
+
+    // 첫 번째 호출
+    public void InitializeDeckLevelInfo(DeckData[] deckTemplates, LevelData[] levelTemplates)
+    {
+        if (deckContainer.childCount <= 0)
+        {
+            deckDescriptions = new();
+        }
+
+        DeckData[] orderedDeckTemplates = deckTemplates.OrderBy(deck => (int)deck.type).ToArray();
+        LevelData[] orderedLevelTemplates = levelTemplates.OrderBy(level => level.level).ToArray();
+        foreach (DeckData deck in orderedDeckTemplates)
+        {
+            DeckDescriptionUI deckUI;
+            
+            if (deckDescriptions.Count < orderedDeckTemplates.Length)
+            {
+                deckUI = Instantiate(deckDescriptionUI, deckContainer);
+                deckDescriptions.Add(deckUI);
+            }
+            else
+            {
+                deckUI = deckDescriptions.Find(x => x.deckType == deck.type);
+            }
+
+            deckUI.transform.localPosition = Vector2.zero;
+            deckUI.Initialize(deck);
+
+            foreach (LevelData level in orderedLevelTemplates)
+            {
+                deckUI.InitializeLevel(level, orderedLevelTemplates.Length);
+            }
+
+        }
+    }
+
+    // 두 번째 호출
+    public void InitializePlayerData(PlayerData playerData)
+    {
+        for (int i = 0; i < deckDescriptions.Count; i++)
+        {
+            int index = playerData.unlockedDecks.FindIndex(deckInfo => i == (int)deckInfo.deckType);
+
+            if (index != -1)
+            {
+                deckDescriptions[i].SetUnlock(true, playerData.unlockedDecks[index].level);
+            }
+            else
+            {
+                deckDescriptions[i].SetUnlock(false, -1);
+            }
+        }
+
+        string data = "Start: ";
+
+        foreach (var x in playerData.unlockedDecks)
+        {
+            data += x.deckName + " " + x.level + "\n";
+        }
+
+        GameManager.instance.TEST_TEXT(data);
+    }
+
+    // 세 번째 호출
+    public void InitializeDeckUnlockInfo(UnlockInfo[] unlockInfoTemplates)
+    {
+        foreach (DeckDescriptionUI deckUI in deckDescriptions)
+        {
+            DeckType deckType = deckUI.deckType;
+
+            UnlockInfo unlockInfo = unlockInfoTemplates.FirstOrDefault(x => x.targetName == deckType.ToString());
+
+            if (unlockInfo == null)
+            {
+                continue;
+            }
+
+            deckUI.SetUnlockDescription(unlockInfo.GetDescription());
+        }
     }
 
     public void Initialize()
     {
-        selectedDeckType = DeckType.Default;
+        selectedDeckIndex = 0;
         selectedLevel = 0;
 
-        SetDeckDescription();
-        SetLevelDescription();
+        SetActiveLevel(0, 0);
     }
 
-    public void InitializeDeckLevelInfo(DeckData[] deckTemplates, LevelData[] levelTemplates)
+    private void SetActiveDeck(int index)
     {
-        deckDescriptions = new();
-        foreach (DeckData deck in deckTemplates)
+        for (int i = 0; i < deckDescriptions.Count; i++)
         {
-            DeckDescription deckDescription = new();
-            deckDescription.deckType = deck.type;
-            deckDescription.deckName = deck.deckName;
-            deckDescription.description = deck.description;
-
-            deckDescriptions.Add(deckDescription);
+            DeckDescriptionUI deckUI = deckDescriptions[i];
+            if (i == index)
+            {
+                deckUI.gameObject.SetActive(true);
+            }
+            else
+            {
+                deckUI.gameObject.SetActive(false);
+            }
         }
+    }
 
-        levelDescriptions = new();
-        foreach (LevelData level in levelTemplates)
+    private void SetActiveLevel(int deckIndex, int levelIndex)
+    {
+        for (int i = 0; i < deckDescriptions.Count; i++)
         {
-            LevelDescription levelDescription = new();
-            levelDescription.level = level.level;
-            levelDescription.description = level.description;
+            if (i == deckIndex)
+            {
+                deckDescriptions[i].SetActiveLevel(levelIndex);
+            }
+        }
+        SetActiveDeck(deckIndex);
+    }
 
-            levelDescriptions.Add(levelDescription);
+    private bool CanPlay()
+    {
+        return deckDescriptions[selectedDeckIndex].CanPlay(selectedLevel);
+    }
+
+    private void SetPlayButtonColor()
+    {
+        if (CanPlay())
+        {
+            playButtonUI.SetUIColor(canPlayColor);
+        }
+        else
+        {
+            playButtonUI.SetUIColor(cantPlayColor);
         }
     }
 
     public void OnDeckSelectionUpButtonUIPressed()
     {
-        int deckIndex = (int)selectedDeckType;
         int deckCount = Enums.GetEnumArray<DeckType>().Length;
 
-        if (deckIndex >= deckCount - 1)
+        if (selectedDeckIndex >= deckCount - 1)
         {
             return;
         }
 
-        deckIndex++;
-        selectedDeckType = (DeckType)deckIndex;
+        selectedDeckIndex++;
+        selectedLevel = 0;
 
-        SetDeckDescription();
+        SetActiveLevel(selectedDeckIndex, selectedLevel);
+
+        SetPlayButtonColor();
     }
 
     public void OnDeckSelectionDownButtonUIPressed()
     {
-        int deckIndex = (int)selectedDeckType;
-
-        if (deckIndex <= 0)
+        if (selectedDeckIndex <= 0)
         {
             return;
         }
 
-        deckIndex--;
-        selectedDeckType = (DeckType)deckIndex;
+        selectedDeckIndex--;
+        selectedLevel = 0;
 
-        SetDeckDescription();
+        SetActiveLevel(selectedDeckIndex, selectedLevel);
+
+        SetPlayButtonColor();
     }
 
     public void OnLevelUpButtonUIPressed()
@@ -120,7 +212,9 @@ public class DeckSelectionBoardUI : MonoBehaviour
 
         selectedLevel++;
 
-        SetLevelDescription();
+        SetActiveLevel(selectedDeckIndex, selectedLevel);
+
+        SetPlayButtonColor();
     }
 
     public void OnLevelDownButtonUIPressed()
@@ -132,48 +226,17 @@ public class DeckSelectionBoardUI : MonoBehaviour
 
         selectedLevel--;
 
-        SetLevelDescription();
+        SetActiveLevel(selectedDeckIndex, selectedLevel);
+
+        SetPlayButtonColor();
     }
 
     public void OnPlayButtonUIPressed()
     {
-        GameUIManager.instance.OnPlayButtonUIPressed(selectedDeckType, selectedLevel);
-    }
-
-    private void SetDeckDescription()
-    {
-        DeckDescription currentDeck = deckDescriptions.Find(deck => deck.deckType == selectedDeckType);
-
-        selectedDeckText.text = currentDeck.deckName;
-        deckDescriptionText.text = currentDeck.description;
-
-        SetDeckImage();
-    }
-
-    private void SetLevelDescription()
-    {
-        LevelDescription currentLevel = levelDescriptions.Find(level => level.level == selectedLevel);
-
-        selectedLevelText.text = "레벨 " + currentLevel.level.ToString();
-        levelDescriptionText.text = currentLevel.description;
-
-        if (currentLevel.level > 0)
+        if (CanPlay())
         {
-            levelDuplicatedApplyText.gameObject.SetActive(true);
+            GameUIManager.instance.OnPlayButtonUIPressed((DeckType)selectedDeckIndex, selectedLevel);
         }
-        else
-        {
-            levelDuplicatedApplyText.gameObject.SetActive(false);
-        }
-    }
-
-    private void SetDeckImage()
-    {
-        string path = "Sprites/Deck/" + selectedDeckType.ToString();
-
-        Sprite deckSprite = Resources.Load<Sprite>(path);
-
-        deckImage.sprite = deckSprite;
     }
 
     public void OpenDeckSelectionBoardUI()

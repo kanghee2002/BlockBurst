@@ -7,6 +7,7 @@ using System;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 using UnityEditor;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -100,6 +101,14 @@ public class GameManager : MonoBehaviour
         shopManager.AddFirstItem(new List<string>() { "Wheel" });
     }
 
+    public void TEST_TEXT(string text)
+    {
+        if (GameObject.Find("TEST_TEXT"))
+        {
+            GameObject.Find("TEST_TEXT").GetComponent<TextMeshProUGUI>().text += text;
+        }
+    }
+
     // ------------------------------------------------------------------------
 
     private void LoadTemplates()
@@ -116,14 +125,20 @@ public class GameManager : MonoBehaviour
     {
         if (playerData != null)
         {
+            TEST_TEXT("ALREADY EXIST PlayerData\n");
             return;
         }
 
         playerData = DataManager.instance.LoadPlayerData();
 
+        
+        TEST_TEXT("LOAD PlayerData\n");
+
         if (playerData == null)
         {
             playerData = new PlayerData();
+
+            TEST_TEXT("SAVE PlayerData\n");
 
             DataManager.instance.SavePlayerData(playerData);
         }
@@ -513,12 +528,13 @@ public class GameManager : MonoBehaviour
 
     public void EndStage()
     {
-        DataManager.instance.SavePlayerData(playerData);
-
         if (runData.currentChapterIndex == CLEAR_CHAPTER && stageManager.currentStage.type == StageType.BOSS)
         {
             EndGame(true);
             DataManager.instance.UpdateWinCount();
+
+            DataManager.instance.UpdateDeckWinCount(runData.currentDeck.type);
+            DataManager.instance.UpdateDeckLevel(runData.currentDeck.type, runData.currentLevel.level);
         }
         else
         {
@@ -548,6 +564,7 @@ public class GameManager : MonoBehaviour
             GameUIManager.instance.StopWarningStageEffectAnimation(true);
             GameUIManager.instance.StopWarningStageEffectAnimation(false);
         }
+        DataManager.instance.SavePlayerData(playerData);
     }
 
     IEnumerator DelayedEndStage()
@@ -745,7 +762,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        playerData.AddUnlockedItem(itemID);
+        DataManager.instance.AddUnlockedItem(itemID);
 
         shopManager.AddItem(itemData);
     }

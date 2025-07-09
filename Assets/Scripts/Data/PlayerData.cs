@@ -5,24 +5,25 @@ using System.Linq;
 using UnityEngine;
 
 [Serializable]
+public class DeckInfo
+{
+    public DeckType deckType;
+    public string deckName;
+    public int level;
+
+    public const int MAX_LEVEL = 5;
+
+    public DeckInfo(DeckType deckType, int level)
+    {
+        this.deckType = deckType;
+        this.deckName = deckType.ToString();
+        this.level = level;
+    }
+}
+
+[Serializable]
 public class PlayerData
 {
-    [Serializable]
-    public struct DeckInfo
-    {
-        public DeckType deckType;
-        public string deckName;
-        public int level;
-
-        public const int MAX_LEVEL = 5;
-
-        public DeckInfo(DeckType deckType, int level)
-        {
-            this.deckType = deckType;
-            this.deckName = deckType.ToString();
-            this.level = level;
-        }
-    }
 
     // 저장되는 데이터
     public bool tutorialValue;
@@ -52,11 +53,19 @@ public class PlayerData
     public int hasOnlyIO;
     public int hasOnlyZS;
     public int hasOnlyJL;
+    public int defaultDeckWinCount;
+    public int yoyoDeckWinCount;
+    public int diceDeckWinCount;
+    public int telescopeDeckWinCount;
+    public int mirrorDeckWinCount;
+    public int bombDeckWinCount;
+    public int clearedMaxLevel;
 
     public PlayerData()
     {
         tutorialValue = true;
-        unlockedDecks = new List<DeckInfo>();
+        DeckInfo defaultDeck = new DeckInfo(DeckType.Default, 0);
+        unlockedDecks = new List<DeckInfo>() { defaultDeck };
         unlockedItems = new List<string>();
         placeCountI = 0;
         placeCountO = 0;
@@ -82,47 +91,13 @@ public class PlayerData
         hasOnlyIO = 0;
         hasOnlyZS = 0;
         hasOnlyJL = 0;
-    }
-
-    // 덱 해금 추가
-    public void AddUnlockedDeck(string deckName)
-    {
-        int index = unlockedDecks.FindIndex(x => x.deckName == deckName);
-
-        if (index != -1)
-        {
-            Debug.LogError("해금하려는 덱이 이미 존재함: " + deckName); ;
-            return;
-        }
-
-        DeckType deckType = Enums.GetEnumByString<DeckType>(deckName);
-        DeckInfo deckInfo = new DeckInfo(deckType, 1);
-        unlockedDecks.Add(deckInfo);
-    }
-
-    // 덱 레벨 업데이트
-    public void UpdateDeckLevel(DeckType deckType)
-    {
-        int index = unlockedDecks.FindIndex(x => x.deckType == deckType);
-
-        if (index == -1)
-        {
-            Debug.LogError("레벨 업데이트하려는 덱이 존재하지 않음" + deckType);
-            return;
-        }
-
-        DeckInfo deckInfo = unlockedDecks[index];
-        
-        if (deckInfo.level < DeckInfo.MAX_LEVEL)
-        {
-            deckInfo.level++;
-        }
-    }
-
-    // 아이템 해금 추가
-    public void AddUnlockedItem(string itemID)
-    {
-        unlockedItems.Add(itemID);
+        defaultDeckWinCount = 0;
+        yoyoDeckWinCount = 0;
+        diceDeckWinCount = 0;
+        telescopeDeckWinCount = 0;
+        mirrorDeckWinCount = 0;
+        bombDeckWinCount = 0;
+        clearedMaxLevel = -1;
     }
 
     public bool IsDeckUnlocked(string deckName)

@@ -28,4 +28,13 @@ public class UnlockInfo :ScriptableObject
     {
         condition = CheckCondition;
     }
+
+    public string GetDescription()
+    {
+        string result = description.Replace("Requirement", requirement.ToString());
+
+        result = UIUtils.SetBlockNameToIcon(result);
+
+        return result; 
+    }
 }

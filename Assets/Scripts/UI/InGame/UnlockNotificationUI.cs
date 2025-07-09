@@ -29,9 +29,9 @@ public class UnlockNotificationUI : MonoBehaviour
         isPlayingAnimation = false;
     }
 
-
     public void PlayUnlockAnimation(UnlockInfo unlockInfo, Color uiColor)
     {
+        gameObject.SetActive(true);
         animationQueue.Enqueue((GetSprite(unlockInfo), uiColor));
 
         if (!isPlayingAnimation)
@@ -126,16 +126,18 @@ public class UnlockNotificationUI : MonoBehaviour
 
     private Sprite GetSprite(UnlockInfo unlockInfo)
     {
-        string itemPath = "Sprites/Item/Item/";
-
         Sprite sprite = null;
 
         if (unlockInfo.targetType == UnlockTarget.Item)
         {
-            string path = itemPath + unlockInfo.targetName;
+            string path = "Sprites/Item/Item/" + unlockInfo.targetName;
             sprite = Resources.Load<Sprite>(path);
         }
-
+        else if (unlockInfo.targetType == UnlockTarget.Deck)
+        {
+            string path = "Sprites/Deck/" + unlockInfo.targetName;
+            sprite = Resources.Load<Sprite>(path);
+        }
         return sprite;
     }
 

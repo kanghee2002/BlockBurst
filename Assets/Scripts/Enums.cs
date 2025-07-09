@@ -171,6 +171,13 @@ public enum UnlockTrigger
     HasOnlyIO,
     HasOnlyZS,
     HasOnlyJL,
+    DefaultDeckWinCount,
+    YoYoDeckWinCount,
+    DiceDeckWinCount,
+    TelescopeDeckWinCount,
+    MirrorDeckWinCount,
+    BombDeckWinCount,
+    ClearedMaxLevel,
 }
 // -----------------------------------------------------------------------
 

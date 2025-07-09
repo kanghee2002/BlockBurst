@@ -187,12 +187,8 @@ public class GameManager : MonoBehaviour
             shopManager = FindObjectOfType<ShopManager>();
             stageManager = FindObjectOfType<StageManager>();
             tutorialManager = FindObjectOfType<TutorialManager>();
-            if (isTutorial)
-            {
-                isTutorial = false;
-                tutorialManager.Initialize();
-            }
-            //StartNewGame();
+
+            GameUIManager.instance.SetTutorialToggleValue(isTutorial);
 
             AudioManager.instance.BeginBackgroundMusic();
         }
@@ -209,7 +205,6 @@ public class GameManager : MonoBehaviour
     {
         this.isTutorial = isTutorial;
         DataManager.instance.SetTutorialValue(isTutorial);
-
     }
 
     public bool GetTutorialValue()
@@ -350,6 +345,13 @@ public class GameManager : MonoBehaviour
         GameUIManager.instance.Initialize(runData);
 
         StartStageSelection();
+
+        if (isTutorial)
+        {
+            isTutorial = false;
+            DataManager.instance.SetTutorialValue(isTutorial);
+            tutorialManager.Initialize();
+        }
     }
 
     public void OnRunInfoRequested()

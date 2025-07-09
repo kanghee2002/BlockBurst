@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class GameUIManager : MonoBehaviour
@@ -30,6 +31,7 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private StageSelectionSignboardUI stageSelectionSignboardUI;
     [SerializeField] private StageSelectionBoardUI stageSelectionBoardUI;
     [SerializeField] private UnlockNotificationUI unlockNotificationUI;
+    [SerializeField] private Toggle tutorialToggle;
 
     [SerializeField] private RunInfoUI runInfoUI;
     [SerializeField] private OptionUI optionUI;
@@ -765,6 +767,17 @@ public class GameUIManager : MonoBehaviour
     public void OnSFXVolumeChanged(float value)
     {
         AudioManager.instance.ChangeSFXVolume(value);
+    }
+
+    public void SetTutorialToggleValue(bool value)
+    {
+        tutorialToggle.isOn = value;
+    }
+
+    public void OnToggleTutorial(bool value)
+    {
+        GameManager.instance.SetTutorialValue(value);
+        Debug.Log("Set Tutorial " + value);
     }
 
     public void TEST_BUTTON()

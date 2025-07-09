@@ -16,8 +16,8 @@ MonoBehaviour:
   effectName: "+EffectValue \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4."
   type: 2
   scope: 0
-  baseEffectValue: 10
-  effectValue: 10
+  baseEffectValue: 1
+  effectValue: 1
   trigger: 9
   triggerMode: 0
   triggerValue: 0

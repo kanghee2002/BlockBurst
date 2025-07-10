@@ -206,8 +206,8 @@ public class UnlockManager : MonoBehaviour
                 else onMaxScoreUpdate -= unlockInfo.condition;
                 break;
             case UnlockTrigger.MaxChapter:
-                if (isSubscribing) onItemPurchaseCountUpdate += unlockInfo.condition;
-                else onItemPurchaseCountUpdate -= unlockInfo.condition;
+                if (isSubscribing) onMaxChapterUpdate += unlockInfo.condition;
+                else onMaxChapterUpdate -= unlockInfo.condition;
                 break;
             case UnlockTrigger.WinCount:
                 if (isSubscribing) onWinCountUpdate += unlockInfo.condition;

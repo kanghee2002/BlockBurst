@@ -589,7 +589,7 @@ public class GameUIManager : MonoBehaviour
         {
             ChangeSceneState(SceneState.shopping);
         }
-        stageInfoUI.InitializeShopping();
+        stageInfoUI.InitializeShopping(currentChapterIndex, currentStageIndex);
         itemBoardUI.Initialize(items, rerollCost);
         shopSignboardUI.Initialize(currentChapterIndex, currentStageIndex);
         scoreInfoUI.InitializeShopping();

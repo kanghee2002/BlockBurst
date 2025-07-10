@@ -46,7 +46,6 @@ public class StageInfoUI : MonoBehaviour
 
         UpdateChapter(chapterIndex);
         UpdateStage(stageIndex);
-        UpdateChapterStage(chapterIndex, stageIndex);
         UpdateStageDescriptionText(stageData.constraints.Select(x => x.effectName).ToArray());
 
         currentWarningSequence = null;
@@ -54,8 +53,10 @@ public class StageInfoUI : MonoBehaviour
         isWarning = false;
     }
 
-    public void InitializeShopping()
+    public void InitializeShopping(int chapterIndex, int stageIndex)
     {
+        UpdateChapterStage(chapterIndex, stageIndex);
+
         if (scrollingTextAnimationCoroutine != null) StopCoroutine(scrollingTextAnimationCoroutine);
 
         PlayScrollingTextAnimation("SHOP · SHOP ·", 35);

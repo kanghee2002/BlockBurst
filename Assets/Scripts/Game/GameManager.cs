@@ -443,12 +443,12 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < nextStageChoices.Length; i++)
         {
             StageData stage = nextStageChoices[i];
-            int stageBaseScore = gameData.stageBaseScoreList[runData.currentChapterIndex - 1];
-            float scoreMultiplier = gameData.stageScoreMultiplier[runData.currentStageIndex - 1];
-            float stageScoreMultiplier = stage.baseScoreMultiplier;
 
             if (runData.currentChapterIndex <= 8)
             {
+                int stageBaseScore = gameData.stageBaseScoreList[runData.currentChapterIndex - 1];
+                float scoreMultiplier = gameData.stageScoreMultiplier[runData.currentStageIndex - 1];
+                float stageScoreMultiplier = stage.baseScoreMultiplier;
                 stage.clearRequirement = (int)(stageBaseScore * (scoreMultiplier + stageScoreMultiplier));
             }
             else

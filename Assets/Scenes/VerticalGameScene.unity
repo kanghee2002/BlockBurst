@@ -4783,7 +4783,7 @@ PrefabInstance:
     - target: {fileID: 3075290569250800002, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 7632d83fb79a8a744b6530c4dae8fe84, type: 3}
+      objectReference: {fileID: 21300000, guid: 7c37554732c5254408b6a2e84ccf204a, type: 3}
     - target: {fileID: 3075290569250800002, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_Color.b
       value: 0.9960785
@@ -7538,7 +7538,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 477082e2795eaf24fa528199a1f26980, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7c37554732c5254408b6a2e84ccf204a, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8595,9 +8595,13 @@ PrefabInstance:
       value: SpecialSwitchButtonUI
       objectReference: {fileID: 0}
     - target: {fileID: 3075290569250800002, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075290569250800002, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 7632d83fb79a8a744b6530c4dae8fe84, type: 3}
+      objectReference: {fileID: 21300000, guid: c1145eb64c7cefd498eb66cf506fc8d9, type: 3}
     - target: {fileID: 3075290569250800002, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_Color.b
       value: 0.45490196
@@ -17399,7 +17403,7 @@ PrefabInstance:
     - target: {fileID: 3075290569250800002, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 7632d83fb79a8a744b6530c4dae8fe84, type: 3}
+      objectReference: {fileID: 21300000, guid: 7c37554732c5254408b6a2e84ccf204a, type: 3}
     - target: {fileID: 3075290569250800002, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_Color.b
       value: 0.9921569
@@ -20931,7 +20935,7 @@ PrefabInstance:
     - target: {fileID: 3075290569250800002, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: be7bdae7007fde4408defcd86f7cec7c, type: 3}
+      objectReference: {fileID: 21300000, guid: 7c37554732c5254408b6a2e84ccf204a, type: 3}
     - target: {fileID: 3075290569250800002, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_Color.b
       value: 0.2971698
@@ -26617,9 +26621,13 @@ PrefabInstance:
       value: BasicSwitchButtonUI
       objectReference: {fileID: 0}
     - target: {fileID: 3075290569250800002, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075290569250800002, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 7632d83fb79a8a744b6530c4dae8fe84, type: 3}
+      objectReference: {fileID: 21300000, guid: c1145eb64c7cefd498eb66cf506fc8d9, type: 3}
     - target: {fileID: 3075290569250800002, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_Color.b
       value: 0.45882353
@@ -30559,7 +30567,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 477082e2795eaf24fa528199a1f26980, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7c37554732c5254408b6a2e84ccf204a, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -34016,9 +34024,13 @@ PrefabInstance:
       value: BoostInfoSwitchButtonUI
       objectReference: {fileID: 0}
     - target: {fileID: 3075290569250800002, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075290569250800002, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 7632d83fb79a8a744b6530c4dae8fe84, type: 3}
+      objectReference: {fileID: 21300000, guid: c1145eb64c7cefd498eb66cf506fc8d9, type: 3}
     - target: {fileID: 3075290569250800002, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_Color.b
       value: 0.9921569

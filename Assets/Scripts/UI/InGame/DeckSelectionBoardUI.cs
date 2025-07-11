@@ -124,6 +124,8 @@ public class DeckSelectionBoardUI : MonoBehaviour
         selectedLevel = 0;
 
         SetActiveLevel(0, 0);
+
+        SetPlayButtonColor();
     }
 
     private void SetActiveDeck(int index)

@@ -160,6 +160,8 @@ public class UnlockContainerUI : MonoBehaviour
 
         transform.GetChild(2).gameObject.SetActive(false);
 
+        GameObject.Find("UnlockNotificationUI").SetActive(false);
+
         GameUIManager.instance.OnPopupBlurUIPressed();
     }
 

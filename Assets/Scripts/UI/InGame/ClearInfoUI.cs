@@ -18,8 +18,10 @@ public class ClearInfoUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI stageText;
     [SerializeField] private TextMeshProUGUI rerolledCountText;
     [SerializeField] private TextMeshProUGUI buyedCountText;
+    [SerializeField] private TextMeshProUGUI loseReasonText;
 
     [SerializeField] private GameObject infiniteButton;
+    [SerializeField] private GameObject loseReasonContainer;
 
     [Header("Layout")]
     [SerializeField] private Image outer;
@@ -36,7 +38,7 @@ public class ClearInfoUI : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
     }
 
-    public void Initialize(bool isCleared, int currentChapterIndex, int currentStageIndex, RunData.History history, BlockType mostPlacedBlockType)
+    public void Initialize(bool isCleared, int currentChapterIndex, int currentStageIndex, RunData.History history, BlockType mostPlacedBlockType, string loseReason = "")
     {
         gameObject.SetActive(true);
         float elapsedTime = Time.time - history.startTime;
@@ -52,6 +54,7 @@ public class ClearInfoUI : MonoBehaviour
         seungRi.text = isCleared ? "승리!" : "패배";
         
         infiniteButton.SetActive(isCleared);
+        loseReasonContainer.SetActive(!isCleared);
 
         elapsedTimeText.text = $"{minutes:00}:{seconds:00}";
         maximumScoreText.text = history.maxScore.ToString();
@@ -62,6 +65,7 @@ public class ClearInfoUI : MonoBehaviour
         stageText.text = currentStageIndex.ToString();
         rerolledCountText.text = history.rerollCount.ToString();
         buyedCountText.text = history.itemPurchaseCount.ToString();
+        loseReasonText.text = loseReason;
     }
 
     public void SetLayoutsColor(Color uiColor)

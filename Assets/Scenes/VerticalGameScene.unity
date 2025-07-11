@@ -2901,7 +2901,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &173150844
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2952,6 +2952,7 @@ MonoBehaviour:
   buyedCountText: {fileID: 799718455}
   loseReasonText: {fileID: 2080825753}
   infiniteButton: {fileID: 296743093}
+  loseReasonContainer: {fileID: 616752480}
   outer: {fileID: 1922492654}
   inner: {fileID: 1663796378}
 --- !u!1001 &174056274
@@ -33761,12 +33762,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
+  m_fontSize: 25
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 17
-  m_fontSizeMax: 30
+  m_fontSizeMax: 25
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512

@@ -281,10 +281,10 @@ public class GameManager : MonoBehaviour
         runData.history.maxScore = 0;
     }
     
-    public void EndGame(bool isWin)
+    public void EndGame(bool isWin, string loseReason = "")
     {
         BlockType mostPlacedBlockType = (BlockType)runData.history.blockHistory.ToList().IndexOf(runData.history.blockHistory.Max());
-        GameUIManager.instance.OnGameEnd(isWin, runData.currentChapterIndex, runData.currentStageIndex, runData.history, mostPlacedBlockType);
+        GameUIManager.instance.OnGameEnd(isWin, runData.currentChapterIndex, runData.currentStageIndex, runData.history, mostPlacedBlockType, loseReason: loseReason);
     }
 
     public void InfiniteMode()
@@ -1027,15 +1027,22 @@ public class GameManager : MonoBehaviour
 
     public void GameOverCheck()
     {
-        bool isGameOver = !isClearStage // 스테이지 클리어가 아니고
-            && (blockGame.deck.Count == 0
-            && handBlocks.All(block => block == null))  // 덱이 비었거나
-            || (blockGame.rerollCount == 0
-            && handBlocksData.All(blockData => blockData == null || !board.CanPlaceSome(blockData)) // 둘 곳이 없을 때
-            );
+        bool noMoreBlocks = blockGame.deck.Count == 0 && handBlocks.All(b => b == null);
+        bool cannotPlaceAny = blockGame.rerollCount == 0 &&
+                              handBlocksData.All(data => data == null || !board.CanPlaceSome(data));
+
+        bool isGameOver = !isClearStage && (noMoreBlocks || cannotPlaceAny);
+
         if (isGameOver)
         {
-            EndGame(false);
+            if (noMoreBlocks)
+            {
+                EndGame(false, loseReason: "점수 부족");
+            }
+            else if (cannotPlaceAny)
+            {
+                EndGame(false, loseReason: "더 이상 둘 곳이 없음");
+            }
         }
     }
 

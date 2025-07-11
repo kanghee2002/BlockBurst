@@ -140,6 +140,29 @@ public class UnlockContainerUI : MonoBehaviour
         SetPageText();
     }
 
+    // 평가용
+    public void OnUnlockAllButtonUIPressed()
+    {
+        UnlockInfo[] unlockInfoTemplates = Resources.LoadAll<UnlockInfo>("ScriptableObjects/UnlockInfo");
+
+        foreach (UnlockInfo unlockInfo in unlockInfoTemplates)
+        {
+            UnlockManager.instance.Unlock(unlockInfo, unlockInfo.targetName);
+        }
+
+        foreach (DeckType deckType in Enums.GetEnumArray<DeckType>())
+        {
+            for (int i = 0; i < DeckInfo.MAX_LEVEL + 1; i++)
+            {
+                DataManager.instance.UpdateDeckLevel(deckType, i);
+            }
+        }
+
+        transform.GetChild(2).gameObject.SetActive(false);
+
+        GameUIManager.instance.OnPopupBlurUIPressed();
+    }
+
     private void SetPageText()
     {
         pageText.text = currentPage + " / " + maxPage;

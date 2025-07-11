@@ -21,8 +21,8 @@ public class DeckSelectionBoardUI : MonoBehaviour
     private const float outsidePositionOffsetX = 1000;
     private const float duration = 0.2f;
 
-    private Color canPlayColor;
-    private Color cantPlayColor;
+    [SerializeField] private Color canPlayColor;
+    [SerializeField] private Color cantPlayColor;
 
     private List<DeckDescriptionUI> deckDescriptions;
 
@@ -33,9 +33,6 @@ public class DeckSelectionBoardUI : MonoBehaviour
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
-
-        canPlayColor = new Color(0.35f, 0.89f, 0.25f);
-        cantPlayColor = new Color(0.35f, 0.35f, 0.35f);
     }
 
     // 첫 번째 호출

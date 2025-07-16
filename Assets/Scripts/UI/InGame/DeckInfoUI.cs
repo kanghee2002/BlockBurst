@@ -194,8 +194,10 @@ public class DeckInfoUI : MonoBehaviour
             List<EffectData> specialEffects = Resources.Load<ItemData>("ScriptableObjects/Item/Block/AddBlock" + UIUtils.ToCamelCase(blockType.ToString())).effects;
             foreach (EffectData effect in specialEffects)
             {
-                string text = UIUtils.SetBlockNameToIcon(effect.effectName.Replace("\n", " "));
-                effectText.text += UIUtils.GetEffectValueText(text, effect);
+                string tmp = UIUtils.SetBlockNameToIcon(effect.effectName.Replace("\n", " "));
+                string tmp2 = UIUtils.GetEffectValueText(tmp, effect);
+                string result = UIUtils.GetTriggerValueText(tmp2, effect);
+                effectText.text += result;
             }
         }
         else

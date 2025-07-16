@@ -227,6 +227,13 @@ public static class UIUtils
         return result;
     }
 
+    public static string GetTriggerValueText(string text, EffectData effectData)
+    {
+        string result = text.Replace("TriggerValue", effectData.triggerValue.ToString());
+
+        return result;
+    }
+
     public static string SetTextColor(string text, string specificColor = "")
     {
         string[] words = text.Split(new char[] {' ', '\n'});

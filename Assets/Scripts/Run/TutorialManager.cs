@@ -18,6 +18,11 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI descriptionText;
     [SerializeField] private ButtonUI nextButton;
 
+    [Header("Notification")]
+    [SerializeField] private RectTransform notificationRect;
+    [SerializeField] private RectTransform notificationCharacterRect;
+    [SerializeField] private TextMeshProUGUI notificationDescriptionText;
+
     [Header("Block Click")]
     [SerializeField] private RectTransform clickableRect;
     [SerializeField] private RectTransform[] blocks; // 클릭 막는 4개의 Rect

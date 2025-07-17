@@ -120,11 +120,14 @@ public class ItemBoardUI : MonoBehaviour
             Sequence cardSequence = DOTween.Sequence();
 
             // 좌우 흔들기
-            cardSequence.Append(card.transform.DOLocalMoveY(originalPosition.y + jumpHeight, duration)
-                .SetEase(Ease.OutQuad));
-            cardSequence.Join(card.transform.DORotate(new Vector3(0, 0, rotateAmount), duration / 4)
-                .SetLoops(4, LoopType.Yoyo)
-                .SetEase(Ease.Linear));
+            if (items[index].type != ItemType.BOOST)
+            {
+                cardSequence.Append(card.transform.DOLocalMoveY(originalPosition.y + jumpHeight, duration)
+                    .SetEase(Ease.OutQuad));
+                cardSequence.Join(card.transform.DORotate(new Vector3(0, 0, rotateAmount), duration / 4)
+                    .SetLoops(4, LoopType.Yoyo)
+                    .SetEase(Ease.Linear));
+            }
 
             // 데이터 변경
             cardSequence.AppendCallback(() => {

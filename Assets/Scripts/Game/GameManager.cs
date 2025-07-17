@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
     public List<BlockData> handBlocksData = new List<BlockData>();
     public List<Block> handBlocks = new List<Block>();
 
-    public List<ItemData> shopItems = new List<ItemData>();
+    public Dictionary<ItemType, ItemData[]> shopItems = new();
 
     private int blockId = 0;
 
@@ -219,6 +219,13 @@ public class GameManager : MonoBehaviour
 
         CLEAR_CHAPTER = 4;
 
+        shopItems = new Dictionary<ItemType, ItemData[]>()
+        {
+            { ItemType.ITEM, new ItemData[2] },
+            { ItemType.BOOST, new ItemData[2] },
+            { ItemType.ADD_BLOCK, new ItemData[2] },
+        };
+
         DeckData deckData = deckTemplates.FirstOrDefault(deck => deck.type == deckType);
         deckData.Initialize();
 
@@ -384,7 +391,9 @@ public class GameManager : MonoBehaviour
 
     public void OnShopItemInfoRequested(int index)
     {
-        ItemData itemData = shopItems[index];
+        List<ItemData> shopItemList = GetShopItemList();
+        ItemData itemData = shopItemList[index];
+
         GameUIManager.instance.OnShopItemInfoCallback(itemData, index);
     }
 
@@ -396,7 +405,7 @@ public class GameManager : MonoBehaviour
     public void StartStageSelection()
     {
         // 상점 아이템을 다시 리스트에 추가
-        foreach (ItemData item in shopItems)
+        foreach (ItemData item in GetShopItemList())
         {
             if (item != null)
             {
@@ -595,21 +604,43 @@ public class GameManager : MonoBehaviour
 
     public void StartShop(bool isFirst = false)
     {
-        // 아이템 랜덤하게 뽑아서 UI에 전달
-        shopItems.Clear();
         foreach ((ItemType itemType, int count) in runData.shopItemCounts)
         {
-            for (int i = 0; i < count; i++)
+            // 부스트 리롤 X
+            if (!isFirst && itemType == ItemType.BOOST)
             {
-                shopItems.Add(shopManager.PopItem(itemType));
+                continue;
             }
-            for (int i = 0; i < 2 - count; i++)
+
+            for (int i = 0; i < 2; i++)
             {
-                shopItems.Add(null);
+                if (i < count)
+                {
+                    shopItems[itemType][i] = shopManager.PopItem(itemType);
+                }
+                else
+                {
+                    shopItems[itemType][i] = null;
+                }
             }
         }
+
+        List<ItemData> shopItemList = GetShopItemList();
+
         if (isFirst) shopManager.InitializeRerollCost();
-        GameUIManager.instance.OnShopStart(shopItems, shopManager.currentRerollCost, runData.currentChapterIndex, runData.currentStageIndex, isFirst);   
+        GameUIManager.instance.OnShopStart(shopItemList, shopManager.currentRerollCost, runData.currentChapterIndex, runData.currentStageIndex, isFirst);   
+    }
+
+    private List<ItemData> GetShopItemList()
+    {
+        List<ItemData> shopItemList = new();
+
+        foreach ((ItemType itemType, ItemData[] items) in shopItems)
+        {
+            shopItemList.AddRange(items);
+        }
+
+        return shopItemList;
     }
 
     public void OnItemDiscard(int index)
@@ -628,12 +659,24 @@ public class GameManager : MonoBehaviour
 
     public int OnItemPurchased(int index)
     {
-        ItemData shopItem = shopItems[index];
+        List<ItemData> shopItemList = GetShopItemList();
+        ItemData shopItem = shopItemList[index];
 
         int res = shopManager.PurchaseItem(shopItem);
         if (res != -1)
         {
-            shopItems[index] = null;
+            if (index < 2)
+            {
+                shopItems[ItemType.ITEM][index] = null;
+            }
+            else if (index < 4)
+            {
+                shopItems[ItemType.BOOST][index - 2] = null;
+            }
+            else
+            {
+                shopItems[ItemType.ADD_BLOCK][index - 4] = null;
+            }
             GameUIManager.instance.DisplayItemSet(runData.activeItems, runData.maxItemCount);
 
             DataManager.instance.UpdateItemPurchaseCount();
@@ -676,7 +719,14 @@ public class GameManager : MonoBehaviour
         }
 
         UpdateGold(-shopManager.currentRerollCost);
-        List<ItemData> remains = shopItems.Where(item => item != null).ToList();
+        List<ItemData> remains = GetShopItemList().Where(item => item != null).ToList();
+
+        // 부스트는 제외 삭제
+        remains.RemoveAll(item => item.type == ItemType.BOOST);
+
+        shopItems[ItemType.ITEM] = new ItemData[2];
+        shopItems[ItemType.ADD_BLOCK] = new ItemData[2];
+
         StartShop();
         shopManager.RerollShop(remains);
         UpdateShopRerollCost(0);

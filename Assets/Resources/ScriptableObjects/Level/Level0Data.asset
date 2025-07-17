@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level0Data
   m_EditorClassIdentifier: 
   level: 0
-  additionalStageScores: 0000000000000000000000000000000000000000000000000000000000000000
+  additionalStageScores: 00000000000000000000000000000000
   additionalStageReward: 0
   additionalBaseRerollCount: 0
   additionalBlockScore: 0

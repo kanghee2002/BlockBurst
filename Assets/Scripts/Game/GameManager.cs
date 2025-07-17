@@ -453,7 +453,7 @@ public class GameManager : MonoBehaviour
         {
             StageData stage = nextStageChoices[i];
 
-            if (runData.currentChapterIndex <= 8)
+            if (runData.currentChapterIndex <= gameData.stageBaseScoreList.Count)
             {
                 int stageBaseScore = gameData.stageBaseScoreList[runData.currentChapterIndex - 1];
                 float scoreMultiplier = gameData.stageScoreMultiplier[runData.currentStageIndex - 1];
@@ -1062,6 +1062,8 @@ public class GameManager : MonoBehaviour
             }
 
             DataManager.instance.UpdateBlockPlaceCount(block);
+
+            tutorialManager.TriggerNotificationAnimation();
         }
 
         // 손패 다 쓰면 드로우

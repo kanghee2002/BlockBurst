@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Level3Data
   m_EditorClassIdentifier: 
   level: 3
-  additionalStageScores: 00000000f401000088130000204e00003075000050c30000a0860100801a0600
-  additionalStageReward: -3
-  additionalBaseRerollCount: -3
-  additionalBlockScore: 0
+  additionalStageScores: 00000000f4010000d007000010270000
+  additionalStageReward: -2
+  additionalBaseRerollCount: 0
+  additionalBlockScore: -3
   additionalMaxItemCount: 0
-  description: "\uAE30\uBCF8 \uB9AC\uB864 \uD69F\uC218\uAC00 3 \uAC10\uC18C\uD569\uB2C8\uB2E4"
+  description: "\uBAA8\uB4E0 \uBE14\uB85D \uC810\uC218\uAC00 3\uC810 \uAC10\uC18C\uD569\uB2C8\uB2E4"

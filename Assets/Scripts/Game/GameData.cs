@@ -74,14 +74,14 @@ public class GameData
 
         stageBaseScoreList = new List<int>()
         {
-            120,
-            1500,
-            6000,
-            20000,
-            50000,
-            150000,
-            500000,
-            1600000,
+            200,
+            2000,
+            10000,
+            30000,
+            //50000,
+            //150000,
+            //500000,
+            //1600000,
         };
 
         stageScoreMultiplier = new List<float>()

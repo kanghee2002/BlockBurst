@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Level5Data
   m_EditorClassIdentifier: 
   level: 5
-  additionalStageScores: 00000000f401000088130000204e00003075000050c30000a0860100801a0600
-  additionalStageReward: -3
-  additionalBaseRerollCount: -3
-  additionalBlockScore: -5
+  additionalStageScores: 00000000f401000088130000983a0000
+  additionalStageReward: -2
+  additionalBaseRerollCount: 0
+  additionalBlockScore: -3
   additionalMaxItemCount: -1
   description: "\uC544\uC774\uD15C \uCE78\uC774 1\uCE78 \uAC10\uC18C\uD569\uB2C8\uB2E4"

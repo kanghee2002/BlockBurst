@@ -825,6 +825,11 @@ public class GameManager : MonoBehaviour
         GameUIManager.instance.PlayUnlockAnimation(unlockInfo);
     }
 
+    public int GetCurrentStageIndex()
+    {
+        return runData.currentStageIndex;
+    }
+
     // ------------------------------
     // RUN LAYER - end
     // ------------------------------

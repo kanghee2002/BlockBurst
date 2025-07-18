@@ -5691,6 +5691,8 @@ MonoBehaviour:
   - {r: 0.21444464, g: 0.34540543, b: 0.5754717, a: 1}
   - {r: 0.16862746, g: 0.49922964, b: 0.5647059, a: 1}
   - {r: 0.14849591, g: 0.4433962, b: 0.23381633, a: 1}
+  selectingBossBackgroundColors:
+  - {r: 0.4056604, g: 0.08610717, b: 0.08610717, a: 1}
   playingBackgroundColors:
   - {r: 0.5247597, g: 0.6226415, b: 0.48460305, a: 1}
   - {r: 0.6509804, g: 0.8039216, b: 0.5882353, a: 1}
@@ -5698,9 +5700,6 @@ MonoBehaviour:
   shoppingBackgroundColors:
   - {r: 0.95686275, g: 0.6627451, b: 0.2, a: 1}
   currentUIColor: {r: 0, g: 0, b: 0, a: 1}
-  notificationRect: {fileID: 1520846097}
-  notificationCharacterRect: {fileID: 1243549234}
-  notificationDescriptionText: {fileID: 1035314058}
 --- !u!4 &294469253
 Transform:
   m_ObjectHideFlags: 0

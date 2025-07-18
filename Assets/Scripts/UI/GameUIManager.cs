@@ -42,6 +42,7 @@ public class GameUIManager : MonoBehaviour
 
     [Header("UI Colors")]
     [SerializeField] private List<Color> selectingBackgroundColors;
+    [SerializeField] private List<Color> selectingBossBackgroundColors;
     [SerializeField] private List<Color> playingBackgroundColors;
     [SerializeField] private List<Color> shoppingBackgroundColors;
     [SerializeField] private Color currentUIColor;
@@ -524,7 +525,14 @@ public class GameUIManager : MonoBehaviour
         switch (stateToOpen)
         {
             case SceneState.selecting:
-                currentUIColor = selectingBackgroundColors[Random.Range(0, selectingBackgroundColors.Count)];
+                if (GameManager.instance.GetCurrentStageIndex() == 3)
+                {
+                    currentUIColor = selectingBossBackgroundColors[Random.Range(0, selectingBossBackgroundColors.Count)];
+                }
+                else
+                {
+                    currentUIColor = selectingBackgroundColors[Random.Range(0, selectingBackgroundColors.Count)];
+                }
                 optionButtonUI.SetUIColor(currentUIColor);
                 actionInfoUI.SetChipLayoutColor(currentUIColor);
                 stageInfoUI.SetUIColor(currentUIColor);

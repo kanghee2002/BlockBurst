@@ -5698,6 +5698,9 @@ MonoBehaviour:
   shoppingBackgroundColors:
   - {r: 0.95686275, g: 0.6627451, b: 0.2, a: 1}
   currentUIColor: {r: 0, g: 0, b: 0, a: 1}
+  notificationRect: {fileID: 1520846097}
+  notificationCharacterRect: {fileID: 1243549234}
+  notificationDescriptionText: {fileID: 1035314058}
 --- !u!4 &294469253
 Transform:
   m_ObjectHideFlags: 0

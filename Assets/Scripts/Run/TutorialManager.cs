@@ -3,9 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using static Unity.Collections.AllocatorManager;
-using static Unity.VisualScripting.Member;
-using static UnityEngine.GraphicsBuffer;
 using UnityEngine.UI;
 
 public class TutorialManager : MonoBehaviour
@@ -70,6 +67,7 @@ public class TutorialManager : MonoBehaviour
     private bool isWaitingForSignal = false;
 
     private int itemCount = 0;
+    private int blockPlaceCount = 0;
 
     private float shadowAlpha;
 
@@ -82,6 +80,7 @@ public class TutorialManager : MonoBehaviour
         isWaitingForClick = false;
         isWaitingForSignal = false;
         itemCount = 0;
+        blockPlaceCount = 0;
         shadowAlpha = shadow.color.a;
 
         List<string> firstStageName = new List<string>()
@@ -427,6 +426,26 @@ public class TutorialManager : MonoBehaviour
         blocks[(int)Block.Bottom].sizeDelta = new Vector2(0, (Screen.height / 2f + anchorPosY - rectHeight / 2f) / resolutionRatioY);
     }
 
+    public void TriggerNotificationAnimation()
+    {
+        if (!isPlayingTutorial)
+        {
+            return;
+        }
+
+        blockPlaceCount++;
+
+        if (blockPlaceCount == 3)
+        {
+            PlayNotificationAnimation("블록을 클릭하면\n회전시킬 수 있어요!");
+        }
+
+        if (blockPlaceCount == 15)
+        {
+            PlayNotificationAnimation("리롤을 클릭하면\n새로운 블록을 가져올 수 있어요!");
+        }
+    }
+
     private void DisableBlocks()
     {
         foreach (RectTransform block in blocks)
@@ -475,5 +494,35 @@ public class TutorialManager : MonoBehaviour
             {
                 characterRect.localScale = Vector3.one;
             });
+    }
+
+    private void PlayNotificationAnimation(string description)
+    {
+        float duration = 0.5f;
+        float interval = 4.5f;
+        Vector2 originalPos = notificationRect.anchoredPosition;
+        
+        notificationRect.gameObject.SetActive(true);
+
+        notificationDescriptionText.text = description;
+
+        notificationRect.anchoredPosition = new Vector2(0f, 250f);
+        notificationRect.localScale = Vector3.one * 0.01f;
+
+        Sequence sequence = DOTween.Sequence();
+
+        sequence.Append(notificationRect.DOScale(Vector3.one, duration)
+            .SetEase(Ease.OutBack));
+        sequence.Append(notificationCharacterRect.DOPunchScale(Vector3.one * 0.3f, duration: 1f, vibrato: 7));
+        sequence.JoinCallback(() => AudioManager.instance.TutorialTalker(description));
+        sequence.AppendInterval(duration + interval);
+        sequence.Append(notificationRect.DOScale(Vector2.zero, duration))
+            .SetEase(Ease.InBack, overshoot: 1.2f);
+
+        sequence.OnComplete(() =>
+        {
+            notificationRect.anchoredPosition = originalPos;
+            notificationRect.gameObject.SetActive(false);
+        });
     }
 }

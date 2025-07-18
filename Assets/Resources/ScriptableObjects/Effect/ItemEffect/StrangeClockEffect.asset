@@ -17,12 +17,12 @@ MonoBehaviour:
     \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 2
   scope: 0
-  baseEffectValue: 77
-  effectValue: 77
+  baseEffectValue: 25
+  effectValue: 25
   trigger: 10
   triggerMode: 2
   triggerValue: 7
-  triggerCount: 6
+  triggerCount: 0
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 0}

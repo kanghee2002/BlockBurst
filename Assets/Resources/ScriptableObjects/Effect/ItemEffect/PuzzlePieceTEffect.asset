@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: PuzzlePieceTEffect
   m_EditorClassIdentifier: 
   id: PuzzlePieceTEffect
-  effectName: "T 4\uBC88 \uBC30\uCE58\uD560 \uB54C\uB9C8\uB2E4\n+EffectValue \uAE30\uBCF8
-    \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
+  effectName: "T TriggerValue\uBC88 \uBC30\uCE58\uD560 \uB54C\uB9C8\uB2E4\n+EffectValue
+    \uAE30\uBCF8 \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 3
   scope: 0
-  baseEffectValue: 6
-  effectValue: 6
+  baseEffectValue: 4
+  effectValue: 4
   trigger: 23
   triggerMode: 2
-  triggerValue: 4
+  triggerValue: 5
   triggerCount: 0
   blockTypes: 06000000
   probability: 1

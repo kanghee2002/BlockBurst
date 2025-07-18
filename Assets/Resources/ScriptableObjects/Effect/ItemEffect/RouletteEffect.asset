@@ -21,7 +21,7 @@ MonoBehaviour:
   effectValue: 2
   trigger: 17
   triggerMode: 2
-  triggerValue: 20
+  triggerValue: 30
   triggerCount: 0
   blockTypes: 
   probability: 1

@@ -1068,7 +1068,7 @@ public class GameManager : MonoBehaviour
 
             DataManager.instance.UpdateBlockPlaceCount(block);
 
-            tutorialManager.TriggerNotificationAnimation();
+            //tutorialManager.TriggerNotificationAnimation();
         }
 
         // 손패 다 쓰면 드로우

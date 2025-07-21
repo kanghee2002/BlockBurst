@@ -148,6 +148,9 @@ public class ShopManager : MonoBehaviour
                     EffectManager.instance.AddEffect(effect);
                 }
             }
+
+            EffectManager.instance.TriggerEffects(TriggerType.ON_ADD_BLOCK, blockTypes: new BlockType[] { item.block.type });
+            EffectManager.instance.EndTriggerEffect();
         }
         else if (item.type == ItemType.CONVERT_BLOCK)
         {

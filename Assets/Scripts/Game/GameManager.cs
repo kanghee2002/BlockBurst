@@ -895,6 +895,9 @@ public class GameManager : MonoBehaviour
     {
         handBlocks[idx].RotateShape();
         GameUIManager.instance.OnBlockRotateCallback(idx, handBlocks[idx]);
+
+        EffectManager.instance.TriggerEffects(TriggerType.ON_ROTATE_BLOCK, blockTypes: new BlockType[] { handBlocks[idx].Type });
+        EffectManager.instance.EndTriggerEffect();
     }
 
     public void OnBeginDragBlock(Block block)

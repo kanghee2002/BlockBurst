@@ -107,6 +107,8 @@ public enum TriggerType
     ON_BLOCK_PLACE_WITH_COUNT,              // 특정 블록을 N번 배치할 때
     ON_END_STAGE,                           // 스테이지 끝날 때
     ON_REROLL_SPECIFIC_BLOCK,               // 특정 블록을 리롤할 때
+    ON_ROTATE_BLOCK,                        // 특정 블록을 회전할 때
+    ON_ADD_BLOCK,                           // 특정 블록을 덱에 추가할 때
 }
 
 public enum TriggerMode

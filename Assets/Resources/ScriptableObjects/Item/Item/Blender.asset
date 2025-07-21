@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
+  m_Name: Blender
+  m_EditorClassIdentifier: 
+  id: Blender
+  itemName: "\uBBF9\uC11C\uAE30"
+  effects:
+  - {fileID: 11400000, guid: 45c3f122f359a944fab0e15558e4c84a, type: 2}
+  - {fileID: 11400000, guid: 918108ff9b6975d4c8728bcdad4a366d, type: 2}
+  cost: 8
+  type: 2
+  block: {fileID: 0}
+  isPurchasableAgain: 0
+  effectType: 0
+  rarity: 0

@@ -109,6 +109,8 @@ public enum TriggerType
     ON_REROLL_SPECIFIC_BLOCK,               // 특정 블록을 리롤할 때
     ON_ROTATE_BLOCK,                        // 특정 블록을 회전할 때
     ON_ADD_BLOCK,                           // 특정 블록을 덱에 추가할 때
+    ON_SHOP_REROLL,                         // 상점에서 리롤할 때
+    ON_ITEM_PURCHASE,                       // 아이템을 살 때
 }
 
 public enum TriggerMode

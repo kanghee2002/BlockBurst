@@ -227,6 +227,7 @@ public static class UIUtils
         text = text.Replace("+EffectValue 기본 리롤 횟수", "<color=green>+EffectValue</color> 기본 리롤 횟수");
         text = text.Replace("-EffectValue 기본 리롤 횟수", "<color=green>-EffectValue</color> 기본 리롤 횟수");
         text = text.Replace("$EffectValue", "<color=yellow>$EffectValue</color>");
+        text = text.Replace("골드가 +EffectValue", "골드가 <color=yellow>+EffectValue</color>");
 
         string result = text.Replace("EffectValue", value);
 

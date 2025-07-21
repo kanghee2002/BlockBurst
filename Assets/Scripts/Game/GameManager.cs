@@ -681,6 +681,8 @@ public class GameManager : MonoBehaviour
 
             DataManager.instance.UpdateItemPurchaseCount();
             runData.history.itemPurchaseCount++;  // 아이템 히스토리 업데이트
+
+            EffectManager.instance.TriggerEffects(TriggerType.ON_ITEM_PURCHASE);
         }
         else
         {
@@ -731,6 +733,9 @@ public class GameManager : MonoBehaviour
         shopManager.RerollShop(remains);
         UpdateShopRerollCost(0);
         DataManager.instance.UpdateShopRerollCount();
+
+        EffectManager.instance.TriggerEffects(TriggerType.ON_SHOP_REROLL);
+        EffectManager.instance.EndTriggerEffect();
     }
 
     public void UpdateShopRerollCost(int addingValue)
@@ -1333,7 +1338,14 @@ public class GameManager : MonoBehaviour
                 GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
                 break;
             case EffectType.EFFECT_VALUE_MODIFIER:
-                description = "<color=red>" + value + "</color>";
+                if (effect.modifyingEffect.type == EffectType.GOLD_MODIFIER)
+                {
+                    description = "<color=yellow>" + value + "</color>";
+                }
+                else
+                {
+                    description = "<color=red>" + value + "</color>";
+                }
                 GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
                 break;
             case EffectType.MULTIPLIER_MULTIPLER:
@@ -1341,6 +1353,7 @@ public class GameManager : MonoBehaviour
                 GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
                 UpdateMultiplier();
                 break;
+
         }
         
     }

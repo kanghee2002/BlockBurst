@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
+  m_Name: Backpack
+  m_EditorClassIdentifier: 
+  id: Backpack
+  itemName: "\uAC00\uBC29"
+  effects:
+  - {fileID: 11400000, guid: 0408983442399ea44b2cb5726781f0c5, type: 2}
+  - {fileID: 11400000, guid: 42e24b4aec1c9a94296a33e573e3df40, type: 2}
+  cost: 8
+  type: 2
+  block: {fileID: 0}
+  isPurchasableAgain: 0
+  effectType: 2
+  rarity: 1

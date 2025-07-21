@@ -148,7 +148,6 @@ public class Board
             }
             matchCount++;
             EffectManager.instance.TriggerEffects(TriggerType.ON_BLOCK_PLACE_WITH_LINE_CLEAR, blockTypes: new BlockType[] { block.Type });
-            EffectManager.instance.TriggerEffects(TriggerType.ON_LINE_CLEAR);
             EffectManager.instance.TriggerEffects(TriggerType.ON_LINE_CLEAR_WITH_COUNT, triggerValue: matchCount);
             EffectManager.instance.TriggerEffects(TriggerType.ON_MULTIPLE_LINE_CLEAR, triggerValue: matches.Count);
 
@@ -196,6 +195,11 @@ public class Board
         if (rowClearCount > 0 && columnClearCount > 0)
         {
             EffectManager.instance.TriggerEffects(TriggerType.ON_CROSS_LINE_CLEAR);
+        }
+
+        if (matches.Count > 0)
+        {
+            EffectManager.instance.TriggerEffects(TriggerType.ON_LINE_CLEAR);
         }
 
         GameManager.instance.PlayBoardRelatedAnimation(matchCount);

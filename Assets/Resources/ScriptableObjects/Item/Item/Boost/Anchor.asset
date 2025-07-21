@@ -16,7 +16,7 @@ MonoBehaviour:
   itemName: "\uB2FB"
   effects:
   - {fileID: 11400000, guid: 2398d6c272b53de4388750e0bc066209, type: 2}
-  cost: 10
+  cost: 6
   type: 3
   block: {fileID: 0}
   isPurchasableAgain: 0

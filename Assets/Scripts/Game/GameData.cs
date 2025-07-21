@@ -52,13 +52,13 @@ public class GameData
         }
 
         // 기본 블록 점수 설정
-        defaultBlockScores[BlockType.I] = 7;
-        defaultBlockScores[BlockType.O] = 7;
-        defaultBlockScores[BlockType.Z] = 13;
-        defaultBlockScores[BlockType.S] = 13;
-        defaultBlockScores[BlockType.J] = 10;
-        defaultBlockScores[BlockType.L] = 10;
-        defaultBlockScores[BlockType.T] = 10;
+        defaultBlockScores[BlockType.I] = 10;
+        defaultBlockScores[BlockType.O] = 10;
+        defaultBlockScores[BlockType.Z] = 20;
+        defaultBlockScores[BlockType.S] = 20;
+        defaultBlockScores[BlockType.J] = 15;
+        defaultBlockScores[BlockType.L] = 15;
+        defaultBlockScores[BlockType.T] = 15;
         defaultBlockScores[BlockType.SOLO] = 10;
         defaultBlockScores[BlockType.DUO] = 10;
         defaultBlockScores[BlockType.TRIO] = 10;

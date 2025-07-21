@@ -16,7 +16,7 @@ MonoBehaviour:
   itemName: "\uBD89\uC740 \uB3CC\uBA69\uC774"
   effects:
   - {fileID: 11400000, guid: 788c448ba1a96a04eaf6458cee89ef1f, type: 2}
-  cost: 6
+  cost: 8
   type: 2
   block: {fileID: 0}
   isPurchasableAgain: 0

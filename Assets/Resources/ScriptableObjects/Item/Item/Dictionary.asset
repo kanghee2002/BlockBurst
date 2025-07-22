@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: Dictionary
   m_EditorClassIdentifier: 
-  id: Fork
-  itemName: "\uD3EC\uD06C"
+  id: Dictionary
+  itemName: "\uC0AC\uC804"
   effects:
-  - {fileID: 11400000, guid: c790888d171db384a9740d867ba675e3, type: 2}
-  cost: 5
+  - {fileID: 11400000, guid: 0e3378cd75453b44995fa1df3222874f, type: 2}
+  - {fileID: 11400000, guid: ce78cd727c6e3a14daecaffc5aa9587d, type: 2}
+  cost: 8
   type: 2
   block: {fileID: 0}
   isPurchasableAgain: 0

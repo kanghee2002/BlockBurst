@@ -18,11 +18,11 @@ MonoBehaviour:
   type: 27
   scope: 0
   baseEffectValue: 3
-  effectValue: 6
-  trigger: 9
+  effectValue: 3
+  trigger: 27
   triggerMode: 0
   triggerValue: 0
   triggerCount: 0
   blockTypes: 
   probability: 1
-  modifyingEffect: {fileID: 0}
+  modifyingEffect: {fileID: 11400000, guid: 0e3378cd75453b44995fa1df3222874f, type: 2}

@@ -17397,8 +17397,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uBE14\uB85D\uC744 \uD074\uB9AD\uD558\uBA74\\n\uD68C\uC804\uC2DC\uD0AC
-    \uC218 \uC788\uC5B4\uC694!"
+  m_text: "\uC4F8 \uC218 \uC788\uB294 \uBE14\uB85D\uC740 \uB371\uC5D0\uC11C \uD655\uC778\uD558\uC138\uC694!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2a59723d8f0743f4ba7c0c6d36676d1c, type: 2}
   m_sharedMaterial: {fileID: 92899030693641188, guid: 2a59723d8f0743f4ba7c0c6d36676d1c, type: 2}
@@ -17428,9 +17427,9 @@ MonoBehaviour:
   m_fontSize: 25
   m_fontSizeBase: 25
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 25
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -17492,7 +17491,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 280, y: 50}
+  m_SizeDelta: {x: 250, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1036438480
 GameObject:
@@ -21238,8 +21237,9 @@ MonoBehaviour:
   - characterPosition: {x: -160, y: 0}
     highlightRect: {fileID: 231077321}
     clickableRect: {fileID: 0}
-    description: "\uBE14\uB85D\uC744 \uBC30\uCE58\uD574 \uC904\uC744 \uB9CC\uB4E4\uBA74
-      \uC810\uC218\uB97C \uD68D\uB4DD\uD569\uB2C8\uB2E4"
+    description: "\uBE14\uB85D\uC744 <color=#005000>\uC544\uBB34\uB370\uB098</color>
+      \uBC30\uCE58\uD574 <color=#005000>\uAC00\uB85C</color> \uB610\uB294 <color=#005000>\uC138\uB85C</color>
+      \uC904\uC744 \uB9CC\uB4E4\uBA74 \uC810\uC218\uB97C \uD68D\uB4DD\uD569\uB2C8\uB2E4"
     isNextButtonInactive: 0
     isInactive: 0
     highlightDelay: 0.5
@@ -21298,11 +21298,19 @@ MonoBehaviour:
     isNextButtonInactive: 0
     isInactive: 0
     highlightDelay: 0
-  - characterPosition: {x: -160, y: 0}
-    highlightRect: {fileID: 1927571098}
+  - characterPosition: {x: -160, y: -60}
+    highlightRect: {fileID: 1932354068}
     clickableRect: {fileID: 0}
-    description: "\uBAA9\uD45C \uC810\uC218\uC5D0 \uB3C4\uB2EC\uD558\uC9C0 \uBABB\uD558\uAC70\uB098
-      \uBE14\uB85D\uC744 \uBC30\uCE58\uD560 \uACF3\uC774 \uC5C6\uB2E4\uBA74 <color=red>\uD328\uBC30</color>\uD569\uB2C8\uB2E4"
+    description: "\uB371\uC758 <color=#005000>\uBE14\uB85D\uC744 \uB2E4 \uC37C\uB294\uB370</color>
+      \uC810\uC218\uB97C \uB2EC\uC131\uD558\uC9C0 \uBABB\uD55C\uB2E4\uBA74 <color=red>\uD328\uBC30</color>\uD569\uB2C8\uB2E4"
+    isNextButtonInactive: 0
+    isInactive: 0
+    highlightDelay: 0
+  - characterPosition: {x: -160, y: 100}
+    highlightRect: {fileID: 90868070}
+    clickableRect: {fileID: 0}
+    description: "\uB610, \uBE14\uB85D\uC744 <color=#005000>\uBC30\uCE58\uD560 \uACF3\uC774
+      \uC5C6\uB2E4\uBA74</color> <color=red>\uD328\uBC30</color>\uD569\uB2C8\uB2E4"
     isNextButtonInactive: 0
     isInactive: 0
     highlightDelay: 0
@@ -21350,7 +21358,7 @@ MonoBehaviour:
     highlightRect: {fileID: 1583208970}
     clickableRect: {fileID: 0}
     description: "'<sprite=4> \uC54C'\uC740 <sprite=4> \uD3EC\uD568\uD574 \uC904\uC744\\n\uC9C0\uC6B8
-      \uB54C\uB9C8\uB2E4 <color=red>+8 \uBC30\uC218</color>\uB97C\\n\uCD94\uAC00\uD569\uB2C8\uB2E4!"
+      \uB54C\uB9C8\uB2E4 <color=red>+6 \uBC30\uC218</color>\uB97C\\n\uCD94\uAC00\uD569\uB2C8\uB2E4!"
     isNextButtonInactive: 0
     isInactive: 0
     highlightDelay: 0
@@ -31991,7 +31999,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: -15}
-  m_SizeDelta: {x: 128, y: 64}
+  m_SizeDelta: {x: 96, y: 32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1932354069
 MonoBehaviour:

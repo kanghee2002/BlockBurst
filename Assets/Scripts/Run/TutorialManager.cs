@@ -437,12 +437,22 @@ public class TutorialManager : MonoBehaviour
 
         if (blockPlaceCount == 3)
         {
-            PlayNotificationAnimation("블록을 클릭하면\n회전시킬 수 있어요!");
+            PlayNotificationAnimation("블록을 클릭하면 회전시킬 수 있어요!");
+        }
+
+        if (blockPlaceCount == 9)
+        {
+            PlayNotificationAnimation("블록은 아무 곳에나 배치할 수 있어요!");
         }
 
         if (blockPlaceCount == 15)
         {
-            PlayNotificationAnimation("리롤을 클릭하면\n새로운 블록을 가져올 수 있어요!");
+            PlayNotificationAnimation("리롤을 클릭하면 새로운 블록을 가져올 수 있어요!");
+        }
+
+        if (blockPlaceCount == 25)
+        {
+            PlayNotificationAnimation("덱 버튼을 통해 자신의 덱을 확인하세요!");
         }
     }
 

@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: WheelEffect2
   m_EditorClassIdentifier: 
   id: WheelEffect2
-  effectName: "\uB9AC\uB864\uD560 \uB54C\uB9C8\uB2E4 \uBC30\uC218\uAC00 +EffectValue
-    \uC99D\uAC00\uD569\uB2C8\uB2E4"
+  effectName: "\uB9AC\uB864\uC744 TriggerValue\uBC88 \uD560 \uB54C\uB9C8\uB2E4 \uBC30\uC218\uAC00
+    +EffectValue \uC99D\uAC00\uD569\uB2C8\uB2E4"
   type: 27
   scope: 0
   baseEffectValue: 1
   effectValue: 1
   trigger: 17
-  triggerMode: 0
-  triggerValue: 0
+  triggerMode: 2
+  triggerValue: 2
   triggerCount: 0
   blockTypes: 
   probability: 1

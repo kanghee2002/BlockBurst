@@ -17,8 +17,8 @@ MonoBehaviour:
     \uC788\uC73C\uBA74 +EffectValue \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 2
   scope: 0
-  baseEffectValue: 15
-  effectValue: 15
+  baseEffectValue: 10
+  effectValue: 10
   trigger: 12
   triggerMode: 0
   triggerValue: 0

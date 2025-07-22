@@ -74,19 +74,19 @@ public class GameData
 
         stageBaseScoreList = new List<int>()
         {
-            150,
+            200,
             2000,
             10000,
             30000,
-            //50000,
-            //150000,
-            //500000,
-            //1600000,
+            50000,
+            150000,
+            500000,
+            1600000,
         };
 
         stageScoreMultiplier = new List<float>()
         {
-            1f, 2f, 3f
+            1f, 1.5f, 2f
         };
 
         // 레벨 설정

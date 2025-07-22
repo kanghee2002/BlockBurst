@@ -20,6 +20,6 @@ MonoBehaviour:
   cost: 9
   type: 3
   block: {fileID: 0}
-  isPurchasableAgain: 1
+  isPurchasableAgain: 0
   effectType: 0
   rarity: 1

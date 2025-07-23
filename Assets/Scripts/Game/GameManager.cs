@@ -1093,8 +1093,37 @@ public class GameManager : MonoBehaviour
     public void GameOverCheck()
     {
         bool noMoreBlocks = blockGame.deck.Count == 0 && handBlocks.All(b => b == null);
-        bool cannotPlaceAny = blockGame.rerollCount == 0 &&
-                              handBlocksData.All(data => data == null || !board.CanPlaceSome(data));
+        bool cannotPlaceAny = handBlocksData.All(data => data == null || !board.CanPlaceSome(data));
+
+        HashSet<BlockType> checkedBlockTypes = new();
+
+        foreach (BlockData blockData in handBlocksData)
+        {
+            if (blockData != null)
+            {
+                checkedBlockTypes.Add(blockData.type);
+            }
+        }
+
+        // 덱에 대해 블록 배치 검사
+        bool cannotPlayAnyDeck = true;
+        if (blockGame.rerollCount > 0)
+        {
+            foreach (BlockData blockData in blockGame.deck)
+            {
+                if (!checkedBlockTypes.Contains(blockData.type))
+                {
+                    if (board.CanPlaceSome(blockData))
+                    {
+                        cannotPlayAnyDeck = false;
+                        break;
+                    }
+                    checkedBlockTypes.Add(blockData.type);
+                }
+            }
+        }
+
+        cannotPlaceAny = cannotPlaceAny && cannotPlayAnyDeck;
 
         bool isGameOver = !isClearStage && (noMoreBlocks || cannotPlaceAny);
 
@@ -1102,11 +1131,11 @@ public class GameManager : MonoBehaviour
         {
             if (noMoreBlocks)
             {
-                EndGame(false, loseReason: "점수 부족");
+                EndGame(false, loseReason: "덱의 블록을 모두 사용했으나\r\n점수 달성 실패");
             }
             else if (cannotPlaceAny)
             {
-                EndGame(false, loseReason: "더 이상 둘 곳이 없음");
+                EndGame(false, loseReason: "보드에 블록을\r\n배치할 곳이 없음");
             }
         }
     }

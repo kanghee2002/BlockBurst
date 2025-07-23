@@ -22,6 +22,9 @@ public class Board
 
     private Dictionary<BlockType, int> placedBlockCounts;
 
+    // 게임 오버 체크용
+    private Block blockCopy = new Block();
+
     public void Initialize(BlockGameData blockGameData)
     {
         gameData = blockGameData;
@@ -50,6 +53,8 @@ public class Board
             { BlockType.L, 0 },
             { BlockType.T, 0 },
         };
+
+        blockCopy = new Block();
 
         GameManager.instance.PlayBoardRelatedAnimation(matchCount);
     }
@@ -465,7 +470,6 @@ public class Board
     // 회전 고려
     public bool CanPlaceSome(BlockData blockData)
     {
-        Block blockCopy = new Block();
         blockCopy.Initialize(blockData, 0);
         int row = cells.GetLength(0);
         int column = cells.GetLength(1);

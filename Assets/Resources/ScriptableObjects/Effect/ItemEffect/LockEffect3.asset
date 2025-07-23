@@ -10,18 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
-  m_Name: DictionaryEffect1
+  m_Name: LockEffect3
   m_EditorClassIdentifier: 
-  id: DictionaryEffect1
-  effectName: "+EffectValue \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4."
-  type: 2
+  id: LockEffect3
+  effectName: "\uBE14\uB85D\uC744 \uD68C\uC804\uD560 \uB54C -EffectValue\uB9CC\uD07C
+    \uAC10\uC18C\uD569\uB2C8\uB2E4"
+  type: 27
   scope: 0
-  baseEffectValue: 3
-  effectValue: 2
-  trigger: 9
+  baseEffectValue: -5
+  effectValue: -10
+  trigger: 26
   triggerMode: 0
   triggerValue: 0
   triggerCount: 0
   blockTypes: 
   probability: 1
-  modifyingEffect: {fileID: 0}
+  modifyingEffect: {fileID: 11400000, guid: 187d70ed7dab0bf4fb316bcea5ddbf55, type: 2}

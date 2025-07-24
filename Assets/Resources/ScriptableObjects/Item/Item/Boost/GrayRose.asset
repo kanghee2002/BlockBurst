@@ -19,6 +19,6 @@ MonoBehaviour:
   cost: 8
   type: 3
   block: {fileID: 0}
-  isPurchasableAgain: 0
+  isPurchasableAgain: 1
   effectType: 3
   rarity: 2

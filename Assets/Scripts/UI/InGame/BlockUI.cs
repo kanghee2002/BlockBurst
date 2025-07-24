@@ -92,7 +92,7 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
             {
                 string tmp = UIUtils.SetBlockNameToIcon(effect.effectName.Replace("\n", " "));
                 string tmp2 = UIUtils.GetEffectValueText(tmp, effect);
-                string result = UIUtils.GetTriggerValueText(tmp2, effect);
+                string result = UIUtils.GetValueText(tmp2, effect);
                 description += result;
             }
         }

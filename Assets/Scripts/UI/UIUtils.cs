@@ -234,9 +234,10 @@ public static class UIUtils
         return result;
     }
 
-    public static string GetTriggerValueText(string text, EffectData effectData)
+    public static string GetValueText(string text, EffectData effectData)
     {
         string result = text.Replace("TriggerValue", effectData.triggerValue.ToString());
+        result = result.Replace("MaxValue", effectData.maxValue.ToString());
 
         return result;
     }

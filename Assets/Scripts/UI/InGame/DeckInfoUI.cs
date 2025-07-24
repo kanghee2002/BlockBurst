@@ -196,7 +196,7 @@ public class DeckInfoUI : MonoBehaviour
             {
                 string tmp = UIUtils.SetBlockNameToIcon(effect.effectName.Replace("\n", " "));
                 string tmp2 = UIUtils.GetEffectValueText(tmp, effect);
-                string result = UIUtils.GetTriggerValueText(tmp2, effect);
+                string result = UIUtils.GetValueText(tmp2, effect);
                 effectText.text += result;
             }
         }

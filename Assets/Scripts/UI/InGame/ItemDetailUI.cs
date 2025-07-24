@@ -84,7 +84,7 @@ public class ItemDetailUI : MonoBehaviour
         for (int i = 0; i < item.effects.Count; i++)
         {
             string tmp = UIUtils.GetEffectValueText(item.effects[i].effectName.Replace("\n", " "), item.effects[i]);
-            string tmp2 = UIUtils.GetTriggerValueText(tmp, item.effects[i]);
+            string tmp2 = UIUtils.GetValueText(tmp, item.effects[i]);
             description += UIUtils.SetBlockNameToIcon(tmp2);
             if (i != item.effects.Count - 1)
             {

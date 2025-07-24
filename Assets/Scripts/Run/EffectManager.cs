@@ -183,7 +183,12 @@ public class EffectManager : MonoBehaviour
             case EffectType.BASEMULTIPLIER_MULTIPLIER:
                 if (effect.scope == EffectScope.Run)
                 {
+                    int originalMultiplier = runData.baseMatchMultipliers[matchType];
                     runData.baseMatchMultipliers[matchType] *= effect.effectValue;
+                    if (effect.maxValue != -1)
+                    {
+                        runData.baseMatchMultipliers[matchType] = Math.Min(originalMultiplier + effect.maxValue, runData.baseMatchMultipliers[matchType]);
+                    }
                 }
                 blockGameData.matchMultipliers[matchType] *= effect.effectValue;
                 break;
@@ -199,14 +204,28 @@ public class EffectManager : MonoBehaviour
                 GameManager.instance.UpdateRerollCount(effect.effectValue);
                 break;
             case EffectType.BASEREROLL_MULTIPLIER:
+                int originalRerollCount = runData.baseRerollCount;
                 runData.baseRerollCount *= effect.effectValue;
+                if (effect.maxValue != -1)
+                {
+                    runData.baseRerollCount = Math.Min(originalRerollCount + effect.maxValue, runData.baseRerollCount);
+                }
                 GameManager.instance.UpdateRerollCount(effect.effectValue, isMultiplying: true);
                 break;
             case EffectType.GOLD_MODIFIER:
                 GameManager.instance.UpdateGold(effect.effectValue);
                 break;
             case EffectType.GOLD_MULTIPLIER:
-                GameManager.instance.UpdateGold(effect.effectValue, isMultiplying: true);
+                if (effect.maxValue != -1)
+                {
+                    int addingValue = runData.gold * (effect.effectValue - 1);
+                    addingValue = Math.Min(effect.maxValue, addingValue);
+                    GameManager.instance.UpdateGold(addingValue);
+                }
+                else
+                {
+                    GameManager.instance.UpdateGold(effect.effectValue);
+                }
                 break;
             case EffectType.BOARD_SIZE_MODIFIER:
                 if (effect.scope == EffectScope.Run)

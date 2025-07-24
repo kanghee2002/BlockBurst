@@ -749,19 +749,12 @@ public class GameManager : MonoBehaviour
         deckManager.RemoveBlockFromRunDeck(blockType);
     }
 
-    public void UpdateGold(int value, bool isMultiplying = false, bool isStageReward = false)
+    public void UpdateGold(int value, bool isStageReward = false)
     {
         int prevGold = runData.gold;
 
-        if (isMultiplying)
-        {
-            runData.gold *= value;
-        }
-        else
-        {
-            runData.gold += value;
-            if (runData.gold < 0) runData.gold = 0;
-        }
+        runData.gold += value;
+        if (runData.gold < 0) runData.gold = 0;
 
         int currentGold = runData.gold;
 

@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: GoldenRoseEffect
   m_EditorClassIdentifier: 
   id: GoldenRoseEffect
-  effectName: "\uD604\uC7AC \uACE8\uB4DC\uAC00 EffectValue\uBC30\uB85C \uBCF5\uC0AC\uB429\uB2C8\uB2E4"
+  effectName: "\uD604\uC7AC \uACE8\uB4DC\uAC00 EffectValue\uBC30\uB85C \uBCF5\uC0AC\uB429\uB2C8\uB2E4        
+    (\uCD5C\uB300 $MaxValue)"
   type: 10
   scope: 0
   baseEffectValue: 2
@@ -25,3 +26,4 @@ MonoBehaviour:
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: 20

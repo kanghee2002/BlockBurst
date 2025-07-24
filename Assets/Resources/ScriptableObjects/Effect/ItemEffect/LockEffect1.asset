@@ -13,13 +13,12 @@ MonoBehaviour:
   m_Name: LockEffect1
   m_EditorClassIdentifier: 
   id: LockEffect1
-  effectName: "\uBE14\uB85D\uC744 \uB193\uC744 \uB54C\uB9C8\uB2E4 +EffectValue \uAE30\uBCF8
-    \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4."
-  type: 3
+  effectName: "+EffectValue \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
+  type: 2
   scope: 0
-  baseEffectValue: 1
-  effectValue: 26
-  trigger: 1
+  baseEffectValue: 0
+  effectValue: 0
+  trigger: 9
   triggerMode: 0
   triggerValue: 0
   triggerCount: 0

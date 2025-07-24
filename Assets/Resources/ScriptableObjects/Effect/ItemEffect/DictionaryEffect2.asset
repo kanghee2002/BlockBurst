@@ -18,7 +18,7 @@ MonoBehaviour:
   type: 27
   scope: 0
   baseEffectValue: 3
-  effectValue: 3
+  effectValue: 2
   trigger: 27
   triggerMode: 0
   triggerValue: 0

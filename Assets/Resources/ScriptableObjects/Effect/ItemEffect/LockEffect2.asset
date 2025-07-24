@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: LockEffect2
   m_EditorClassIdentifier: 
   id: LockEffect2
-  effectName: "\uBE14\uB85D\uC744 \uD68C\uC804\uD558\uBA74 -EffectValue \uAE30\uBCF8
-    \uBC30\uC218\uB97C \uC783\uC2B5\uB2C8\uB2E4"
-  type: 3
+  effectName: "\uBE14\uB85D\uC744 TriggerValue\uBC88 \uB193\uC744 \uB54C +EffectValue
+    \uCD94\uAC00 \uBC30\uC218\uB97C \uC5BB\uACE0,"
+  type: 27
   scope: 0
-  baseEffectValue: -1
-  effectValue: -1
-  trigger: 26
-  triggerMode: 0
-  triggerValue: 0
+  baseEffectValue: 1
+  effectValue: 1
+  trigger: 1
+  triggerMode: 2
+  triggerValue: 2
   triggerCount: 0
   blockTypes: 
   probability: 1
-  modifyingEffect: {fileID: 0}
+  modifyingEffect: {fileID: 11400000, guid: 187d70ed7dab0bf4fb316bcea5ddbf55, type: 2}

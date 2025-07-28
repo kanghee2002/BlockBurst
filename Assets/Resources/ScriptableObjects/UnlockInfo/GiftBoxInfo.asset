@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetType: 0
   targetName: GiftBox
-  description: "\uB371\uC5D0 J/L \uB9CC \uBCF4\uC720\uD558\uAE30"
-  trigger: 23
-  requirement: 1
+  description: "J/L Requirement\uBC88 \uBC30\uCE58\uD558\uAE30"
+  trigger: 33
+  requirement: 100

@@ -182,6 +182,9 @@ public enum UnlockTrigger
     MirrorDeckWinCount,
     BombDeckWinCount,
     ClearedMaxLevel,
+    placeCountIO,
+    placeCountZS,
+    placeCountJL,
 }
 // -----------------------------------------------------------------------
 

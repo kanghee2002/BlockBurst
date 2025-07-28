@@ -40,6 +40,9 @@ public class UnlockManager : MonoBehaviour
     public Action<int> onMirrorDeckWinCountUpdate;
     public Action<int> onBombDeckWinCountUpdate;
     public Action<int> onClearedMaxLevelUpdate;
+    public Action<int> onPlaceCountIOUpdate;
+    public Action<int> onPlaceCountZSUpdate;
+    public Action<int> onPlaceCountJLUpdate;
 
     // 모든 해금 아이템 리스트
     private UnlockInfo[] unlockInfoTemplates;
@@ -284,6 +287,18 @@ public class UnlockManager : MonoBehaviour
             case UnlockTrigger.ClearedMaxLevel:
                 if (isSubscribing) onClearedMaxLevelUpdate += unlockInfo.condition;
                 else onClearedMaxLevelUpdate -= unlockInfo.condition;
+                break;
+            case UnlockTrigger.placeCountIO:
+                if (isSubscribing) onPlaceCountIOUpdate += unlockInfo.condition;
+                else onPlaceCountIOUpdate -= unlockInfo.condition;
+                break;
+            case UnlockTrigger.placeCountZS:
+                if (isSubscribing) onPlaceCountZSUpdate += unlockInfo.condition;
+                else onPlaceCountZSUpdate -= unlockInfo.condition;
+                break;
+            case UnlockTrigger.placeCountJL:
+                if (isSubscribing) onPlaceCountJLUpdate += unlockInfo.condition;
+                else onPlaceCountJLUpdate -= unlockInfo.condition;
                 break;
         }
     }

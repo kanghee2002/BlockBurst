@@ -300,6 +300,23 @@ public class DataManager : MonoBehaviour
                 UnlockManager.instance.onPlaceCountTUpdate?.Invoke(playerData.placeCountT);
                 break;
         }
+
+        switch (block.Type)
+        {
+            case BlockType.I:
+            case BlockType.O:
+                UnlockManager.instance.onPlaceCountIOUpdate?.Invoke(playerData.placeCountI + playerData.placeCountO);
+                break;
+            case BlockType.Z:
+            case BlockType.S:
+                UnlockManager.instance.onPlaceCountZSUpdate?.Invoke(playerData.placeCountZ + playerData.placeCountS);
+                break;
+            case BlockType.J:
+            case BlockType.L:
+            case BlockType.T:
+                UnlockManager.instance.onPlaceCountJLUpdate?.Invoke(playerData.placeCountJ + playerData.placeCountL);
+                break;
+        }
     }
     public void UpdateRerollCount()
     {

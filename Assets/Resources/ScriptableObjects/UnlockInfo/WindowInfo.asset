@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetType: 0
   targetName: Window
-  description: "\uB371\uC774 I/O \uB9CC \uBCF4\uC720\uD558\uAE30"
-  trigger: 21
-  requirement: 1
+  description: "I/O Requirement\uBC88 \uBC30\uCE58\uD558\uAE30"
+  trigger: 31
+  requirement: 100

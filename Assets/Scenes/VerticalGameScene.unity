@@ -1976,6 +1976,7 @@ MonoBehaviour:
   deckContainer: {fileID: 1701877271}
   playButtonUI: {fileID: 1902867300}
   deckDescriptionUI: {fileID: 2598162913704063446, guid: a8be6fc78e2671547bb6047ba0f77f1b, type: 3}
+  tutorialToggle: {fileID: 522473518}
   canPlayColor: {r: 0.3529412, g: 0.89411765, b: 0.2509804, a: 1}
   cantPlayColor: {r: 0.3529412, g: 0.3529412, b: 0.3529412, a: 1}
 --- !u!1 &123664997

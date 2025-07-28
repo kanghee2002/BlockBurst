@@ -15,6 +15,8 @@ public class DeckSelectionBoardUI : MonoBehaviour
 
     [SerializeField] private DeckDescriptionUI deckDescriptionUI;
 
+    [SerializeField] private Toggle tutorialToggle;
+
     private RectTransform rectTransform;
 
     private const float insidePositionX = 0;
@@ -28,6 +30,8 @@ public class DeckSelectionBoardUI : MonoBehaviour
 
     private int selectedDeckIndex;
     private int selectedLevel;
+
+    private bool isTutorialToggleOn;
 
 
     private void Awake()
@@ -120,6 +124,8 @@ public class DeckSelectionBoardUI : MonoBehaviour
         selectedDeckIndex = 0;
         selectedLevel = 0;
 
+        isTutorialToggleOn = tutorialToggle.isOn;
+
         SetActiveLevel(0, 0);
 
         SetPlayButtonColor();
@@ -151,6 +157,15 @@ public class DeckSelectionBoardUI : MonoBehaviour
             }
         }
         SetActiveDeck(deckIndex);
+
+        if (deckIndex == 0 && levelIndex == 0)
+        {
+            SetActiveTutorialToggle(true);
+        }
+        else
+        {
+            SetActiveTutorialToggle(false);
+        }
     }
 
     private bool CanPlay()
@@ -167,6 +182,22 @@ public class DeckSelectionBoardUI : MonoBehaviour
         else
         {
             playButtonUI.SetUIColor(cantPlayColor);
+        }
+    }
+
+    private void SetActiveTutorialToggle(bool isActive)
+    {
+        if (isActive)
+        {
+            GameUIManager.instance.SetTutorialToggleValue(isTutorialToggleOn);
+            GameUIManager.instance.OnToggleTutorial(isTutorialToggleOn);
+            tutorialToggle.gameObject.SetActive(true);
+        }
+        else
+        {
+            isTutorialToggleOn = tutorialToggle.isOn;
+            GameUIManager.instance.OnToggleTutorial(false);
+            tutorialToggle.gameObject.SetActive(false);
         }
     }
 

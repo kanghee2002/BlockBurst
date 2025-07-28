@@ -785,7 +785,6 @@ public class GameUIManager : MonoBehaviour
     public void OnToggleTutorial(bool value)
     {
         GameManager.instance.SetTutorialValue(value);
-        Debug.Log("Set Tutorial " + value);
     }
 
     public void TEST_BUTTON()

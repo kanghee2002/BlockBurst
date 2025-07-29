@@ -26,4 +26,4 @@ MonoBehaviour:
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 0}
-  maxValue: 20
+  maxValue: 15

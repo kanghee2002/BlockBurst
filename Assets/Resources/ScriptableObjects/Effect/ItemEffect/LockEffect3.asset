@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: LockEffect3
   m_EditorClassIdentifier: 
   id: LockEffect3
-  effectName: "\uBE14\uB85D\uC744 \uD68C\uC804\uD560 \uB54C -EffectValue\uB9CC\uD07C
-    \uAC10\uC18C\uD569\uB2C8\uB2E4"
+  effectName: "\uBE14\uB85D\uC744 \uD68C\uC804\uD560 \uB54C\uB9C8\uB2E4 \uBC30\uC218\uAC00
+    -EffectValue \uAC10\uC18C\uD569\uB2C8\uB2E4"
   type: 27
   scope: 0
   baseEffectValue: -5
@@ -26,3 +26,4 @@ MonoBehaviour:
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 11400000, guid: 187d70ed7dab0bf4fb316bcea5ddbf55, type: 2}
+  maxValue: -1

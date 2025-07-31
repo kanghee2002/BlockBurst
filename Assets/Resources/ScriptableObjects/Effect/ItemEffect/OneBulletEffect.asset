@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: OneBulletEffect
   effectName: "\uB9C8\uC9C0\uB9C9 \uBE14\uB85D\uC744 \uBC30\uCE58\uD560 \uB54C\n+EffectValue
-    \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
+    \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4.\n\uD55C \uBC88\uB9CC \uBC1C\uB3D9\uD569\uB2C8\uB2E4"
   type: 2
   scope: 0
   baseEffectValue: 100
@@ -26,3 +26,6 @@ MonoBehaviour:
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

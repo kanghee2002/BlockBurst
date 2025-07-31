@@ -19,10 +19,13 @@ MonoBehaviour:
   scope: 0
   baseEffectValue: 3
   effectValue: 3
-  trigger: 26
+  trigger: 28
   triggerMode: 0
   triggerValue: 0
   triggerCount: 0
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 11400000, guid: a7cdab877a16f2649af65b70ce33ce5a, type: 2}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

@@ -145,6 +145,9 @@ public class EffectManager : MonoBehaviour
             }
         }
 
+        int finalValue = GetFinalValue(effect);
+
+
         lastTriggeredEffects.Add(effect.id);
 
         // 효과 적용
@@ -155,9 +158,9 @@ public class EffectManager : MonoBehaviour
                 {
                     if (effect.scope == EffectScope.Run)
                     {
-                        runData.baseBlockScores[blockType] += effect.effectValue;
+                        runData.baseBlockScores[blockType] += finalValue;
                     }
-                    blockGameData.blockScores[blockType] += effect.effectValue;
+                    blockGameData.blockScores[blockType] += finalValue;
                 }
                 break;
             case EffectType.SCORE_MULTIPLIER:
@@ -165,82 +168,82 @@ public class EffectManager : MonoBehaviour
                 {
                     if (effect.scope == EffectScope.Run)
                     {
-                        runData.baseBlockScores[blockType] *= effect.effectValue;
+                        runData.baseBlockScores[blockType] *= finalValue;
                     }
-                    blockGameData.blockScores[blockType] *= effect.effectValue;
+                    blockGameData.blockScores[blockType] *= finalValue;
                 }
                 break;
             case EffectType.MULTIPLIER_MODIFIER:
-                blockGameData.matchMultipliers[matchType] += effect.effectValue;
+                blockGameData.matchMultipliers[matchType] += finalValue;
                 break;
             case EffectType.BASEMULTIPLIER_MODIFIER:
                 if (effect.scope == EffectScope.Run)
                 {
-                    runData.baseMatchMultipliers[matchType] += effect.effectValue;
+                    runData.baseMatchMultipliers[matchType] += finalValue;
                 }
-                blockGameData.matchMultipliers[matchType] += effect.effectValue;
+                blockGameData.matchMultipliers[matchType] += finalValue;
                 break;
             case EffectType.BASEMULTIPLIER_MULTIPLIER:
                 if (effect.scope == EffectScope.Run)
                 {
                     int originalMultiplier = runData.baseMatchMultipliers[matchType];
-                    runData.baseMatchMultipliers[matchType] *= effect.effectValue;
+                    runData.baseMatchMultipliers[matchType] *= finalValue;
                     if (effect.maxValue != -1)
                     {
                         runData.baseMatchMultipliers[matchType] = Math.Min(originalMultiplier + effect.maxValue, runData.baseMatchMultipliers[matchType]);
                     }
                 }
-                blockGameData.matchMultipliers[matchType] *= effect.effectValue;
+                blockGameData.matchMultipliers[matchType] *= finalValue;
                 break;
             case EffectType.REROLL_MODIFIER:
-                GameManager.instance.UpdateRerollCount(effect.effectValue);
+                GameManager.instance.UpdateRerollCount(finalValue);
                 break;
             case EffectType.REROLL_MULTIPLIER:
-                GameManager.instance.UpdateRerollCount(effect.effectValue, isMultiplying: true);
+                GameManager.instance.UpdateRerollCount(finalValue, isMultiplying: true);
                 break;
             case EffectType.BASEREROLL_MODIFIER:           
-                runData.baseRerollCount += effect.effectValue;
+                runData.baseRerollCount += finalValue;
                 if (runData.baseRerollCount < 0) runData.baseRerollCount = 0;
-                GameManager.instance.UpdateRerollCount(effect.effectValue);
+                GameManager.instance.UpdateRerollCount(finalValue);
                 break;
             case EffectType.BASEREROLL_MULTIPLIER:
                 int originalRerollCount = runData.baseRerollCount;
-                runData.baseRerollCount *= effect.effectValue;
+                runData.baseRerollCount *= finalValue;
                 if (effect.maxValue != -1)
                 {
                     runData.baseRerollCount = Math.Min(originalRerollCount + effect.maxValue, runData.baseRerollCount);
                 }
-                GameManager.instance.UpdateRerollCount(effect.effectValue, isMultiplying: true);
+                GameManager.instance.UpdateRerollCount(finalValue, isMultiplying: true);
                 break;
             case EffectType.GOLD_MODIFIER:
-                GameManager.instance.UpdateGold(effect.effectValue);
+                GameManager.instance.UpdateGold(finalValue);
                 break;
             case EffectType.GOLD_MULTIPLIER:
                 if (effect.maxValue != -1)
                 {
-                    int addingValue = runData.gold * (effect.effectValue - 1);
+                    int addingValue = runData.gold * (finalValue - 1);
                     addingValue = Math.Min(effect.maxValue, addingValue);
                     GameManager.instance.UpdateGold(addingValue);
                 }
                 else
                 {
-                    GameManager.instance.UpdateGold(effect.effectValue);
+                    GameManager.instance.UpdateGold(finalValue);
                 }
                 break;
             case EffectType.BOARD_SIZE_MODIFIER:
                 if (effect.scope == EffectScope.Run)
                 {
-                    runData.baseBoardRows += effect.effectValue;
-                    runData.baseBoardColumns += effect.effectValue;
+                    runData.baseBoardRows += finalValue;
+                    runData.baseBoardColumns += finalValue;
                 }
-                blockGameData.boardRows += effect.effectValue;
-                blockGameData.boardColumns += effect.effectValue;
+                blockGameData.boardRows += finalValue;
+                blockGameData.boardColumns += finalValue;
                 break;
             case EffectType.BOARD_CORNER_BLOCK:
                 blockGameData.isCornerBlocked = true;
                 break;
             case EffectType.BOARD_RANDOM_BLOCK:
-                blockGameData.inactiveCellCount += effect.effectValue;
+                blockGameData.inactiveCellCount += finalValue;
                 break;
             case EffectType.DECK_MODIFIER:
                 // TODO
@@ -254,7 +257,7 @@ public class EffectManager : MonoBehaviour
             case EffectType.BLOCK_MULTIPLIER:
                 foreach (BlockType blockType in effect.blockTypes)
                 {
-                    MultiplyBlock(blockType, effect.effectValue);
+                    MultiplyBlock(blockType, finalValue);
                 }
                 break;
             case EffectType.BLOCK_DELETE:
@@ -268,7 +271,7 @@ public class EffectManager : MonoBehaviour
                 }
                 break;
             case EffectType.BLOCK_DELETE_WITH_COUNT:
-                for (int i = 0; i < effect.effectValue; i++)
+                for (int i = 0; i < finalValue; i++)
                 {
                     foreach (BlockType blockType in effect.blockTypes)
                     {
@@ -292,49 +295,49 @@ public class EffectManager : MonoBehaviour
                 GameManager.instance.ForceLineClearBoard(MatchType.ROW, indices);
                 break;
             case EffectType.DRAW_BLOCK_COUNT_MODIFIER:
-                blockGameData.drawBlockCount = effect.effectValue;
+                blockGameData.drawBlockCount = finalValue;
                 break;
             case EffectType.ROW_LINE_CLEAR:
-                rowIndices = Enumerable.Range(0, Mathf.Min(effect.effectValue, runData.baseBoardRows)).ToList();
+                rowIndices = Enumerable.Range(0, Mathf.Min(finalValue, runData.baseBoardRows)).ToList();
                 GameManager.instance.ForceLineClearBoard(MatchType.ROW, rowIndices);
                 break;
             case EffectType.COLUMN_LINE_CLEAR:
-                columnIndices = Enumerable.Range(0, Mathf.Min(effect.effectValue, runData.baseBoardColumns)).ToList();
+                columnIndices = Enumerable.Range(0, Mathf.Min(finalValue, runData.baseBoardColumns)).ToList();
                 GameManager.instance.ForceLineClearBoard(MatchType.COLUMN, columnIndices);
                 break;
             case EffectType.EFFECT_VALUE_MODIFIER:
-                effect.modifyingEffect.effectValue += effect.effectValue;
+                effect.modifyingEffect.effectValue += finalValue;
                 break;
             case EffectType.SHOP_REROLL_COST_MODIFIER:
-                runData.shopBaseRerollCost += effect.effectValue;
-                GameManager.instance.UpdateShopRerollCost(effect.effectValue);
+                runData.shopBaseRerollCost += finalValue;
+                GameManager.instance.UpdateShopRerollCost(finalValue);
                 break;
             case EffectType.SHOP_REROLL_COST_GROWTH_MODIFIER:
-                runData.shopRerollCostGrowth = effect.effectValue;
+                runData.shopRerollCostGrowth = finalValue;
                 break;
             case EffectType.SHOP_ITEM_COUNT_MODIFIER:
-                runData.shopItemCounts[ItemType.ITEM] = effect.effectValue;
+                runData.shopItemCounts[ItemType.ITEM] = finalValue;
                 break;
             case EffectType.SHOP_BOOST_COUNT_MODIFIER:
-                runData.shopItemCounts[ItemType.BOOST] = effect.effectValue;
+                runData.shopItemCounts[ItemType.BOOST] = finalValue;
                 break;
             case EffectType.SHOP_BLOCK_COUNT_MODIFIER:
-                runData.shopItemCounts[ItemType.ADD_BLOCK] = effect.effectValue;
+                runData.shopItemCounts[ItemType.ADD_BLOCK] = finalValue;
                 break;
             case EffectType.COMMON_WEIGHTS_MULTIPLIER:
-                runData.itemRarityWeights[ItemRarity.COMMON] *= effect.effectValue;
+                runData.itemRarityWeights[ItemRarity.COMMON] *= finalValue;
                 break;
             case EffectType.RARE_WEIGHTS_MULTIPLIER:
-                runData.itemRarityWeights[ItemRarity.RARE] *= effect.effectValue;
+                runData.itemRarityWeights[ItemRarity.RARE] *= finalValue;
                 break;
             case EffectType.EPIC_WEIGHTS_MULTIPLIER:
-                runData.itemRarityWeights[ItemRarity.EPIC] *= effect.effectValue;
+                runData.itemRarityWeights[ItemRarity.EPIC] *= finalValue;
                 break;
             case EffectType.LEGENDARY_WEIGHTS_MULTIPLIER:
-                runData.itemRarityWeights[ItemRarity.LEGENDARY] *= effect.effectValue;
+                runData.itemRarityWeights[ItemRarity.LEGENDARY] *= finalValue;
                 break;
             case EffectType.MULTIPLIER_MULTIPLER:
-                blockGameData.matchMultipliers[matchType] *= effect.effectValue;
+                blockGameData.matchMultipliers[matchType] *= finalValue;
                 break;
             default:
                 break;
@@ -358,6 +361,34 @@ public class EffectManager : MonoBehaviour
     private bool CheckProbability(float probability)
     {
         return Random.Range(0f, 1f) <= probability;
+    }
+
+    public int GetFinalValue(EffectData effect)
+    {
+        int value = effect.effectValue;
+        int scalingValue = 1;
+
+        // 계수 적용
+        switch (effect.scalingFactor)
+        {
+            case ScalingFactor.None:
+                break;
+            case ScalingFactor.RemainingBlockCount:
+                scalingValue = blockGameData.deck.Count;
+                break;
+            case ScalingFactor.BoostCount:
+                scalingValue = runData.activeBoosts.Count;
+                break;
+            case ScalingFactor.CurrentGold:
+                scalingValue = runData.gold;
+                break;
+            default:
+                break;
+        }
+
+        scalingValue = Mathf.FloorToInt(scalingValue * effect.scalingMultiplier);
+
+        return value * scalingValue;
     }
 
     private void MultiplyBlock(BlockType blockType, int multiplier)

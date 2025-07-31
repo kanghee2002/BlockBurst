@@ -23,4 +23,8 @@ public class EffectData : ScriptableObject
     public float probability = 1;                   // 발동 확률
     public EffectData modifyingEffect;              // 수정할 데이터
     public int maxValue = -1;                       // 최대 수치
+
+    [Header("Scaling Factor")]
+    public ScalingFactor scalingFactor;             // 효과 계수 타입
+    public float scalingMultiplier = 1f;            // 효과 계수 조정치
 }

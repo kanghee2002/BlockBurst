@@ -123,6 +123,11 @@ public enum EffectScope
     Run, Stage
 }
 
+public enum ScalingFactor
+{
+    None, RemainingBlockCount, BoostCount, CurrentGold
+}
+
 public enum ItemType
 {
     ADD_BLOCK, CONVERT_BLOCK, ITEM, BOOST, UPGRADE

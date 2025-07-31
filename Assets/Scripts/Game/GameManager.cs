@@ -1260,7 +1260,9 @@ public class GameManager : MonoBehaviour
     {
         string description = "";
 
-        string value = effect.effectValue > 0 ? "+" + effect.effectValue : effect.effectValue.ToString();
+        int finalValue = EffectManager.instance.GetFinalValue(effect);
+
+        string value = finalValue > 0 ? "+" + finalValue : finalValue.ToString();
         
         switch (effect.type)
         {
@@ -1269,13 +1271,13 @@ public class GameManager : MonoBehaviour
                 GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
                 break;
             case EffectType.SCORE_MULTIPLIER:
-                description = "<color=#0088FF>X" + effect.effectValue + "</color>";
+                description = "<color=#0088FF>X" + finalValue + "</color>";
                 GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
                 break;
             case EffectType.MULTIPLIER_MODIFIER:
                 description = "<color=red>" + value + "</color>";
                 GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
-                UpdateMultiplierByAdd(effect.effectValue);
+                UpdateMultiplierByAdd(finalValue);
                 break;
             case EffectType.BASEMULTIPLIER_MODIFIER:
                 description = "<color=red>" + value + "</color>";
@@ -1283,7 +1285,7 @@ public class GameManager : MonoBehaviour
                 UpdateMultiplier();
                 break;
             case EffectType.BASEMULTIPLIER_MULTIPLIER:
-                description = "<color=red>X" + effect.effectValue + "</color>";
+                description = "<color=red>X" + finalValue + "</color>";
                 GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
                 UpdateMultiplier();
                 break;
@@ -1294,7 +1296,7 @@ public class GameManager : MonoBehaviour
                 break;
             case EffectType.REROLL_MULTIPLIER:
             case EffectType.BASEREROLL_MULTIPLIER:
-                description = "<color=white>X" + effect.effectValue + "</color>";
+                description = "<color=white>X" + finalValue + "</color>";
                 GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
                 break;
             case EffectType.GOLD_MODIFIER:
@@ -1302,7 +1304,7 @@ public class GameManager : MonoBehaviour
                 GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
                 break;
             case EffectType.GOLD_MULTIPLIER:
-                description = "<color=yellow>X" + effect.effectValue + "</color>";
+                description = "<color=yellow>X" + finalValue + "</color>";
                 GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
                 break;
             case EffectType.BOARD_SIZE_MODIFIER:
@@ -1314,7 +1316,7 @@ public class GameManager : MonoBehaviour
                 GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
                 break;
             case EffectType.BOARD_RANDOM_BLOCK:
-                description = "<color=white>보드 무작위\n" + effect.effectValue +"칸 막힘!</color>";
+                description = "<color=white>보드 무작위\n" + finalValue + "칸 막힘!</color>";
                 GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
                 break;
             case EffectType.DECK_MODIFIER:
@@ -1327,7 +1329,7 @@ public class GameManager : MonoBehaviour
                 // TODO
                 break;
             case EffectType.BLOCK_MULTIPLIER:
-                description = "<color=white>블록 " + effect.effectValue + "배!</color>";
+                description = "<color=white>블록 " + finalValue + "배!</color>";
                 GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
                 break;
             case EffectType.BLOCK_DELETE:
@@ -1352,7 +1354,7 @@ public class GameManager : MonoBehaviour
                 GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
                 break;
             case EffectType.DRAW_BLOCK_COUNT_MODIFIER:
-                description = "<color=white>선택지가\n" + effect.effectValue +"개로!</color>";
+                description = "<color=white>선택지가\n" + finalValue + "개로!</color>";
                 GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
                 break;
             case EffectType.RANDOM_LINE_CLEAR:
@@ -1371,7 +1373,7 @@ public class GameManager : MonoBehaviour
                 GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
                 break;
             case EffectType.MULTIPLIER_MULTIPLER:
-                description = "<color=red>X" + effect.effectValue + "</color>";
+                description = "<color=red>X" + finalValue + "</color>";
                 GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
                 UpdateMultiplier();
                 break;

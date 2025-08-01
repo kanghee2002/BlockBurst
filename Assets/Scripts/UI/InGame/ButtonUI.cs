@@ -83,11 +83,11 @@ public class ButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         onClick.AddListener(action);
     }
 
-    public void SetUIColor(Color uiColor)
+    public void SetUIColor(Color uiColor, float scalar = 1f)
     {
-        float scalar = 1f;
         Color newColor = uiColor * scalar;
-        
+        newColor = new Color(newColor.r, newColor.g, newColor.b, 1f);
+
         if (button == null || image == null)
         {
             button = transform.GetChild(0).gameObject;

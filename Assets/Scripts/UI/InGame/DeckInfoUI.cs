@@ -22,6 +22,9 @@ public class DeckInfoUI : MonoBehaviour
     [SerializeField] private Image outerLayout;
     [SerializeField] private Image innerLayout;
 
+    [Header("SwitchButton")]
+    [SerializeField] private List<ButtonUI> switchButtonUIList;
+
     [Header("Container")]
     [SerializeField] private GameObject basicContainer;
     [SerializeField] private GameObject specialContainer;
@@ -52,6 +55,14 @@ public class DeckInfoUI : MonoBehaviour
     };
 
     [HideInInspector] public bool isShowingBoostDetail;
+
+    private enum CurrentTab
+    {
+        Basic, Special, Boost
+    };
+
+    private CurrentTab currentTab;
+    private Color currentUIColor;
 
     void Awake()
     {
@@ -268,6 +279,10 @@ public class DeckInfoUI : MonoBehaviour
         specialCanvasGroup.blocksRaycasts = false;
 
         boostInfoContainer.SetActive(false);
+
+        currentTab = CurrentTab.Basic;
+
+        SetSwitchButtonUIColor(CurrentTab.Basic, currentUIColor);
     }
 
     public void OnSpecialSwitchButtonUIClick()
@@ -281,6 +296,10 @@ public class DeckInfoUI : MonoBehaviour
         basicCanvasGroup.blocksRaycasts = false;
 
         boostInfoContainer.SetActive(false);
+
+        currentTab = CurrentTab.Special;
+
+        SetSwitchButtonUIColor(CurrentTab.Special, currentUIColor);
     }
 
     public void OnBoostInfoSwitchButtonUIClick()
@@ -294,26 +313,53 @@ public class DeckInfoUI : MonoBehaviour
         basicCanvasGroup.blocksRaycasts = false;
 
         boostInfoContainer.SetActive(true);
+
+        currentTab = CurrentTab.Boost;
+
+        SetSwitchButtonUIColor(CurrentTab.Boost, currentUIColor);
     }
 
     public void SetLayoutsColor(Color uiColor)
     {
+        currentUIColor = uiColor;
+
+        // 버튼
+        SetSwitchButtonUIColor(currentTab, uiColor);
+
         // 기본 블록
-        UIUtils.SetImageColorByScalar(outerLayout, uiColor, 1f / 5f, duration: 0.05f);
-        UIUtils.SetImageColorByScalar(innerLayout, uiColor, 2f / 5f, duration: 0.05f);
+        UIUtils.SetImageColorByScalar(outerLayout, uiColor, 3f / 5f, duration: 0.05f);
+        UIUtils.SetImageColorByScalar(innerLayout, uiColor, 4f / 5f, duration: 0.05f);
+
+        float layoutScalar = 1f;
         foreach (Transform child in basicContainer.transform)
         {
-            UIUtils.SetImageColorByScalar(child.GetChild(0).GetComponent<Image>(), uiColor, 4f / 5f, duration: 0.05f);
+            UIUtils.SetImageColorByScalar(child.GetChild(0).GetComponent<Image>(), uiColor, layoutScalar, duration: 0.05f);
         }
 
         // 특수 블록
         foreach (Transform child in specialContainer.transform)
         {
-            UIUtils.SetImageColorByScalar(child.GetChild(0).GetComponent<Image>(), uiColor, 4f / 5f, duration: 0.05f);
+            UIUtils.SetImageColorByScalar(child.GetChild(0).GetComponent<Image>(), uiColor, layoutScalar, duration: 0.05f);
         }
 
         // 부스트
-        UIUtils.SetImageColorByScalar(boostInfoGridLayout.GetComponent<Image>(), uiColor, 4f / 5f, duration: 0.05f);
+        UIUtils.SetImageColorByScalar(boostInfoGridLayout.GetComponent<Image>(), uiColor, layoutScalar, duration: 0.05f);
+    }
+
+    private void SetSwitchButtonUIColor(CurrentTab tab, Color uiColor)
+    {
+        for (int i = 0; i < switchButtonUIList.Count; i++)
+        {
+            ButtonUI button = switchButtonUIList[i];
+            if (i == (int)tab)
+            {
+                button.SetUIColor(uiColor, scalar: 3f / 5f);
+            }
+            else
+            {
+                button.SetUIColor(uiColor, scalar: 2f / 5f);
+            }
+        }
     }
 
     private Sprite GetImage(ItemData item)

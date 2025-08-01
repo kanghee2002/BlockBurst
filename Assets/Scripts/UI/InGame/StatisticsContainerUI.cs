@@ -21,7 +21,7 @@ public class StatisticsContainerUI : MonoBehaviour
         (BlockType mostPlacedBlockType, int placeCount) = GetMostPlacedBlock(playerData);
         maxPlaceCountText.text = string.Format("<sprite={0}> ({1})", (int)mostPlacedBlockType, placeCount);
 
-        maxMultiplierText.text = playerData.maxMultiplier.ToString();
+        maxMultiplierText.text = "X" + playerData.maxMultiplier.ToString();
 
         maxRerollCountText.text = playerData.maxBaseRerollCount.ToString();
 

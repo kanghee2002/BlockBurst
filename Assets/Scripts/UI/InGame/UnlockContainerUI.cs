@@ -11,8 +11,11 @@ public class UnlockContainerUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI pageText;
 
     private const int itemsPerPage = 4;
-    private const float offset = 150f;
-    private const float itemSpacing = -90f;
+    private const int itemsPerRow = 2;
+    private const float xOffset = 110f;
+    private const float yOffset = 150f;
+    private const float itemSpacingX = 200f;
+    private const float itemSpacingY = -230f;
 
     private List<GameObject> unlockInfoList = null;
     private int currentPage;
@@ -51,8 +54,9 @@ public class UnlockContainerUI : MonoBehaviour
 
             SetContainer(unlockedItems.Contains(unlockInfo.targetName), container, unlockInfo);
 
-            float posY = offset + itemSpacing * (i % itemsPerPage);
-            container.transform.localPosition = new Vector2(0, posY);
+            float posX = xOffset + itemSpacingX * (i % itemsPerPage % itemsPerRow);
+            float posY = yOffset + itemSpacingY * (i % itemsPerPage / itemsPerRow);
+            container.transform.localPosition = new Vector2(posX, posY);
 
             // 첫 페이지가 아니면 비활성화
             if (i >= itemsPerPage)
@@ -66,8 +70,8 @@ public class UnlockContainerUI : MonoBehaviour
 
     private void SetContainer(bool isUnlocked, GameObject container, UnlockInfo unlockInfo)
     {
-        container.transform.GetChild(0).GetComponent<Image>().sprite = GetImage(isUnlocked, unlockInfo.targetName);
-        container.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = unlockInfo.GetDescription();
+        container.transform.GetChild(1).GetComponent<Image>().sprite = GetImage(isUnlocked, unlockInfo.targetName);
+        container.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = unlockInfo.GetDescription();
     }
 
     private Sprite GetImage(bool isUnlocked, string itemID)

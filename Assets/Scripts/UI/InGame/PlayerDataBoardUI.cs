@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerDataBoardUI : MonoBehaviour
 {
@@ -11,27 +12,42 @@ public class PlayerDataBoardUI : MonoBehaviour
 
     [SerializeField] private GameObject UnlockAllLayout;
 
+    [SerializeField] private ButtonUI statisticsSwitchButtonUI;
+    [SerializeField] private ButtonUI unlockSwitchButtonUI;
+
     private RectTransform rectTransform;
 
     private const float insidePositionX = 0;
     private const float outsidePositionOffsetX = 1000;
     private const float duration = 0.2f;
 
+    private Color activeWindowColor;
+    private Color inactiveWindowColor;
+
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
+
+        activeWindowColor = statisticsSwitchButtonUI.transform.GetChild(0).GetComponent<Image>().color;
+        inactiveWindowColor = unlockSwitchButtonUI.transform.GetChild(0).GetComponent<Image>().color;
     }
 
     public void OnStatisticsSwtichButtonUIClick()
     {
         statisticsContainerUI.gameObject.SetActive(true);
         unlockContainerUI.gameObject.SetActive(false);
+
+        statisticsSwitchButtonUI.SetUIColor(activeWindowColor);
+        unlockSwitchButtonUI.SetUIColor(inactiveWindowColor);
     }
 
     public void OnUnlockSwtichButtonUIClick()
     {
         statisticsContainerUI.gameObject.SetActive(false);
         unlockContainerUI.gameObject.SetActive(true);
+
+        statisticsSwitchButtonUI.SetUIColor(inactiveWindowColor);
+        unlockSwitchButtonUI.SetUIColor(activeWindowColor);
     }
 
     public void OpenPlayerDataBoardUI()

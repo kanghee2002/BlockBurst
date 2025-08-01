@@ -198,4 +198,9 @@ public class ButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         throw new NotImplementedException();
     }
+
+    public Color GetOriginalColor()
+    {
+        return originalColor;
+    }
 }

@@ -1366,6 +1366,10 @@ public class GameManager : MonoBehaviour
                 {
                     description = "<color=yellow>" + value + "</color>";
                 }
+                else if (effect.modifyingEffect.type == EffectType.SCORE_MODIFIER)
+                {
+                    description = "<color=#0088FF>" + value + "</color>";
+                }
                 else
                 {
                     description = "<color=red>" + value + "</color>";

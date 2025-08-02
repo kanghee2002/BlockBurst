@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
+  m_Name: Blueberry
+  m_EditorClassIdentifier: 
+  id: Blueberry
+  itemName: "\uBE14\uB8E8\uBCA0\uB9AC"
+  effects:
+  - {fileID: 11400000, guid: bc4f31e266f29e94e90aaebb2e02a739, type: 2}
+  - {fileID: 11400000, guid: d16d1e0e2bba2a44da941c724ed5532e, type: 2}
+  cost: 7
+  type: 2
+  block: {fileID: 0}
+  isPurchasableAgain: 0
+  effectType: 0
+  rarity: 1

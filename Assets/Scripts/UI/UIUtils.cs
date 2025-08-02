@@ -215,6 +215,8 @@ public static class UIUtils
 
         text = text.Replace("+EffectValue 블록 점수", "<color=blue>+EffectValue</color> 블록 점수");
         text = text.Replace("-EffectValue 블록 점수", "<color=blue>-EffectValue</color> 블록 점수");
+        text = text.Replace("점수가 +EffectValue", "점수가 <color=blue>+EffectValue</color>");
+        text = text.Replace("점수가 -EffectValue", "점수가 <color=blue>-EffectValue</color>");
         text = text.Replace("+EffectValue 배수", "<color=red>+EffectValue</color> 배수");
         text = text.Replace("-EffectValue 배수", "<color=red>-EffectValue</color> 배수");
         text = text.Replace("배수가 +EffectValue", "배수가 <color=red>+EffectValue</color>");

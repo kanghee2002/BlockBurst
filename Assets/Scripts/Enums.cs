@@ -125,7 +125,7 @@ public enum EffectScope
 
 public enum ScalingFactor
 {
-    None, RemainingBlockCount, BoostCount, CurrentGold
+    None, RemainingBlockCount, BoostCount, CurrentGold, RerollCount
 }
 
 public enum ItemType

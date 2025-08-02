@@ -382,6 +382,9 @@ public class EffectManager : MonoBehaviour
             case ScalingFactor.CurrentGold:
                 scalingValue = runData.gold;
                 break;
+            case ScalingFactor.RerollCount:
+                scalingValue = blockGameData.rerollCount;
+                break;
             default:
                 break;
         }

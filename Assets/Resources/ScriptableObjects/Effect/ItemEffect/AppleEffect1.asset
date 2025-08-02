@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
-  m_Name: RouletteEffect
+  m_Name: AppleEffect1
   m_EditorClassIdentifier: 
-  id: RouletteEffect
-  effectName: "\uD604\uC7AC \uB9AC\uB864 \uD69F\uC218\uC758 2\uBC30\uB9CC\uD07C \uBC30\uC218\uB97C
-    \uC5BB\uC2B5\uB2C8\uB2E4"
+  id: AppleEffect1
+  effectName: "+EffectValue \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4."
   type: 2
   scope: 0
-  baseEffectValue: 1
+  baseEffectValue: 20
   effectValue: 1
   trigger: 9
   triggerMode: 0
@@ -27,5 +26,5 @@ MonoBehaviour:
   probability: 1
   modifyingEffect: {fileID: 0}
   maxValue: -1
-  scalingFactor: 4
-  scalingMultiplier: 2
+  scalingFactor: 0
+  scalingMultiplier: 1

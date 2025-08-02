@@ -16,4 +16,4 @@ MonoBehaviour:
   targetName: GearJLT
   description: "J/L/T Requirement\uBC88 \uB9AC\uB864\uD558\uAE30"
   trigger: 16
-  requirement: 150
+  requirement: 25

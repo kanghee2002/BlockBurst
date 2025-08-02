@@ -229,7 +229,18 @@ public static class UIUtils
         text = text.Replace("$EffectValue", "<color=yellow>$EffectValue</color>");
         text = text.Replace("골드가 +EffectValue", "골드가 <color=yellow>+EffectValue</color>");
 
-        string result = text.Replace("EffectValue", value);
+        string result = text;
+
+        if (effectData.effectValue >= 0)
+        {
+            result = result.Replace("-EffectValue", "+EffectValue");
+        }
+        else
+        {
+            result = result.Replace("+EffectValue", "-EffectValue");
+        }
+
+        result = result.Replace("EffectValue", value);
 
         return result;
     }

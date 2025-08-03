@@ -337,8 +337,6 @@ public class GameUIManager : MonoBehaviour
             //Debug.Log("다음 스테이지로 버튼 눌림");
             GameManager.instance.StartStageSelection();
             ChangeSceneState(SceneState.selecting);
-
-            GameManager.instance.ProcessTutorialStep("NextStage");
         }
     }
     

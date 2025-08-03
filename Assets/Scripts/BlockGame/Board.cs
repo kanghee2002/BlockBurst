@@ -178,6 +178,8 @@ public class Board
             {
                 EffectManager.instance.TriggerEffects(TriggerType.ON_LINE_CLEAR_WITH_DISTINCT_BLOCKS);
             }
+
+            GameManager.instance.ProcessTutorialStep("LineClear");
         }
 
         // 가로, 세로 줄 지우기 관련

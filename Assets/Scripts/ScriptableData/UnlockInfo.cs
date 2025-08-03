@@ -17,7 +17,6 @@ public class UnlockInfo :ScriptableObject
 
     public void CheckCondition(int value)
     {
-        Debug.Log("Checking Unlock: " + targetName);
         if (value >= requirement)
         {
             UnlockManager.instance.Unlock(this, targetName);

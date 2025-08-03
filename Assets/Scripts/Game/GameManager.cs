@@ -1,13 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using System.Linq;
 using System.IO;
-using System;
+using System.Linq;
+using TMPro;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
-using UnityEditor;
-using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -351,14 +352,14 @@ public class GameManager : MonoBehaviour
 
         GameUIManager.instance.Initialize(runData);
 
-        StartStageSelection();
-
         if (isTutorial)
         {
             isTutorial = false;
             DataManager.instance.SetTutorialValue(isTutorial);
             tutorialManager.Initialize();
         }
+
+        StartStageSelection();
     }
 
     public void OnRunInfoRequested()
@@ -436,8 +437,9 @@ public class GameManager : MonoBehaviour
 
         //디버깅, 튜토리얼 시에만 실행
         List<string> stageNames = stageManager.firstStageList;
-        if (stageNames.Count > 0) 
+        if (stageNames.Count > 0)
         {
+            Debug.Log("Set First Stage");
             for (int i = 0; i < nextStageChoices.Length; i++)
             {
                 if (stageNames.Count == 0) break;
@@ -445,6 +447,8 @@ public class GameManager : MonoBehaviour
                 stage.constraints.ForEach(constraint => constraint.triggerCount = 0);
                 stageNames.RemoveAt(0);
                 nextStageChoices[i] = stage;
+
+                Debug.Log("Set Stage : " + stage.id);
             }
         }
 
@@ -903,6 +907,8 @@ public class GameManager : MonoBehaviour
 
         EffectManager.instance.TriggerEffects(TriggerType.ON_ROTATE_BLOCK, blockTypes: new BlockType[] { handBlocks[idx].Type });
         EffectManager.instance.EndTriggerEffect();
+
+        GameManager.instance.ProcessTutorialStep("RotateBlock");
     }
 
     public void OnBeginDragBlock(Block block)
@@ -1077,6 +1083,8 @@ public class GameManager : MonoBehaviour
             DataManager.instance.UpdateBlockPlaceCount(block);
 
             tutorialManager.TriggerNotificationAnimation();
+
+            GameManager.instance.ProcessTutorialStep("PlaceBlock");
         }
 
         // 손패 다 쓰면 드로우

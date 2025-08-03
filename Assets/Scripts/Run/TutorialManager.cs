@@ -52,7 +52,9 @@ public class TutorialManager : MonoBehaviour
 
         [Header("Additional")]
         public bool isNextButtonInactive;
+        public bool isClickable;
         public bool isInactive;
+        public string waitingSign;
         public float highlightDelay;
     }
     [Header("Tutorial Step")]
@@ -60,11 +62,10 @@ public class TutorialManager : MonoBehaviour
 
     private int stepCount;
 
-    // TODO: 텍스트에 색깔 넣기
-
     private bool isPlayingTutorial = false;
-    private bool isWaitingForClick = false;
     private bool isWaitingForSignal = false;
+
+    private string currentSign;
 
     private int itemCount = 0;
     private int blockPlaceCount = 0;
@@ -77,27 +78,27 @@ public class TutorialManager : MonoBehaviour
 
         stepCount = 0;
         isPlayingTutorial = true;
-        isWaitingForClick = false;
         isWaitingForSignal = false;
+        currentSign = "";
         itemCount = 0;
         blockPlaceCount = 0;
         shadowAlpha = shadow.color.a;
 
         List<string> firstStageName = new List<string>()
         {
-            "DebuffSpecial",
+            "DecreaseGoldOnLineClear",
             "DebuffZScore",
         };
 
-        GameManager.instance.stageManager.firstStageList.AddRange(firstStageName);
+        GameManager.instance.stageManager.AddFirstStage(firstStageName);
 
         List<string> firstShopItems = new List<string>()
         {
             "EggJ",
             "RedEgg",
             "GrayCube",
+            "AddBlockSolo",
             "BlockIOGoldUpgrade",
-            "AddBlockDuo",
         };
         GameManager.instance.shopManager.AddFirstItem(firstShopItems);
 
@@ -112,24 +113,18 @@ public class TutorialManager : MonoBehaviour
 
     public void ProceedNextStep(string sign)
     {
-        if (isWaitingForClick && 
-           (sign == "StageChoice" || sign == "Deck" || sign == "DeckBack" ||
-            sign == "Purchase" || sign == "NextStage" || sign == "Run" ||
-            sign == "RunBack" || sign == "ItemClicked" || sign == "Reroll" ||
-            sign == "ShopReroll"))
+        if (isWaitingForSignal && sign == currentSign)
         {
             ProcessStep();
-        }
 
-        else if (isWaitingForSignal && sign == "EndStage")
-        {
-            if (stepCount < 25)
+            if (sign == "EndStage")
             {
-                // 어둠의 경로로 돈 추가
-                GameManager.instance.UpdateGold(4);
+                if (stepCount < 25)
+                {
+                    // 어둠의 경로로 돈 추가
+                    GameManager.instance.UpdateGold(4);
+                }
             }
-
-            ProcessStep();
         }
     }
 
@@ -181,7 +176,7 @@ public class TutorialManager : MonoBehaviour
         }
         else
         {
-            BlockInputExceptRect(currentStep.clickableRect);
+            BlockInputExceptRect(currentStep.clickableRect, currentStep.isClickable);
         }
 
         // '다음 버튼' 뜰지 말지
@@ -189,13 +184,13 @@ public class TutorialManager : MonoBehaviour
         {
             if (!currentStep.isInactive)
             {
-                isWaitingForClick = true;
+                isWaitingForSignal = true;
+                currentSign = currentStep.waitingSign;
             }
             nextButton.gameObject.SetActive(false);
         }
         else
         {
-            isWaitingForClick = false;
             nextButton.gameObject.SetActive(false);
             DOVirtual.DelayedCall(nextButtonDelay, PlayShowNextButton);
         }
@@ -204,6 +199,8 @@ public class TutorialManager : MonoBehaviour
         if (currentStep.isInactive)
         {
             isWaitingForSignal = true;
+            currentSign = currentStep.waitingSign;
+
             PlayDisapearRect(characterRect);
             PlayDisapearRect(textLayoutRect);
         }
@@ -273,7 +270,6 @@ public class TutorialManager : MonoBehaviour
             else if (itemCount == 2)
             {
                 source = source.GetChild(2).GetChild(1).GetComponent<RectTransform>();
-                itemCount++;
             }
             else if (itemCount == 3)
             {
@@ -329,7 +325,7 @@ public class TutorialManager : MonoBehaviour
         highlightRect.DOSizeDelta(highlightAreaRect.rect.size, 0.5f + delay);
     }
 
-    public void BlockInputExceptRect(RectTransform target)
+    public void BlockInputExceptRect(RectTransform target, bool isClickable)
     {
         //Debug.Log("Screen Width: " + Screen.width);
         //Debug.Log("Screen Height: " + Screen.height);
@@ -355,10 +351,20 @@ public class TutorialManager : MonoBehaviour
 
         if (target == null)
         {
-            blocks[(int)Block.Left].sizeDelta = new Vector2((Screen.width / 2f) / resolutionRatioX, 0);
-            blocks[(int)Block.Right].sizeDelta = new Vector2((Screen.width / 2f) / resolutionRatioX, 0);
-            blocks[(int)Block.Top].sizeDelta = new Vector2(0, (Screen.height / 2f) / resolutionRatioY);
-            blocks[(int)Block.Bottom].sizeDelta = new Vector2(0, (Screen.height / 2f) / resolutionRatioY);
+            if (isClickable)
+            {
+                blocks[(int)Block.Left].sizeDelta = new Vector2(0f, 0f);
+                blocks[(int)Block.Right].sizeDelta = new Vector2(0f, 0f);
+                blocks[(int)Block.Top].sizeDelta = new Vector2(0f, 0f);
+                blocks[(int)Block.Bottom].sizeDelta = new Vector2(0f, 0f);
+            }
+            else
+            {
+                blocks[(int)Block.Left].sizeDelta = new Vector2((Screen.width / 2f) / resolutionRatioX, 0f);
+                blocks[(int)Block.Right].sizeDelta = new Vector2((Screen.width / 2f) / resolutionRatioX, 0f);
+                blocks[(int)Block.Top].sizeDelta = new Vector2(0, (Screen.height / 2f) / resolutionRatioY);
+                blocks[(int)Block.Bottom].sizeDelta = new Vector2(0, (Screen.height / 2f) / resolutionRatioY);
+            }
             return;
         }
         else if (target == itemShowcaseUI)
@@ -433,6 +439,7 @@ public class TutorialManager : MonoBehaviour
             return;
         }
 
+        return;
         blockPlaceCount++;
 
         if (blockPlaceCount == 3)

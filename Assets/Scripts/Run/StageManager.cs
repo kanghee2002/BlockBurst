@@ -58,4 +58,13 @@ public class StageManager : MonoBehaviour
             EffectManager.instance.RemoveEffect(constraint);
         });
     }
+
+    // 튜토리얼 용 함수
+    public void AddFirstStage(List<string> stages)
+    {
+        foreach (string stage in stages)
+        {
+            firstStageList.Add(stage);
+        }
+    }
 }

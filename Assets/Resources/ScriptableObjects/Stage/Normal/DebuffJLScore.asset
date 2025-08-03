@@ -19,5 +19,6 @@ MonoBehaviour:
   constraints:
   - {fileID: 11400000, guid: 287feb0d7ed400940b8b19eac4a27050, type: 2}
   baseScoreMultiplier: 0
+  additionalGold: 1
   clearRequirement: 90
   goldReward: 8

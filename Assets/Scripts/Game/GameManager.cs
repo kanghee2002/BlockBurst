@@ -462,9 +462,16 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                stage.clearRequirement = (int)(gameData.stageBaseScoreList[gameData.stageBaseScoreList.Count - 1] * Mathf.Pow(2f, 3 * (runData.currentChapterIndex - 9) + runData.currentStageIndex + 2) * (gameData.stageScoreMultiplier[runData.currentStageIndex - 1] + stage.baseScoreMultiplier));
+                stage.clearRequirement = (int)(gameData.stageBaseScoreList[gameData.stageBaseScoreList.Count - 1] * Mathf.Pow(1.5f, 3 * (runData.currentChapterIndex - 9) + runData.currentStageIndex + 1) * (gameData.stageScoreMultiplier[runData.currentStageIndex - 1] + stage.baseScoreMultiplier));
             }
-            stage.goldReward = gameData.stageBaseReward + (int)MathF.Pow(runData.currentChapterIndex + 2, 0.5f) * 3 + Random.Range(0, 2);
+        }
+
+        // 스테이지 골드 설정
+        for (int i = 0; i < nextStageChoices.Length; i++)
+        {
+            StageData stage = nextStageChoices[i];
+
+            stage.goldReward = gameData.stageBaseReward + (int)MathF.Pow(runData.currentChapterIndex + 2, 0.5f) * 3 + stage.additionalGold;
         }
 
         // UI에 전달

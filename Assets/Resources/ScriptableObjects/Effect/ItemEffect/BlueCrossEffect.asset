@@ -18,8 +18,8 @@ MonoBehaviour:
     \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 0
   scope: 0
-  baseEffectValue: 10
-  effectValue: 10
+  baseEffectValue: 3
+  effectValue: 3
   trigger: 7
   triggerMode: 0
   triggerValue: 0
@@ -27,3 +27,6 @@ MonoBehaviour:
   blockTypes: 00000000010000000200000003000000040000000500000006000000
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

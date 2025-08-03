@@ -16,8 +16,8 @@ MonoBehaviour:
   effectName: "+EffectValue \uAE30\uBCF8 \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 3
   scope: 0
-  baseEffectValue: 7
-  effectValue: 7
+  baseEffectValue: 5
+  effectValue: 5
   trigger: 0
   triggerMode: 0
   triggerValue: 0
@@ -25,3 +25,6 @@ MonoBehaviour:
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

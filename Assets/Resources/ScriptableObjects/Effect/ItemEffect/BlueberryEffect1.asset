@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: BlueberryEffect1
   m_EditorClassIdentifier: 
   id: BlueberryEffect1
-  effectName: "\uB9E4 \uC2A4\uD14C\uC774\uC9C0 \uC2DC\uC791 \uC2DC \uBAA8\uB4E0 \uAE30\uBCF8
+  effectName: "\uB9E4 \uC2A4\uD14C\uC774\uC9C0 \uC885\uB8CC \uC2DC \uBAA8\uB4E0 \uAE30\uBCF8
     \uBE14\uB85D\uC774 +EffectValue \uBE14\uB85D \uC810\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4."
   type: 0
   scope: 0
-  baseEffectValue: 2
-  effectValue: -1
-  trigger: 22
+  baseEffectValue: 3
+  effectValue: 3
+  trigger: 24
   triggerMode: 0
   triggerValue: 0
   triggerCount: 0

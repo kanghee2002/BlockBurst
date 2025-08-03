@@ -18,7 +18,7 @@ MonoBehaviour:
   type: 3
   scope: 0
   baseEffectValue: 4
-  effectValue: 4
+  effectValue: 1
   trigger: 23
   triggerMode: 2
   triggerValue: 5
@@ -26,3 +26,6 @@ MonoBehaviour:
   blockTypes: 06000000
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

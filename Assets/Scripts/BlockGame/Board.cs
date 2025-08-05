@@ -132,6 +132,9 @@ public class Board
     {
         List<Match> matches = CheckMatches(block, pos);
 
+        // 지운 블록들 비우기
+        ClearCells(matches);
+
         // 효과 발동
         // 줄이 지워지지 않았을 때
         if (matches.Count == 0)
@@ -210,9 +213,6 @@ public class Board
         }
 
         GameManager.instance.PlayBoardRelatedAnimation(matchCount);
-
-        // 지운 블록들 비우기
-        ClearCells(matches);
 
         // 모두 지워질 때 효과를 가진 블록 중 지워진 것 있는지 확인
         CheckOnClearEffectBlocks();

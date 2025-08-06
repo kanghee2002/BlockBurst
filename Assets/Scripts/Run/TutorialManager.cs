@@ -439,7 +439,6 @@ public class TutorialManager : MonoBehaviour
             return;
         }
 
-        return;
         blockPlaceCount++;
 
         if (blockPlaceCount == 3)

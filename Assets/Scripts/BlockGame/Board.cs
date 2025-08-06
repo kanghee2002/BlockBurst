@@ -122,8 +122,6 @@ public class Board
             ProcessMatches(block, pos);
         }
 
-        EffectManager.instance.EndTriggerEffect();
-
         return isPlaced;
     }
 
@@ -224,9 +222,6 @@ public class Board
 
         // 매치된 결과 저장
         lastMatches.AddRange(matches);
-
-        // 아이템 시각 효과 실행
-        EffectManager.instance.EndTriggerEffectOnPlace(lastMatches);
 
         CalculateScore(matches);
 

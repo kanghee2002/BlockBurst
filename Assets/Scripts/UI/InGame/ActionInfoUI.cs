@@ -124,7 +124,7 @@ public class ActionInfoUI : MonoBehaviour
         }
         else
         {
-            Debug.Log("Error: chipText is not int form");
+            Debug.Log("Error: multiplierText is not int form");
         }
         return multiplier;
     }

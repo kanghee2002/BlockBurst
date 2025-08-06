@@ -35,6 +35,8 @@ public class ScoreInfoUI : MonoBehaviour
         scoreAtLeastText.gameObject.SetActive(true);
         descriptionText.gameObject.SetActive(false);
 
+        this.currentScore = currentScore;
+
         UpdateScore(currentScore);
         UpdateScoreAtLeast(scoreAtLeast);
     }
@@ -73,14 +75,21 @@ public class ScoreInfoUI : MonoBehaviour
         else scoreAtLeastText.text = scoreAtLeast.ToString();
     }
 
-    public void UpdateScore(int score)
+    public void UpdateScore(int score, bool isAdditive = false)
     {
-        if (score >= 1000000) currentScoreText.text = $"<size=45>{score}</size>";
-        else if (score >= 10000000) currentScoreText.text = $"<size=40>{score}</size>";
-        else currentScoreText.text = score.ToString();
+        int value = score;
+        if (isAdditive)
+        {
+            currentScore += score;
+            value = currentScore;
+        }
+
+        if (value >= 1000000) currentScoreText.text = $"<size=45>{value}</size>";
+        else if (value >= 10000000) currentScoreText.text = $"<size=40>{value}</size>";
+        else currentScoreText.text = value.ToString();
         UIUtils.BounceText(currentScoreText.transform);
 
-        float scoreRatio = scoreAtLeast <= 0 ? 0 : (float)score / scoreAtLeast;
+        float scoreRatio = scoreAtLeast <= 0 ? 0 : (float)value / scoreAtLeast;
         float duration = 0.3f;
 
         DOTween.To(

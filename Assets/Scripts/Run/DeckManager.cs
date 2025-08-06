@@ -52,12 +52,26 @@ public class DeckManager : MonoBehaviour
     {
         if (blockGameData.rerollCount <= 0)
         {
-            GameManager.instance.UpdateRerollCount(0);
+            AnimationData animationData = new AnimationData();
+            animationData.animationType = AnimationType.UpdateReroll;
+            animationData.value = 0;
+            animationData.isValueAdditive = true;
+
+            AnimationManager.instance.ProcessAnimation(animationData);
+
             return false;
         }
-        else 
+        else
         {
-            GameManager.instance.UpdateRerollCount(-1);
+            blockGameData.rerollCount--;
+
+            AnimationData animationData = new AnimationData();
+            animationData.animationType = AnimationType.UpdateReroll;
+            animationData.value = -1;
+            animationData.isValueAdditive = true;
+
+            AnimationManager.instance.ProcessAnimation(animationData);
+
             foreach (BlockData block in remains)
             {
                 if (block) AddBlockToBlockGameDeck(block);

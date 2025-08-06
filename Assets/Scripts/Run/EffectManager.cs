@@ -1,10 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using System.IO;
 using System.Linq;
-using Random = UnityEngine.Random;
 using Unity.VisualScripting;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EffectManager : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class EffectManager : MonoBehaviour
     private RunData runData;
     private BlockGameData blockGameData;
 
-    private List<string> lastTriggeredEffects = new List<string>();
+    private List<AnimationData> triggeredAnimations = new();
 
     private void Awake()
     {
@@ -58,24 +59,24 @@ public class EffectManager : MonoBehaviour
     // 모든 트리거 호출 이후, 시각 효과를 위해 호출
     public void EndTriggerEffect()
     {
-        if (IsStageEffectTriggered(lastTriggeredEffects))
+        /*if (IsStageEffectTriggered(triggeredAnimations))
         {
             GameManager.instance.PlayStageEffectAnimation();
-        }
-        GameManager.instance.PlayItemEffectAnimation(lastTriggeredEffects.ToList());
-        lastTriggeredEffects.Clear();
+        }*/
+        GameManager.instance.PlayItemEffectAnimation(triggeredAnimations.ToList());
+        triggeredAnimations.Clear();
     }
 
     // 게임 중 블록을 놓았을 때, 시각 효과를 위해 호출
     public void EndTriggerEffectOnPlace(List<Match> matches)
     {
-        if (IsStageEffectTriggered(lastTriggeredEffects))
+        /*if (IsStageEffectTriggered(triggeredAnimations))
         {
             GameManager.instance.PlayStageEffectAnimation();
-        }
-        float matchAnimationTime = GameManager.instance.GetMatchAnimationTime(matches);
-        GameManager.instance.PlayItemEffectAnimation(lastTriggeredEffects.ToList(), matchAnimationTime);
-        lastTriggeredEffects.Clear();
+        }*/
+        //float matchAnimationTime = GameManager.instance.GetMatchAnimationTime(matches);
+        GameManager.instance.PlayItemEffectAnimation(triggeredAnimations.ToList(), isMatching: matches.Count > 0);
+        triggeredAnimations.Clear();
     }
 
     public void TriggerEffects(TriggerType trigger, int triggerValue = 0, BlockType[] blockTypes = null) 
@@ -147,8 +148,7 @@ public class EffectManager : MonoBehaviour
 
         int finalValue = GetFinalValue(effect);
 
-
-        lastTriggeredEffects.Add(effect.id);
+        int additiveValue = finalValue;     // 애니메이션 처리를 위한 효과 증가값
 
         // 효과 적용
         switch (effect.type)
@@ -187,48 +187,50 @@ public class EffectManager : MonoBehaviour
                 if (effect.scope == EffectScope.Run)
                 {
                     int originalMultiplier = runData.baseMatchMultipliers[matchType];
+                    additiveValue = runData.baseMatchMultipliers[matchType];
                     runData.baseMatchMultipliers[matchType] *= finalValue;
                     if (effect.maxValue != -1)
                     {
                         runData.baseMatchMultipliers[matchType] = Math.Min(originalMultiplier + effect.maxValue, runData.baseMatchMultipliers[matchType]);
+                        additiveValue = Math.Min(additiveValue, effect.maxValue);
                     }
                 }
                 blockGameData.matchMultipliers[matchType] *= finalValue;
                 break;
             case EffectType.REROLL_MODIFIER:
-                GameManager.instance.UpdateRerollCount(finalValue);
+                blockGameData.rerollCount += finalValue;
+                if (blockGameData.rerollCount < 0) blockGameData.rerollCount = 0;
                 break;
             case EffectType.REROLL_MULTIPLIER:
-                GameManager.instance.UpdateRerollCount(finalValue, isMultiplying: true);
+                additiveValue = blockGameData.rerollCount * (finalValue - 1);
+                blockGameData.rerollCount *= finalValue;
                 break;
             case EffectType.BASEREROLL_MODIFIER:           
                 runData.baseRerollCount += finalValue;
                 if (runData.baseRerollCount < 0) runData.baseRerollCount = 0;
-                GameManager.instance.UpdateRerollCount(finalValue);
                 break;
             case EffectType.BASEREROLL_MULTIPLIER:
                 int originalRerollCount = runData.baseRerollCount;
+                additiveValue = runData.baseRerollCount;
                 runData.baseRerollCount *= finalValue;
                 if (effect.maxValue != -1)
                 {
                     runData.baseRerollCount = Math.Min(originalRerollCount + effect.maxValue, runData.baseRerollCount);
+                    additiveValue = Math.Min(additiveValue, effect.maxValue);
                 }
-                GameManager.instance.UpdateRerollCount(finalValue, isMultiplying: true);
                 break;
             case EffectType.GOLD_MODIFIER:
-                GameManager.instance.UpdateGold(finalValue);
+                runData.gold += finalValue;
                 break;
             case EffectType.GOLD_MULTIPLIER:
+                int addingValue = runData.gold * (finalValue - 1);
+                additiveValue = addingValue;
                 if (effect.maxValue != -1)
                 {
-                    int addingValue = runData.gold * (finalValue - 1);
                     addingValue = Math.Min(effect.maxValue, addingValue);
-                    GameManager.instance.UpdateGold(addingValue);
+                    runData.gold += addingValue;
                 }
-                else
-                {
-                    GameManager.instance.UpdateGold(finalValue);
-                }
+                runData.gold += addingValue;
                 break;
             case EffectType.BOARD_SIZE_MODIFIER:
                 if (effect.scope == EffectScope.Run)
@@ -337,16 +339,22 @@ public class EffectManager : MonoBehaviour
                 runData.itemRarityWeights[ItemRarity.LEGENDARY] *= finalValue;
                 break;
             case EffectType.MULTIPLIER_MULTIPLER:
+                additiveValue = blockGameData.matchMultipliers[matchType];
                 blockGameData.matchMultipliers[matchType] *= finalValue;
                 break;
             default:
                 break;
         }
+
+        AnimationData animationData = AnimationManager.instance.GetAnimationData(effect, additiveValue);
+        triggeredAnimations.Add(animationData);
+
         DataManager.instance.UpdateMaxBaseMultiplier(runData.baseMatchMultipliers[matchType]);
         DataManager.instance.UpdateMaxMultiplier(blockGameData.matchMultipliers[matchType]);
         DataManager.instance.UpdateMaxBaseRerollCount(runData.baseRerollCount);
         DataManager.instance.UpdateMaxGold(runData.gold);
     }
+
 
     private bool IsIncluded(BlockType[] arr1, BlockType[] arr2)
     {

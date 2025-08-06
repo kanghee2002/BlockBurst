@@ -193,6 +193,24 @@ public enum UnlockTrigger
 }
 // -----------------------------------------------------------------------
 
+public enum AnimationType
+{
+    None,
+    Delay,
+    UpdateChip,
+    UpdateBlockScore,
+    UpdateMultiplier,
+    UpdateProduct,
+    UpdateScore,
+    UpdateReroll,
+    UpdateGold,
+    LineClear,
+    ItemEffect,
+    StageClear,
+    ItemActivated,
+    ItemDeactivated,
+}
+
 public class Enums
 {
     public static bool IsDefaultBlockType(BlockType blockType)

@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using TMPro;
 using UnityEditor;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
@@ -24,6 +23,7 @@ public class GameManager : MonoBehaviour
     public DeckManager deckManager;
     public ShopManager shopManager;
     public StageManager stageManager;
+    public AnimationManager animationManager;
     public TutorialManager tutorialManager;
 
     public DeckData[] deckTemplates;
@@ -187,6 +187,7 @@ public class GameManager : MonoBehaviour
             deckManager = FindObjectOfType<DeckManager>();
             shopManager = FindObjectOfType<ShopManager>();
             stageManager = FindObjectOfType<StageManager>();
+            animationManager = FindObjectOfType<AnimationManager>();
             tutorialManager = FindObjectOfType<TutorialManager>();
 
             GameUIManager.instance.SetTutorialToggleValue(isTutorial);
@@ -348,6 +349,8 @@ public class GameManager : MonoBehaviour
 
         shopManager.Initialize(ref runData, unlockedItems);
 
+        animationManager.InitializeRunData(ref runData);
+
         UpdateDeckCount(runData.availableBlocks.Count, runData.availableBlocks.Count);
 
         GameUIManager.instance.Initialize(runData);
@@ -439,7 +442,6 @@ public class GameManager : MonoBehaviour
         List<string> stageNames = stageManager.firstStageList;
         if (stageNames.Count > 0)
         {
-            Debug.Log("Set First Stage");
             for (int i = 0; i < nextStageChoices.Length; i++)
             {
                 if (stageNames.Count == 0) break;
@@ -447,9 +449,17 @@ public class GameManager : MonoBehaviour
                 stage.constraints.ForEach(constraint => constraint.triggerCount = 0);
                 stageNames.RemoveAt(0);
                 nextStageChoices[i] = stage;
-
-                Debug.Log("Set Stage : " + stage.id);
             }
+        }
+
+        // 스테이지 초기화
+        for (int i = 0; i < nextStageChoices.Length; i++)
+        {
+            nextStageChoices[i].constraints.ForEach(constraint =>
+            {
+                constraint.triggerCount = 0;
+                constraint.effectValue = constraint.baseEffectValue;
+            });
         }
 
         // 스테이지 난이도 설정
@@ -527,6 +537,7 @@ public class GameManager : MonoBehaviour
         blockGame.Initialize(runData);
         
         deckManager.Initialize(ref blockGame, ref runData);
+        animationManager.InitializeBlockGameData(ref blockGame);
 
         EffectManager.instance.InitializeBlockGameData(ref blockGame);
         CellEffectManager.instance.InitializeBlockGame(ref blockGame);
@@ -709,17 +720,6 @@ public class GameManager : MonoBehaviour
                 GameUIManager.instance.PlayItemEffectAnimation("", runData.activeItems.Count - 1, 1f);
             }
         }
-
-        // 부스트 구매 시 시각 효과
-        if (res != - 1 && shopItem.type == ItemType.BOOST)
-        {
-            if (shopItem.effects.Any(effect =>
-            effect.type == EffectType.BASEMULTIPLIER_MODIFIER ||
-            effect.type == EffectType.BASEMULTIPLIER_MULTIPLIER))
-            {
-                UpdateBaseMultiplier();
-            }
-        }
         return res;
     }
 
@@ -776,22 +776,6 @@ public class GameManager : MonoBehaviour
         {
             AudioManager.instance.SFXGold();
         }
-    }
-
-    public void UpdateRerollCount(int value, bool isMultiplying = false)
-    {
-        // RunData.RerollCount는 플레이 중 드러나지 않으므로 처리 X
-        if (isMultiplying)
-        {
-            blockGame.rerollCount *= value;
-        }
-        else
-        {
-            blockGame.rerollCount += value;
-            if (blockGame.rerollCount < 0) blockGame.rerollCount = 0;
-        }
-
-        GameUIManager.instance.DisplayRerollCount(blockGame.rerollCount);
     }
 
     public void UpdateDeckCount(int deckCount, int maxDeckCount)
@@ -975,78 +959,72 @@ public class GameManager : MonoBehaviour
         GameUIManager.instance.PlayStageEffectAnimation();
     }
 
-    public void PlayItemEffectAnimation(List<string> effectIdList, float matchAnimationTime = 0f)
+    public void PlayItemEffectAnimation(List<AnimationData> animations, bool isMatching = false)
     {
-        StartCoroutine(ItemEffectAnimationCoroutine(effectIdList, matchAnimationTime));
-    }
-
-    private IEnumerator ItemEffectAnimationCoroutine(List<string> effectIdList, float matchAnimationTime)
-    {
-        yield return new WaitForSeconds(matchAnimationTime);
-
-        // 임시 구현 (블록 강화 시각 효과)
-        foreach (string effectId in effectIdList)
-        {
-            bool isItemEffect = runData.activeItems
-                                .Any(item => item.effects
-                                .Any(effect => effect.id == effectId));
-            if (!isItemEffect)
-            {
-                EffectData effect = runData.activeEffects.Find(x => x.id == effectId);
-
-                if (effect != null)
-                {
-                    if (effect.type == EffectType.MULTIPLIER_MODIFIER)
-                    {
-                        UpdateMultiplierByAdd(effect.effectValue);
-                    }
-                }
-            }
-        }
-
-        int delayCount = 0;
-        float delay = 0.25f;    // 아이템 효과 간의 딜레이
+        // 아이템 애니메이션
         for (int i = 0; i < runData.activeItems.Count; i++)
         {
             ItemData currentItem = runData.activeItems[i];
 
-            foreach (EffectData effect in currentItem.effects)
+            List<string> itemEffectIDList = currentItem.effects.Select(effect => effect.id).ToList();
+
+            for (int j = animations.Count - 1; j >= 0; j--)
             {
-                if (effectIdList.Contains(effect.id))
+                AnimationData itemEffectAnim = animations[j];
+
+                if (itemEffectIDList.Contains(itemEffectAnim.effect.id))
                 {
-                    ProcessItemEffectAnimation(effect, i, delay);
+                    itemEffectAnim.animationType = AnimationType.ItemEffect;
+                    itemEffectAnim.index = i;
 
-                    delayCount++;
+                    AnimationData subAnimation = animationManager.GetAnimationData(itemEffectAnim.effect, itemEffectAnim.value);
+                    itemEffectAnim.subAnimations = new();
+                    itemEffectAnim.subAnimations.Add(subAnimation);
 
-                    yield return new WaitForSeconds(delay);
+                    animationManager.EnqueueAnimation(itemEffectAnim);
+
+                    animations.RemoveAt(j);
                 }
+            } 
+        }
+        
+        // 아이템 이외 시각 효과 처리 (블록 강화 등)
+        foreach (AnimationData animation in animations)
+        {
+            if (animation.animationType != AnimationType.None)
+            {
+                animationManager.ProcessAnimation(animation);
+
             }
         }
 
-        // 매칭 진행 중이라면
-        if (matchAnimationTime > 0f)
+        // 점수 계산 애니메이션
+        if (isMatching)
         {
-            yield return new WaitForSeconds(0.3f);
+            int lastScore = ScoreCalculator.instance.GetLastScore();
 
-            StartCoroutine(CalculateScoreAnimationCoroutine());
+            AnimationData delayAnim = new AnimationData();
+            delayAnim.animationType = AnimationType.Delay;
+            delayAnim.delayMultiplier = 30f;
+            delayAnim.resetSpeed = true;
+            animationManager.EnqueueAnimation(delayAnim);
+
+            AnimationData resetChipAnim = new AnimationData();
+            resetChipAnim.animationType = AnimationType.UpdateChip;
+            resetChipAnim.value = 0;
+            animationManager.EnqueueAnimation(resetChipAnim);
+
+            AnimationData resetMultiplierAnim = new AnimationData();
+            resetMultiplierAnim.animationType = AnimationType.UpdateMultiplier;
+            resetMultiplierAnim.value = runData.baseMatchMultipliers[MatchType.ROW];
+            animationManager.EnqueueAnimation(resetMultiplierAnim);
+
+            AnimationData scoreAnim = new AnimationData();
+            scoreAnim.animationType = AnimationType.UpdateScore;
+            scoreAnim.value = lastScore;
+            animationManager.EnqueueAnimation(scoreAnim);
         }
     }
-
-    private IEnumerator CalculateScoreAnimationCoroutine()
-    {
-        int lastScore = ScoreCalculator.instance.GetLastScore();
-        GameUIManager.instance.UpdateProduct(lastScore);
-        GameUIManager.instance.UpdateChip(0);
-        UpdateBaseMultiplier();
-
-        // 계산된 점수가 얻은 점수에 더해지기 전 딜레이
-        float delay = 0.2f;
-        yield return new WaitForSeconds(delay);
-
-        GameUIManager.instance.UpdateProduct(0);
-        GameUIManager.instance.UpdateScore(blockGame.currentScore);
-    }
-
     public bool TryPlaceBlock(int idx, Vector2Int pos, GameObject blockObj) {
         if (isClearStage) return false;
         Block block = handBlocks[idx];
@@ -1064,9 +1042,14 @@ public class GameManager : MonoBehaviour
             // Match 처리된 결과 가져오기 및 애니메이션 실행
             currentMatches = board.GetLastMatches();
             if (currentMatches.Count > 0) {
-                Dictionary<Match, List<int>> scores = GetScoreDictionary(currentMatches);
-                GameUIManager.instance.PlayMatchAnimation(currentMatches, scores, scoreAnimationDelay);
+                AnimationData lineClearAnim = new AnimationData();
+                lineClearAnim.animationType = AnimationType.LineClear;
+                lineClearAnim.matches = currentMatches;
+                animationManager.EnqueueAnimation(lineClearAnim);
             }
+
+            // 아이템 시각 효과 실행
+            EffectManager.instance.EndTriggerEffectOnPlace(currentMatches);
 
             if (!isClearStage && stageManager.CheckStageClear(blockGame))
             {
@@ -1081,8 +1064,6 @@ public class GameManager : MonoBehaviour
             }
 
             DataManager.instance.UpdateBlockPlaceCount(block);
-
-            tutorialManager.TriggerNotificationAnimation();
 
             GameManager.instance.ProcessTutorialStep("PlaceBlock");
         }
@@ -1153,39 +1134,9 @@ public class GameManager : MonoBehaviour
         board.ForceMatches(matchType, indices);
     }
 
-    public float GetMatchAnimationTime(List<Match> matches)
-    {
-        float result = 0f;
-        float lastDelay = 0.3f;     // 매칭 이후 아이템 애니메이션 진행 전 딜레이
-
-        foreach (Match match in matches)
-        {
-            if (match.matchType == MatchType.ROW)
-            {
-                result += scoreAnimationDelay * blockGame.boardRows;
-            }
-            else if (match.matchType == MatchType.COLUMN)
-            {
-                result += scoreAnimationDelay * blockGame.boardColumns;
-            }
-        }
-
-        if (matches.Count > 0)
-        {
-            result += lastDelay;
-        }
-
-        return result;
-    }
-    
     public void UpdateMultiplierByAdd(int addingValue)
     {
         GameUIManager.instance.UpdateMultiplierByAdd(addingValue);
-    }
-
-    public void UpdateMultiplier()
-    {
-        GameUIManager.instance.UpdateMultiplier(blockGame.matchMultipliers[MatchType.ROW]);
     }
     
     public void UpdateBaseMultiplier()
@@ -1220,185 +1171,6 @@ public class GameManager : MonoBehaviour
                 GameUIManager.instance.StartItemShakeAnimation(i, isBlockRelated: false);
             }
         }
-    }
-
-    // Match에 해당하는 점수 리스트 만들기
-    private Dictionary<Match, List<int>> GetScoreDictionary(List<Match> matches)
-    {
-        Dictionary<Match, List<int>> dictionary = new Dictionary<Match, List<int>>();
-
-        foreach (Match match in matches)
-        {
-            List<int> scores = new List<int>();
-
-            int blockIndex = 0;
-            if (match.matchType == MatchType.ROW)
-            {
-                for (int x = 0; x < blockGame.boardColumns; x++)
-                {
-                    if (match.validIndices.Contains(x))
-                    {
-                        BlockType blockType = match.blocks[blockIndex].Item1;
-                        int score = blockGame.blockScores[blockType];
-                        scores.Add(score);
-                        blockIndex++;
-                    }
-                    else
-                    {
-                        scores.Add(0);
-                    }
-                }
-            }
-            else if (match.matchType == MatchType.COLUMN)
-            {
-                for (int y = 0; y < blockGame.boardRows; y++)
-                {
-                    if (match.validIndices.Contains(y))
-                    {
-                        BlockType blockType = match.blocks[blockIndex].Item1;
-                        int score = blockGame.blockScores[blockType];
-                        scores.Add(score);
-                        blockIndex++;
-                    }
-                    else
-                    {
-                        scores.Add(0);
-                    }
-                }
-            }
-            dictionary.Add(match, scores);
-        }
-        return dictionary;
-    }
-
-    private void ProcessItemEffectAnimation(EffectData effect, int index, float delay)
-    {
-        string description = "";
-
-        int finalValue = EffectManager.instance.GetFinalValue(effect);
-
-        string value = finalValue > 0 ? "+" + finalValue : finalValue.ToString();
-        
-        switch (effect.type)
-        {
-            case EffectType.SCORE_MODIFIER:
-                description = "<color=#0088FF>" + value + "</color>";
-                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
-                break;
-            case EffectType.SCORE_MULTIPLIER:
-                description = "<color=#0088FF>X" + finalValue + "</color>";
-                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
-                break;
-            case EffectType.MULTIPLIER_MODIFIER:
-                description = "<color=red>" + value + "</color>";
-                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
-                UpdateMultiplierByAdd(finalValue);
-                break;
-            case EffectType.BASEMULTIPLIER_MODIFIER:
-                description = "<color=red>" + value + "</color>";
-                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
-                UpdateMultiplier();
-                break;
-            case EffectType.BASEMULTIPLIER_MULTIPLIER:
-                description = "<color=red>X" + finalValue + "</color>";
-                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
-                UpdateMultiplier();
-                break;
-            case EffectType.REROLL_MODIFIER:
-            case EffectType.BASEREROLL_MODIFIER:
-                description = "<color=white>" + value + "</color>";
-                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
-                break;
-            case EffectType.REROLL_MULTIPLIER:
-            case EffectType.BASEREROLL_MULTIPLIER:
-                description = "<color=white>X" + finalValue + "</color>";
-                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
-                break;
-            case EffectType.GOLD_MODIFIER:
-                description = "<color=yellow>" + value + "</color>";
-                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
-                break;
-            case EffectType.GOLD_MULTIPLIER:
-                description = "<color=yellow>X" + finalValue + "</color>";
-                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
-                break;
-            case EffectType.BOARD_SIZE_MODIFIER:
-                description = "<color=white>보드 크기" + value + "</color>";
-                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
-                break;
-            case EffectType.BOARD_CORNER_BLOCK:
-                description = "<color=white>보드 가장자리\n막힘!</color>";
-                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
-                break;
-            case EffectType.BOARD_RANDOM_BLOCK:
-                description = "<color=white>보드 무작위\n" + finalValue + "칸 막힘!</color>";
-                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
-                break;
-            case EffectType.DECK_MODIFIER:
-                // TODO
-                break;
-            case EffectType.BLOCK_REUSE_MODIFIER:
-                // TODO
-                break;
-            case EffectType.SQUARE_CLEAR:
-                // TODO
-                break;
-            case EffectType.BLOCK_MULTIPLIER:
-                description = "<color=white>블록 " + finalValue + "배!</color>";
-                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
-                break;
-            case EffectType.BLOCK_DELETE:
-                description = "<color=white>블록 모두\n삭제!</color>";
-                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
-                break;
-            case EffectType.BLOCK_DELETE_WITH_COUNT:
-                // TODO
-                break;
-            case EffectType.ROW_LINE_CLEAR:
-            case EffectType.RANDOM_ROW_LINE_CLEAR:
-                description = "<color=white>가로\n지움!</color>";
-                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
-                break;
-            case EffectType.COLUMN_LINE_CLEAR:
-            case EffectType.RANDOM_COLUMN_LINE_CLEAR:
-                description = "<color=white>세로\n지움!</color>";
-                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
-                break;
-            case EffectType.BOARD_CLEAR:
-                description = "<color=white>보드\n지움!</color>";
-                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
-                break;
-            case EffectType.DRAW_BLOCK_COUNT_MODIFIER:
-                description = "<color=white>선택지가\n" + finalValue + "개로!</color>";
-                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
-                break;
-            case EffectType.RANDOM_LINE_CLEAR:
-                description = "<color=white>무작위\n한 줄 지움!</color>";
-                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
-                break;
-            case EffectType.EFFECT_VALUE_MODIFIER:
-                if (effect.modifyingEffect.type == EffectType.GOLD_MODIFIER)
-                {
-                    description = "<color=yellow>" + value + "</color>";
-                }
-                else if (effect.modifyingEffect.type == EffectType.SCORE_MODIFIER)
-                {
-                    description = "<color=#0088FF>" + value + "</color>";
-                }
-                else
-                {
-                    description = "<color=red>" + value + "</color>";
-                }
-                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
-                break;
-            case EffectType.MULTIPLIER_MULTIPLER:
-                description = "<color=red>X" + finalValue + "</color>";
-                GameUIManager.instance.PlayItemEffectAnimation(description, index, delay);
-                UpdateMultiplier();
-                break;
-
-        }
-        
     }
 
     // ------------------------------

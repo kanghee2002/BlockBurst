@@ -644,12 +644,12 @@ public class GameUIManager : MonoBehaviour
         actionInfoUI.UpdateProduct(product);
     }
 
-    public void UpdateScore(int score) {
-        scoreInfoUI.UpdateScore(score);
+    public void UpdateScore(int score, bool isAdditive = false) {
+        scoreInfoUI.UpdateScore(score, isAdditive);
     }
 
-    public void UpdateGold(int gold) {
-        goldInfoUI.UpdateGold(gold);
+    public void UpdateGold(int gold, bool isAdditive = false) {
+        goldInfoUI.UpdateGold(gold, isAdditive);
     }
 
     public void PlayStageEffectAnimation()
@@ -657,8 +657,8 @@ public class GameUIManager : MonoBehaviour
         stageInfoUI.ProcessStageEffectAnimation();
     }
 
-    public void DisplayRerollCount(int rerollCount) {
-        rerollButtonUI.DisplayRerollCount(rerollCount);
+    public void DisplayRerollCount(int rerollCount, bool isAdditive = false) {
+        rerollButtonUI.UpdateRerollCount(rerollCount, isAdditive);
     }
 
     public void DisplayDeckCount(int deckCount, int maxDeckCount) {

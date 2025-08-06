@@ -48,12 +48,34 @@ public class RerollButtonUI : MonoBehaviour
     public void Initialize(int rerollCount)
     {
         gameObject.SetActive(true);
-        DisplayRerollCount(rerollCount);
+        UpdateRerollCount(rerollCount);
     }
 
-    public void DisplayRerollCount(int rerollCount)
+    public void UpdateRerollCount(int rerollCount, bool isAdditive = false)
     {
-        rerollCountText.text = rerollCount.ToString();
+        if (isAdditive)
+        {
+            rerollCountText.text = (GetCurrentRerollCount() + rerollCount).ToString();
+        }
+        else
+        {
+            rerollCountText.text = rerollCount.ToString();
+        }
         UIUtils.BounceText(rerollCountText.transform);
+    }
+
+    private int GetCurrentRerollCount()
+    {
+        int rerollCount = 0;
+        string text = rerollCountText.text;
+        if (int.TryParse(text, out rerollCount))
+        {
+            return rerollCount;
+        }
+        else
+        {
+            Debug.Log("Error: multiplierText is not int form");
+        }
+        return rerollCount;
     }
 }

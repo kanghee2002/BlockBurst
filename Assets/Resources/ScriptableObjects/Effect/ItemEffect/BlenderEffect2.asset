@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: BlenderEffect2
   m_EditorClassIdentifier: 
   id: BlenderEffect2
-  effectName: "\uB9AC\uB864\uD560 \uB54C\uB9C8\uB2E4 \uBC30\uC218\uAC00 -EffectValue
-    \uAC10\uC18C\uD569\uB2C8\uB2E4"
+  effectName: "\uB9AC\uB864\uD560 \uB54C\uB9C8\uB2E4 \uC5BB\uB294 \uBC30\uC218\uAC00
+    -EffectValue \uAC10\uC18C\uD569\uB2C8\uB2E4"
   type: 27
   scope: 0
   baseEffectValue: -1

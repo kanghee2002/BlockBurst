@@ -128,7 +128,7 @@ public class DeckDescriptionUI : MonoBehaviour
 
     private Sprite GetLockImage()
     {
-        string path = "Sprites/UI/Lock";
+        string path = "Sprites/UI/LockDeck";
 
         Sprite lockSprite = Resources.Load<Sprite>(path);
 

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: BackpackEffect2
   effectName: "\uC544\uC774\uD15C\uC744 TriggerValue\uBC88 \uC0B4 \uB54C\uB9C8\uB2E4
-    \uACE8\uB4DC\uAC00 +EffectValue \uC99D\uAC00\uD569\uB2C8\uB2E4"
+    \uC5BB\uB294 \uACE8\uB4DC\uAC00 +EffectValue \uC99D\uAC00\uD569\uB2C8\uB2E4"
   type: 27
   scope: 0
   baseEffectValue: 1
@@ -26,3 +26,6 @@ MonoBehaviour:
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 11400000, guid: 0408983442399ea44b2cb5726781f0c5, type: 2}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

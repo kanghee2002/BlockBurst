@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: DictionaryEffect2
   effectName: "\uB371\uC5D0 \uBE14\uB85D\uC744 \uCD94\uAC00\uD560 \uB54C\uB9C8\uB2E4
-    \uBC30\uC218\uAC00 +EffectValue \uC99D\uAC00\uD569\uB2C8\uB2E4"
+    \uC5BB\uB294 \uBC30\uC218\uAC00 +EffectValue \uC99D\uAC00\uD569\uB2C8\uB2E4"
   type: 27
   scope: 0
   baseEffectValue: 3
-  effectValue: 2
+  effectValue: 3
   trigger: 27
   triggerMode: 0
   triggerValue: 0
@@ -26,3 +26,6 @@ MonoBehaviour:
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 11400000, guid: 0e3378cd75453b44995fa1df3222874f, type: 2}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

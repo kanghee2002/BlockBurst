@@ -84,7 +84,7 @@ public class UnlockContainerUI : MonoBehaviour
         }
         else
         {
-            path = "Sprites/UI/Lock";
+            path = "Sprites/UI/LockItem";
         }
         sprite = Resources.Load<Sprite>(path);
         return sprite;

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AppleEffect2
   m_EditorClassIdentifier: 
   id: AppleEffect2
-  effectName: "\uB9E4 \uC2A4\uD14C\uC774\uC9C0 \uC885\uB8CC \uC2DC \uBC30\uC218\uAC00
+  effectName: "\uB9E4 \uC2A4\uD14C\uC774\uC9C0 \uC885\uB8CC \uC2DC \uC5BB\uB294 \uBC30\uC218\uAC00
     -EffectValue \uAC10\uC18C\uD569\uB2C8\uB2E4"
   type: 27
   scope: 0

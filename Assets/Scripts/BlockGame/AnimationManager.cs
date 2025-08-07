@@ -102,7 +102,7 @@ public class AnimationManager : MonoBehaviour
             }
             else
             {
-                speed *= 1.15f;
+                speed *= 1.05f;
             }
 
             delay /= speed;

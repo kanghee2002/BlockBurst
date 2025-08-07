@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GrayClockEffect
   m_EditorClassIdentifier: 
   id: GrayClockEffect
-  effectName: "\uC904\uC744 TriggerValue\uC9C0\uC6B8 \uB54C\uB9C8\uB2E4\n+EffectValue
+  effectName: "\uC904\uC744 TriggerValue\uBC88 \uC9C0\uC6B8 \uB54C\uB9C8\uB2E4\n+EffectValue
     \uAE30\uBCF8 \uB9AC\uB864 \uD69F\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 7
   scope: 0
@@ -27,3 +27,5 @@ MonoBehaviour:
   probability: 1
   modifyingEffect: {fileID: 0}
   maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

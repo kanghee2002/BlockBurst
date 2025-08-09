@@ -126,20 +126,19 @@ public class GameManager : MonoBehaviour
     {
         if (playerData != null)
         {
-            TEST_TEXT("ALREADY EXIST PlayerData\n");
+            //TEST_TEXT("ALREADY EXIST PlayerData\n");
             return;
         }
 
         playerData = DataManager.instance.LoadPlayerData();
 
-        
-        TEST_TEXT("LOAD PlayerData\n");
+        //TEST_TEXT("LOAD PlayerData\n");
 
         if (playerData == null)
         {
             playerData = new PlayerData();
 
-            TEST_TEXT("SAVE PlayerData\n");
+            //TEST_TEXT("SAVE PlayerData\n");
 
             DataManager.instance.SavePlayerData(playerData);
         }
@@ -616,12 +615,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         // 튜토리얼 진행 시 호출
-        if (runData.currentChapterIndex == 1 &&
-            (runData.currentStageIndex == 2 ||
-             runData.currentStageIndex == 3))
-        {
-            ProcessTutorialStep("EndStage");
-        }
+        ProcessTutorialStep("EndStage");
     }
 
     public void StartShop(bool isFirst = false)

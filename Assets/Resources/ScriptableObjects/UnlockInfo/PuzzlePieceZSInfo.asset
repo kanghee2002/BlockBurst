@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e5d6495931287004b85fc19752c7e3e6, type: 3}
-  m_Name: PuzzlePieceZInfo
+  m_Name: PuzzlePieceZSInfo
   m_EditorClassIdentifier: 
   targetType: 0
-  targetName: PuzzlePieceZ
-  description: "Z Requirement\uBC88 \uBC30\uCE58\uD558\uAE30"
-  trigger: 2
-  requirement: 40
+  targetName: PuzzlePieceZS
+  description: "Z/S Requirement\uBC88 \uBC30\uCE58\uD558\uAE30"
+  trigger: 32
+  requirement: 30

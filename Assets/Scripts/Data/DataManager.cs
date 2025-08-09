@@ -37,7 +37,8 @@ public class DataManager : MonoBehaviour
 
         path = Application.dataPath + "/Data/";
 
-        if (Application.platform == RuntimePlatform.Android)
+        if (Application.platform == RuntimePlatform.Android ||
+            Application.platform == RuntimePlatform.WebGLPlayer)
         {
             path = Application.persistentDataPath;
         }
@@ -100,15 +101,6 @@ public class DataManager : MonoBehaviour
 
         string loadedJson = File.ReadAllText(dataPath);
         playerData = JsonUtility.FromJson<PlayerData>(loadedJson);
-
-        // TEST ---------------------------------------------------------------
-        GameManager.instance.TEST_TEXT("Player Data Exist!\n");
-        if (playerData == null) GameManager.instance.TEST_TEXT("But NULL\n");
-
-        GameManager.instance.TEST_TEXT("CONTAINING TUTO VALUE? : " + loadedJson.Contains("tutorialValue") + "\n");
-        GameManager.instance.TEST_TEXT("MAX CHAPTER : " + playerData.maxChapter + "\n");
-        GameManager.instance.TEST_TEXT("Place I : " + playerData.placeCountI + "\n");
-        // --------------------------------------------------------------------
 
         return playerData;
     }

@@ -17,12 +17,15 @@ MonoBehaviour:
     \uC99D\uAC00\uD558\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4"
   type: 29
   scope: 0
-  baseEffectValue: 0
-  effectValue: 0
+  baseEffectValue: 70
+  effectValue: 70
   trigger: 0
   triggerMode: 0
   triggerValue: 0
   triggerCount: 0
   blockTypes: 
-  probability: 0.3
+  probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

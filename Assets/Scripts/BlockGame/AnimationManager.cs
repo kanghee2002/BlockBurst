@@ -176,7 +176,6 @@ public class AnimationManager : MonoBehaviour
         animationData.effect = effect;
         animationData.isValueAdditive = true;
 
-        // 효과 적용
         switch (effect.type)
         {
             case EffectType.SCORE_MODIFIER:

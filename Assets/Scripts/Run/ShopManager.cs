@@ -150,7 +150,6 @@ public class ShopManager : MonoBehaviour
             }
 
             EffectManager.instance.TriggerEffects(TriggerType.ON_ADD_BLOCK, blockTypes: new BlockType[] { item.block.type });
-            EffectManager.instance.EndTriggerEffect();
         }
         else if (item.type == ItemType.CONVERT_BLOCK)
         {
@@ -228,7 +227,13 @@ public class ShopManager : MonoBehaviour
                 AddItem(item);
             }
         }
-        currentRerollCost += runData.shopRerollCostGrowth;
+
+        // 리롤 비용 증가 확률 적용
+        int x = Random.Range(1, 101);
+        if (x <= runData.shopRerollCostIncreasePercentage)
+        {
+            currentRerollCost += 1;
+        }
     }
 
     public void AddItem(ItemData item)

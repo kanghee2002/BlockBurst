@@ -221,16 +221,15 @@ public class EffectManager : MonoBehaviour
                 break;
             case EffectType.GOLD_MODIFIER:
                 runData.gold += finalValue;
+                if (runData.gold < 0) runData.gold = 0;
                 break;
             case EffectType.GOLD_MULTIPLIER:
-                int addingValue = runData.gold * (finalValue - 1);
-                additiveValue = addingValue;
+                additiveValue = runData.gold * (finalValue - 1);
                 if (effect.maxValue != -1)
                 {
-                    addingValue = Math.Min(effect.maxValue, addingValue);
-                    runData.gold += addingValue;
+                    additiveValue = Math.Min(effect.maxValue, additiveValue);
                 }
-                runData.gold += addingValue;
+                runData.gold += additiveValue;
                 break;
             case EffectType.BOARD_SIZE_MODIFIER:
                 if (effect.scope == EffectScope.Run)
@@ -314,8 +313,8 @@ public class EffectManager : MonoBehaviour
                 runData.shopBaseRerollCost += finalValue;
                 GameManager.instance.UpdateShopRerollCost(finalValue);
                 break;
-            case EffectType.SHOP_REROLL_COST_GROWTH_MODIFIER:
-                runData.shopRerollCostGrowth = finalValue;
+            case EffectType.SHOP_REROLL_PERCENTAGE_MODIFIER:
+                runData.shopRerollCostIncreasePercentage = finalValue;
                 break;
             case EffectType.SHOP_ITEM_COUNT_MODIFIER:
                 runData.shopItemCounts[ItemType.ITEM] = finalValue;

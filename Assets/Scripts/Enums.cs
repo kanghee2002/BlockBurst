@@ -68,7 +68,7 @@ public enum EffectType
     COLUMN_LINE_CLEAR,                  // 세로 N줄 지움 (왼쪽에서부터)
     EFFECT_VALUE_MODIFIER,              // 다른 효과 수치 수정
     SHOP_REROLL_COST_MODIFIER,          // 상점 리롤 비용 수정
-    SHOP_REROLL_COST_GROWTH_MODIFIER,   // 상점 리롤 비용 증가값 수정
+    SHOP_REROLL_PERCENTAGE_MODIFIER,    // 상점 리롤 비용 증가 확률 수정
     SHOP_ITEM_COUNT_MODIFIER,           // 상점 아이템 개수 수정
     SHOP_BOOST_COUNT_MODIFIER,          // 상점 부스트 개수 수정
     SHOP_BLOCK_COUNT_MODIFIER,          // 상점 블록 개수 수정

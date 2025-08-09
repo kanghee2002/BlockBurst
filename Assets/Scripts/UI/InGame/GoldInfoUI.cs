@@ -16,7 +16,9 @@ public class GoldInfoUI : MonoBehaviour
     {
         if (isAdditive)
         {
-            goldText.text = "$" + (GetCurrentGold() + _gold).ToString();
+            int currentGold = GetCurrentGold() + _gold;
+            if (currentGold < 0) currentGold = 0;
+            goldText.text = "$" + currentGold.ToString();
         }
         else
         {

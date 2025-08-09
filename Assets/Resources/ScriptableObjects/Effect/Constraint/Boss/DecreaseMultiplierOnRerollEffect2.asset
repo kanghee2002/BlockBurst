@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DecreaseMultiplierOnRerollEffect2
   m_EditorClassIdentifier: 
   id: DecreaseMultiplierOnRerollEffect2
-  effectName: "\uADF8 \uC218\uCE58\uAC00 1 \uC99D\uAC00\uD569\uB2C8\uB2E4"
+  effectName: 
   type: 27
   scope: 1
   baseEffectValue: -1
@@ -25,3 +25,6 @@ MonoBehaviour:
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 11400000, guid: e60dac41a509a88479265743bbec6d9c, type: 2}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

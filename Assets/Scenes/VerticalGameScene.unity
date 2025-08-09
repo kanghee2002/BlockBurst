@@ -7999,8 +7999,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uB0A8\uC740 \uBE14\uB85D \uAC1C\uC218\uB294\\n\uC5EC\uAE30\uC11C \uBE60\uB974\uAC8C
-    \uD655\uC778\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+  m_text: "\uC774\uC81C \uBE14\uB85D\uC744\n<color=#005000>\uBAA8\uB450 \uC4F0\uAE30
+    \uC804\uC5D0\n\uC810\uC218\uB97C \uB2EC\uC131</color>\uD574\n\uC2A4\uD14C\uC774\uC9C0\uB97C
+    \uD074\uB9AC\uC5B4\uD558\uC138\uC694!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2a59723d8f0743f4ba7c0c6d36676d1c, type: 2}
   m_sharedMaterial: {fileID: 92899030693641188, guid: 2a59723d8f0743f4ba7c0c6d36676d1c, type: 2}
@@ -21406,48 +21407,9 @@ MonoBehaviour:
     waitingSign: 
     highlightDelay: 0
   - characterPosition: {x: -160, y: 0}
-    highlightRect: {fileID: 1916213973}
-    clickableRect: {fileID: 1916213973}
-    description: "<color=purple>\uB371</color>\uC744 \uD074\uB9AD\uD574 <color=#005000>\uD604\uC7AC
-      \uAC00\uC9C4 \uBE14\uB85D</color>\uC744 \uD655\uC778\uD574\uBCF4\uC138\uC694!"
-    isNextButtonInactive: 1
-    isClickable: 0
-    isInactive: 0
-    waitingSign: Deck
-    highlightDelay: 0
-  - characterPosition: {x: -160, y: -300}
-    highlightRect: {fileID: 107852221}
-    clickableRect: {fileID: 0}
-    description: "\uB0A8\uC740 \uBE14\uB85D <color=#005000>\uAC1C\uC218</color>\uC640\\n<color=#005000>\uC810\uC218</color>\uB97C
-      \uD655\uC778\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4"
-    isNextButtonInactive: 0
-    isClickable: 0
-    isInactive: 0
-    waitingSign: 
-    highlightDelay: 0
-  - characterPosition: {x: -160, y: -300}
-    highlightRect: {fileID: 107852221}
-    clickableRect: {fileID: 169173316}
-    description: "\uBC14\uAE65 \uBD80\uBD84\uC744 \uD074\uB9AD\uD574 \uB3CC\uC544\uAC00\uC138\uC694!"
-    isNextButtonInactive: 1
-    isClickable: 0
-    isInactive: 0
-    waitingSign: DeckBack
-    highlightDelay: 0
-  - characterPosition: {x: -160, y: -300}
-    highlightRect: {fileID: 1932354068}
-    clickableRect: {fileID: 0}
-    description: "<color=#005000>\uD604\uC7AC \uB0A8\uC740 \uBE14\uB85D \uAC1C\uC218</color>\uB294\\n\uC5EC\uAE30\uC11C
-      \uBE60\uB974\uAC8C \uD655\uC778\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
-    isNextButtonInactive: 0
-    isClickable: 0
-    isInactive: 0
-    waitingSign: 
-    highlightDelay: 0
-  - characterPosition: {x: -160, y: 0}
     highlightRect: {fileID: 565023821}
     clickableRect: {fileID: 0}
-    description: "\uC774\uC81C \uBE14\uB85D\uC744 \uBC30\uCE58\uD574 \uC2A4\uD14C\uC774\uC9C0\uB97C
+    description: "\uC774\uC81C \uBE14\uB85D\uC744 \uBC30\uCE58\uD574\\n\uC2A4\uD14C\uC774\uC9C0\uB97C
       \uD074\uB9AC\uC5B4\uD558\uC138\uC694!"
     isNextButtonInactive: 0
     isClickable: 0
@@ -21497,8 +21459,9 @@ MonoBehaviour:
   - characterPosition: {x: -160, y: 300}
     highlightRect: {fileID: 1583208970}
     clickableRect: {fileID: 0}
-    description: "'<sprite=4> \uC54C'\uC740 <sprite=4> \uD3EC\uD568\uD574 \uC904\uC744\\n\uC9C0\uC6B8
-      \uB54C\uB9C8\uB2E4 <color=red>+6 \uBC30\uC218</color>\uB97C\\n\uCD94\uAC00\uD569\uB2C8\uB2E4!"
+    description: "'<sprite=0>/<sprite=1> \uC54C'\uC740 <sprite=0>/<sprite=1> \uD3EC\uD568\uD574\\n\uC904\uC744
+      \uC9C0\uC6B8 \uB54C\uB9C8\uB2E4\\n<color=red>+4 \uBC30\uC218</color>\uB97C
+      \uCD94\uAC00\uD569\uB2C8\uB2E4!"
     isNextButtonInactive: 0
     isClickable: 0
     isInactive: 0
@@ -21563,9 +21526,48 @@ MonoBehaviour:
     waitingSign: 
     highlightDelay: 0
   - characterPosition: {x: -160, y: 0}
+    highlightRect: {fileID: 1916213973}
+    clickableRect: {fileID: 1916213973}
+    description: "\uC774\uC81C <color=purple>\uB371</color>\uC744 \uD074\uB9AD\uD574\\n<color=#005000>\uD604\uC7AC
+      \uAC00\uC9C4 \uBE14\uB85D</color>\uC744\\n\uD655\uC778\uD574\uBCF4\uC138\uC694!"
+    isNextButtonInactive: 1
+    isClickable: 0
+    isInactive: 0
+    waitingSign: Deck
+    highlightDelay: 0
+  - characterPosition: {x: -160, y: -300}
+    highlightRect: {fileID: 107852221}
+    clickableRect: {fileID: 0}
+    description: "\uAC00\uC9C4 \uBE14\uB85D <color=#005000>\uAC1C\uC218</color>\uC640\\n<color=#005000>\uC810\uC218</color>\uB97C
+      \uD655\uC778\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4"
+    isNextButtonInactive: 0
+    isClickable: 0
+    isInactive: 0
+    waitingSign: 
+    highlightDelay: 0
+  - characterPosition: {x: -160, y: -300}
+    highlightRect: {fileID: 107852221}
+    clickableRect: {fileID: 169173316}
+    description: "\uBC14\uAE65 \uBD80\uBD84\uC744 \uD074\uB9AD\uD574 \uB3CC\uC544\uAC00\uC138\uC694!"
+    isNextButtonInactive: 1
+    isClickable: 0
+    isInactive: 0
+    waitingSign: DeckBack
+    highlightDelay: 0
+  - characterPosition: {x: -160, y: -300}
+    highlightRect: {fileID: 1932354068}
+    clickableRect: {fileID: 0}
+    description: "<color=#005000>\uD604\uC7AC \uB0A8\uC740 \uBE14\uB85D \uAC1C\uC218</color>\uB294\\n\uC5EC\uAE30\uC11C
+      \uBE60\uB974\uAC8C \uD655\uC778\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+    isNextButtonInactive: 0
+    isClickable: 0
+    isInactive: 0
+    waitingSign: 
+    highlightDelay: 0
+  - characterPosition: {x: -160, y: 0}
     highlightRect: {fileID: 953752856}
     clickableRect: {fileID: 953752856}
-    description: "\uC0C1\uD488\uC744 \uC0C8\uB85C \uBF51\uC744 \uC218\uB3C4 \uC788\uC2B5\uB2C8\uB2E4.\\n\uD074\uB9AD\uD574\uBCF4\uC138\uC694!"
+    description: "\uC0C1\uD488\uC744 \uC0C8\uB85C \uBF51\uC744 \uC218\uB3C4 \uC788\uC2B5\uB2C8\uB2E4!\\n\uD074\uB9AD\uD574\uBCF4\uC138\uC694"
     isNextButtonInactive: 1
     isClickable: 0
     isInactive: 0

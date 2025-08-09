@@ -94,7 +94,7 @@ public class TutorialManager : MonoBehaviour
 
         List<string> firstShopItems = new List<string>()
         {
-            "EggJ",
+            "EggIO",
             "RedEgg",
             "GrayCube",
             "AddBlockSolo",

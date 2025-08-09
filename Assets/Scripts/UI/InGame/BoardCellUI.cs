@@ -137,7 +137,7 @@ public class BoardCellUI : MonoBehaviour
 
     public void BlockCell() {
         isBlocked = true;
-        cellImage.color = new Color(0.5f, 0.5f, 0.5f);
+        cellImage.color = new Color(0.7f, 0.7f, 0.7f);
     }
 
     public void PlayClearAnimation(float preDelay, float postDelay, bool isForceMatch)

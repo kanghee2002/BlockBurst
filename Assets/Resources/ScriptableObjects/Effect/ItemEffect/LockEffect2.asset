@@ -13,17 +13,19 @@ MonoBehaviour:
   m_Name: LockEffect2
   m_EditorClassIdentifier: 
   id: LockEffect2
-  effectName: "\uBE14\uB85D\uC744 TriggerValue\uBC88 \uB193\uC744 \uB54C\uB9C8\uB2E4
-    \uBC30\uC218\uAC00 +EffectValue \uC99D\uAC00\uD558\uACE0,"
+  effectName: "\uBE14\uB85D\uC744 \uD68C\uC804\uD560 \uB54C\uB9C8\uB2E4 \uC5BB\uB294
+    \uBC30\uC218\uAC00 -EffectValue \uAC10\uC18C\uD569\uB2C8\uB2E4"
   type: 27
   scope: 0
-  baseEffectValue: 1
-  effectValue: 1
-  trigger: 1
-  triggerMode: 2
-  triggerValue: 2
+  baseEffectValue: -2
+  effectValue: -1
+  trigger: 26
+  triggerMode: 0
+  triggerValue: 0
   triggerCount: 0
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 11400000, guid: 187d70ed7dab0bf4fb316bcea5ddbf55, type: 2}
   maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

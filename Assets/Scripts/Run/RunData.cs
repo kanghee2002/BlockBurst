@@ -65,9 +65,9 @@ public class RunData
         };
         itemRarityWeights = new Dictionary<ItemRarity, int>()
         {
-            { ItemRarity.COMMON, 70 },
-            { ItemRarity.RARE, 25},
-            { ItemRarity.EPIC, 10 },
+            { ItemRarity.COMMON, 40 },
+            { ItemRarity.RARE, 30},
+            { ItemRarity.EPIC, 20 },
             { ItemRarity.LEGENDARY, 5 },
         };
     }

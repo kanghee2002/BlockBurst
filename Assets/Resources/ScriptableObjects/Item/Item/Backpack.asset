@@ -22,4 +22,4 @@ MonoBehaviour:
   block: {fileID: 0}
   isPurchasableAgain: 0
   effectType: 2
-  rarity: 2
+  rarity: 3

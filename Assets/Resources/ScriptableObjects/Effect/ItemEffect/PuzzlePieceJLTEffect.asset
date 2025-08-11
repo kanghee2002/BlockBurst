@@ -18,10 +18,10 @@ MonoBehaviour:
   type: 3
   scope: 0
   baseEffectValue: 4
-  effectValue: 1
+  effectValue: 4
   trigger: 23
   triggerMode: 2
-  triggerValue: 10
+  triggerValue: 12
   triggerCount: 0
   blockTypes: 040000000500000006000000
   probability: 1

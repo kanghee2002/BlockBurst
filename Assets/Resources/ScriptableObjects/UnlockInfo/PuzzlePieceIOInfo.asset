@@ -16,4 +16,4 @@ MonoBehaviour:
   targetName: PuzzlePieceIO
   description: "I/O Requirement\uBC88 \uBC30\uCE58\uD558\uAE30"
   trigger: 31
-  requirement: 30
+  requirement: 50

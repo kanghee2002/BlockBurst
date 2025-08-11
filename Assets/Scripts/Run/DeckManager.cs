@@ -100,12 +100,19 @@ public class DeckManager : MonoBehaviour
         runData.availableBlocks.Add(block);
     }
 
+    // BlockGame
     public void RemoveBlockFromGameDeck(BlockData block)
     {
         discardPile.Add(block);
         blockGameData.deck.Remove(block);
     }
 
+    public void RemoveBlockFromGameDeck(BlockType blockType)
+    {
+        blockGameData.deck.Remove(blockGameData.deck.Find(block => block.type == blockType));
+    }
+
+    // Run
     public void RemoveBlockFromRunDeck(BlockData block)
     {
         runData.availableBlocks.Remove(block);
@@ -120,13 +127,19 @@ public class DeckManager : MonoBehaviour
         DataManager.instance.UpdateHasOnlySpecificBlock(runData.availableBlocks);
     }
 
-    public bool RemoveRandomBlockFromRunDeck(List<BlockType> exceptionType)
+    public bool RemoveRandomBlockFromRunDeck(List<BlockType> exceptionType, bool excludeSpecialBlocks)
     {
-        if (exceptionType == null) return false; 
-
         List<BlockData> blocks = runData.availableBlocks.ToList();
-        blocks.RemoveAll(x => exceptionType.Contains(x.type));
-        blocks.RemoveAll(x => Enums.IsSpecialBlockType(x.type));
+
+        if (exceptionType != null)
+        {
+            blocks.RemoveAll(x => exceptionType.Contains(x.type));
+        }
+
+        if (excludeSpecialBlocks)
+        {
+            blocks.RemoveAll(x => Enums.IsSpecialBlockType(x.type));
+        }
 
         if (blocks.Count == 0 ) return false;
 
@@ -141,6 +154,32 @@ public class DeckManager : MonoBehaviour
         DataManager.instance.UpdateHasOnlySpecificBlock(runData.availableBlocks);
 
         return true;
+    }
+
+    public void ConvertBlock(int count)
+    {
+        List<BlockType> highestScoreBlocks = runData.baseBlockScores
+                        .Where(kv => kv.Value == runData.baseBlockScores.Values.Max())
+                        .Select(kv => kv.Key)
+                        .ToList();
+
+        int removeCount = 0;
+        for (int i = 0; i < count; i++)
+        {
+            if (RemoveRandomBlockFromRunDeck(highestScoreBlocks, true))
+            {
+                removeCount++;
+            }
+
+        }
+
+        BlockType convertBlockType = highestScoreBlocks[Random.Range(0, highestScoreBlocks.Count)];
+        BlockData convertBlock = Resources.Load<BlockData>("ScriptableObjects/Block/Block" + convertBlockType + "Data");
+
+        for (int i = 0; i < removeCount; i++)
+        {
+            AddBlockToRunDeck(convertBlock);
+        }
     }
 
     // 덱 셔플

@@ -386,6 +386,9 @@ public class Board
         // 모두 지워질 때 효과를 가진 블록 중 지워진 것 있는지 확인
         CheckOnClearEffectBlocks();
 
+        // 특수 효과로 줄 지울 때 트리거 발동
+        EffectManager.instance.TriggerEffects(TriggerType.ON_FORCE_LINE_CLEAR);
+
         foreach (Match match in matches)
         {
             match.isForceMatch = true;

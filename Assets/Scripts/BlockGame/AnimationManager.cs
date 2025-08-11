@@ -303,14 +303,14 @@ public class AnimationManager : MonoBehaviour
             case EffectType.BOARD_RANDOM_BLOCK:
                 description = "<color=white>보드 무작위\n" + effectValue.ToString() + "칸 막힘!</color>";
                 break;
-            case EffectType.DECK_MODIFIER:
-                // TODO
+            case EffectType.HIGHEST_SCORE_BLOCK_SCORE_MODIFIER:
+                description = "<color=#0088FF>" + value + "</color>";
                 break;
             case EffectType.BLOCK_REUSE_MODIFIER:
                 // TODO
                 break;
-            case EffectType.SQUARE_CLEAR:
-                // TODO
+            case EffectType.RANDOM_BLOCK_DELETE:
+                description = "<color=white>블록 삭제!</color>";
                 break;
             case EffectType.BLOCK_MULTIPLIER:
                 description = "<color=white>블록 " + effectValue.ToString() + "배!</color>";

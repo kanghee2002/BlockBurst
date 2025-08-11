@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -53,9 +54,9 @@ public enum EffectType
     BOARD_SIZE_MODIFIER,                // 보드 크기 수정 (아이템은 X)
     BOARD_CORNER_BLOCK,                 // 보드 가장자리 제한
     BOARD_RANDOM_BLOCK,                 // 보드 무작위 N칸 제한
-    DECK_MODIFIER,                      // x 덱 수정
+    HIGHEST_SCORE_BLOCK_SCORE_MODIFIER, // 가장 점수 높은 블록 점수 수정
     BLOCK_REUSE_MODIFIER,               // x 블록 재사용
-    SQUARE_CLEAR,                       // x 사각형 클리어
+    RANDOM_BLOCK_DELETE,                // 덱의 무작위 블록 삭제
     BLOCK_MULTIPLIER,                   // 덱의 특정 블록 N배
     BLOCK_DELETE,                       // 덱의 특정 블록 모두 삭제
     BLOCK_DELETE_WITH_COUNT,            // 덱의 특정 블록 N개 삭제
@@ -111,6 +112,7 @@ public enum TriggerType
     ON_ADD_BLOCK,                           // 특정 블록을 덱에 추가할 때
     ON_SHOP_REROLL,                         // 상점에서 리롤할 때
     ON_ITEM_PURCHASE,                       // 아이템을 살 때
+    ON_FORCE_LINE_CLEAR,                    // 특수 효과로 줄 지울 때
 }
 
 public enum TriggerMode
@@ -240,14 +242,14 @@ public class Enums
         return (T)Enum.Parse(typeof(T), enumName);
     }
 
-    public static Array GetEnumArray<T>()
+    public static List<T> GetEnumList<T>()
     {
-        return Enum.GetValues(typeof(T));
+        return Enum.GetValues(typeof(T)).Cast<T>().ToList();
     }
 
     public static T GetRandomEnum<T>()
     {
-        Array array = GetEnumArray<T>();
-        return (T)array.GetValue(Random.Range(0, array.Length));
+        List<T> array = GetEnumList<T>();
+        return array[Random.Range(0, array.Count)];
     }
 }

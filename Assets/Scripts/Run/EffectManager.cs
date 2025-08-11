@@ -246,14 +246,31 @@ public class EffectManager : MonoBehaviour
             case EffectType.BOARD_RANDOM_BLOCK:
                 blockGameData.inactiveCellCount += finalValue;
                 break;
-            case EffectType.DECK_MODIFIER:
-                // TODO
+            case EffectType.HIGHEST_SCORE_BLOCK_SCORE_MODIFIER:
+                List<BlockType> highestScoreBlocks = runData.baseBlockScores
+                                .Where(kv => kv.Value == runData.baseBlockScores.Values.Max())
+                                .Select(kv => kv.Key).ToList();
+                BlockType highestScoreBlock = highestScoreBlocks[Random.Range(0, highestScoreBlocks.Count)];
+                if (effect.scope == EffectScope.Run)
+                {
+                    runData.baseBlockScores[highestScoreBlock] += finalValue;
+                }
+                blockGameData.blockScores[highestScoreBlock] += finalValue;
                 break;
             case EffectType.BLOCK_REUSE_MODIFIER:
                 // TODO
                 break;
-            case EffectType.SQUARE_CLEAR:
-                // TODO
+            case EffectType.RANDOM_BLOCK_DELETE:
+                for(int i = 0; i < effect.effectValue; i++)
+                {
+                    List<BlockType> defaultBlockTypes = Enums.GetEnumList<BlockType>().Where(block => Enums.IsDefaultBlockType(block)).ToList();
+                    BlockType randomBlockType = defaultBlockTypes[Random.Range(0, defaultBlockTypes.Count)];
+                    GameManager.instance.deckManager.RemoveBlockFromGameDeck(randomBlockType);
+                    if (effect.scope == EffectScope.Run)
+                    {
+                        GameManager.instance.deckManager.RemoveBlockFromRunDeck(randomBlockType);
+                    }
+                }
                 break; 
             case EffectType.BLOCK_MULTIPLIER:
                 foreach (BlockType blockType in effect.blockTypes)

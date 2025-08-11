@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
+  m_Name: CorrectionTapeEffect1
+  m_EditorClassIdentifier: 
+  id: CorrectionTapeEffect1
+  effectName: "\uB9E4 \uC2A4\uD14C\uC774\uC9C0 \uC2DC\uC791 \uC2DC \uBB34\uC791\uC704
+    \uAE30\uBCF8 \uBE14\uB85D\uC744 \uC0AD\uC81C\uD558\uACE0,"
+  type: 16
+  scope: 0
+  baseEffectValue: 1
+  effectValue: 1
+  trigger: 22
+  triggerMode: 0
+  triggerValue: 0
+  triggerCount: 0
+  blockTypes: 
+  probability: 1
+  modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

@@ -33,7 +33,7 @@ public class DeckData : ScriptableObject
             case DeckType.YoYo:
             case DeckType.Telescope:
             case DeckType.Bomb:
-                foreach (BlockType blockType in Enums.GetEnumArray<BlockType>())
+                foreach (BlockType blockType in Enums.GetEnumList<BlockType>())
                 {
                     if (Enums.IsDefaultBlockType(blockType))
                     {

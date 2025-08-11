@@ -203,7 +203,7 @@ public class DeckSelectionBoardUI : MonoBehaviour
 
     public void OnDeckSelectionUpButtonUIPressed()
     {
-        int deckCount = Enums.GetEnumArray<DeckType>().Length;
+        int deckCount = Enums.GetEnumList<DeckType>().Count;
 
         if (selectedDeckIndex >= deckCount - 1)
         {

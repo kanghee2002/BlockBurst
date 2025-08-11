@@ -78,7 +78,7 @@ public class PlayerDataBoardUI : MonoBehaviour
             UnlockManager.instance.Unlock(unlockInfo, unlockInfo.targetName);
         }
 
-        foreach (DeckType deckType in Enums.GetEnumArray<DeckType>())
+        foreach (DeckType deckType in Enums.GetEnumList<DeckType>())
         {
             for (int i = 0; i < DeckInfo.MAX_LEVEL + 1; i++)
             {

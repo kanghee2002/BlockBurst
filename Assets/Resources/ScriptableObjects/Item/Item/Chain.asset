@@ -16,7 +16,7 @@ MonoBehaviour:
   itemName: "\uC0AC\uC2AC"
   effects:
   - {fileID: 11400000, guid: 0265dda5128daae4989e89233a599ea7, type: 2}
-  cost: 6
+  cost: 4
   type: 2
   block: {fileID: 0}
   isPurchasableAgain: 0

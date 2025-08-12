@@ -470,7 +470,11 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                stage.clearRequirement = (int)(gameData.stageBaseScoreList[gameData.stageBaseScoreList.Count - 1] * Mathf.Pow(1.5f, 3 * (runData.currentChapterIndex - 9) + runData.currentStageIndex + 1) * (gameData.stageScoreMultiplier[runData.currentStageIndex - 1] + stage.baseScoreMultiplier));
+                int lastBaseScore = gameData.stageBaseScoreList[gameData.stageBaseScoreList.Count - 1];
+                int powExponent = 3 * (runData.currentChapterIndex - 1 - gameData.stageBaseScoreList.Count) + runData.currentStageIndex + 1;
+                float powResult = Mathf.Pow(1.5f, powExponent);
+                float stageScoreMultiplier = gameData.stageScoreMultiplier[runData.currentStageIndex - 1] + stage.baseScoreMultiplier;
+                stage.clearRequirement = (int)(lastBaseScore * powResult * stageScoreMultiplier);
             }
         }
 

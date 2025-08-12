@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: BookJLTEffect
   m_EditorClassIdentifier: 
   id: BookJLTEffect
-  effectName: "J/L/T\uBC30\uCE58\uD560 \uB54C\uB9C8\uB2E4\nJ/L/T +EffectValue \uBE14\uB85D
+  effectName: "J/L/T \uBC30\uCE58\uD560 \uB54C\uB9C8\uB2E4\nJ/L/T +EffectValue \uBE14\uB85D
     \uC810\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 0
   scope: 0
   baseEffectValue: 1
-  effectValue: 4
+  effectValue: 1
   trigger: 1
   triggerMode: 0
   triggerValue: 0

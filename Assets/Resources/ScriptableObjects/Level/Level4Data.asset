@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level4Data
   m_EditorClassIdentifier: 
   level: 4
-  additionalStageScores: 00000000e803000088130000204e0000
+  additionalStageScores: 00000000d007000010270000204e0000
   additionalStageReward: -2
   additionalBaseRerollCount: 0
   additionalBlockScore: -5

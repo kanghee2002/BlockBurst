@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TwoBulletEffect
   m_EditorClassIdentifier: 
   id: TwoBulletEffect
-  effectName: "\uB3D9\uC2DC\uC5D0 TriggerValue\uC904\uC744 \uC9C0\uC6B8 \uB54C\n+EffectValue
+  effectName: "\uD55C \uBC88\uC5D0 TriggerValue\uC904\uC744 \uC9C0\uC6B8 \uB54C\n+EffectValue
     \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 2
   scope: 0
@@ -26,3 +26,6 @@ MonoBehaviour:
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

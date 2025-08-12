@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: GlassesEffect
   m_EditorClassIdentifier: 
   id: GlassesEffect
-  effectName: "\uB3D9\uC2DC\uC5D0 2\uC904\uC744 \uC9C0\uC6B8 \uB54C \uBAA8\uB4E0
+  effectName: "\uD55C \uBC88\uC5D0 2\uC904\uC744 \uC9C0\uC6B8 \uB54C \uBAA8\uB4E0
     \uAE30\uBCF8 \uBE14\uB85D\uC774 +EffectValue \uBE14\uB85D \uC810\uC218\uB97C
     \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 0
   scope: 0
   baseEffectValue: 2
-  effectValue: 1
+  effectValue: 2
   trigger: 8
   triggerMode: 1
   triggerValue: 2

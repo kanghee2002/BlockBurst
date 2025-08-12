@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ChopsticksEffect1
   m_EditorClassIdentifier: 
   id: ChopsticksEffect1
-  effectName: "\uB3D9\uC2DC\uC5D0 TriggerValue\uC904\uC744 \uC9C0\uC6B8 \uB54C +EffectValue
+  effectName: "\uD55C \uBC88\uC5D0 TriggerValue\uC904\uC744 \uC9C0\uC6B8 \uB54C +EffectValue
     \uBC30\uC218\uB97C \uC5BB\uACE0,"
   type: 2
   scope: 0

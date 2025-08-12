@@ -207,6 +207,7 @@ public class EffectManager : MonoBehaviour
                 break;
             case EffectType.BASEREROLL_MODIFIER:           
                 runData.baseRerollCount += finalValue;
+                blockGameData.rerollCount += finalValue;
                 if (runData.baseRerollCount < 0) runData.baseRerollCount = 0;
                 break;
             case EffectType.BASEREROLL_MULTIPLIER:

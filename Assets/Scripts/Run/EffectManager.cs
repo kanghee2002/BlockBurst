@@ -247,9 +247,10 @@ public class EffectManager : MonoBehaviour
                 blockGameData.inactiveCellCount += finalValue;
                 break;
             case EffectType.HIGHEST_SCORE_BLOCK_SCORE_MODIFIER:
-                List<BlockType> highestScoreBlocks = runData.baseBlockScores
-                                .Where(kv => kv.Value == runData.baseBlockScores.Values.Max())
-                                .Select(kv => kv.Key).ToList();
+                var defaultBlocks = runData.baseBlockScores.Where(kv => Enums.IsDefaultBlockType(kv.Key));
+                int maxScore = defaultBlocks.Max(kv => kv.Value);
+                List<BlockType> highestScoreBlocks = defaultBlocks.Where(kv => kv.Value == maxScore).Select(kv => kv.Key).ToList();
+
                 BlockType highestScoreBlock = highestScoreBlocks[Random.Range(0, highestScoreBlocks.Count)];
                 if (effect.scope == EffectScope.Run)
                 {

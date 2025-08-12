@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PuzzlePieceJLTEffect
   m_EditorClassIdentifier: 
   id: PuzzlePieceJLTEffect
-  effectName: "J/L/T TriggerValue\uBC88 \uBC30\uCE58\uD560 \uB54C\uB9C8\uB2E4\n+EffectValue
+  effectName: "J/L/T \uB97C\nTriggerValue\uBC88 \uBC30\uCE58\uD560 \uB54C\uB9C8\uB2E4\n+EffectValue
     \uAE30\uBCF8 \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 3
   scope: 0

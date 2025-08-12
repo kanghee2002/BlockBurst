@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TornRoseEffect1
   m_EditorClassIdentifier: 
   id: TornRoseEffect1
-  effectName: "\uACE8\uB4DC\uB97C \uC804\uBD80 \uC783\uACE0,"
+  effectName: "\uACE8\uB4DC\uB97C \uC804\uBD80 \uC783\uACE0,\n"
   type: 10
   scope: 0
   baseEffectValue: 0
@@ -25,3 +25,6 @@ MonoBehaviour:
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlockDuoEffect
   m_EditorClassIdentifier: 
   id: BlockDuoEffect
-  effectName: "\uC774 \uBE14\uB85D\uC744 \uC804\uBD80 \uC9C0\uC6B8 \uB54C\n$EffectValue
+  effectName: "\uC774 \uBE14\uB85D\uC744\n\uC804\uBD80 \uC9C0\uC6B8 \uB54C\n$EffectValue
     \uACE8\uB4DC\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 9
   scope: 0
@@ -26,3 +26,6 @@ MonoBehaviour:
   blockTypes: 08000000
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

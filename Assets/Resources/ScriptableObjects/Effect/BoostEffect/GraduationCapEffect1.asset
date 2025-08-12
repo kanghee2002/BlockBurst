@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: GraduationCapEffect1
   effectName: "\uC0C1\uC810\uC5D0 \uB354 \uC774\uC0C1 \uC544\uC774\uD15C\uC774 \uB4F1\uC7A5\uD558\uC9C0
-    \uC54A\uC9C0\uB9CC"
+    \uC54A\uC9C0\uB9CC,\n"
   type: 30
   scope: 0
   baseEffectValue: 0
@@ -26,3 +26,6 @@ MonoBehaviour:
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

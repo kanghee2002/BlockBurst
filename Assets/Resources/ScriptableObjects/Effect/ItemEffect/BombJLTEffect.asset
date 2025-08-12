@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BombJLTEffect
   m_EditorClassIdentifier: 
   id: BombJLTEffect
-  effectName: "J/L/T \uBC30\uCE58\uD574\uC11C \uC904\uC744 \uC9C0\uC6B8 \uB54C\n\uBCF4\uB4DC\uC758
+  effectName: "J/L/T \uBC30\uCE58\uD574\uC11C \uC904\uC744 \uC9C0\uC6B8 \uB54C \uBCF4\uB4DC\uC758
     \uC704\uC5D0\uC11C EffectValue\uC904\uC744 \uCD94\uAC00\uB85C \uC9C0\uC6C1\uB2C8\uB2E4"
   type: 25
   scope: 0
@@ -26,3 +26,6 @@ MonoBehaviour:
   blockTypes: 040000000500000006000000
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

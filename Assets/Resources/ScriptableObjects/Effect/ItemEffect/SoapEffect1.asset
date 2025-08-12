@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SoapEffect1
   m_EditorClassIdentifier: 
   id: SoapEffect1
-  effectName: "\uD2B9\uC218 \uD6A8\uACFC\uB85C \uC904 \uC9C0\uC6B8 \uB54C     +EffectValue
+  effectName: "\uD2B9\uC218 \uD6A8\uACFC\uB85C \uC904 \uC9C0\uC6B8 \uB54C +EffectValue
     \uBC30\uC218\uB97C \uC5BB\uACE0,"
   type: 2
   scope: 0

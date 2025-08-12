@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RedBookEffect
   m_EditorClassIdentifier: 
   id: RedBookEffect
-  effectName: "\uC5F0\uC18D\uC73C\uB85C \uC904\uC744 \uC9C0\uC6B8 \uB54C\n+EffectValue
+  effectName: "\uC5F0\uC18D\uC73C\uB85C\n\uC904\uC744 \uC9C0\uC6B8 \uB54C\n+EffectValue
     \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 2
   scope: 0
@@ -26,3 +26,6 @@ MonoBehaviour:
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

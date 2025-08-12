@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IceEffect
   m_EditorClassIdentifier: 
   id: IceEffect
-  effectName: "\uB371\uC5D0 \uB0A8\uC740 \uBE14\uB85D \uC218\uB9CC\uD07C \uBC30\uC218\uB97C
+  effectName: "\uB371\uC5D0 \uB0A8\uC740\n\uBE14\uB85D \uC218\uB9CC\uD07C\n\uBC30\uC218\uB97C
     \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 2
   scope: 0

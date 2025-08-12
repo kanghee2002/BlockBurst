@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: BlueberryEffect1
   m_EditorClassIdentifier: 
   id: BlueberryEffect1
-  effectName: "\uC2A4\uD14C\uC774\uC9C0 \uC885\uB8CC \uC2DC \uBAA8\uB4E0 \uAE30\uBCF8
-    \uBE14\uB85D\uC774 +EffectValue \uBE14\uB85D \uC810\uC218\uB97C \uC5BB\uACE0,"
+  effectName: "\uC2A4\uD14C\uC774\uC9C0 \uC885\uB8CC \uC2DC\n\uBAA8\uB4E0 \uAE30\uBCF8
+    \uBE14\uB85D\uC774\n+EffectValue \uBE14\uB85D \uC810\uC218\uB97C \uC5BB\uACE0,\n"
   type: 0
   scope: 0
   baseEffectValue: 5

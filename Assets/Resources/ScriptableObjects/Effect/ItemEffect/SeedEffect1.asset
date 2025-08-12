@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SeedEffect1
   m_EditorClassIdentifier: 
   id: SeedEffect1
-  effectName: "+EffectValue \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4."
+  effectName: "+EffectValue \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4.\n"
   type: 2
   scope: 0
   baseEffectValue: 1
@@ -25,3 +25,6 @@ MonoBehaviour:
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

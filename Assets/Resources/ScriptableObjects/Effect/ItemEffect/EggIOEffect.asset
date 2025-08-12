@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: EggIOEffect
   m_EditorClassIdentifier: 
   id: EggIOEffect
-  effectName: "I/O \uD3EC\uD568\uD574\uC11C \uC904\uC744 \uC9C0\uC6B8 \uB54C\n+EffectValue
+  effectName: "I/O \uD3EC\uD568\uD574\uC11C\n\uC904\uC744 \uC9C0\uC6B8 \uB54C\n+EffectValue
     \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 2
   scope: 0
   baseEffectValue: 4
-  effectValue: 5
+  effectValue: 4
   trigger: 11
   triggerMode: 0
   triggerValue: 0

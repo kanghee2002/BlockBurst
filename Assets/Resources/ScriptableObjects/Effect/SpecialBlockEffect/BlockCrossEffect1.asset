@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlockCrossEffect1
   m_EditorClassIdentifier: 
   id: BlockCrossEffect1
-  effectName: "\uBC30\uCE58\uD560 \uB54C +EffectValue \uBC30\uC218\uB97C \uC5BB\uACE0
+  effectName: "\uBC30\uCE58\uD560 \uB54C\n+EffectValue \uBC30\uC218\uB97C \uC5BB\uACE0
     \uB371\uC5D0\uC11C \uC0AD\uC81C\uB429\uB2C8\uB2E4"
   type: 2
   scope: 0
@@ -26,3 +26,6 @@ MonoBehaviour:
   blockTypes: 0b000000
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

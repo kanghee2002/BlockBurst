@@ -26,3 +26,6 @@ MonoBehaviour:
   blockTypes: 040000000500000006000000
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

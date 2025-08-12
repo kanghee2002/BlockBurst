@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: CorrectionTapeEffect2
   m_EditorClassIdentifier: 
   id: CorrectionTapeEffect2
-  effectName: "\uAC00\uC7A5 \uC810\uC218 \uB192\uC740 \uBE14\uB85D\uC774 +EffectValue
+  effectName: "\uAC00\uC7A5 \uC810\uC218 \uB192\uC740 \uBE14\uB85D\uC774\n+EffectValue
     \uBE14\uB85D \uC810\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 14
   scope: 0
   baseEffectValue: 30
-  effectValue: 1
+  effectValue: 30
   trigger: 22
   triggerMode: 0
   triggerValue: 0

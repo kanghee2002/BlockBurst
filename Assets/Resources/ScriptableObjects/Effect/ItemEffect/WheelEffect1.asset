@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: WheelEffect1
   m_EditorClassIdentifier: 
   id: WheelEffect1
-  effectName: "+EffectValue \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4."
+  effectName: "+EffectValue \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4.\n"
   type: 2
   scope: 0
   baseEffectValue: 1
-  effectValue: 26
+  effectValue: 1
   trigger: 9
   triggerMode: 0
   triggerValue: 0
@@ -25,3 +25,6 @@ MonoBehaviour:
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

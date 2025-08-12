@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: GraduationCapEffect2
   m_EditorClassIdentifier: 
   id: GraduationCapEffect2
-  effectName: "\uB9E4 \uC2A4\uD14C\uC774\uC9C0 \uC885\uB8CC \uC2DC $EffectValue \uACE8\uB4DC\uB97C
-    \uC5BB\uC2B5\uB2C8\uB2E4"
+  effectName: "\uB9E4 \uC2A4\uD14C\uC774\uC9C0 \uC885\uB8CC \uC2DC\n$EffectValue
+    \uACE8\uB4DC\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 9
   scope: 0
   baseEffectValue: 10
@@ -26,3 +26,6 @@ MonoBehaviour:
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

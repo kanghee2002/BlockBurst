@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: GiftBoxEffect1
   m_EditorClassIdentifier: 
   id: GiftBoxEffect1
-  effectName: "J/L \uC678\uC758 \uAE30\uBCF8 \uBE14\uB85D\uC774\n\uB371\uC5D0\uC11C
-    \uBAA8\uB450 \uC0AD\uC81C\uB418\uC9C0\uB9CC,"
+  effectName: "J/L \uC678\uC758 \uAE30\uBCF8 \uBE14\uB85D\uC774 \uB371\uC5D0\uC11C
+    \uBAA8\uB450 \uC0AD\uC81C\uB418\uC9C0\uB9CC,\n"
   type: 18
   scope: 0
   baseEffectValue: 0
@@ -26,3 +26,6 @@ MonoBehaviour:
   blockTypes: 0000000001000000020000000300000006000000
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

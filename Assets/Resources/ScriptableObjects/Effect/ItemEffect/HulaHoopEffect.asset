@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: HulaHoopEffect
   m_EditorClassIdentifier: 
   id: HulaHoopEffect
-  effectName: "\uBCF4\uB4DC\uAC00 \uBC18 \uC774\uC0C1\n\uCC30 \uB54C\uB9C8\uB2E4
-    \uBAA8\uB4E0 \uAE30\uBCF8 \uBE14\uB85D\uC774\n+EffectValue \uBE14\uB85D \uC810\uC218\uB97C
+  effectName: "\uBCF4\uB4DC\uAC00 \uBC18 \uC774\uC0C1 \uCC30 \uB54C\uB9C8\uB2E4 \uBAA8\uB4E0
+    \uAE30\uBCF8 \uBE14\uB85D\uC774\n+EffectValue \uBE14\uB85D \uC810\uC218\uB97C
     \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 0
   scope: 0
@@ -27,3 +27,6 @@ MonoBehaviour:
   blockTypes: 00000000010000000200000003000000040000000500000006000000
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

@@ -210,7 +210,6 @@ public static class UIUtils
 
     public static string GetEffectValueText(string text, EffectData effectData)
     {
-
         string value = Math.Abs(effectData.effectValue).ToString();
 
         text = text.Replace("+EffectValue 블록 점수", "<color=blue>+EffectValue</color> 블록 점수");

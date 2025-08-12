@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: CorrectionTapeEffect1
   effectName: "\uB9E4 \uC2A4\uD14C\uC774\uC9C0 \uC2DC\uC791 \uC2DC \uBB34\uC791\uC704
-    \uAE30\uBCF8 \uBE14\uB85D\uC744 \uC0AD\uC81C\uD558\uACE0,"
+    \uAE30\uBCF8 \uBE14\uB85D\uC744 \uC0AD\uC81C\uD558\uACE0,\n"
   type: 16
   scope: 0
   baseEffectValue: 1

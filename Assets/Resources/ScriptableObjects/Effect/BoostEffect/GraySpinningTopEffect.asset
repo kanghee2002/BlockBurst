@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GraySpinningTopEffect
   m_EditorClassIdentifier: 
   id: GraySpinningTopEffect
-  effectName: "\uB9AC\uB864\uD560 \uB54C\uB9C8\uB2E4 20% \uD655\uB960\uB85C\n+EffectValue
+  effectName: "\uB9AC\uB864\uD560 \uB54C\uB9C8\uB2E4 20% \uD655\uB960\uB85C +EffectValue
     \uB9AC\uB864 \uD69F\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 5
   scope: 0
@@ -26,3 +26,6 @@ MonoBehaviour:
   blockTypes: 
   probability: 0.2
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: PuzzlePieceEffect
   m_EditorClassIdentifier: 
   id: PuzzlePieceEffect
-  effectName: "\uD2B9\uC218 \uBE14\uB85D\uC73C\uB85C \uC904\uC744 \uC9C0\uC6B8 \uB54C\n+EffectValue
-    \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
+  effectName: "\uD2B9\uC218 \uBE14\uB85D\uC73C\uB85C \uC904\uC744 \uC9C0\uC6B8 \uB54C
+    +EffectValue \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 2
   scope: 0
   baseEffectValue: 15
@@ -26,3 +26,6 @@ MonoBehaviour:
   blockTypes: 0700000008000000090000000a0000000b0000000c0000000d000000
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TwoColorRainbowEffect
   m_EditorClassIdentifier: 
   id: TwoColorRainbowEffect
-  effectName: "\uC904\uC744 \uC9C0\uC6B8 \uB54C \uAC19\uC740 \uC885\uB958\uC758\n\uBE14\uB85D\uC774
+  effectName: "\uC904\uC744 \uC9C0\uC6B8 \uB54C \uAC19\uC740 \uC885\uB958\uC758 \uBE14\uB85D\uC774
     \uC788\uC73C\uBA74 +EffectValue \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 2
   scope: 0
@@ -26,3 +26,6 @@ MonoBehaviour:
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: RedRoseEffect
   m_EditorClassIdentifier: 
   id: RedRoseEffect
-  effectName: "\uAE30\uBCF8 \uBC30\uC218\uAC00 EffectValue\uBC30\uB85C \uC99D\uAC00\uD569\uB2C8\uB2E4       
-    (\uCD5C\uB300 MaxValue)"
+  effectName: "\uAE30\uBCF8 \uBC30\uC218\uAC00 EffectValue\uBC30\uB85C \uC99D\uAC00\uD569\uB2C8\uB2E4\n(\uCD5C\uB300
+    MaxValue)"
   type: 4
   scope: 0
   baseEffectValue: 2
@@ -27,3 +27,5 @@ MonoBehaviour:
   probability: 1
   modifyingEffect: {fileID: 0}
   maxValue: 20
+  scalingFactor: 0
+  scalingMultiplier: 1

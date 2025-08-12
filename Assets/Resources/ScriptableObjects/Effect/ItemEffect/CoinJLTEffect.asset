@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: CoinJLTEffect
   effectName: "J/L/T \uD3EC\uD568\uD574\uC11C \uC904\uC744 TriggerValue\uBC88 \uC9C0\uC6B8
-    \uB54C\uB9C8\uB2E4\n$EffectValue \uACE8\uB4DC\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
+    \uB54C\uB9C8\uB2E4\n$EffectValue \uACE8\uB4DC\uB97C \uC5BB\uC2B5\uB2C8\uB2E4\n"
   type: 9
   scope: 0
   baseEffectValue: 1

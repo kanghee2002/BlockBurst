@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BackpackEffect2
   m_EditorClassIdentifier: 
   id: BackpackEffect2
-  effectName: "\uC544\uC774\uD15C\uC744 TriggerValue\uBC88 \uC0B4 \uB54C\uB9C8\uB2E4
+  effectName: "\uC544\uC774\uD15C\uC744 TriggerValue\uBC88\n\uC0B4 \uB54C\uB9C8\uB2E4
     \uC5BB\uB294 \uACE8\uB4DC\uAC00 +EffectValue \uC99D\uAC00\uD569\uB2C8\uB2E4"
   type: 27
   scope: 0

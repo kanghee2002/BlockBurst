@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: BlockCornerEffect
   m_EditorClassIdentifier: 
   id: BlockCornerEffect
-  effectName: "\uC774 \uBE14\uB85D\uC744 \uC804\uBD80 \uC9C0\uC6B8 \uB54C CORNER\n+EffectValue
-    \uBE14\uB85D \uC810\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
+  effectName: "\uC774 \uBE14\uB85D\uC744 \uC804\uBD80 \uC9C0\uC6B8 \uB54C\nCORNER
+    +EffectValue \uBE14\uB85D \uC810\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 0
   scope: 0
   baseEffectValue: 10
@@ -26,3 +26,6 @@ MonoBehaviour:
   blockTypes: 0c000000
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

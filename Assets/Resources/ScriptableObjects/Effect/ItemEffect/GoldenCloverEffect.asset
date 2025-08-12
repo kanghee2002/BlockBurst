@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GoldenCloverEffect
   m_EditorClassIdentifier: 
   id: GoldenCloverEffect
-  effectName: "\uC904\uC744 \uC9C0\uC6B8 \uB54C 50% \uD655\uB960\uB85C\n$EffectValue
+  effectName: "\uC904\uC744 \uC9C0\uC6B8 \uB54C\n50% \uD655\uB960\uB85C\n$EffectValue
     \uACE8\uB4DC\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 9
   scope: 0
@@ -26,3 +26,6 @@ MonoBehaviour:
   blockTypes: 
   probability: 0.5
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StoppedSpinningTopEffect1
   m_EditorClassIdentifier: 
   id: StoppedSpinningTopEffect
-  effectName: "+EffectValue \uAE30\uBCF8 \uB9AC\uB864 \uD69F\uC218\uB97C \uC5BB\uC9C0\uB9CC,"
+  effectName: "+EffectValue \uAE30\uBCF8 \uB9AC\uB864 \uD69F\uC218\uB97C \uC5BB\uC9C0\uB9CC, "
   type: 7
   scope: 0
   baseEffectValue: 7
@@ -25,3 +25,6 @@ MonoBehaviour:
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

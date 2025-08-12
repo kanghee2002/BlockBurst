@@ -755,7 +755,7 @@ public class GameUIManager : MonoBehaviour
     public void OnGameEnd(bool isCleared, int currentChapterIndex, int currentStageIndex, RunData.History history, BlockType mostPlacedBlockType, string loseReason)
     {
         clearInfoUI.Initialize(isCleared, currentChapterIndex, currentStageIndex, history, mostPlacedBlockType, loseReason: loseReason);
-        clearInfoUI.SetLayoutsColor(currentUIColor);
+        clearInfoUI.SetLayoutsColor(playingBackgroundColors[2]);
         clearInfoUI.OpenClearInfoUI(isCleared);
 
         if (isCleared) AudioManager.instance.SFXGameWin();

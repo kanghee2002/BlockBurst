@@ -70,9 +70,7 @@ public class ScoreInfoUI : MonoBehaviour
         this.scoreAtLeast = scoreAtLeast;
         scoreAtLeastText.color = Color.white;
 
-        if (scoreAtLeast >= 1000000) scoreAtLeastText.text = $"<size=45>{scoreAtLeast}</size>";
-        else if (scoreAtLeast >= 10000000) scoreAtLeastText.text = $"<size=40>{scoreAtLeast}</size>";
-        else scoreAtLeastText.text = scoreAtLeast.ToString();
+        scoreAtLeastText.text = scoreAtLeast.ToString();
     }
 
     public void UpdateScore(int score, bool isAdditive = false)
@@ -84,9 +82,8 @@ public class ScoreInfoUI : MonoBehaviour
             value = currentScore;
         }
 
-        if (value >= 1000000) currentScoreText.text = $"<size=45>{value}</size>";
-        else if (value >= 10000000) currentScoreText.text = $"<size=40>{value}</size>";
-        else currentScoreText.text = value.ToString();
+        currentScoreText.text = value.ToString();
+
         UIUtils.BounceText(currentScoreText.transform);
 
         float scoreRatio = scoreAtLeast <= 0 ? 0 : (float)value / scoreAtLeast;

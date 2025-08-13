@@ -31,6 +31,7 @@ public class ButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private GameObject shadowObject;
 
     [SerializeField] private bool isShadowEnabled = true;
+    [SerializeField] private float pressedOffsetY = 0.08f;
 
     [SerializeField] private UnityEvent onClick;
     
@@ -73,7 +74,8 @@ public class ButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             pressedColor = Color.Lerp(originalColor, Color.black, brightnessDecrease);
         }
         pressedScale = originalScale * new Vector2(0.99f, 0.99f);
-        pressedPositionOffset = new Vector2(0f, -0.08f * rectTransform.rect.height);
+        if (Mathf.Abs(pressedOffsetY) < 0.0001f) pressedOffsetY = 0.08f;
+        pressedPositionOffset = new Vector2(0f, -pressedOffsetY * rectTransform.rect.height);
         pressedPosition = originalPosition + pressedPositionOffset;
     }
 

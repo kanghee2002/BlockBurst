@@ -22,12 +22,14 @@ Shader "Hidden/AnotherBGShader"
             {
                 float4 vertex : POSITION;
                 float2 uv : TEXCOORD0;
+                float4 color : COLOR;
             };
 
             struct v2f
             {
                 float2 uv : TEXCOORD0;
                 float4 vertex : SV_POSITION;
+                float4 color : COLOR;
             };
 
             v2f vert (appdata v)
@@ -35,6 +37,7 @@ Shader "Hidden/AnotherBGShader"
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = v.uv;
+                o.color = v.color;
                 return o;
             }
 
@@ -93,7 +96,9 @@ Shader "Hidden/AnotherBGShader"
             {
                 fixed4 col = tex2D(_Palette, patternusingpalette(i.uv, _Time));
                 // just invert the colors
-                return col;
+                col *= float4(0.3, 0.3, 0.3, 1);
+
+                return col * i.color;
             }
             ENDCG
         }

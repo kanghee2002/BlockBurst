@@ -4,6 +4,7 @@ Shader "Hidden/AnotherBGShader"
     {
         _MainTex ("Texture", 2D) = "white" {}
         _Palette ("Color Palette", 2D) = "white" {}
+        _Tint ("Tint", Color) = (1, 1, 1, 1)
     }
     SubShader
     {
@@ -43,6 +44,7 @@ Shader "Hidden/AnotherBGShader"
 
             sampler2D _MainTex;
             sampler2D _Palette;
+            float4 _Tint;
 
             // Create a moving elegant checkered pattern
             float2 checkeredPattern(float2 uv, float time)
@@ -96,7 +98,7 @@ Shader "Hidden/AnotherBGShader"
             {
                 fixed4 col = tex2D(_Palette, patternusingpalette(i.uv, _Time));
                 // just invert the colors
-                col *= float4(0.3, 0.3, 0.3, 1);
+                col *= _Tint;
 
                 return col * i.color;
             }

@@ -94,7 +94,7 @@ public class TutorialManager : MonoBehaviour
 
         List<string> firstShopItems = new List<string>()
         {
-            "EggIO",
+            "Ruler",
             "RedEgg",
             "GrayCube",
             "AddBlockSolo",
@@ -345,7 +345,8 @@ public class TutorialManager : MonoBehaviour
         }
         else
         {
-            resolutionRatioX = Screen.width / 462.85f;
+            float ratio = (float)Screen.width / Screen.height;
+            resolutionRatioX = Screen.width / (1080f * ratio);
             resolutionRatioY = Screen.height / 1080f;
         }
 

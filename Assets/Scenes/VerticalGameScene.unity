@@ -6153,7 +6153,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -10
   m_Sprite: {fileID: 21300000, guid: 33ffecb01f0a8d949b547f7301e5c92e, type: 3}
-  m_Color: {r: 0.40784314, g: 0.68235296, b: 0.83137256, a: 1}
+  m_Color: {r: 0.5235849, g: 0.8323724, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -6192,78 +6192,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 0021ed5f762484c0596b46dbf8c4adce, type: 2}
   spriteRenderer: {fileID: 308968386}
---- !u!1 &326767058 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2725497868016357453, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
-  m_PrefabInstance: {fileID: 1288723344}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &326767059 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1736517047688857954, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
   m_PrefabInstance: {fileID: 1288723344}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 326767058}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 40a5666f9c52d7e41ab1fb7dbea142f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &326767060
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 326767058}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 294469252}
-        m_TargetAssemblyTypeName: GameUIManager, Assembly-CSharp
-        m_MethodName: OnItemShowcasePurchaseButtonUIPressed
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &329922626
 GameObject:
   m_ObjectHideFlags: 0
@@ -20436,7 +20375,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.8352941}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.9607843}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -21361,8 +21300,8 @@ MonoBehaviour:
     waitingSign: 
     highlightDelay: 0.5
   - characterPosition: {x: -160, y: 0}
-    highlightRect: {fileID: 231077321}
-    clickableRect: {fileID: 0}
+    highlightRect: {fileID: 934263070}
+    clickableRect: {fileID: 934263070}
     description: "\uBE14\uB85D\uC740 \uD130\uCE58\uD558\uC5EC\\n<color=red>\uD68C\uC804</color>\uC2DC\uD0AC
       \uC218 \uC788\uC2B5\uB2C8\uB2E4.\\n\uD68C\uC804\uC2DC\uCF1C \uBCF4\uC138\uC694!"
     isNextButtonInactive: 1
@@ -21371,8 +21310,8 @@ MonoBehaviour:
     waitingSign: RotateBlock
     highlightDelay: 0
   - characterPosition: {x: -160, y: 0}
-    highlightRect: {fileID: 231077321}
-    clickableRect: {fileID: 0}
+    highlightRect: {fileID: 934263070}
+    clickableRect: {fileID: 934263070}
     description: "\uD55C \uBC88\uB9CC \uB354 <color=red>\uD68C\uC804</color>\uC2DC\uCF1C
       \uBD05\uC2DC\uB2E4!"
     isNextButtonInactive: 1
@@ -21505,9 +21444,8 @@ MonoBehaviour:
   - characterPosition: {x: -160, y: 300}
     highlightRect: {fileID: 1583208970}
     clickableRect: {fileID: 0}
-    description: "'<sprite=0>/<sprite=1> \uC54C'\uC740 <sprite=0>/<sprite=1> \uD3EC\uD568\uD574\\n\uC904\uC744
-      \uC9C0\uC6B8 \uB54C\uB9C8\uB2E4\\n<color=red>+4 \uBC30\uC218</color>\uB97C
-      \uCD94\uAC00\uD569\uB2C8\uB2E4!"
+    description: "'\uC790'\uB294 \uC138\uB85C\uB85C\\n\uC904\uC744 \uC9C0\uC6B8 \uB54C\uB9C8\uB2E4\\n<color=red>+5
+      \uBC30\uC218</color>\uB97C \uCD94\uAC00\uD569\uB2C8\uB2E4!"
     isNextButtonInactive: 0
     isClickable: 0
     isInactive: 0
@@ -21798,7 +21736,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1736517047688857954, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: isShadowEnabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1736517047688857954, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: onClick.m_PersistentCalls.m_Calls.Array.size
@@ -21967,10 +21905,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2725497868016357453, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 326767060}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
 --- !u!1 &1288880036
 GameObject:
@@ -34060,11 +33995,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3282333780346931066, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 35
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 3282333780346931066, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 35
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 8378713409662279789, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_Pivot.x
@@ -34132,7 +34067,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8378713409662279789, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -30
+      value: -35
       objectReference: {fileID: 0}
     - target: {fileID: 8378713409662279789, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -34152,11 +34087,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8412147840268672577, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_fontSize
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 8412147840268672577, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_fontSizeBase
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -24,16 +24,19 @@ public class BoardUI : MonoBehaviour
     [SerializeField] private RectTransform stageClearText;
 
     private const float windowsInsidePositionY = -96;
-    private const float mobileInsidePositionY = -140;
+    private const float mobileInsidePositionY = -105;
     private const float outsidePositionOffsetY = -1080;
     private const float duration = 0.2f;
 
-    const float MIN_SIZE = 0.8f;
-    const float MAX_SIZE = 1.3f;
+    const float MIN_SIZE = 0.5f;
+    const float MAX_SIZE = 1.0f;
+
+    private ColorSet currentColorSet;
 
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
+        currentColorSet = new ColorSet();
     }
     
     private void AutoSizingWindows(int height, int width)
@@ -93,7 +96,7 @@ public class BoardUI : MonoBehaviour
 
     private void AutoSizingMobile(int height, int width)
     {
-        float scale = 0.5f;
+        float scale = 0.44f;
 
         if (height > 9)
         {
@@ -134,7 +137,7 @@ public class BoardUI : MonoBehaviour
                     = new Vector2(col - (width - 1f) / 2, -(row - (height - 1f) / 2)) * block_size;
                 
                 var boardCellUI = newObject.GetComponent<BoardCellUI>();
-                Color color = (row + col) % 2 == 0 ? new Color(0.225f, 0.225f, 0.225f, 0.8f) : new Color(0.275f, 0.275f, 0.275f, 0.8f);
+                Color color = (row + col) % 2 == 0 ? currentColorSet.backGroundLighterColor : currentColorSet.backGroundLighterColor;
                 boardCellUI.Initialize(new Vector2Int(col, row), color);
                 boardCellsUI[row, col] = boardCellUI;
             }
@@ -153,6 +156,16 @@ public class BoardUI : MonoBehaviour
         {
             UIUtils.OpenUI(rectTransform, "Y", mobileInsidePositionY, duration);
         }
+    }
+
+    public void GetColorSet(ColorSet colorSet)
+    {
+        currentColorSet = colorSet;
+    }
+
+    public void GetTextColorSet(Color uiTextColor)
+    {
+        stageClearText.GetComponent<TextMeshProUGUI>().color = uiTextColor;
     }
 
     public void CloseBoardUI()
@@ -265,10 +278,12 @@ public class BoardUI : MonoBehaviour
             }
         }
 
+        stageClearText.localScale = Vector3.one * 0.1f;
+
         Sequence sequence = DOTween.Sequence();
 
         sequence.SetDelay(0.7f);
         sequence.AppendCallback(() => stageClearText.gameObject.SetActive(true));
-        sequence.Append(stageClearText.DOPunchScale(Vector3.one * 1.5f, duration: 0.3f, vibrato: 5, elasticity: 0.3f));
+        sequence.Append(stageClearText.DOScale(Vector3.one * 1f, duration: 0.7f).SetEase(Ease.OutExpo));
     }
 }

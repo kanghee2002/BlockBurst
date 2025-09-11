@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -14,6 +15,8 @@ public class ScoreInfoUI : MonoBehaviour
 
     [Header("Score Slider")]
     [SerializeField] private SlicedFilledImage scoreSlider;
+
+    public Image scoreBackgroundImage;
 
     private RectTransform rectTransform;
     // inside anchored position = (300,80)
@@ -59,10 +62,22 @@ public class ScoreInfoUI : MonoBehaviour
         UIUtils.BounceText(descriptionText.transform);
     }
 
-    public void SetUIColor(Color uiColor)
+    public void SetUIColor(Color uiColor, Color bgColor)
     {
         UIUtils.SetImageColorByScalar(scoreSlider, uiColor, 1f);
-        UIUtils.SetTextColorByScalar(currentScoreText, uiColor, 1f / 10f);
+        UIUtils.SetImageColorByScalar(scoreBackgroundImage, bgColor, 1f);
+        
+    }
+
+
+
+    public void SetTextColor(Color uiTextColor, Color uiColor)
+    {
+        UIUtils.SetTextColorByScalar(scoreAtLeastText, uiTextColor, 1);
+        UIUtils.SetTextColorByScalar(currentScoreText, uiTextColor, 1);
+
+
+        UIUtils.SetTextColorByScalar(descriptionText, uiTextColor, 1f);
     }
 
     public void UpdateScoreAtLeast(int scoreAtLeast)
@@ -96,7 +111,7 @@ public class ScoreInfoUI : MonoBehaviour
             duration
         ).SetEase(Ease.InOutQuad);
 
-        UIUtils.SetTextColorByScalar(scoreAtLeastText, Color.white, 1f - scoreRatio);
+        // UIUtils.SetTextColorByScalar(scoreAtLeastText, Color.white, 1f - scoreRatio);
     }
 
     public void OpenScoreInfoUI()

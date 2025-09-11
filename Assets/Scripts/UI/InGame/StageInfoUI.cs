@@ -19,6 +19,10 @@ public class StageInfoUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI chapterStageText;
     [SerializeField] private TextMeshProUGUI stageDescriptionText;
 
+    private Color defaultTextColor = Color.white;
+
+    public List<TextMeshProUGUI> scrollTexts;
+
     private RectTransform rectTransform;
     // inside anchored position = (300,320)
     private const float insidePositionY = 271;
@@ -71,9 +75,21 @@ public class StageInfoUI : MonoBehaviour
 
     public void SetUIColor(Color uiColor)
     {
-        float colorScalar = 3f / 4f;
-        UIUtils.SetImageColorByScalar(chapterStageTextLayout, uiColor, colorScalar);
-        UIUtils.SetImageColorByScalar(stageDescriptionTextLayout, uiColor, colorScalar);
+        UIUtils.SetImageColorByScalar(chapterStageTextLayout, uiColor, 1);
+        UIUtils.SetImageColorByScalar(stageDescriptionTextLayout, uiColor, 1);
+    }
+
+    public void SetTextColor(Color textColor)
+    {
+        UIUtils.SetTextColorByScalar(chapterStageText, textColor, 1);
+        UIUtils.SetTextColorByScalar(chapterText, textColor, 1);
+        UIUtils.SetTextColorByScalar(stageDescriptionText, textColor, 1);
+        UIUtils.SetTextColorByScalar(stageText, textColor, 1);
+        defaultTextColor = textColor;
+        foreach (TextMeshProUGUI scrollingText in scrollTexts)
+        {
+            UIUtils.SetTextColorByScalar(scrollingText, textColor, 1);
+        }
     }
 
     public void OpenStageInfoUI()
@@ -202,8 +218,8 @@ public class StageInfoUI : MonoBehaviour
 
         currentWarningSequence.OnKill(() =>
         {
-            stageDescriptionTextRect.DOAnchorPos(Vector3.zero, 0.1f);
-            stageDescriptionText.DOColor(Color.white, 0.1f);
+            stageDescriptionTextRect.DOAnchorPos(new Vector3(118.5f, 0, 0), 0.1f);
+            stageDescriptionText.DOColor(defaultTextColor, 0.1f);
         }
         );
     }

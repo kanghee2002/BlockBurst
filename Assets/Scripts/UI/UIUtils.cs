@@ -73,17 +73,17 @@ public static class UIUtils
     /// <param name="axis">X축으로 열지 Y축으로 열지</param>
     /// <param name="insidePosition">도착할 위치</param>
     /// <param name="duration">애니메이션 시간</param>
-    public static void OpenUI(RectTransform rectTransform, string axis, float insidePosition, float duration = 0.2f)
+    public static void OpenUI(RectTransform rectTransform, string axis, float insidePosition, float duration = 1f)
     {
         if (axis == "X")
         {
             rectTransform.DOAnchorPosX(insidePosition, duration)
-                .SetEase(Ease.OutBack, overshoot: 1f);
+                .SetEase(Ease.OutExpo);
         }
         else if (axis == "Y")
         {
             rectTransform.DOAnchorPosY(insidePosition, duration)
-                .SetEase(Ease.OutBack, overshoot: 1f);
+                .SetEase(Ease.OutExpo);
         }
     }
 
@@ -95,18 +95,18 @@ public static class UIUtils
     /// <param name="insidePosition">도착할 위치</param>
     /// <param name="outsidePositionOffset">숨겨질 위치</param>
     /// <param name="duration">애니메이션 시간</param>
-    public static void CloseUI(RectTransform rectTransform, string axis, float insidePosition, float outsidePositionOffset, float duration = 0.2f)
+    public static void CloseUI(RectTransform rectTransform, string axis, float insidePosition, float outsidePositionOffset, float duration = 1f)
     {
         if (axis == "X")
         {
             rectTransform.DOAnchorPosX(insidePosition + outsidePositionOffset, duration)
-                .SetEase(Ease.InBack, overshoot: 1f);
+                .SetEase(Ease.InExpo);
             //rectTransform.anchoredPosition = new Vector2(insidePosition + outsidePositionOffset, rectTransform.anchoredPosition.y);
         }
         else if (axis == "Y")
         {
             rectTransform.DOAnchorPosY(insidePosition + outsidePositionOffset, duration)
-                .SetEase(Ease.InBack, overshoot: 1f);
+                .SetEase(Ease.InExpo);
             //rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, insidePosition + outsidePositionOffset);
         }
     }

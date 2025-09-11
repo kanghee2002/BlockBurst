@@ -184,7 +184,7 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
         }
         else if (GameManager.instance.applicationType == ApplicationType.Mobile)
         {
-            targetScale = toSmall ? new Vector3(0.3f, 0.3f, 1) : new Vector3(0.5f, 0.5f, 1);
+            targetScale = toSmall ? new Vector3(0.25f, 0.25f, 1) : new Vector3(0.48f, 0.48f, 1);
         }
         transform.DOScale(targetScale, 0.2f).SetEase(Ease.OutQuad);
     }

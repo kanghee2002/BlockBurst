@@ -56,7 +56,7 @@ public class ItemBoardUI : MonoBehaviour
 
     public void UpdateRerollCost(int rerollCost)
     {
-        rerollCostText.text = "새로고침 • $" + rerollCost;
+        rerollCostText.text = "$" + rerollCost;
     }
 
     public void OpenItemBoardUI()

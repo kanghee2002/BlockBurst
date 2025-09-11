@@ -4,10 +4,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
+using DG.Tweening;
+
+// C1BFFF
+// 1100F1
+
+[Serializable]
+public struct ColorSet
+{
+    public Color backGroundColor;
+    public Color backGroundDarkerColor;
+    public Color backGroundLighterColor;
+    public Color uiColor;
+    public Color contrastColor;
+    public Color uiTextColor;
+
+
+
+    
+}
 
 public class GameUIManager : MonoBehaviour
 {
     public static GameUIManager instance;
+
+    public Image totalBg;
 
     [SerializeField] private Background background;
 
@@ -41,12 +62,12 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private BoardUI boardUI;
 
     [Header("UI Colors")]
-    [SerializeField] private List<Color> selectingBackgroundColors;
-    [SerializeField] private List<Color> selectingBossBackgroundColors;
-    [SerializeField] private List<Color> playingBackgroundColors;
-    [SerializeField] private List<Color> playingBossBackgroundColors;
-    [SerializeField] private List<Color> shoppingBackgroundColors;
-    [SerializeField] private Color currentUIColor;
+    [SerializeField] private List<ColorSet> selectingBackgroundColors;
+    [SerializeField] private List<ColorSet> selectingBossBackgroundColors;
+    [SerializeField] private List<ColorSet> playingBackgroundColors;
+    [SerializeField] private List<ColorSet> playingBossBackgroundColors;
+    [SerializeField] private List<ColorSet> shoppingBackgroundColors;
+    [SerializeField] private ColorSet currentUIColor;
 
 
     public enum SceneState
@@ -74,7 +95,7 @@ public class GameUIManager : MonoBehaviour
     {
         sceneState = SceneState.none;
         popupState = PopupState.none;
-        
+
         // singleton
         if (instance == null)
         {
@@ -96,11 +117,13 @@ public class GameUIManager : MonoBehaviour
         DisplayItemSet(runData.activeItems, runData.maxItemCount);
 
         sceneState = SceneState.selecting;
+        SetSceneStateColor(sceneState);
+        boardUI.GetColorSet(currentUIColor);
         OpenSceneState(sceneState);
 
         goldInfoUI.Initialize(runData.gold);
         actionInfoUI.Initialize(_chip: 0, _multiplier: runData.baseMatchMultipliers[MatchType.ROW], _product: 0);
-        actionInfoUI.SetChipLayoutColor(currentUIColor);
+        actionInfoUI.SetChipLayoutColor(currentUIColor.backGroundDarkerColor);
     }
 
     // BUTTON METHODS
@@ -140,7 +163,7 @@ public class GameUIManager : MonoBehaviour
         if (popupState == PopupState.none)
         {
             popupState = PopupState.option;
-            optionUI.SetLayoutsColor(currentUIColor);
+            optionUI.SetLayoutsColor(currentUIColor.backGroundLighterColor);
             optionUI.OpenOptionUI();
         }
     }
@@ -172,7 +195,7 @@ public class GameUIManager : MonoBehaviour
         {
             popupState = PopupState.deckInfo;
             GameManager.instance.OnDeckInfoRequested();
-            deckInfoUI.SetLayoutsColor(currentUIColor);
+            deckInfoUI.SetLayoutsColor(currentUIColor.backGroundLighterColor);
             deckInfoUI.OpenDeckInfoUI();
 
             GameManager.instance.ProcessTutorialStep("Deck");
@@ -254,7 +277,7 @@ public class GameUIManager : MonoBehaviour
     public void OnDeckSelectionPlayerDataCallback(PlayerData playerData)
     {
         deckSelectionBoardUI.InitializePlayerData(playerData);
-    } 
+    }
 
     public void OnPlayButtonUIPressed(DeckType deckType, int level)
     {
@@ -337,10 +360,11 @@ public class GameUIManager : MonoBehaviour
         {
             //Debug.Log("다음 스테이지로 버튼 눌림");
             GameManager.instance.StartStageSelection();
+            SetSceneStateColor(SceneState.selecting);
             ChangeSceneState(SceneState.selecting);
         }
     }
-    
+
     public void OnItemShowcaseItemButtonUIPressed(int index)
     {
         if (popupState == PopupState.none)
@@ -466,9 +490,9 @@ public class GameUIManager : MonoBehaviour
 
         Debug.Log($"SceneState changed from {prevState} to {sceneState}");
 
-        currentUIColor = new Color(Random.value, Random.value, Random.value);
+        // currentUIColor = new ColorSet();
 
-        background.SetColor(currentUIColor);
+        background.SetColor(currentUIColor.backGroundColor);
 
         StartCoroutine(ChangeSceneStateCoroutine(prevState, sceneState));
         if (prevState == SceneState.playing && sceneState == SceneState.shopping)
@@ -481,7 +505,7 @@ public class GameUIManager : MonoBehaviour
             Debug.Log("상점에서 나감");
             AudioManager.instance.ShopTransitionOut();
         }
-        else 
+        else
         {
             Debug.Log("일반 전환");
             AudioManager.instance.SFXtransition();
@@ -519,9 +543,9 @@ public class GameUIManager : MonoBehaviour
         }
     }
     
-    public void OpenSceneState(SceneState stateToOpen)
+    public void SetSceneStateColor(SceneState stateToSet)
     {
-        switch (stateToOpen)
+        switch (stateToSet)
         {
             case SceneState.selecting:
                 if (GameManager.instance.GetCurrentStageIndex() == 3)
@@ -532,12 +556,6 @@ public class GameUIManager : MonoBehaviour
                 {
                     currentUIColor = selectingBackgroundColors[Random.Range(0, selectingBackgroundColors.Count)];
                 }
-                optionButtonUI.SetUIColor(currentUIColor);
-                actionInfoUI.SetChipLayoutColor(currentUIColor);
-                stageInfoUI.SetUIColor(currentUIColor);
-                scoreInfoUI.SetUIColor(currentUIColor);
-                stageSelectionSignboardUI.OpenStageSelectionSignboardUI();
-                stageSelectionBoardUI.OpenStageSelectionBoardUI(currentUIColor);
                 break;
             case SceneState.playing:
                 if (GameManager.instance.GetCurrentStageIndex() == 3)
@@ -548,40 +566,118 @@ public class GameUIManager : MonoBehaviour
                 {
                     currentUIColor = playingBackgroundColors[Random.Range(0, playingBackgroundColors.Count)];
                 }
-                stageInfoUI.OpenStageInfoUI();
-                optionButtonUI.SetUIColor(currentUIColor);
-                actionInfoUI.SetChipLayoutColor(currentUIColor);
-                stageInfoUI.SetUIColor(currentUIColor);
-                scoreInfoUI.SetUIColor(currentUIColor);
-                //scoreInfoUI.OpenScoreInfoUI();
-                boardUI.OpenBoardUI();
-                rerollButtonUI.OpenRerollButtonUI(currentUIColor);
-                handUI.OpenHandUI();
                 break;
             case SceneState.shopping:
                 currentUIColor = shoppingBackgroundColors[Random.Range(0, shoppingBackgroundColors.Count)];
+                break;
+            default:
+                if (GameManager.instance.GetCurrentStageIndex() == 3)
+                {
+                    currentUIColor = selectingBossBackgroundColors[Random.Range(0, selectingBossBackgroundColors.Count)];
+                }
+                else
+                {
+                    currentUIColor = selectingBackgroundColors[Random.Range(0, selectingBackgroundColors.Count)];
+                }
+                break;
+        }
+    }
+
+    public void OpenSceneState(SceneState stateToOpen)
+    {
+        switch (stateToOpen)
+        {
+            case SceneState.selecting:
+                optionButtonUI.SetUIColor(currentUIColor.backGroundLighterColor);
+
+                actionInfoUI.SetChipLayoutColor(currentUIColor.backGroundLighterColor);
+                actionInfoUI.SetTextColor(currentUIColor.uiTextColor);
+
+
+                stageInfoUI.SetUIColor(currentUIColor.backGroundLighterColor);
+                stageInfoUI.SetTextColor(currentUIColor.uiTextColor);
+
+                scoreInfoUI.SetUIColor(currentUIColor.contrastColor, currentUIColor.backGroundDarkerColor);
+                scoreInfoUI.SetTextColor(Color.white, currentUIColor.backGroundLighterColor);
+
+                goldInfoUI.SetUIColor(currentUIColor.uiTextColor);
+
+                stageSelectionSignboardUI.OpenStageSelectionSignboardUI();
+                stageSelectionBoardUI.OpenStageSelectionBoardUI(currentUIColor.backGroundLighterColor);
+
+                itemSetUI.SetUIColor(currentUIColor.backGroundLighterColor, currentUIColor.uiTextColor);
+
+                break;
+            case SceneState.playing:
+                stageInfoUI.OpenStageInfoUI();
+                optionButtonUI.SetUIColor(currentUIColor.backGroundLighterColor);
+
+                actionInfoUI.SetChipLayoutColor(currentUIColor.backGroundLighterColor);
+                actionInfoUI.SetTextColor(currentUIColor.uiTextColor);
+
+                stageInfoUI.SetUIColor(currentUIColor.backGroundLighterColor);
+                stageInfoUI.SetTextColor(currentUIColor.uiTextColor);
+
+                scoreInfoUI.SetUIColor(currentUIColor.contrastColor, currentUIColor.backGroundDarkerColor);
+                scoreInfoUI.SetTextColor(Color.white, currentUIColor.backGroundLighterColor);
+
+                goldInfoUI.SetUIColor(currentUIColor.uiTextColor);
+
+                itemSetUI.SetUIColor(currentUIColor.backGroundLighterColor, currentUIColor.uiTextColor);
+
+
+                //scoreInfoUI.OpenScoreInfoUI();
+
+
+                boardUI.OpenBoardUI();
+                rerollButtonUI.OpenRerollButtonUI(currentUIColor.backGroundLighterColor);
+                handUI.OpenHandUI();
+                break;
+            case SceneState.shopping:
                 shopSignboardUI.OpenShopSignboardUI();
                 itemBoardUI.OpenItemBoardUI();
-                optionButtonUI.SetUIColor(currentUIColor);
-                actionInfoUI.SetChipLayoutColor(currentUIColor);
-                stageInfoUI.SetUIColor(currentUIColor);
-                scoreInfoUI.SetUIColor(currentUIColor);
+                optionButtonUI.SetUIColor(currentUIColor.backGroundLighterColor);
+
+                actionInfoUI.SetChipLayoutColor(currentUIColor.backGroundLighterColor);
+                actionInfoUI.SetTextColor(currentUIColor.uiTextColor);
+
+                stageInfoUI.SetUIColor(currentUIColor.backGroundLighterColor);
+                stageInfoUI.SetTextColor(currentUIColor.uiTextColor);
+
+                scoreInfoUI.SetUIColor(currentUIColor.contrastColor, currentUIColor.backGroundDarkerColor);
+                scoreInfoUI.SetTextColor(Color.white, currentUIColor.backGroundLighterColor);
+
+                goldInfoUI.SetUIColor(currentUIColor.uiTextColor);
+
+                itemSetUI.SetUIColor(currentUIColor.backGroundLighterColor, currentUIColor.uiTextColor);
+
                 break;
             default:
                 break;
         }
-        background.SetColor(currentUIColor);
+        background.SetColor(currentUIColor.backGroundColor);
+        totalBg.DOColor(currentUIColor.backGroundColor, 0.6f);
+
+        boardUI.GetTextColorSet(currentUIColor.uiTextColor);
+
+        handUI.SetColorOfUI(currentUIColor.backGroundLighterColor, currentUIColor.uiTextColor);
+        rerollButtonUI.SetColorOfUI(currentUIColor.backGroundLighterColor, currentUIColor.uiTextColor);
+        deckButtonUI.SetColorOfUI(currentUIColor.backGroundLighterColor, currentUIColor.uiTextColor);
+        deckInfoUI.SetLayoutsColor(currentUIColor.backGroundColor);
+        deckInfoUI.SetTextColor(currentUIColor.uiTextColor);
     }
 
     public void OnStageStart(int chapterIndex, int stageIndex, StageData stageData, BlockGameData blockGame)
-    {        
+    {
         boardUI.gameObject.SetActive(true);
         stageInfoUI.InitializePlaying(chapterIndex, stageIndex, stageData);
         scoreInfoUI.InitializePlaying(currentScore: 0, scoreAtLeast: stageData.clearRequirement);
         rerollButtonUI.Initialize(blockGame.rerollCount);
 
+        SetSceneStateColor(SceneState.playing);
+        boardUI.GetColorSet(currentUIColor);
         boardUI.Initialize(blockGame.boardRows, blockGame.boardColumns);
-        
+
         ChangeSceneState(SceneState.playing);
 
         AudioManager.instance.ChangeStage(stageIndex);
@@ -601,6 +697,7 @@ public class GameUIManager : MonoBehaviour
     {
         if (isFirst)
         {
+            SetSceneStateColor(SceneState.shopping);
             ChangeSceneState(SceneState.shopping);
         }
         stageInfoUI.InitializeShopping(currentChapterIndex, currentStageIndex);
@@ -613,7 +710,7 @@ public class GameUIManager : MonoBehaviour
     {
         itemBoardUI.UpdateRerollCost(rerollCost);
     }
- 
+
     public void OnRotateBlock(int idx)
     {
         GameManager.instance.OnRotateBlock(idx);
@@ -624,11 +721,13 @@ public class GameUIManager : MonoBehaviour
         handUI.RotateBlock(idx, block);
     }
 
-    public void OnBlockPlaced(GameObject blockObj, Block block, Vector2Int pos) {
+    public void OnBlockPlaced(GameObject blockObj, Block block, Vector2Int pos)
+    {
         boardUI.OnBlockPlaced(blockObj, block, pos);
     }
 
-    public void PlayMatchAnimation(List<Match> matches, Dictionary<Match, List<int>> scores, float delay) {
+    public void PlayMatchAnimation(List<Match> matches, Dictionary<Match, List<int>> scores, float delay)
+    {
         boardUI.ProcessMatchAnimation(matches, scores, delay);
         actionInfoUI.ProcessScoreUpdateAnimation(scores, delay);
     }
@@ -638,7 +737,8 @@ public class GameUIManager : MonoBehaviour
         actionInfoUI.UpdateChip(chip);
     }
 
-    public void UpdateMultiplierByAdd(int addingValue) {
+    public void UpdateMultiplierByAdd(int addingValue)
+    {
         actionInfoUI.AddMultiplier(addingValue);
     }
 
@@ -652,11 +752,13 @@ public class GameUIManager : MonoBehaviour
         actionInfoUI.UpdateProduct(product);
     }
 
-    public void UpdateScore(int score, bool isAdditive = false) {
+    public void UpdateScore(int score, bool isAdditive = false)
+    {
         scoreInfoUI.UpdateScore(score, isAdditive);
     }
 
-    public void UpdateGold(int gold, bool isAdditive = false) {
+    public void UpdateGold(int gold, bool isAdditive = false)
+    {
         goldInfoUI.UpdateGold(gold, isAdditive);
     }
 
@@ -665,11 +767,13 @@ public class GameUIManager : MonoBehaviour
         stageInfoUI.ProcessStageEffectAnimation();
     }
 
-    public void DisplayRerollCount(int rerollCount, bool isAdditive = false) {
+    public void DisplayRerollCount(int rerollCount, bool isAdditive = false)
+    {
         rerollButtonUI.UpdateRerollCount(rerollCount, isAdditive);
     }
 
-    public void DisplayDeckCount(int deckCount, int maxDeckCount) {
+    public void DisplayDeckCount(int deckCount, int maxDeckCount)
+    {
         deckButtonUI.DisplayDeckCount(deckCount, maxDeckCount);
     }
 
@@ -755,7 +859,7 @@ public class GameUIManager : MonoBehaviour
     public void OnGameEnd(bool isCleared, int currentChapterIndex, int currentStageIndex, RunData.History history, BlockType mostPlacedBlockType, string loseReason)
     {
         clearInfoUI.Initialize(isCleared, currentChapterIndex, currentStageIndex, history, mostPlacedBlockType, loseReason: loseReason);
-        clearInfoUI.SetLayoutsColor(playingBackgroundColors[2]);
+        clearInfoUI.SetLayoutsColor(playingBackgroundColors[0].backGroundColor);
         clearInfoUI.OpenClearInfoUI(isCleared);
 
         if (isCleared) AudioManager.instance.SFXGameWin();
@@ -770,7 +874,7 @@ public class GameUIManager : MonoBehaviour
 
     public void PlayUnlockAnimation(UnlockInfo unlockInfo)
     {
-        unlockNotificationUI.PlayUnlockAnimation(unlockInfo, currentUIColor);
+        unlockNotificationUI.PlayUnlockAnimation(unlockInfo, currentUIColor.backGroundLighterColor);
     }
 
     public void OnBGMVolumeChanged(float value)

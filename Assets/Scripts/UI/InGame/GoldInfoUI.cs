@@ -27,6 +27,11 @@ public class GoldInfoUI : MonoBehaviour
         UIUtils.BounceText(goldText.transform);
     }
 
+    public void SetUIColor(Color textColor)
+    {
+        UIUtils.SetTextColorByScalar(goldText, textColor, 1);
+    }
+
     private int GetCurrentGold()
     {
         int gold = 0;

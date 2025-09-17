@@ -9,7 +9,8 @@ public class NextStageChoiceUI : MonoBehaviour
 {
     [Header("Layout")]
     [SerializeField] private Image debuffTextLayout;
-    [SerializeField] private Image scoreAtLeastTextLayout;
+    // public Image scoreAtLeastTextLayout;
+    
 
     [Header("Text")]
     [SerializeField] private TextMeshProUGUI debuffText;
@@ -26,7 +27,7 @@ public class NextStageChoiceUI : MonoBehaviour
     public void SetLayoutsColor(Color uiColor)
     {
         UIUtils.SetImageColorByScalar(debuffTextLayout, uiColor, 1f);
-        UIUtils.SetImageColorByScalar(scoreAtLeastTextLayout, uiColor, 5f / 4f);
+        UIUtils.SetImageColorByScalar(gameObject.GetComponent<Image>(), uiColor, 5f / 4f);
     }
 
     public void UpdateDebuffText(string[] debuffTexts)
@@ -40,11 +41,11 @@ public class NextStageChoiceUI : MonoBehaviour
 
     public void UpdateScoreAtLeast(int scoreAtLeast)
     {
-        scoreAtLeastText.text = $"<color=#94EEFF>{scoreAtLeast}</color>";
+        scoreAtLeastText.text = $"<color=#94EEFF>{scoreAtLeast}점</color>";
     }
 
     public void UpdateRewardGold(int rewardGold)
     {
-        rewardGoldText.text = "보상 <color=yellow>$" + rewardGold.ToString() + "</color>";
+        rewardGoldText.text = "" + rewardGold.ToString() + "$";
     }
 }

@@ -163,7 +163,7 @@ public class GameUIManager : MonoBehaviour
         if (popupState == PopupState.none)
         {
             popupState = PopupState.option;
-            optionUI.SetLayoutsColor(currentUIColor.backGroundLighterColor);
+            optionUI.SetLayoutsColor(currentUIColor.backGroundColor, currentUIColor.uiColor, currentUIColor.backGroundLighterColor);
             optionUI.OpenOptionUI();
         }
     }
@@ -195,7 +195,7 @@ public class GameUIManager : MonoBehaviour
         {
             popupState = PopupState.deckInfo;
             GameManager.instance.OnDeckInfoRequested();
-            deckInfoUI.SetLayoutsColor(currentUIColor.backGroundLighterColor);
+            deckInfoUI.SetLayoutsColor(currentUIColor.backGroundLighterColor, currentUIColor.uiTextColor);
             deckInfoUI.OpenDeckInfoUI();
 
             GameManager.instance.ProcessTutorialStep("Deck");
@@ -650,6 +650,7 @@ public class GameUIManager : MonoBehaviour
                 goldInfoUI.SetUIColor(currentUIColor.uiTextColor);
 
                 itemSetUI.SetUIColor(currentUIColor.backGroundLighterColor, currentUIColor.uiTextColor);
+                itemBoardUI.SetLayoutsColor(currentUIColor.backGroundColor, currentUIColor.uiTextColor);
 
                 break;
             default:
@@ -663,7 +664,7 @@ public class GameUIManager : MonoBehaviour
         handUI.SetColorOfUI(currentUIColor.backGroundLighterColor, currentUIColor.uiTextColor);
         rerollButtonUI.SetColorOfUI(currentUIColor.backGroundLighterColor, currentUIColor.uiTextColor);
         deckButtonUI.SetColorOfUI(currentUIColor.backGroundLighterColor, currentUIColor.uiTextColor);
-        deckInfoUI.SetLayoutsColor(currentUIColor.backGroundColor);
+        deckInfoUI.SetLayoutsColor(currentUIColor.backGroundColor, currentUIColor.uiTextColor);
         deckInfoUI.SetTextColor(currentUIColor.uiTextColor);
     }
 
@@ -859,7 +860,7 @@ public class GameUIManager : MonoBehaviour
     public void OnGameEnd(bool isCleared, int currentChapterIndex, int currentStageIndex, RunData.History history, BlockType mostPlacedBlockType, string loseReason)
     {
         clearInfoUI.Initialize(isCleared, currentChapterIndex, currentStageIndex, history, mostPlacedBlockType, loseReason: loseReason);
-        clearInfoUI.SetLayoutsColor(playingBackgroundColors[0].backGroundColor);
+        clearInfoUI.SetLayoutsColor(playingBackgroundColors[0].backGroundColor, playingBackgroundColors[0].uiTextColor);
         clearInfoUI.OpenClearInfoUI(isCleared);
 
         if (isCleared) AudioManager.instance.SFXGameWin();

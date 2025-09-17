@@ -17,9 +17,9 @@ public class PlayerDataBoardUI : MonoBehaviour
 
     private RectTransform rectTransform;
 
-    private const float insidePositionX = 0;
-    private const float outsidePositionOffsetX = 1000;
-    private const float duration = 0.2f;
+    private const float insidePositionX = 310;
+    private const float outsidePositionOffsetX = -1700;
+    private const float duration = 0.4f;
 
     private Color activeWindowColor;
     private Color inactiveWindowColor;
@@ -56,7 +56,7 @@ public class PlayerDataBoardUI : MonoBehaviour
         popupBlurImage.OpenPopupBlurImage(new Color(0.0f, 0.0f, 0.0f, 0.9f));
         UIUtils.OpenUI(rectTransform, "Y", insidePositionX, duration);
 
-        UnlockAllLayout.SetActive(true);
+        // UnlockAllLayout.SetActive(true);
     }
 
     public void ClosePlayerDataBoardUI()

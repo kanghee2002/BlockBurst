@@ -24,11 +24,14 @@ public class ItemDetailUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI interactButtonText;
     [SerializeField] private Image showNotEnoughGoldImage;
 
+    public Image goldBG;
+    public Image rarityBG;
+
     private RectTransform rectTransform;
 
     private string currentDescription;
 
-    private const float insidePositionY = 0;
+    private const float insidePositionY = -365;
     private const float outsidePositionY = -1080;
     private const float duration = 0.2f;
 
@@ -213,11 +216,23 @@ public class ItemDetailUI : MonoBehaviour
         {
             itemType = ItemType.ADD_BLOCK;
         }
-        
+
         UIUtils.SetImageColorByScalar(outer, UIUtils.itemTypeColors[itemType], 7f / 10f, duration: 0.1f);
         UIUtils.SetImageColorByScalar(inner, UIUtils.itemTypeColors[itemType], 9f / 10f, duration: 0.1f);
 
         rarityLayout.color = UIUtils.rarityColors[itemData.rarity];
+
+        Color currentItemTypeColor = UIUtils.itemTypeColors[itemType];
+        Color currentItemTypeDarkerColor = new Color(currentItemTypeColor.r * 0.8f, currentItemTypeColor.g * 0.8f, currentItemTypeColor.b * 0.8f);
+
+        itemNameText.color = UIUtils.itemTypeTextColors[itemType];
+        itemDescriptionText.color = UIUtils.itemTypeTextColors[itemType];
+        itemPriceText.color = UIUtils.itemTypeBrightTextColors[itemType];
+        itemRarityText.color = UIUtils.rarityColors[itemData.rarity];
+        interactButtonText.color = UIUtils.itemTypeBrightTextColors[itemType];
+        interactButtonUI.SetUIColor(currentItemTypeDarkerColor);
+        goldBG.color = currentItemTypeDarkerColor;
+        rarityBG.color = UIUtils.rarityBGColors[itemData.rarity];
     }
 
     public void OpenItemDetailUI()

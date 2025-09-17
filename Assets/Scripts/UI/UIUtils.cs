@@ -28,11 +28,33 @@ public static class UIUtils
         { ItemRarity.LEGENDARY, new Color(0xd2/255f, 0x00/255f, 0x1d/255f) }  // #D2001D 빨강
     };
 
+    public static readonly Dictionary<ItemRarity, Color> rarityBGColors = new Dictionary<ItemRarity, Color>()
+    {
+        { ItemRarity.COMMON, new Color(0x12/255f, 0x6b/255f, 0x0f/255f) },   // #126b0fff 연두
+        { ItemRarity.RARE, new Color(0x12/255f, 0x48/255f, 0x78/255f) },     // #124878ff 파랑
+        { ItemRarity.EPIC, new Color(0x2c/255f, 0x0e/255f, 0x4e/255f) },     // #2c0e4eff 보라
+        { ItemRarity.LEGENDARY, new Color(0x4f/255f, 0x10/255f, 0x19/255f) }  // #4f1019ff 빨강
+    };
+
     public static readonly Dictionary<ItemType, Color> itemTypeColors = new Dictionary<ItemType, Color>()
     {
-        { ItemType.ITEM, new Color(0xff/255f, 0xbe/255f, 0x00/255f) },  // FFBE00 노랑
-        { ItemType.BOOST, new Color(0x66/255f, 0xc7/255f, 0xe4/255f) },  // 66C7E4 하늘
-        { ItemType.ADD_BLOCK, new Color(0xbe/255f, 0xe4/255f, 0x66/255f) },  // BEE466 연두
+        { ItemType.ITEM, new Color(0x60/255f, 0x43/255f, 0x00/255f) },  // #604300 노랑
+        { ItemType.BOOST, new Color(0x00/255f, 0x44/255f, 0x7b/255f) },  // #00447B 하늘
+        { ItemType.ADD_BLOCK, new Color(0x57/255f, 0x7d/255f, 0x00/255f) },  // #577D00 연두
+    };
+
+    public static readonly Dictionary<ItemType, Color> itemTypeTextColors = new Dictionary<ItemType, Color>()
+    {
+        { ItemType.ITEM, new Color(0xff/255f, 0x97/255f, 0x14/255f) },  // #FF9714 노랑
+        { ItemType.BOOST, new Color(0x42/255f, 0xa6/255f, 0xff/255f) },  // #42A6FF 하늘
+        { ItemType.ADD_BLOCK, new Color(0x86/255f, 0xff/255f, 0x00/255f) },  // #86FF00 연두
+    };
+
+    public static readonly Dictionary<ItemType, Color> itemTypeBrightTextColors = new Dictionary<ItemType, Color>()
+    {
+        { ItemType.ITEM, new Color(0xff/255f, 0xca/255f, 0x89/255f) },  // #ffca89ff 노랑
+        { ItemType.BOOST, new Color(0xc1/255f, 0xe2/255f, 0xff/255f) },  // #c1e2ffff 하늘
+        { ItemType.ADD_BLOCK, new Color(0xe2/255f, 0xff/255f, 0xc1/255f) },  // #e2ffc1ff 연두
     };
 
     public static readonly Dictionary<ItemType, string> itemTypeNames = new Dictionary<ItemType, string>()
@@ -212,23 +234,25 @@ public static class UIUtils
     {
         string value = Math.Abs(effectData.effectValue).ToString();
 
-        text = text.Replace("+EffectValue 블록 점수", "<color=blue>+EffectValue</color> 블록 점수");
-        text = text.Replace("-EffectValue 블록 점수", "<color=blue>-EffectValue</color> 블록 점수");
-        text = text.Replace("점수가 +EffectValue", "점수가 <color=blue>+EffectValue</color>");
-        text = text.Replace("점수가 -EffectValue", "점수가 <color=blue>-EffectValue</color>");
-        text = text.Replace("+EffectValue 배수", "<color=red>+EffectValue</color> 배수");
-        text = text.Replace("-EffectValue 배수", "<color=red>-EffectValue</color> 배수");
-        text = text.Replace("배수가 +EffectValue", "배수가 <color=red>+EffectValue</color>");
-        text = text.Replace("배수가 -EffectValue", "배수가 <color=red>-EffectValue</color>");
-        text = text.Replace("XEffectValue 배수", "<color=red>XEffectValue</color> 배수");
-        text = text.Replace("+EffectValue 기본 배수", "<color=red>+EffectValue</color> 기본 배수");
-        text = text.Replace("-EffectValue 기본 배수", "<color=red>-EffectValue</color> 기본 배수");
-        text = text.Replace("+EffectValue 리롤 횟수", "<color=green>+EffectValue</color> 리롤 횟수");
-        text = text.Replace("-EffectValue 리롤 횟수", "<color=green>-EffectValue</color> 리롤 횟수");
-        text = text.Replace("+EffectValue 기본 리롤 횟수", "<color=green>+EffectValue</color> 기본 리롤 횟수");
-        text = text.Replace("-EffectValue 기본 리롤 횟수", "<color=green>-EffectValue</color> 기본 리롤 횟수");
-        text = text.Replace("$EffectValue", "<color=yellow>$EffectValue</color>");
-        text = text.Replace("골드가 +EffectValue", "골드가 <color=yellow>+EffectValue</color>");
+        text = text.Replace("+EffectValue 블록 점수", "<color=#00FFC3>+EffectValue</color> 블록 점수");
+        text = text.Replace("-EffectValue 블록 점수", "<color=#00FFC3>-EffectValue</color> 블록 점수");
+        text = text.Replace("점수가 +EffectValue", "점수가 <color=#00FFC3>+EffectValue</color>");
+        text = text.Replace("점수가 -EffectValue", "점수가 <color=#00FFC3>-EffectValue</color>");
+        text = text.Replace("+EffectValue 배수", "<color=#FF3154>+EffectValue</color> 배수");
+        text = text.Replace("-EffectValue 배수", "<color=#FF3154>-EffectValue</color> 배수");
+        text = text.Replace("배수가 +EffectValue", "배수가 <color=#FF3154>+EffectValue</color>");
+        text = text.Replace("배수가 -EffectValue", "배수가 <color=#FF3154>-EffectValue</color>");
+        text = text.Replace("XEffectValue 배수", "<color=#FF3154>XEffectValue</color> 배수");
+        text = text.Replace("+EffectValue 기본 배수", "<color=#FF3154>+EffectValue</color> 기본 배수");
+        text = text.Replace("-EffectValue 기본 배수", "<color=#FF3154>-EffectValue</color> 기본 배수");
+        text = text.Replace("+EffectValue 리롤 횟수", "<color=#91ff7e>+EffectValue</color> 리롤 횟수");
+        text = text.Replace("-EffectValue 리롤 횟수", "<color=#91ff7e>-EffectValue</color> 리롤 횟수");
+        text = text.Replace("+EffectValue 기본 리롤 횟수", "<color=#91ff7e>+EffectValue</color> 기본 리롤 횟수");
+        text = text.Replace("-EffectValue 기본 리롤 횟수", "<color=#91ff7e>-EffectValue</color> 기본 리롤 횟수");
+        text = text.Replace("$EffectValue", "<color=#FFCC00>$EffectValue</color>");
+        text = text.Replace("골드가 +EffectValue", "골드가 <color=#FFCC00>+EffectValue</color>");
+
+        // #91ff7e
 
         string result = text;
 
@@ -263,7 +287,7 @@ public static class UIUtils
         if (index != -1 && index + 1 < words.Length)
         {
             string count = words[index + 1];
-            count = "<color=red>" + count + "</color>";
+            count = "<color=#FF3154>" + count + "</color>";
         }
 
         index = Array.IndexOf(words, "점수");
@@ -271,7 +295,7 @@ public static class UIUtils
         if (index != -1 && index + 1 < words.Length)
         {
             string count = words[index + 1];
-            count = "<color=blue>" + count + "</color>";
+            count = "<color=#00FFC3>" + count + "</color>";
         }
 
         index = Array.IndexOf(words, "골드");
@@ -280,7 +304,7 @@ public static class UIUtils
         {
             Debug.Log("Gold");
             string count = words[index + 1];
-            count = "<color=#8E8E00>" + count + "</color>";
+            count = "<color=#FFCC00>" + count + "</color>";
         }
 
         return string.Join(' ', words);

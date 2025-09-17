@@ -41,6 +41,8 @@ public class DeckInfoUI : MonoBehaviour
     [SerializeField] private Transform boostInfoGridLayout;
     [SerializeField] private GameObject boostIcon;
 
+    public List<TextMeshProUGUI> texts;
+
     const float WINDOWS_ROW_OFFSET = 112;
     public float MOBILE_ROW_OFFSET = 80;
     const float WINDOWS_COLUMN_OFFSET = 112;
@@ -182,7 +184,7 @@ public class DeckInfoUI : MonoBehaviour
                 isShowingBoostDetail = true;
                 GameUIManager.instance.OnDeckInfoBoostUIPressed(index);
             });
-            trigger.triggers.Add(clickEntry);
+            trigger.triggers.Add(clickEntry); 
         }
     }
     
@@ -323,7 +325,7 @@ public class DeckInfoUI : MonoBehaviour
         SetSwitchButtonUIColor(CurrentTab.Boost, currentUIColor);
     }
 
-    public void SetLayoutsColor(Color uiColor)
+    public void SetLayoutsColor(Color uiColor, Color textColor)
     {
         currentUIColor = uiColor;
 
@@ -348,6 +350,17 @@ public class DeckInfoUI : MonoBehaviour
 
         // 부스트
         UIUtils.SetImageColorByScalar(boostInfoGridLayout.GetComponent<Image>(), uiColor, layoutScalar, duration: 0.05f);
+
+        foreach (TextMeshProUGUI text in texts)
+        {
+            UIUtils.SetTextColorByScalar(text, textColor, 1f);
+        }
+
+        foreach (Transform BUI in BlockTransforms)
+        {
+            TextMeshProUGUI t = BUI.GetChild(1).GetComponent<TextMeshProUGUI>();
+            UIUtils.SetTextColorByScalar(t, textColor, 1f);
+        }
     }
 
     public void SetTextColor(Color textColor)

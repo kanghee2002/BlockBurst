@@ -14,6 +14,8 @@ public class HandUI : MonoBehaviour
     private const float duration = 0.2f;
 
     public Image bg;
+    public Image fg1;
+    public Image fg2;
     
     [SerializeField] private GameObject blockPrefab;
 
@@ -68,6 +70,8 @@ public class HandUI : MonoBehaviour
     public void SetColorOfUI(Color uiColor, Color textColor)
     {
         UIUtils.SetImageColorByScalar(bg, uiColor, 1f);
+        UIUtils.SetImageColorByScalar(fg1, uiColor, 3f / 5f);
+        UIUtils.SetImageColorByScalar(fg2, uiColor, 3f / 5f);
 
     }
 

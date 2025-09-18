@@ -46,7 +46,7 @@ public class DeckInfoUI : MonoBehaviour
     const float WINDOWS_ROW_OFFSET = 112;
     public float MOBILE_ROW_OFFSET = 80;
     const float WINDOWS_COLUMN_OFFSET = 112;
-    const float MOBILE_COLUMN_OFFSET = 80;
+    const float MOBILE_COLUMN_OFFSET = 50;
     const float ROW_REF = 290;
 
     Dictionary<string, string> effectNames = new Dictionary<string, string>() {
@@ -255,7 +255,7 @@ public class DeckInfoUI : MonoBehaviour
                         {
                             xOffset = MOBILE_COLUMN_OFFSET * effectIndex;
                         }
-                        effectObject.transform.localPosition = new Vector3(xOffset, 0, 0);
+                        effectObject.transform.localPosition = new Vector3(xOffset - 120, 0, 0);
                     }
                 }
             }

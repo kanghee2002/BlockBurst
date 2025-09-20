@@ -18,6 +18,15 @@ public class ItemBoardUI : MonoBehaviour
     [SerializeField] private GameObject mobileItemPrefab;
     [SerializeField] private TextMeshProUGUI rerollCostText;
 
+    public Image rerollButtonImage;
+    public TextMeshProUGUI rerollButtonText;
+    public Image deckImage;
+    public TextMeshProUGUI deckText;
+
+    public DeckButtonUI deckButtonUI;
+    public ShopRerollButtonUI shopRerollButtonUI;
+
+
     [Header("UI Color")]
     [SerializeField] private Color itemShowcaseColor;
     [SerializeField] private Color boostShowcaseColor;
@@ -27,9 +36,9 @@ public class ItemBoardUI : MonoBehaviour
 
     private Vector3[] originalPositions;
 
-    private const float windowsInsidePositionY = -128; // 도착할 Y 위치
-    private const float mobileInsidePositionY = -175; // 도착할 Y 위치
-    private const float outsidePositionOffsetY = -1000; // 숨겨질 Y 위치
+    private const float windowsInsidePositionY = -600; // 도착할 Y 위치
+    private const float mobileInsidePositionY = 680; // 도착할 Y 위치
+    private const float outsidePositionOffsetY = -1300; // 숨겨질 Y 위치
     private const float duration = 0.2f; // 애니메이션 시간
 
     private Sequence slowShakeSequence;
@@ -56,7 +65,7 @@ public class ItemBoardUI : MonoBehaviour
 
     public void UpdateRerollCost(int rerollCost)
     {
-        rerollCostText.text = "새로고침 • $" + rerollCost;
+        rerollCostText.text = "$" + rerollCost;
     }
 
     public void OpenItemBoardUI()
@@ -170,6 +179,14 @@ public class ItemBoardUI : MonoBehaviour
         UpdateRerollCost(rerollCost);
     }
 
+    public void SetLayoutsColor(Color uiColor, Color textColor)
+    {
+        // UIUtils.SetImageColorByScalar(outer, uiColor, 1f / 3f, duration: 0.05f);
+        // UIUtils.SetImageColorByScalar(inner, uiColor, 2f / 3f, duration: 0.05f);
+        deckButtonUI.SetColorOfUI(uiColor, textColor);
+        shopRerollButtonUI.SetColorOfUI(uiColor, textColor);
+    }
+
     private void CreateItems(List<ItemData> items)
     {
         //int itemCount = items.Count(item => item.type == ItemType.ITEM);
@@ -182,13 +199,13 @@ public class ItemBoardUI : MonoBehaviour
             currentItemUIs = new GameObject[maxItemCount];
             originalPositions = new Vector3[maxItemCount];
 
-            CreateSpecificItems(items, ref index, itemShowcaseTransform, UIUtils.itemTypeColors[ItemType.ITEM]);
-            CreateSpecificItems(items, ref index, boostShowcaseTransform, UIUtils.itemTypeColors[ItemType.BOOST]);
-            CreateSpecificItems(items, ref index, blockShowcaseTransform, UIUtils.itemTypeColors[ItemType.ADD_BLOCK]);
+            CreateSpecificItems(items, ref index, itemShowcaseTransform, UIUtils.itemTypeColors[ItemType.ITEM], UIUtils.itemTypeTextColors[ItemType.ITEM]);
+            CreateSpecificItems(items, ref index, boostShowcaseTransform, UIUtils.itemTypeColors[ItemType.BOOST], UIUtils.itemTypeTextColors[ItemType.BOOST]);
+            CreateSpecificItems(items, ref index, blockShowcaseTransform, UIUtils.itemTypeColors[ItemType.ADD_BLOCK], UIUtils.itemTypeTextColors[ItemType.ADD_BLOCK]);
         }
     }
 
-    private void CreateSpecificItems(List<ItemData> items, ref int index, Transform parent, Color uiColor)
+    private void CreateSpecificItems(List<ItemData> items, ref int index, Transform parent, Color uiColor, Color uiTextColor)
     {
         int maxItemCount = 2;
         float startingPosY = 110, itemInterval = 170;
@@ -216,7 +233,9 @@ public class ItemBoardUI : MonoBehaviour
 
             itemUI.GetComponent<Image>().color = uiColor;
             itemUI.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = itemData.itemName;
+            itemUI.transform.GetChild(2).GetComponent<TextMeshProUGUI>().color = uiTextColor;
             itemUI.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "$" + itemData.cost;
+            itemUI.transform.GetChild(3).GetComponent<TextMeshProUGUI>().color = uiTextColor;
             itemUI.transform.GetChild(4).GetComponent<Button>().onClick.AddListener(() => {
                 GameUIManager.instance.OnItemShowcaseItemButtonUIPressed(currentIndex);
             });

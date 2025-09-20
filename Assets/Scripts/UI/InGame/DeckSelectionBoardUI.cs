@@ -19,8 +19,8 @@ public class DeckSelectionBoardUI : MonoBehaviour
 
     private RectTransform rectTransform;
 
-    private const float insidePositionX = 0;
-    private const float outsidePositionOffsetX = 1000;
+    private const float insidePositionX = 316.3f;
+    private const float outsidePositionOffsetX = -1000;
     private const float duration = 0.2f;
 
     [SerializeField] private Color canPlayColor;

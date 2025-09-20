@@ -9,6 +9,7 @@ public class RerollButtonUI : MonoBehaviour
 {
     [SerializeField] private Image rerollButtonImage;
     [SerializeField] private TextMeshProUGUI rerollCountText;
+    public TextMeshProUGUI rerollTitleText;
     private RectTransform rectTransform;
 
     // inside anchored position = (-188,-400)
@@ -49,6 +50,15 @@ public class RerollButtonUI : MonoBehaviour
     {
         gameObject.SetActive(true);
         UpdateRerollCount(rerollCount);
+    }
+
+    public void SetColorOfUI(Color uiColor, Color textColor)
+    {
+        UIUtils.SetImageColorByScalar(rerollButtonImage, uiColor, 1f);
+        UIUtils.SetTextColorByScalar(rerollCountText, textColor, 1f);
+        UIUtils.SetTextColorByScalar(rerollTitleText, textColor, 1f);
+
+        
     }
 
     public void UpdateRerollCount(int rerollCount, bool isAdditive = false)

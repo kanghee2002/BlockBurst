@@ -169,7 +169,7 @@ public class BoardCellUI : MonoBehaviour
 
         Vector3 originalScale = transform.localScale;
 
-        transform.DOScale(0, 0.3f).SetEase(Ease.InBack)
+        transform.DOScale(0, 0.3f).SetEase(Ease.InExpo)
             .OnComplete(() => 
             {
                 transform.localScale = originalScale;
@@ -209,14 +209,14 @@ public class BoardCellUI : MonoBehaviour
     public void PlayStageClearAnimation()
     {
         Vector2 randomDirection = Random.insideUnitCircle.normalized;
-        float distance = Random.Range(1500f, 2000f);
+        float distance = Random.Range(2000f, 2500f);
 
         RectTransform rectTransform = GetComponent<RectTransform>();
 
         Sequence sequence = DOTween.Sequence();
 
-        sequence.Append(rectTransform.DOJumpAnchorPos(randomDirection * distance, 500f, 1, 0.6f)
-            .SetEase(Ease.OutQuad));
+        sequence.Append(rectTransform.DOJumpAnchorPos(randomDirection * distance, 500f, 1, 1f)
+            .SetEase(Ease.OutExpo));
         sequence.AppendInterval(0.5f)
             .OnComplete(() => transform.position = originalPosition);
 

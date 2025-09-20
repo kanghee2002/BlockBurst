@@ -27,10 +27,14 @@ public class ClearInfoUI : MonoBehaviour
     [SerializeField] private Image outer;
     [SerializeField] private Image inner;
 
+    public List<Image> bgs;
+    public List<TextMeshProUGUI> texts;
+    public List<ButtonUI> buttons;
+
     private RectTransform rectTransform;
 
-    private const float insidePositionY = 0;
-    private const float outsidePositionY = 1536;
+    private const float insidePositionY = -170;
+    private const float outsidePositionY = -1121.1f;
     private const float duration = 0.4f;
 
     void Awake()
@@ -54,7 +58,8 @@ public class ClearInfoUI : MonoBehaviour
         seungRi.text = isCleared ? "승리!" : "패배";
         
         infiniteButton.SetActive(isCleared);
-        loseReasonContainer.SetActive(!isCleared);
+        // loseReasonContainer.SetActive(!isCleared);
+        loseReasonText.gameObject.SetActive(!isCleared);
 
         elapsedTimeText.text = $"{minutes:00}:{seconds:00}";
         maximumScoreText.text = history.maxScore.ToString();
@@ -68,16 +73,31 @@ public class ClearInfoUI : MonoBehaviour
         loseReasonText.text = loseReason;
     }
 
-    public void SetLayoutsColor(Color uiColor)
+    public void SetLayoutsColor(Color uiColor, Color textColor)
     {
-        UIUtils.SetImageColorByScalar(outer, uiColor, 1f / 3f, duration: 0.05f);
-        UIUtils.SetImageColorByScalar(inner, uiColor, 2f / 3f, duration: 0.05f);
+        UIUtils.SetImageColorByScalar(outer, uiColor, 1, duration: 0.05f);
+        UIUtils.SetImageColorByScalar(inner, uiColor, 1, duration: 0.05f);
+
+        Color darkerColor = new Color(uiColor.r * .9f, uiColor.g * .9f, uiColor.b * .9f, uiColor.a);
+
+        foreach (Image bg in bgs)
+        {
+            UIUtils.SetImageColorByScalar(bg, uiColor, .9f, duration: 0.05f);
+        }
+        foreach (TextMeshProUGUI text in texts)
+        {
+            UIUtils.SetTextColorByScalar(text, textColor, 1f);
+        }
+        foreach (ButtonUI button in buttons)
+        {
+            button.SetUIColor(darkerColor);
+        }
     }
 
     public void OpenClearInfoUI(bool isCleared)
     {
         UIUtils.OpenUI(rectTransform, "Y", insidePositionY, duration);
-        Color popupBlurColor = isCleared ? new Color(0.0f, 0.6f, 0.0f, 0.9f) : new Color(0.6f, 0.0f, 0.0f, 0.9f);
+        Color popupBlurColor = isCleared ? new Color(29 / 255f, 89 / 255f, 59 / 255f, 0.8f) : new Color(1f, 55 / 255f, 93 / 255f, 0.8f);
         popupBlurImage.OpenPopupBlurImage(popupBlurColor);
     }
 

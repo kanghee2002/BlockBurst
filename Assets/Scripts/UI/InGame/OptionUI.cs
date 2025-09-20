@@ -13,9 +13,16 @@ public class OptionUI : MonoBehaviour
 
     private RectTransform rectTransform;
 
-    private const float insidePositionY = 0;
+    private const float insidePositionY = -365;
     private const float outsidePositionY = -1080;
     private const float duration = 0.2f;
+
+    public List<Image> bgs;
+    public List<ButtonUI> buttons;
+    public List<Image> fgs;
+    public List<TMPro.TextMeshProUGUI> texts;
+
+
 
     void Awake()
     {
@@ -35,9 +42,25 @@ public class OptionUI : MonoBehaviour
         popupBlurImage.ClosePopupBlurImage();
     }
 
-    public void SetLayoutsColor(Color uiColor)
+    public void SetLayoutsColor(Color uiColor, Color uiBrightColor, Color textColor)
     {
-        UIUtils.SetImageColorByScalar(outerLayout, uiColor, 2f / 5f, duration: 0.05f);
+        UIUtils.SetImageColorByScalar(outerLayout, uiColor, 0.8f, duration: 0.05f);
         UIUtils.SetImageColorByScalar(innerLayout, uiColor, 3f / 5f, duration: 0.05f);
+        foreach (Image bg in bgs)
+        {
+            UIUtils.SetImageColorByScalar(bg, uiColor, 1f, duration: 0.05f);
+        }
+        foreach (Image fg in fgs)
+        {
+            UIUtils.SetImageColorByScalar(fg, uiBrightColor, 1f, duration: 0.05f);
+        }
+        foreach (ButtonUI button in buttons)
+        {
+            button.SetUIColor(uiBrightColor);
+        }
+        foreach (TMPro.TextMeshProUGUI text in texts)
+        {
+            UIUtils.SetTextColorByScalar(text, uiColor, 1f);
+        }
     }
 }

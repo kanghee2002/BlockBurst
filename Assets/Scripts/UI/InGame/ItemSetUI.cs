@@ -35,7 +35,7 @@ public class ItemSetUI : MonoBehaviour
     [Header("Item Full Animation")]
     [SerializeField] private Image showItemFullImage;
 
-    private const float insidePositionY = -380;
+    private const float insidePositionY = -369;
     private const float outsidePositionOffsetY = 1000;
     private const float duration = 0.2f;
 
@@ -186,12 +186,18 @@ public class ItemSetUI : MonoBehaviour
         // �� �𸣰ڴ�
         rectTransform.anchoredPosition = new Vector2(originalAnchoredPosition.x, (float)Screen.height / 1080 * originalAnchoredPosition.y);
     }
+    
+    public void SetUIColor(Color uiColor, Color textColor)
+    {
+        UIUtils.SetTextColorByScalar(itemCountText, textColor, 1f);
+        UIUtils.SetImageColorByScalar(gameObject.GetComponent<Image>(), uiColor, 1f);
+    }
 
     private Sprite GetImage(ItemData item)
     {
         string blockPresetPath = "Sprites/Block/Preset/";
         string itemPath = "Sprites/Item/Item/";
-        
+
         if (item.type == ItemType.ADD_BLOCK)
         {
             return Resources.Load<Sprite>(blockPresetPath + item.block.type.ToString());

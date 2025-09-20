@@ -9,6 +9,7 @@ using System;
 public class ButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler
 {
     private bool isPressed = false;
+    public bool showHover = true;
     private bool isColorInitialized = false;
     
     private GameObject button;
@@ -148,6 +149,7 @@ public class ButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (!showHover) return;
         if (isPressed == true)
         {
             image.color = pressedColor;
@@ -171,6 +173,7 @@ public class ButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         isPressed = true;
+        if (!showHover) return;
         image.color = pressedColor;
         rectTransform.anchoredPosition = pressedPosition;
         rectTransform.localScale = pressedScale;

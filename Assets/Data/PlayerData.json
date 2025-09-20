@@ -1,0 +1,53 @@
+{
+    "tutorialValue": false,
+    "unlockedDecks": [
+        {
+            "deckType": 0,
+            "deckName": "Default",
+            "level": 0
+        }
+    ],
+    "unlockedItems": [
+        "PuzzlePieceZS",
+        "PuzzlePieceIO",
+        "PuzzlePieceJLT",
+        "GiftBox",
+        "Key",
+        "Brush",
+        "Window",
+        "Seed",
+        "Anchor",
+        "GearJLT"
+    ],
+    "placeCountI": 75,
+    "placeCountO": 71,
+    "placeCountZ": 66,
+    "placeCountS": 71,
+    "placeCountJ": 78,
+    "placeCountL": 78,
+    "placeCountT": 78,
+    "rerollCount": 62,
+    "itemPurchaseCount": 27,
+    "shopRerollCount": 7,
+    "maxScore": 21285,
+    "maxChapter": 3,
+    "maxStage": 3,
+    "winCount": 0,
+    "rerollCountIO": 29,
+    "rerollCountZS": 41,
+    "rerollCountJLT": 42,
+    "maxBaseMultiplier": 9,
+    "maxMultiplier": 39,
+    "maxBaseRerollCount": 5,
+    "maxGold": 21,
+    "hasOnlyIO": 0,
+    "hasOnlyZS": 0,
+    "hasOnlyJL": 0,
+    "defaultDeckWinCount": 0,
+    "yoyoDeckWinCount": 0,
+    "diceDeckWinCount": 0,
+    "telescopeDeckWinCount": 0,
+    "mirrorDeckWinCount": 0,
+    "bombDeckWinCount": 0,
+    "clearedMaxLevel": -1
+}

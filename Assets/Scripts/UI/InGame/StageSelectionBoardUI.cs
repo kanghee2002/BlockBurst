@@ -9,8 +9,8 @@ public class StageSelectionBoardUI : MonoBehaviour
     private RectTransform rectTransform;
     // inside anchored position = (182,-128)
     private const float windowsInsidePositionY = -128;
-    private const float mobileInsidePositionY = 325;
-    private const float outsidePositionOffsetY = -1080;
+    private const float mobileInsidePositionY = 700;
+    private const float outsidePositionOffsetY = -1600;
     private const float duration = 0.2f;
 
     private const string GREEN_COLOR = "10D275";

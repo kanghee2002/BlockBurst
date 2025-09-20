@@ -14,8 +14,8 @@ public class DeckInfoUI : MonoBehaviour
 
     private RectTransform rectTransform;
 
-    private const float insidePositionX = 0;
-    private const float outsidePositionX = 1920;
+    private const float insidePositionX = -224.5f;
+    private const float outsidePositionX = -1118;
     private const float duration = 0.2f;
 
     [Header("Layout")]
@@ -41,11 +41,13 @@ public class DeckInfoUI : MonoBehaviour
     [SerializeField] private Transform boostInfoGridLayout;
     [SerializeField] private GameObject boostIcon;
 
+    public List<TextMeshProUGUI> texts;
+
     const float WINDOWS_ROW_OFFSET = 112;
-    const float MOBILE_ROW_OFFSET = 70;
+    public float MOBILE_ROW_OFFSET = 80;
     const float WINDOWS_COLUMN_OFFSET = 112;
-    const float MOBILE_COLUMN_OFFSET = 45;
-    const float ROW_REF = 320;
+    const float MOBILE_COLUMN_OFFSET = 50;
+    const float ROW_REF = 290;
 
     Dictionary<string, string> effectNames = new Dictionary<string, string>() {
         {"GOLD_MODIFIER", "GoldUpgrade"},
@@ -63,6 +65,8 @@ public class DeckInfoUI : MonoBehaviour
 
     private CurrentTab currentTab;
     private Color currentUIColor;
+
+    private Color currentUITextColor;
 
     void Awake()
     {
@@ -180,21 +184,23 @@ public class DeckInfoUI : MonoBehaviour
                 isShowingBoostDetail = true;
                 GameUIManager.instance.OnDeckInfoBoostUIPressed(index);
             });
-            trigger.triggers.Add(clickEntry);
+            trigger.triggers.Add(clickEntry); 
         }
     }
     
     void InitializeBlockUI(Transform blockTransform, BlockType blockType, int count, int score)
     {
-        TextMeshProUGUI blockTypeText = blockTransform.GetChild(1).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
-        TextMeshProUGUI blockCountText = blockTransform.GetChild(1).GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>();
-        TextMeshProUGUI blockScoreText = blockTransform.GetChild(1).GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>();
-        Image blockImage = blockTransform.GetChild(1).GetChild(1).GetComponent<Image>();
-        Transform effectContainer = blockTransform.GetChild(2);
+        TextMeshProUGUI blockTypeText = blockTransform.GetChild(2).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI blockCountText = blockTransform.GetChild(2).GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI blockScoreText = blockTransform.GetChild(2).GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI blockStateText = blockTransform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        Image blockImage = blockTransform.GetChild(2).GetChild(1).GetComponent<Image>();
+        Transform effectContainer = blockTransform.GetChild(3);
 
         blockTypeText.text = blockType.ToString();
         blockCountText.text = count.ToString() + "개";
         blockScoreText.text = score.ToString() + "점";
+        blockStateText.text = count.ToString() + "개 • " + score.ToString() + "점";
         blockImage.sprite = Resources.Load<Sprite>("Sprites/Block/Preset/" + blockType.ToString());
 
         if (!Enums.IsDefaultBlockType(blockType))
@@ -249,7 +255,7 @@ public class DeckInfoUI : MonoBehaviour
                         {
                             xOffset = MOBILE_COLUMN_OFFSET * effectIndex;
                         }
-                        effectObject.transform.localPosition = new Vector3(xOffset, 0, 0);
+                        effectObject.transform.localPosition = new Vector3(xOffset - 120, 0, 0);
                     }
                 }
             }
@@ -259,13 +265,13 @@ public class DeckInfoUI : MonoBehaviour
     public void OpenDeckInfoUI()
     {
         popupBlurImage.OpenPopupBlurImage(new Color(0.0f, 0.0f, 0.0f, 0.9f));
-        UIUtils.OpenUI(rectTransform, "X", insidePositionX, duration);
+        UIUtils.OpenUI(rectTransform, "Y", insidePositionX, duration);
     }
 
     public void CloseDeckInfoUI()
     {
         popupBlurImage.ClosePopupBlurImage();
-        UIUtils.CloseUI(rectTransform, "X", insidePositionX, outsidePositionX, duration);
+        UIUtils.CloseUI(rectTransform, "Y", insidePositionX, outsidePositionX, duration);
     }
 
     public void OnBasicSwitchButtonUIClick()
@@ -319,7 +325,7 @@ public class DeckInfoUI : MonoBehaviour
         SetSwitchButtonUIColor(CurrentTab.Boost, currentUIColor);
     }
 
-    public void SetLayoutsColor(Color uiColor)
+    public void SetLayoutsColor(Color uiColor, Color textColor)
     {
         currentUIColor = uiColor;
 
@@ -344,6 +350,34 @@ public class DeckInfoUI : MonoBehaviour
 
         // 부스트
         UIUtils.SetImageColorByScalar(boostInfoGridLayout.GetComponent<Image>(), uiColor, layoutScalar, duration: 0.05f);
+
+        foreach (TextMeshProUGUI text in texts)
+        {
+            UIUtils.SetTextColorByScalar(text, textColor, 1f);
+        }
+
+        foreach (Transform BUI in BlockTransforms)
+        {
+            TextMeshProUGUI t = BUI.GetChild(1).GetComponent<TextMeshProUGUI>();
+            UIUtils.SetTextColorByScalar(t, textColor, 1f);
+        }
+    }
+
+    public void SetTextColor(Color textColor)
+    {
+        currentUITextColor = textColor;
+
+        // 버튼
+
+
+        // 기본 블록
+
+        foreach (Transform BUI in BlockTransforms)
+        {
+            TextMeshProUGUI t = BUI.GetChild(1).GetComponent<TextMeshProUGUI>();
+            UIUtils.SetTextColorByScalar(t, textColor, 1f);
+        }
+        
     }
 
     private void SetSwitchButtonUIColor(CurrentTab tab, Color uiColor)

@@ -28,7 +28,14 @@ public class ActionInfoUI : MonoBehaviour
 
     public void SetChipLayoutColor(Color uiColor)
     {
-        UIUtils.SetImageColorByScalar(chipTextLayout, uiColor, 2f / 3f);
+        UIUtils.SetImageColorByScalar(chipTextLayout, uiColor, 1);
+    }
+
+    public void SetTextColor(Color uiTextColor)
+    {
+        UIUtils.SetTextColorByScalar(chipText, uiTextColor, 1);
+        UIUtils.SetTextColorByScalar(multiplierText, uiTextColor, 1);
+        UIUtils.SetTextColorByScalar(productText, uiTextColor, 1);
     }
 
     public void UpdateChip(int _chip)

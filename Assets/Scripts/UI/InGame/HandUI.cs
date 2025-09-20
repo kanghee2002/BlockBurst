@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class HandUI : MonoBehaviour
@@ -8,9 +9,13 @@ public class HandUI : MonoBehaviour
     private RectTransform rectTransform;
     // inside anchored position = (-188,0)
     private const float windowsInsidePositionX = -188;
-    private const float mobileInsidePositionX = 0;
-    private const float outsidePositionOffsetX = 680;
+    private const float mobileInsidePositionX = 112;
+    private const float outsidePositionOffsetX = -400;
     private const float duration = 0.2f;
+
+    public Image bg;
+    public Image fg1;
+    public Image fg2;
     
     [SerializeField] private GameObject blockPrefab;
 
@@ -28,6 +33,7 @@ public class HandUI : MonoBehaviour
         gameObject.SetActive(true);
         ClearHandUI();
         blockUIs = new GameObject[hand.Count];
+        int handCount = hand.Count;
         int idx = 0;
         foreach (Block block in hand)
         {
@@ -38,7 +44,7 @@ public class HandUI : MonoBehaviour
             }
             else if (GameManager.instance.applicationType == ApplicationType.Mobile)
             {
-                blockObj.transform.localPosition = new Vector3(-50 + idx * 100, 0); // 위치는 임시
+                blockObj.transform.localPosition = new Vector3(-50 * (handCount - 1) + idx * 100, 0); // 위치는 임시
             }
 
             var blockUI = blockObj.GetComponent<BlockUI>();
@@ -59,7 +65,15 @@ public class HandUI : MonoBehaviour
     public void RotateBlock(int idx, Block block)
     {
         blockUIs[idx].GetComponent<BlockUI>().Initialize(block, idx);
-    }    
+    }
+
+    public void SetColorOfUI(Color uiColor, Color textColor)
+    {
+        UIUtils.SetImageColorByScalar(bg, uiColor, 1f);
+        UIUtils.SetImageColorByScalar(fg1, uiColor, 3f / 5f);
+        UIUtils.SetImageColorByScalar(fg2, uiColor, 3f / 5f);
+
+    }
 
     public void OpenHandUI()
     {
@@ -68,11 +82,11 @@ public class HandUI : MonoBehaviour
             isOpen = true;
             if (GameManager.instance.applicationType == ApplicationType.Windows)
             {
-                UIUtils.OpenUI(rectTransform, "X", windowsInsidePositionX, duration);
+                UIUtils.OpenUI(rectTransform, "Y", windowsInsidePositionX, duration);
             }
             else
             {
-                UIUtils.OpenUI(rectTransform, "X", mobileInsidePositionX, duration);
+                UIUtils.OpenUI(rectTransform, "Y", mobileInsidePositionX, duration);
             }
             FadeInBlocks();
         }
@@ -86,11 +100,11 @@ public class HandUI : MonoBehaviour
             ClearHandUI();
             if (GameManager.instance.applicationType == ApplicationType.Windows)
             {
-                UIUtils.CloseUI(rectTransform, "X", windowsInsidePositionX, outsidePositionOffsetX, duration);
+                UIUtils.CloseUI(rectTransform, "Y", windowsInsidePositionX, outsidePositionOffsetX, duration);
             }
             else
             {
-                UIUtils.CloseUI(rectTransform, "X", mobileInsidePositionX, outsidePositionOffsetX, duration);
+                UIUtils.CloseUI(rectTransform, "Y", mobileInsidePositionX, outsidePositionOffsetX, duration);
             }
         }
     }

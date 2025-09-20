@@ -1,8 +1,8 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HandUI : MonoBehaviour
 {
@@ -18,8 +18,14 @@ public class HandUI : MonoBehaviour
     public Image fg2;
     
     [SerializeField] private GameObject blockPrefab;
+    [SerializeField] private GameObject deckButtonUI;
 
     private bool isOpen = false;
+
+    private int currentHandCount;
+
+    private const float blockAnimInterval = 0.2f;
+    private const float blockMoveDelay = 1f;
 
     GameObject[] blockUIs;
 
@@ -33,29 +39,35 @@ public class HandUI : MonoBehaviour
         gameObject.SetActive(true);
         ClearHandUI();
         blockUIs = new GameObject[hand.Count];
-        int handCount = hand.Count;
+        currentHandCount = hand.Count;
         int idx = 0;
+
         foreach (Block block in hand)
         {
             GameObject blockObj = Instantiate(blockPrefab, transform.GetChild(1));
+            
             if (GameManager.instance.applicationType == ApplicationType.Windows)
             {
                 blockObj.transform.localPosition = new Vector3(0, (1 - idx) * 175 / transform.GetChild(1).GetComponent<RectTransform>().localScale.x, 0); // 위치는 임시
             }
             else if (GameManager.instance.applicationType == ApplicationType.Mobile)
             {
-                blockObj.transform.localPosition = new Vector3(-50 * (handCount - 1) + idx * 100, 0); // 위치는 임시
+                blockObj.transform.localPosition = blockObj.transform.parent.InverseTransformPoint(deckButtonUI.transform.position);
             }
 
             var blockUI = blockObj.GetComponent<BlockUI>();
-            blockUI.Initialize(block, idx);
+            blockUI.Initialize(block, idx, GetBlockPosition(idx));
             
             // 투명하게 초기화
             blockObj.GetComponent<CanvasGroup>().alpha = 0f;
-            
+            blockObj.transform.localScale = Vector3.one * 0.01f;
+
             blockUIs[idx] = blockObj;
             idx++;
         }
+
+        StartCoroutine(DrawCoroutine(blockUIs, currentHandCount));
+
         if (isOpen)
         {
             FadeInBlocks();
@@ -64,7 +76,7 @@ public class HandUI : MonoBehaviour
 
     public void RotateBlock(int idx, Block block)
     {
-        blockUIs[idx].GetComponent<BlockUI>().Initialize(block, idx);
+        blockUIs[idx].GetComponent<BlockUI>().Initialize(block, idx, GetBlockPosition(idx));
     }
 
     public void SetColorOfUI(Color uiColor, Color textColor)
@@ -115,8 +127,8 @@ public class HandUI : MonoBehaviour
         for (int i = 0; i < blockUIs.Length; i++)
         {
             var blockObj = blockUIs[i];
-            blockObj.GetComponent<CanvasGroup>().DOFade(1f, 0.2f)
-                .SetDelay((i + 1) * 0.2f); // 순차적으로 나타나도록 딜레이 추가
+            blockObj.GetComponent<CanvasGroup>().DOFade(1f, 0.05f)
+               .SetDelay((i) * blockAnimInterval); // 순차적으로 나타나도록 딜레이 추가
         }
     }
 
@@ -124,9 +136,61 @@ public class HandUI : MonoBehaviour
     {
         if (blockUIs != null) 
         {
-            foreach (GameObject blockUI in blockUIs)
+            /*foreach (GameObject blockUI in blockUIs)
             {
                 if (blockUI) Destroy(blockUI);
+            }*/
+
+            StartCoroutine(DiscardCoroutine(blockUIs));
+        }
+    }
+
+    private Vector3 GetBlockPosition(int idx)
+    {
+        return new Vector3(-50 * (currentHandCount - 1) + idx * 100, 0);
+    }
+
+    private IEnumerator DrawCoroutine(GameObject[] blocks, int handCount)
+    {
+        int idx = 0;
+        foreach (GameObject block in blocks)
+        {
+            Vector3 deckButtonPos = block.transform.parent.InverseTransformPoint(deckButtonUI.transform.position);
+            Vector3 finalPos = GetBlockPosition(idx);
+
+            block.transform.localPosition = deckButtonPos;
+
+            Vector3[] path = new Vector3[] { new Vector3((deckButtonPos.x + finalPos.x) / 2f, 60f), finalPos };
+
+            block.transform.DOLocalPath(path, blockMoveDelay, PathType.CatmullRom)
+                .SetEase(Ease.OutExpo);
+
+            block.transform.DOScale(Vector3.one * 0.25f, blockMoveDelay)
+                .SetEase(Ease.OutExpo);
+
+            idx++;
+
+            yield return new WaitForSeconds(blockAnimInterval);
+        }
+    }
+
+    private IEnumerator DiscardCoroutine(GameObject[] blocks)
+    {
+        foreach (GameObject block in blocks)
+        {
+            if (block)
+            {
+                Vector3 deckButtonPos = block.transform.parent.InverseTransformPoint(deckButtonUI.transform.position);
+
+                Vector3[] path = new Vector3[] { new Vector3((block.transform.localPosition.x + deckButtonPos.x) / 2f, -60f), deckButtonPos };
+
+                block.transform.DOLocalPath(path, blockMoveDelay, PathType.CatmullRom)
+                    .SetEase(Ease.OutExpo);
+
+                block.transform.DOScale(Vector3.one * 0.01f, blockMoveDelay)
+                    .SetEase(Ease.OutExpo);
+
+                yield return new WaitForSeconds(blockAnimInterval);
             }
         }
     }

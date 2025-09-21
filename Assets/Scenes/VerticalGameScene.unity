@@ -4716,6 +4716,7 @@ MonoBehaviour:
   fg1: {fileID: 727756328}
   fg2: {fileID: 295513607}
   blockPrefab: {fileID: 5584209774050834303, guid: 612e0ed1397b4d645ad9596dcbba42c9, type: 3}
+  deckButtonUI: {fileID: 2725497866516967636}
 --- !u!222 &231077324
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6053,6 +6054,7 @@ MonoBehaviour:
   fg1: {fileID: 0}
   fg2: {fileID: 0}
   blockPrefab: {fileID: 5584209774050834303, guid: 612e0ed1397b4d645ad9596dcbba42c9, type: 3}
+  deckButtonUI: {fileID: 0}
 --- !u!222 &295513609
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -13641,6 +13643,7 @@ MonoBehaviour:
   fg1: {fileID: 0}
   fg2: {fileID: 0}
   blockPrefab: {fileID: 5584209774050834303, guid: 612e0ed1397b4d645ad9596dcbba42c9, type: 3}
+  deckButtonUI: {fileID: 0}
 --- !u!222 &727756330
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -19040,6 +19043,7 @@ MonoBehaviour:
   fg1: {fileID: 0}
   fg2: {fileID: 0}
   blockPrefab: {fileID: 5584209774050834303, guid: 612e0ed1397b4d645ad9596dcbba42c9, type: 3}
+  deckButtonUI: {fileID: 0}
 --- !u!114 &991913162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37420,7 +37424,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 96, y: 0}
+  m_AnchoredPosition: {x: 96.00002, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2034394594

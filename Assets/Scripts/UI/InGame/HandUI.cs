@@ -27,7 +27,7 @@ public class HandUI : MonoBehaviour
     private const float blockAnimInterval = 0.2f;
     private const float blockMoveDelay = 1f;
 
-    GameObject[] blockUIs;
+    private GameObject[] blockUIs;
 
     private void Awake()
     {
@@ -66,7 +66,7 @@ public class HandUI : MonoBehaviour
             idx++;
         }
 
-        StartCoroutine(DrawCoroutine(blockUIs, currentHandCount));
+        PlayDrawAnimation(blockUIs);
 
         if (isOpen)
         {
@@ -128,7 +128,7 @@ public class HandUI : MonoBehaviour
         {
             var blockObj = blockUIs[i];
             blockObj.GetComponent<CanvasGroup>().DOFade(1f, 0.05f)
-               .SetDelay((i) * blockAnimInterval); // 순차적으로 나타나도록 딜레이 추가
+               .SetDelay(i * blockAnimInterval); // 순차적으로 나타나도록 딜레이 추가
         }
     }
 
@@ -136,12 +136,7 @@ public class HandUI : MonoBehaviour
     {
         if (blockUIs != null) 
         {
-            /*foreach (GameObject blockUI in blockUIs)
-            {
-                if (blockUI) Destroy(blockUI);
-            }*/
-
-            StartCoroutine(DiscardCoroutine(blockUIs));
+            PlayDiscardAnimation(blockUIs);
         }
     }
 
@@ -150,7 +145,7 @@ public class HandUI : MonoBehaviour
         return new Vector3(-50 * (currentHandCount - 1) + idx * 100, 0);
     }
 
-    private IEnumerator DrawCoroutine(GameObject[] blocks, int handCount)
+    private void PlayDrawAnimation(GameObject[] blocks)
     {
         int idx = 0;
         foreach (GameObject block in blocks)
@@ -163,34 +158,36 @@ public class HandUI : MonoBehaviour
             Vector3[] path = new Vector3[] { new Vector3((deckButtonPos.x + finalPos.x) / 2f, 60f), finalPos };
 
             block.transform.DOLocalPath(path, blockMoveDelay, PathType.CatmullRom)
-                .SetEase(Ease.OutExpo);
+                .SetEase(Ease.OutExpo).SetDelay(blockAnimInterval * (idx + 1));
 
             block.transform.DOScale(Vector3.one * 0.25f, blockMoveDelay)
-                .SetEase(Ease.OutExpo);
+                .SetEase(Ease.OutExpo).SetDelay(blockAnimInterval * (idx + 1));
 
             idx++;
-
-            yield return new WaitForSeconds(blockAnimInterval);
         }
-    }
+    } 
 
-    private IEnumerator DiscardCoroutine(GameObject[] blocks)
+    private void PlayDiscardAnimation(GameObject[] blocks)
     {
         foreach (GameObject block in blocks)
         {
             if (block)
             {
+                block.transform.DOKill();
+
                 Vector3 deckButtonPos = block.transform.parent.InverseTransformPoint(deckButtonUI.transform.position);
 
                 Vector3[] path = new Vector3[] { new Vector3((block.transform.localPosition.x + deckButtonPos.x) / 2f, -60f), deckButtonPos };
 
-                block.transform.DOLocalPath(path, blockMoveDelay, PathType.CatmullRom)
-                    .SetEase(Ease.OutExpo);
+                Sequence sequence = DOTween.Sequence();
 
-                block.transform.DOScale(Vector3.one * 0.01f, blockMoveDelay)
-                    .SetEase(Ease.OutExpo);
+                sequence.Append(block.transform.DOLocalPath(path, blockMoveDelay, PathType.CatmullRom)
+                    .SetEase(Ease.OutExpo));
 
-                yield return new WaitForSeconds(blockAnimInterval);
+                sequence.Join(block.transform.DOScale(Vector3.one * 0.01f, blockMoveDelay)
+                    .SetEase(Ease.OutExpo));
+
+                sequence.OnComplete(() => Destroy(block));
             }
         }
     }

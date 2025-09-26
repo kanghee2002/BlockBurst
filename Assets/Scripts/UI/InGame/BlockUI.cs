@@ -100,10 +100,10 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
         return description;
     }
 
-    public void Initialize(Block block, int index)
+    public void Initialize(Block block, int index, Vector3 originalPosition)
     {
         myBlock = block;
-        originalPosition = transform.localPosition;
+        this.originalPosition = originalPosition;
         idx = index;
 
         description = GetDescription(block);
@@ -169,7 +169,7 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
         float height = blockCellsUIRowCount * block_size * 1.5f;
         rectTransform.sizeDelta = new Vector2(width, height);
 
-        makeSmall(true);
+        //makeSmall(true);
 
         slowShakeSequence = UIUtils.PlaySlowShakeAnimation(transform, rotateAmount: 3f, duration: 2f, delay: Random.Range(0f, 3f));
     }

@@ -54,9 +54,11 @@ public class RerollButtonUI : MonoBehaviour
 
     public void SetColorOfUI(Color uiColor, Color textColor)
     {
-        UIUtils.SetImageColorByScalar(rerollButtonImage, uiColor, 1f);
+        Color uiDim = new Color(uiColor.r * 1.3f, uiColor.g * 1.3f, uiColor.b * 1.3f);
+        UIUtils.SetImageColorByScalar(rerollButtonImage, uiColor, 1.3f);
         UIUtils.SetTextColorByScalar(rerollCountText, textColor, 1f);
         UIUtils.SetTextColorByScalar(rerollTitleText, textColor, 1f);
+        GetComponent<ButtonUI>().SetUIColor(uiDim);
 
         
     }

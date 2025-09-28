@@ -60,7 +60,7 @@ public class OptionUI : MonoBehaviour
         }
         foreach (TMPro.TextMeshProUGUI text in texts)
         {
-            UIUtils.SetTextColorByScalar(text, uiColor, 1f);
+            UIUtils.SetTextColorByScalar(text, uiColor, 0.5f);
         }
     }
 }

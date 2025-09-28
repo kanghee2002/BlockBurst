@@ -41,11 +41,11 @@ public class NextStageChoiceUI : MonoBehaviour
 
     public void UpdateScoreAtLeast(int scoreAtLeast)
     {
-        scoreAtLeastText.text = $"<color=#94EEFF>{scoreAtLeast}점</color>";
+        scoreAtLeastText.text = $"<color=#94EEFF>목표 {scoreAtLeast}점</color>";
     }
 
     public void UpdateRewardGold(int rewardGold)
     {
-        rewardGoldText.text = "" + rewardGold.ToString() + "$";
+        rewardGoldText.text = "보상 " + rewardGold.ToString() + "$";
     }
 }

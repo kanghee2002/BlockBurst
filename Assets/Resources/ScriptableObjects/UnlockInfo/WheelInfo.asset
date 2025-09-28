@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetType: 0
   targetName: Wheel
-  description: "\uB9AC\uB864 Requirement\uBC88 \uD558\uAE30"
+  description: "\uB2E4\uC2DC \uBF51\uAE30 Requirement\uBC88 \uD558\uAE30"
   trigger: 7
   requirement: 100

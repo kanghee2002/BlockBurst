@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: BalloonEffect2
   m_EditorClassIdentifier: 
   id: BalloonEffect2
-  effectName: "\uC0C1\uC810\uC5D0\uC11C \uB9AC\uB864\uD560 \uB54C\uB9C8\uB2E4 \uC5BB\uB294
-    \uBC30\uC218\uAC00 +EffectValue \uC99D\uAC00\uD569\uB2C8\uB2E4"
+  effectName: "\uC0C1\uC810\uC5D0\uC11C \uC0C8\uB85C\uACE0\uCE68\uD560 \uB54C\uB9C8\uB2E4
+    \uC5BB\uB294 \uBC30\uC218\uAC00 +EffectValue \uC99D\uAC00\uD569\uB2C8\uB2E4"
   type: 27
   scope: 0
   baseEffectValue: 3

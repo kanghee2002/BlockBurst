@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: DecreaseGoldOnRerollEffect
   m_EditorClassIdentifier: 
   id: DecreaseGoldOnRerollEffect
-  effectName: "\uB9AC\uB864\uD560 \uB54C\uB9C8\uB2E4 $1 \uACE8\uB4DC\uB97C \uC783\uC2B5\uB2C8\uB2E4"
+  effectName: "\uB2E4\uC2DC \uBF51\uAE30\uB97C \uD560 \uB54C\uB9C8\uB2E4 $1 \uACE8\uB4DC\uB97C
+    \uC783\uC2B5\uB2C8\uB2E4"
   type: 9
   scope: 1
   baseEffectValue: -1
@@ -25,3 +26,6 @@ MonoBehaviour:
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

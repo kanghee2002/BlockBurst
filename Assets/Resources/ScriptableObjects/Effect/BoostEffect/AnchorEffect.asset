@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AnchorEffect
   m_EditorClassIdentifier: 
   id: AnchorEffect
-  effectName: "\uC0C1\uC810 \uB9AC\uB864 \uBE44\uC6A9\uC774 30% \uD655\uB960\uB85C
+  effectName: "\uC0C1\uC810 \uC0C8\uB85C\uACE0\uCE68 \uBE44\uC6A9\uC774 30% \uD655\uB960\uB85C
     \uC99D\uAC00\uD558\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4"
   type: 29
   scope: 0

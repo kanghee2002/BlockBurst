@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: CouponEffect
   m_EditorClassIdentifier: 
   id: CouponEffect
-  effectName: "\uC0C1\uC810 \uB9AC\uB864 \uBE44\uC6A9\uC774 $EffectValue \uAC10\uC18C\uD569\uB2C8\uB2E4"
+  effectName: "\uC0C1\uC810 \uC0C8\uB85C\uACE0\uCE68 \uBE44\uC6A9\uC774 $EffectValue
+    \uAC10\uC18C\uD569\uB2C8\uB2E4"
   type: 28
   scope: 0
   baseEffectValue: -1
@@ -25,3 +26,6 @@ MonoBehaviour:
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

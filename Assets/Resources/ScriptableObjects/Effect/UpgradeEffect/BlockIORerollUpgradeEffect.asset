@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: BlockIORerollUpgradeEffect
   effectName: "I/O \uBC30\uCE58\uD574\uC11C \uC904\uC744 \uC9C0\uC6B8 \uB54C\n+EffectValue
-    \uB9AC\uB864 \uD69F\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
+    \uB2E4\uC2DC \uBF51\uAE30 \uD69F\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 5
   scope: 0
   baseEffectValue: 1
@@ -26,3 +26,6 @@ MonoBehaviour:
   blockTypes: 0000000001000000
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: BlenderEffect2
   m_EditorClassIdentifier: 
   id: BlenderEffect2
-  effectName: "\uB9AC\uB864\uD560 \uB54C\uB9C8\uB2E4 \uC5BB\uB294 \uBC30\uC218\uAC00
-    -EffectValue \uAC10\uC18C\uD569\uB2C8\uB2E4"
+  effectName: "\uB2E4\uC2DC \uBF51\uAE30\uB97C \uD560 \uB54C\uB9C8\uB2E4 \uC5BB\uB294
+    \uBC30\uC218\uAC00 -EffectValue \uAC10\uC18C\uD569\uB2C8\uB2E4"
   type: 27
   scope: 0
   baseEffectValue: -2
-  effectValue: -1
+  effectValue: -2
   trigger: 17
   triggerMode: 0
   triggerValue: 0

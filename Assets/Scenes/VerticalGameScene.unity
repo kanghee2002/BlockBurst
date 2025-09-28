@@ -21685,7 +21685,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -190.8451, y: 796}
+  m_AnchoredPosition: {x: -190.84512, y: 796}
   m_SizeDelta: {x: 480, y: 330}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1116449222
@@ -24106,8 +24106,8 @@ MonoBehaviour:
   - characterPosition: {x: -160, y: 250}
     highlightRect: {fileID: 4085874022646039429}
     clickableRect: {fileID: 0}
-    description: "\uB2E8, \uC2A4\uD14C\uC774\uC9C0\uB9C8\uB2E4\\n<color=#005000>\uC81C\uD55C
-      \uC870\uAC74</color>\uC774 \uC788\uC2B5\uB2C8\uB2E4"
+    description: "\uB2E8, \uC2A4\uD14C\uC774\uC9C0\uB9C8\uB2E4\\n<color=#005000>\uB514\uBC84\uD504</color>\uAC00
+      \uC788\uC2B5\uB2C8\uB2E4"
     isNextButtonInactive: 0
     isClickable: 0
     isInactive: 0
@@ -24237,7 +24237,7 @@ MonoBehaviour:
   - characterPosition: {x: -160, y: 0}
     highlightRect: {fileID: 0}
     clickableRect: {fileID: 0}
-    description: "\uD654\uC774\uD305!!!"
+    description: 
     isNextButtonInactive: 1
     isClickable: 0
     isInactive: 1
@@ -33001,7 +33001,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -190.8451, y: 280}
+  m_AnchoredPosition: {x: -190.84512, y: 280}
   m_SizeDelta: {x: 480, y: 330}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1788253846

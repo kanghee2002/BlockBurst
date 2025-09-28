@@ -305,20 +305,24 @@ public class TutorialManager : MonoBehaviour
         if (source.parent.name == "DeckInfoBackButtonUI" ||
             source.name == "DeckInfoUI")
         {
-            highlightAreaRect.anchoredPosition = new Vector2(0f, highlightAreaRect.anchoredPosition.y);
+            highlightAreaRect.anchoredPosition = new Vector2(0f, -225f);
         }
-        else if (source.name == "HandUI" || source.name == "Outer")
+        else if (source.name == "HandUI")
+        {
+            highlightAreaRect.anchoredPosition = new Vector2(0f, -430f);
+        }
+        else if (source.name == "Outer")
         {
             highlightAreaRect.anchoredPosition = new Vector2(0f, highlightAreaRect.anchoredPosition.y);
         }
-        else if (stepCount > 30 &&  source.name == "ScoreAndRewardLayout")
+        else if (stepCount > 30 && source.name == "ScoreAndRewardLayout")
         {
             highlightAreaRect.anchoredPosition = new Vector2(highlightAreaRect.anchoredPosition.x, -178f);
             //UIUtils.OpenUI(highlightAreaRect, "Y", -178f, 0.2f);
         }
         else if (source.name == "RunInfoUI" || source.name == "ItemDetailUI")
         {
-            highlightAreaRect.anchoredPosition = new Vector2(highlightAreaRect.anchoredPosition.x, 0f);
+            highlightAreaRect.anchoredPosition = new Vector2(highlightAreaRect.anchoredPosition.x, -365f);
         }
 
         highlightRect.DOMove(highlightAreaRect.position, 0.5f + delay);
@@ -419,7 +423,7 @@ public class TutorialManager : MonoBehaviour
         }
         else if (target.parent.name == "InteractButtonUI")
         {
-            clickableRect.anchoredPosition = new Vector2(clickableRect.anchoredPosition.x, -60f);
+            clickableRect.anchoredPosition = new Vector2(clickableRect.anchoredPosition.x, -455f);
         }
 
         float anchorPosX = clickableRect.anchoredPosition.x * resolutionRatioX;

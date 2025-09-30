@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: GraySpinningTopEffect
   m_EditorClassIdentifier: 
   id: GraySpinningTopEffect
-  effectName: "\uB2E4\uC2DC \uBF51\uAE30\uB97C\uD560 \uB54C\uB9C8\uB2E4 20% \uD655\uB960\uB85C
-    +EffectValue \uB9AC\uB864 \uD69F\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
+  effectName: "\uB2E4\uC2DC \uBF51\uAE30\uB97C \uD560 \uB54C\uB9C8\uB2E4 20% \uD655\uB960\uB85C
+    \uB2E4\uC2DC \uBF51\uAE30 \uD69F\uC218\uB97C +EffectValue \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 5
   scope: 0
   baseEffectValue: 1

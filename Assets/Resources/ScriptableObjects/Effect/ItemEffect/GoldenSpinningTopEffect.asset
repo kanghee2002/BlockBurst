@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: GoldenSpinningTopEffect
   m_EditorClassIdentifier: 
   id: GoldenSpinningTopEffect
-  effectName: "\uBC30\uCE58\uD558\uC9C0 \uC54A\uACE0\nTriggerValue\uBC88 \uB2E4\uC2DC
-    \uBF51\uAE30\uB97C \uD560 \uB54C\uB9C8\uB2E4\n$EffectValue \uACE8\uB4DC\uB97C
+  effectName: "\uBC30\uCE58\uD558\uC9C0 \uC54A\uACE0\n\uB2E4\uC2DC \uBF51\uAE30\uB97C
+    TriggerValue\uBC88 \uD560 \uB54C\uB9C8\uB2E4\n$EffectValue \uACE8\uB4DC\uB97C
     \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 9
   scope: 0

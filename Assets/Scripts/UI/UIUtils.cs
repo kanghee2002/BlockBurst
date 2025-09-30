@@ -249,6 +249,10 @@ public static class UIUtils
         text = text.Replace("-EffectValue 리롤 횟수", "<color=#91ff7e>-EffectValue</color> 리롤 횟수");
         text = text.Replace("+EffectValue 기본 리롤 횟수", "<color=#91ff7e>+EffectValue</color> 기본 리롤 횟수");
         text = text.Replace("-EffectValue 기본 리롤 횟수", "<color=#91ff7e>-EffectValue</color> 기본 리롤 횟수");
+        text = text.Replace("다시 뽑기 횟수를 +EffectValue", "다시 뽑기 횟수를 <color=#91ff7e>+EffectValue</color>");
+        text = text.Replace("다시 뽑기 횟수를 -EffectValue", "다시 뽑기 횟수를 <color=#91ff7e>-EffectValue</color>");
+        text = text.Replace("기본 다시 뽑기 횟수를 +EffectValue", "다시 뽑기 횟수를 <color=#91ff7e>-EffectValue</color>");
+        text = text.Replace("기본 다시 뽑기 횟수를 -EffectValue", "다시 뽑기 횟수를 <color=#91ff7e>-EffectValue</color>");
         text = text.Replace("$EffectValue", "<color=#FFCC00>$EffectValue</color>");
         text = text.Replace("골드가 +EffectValue", "골드가 <color=#FFCC00>+EffectValue</color>");
 

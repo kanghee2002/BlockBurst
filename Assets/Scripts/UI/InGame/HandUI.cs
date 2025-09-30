@@ -44,11 +44,11 @@ public class HandUI : MonoBehaviour
 
         foreach (Block block in hand)
         {
-            GameObject blockObj = Instantiate(blockPrefab, transform.GetChild(1));
+            GameObject blockObj = Instantiate(blockPrefab, transform.GetChild(3));
             
             if (GameManager.instance.applicationType == ApplicationType.Windows)
             {
-                blockObj.transform.localPosition = new Vector3(0, (1 - idx) * 175 / transform.GetChild(1).GetComponent<RectTransform>().localScale.x, 0); // 위치는 임시
+                blockObj.transform.localPosition = new Vector3(0, (1 - idx) * 175 / transform.GetChild(3).GetComponent<RectTransform>().localScale.x, 0); // 위치는 임시
             }
             else if (GameManager.instance.applicationType == ApplicationType.Mobile)
             {

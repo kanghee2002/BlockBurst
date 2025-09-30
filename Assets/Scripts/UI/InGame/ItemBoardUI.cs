@@ -17,6 +17,8 @@ public class ItemBoardUI : MonoBehaviour
     [SerializeField] private GameObject itemPrefab;
     [SerializeField] private GameObject mobileItemPrefab;
     [SerializeField] private TextMeshProUGUI rerollCostText;
+    [SerializeField] private TextMeshProUGUI nextStageText;
+    [SerializeField] private GameObject nextStageBtn;
 
     public Image rerollButtonImage;
     public TextMeshProUGUI rerollButtonText;
@@ -185,6 +187,8 @@ public class ItemBoardUI : MonoBehaviour
         // UIUtils.SetImageColorByScalar(inner, uiColor, 2f / 3f, duration: 0.05f);
         deckButtonUI.SetColorOfUI(uiColor, textColor);
         shopRerollButtonUI.SetColorOfUI(uiColor, textColor);
+        nextStageBtn.GetComponent<ButtonUI>().SetUIColor(uiColor, 1.2f);
+        nextStageText.color = textColor;
     }
 
     private void CreateItems(List<ItemData> items)

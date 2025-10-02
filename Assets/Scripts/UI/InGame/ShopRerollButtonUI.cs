@@ -13,10 +13,11 @@ public class ShopRerollButtonUI : MonoBehaviour
 
     public void SetColorOfUI(Color uiColor, Color textColor)
     {
-        UIUtils.SetImageColorByScalar(bg, uiColor, 1f);
+        Color uiDim = new Color(uiColor.r * 1.3f, uiColor.g * 1.3f, uiColor.b * 1.3f);
+        UIUtils.SetImageColorByScalar(bg, uiColor, 1.3f);
         UIUtils.SetTextColorByScalar(deckCountText, textColor, 1f);
         UIUtils.SetTextColorByScalar(deckTitleText, textColor, 1f);
-        GetComponent<ButtonUI>().SetUIColor(uiColor);
+        GetComponent<ButtonUI>().SetUIColor(uiDim);
 
         
     }

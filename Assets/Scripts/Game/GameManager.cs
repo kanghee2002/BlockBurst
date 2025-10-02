@@ -186,8 +186,21 @@ public class GameManager : MonoBehaviour
 
             GameUIManager.instance.SetTutorialToggleValue(isTutorial);
 
-            AudioManager.instance.BeginBackgroundMusic();
+            StartCoroutine(WaitUntilAudioManagerIsReadyAndPlay());
         }
+    }
+
+    IEnumerator WaitUntilAudioManagerIsReadyAndPlay()
+    {
+        while (AudioManager.instance == null)
+        {
+            yield return null;
+        }
+        while (!AudioManager.instance.isInitialized)
+        {
+            yield return null;
+        }
+        AudioManager.instance.BeginBackgroundMusic();
     }
 
     // 지금 안 씀

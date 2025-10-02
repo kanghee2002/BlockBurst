@@ -30,6 +30,8 @@ public class AudioManager : MonoBehaviour
 
     private int currentChapter;
 
+    public bool isInitialized = false;
+
     void Awake()
     {
         if (instance != null && instance != this)
@@ -59,7 +61,7 @@ public class AudioManager : MonoBehaviour
             string eventPath = "event:/stage" + currentChapter;
             Debug.Log($"Creating FMOD event instance: {eventPath}");
             stageSource = RuntimeManager.CreateInstance(eventPath);
-            
+
             if (!stageSource.isValid())
             {
                 Debug.LogError("Failed to create FMOD event instance");
@@ -71,6 +73,7 @@ public class AudioManager : MonoBehaviour
             timelineHandle = GCHandle.Alloc(timelineInfo1, GCHandleType.Pinned);
             stageSource.setUserData(GCHandle.ToIntPtr(timelineHandle));
             stageSource.setCallback(stageSourceCallback, EVENT_CALLBACK_TYPE.TIMELINE_MARKER | EVENT_CALLBACK_TYPE.TIMELINE_BEAT);
+            isInitialized = true;
         }
         catch (Exception e)
         {

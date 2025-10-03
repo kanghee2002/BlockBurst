@@ -4236,6 +4236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f2a7fdb7ba1a47ec9055326d9da5e25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInitialized: 0
 --- !u!4 &214782967
 Transform:
   m_ObjectHideFlags: 0
@@ -5975,13 +5976,19 @@ MonoBehaviour:
     uiColor: {r: 0.75686276, g: 0.7490196, b: 1, a: 1}
     contrastColor: {r: 0.6031971, g: 0, b: 1, a: 1}
     uiTextColor: {r: 0.6431373, g: 0.61960787, b: 0.9647059, a: 1}
+  - backGroundColor: {r: 0.07314925, g: 0.20784314, b: 0.03137255, a: 1}
+    backGroundDarkerColor: {r: 0.050852638, g: 0.14901961, b: 0.015686277, a: 1}
+    backGroundLighterColor: {r: 0.10194737, g: 0.29799998, b: 0.031368423, a: 1}
+    uiColor: {r: 0.73286545, g: 0.9056604, b: 0.5938057, a: 1}
+    contrastColor: {r: 0.052010197, g: 0.745283, b: 0, a: 1}
+    uiTextColor: {r: 0.67571795, g: 0.8773585, b: 0.4262638, a: 1}
   selectingBossBackgroundColors:
-  - backGroundColor: {r: 0.03137255, g: 0.17254902, b: 0.20784314, a: 1}
-    backGroundDarkerColor: {r: 0.015686275, g: 0.12156863, b: 0.14901961, a: 1}
-    backGroundLighterColor: {r: 0, g: 0.21960784, b: 0.27450982, a: 1}
-    uiColor: {r: 0, g: 1, b: 0.6117647, a: 1}
-    contrastColor: {r: 1, g: 0, b: 0.25490198, a: 1}
-    uiTextColor: {r: 0, g: 1, b: 0.3254902, a: 1}
+  - backGroundColor: {r: 0.20754719, g: 0.20754719, b: 0.20754719, a: 1}
+    backGroundDarkerColor: {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 1}
+    backGroundLighterColor: {r: 0.2924528, g: 0.2924528, b: 0.2924528, a: 1}
+    uiColor: {r: 0.735849, g: 0.735849, b: 0.735849, a: 1}
+    contrastColor: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 1}
+    uiTextColor: {r: 0.8867924, g: 0.8867924, b: 0.8867924, a: 1}
   playingBackgroundColors:
   - backGroundColor: {r: 0.03137255, g: 0.17254902, b: 0.20784314, a: 1}
     backGroundDarkerColor: {r: 0.015686275, g: 0.12156863, b: 0.14901961, a: 1}
@@ -5995,6 +6002,12 @@ MonoBehaviour:
     uiColor: {r: 0.75686276, g: 0.7490196, b: 1, a: 1}
     contrastColor: {r: 0.6039216, g: 0, b: 1, a: 1}
     uiTextColor: {r: 0.6431373, g: 0.61960787, b: 0.9647059, a: 1}
+  - backGroundColor: {r: 0.07314925, g: 0.20784314, b: 0.03137255, a: 1}
+    backGroundDarkerColor: {r: 0.050852638, g: 0.14901961, b: 0.015686277, a: 1}
+    backGroundLighterColor: {r: 0.10194737, g: 0.29799998, b: 0.031368423, a: 1}
+    uiColor: {r: 0.73286545, g: 0.9056604, b: 0.5938057, a: 1}
+    contrastColor: {r: 0.052010197, g: 0.745283, b: 0, a: 1}
+    uiTextColor: {r: 0.67571795, g: 0.8773585, b: 0.4262638, a: 1}
   playingBossBackgroundColors:
   - backGroundColor: {r: 0.20784314, g: 0.03137255, b: 0.07058824, a: 1}
     backGroundDarkerColor: {r: 0.15294118, g: 0, b: 0.03529412, a: 1}
@@ -16136,7 +16149,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &846563013
 RectTransform:
   m_ObjectHideFlags: 0

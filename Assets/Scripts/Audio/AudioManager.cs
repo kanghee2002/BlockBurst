@@ -418,12 +418,13 @@ public class AudioManager : MonoBehaviour
         RuntimeManager.PlayOneShot("event:/gold");
     }
 
+    [AOT.MonoPInvokeCallback (typeof (FMOD.Studio.EVENT_CALLBACK))]
     static FMOD.RESULT BeatEventCallback(FMOD.Studio.EVENT_CALLBACK_TYPE type, IntPtr instancePtr, IntPtr parameterPtr)
     {
         EventInstance instance = new EventInstance(instancePtr);
         IntPtr timelineInfoPtr;
         FMOD.RESULT result = instance.getUserData(out timelineInfoPtr);
-        
+
         if (result != FMOD.RESULT.OK)
         {
             Debug.LogError("Timeline Callback error: " + result);

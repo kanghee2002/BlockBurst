@@ -24089,7 +24089,7 @@ MonoBehaviour:
     waitingSign: 
     highlightDelay: 0
   - characterPosition: {x: -160, y: 250}
-    highlightRect: {fileID: 0}
+    highlightRect: {fileID: 1872912314}
     clickableRect: {fileID: 0}
     description: "\uC774 \uC2A4\uD14C\uC774\uC9C0\uB294 \uC774 <color=#005000>\uC810\uC218</color>\uB9CC
       \uB2EC\uC131\uD558\uBA74 \uB429\uB2C8\uB2E4"
@@ -24350,7 +24350,7 @@ MonoBehaviour:
   - characterPosition: {x: -160, y: 200}
     highlightRect: {fileID: 1019123824}
     clickableRect: {fileID: 1019123824}
-    description: "\uAC00\uC9C4 \uBE14\uB85D <color=#005000>\uAC1C\uC218</color>\uC640\\n<color=#005000>\uC810\uC218</color>\uB97C
+    description: "\uAC00\uC9C4 \uBE14\uB85D <color=blue>\uAC1C\uC218</color>\uC640\\n<color=blue>\uC810\uC218</color>\uB97C
       \uD655\uC778\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4"
     isNextButtonInactive: 0
     isClickable: 0
@@ -24388,7 +24388,7 @@ MonoBehaviour:
   - characterPosition: {x: -160, y: 0}
     highlightRect: {fileID: 94835059}
     clickableRect: {fileID: 0}
-    description: "<color=#005000>4\uCC55\uD130</color>\uAE4C\uC9C0 \uD589\uC6B4\uC744
+    description: "\uADF8\uB7FC <color=#005000>4\uCC55\uD130</color>\uAE4C\uC9C0 \uD589\uC6B4\uC744
       \uBE55\uB2C8\uB2E4!"
     isNextButtonInactive: 0
     isClickable: 0
@@ -38816,7 +38816,7 @@ MonoBehaviour:
   popupBlurImage: {fileID: 169173319}
   statisticsContainerUI: {fileID: 1530335417}
   unlockContainerUI: {fileID: 1633136976}
-  UnlockAllLayout: {fileID: 1834977605}
+  unlockAllLayout: {fileID: 1834977605}
   statisticsSwitchButtonUI: {fileID: 1792617563}
   unlockSwitchButtonUI: {fileID: 1294412879}
 --- !u!224 &2118492387 stripped

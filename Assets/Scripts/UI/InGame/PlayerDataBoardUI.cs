@@ -10,7 +10,7 @@ public class PlayerDataBoardUI : MonoBehaviour
     [SerializeField] private StatisticsContainerUI statisticsContainerUI;
     [SerializeField] private UnlockContainerUI unlockContainerUI;
 
-    [SerializeField] private GameObject UnlockAllLayout;
+    [SerializeField] private GameObject unlockAllLayout;
 
     [SerializeField] private ButtonUI statisticsSwitchButtonUI;
     [SerializeField] private ButtonUI unlockSwitchButtonUI;
@@ -55,16 +55,12 @@ public class PlayerDataBoardUI : MonoBehaviour
         gameObject.SetActive(true);
         popupBlurImage.OpenPopupBlurImage(new Color(0.0f, 0.0f, 0.0f, 0.9f));
         UIUtils.OpenUI(rectTransform, "Y", insidePositionX, duration);
-
-        // UnlockAllLayout.SetActive(true);
     }
 
     public void ClosePlayerDataBoardUI()
     {
         popupBlurImage.ClosePopupBlurImage();
         UIUtils.CloseUI(rectTransform, "Y", insidePositionX, outsidePositionOffsetX, duration);
-
-        UnlockAllLayout.SetActive(false);
     }
 
 
@@ -86,7 +82,7 @@ public class PlayerDataBoardUI : MonoBehaviour
             }
         }
 
-        UnlockAllLayout.SetActive(false);
+        unlockAllLayout.SetActive(false);
 
         GameObject.Find("UnlockNotificationUI").SetActive(false);
 

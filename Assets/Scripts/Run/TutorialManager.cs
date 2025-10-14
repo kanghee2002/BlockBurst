@@ -311,21 +311,21 @@ public class TutorialManager : MonoBehaviour
         {
             highlightAreaRect.anchoredPosition = new Vector2(0f, -430f);
         }
-        else if (source.name == "Outer")
-        {
-            highlightAreaRect.anchoredPosition = new Vector2(0f, highlightAreaRect.anchoredPosition.y);
-        }
-        else if (stepCount > 30 && source.name == "ScoreAndRewardLayout")
-        {
-            highlightAreaRect.anchoredPosition = new Vector2(highlightAreaRect.anchoredPosition.x, -178f);
-            //UIUtils.OpenUI(highlightAreaRect, "Y", -178f, 0.2f);
-        }
-        else if (source.name == "RunInfoUI" || source.name == "ItemDetailUI")
+        else if (source.name == "ItemDetailUI")
         {
             highlightAreaRect.anchoredPosition = new Vector2(highlightAreaRect.anchoredPosition.x, -365f);
         }
+        else if (source.name == "ButtonUI" && source.parent.name == "RerollButtonUI")
+        {
+            highlightAreaRect.anchoredPosition = new Vector2(highlightAreaRect.anchoredPosition.x + 15f, highlightAreaRect.anchoredPosition.y);
+        }
+        else if (source.name == "ScoreAtLeastText")
+        {
+            highlightAreaRect.anchoredPosition = new Vector2(highlightAreaRect.anchoredPosition.x -20f, highlightAreaRect.anchoredPosition.y);
+            highlightAreaRect.sizeDelta = new Vector2(highlightAreaRect.sizeDelta.x, highlightAreaRect.sizeDelta.y + 10f);
+        }
 
-        highlightRect.DOMove(highlightAreaRect.position, 0.5f + delay);
+            highlightRect.DOMove(highlightAreaRect.position, 0.5f + delay);
         highlightRect.DOSizeDelta(highlightAreaRect.rect.size, 0.5f + delay);
     }
 

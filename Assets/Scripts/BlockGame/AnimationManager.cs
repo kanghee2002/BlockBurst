@@ -1,7 +1,9 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public struct AnimationData
 {
@@ -380,5 +382,22 @@ public class AnimationManager : MonoBehaviour
         totalTime += scoreToItemEffectDelay;
 
         return totalTime;
+    }
+
+    public void PlayBlockPurchaseAnimation(Vector3 spawnPosition, Vector3 targetPosition, BlockType blockType)
+    {
+        string blockPresetPath = "Sprites/Block/Preset/";
+
+        string path = blockPresetPath + blockType.ToString();
+        Sprite blockPreset = Resources.Load<Sprite>(path);
+
+        GameObject block = new GameObject("BlockAnimation");
+
+        Image image = block.AddComponent<Image>();
+        image.sprite = blockPreset;
+
+        block.transform.position = spawnPosition;
+
+        block.transform.DOMove(targetPosition, 1f);
     }
 }

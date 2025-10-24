@@ -53,6 +53,7 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private StageSelectionBoardUI stageSelectionBoardUI;
     [SerializeField] private UnlockNotificationUI unlockNotificationUI;
     [SerializeField] private Toggle tutorialToggle;
+    [SerializeField] private TitleLogoAnimator titleLogoAnimator;
 
     [SerializeField] private RunInfoUI runInfoUI;
     [SerializeField] private OptionUI optionUI;
@@ -68,7 +69,6 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private List<ColorSet> playingBossBackgroundColors;
     [SerializeField] private List<ColorSet> shoppingBackgroundColors;
     [SerializeField] private ColorSet currentUIColor;
-
 
     public enum SceneState
     {
@@ -107,6 +107,7 @@ public class GameUIManager : MonoBehaviour
         }
     }
 
+
     public void Initialize(RunData runData)
     {
         deckSelectionBoardUI.CloseDeckSelectionBoardUI();
@@ -114,6 +115,8 @@ public class GameUIManager : MonoBehaviour
         gameInfoUI.OpenUI();
         itemSetUI.OpenItemSetUI();
         lobbyUI.CloseUI();
+        titleLogoAnimator.StopLogoAnimation();
+
         DisplayItemSet(runData.activeItems, runData.maxItemCount);
 
         sceneState = SceneState.selecting;

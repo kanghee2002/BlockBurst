@@ -1,88 +1,79 @@
 <img width="400" alt="Block_Block_썸네일" src="https://github.com/user-attachments/assets/864577f1-99dd-49d4-b0dc-163845cee59d" />
 <p align="left">
-  <img src="https://github.com/user-attachments/assets/869dddd1-cbb9-462a-b5bd-987ef76b9f7a" width="30%" alt="GIF1" />
-  <img src="https://github.com/user-attachments/assets/baaa4e5c-7d96-40d7-b781-3b7325b72e5c" width="30%" alt="GIF2" />
+  <img src="https://github.com/user-attachments/assets/14d9bfcc-3a5e-4946-a31c-3fb918072b19" width="30%" alt="GIF1" />
+  <img src="https://github.com/user-attachments/assets/00ddefe2-af1f-4ff1-8f6d-5071ad8c15a3" width="30%" alt="GIF2" />
 </p>
 
-## 작업 규칙
-- FileName, ClassName, PublicMethod, fieldAndVariable
-- private 필드, 메서드 자유롭게 선언
-- spec의 구조를 변경해야 할 경우 디스코드
-- 본인이 작업한 것은 본인이 merge
-- 이슈 있으면 디코 -> 바로 처리 or 모아서 회의
----
-
 ## 덱 빌딩 로그라이크 퍼즐
-- Unity, Mobile
-- 팀 프로젝트 (4인)
-- 플레이 스토어 출시를 목표로 현재 개발 진행 중
+- Mobile, 팀 프로젝트 (4인)
 - **장려상** (2025 **넥슨** 드림 멤버스), **우수상** (2025 **네오위즈** GameDev)
 
 ## 주요 기능
 ### 데이터 저장 시스템 (JSON)
 - 이유
-    - 통계/해금 기능 구현 시 책임 분리 필요
+    - 플레이어 데이터, 해금 조건, 해금 이벤트의 명확한 책임 분리 필요
 - 방법
     - **데이터 클래스**, PlayerData
     - **해금 정보 클래스**, UnlockInfo
     - **데이터 저장 담당**, DataManager
     - **해금 처리 담당**, UnlockManager
 - 효과
-    - 역할 분담을 통한 **단일 책임 원칙**
-    - 간편한 데이터, 해금 정보 추가
+    - 해금 조건 늘어나도 데이터 구조 및 저장 로직 수정 없이 확장 가능
 
 ### 딕셔너리 자동 직렬화
 - 이유
     - Unity에서 딕셔너리 직렬화 지원하지 않음
 - 방법
-    - **Reflection**으로 field를 **IDictionary**로 형변환
-    - Key/Value 타입을 **패턴 매칭**
-    - **제네릭 함수**로 **JSON 직렬화**
-- 효과
-    - 데이터에 새로운 타입의 딕셔너리 추가해도 별도 구현 없이 직렬화 가능
+    - 대안 1
+        -  Dictionary마다 구조체로 변환하여 저장
+        -  → Dictionary마다 함수 호출이 1번씩 필요 (Dictionary 추가 시 함수도 추가 필요)
+    - 대안 2
+        -  Dictionary를 직렬화 가능한 Wrapper 클래스로 리팩토링
+        -  → 리팩토링하기엔 부족한 시간
+    - **대안 3**
+        - 클래스의 필드를 가져와 Dictionary 선별 직렬화  →  선택 (데이터에 Dictionary 추가될 가능성 크므로)
+- 구현
+    1. Reflection으로 클래스 FieldInfo 탐색
+    2. Type.IsAssignableFrom으로 Dictionary 타입 필드만 선별, 직렬화 수행
+    3. Type이 정적이지 않아 제네릭 직렬화 함수 직접 호출 불가 → 패턴 매칭으로 해결
 
-### MVC 패턴과 단일 책임 원칙
+- 장점
+    - **클래스 내 Dictionary 한 번의 함수 호출로 직렬화 가능**
+- 단점
+    - 패턴 매칭 + 런타임 오류 가능성
+    - **캡슐화 위배**
+    - 확장 시 유지 보수 비용
+- 깨달은 점
+    - 직렬화 문제를 Reflection으로 우회하면 **단기적인 확장성 확보** 가능하지만, **타입 안정성과 캡슐화가 무너질 수 있음**을 경험
+
+### MVP 패턴과 단일 책임 원칙
 - 이유
-    - UI 중심적 플레이
-    - 데이터와 입력 처리 구분될 필요성
-- 방법
-    - **Model**. RunData
-    - **View**. UI
-    - **Controller**. GameUIManager
+    - UI 상호작용이 핵심인 게임 플레이
+    - UI 로직 분리 및 View 책임 최소화 필요
+- 대안
+    - **MVC** : Model과 View 사이 의존성 문제
+    - **MVP** : UI와 데이터 간 명확한 역할 분리
+    - **MVVM** : 프로젝트 규모에 비해 과설계
 - 효과
-    - **12가지 UI 입출력**을 일률적으로 처리
-    - 클래스 간 낮은 의존도, **유지보수성 향상**
+    - 화면 표시와 UI 흐름, 데이터를 명확히 분리
+    - Model과 View를 독립적으로 개발하고 Presenter를 통해 테스트 → 생산성
 
-### 게임 데이터 4단계 계층화
+### 게임 데이터 수명 기반 관리
 - 이유
-    - 로그라이크 장르의 매번 초기화되는 데이터 관리 효율화
-
+    - 모든 데이터를 하나의 데이터로 관리하니 데이터 버그 발생 시 원인 추적 어려움
 - 방법
-    - 스테이지 데이터, **BlockGameData**
-    - 진행 정보 데이터, **RunData**
-    - 전체 게임 데이터, **GameData**
-    - 덱/레벨 데이터, **DeckData/LevelData**
+    - **DeckData/LevelData** : 재사용되는 설정 데이터
+    - **GameData** : 게임 전체에서 유지되는 공통 데이터
+    - **RunData** : 한 번의 플레이 동안 유지되는 진행 데이터
+    - **BlockGameData** : 스테이지별로 관리되는 세부 진행 데이터
 - 효과
-    - **높은 확장성과 가독성** 확보
-    - 베타 테스트 이후 고안된 컨텐츠인 덱 선택, 해금 시스템도 수월하게 구조화 가능
-
-### 효과 적용 구조 단일화
-- 이유
-    - 아이템, 스테이지, 특수 블록 효과 등 다양한 효과 존재
-    - 각각 처리할 경우 재사용성 저하
-- 방법
-    - Scriptable Object인 EffectData 생성
-    - 각 데이터에서 필요한 EffectData 저장
-    - EffectManager에서 EffectData 일괄 처리
-- 효과
-    - 새로운 효과의 효율적 개발과 높은 확장성
-    - **159가지 효과 일률적 처리**
+    - 스테이지 진입 시 BlockGameData만 초기화되어 RunData는 안전하게 관리
+    - 데이터 버그 발생 시 문제 발생 시점 빠르게 특정
 
 ### 기타
-- 튜토리얼 클래스를 통한 효율적 튜토리얼 개발
 - 아이템, 스테이지, 효과, 블록을 Scriptable Object로 최적화
+- Queue 기반 점수 처리 애니메이션 구조 설계
 - DoTween과 Coroutine을 이용한 자연스러운 애니메이션 처리
-- Dall-E를 이용한 이미지 리소스
 
 ## 의미
 그 동안은 서브 프로그래머로 작업하며 프로젝트를 이끌 기회가 부족했고, 그로 인해 아쉬움이 남았지만, 

@@ -352,8 +352,6 @@ public class GameManager : MonoBehaviour
 
         ItemData[] unlockedItems = UnlockManager.instance.GetUnlockedItems(itemTemplates);
 
-        stageManager.Initialize(ref runData);
-
         shopManager.Initialize(ref runData, unlockedItems);
 
         animationManager.InitializeRunData(ref runData);
@@ -413,6 +411,28 @@ public class GameManager : MonoBehaviour
         GameUIManager.instance.OnDeckLevelInfoCallback(deckTemplates, levelTemplates);
     }
 
+    private int GetStageClearRequirement(StageData stage)
+    {
+        if (runData.currentChapterIndex <= gameData.stageBaseScoreList.Count)
+        {
+            int stageBaseScore = gameData.stageBaseScoreList[runData.currentChapterIndex - 1];
+            float scoreMultiplier = gameData.stageScoreMultiplier[runData.currentStageIndex - 1];
+            float stageBaseMultiplier = stage.baseScoreMultiplier;
+            return (int)(stageBaseScore * (scoreMultiplier + stageBaseMultiplier));
+        }
+
+        int lastBaseScore = gameData.stageBaseScoreList[gameData.stageBaseScoreList.Count - 1];
+        int powExponent = 3 * (runData.currentChapterIndex - 1 - gameData.stageBaseScoreList.Count) + runData.currentStageIndex + 1;
+        float powResult = Mathf.Pow(1.5f, powExponent);
+        float combinedScoreMultiplier = gameData.stageScoreMultiplier[runData.currentStageIndex - 1] + stage.baseScoreMultiplier;
+        return (int)(lastBaseScore * powResult * combinedScoreMultiplier);
+    }
+
+    private int GetStageGoldReward(StageData stage)
+    {
+        return gameData.stageBaseReward + (int)MathF.Pow(runData.currentChapterIndex + 2, 0.5f) * 3 + stage.additionalGold;
+    }
+
     public void StartStageSelection()
     {
         // 상점 아이템을 다시 리스트에 추가
@@ -469,38 +489,23 @@ public class GameManager : MonoBehaviour
             });
         }
 
-        // 스테이지 난이도 설정
+        // UI용 목표/보상 계산 (SO에 쓰지 않음)
+        string[][] choiceDebuffNames = new string[nextStageChoices.Length][];
+        int[] choiceClearRequirements = new int[nextStageChoices.Length];
+        int[] choiceGoldRewards = new int[nextStageChoices.Length];
         for (int i = 0; i < nextStageChoices.Length; i++)
         {
             StageData stage = nextStageChoices[i];
-
-            if (runData.currentChapterIndex <= gameData.stageBaseScoreList.Count)
-            {
-                int stageBaseScore = gameData.stageBaseScoreList[runData.currentChapterIndex - 1];
-                float scoreMultiplier = gameData.stageScoreMultiplier[runData.currentStageIndex - 1];
-                float stageScoreMultiplier = stage.baseScoreMultiplier;
-                stage.clearRequirement = (int)(stageBaseScore * (scoreMultiplier + stageScoreMultiplier));
-            }
-            else
-            {
-                int lastBaseScore = gameData.stageBaseScoreList[gameData.stageBaseScoreList.Count - 1];
-                int powExponent = 3 * (runData.currentChapterIndex - 1 - gameData.stageBaseScoreList.Count) + runData.currentStageIndex + 1;
-                float powResult = Mathf.Pow(1.5f, powExponent);
-                float stageScoreMultiplier = gameData.stageScoreMultiplier[runData.currentStageIndex - 1] + stage.baseScoreMultiplier;
-                stage.clearRequirement = (int)(lastBaseScore * powResult * stageScoreMultiplier);
-            }
+            choiceDebuffNames[i] = stage.constraints.Select(c => c.effectName).ToArray();
+            choiceClearRequirements[i] = GetStageClearRequirement(stage);
+            choiceGoldRewards[i] = GetStageGoldReward(stage);
         }
 
-        // 스테이지 골드 설정
-        for (int i = 0; i < nextStageChoices.Length; i++)
-        {
-            StageData stage = nextStageChoices[i];
-
-            stage.goldReward = gameData.stageBaseReward + (int)MathF.Pow(runData.currentChapterIndex + 2, 0.5f) * 3 + stage.additionalGold;
-        }
-
-        // UI에 전달
-        GameUIManager.instance.OnStageSelection(nextStageChoices, runData.currentChapterIndex, runData.currentStageIndex);
+        GameUIManager.instance.OnStageSelection(
+            runData.currentChapterIndex,
+            runData.currentStageIndex,
+            choiceDebuffNames[0], choiceClearRequirements[0], choiceGoldRewards[0],
+            choiceDebuffNames[1], choiceClearRequirements[1], choiceGoldRewards[1]);
     }
 
     public void OnStageSelection(int choiceIndex)
@@ -509,7 +514,13 @@ public class GameManager : MonoBehaviour
         StageData selectedStage = nextStageChoices[choiceIndex];
 
         StartStage(selectedStage);
-        GameUIManager.instance.OnStageStart(runData.currentChapterIndex, runData.currentStageIndex, selectedStage, blockGame);
+        string[] playingDebuffNames = selectedStage.constraints.Select(c => c.effectName).ToArray();
+        GameUIManager.instance.OnStageStart(
+            runData.currentChapterIndex,
+            runData.currentStageIndex,
+            playingDebuffNames,
+            blockGame.clearRequirement,
+            blockGame);
         GameUIManager.instance.BlockCells(blockGame.inactiveCells);
     }
 
@@ -553,8 +564,10 @@ public class GameManager : MonoBehaviour
         EffectManager.instance.InitializeBlockGameData(ref blockGame);
         CellEffectManager.instance.InitializeBlockGame(ref blockGame);
 
-        // 스테이지 시작
-        stageManager.StartStage(stage);
+        blockGame.clearRequirement = GetStageClearRequirement(stage);
+        blockGame.goldReward = GetStageGoldReward(stage);
+
+        stageManager.StartStage(stage, blockGame);
 
         board = new Board();
         board.Initialize(blockGame);

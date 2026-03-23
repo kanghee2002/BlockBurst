@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
-using System.Linq;
-
 public class StageInfoUI : MonoBehaviour
 {
     [Header("Layout")]
@@ -41,7 +40,7 @@ public class StageInfoUI : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
     }
 
-    public void InitializePlaying(int chapterIndex, int stageIndex, StageData stageData)
+    public void InitializePlaying(int chapterIndex, int stageIndex, string[] stageDebuffEffectNames)
     {
         gameObject.SetActive(true);
         scrollingTextMask.SetActive(false);
@@ -50,7 +49,14 @@ public class StageInfoUI : MonoBehaviour
 
         UpdateChapter(chapterIndex);
         UpdateStage(stageIndex);
-        UpdateStageDescriptionText(stageData.constraints.Select(x => x.effectName).ToArray());
+        if (stageDebuffEffectNames == null)
+        {
+            UpdateStageDescriptionText(System.Array.Empty<string>());
+        }
+        else
+        {
+            UpdateStageDescriptionText(stageDebuffEffectNames);
+        }
 
         currentWarningSequence = null;
         isBlockWarning = false;

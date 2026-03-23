@@ -8,16 +8,13 @@ public class StageManager : MonoBehaviour
     // 첫 스테이지 선택에 나올 스테이지 지정
     public List<string> firstStageList;
 
-    private RunData runData;    // GM에서 받아온 RunData
     public StageData currentStage;
+    private BlockGameData blockGameData;
 
-    public void Initialize(ref RunData data)
+    public void StartStage(StageData stage, BlockGameData blockGame)
     {
-        runData = data;
-    }
+        blockGameData = blockGame;
 
-    public void StartStage(StageData stage)
-    {
         EffectManager.instance.TriggerEffects(TriggerType.ON_ENTER_STAGE);
 
         currentStage = stage;
@@ -30,8 +27,7 @@ public class StageManager : MonoBehaviour
 
     public bool CheckStageClear(BlockGameData blockGameData)
     {
-        // 스테이지 클리어 조건 확인
-        return (blockGameData.currentScore >= currentStage.clearRequirement);
+        return blockGameData.currentScore >= blockGameData.clearRequirement;
     }
 
     private void ApplyConstraints()
@@ -45,8 +41,7 @@ public class StageManager : MonoBehaviour
 
     public void GrantReward()
     {
-        // 보상 지급
-        GameManager.instance.UpdateGold(currentStage.goldReward, isStageReward: true);
+        GameManager.instance.UpdateGold(GameManager.instance.blockGame.goldReward, isStageReward: true);
         RemoveConstraints();
     }
 

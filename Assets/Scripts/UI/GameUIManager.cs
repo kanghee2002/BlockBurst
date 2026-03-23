@@ -465,25 +465,28 @@ public class GameUIManager : MonoBehaviour
         }
     }
 
-    public void OnStageSelection(StageData[] nextStageChoices, int currentChapterIndex, int currentStageIndex)
+    public void OnStageSelection(
+        int currentChapterIndex,
+        int currentStageIndex,
+        string[] debuffEffectNames0,
+        int clearRequirement0,
+        int goldReward0,
+        string[] debuffEffectNames1,
+        int clearRequirement1,
+        int goldReward1)
     {
         stageSelectionSignboardUI.Initialize(currentChapterIndex, currentStageIndex);
         scoreInfoUI.InitializeSelecting();
         stageInfoUI.InitializeSelecting();
 
-        // stageData들을 받아와서 UI에 뿌려주는 메서드
-        if (nextStageChoices.Length == 2)
-        {
-            stageSelectionBoardUI.Initialize(nextStageChoices, currentStageIndex);
-        }
-        else
-        {
-            // 추후 지원 예정
-            /*
-            stageSelectionSignboardUI.InitializeNextStageChoiceUI(nextStageChoices);
-            stageSelectionSignboardUI.OpenStageSelectionSignboardUI();
-            */
-        }
+        stageSelectionBoardUI.Initialize(
+            currentStageIndex,
+            debuffEffectNames0,
+            clearRequirement0,
+            goldReward0,
+            debuffEffectNames1,
+            clearRequirement1,
+            goldReward1);
     }
 
     public void ChangeSceneState(SceneState stateToSet)
@@ -671,11 +674,11 @@ public class GameUIManager : MonoBehaviour
         deckInfoUI.SetTextColor(currentUIColor.uiTextColor);
     }
 
-    public void OnStageStart(int chapterIndex, int stageIndex, StageData stageData, BlockGameData blockGame)
+    public void OnStageStart(int chapterIndex, int stageIndex, string[] stageDebuffEffectNames, int scoreAtLeast, BlockGameData blockGame)
     {
         boardUI.gameObject.SetActive(true);
-        stageInfoUI.InitializePlaying(chapterIndex, stageIndex, stageData);
-        scoreInfoUI.InitializePlaying(currentScore: 0, scoreAtLeast: stageData.clearRequirement);
+        stageInfoUI.InitializePlaying(chapterIndex, stageIndex, stageDebuffEffectNames);
+        scoreInfoUI.InitializePlaying(currentScore: 0, scoreAtLeast: scoreAtLeast);
         rerollButtonUI.Initialize(blockGame.rerollCount);
 
         SetSceneStateColor(SceneState.playing);

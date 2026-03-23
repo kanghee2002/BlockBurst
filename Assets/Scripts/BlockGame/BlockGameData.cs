@@ -18,6 +18,8 @@ public class BlockGameData
     public int boardColumns;                                            // 보드 열
     public bool isDeckEmpty;                                            // 
     public HashSet<Vector2Int> inactiveCells;                           // 비활성 블록 셀
+    public int clearRequirement;                                        // 스테이지 목표 점수 (런타임)
+    public int goldReward;                                              // 스테이지 클리어 보상 골드 (런타임)
 
     public void Initialize(RunData runData)
     {

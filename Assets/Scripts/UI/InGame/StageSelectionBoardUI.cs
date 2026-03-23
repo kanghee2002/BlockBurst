@@ -24,24 +24,26 @@ public class StageSelectionBoardUI : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
     }
 
-    public void Initialize(StageData[] nextStageChoices, int currentStageIndex)
+    public void Initialize(
+        int currentStageIndex,
+        string[] debuffEffectNames0,
+        int clearRequirement0,
+        int goldReward0,
+        string[] debuffEffectNames1,
+        int clearRequirement1,
+        int goldReward1)
     {
         gameObject.SetActive(true);
-        if (nextStageChoices.Length == nextStageChoiceUI.Length)
+        if (nextStageChoiceUI.Length != 2)
         {
-            for (int i = 0; i < nextStageChoices.Length; i++)
-            {
-                nextStageChoiceUI[i].Initialize(nextStageChoices[i]);
-
-                if (i == 0) UIUtils.PlaySlowShakeAnimation(nextStageChoiceUI[i].transform, delay: 0f);
-                else UIUtils.PlaySlowShakeAnimation(nextStageChoiceUI[i].transform, delay: Random.Range(1f, 3f));
-            }
-        } 
-        else
-        {
-            Debug.LogError("length of nextStageChoices and nextStageChoiceUI is different");
+            Debug.LogError("nextStageChoiceUI must have length 2");
             return;
         }
+
+        nextStageChoiceUI[0].Initialize(debuffEffectNames0, clearRequirement0, goldReward0);
+        nextStageChoiceUI[1].Initialize(debuffEffectNames1, clearRequirement1, goldReward1);
+        UIUtils.PlaySlowShakeAnimation(nextStageChoiceUI[0].transform, delay: 0f);
+        UIUtils.PlaySlowShakeAnimation(nextStageChoiceUI[1].transform, delay: Random.Range(1f, 3f));
 
         if (currentStageIndex == 3)
         {

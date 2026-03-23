@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Linq;
 using TMPro;
 
 public class NextStageChoiceUI : MonoBehaviour
@@ -17,11 +16,11 @@ public class NextStageChoiceUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scoreAtLeastText;
     [SerializeField] private TextMeshProUGUI rewardGoldText;
 
-    public void Initialize(StageData stageData)
+    public void Initialize(string[] debuffEffectNames, int clearRequirement, int goldReward)
     {
-        UpdateDebuffText(stageData.constraints.Select(x => x.effectName).ToArray());
-        UpdateScoreAtLeast(stageData.clearRequirement);
-        UpdateRewardGold(stageData.goldReward);
+        UpdateDebuffText(debuffEffectNames ?? System.Array.Empty<string>());
+        UpdateScoreAtLeast(clearRequirement);
+        UpdateRewardGold(goldReward);
     }
 
     public void SetLayoutsColor(Color uiColor)

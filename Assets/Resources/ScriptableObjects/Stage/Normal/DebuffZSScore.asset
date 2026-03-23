@@ -1,4 +1,4 @@
-%YAML 1.1
+﻿%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &11400000
 MonoBehaviour:
@@ -20,5 +20,3 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b163f096e962cc649b467d00638350ee, type: 2}
   baseScoreMultiplier: 0
   additionalGold: 1
-  clearRequirement: 60
-  goldReward: 8

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: RedCube
   m_EditorClassIdentifier: 
-  id: RedCube
+  resourceKey: RedCube
   itemName: "\uBD89\uC740 \uC815\uC721\uBA74\uCCB4"
   effects:
   - {fileID: 11400000, guid: 3afd93a5f09e8b0419f8e4b691163ccf, type: 2}

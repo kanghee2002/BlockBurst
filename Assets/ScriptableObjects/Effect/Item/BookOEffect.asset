@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: BookOEffect
   m_EditorClassIdentifier: 
-  id: BookOEffect
+  resourceKey: BookOEffect
   effectName: "O \uBC30\uCE58\uD560 \uB54C\uB9C8\uB2E4\nO +EffectValue \uBE14\uB85D
     \uC810\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 0

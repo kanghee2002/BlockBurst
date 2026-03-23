@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: CoinLEffect
   m_EditorClassIdentifier: 
-  id: CoinLEffect
+  resourceKey: CoinLEffect
   effectName: "L \uD3EC\uD568\uD574\uC11C \uC904\uC744 \uC9C0\uC6B8 \uB54C\n$EffectValue
     \uACE8\uB4DC\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 9

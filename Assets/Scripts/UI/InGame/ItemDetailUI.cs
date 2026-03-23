@@ -124,7 +124,7 @@ public class ItemDetailUI : MonoBehaviour
         }
         else if (item.type == ItemType.ITEM || item.type == ItemType.BOOST || item.type == ItemType.CONVERT_BLOCK)
         {
-            string path = itemPath + item.id;
+            string path = itemPath + item.resourceKey;
             Sprite itemSprite = Resources.Load<Sprite>(path);
             itemImage.sprite = itemSprite;
         }

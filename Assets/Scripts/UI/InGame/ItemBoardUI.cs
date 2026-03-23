@@ -293,7 +293,7 @@ public class ItemBoardUI : MonoBehaviour
         }
         else if (item.type == ItemType.ITEM || item.type == ItemType.BOOST || item.type == ItemType.CONVERT_BLOCK)
         {
-            string path = itemPath + item.id;
+            string path = itemPath + item.resourceKey;
             Sprite itemSprite = Resources.Load<Sprite>(path);
             itemUI.transform.GetChild(0).GetComponent<Image>().sprite = itemSprite;
         }

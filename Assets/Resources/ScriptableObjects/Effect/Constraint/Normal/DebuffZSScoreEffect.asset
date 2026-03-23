@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: DebuffZSScoreEffect
   m_EditorClassIdentifier: 
-  id: DebuffZSScoreEffect
+  resourceKey: DebuffZSScoreEffect
   effectName: "Z/S \uBE14\uB85D \uC810\uC218\uAC00 0\uC810\uC774 \uB429\uB2C8\uB2E4"
   type: 1
   scope: 1

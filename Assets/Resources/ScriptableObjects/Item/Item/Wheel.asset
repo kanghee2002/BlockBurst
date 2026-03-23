@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: Wheel
   m_EditorClassIdentifier: 
-  id: Wheel
+  resourceKey: Wheel
   itemName: "\uBC14\uD034"
   effects:
   - {fileID: 11400000, guid: 3bdd2b449ec2f1e40b127e3095336719, type: 2}

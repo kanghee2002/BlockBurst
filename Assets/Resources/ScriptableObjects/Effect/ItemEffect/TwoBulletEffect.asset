@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: TwoBulletEffect
   m_EditorClassIdentifier: 
-  id: TwoBulletEffect
+  resourceKey: TwoBulletEffect
   effectName: "\uD55C \uBC88\uC5D0\nTriggerValue\uC904\uC744 \uC9C0\uC6B8 \uB54C\n+EffectValue
     \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 2

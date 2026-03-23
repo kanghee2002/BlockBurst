@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fa6f765182bfdf4cbe2d3152f17e458, type: 3}
   m_Name: MirrorDeckData
   m_EditorClassIdentifier: 
-  id: MirrorDeck
+  resourceKey: MirrorDeck
   deckName: "\uAC70\uC6B8 \uB371"
   type: 4
   description: "\uBB34\uC791\uC704 \uD2B9\uC218 \uBE14\uB85D\uC73C\uB85C\uB9CC \uB371\uC774

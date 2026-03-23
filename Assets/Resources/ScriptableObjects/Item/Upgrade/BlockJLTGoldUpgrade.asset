@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: BlockJLTGoldUpgrade
   m_EditorClassIdentifier: 
-  id: BlockJLTGoldUpgrade
+  resourceKey: BlockJLTGoldUpgrade
   itemName: "\uACE8\uB4DC \uAC15\uD654"
   effects:
   - {fileID: 11400000, guid: 15ebef222e831d64cb1d222535f8af12, type: 2}

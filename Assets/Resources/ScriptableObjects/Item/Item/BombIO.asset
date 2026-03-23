@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: BombIO
   m_EditorClassIdentifier: 
-  id: BombIO
+  resourceKey: BombIO
   itemName: "\uBE14\uB85D \uD3ED\uD0C4"
   effects:
   - {fileID: 11400000, guid: 22d17aa6c356cef48ae7710fce44d639, type: 2}

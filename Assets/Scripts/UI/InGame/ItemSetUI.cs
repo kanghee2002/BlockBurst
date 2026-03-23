@@ -204,7 +204,7 @@ public class ItemSetUI : MonoBehaviour
         }
         else if (item.type == ItemType.ITEM)
         {
-            return Resources.Load<Sprite>(itemPath + item.id);
+            return Resources.Load<Sprite>(itemPath + item.resourceKey);
         }
         else if (item.type == ItemType.CONVERT_BLOCK || item.type == ItemType.UPGRADE)
         {

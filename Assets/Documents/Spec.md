@@ -135,7 +135,7 @@ public class GameData
 [CreateAssetMenu(fileName = "Block", menuName = "BlockBurst/Block")]
 public class BlockData : ScriptableObject
 {
-    public string id;                      // 블록 고유 ID
+    public string resourceKey;             // 리소스/식별용 키
     public BlockType type;                 // 블록 타입
     public bool[,] shape;                  // 블록 모양
     public List<EffectData> onPlaceEffects;  // 배치 시 효과
@@ -147,7 +147,7 @@ public class BlockData : ScriptableObject
 [CreateAssetMenu(fileName = "Stage", menuName = "BlockBurst/Stage")]
 public class StageData : ScriptableObject
 {
-    public string id;                        // 스테이지 ID
+    public string resourceKey;             // 리소스/식별용 키
     public StageType type;                   // Normal1, Normal2, Boss
     public Vector2Int boardSize;             // 보드 크기
     public List<Vector2Int> blockedCells;    // 사용 불가능한 셀
@@ -167,7 +167,7 @@ public class StageRequirement
 [CreateAssetMenu(fileName = "Effect", menuName = "BlockBurst/Effect")]
 public class EffectData : ScriptableObject
 {
-    public string id;                                // 효과 ID
+    public string resourceKey;                       // 리소스/식별용 키
     public EffectType type;                         // 효과 타입
     public TriggerType trigger;                     // 발동 조건
     public Dictionary<string, float> modifiers;      // 데이터 수정자
@@ -210,7 +210,7 @@ public enum TriggerType
 [CreateAssetMenu(fileName = "Item", menuName = "BlockBurst/Item")]
 public class ItemData : ScriptableObject
 {
-    public string id;                  // 아이템 ID
+    public string resourceKey;         // 리소스/식별용 키
     public List<EffectData> effects;   // 아이템 효과
     public int cost;                   // 구매 비용
     public string targetBlockId;       // 대상 블록 ID (필요한 경우)

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: DecreaseDrawBlockCountOneEffect
   m_EditorClassIdentifier: 
-  id: DecreaseDrawBlockCountOneEffect
+  resourceKey: DecreaseDrawBlockCountOneEffect
   effectName: "\uBC30\uCE58 \uAC00\uB2A5\uD55C \uBE14\uB85D\uC774 3\uAC1C\uC5D0\uC11C
     1\uAC1C\uB85C \uAC10\uC18C\uD569\uB2C8\uB2E4"
   type: 23

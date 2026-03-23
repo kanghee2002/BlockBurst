@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: AddBlockIEffect
   m_EditorClassIdentifier: 
-  id: 
+  resourceKey: 
   effectName: "\uB371\uC5D0 I 1\uAC1C\uB97C \uCD94\uAC00\uD569\uB2C8\uB2E4"
   type: 0
   scope: 0

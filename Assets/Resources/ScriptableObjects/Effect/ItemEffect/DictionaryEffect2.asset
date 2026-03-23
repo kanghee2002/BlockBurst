@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: DictionaryEffect2
   m_EditorClassIdentifier: 
-  id: DictionaryEffect2
+  resourceKey: DictionaryEffect2
   effectName: "\uB371\uC5D0 \uBE14\uB85D\uC744 \uCD94\uAC00\uD560 \uB54C\uB9C8\uB2E4
     \uC5BB\uB294 \uBC30\uC218\uAC00 +EffectValue \uC99D\uAC00\uD569\uB2C8\uB2E4"
   type: 27

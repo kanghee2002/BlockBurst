@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: GlassesEffect
   m_EditorClassIdentifier: 
-  id: GlassesEffect
+  resourceKey: GlassesEffect
   effectName: "\uD55C \uBC88\uC5D0 2\uC904\uC744 \uC9C0\uC6B8 \uB54C \uBAA8\uB4E0
     \uAE30\uBCF8 \uBE14\uB85D\uC774\n+EffectValue \uBE14\uB85D \uC810\uC218\uB97C
     \uC5BB\uC2B5\uB2C8\uB2E4"

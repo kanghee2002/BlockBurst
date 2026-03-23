@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: GrayClover
   m_EditorClassIdentifier: 
-  id: GrayClover
+  resourceKey: GrayClover
   itemName: "\uC7BF\uBE5B \uD074\uB85C\uBC84"
   effects:
   - {fileID: 11400000, guid: 785139cfe5485604e9a83f11ca630559, type: 2}

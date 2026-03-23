@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: BlockZSRerollUpgrade
   m_EditorClassIdentifier: 
-  id: BlockZSRerollUpgrade
+  resourceKey: BlockZSRerollUpgrade
   itemName: "\uB2E4\uC2DC \uBF51\uAE30 \uAC15\uD654"
   effects:
   - {fileID: 11400000, guid: 61120a3a513c5f747af81a24ecddc8df, type: 2}

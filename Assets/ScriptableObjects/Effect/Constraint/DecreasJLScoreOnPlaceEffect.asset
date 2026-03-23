@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: DecreasJLScoreOnPlaceEffect
   m_EditorClassIdentifier: 
-  id: DecreasJLScoreOnPlaceEffect
+  resourceKey: DecreasJLScoreOnPlaceEffect
   effectName: "J/L \uBC30\uCE58\uD560 \uB54C\uB9C8\uB2E4,\\nJ/L \uC810\uC218 -4"
   type: 0
   trigger: 1

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: ConvertBlockZ
   m_EditorClassIdentifier: 
-  id: 
+  resourceKey: 
   effectName: "\uAE30\uBCF8 \uBE14\uB85D\n2\uAC1C\uB97C\nZ \uBCC0\uD658"
   type: 0
   scope: 0

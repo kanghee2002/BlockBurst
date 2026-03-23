@@ -466,7 +466,7 @@ public class EffectManager : MonoBehaviour
     {
         foreach (string effectId in effectIdList)
         {
-            EffectData effect = runData.activeEffects.FirstOrDefault(x => x.id == effectId);
+            EffectData effect = runData.activeEffects.FirstOrDefault(x => x.resourceKey == effectId);
 
             if (effect != null && effect.scope == EffectScope.Stage)
             {

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: BookI
   m_EditorClassIdentifier: 
-  id: BookI
+  resourceKey: BookI
   itemName: "I \uCC45"
   effects:
   - {fileID: 11400000, guid: dd5aeb27edc8f2b41b374aa0e254a4d8, type: 2}

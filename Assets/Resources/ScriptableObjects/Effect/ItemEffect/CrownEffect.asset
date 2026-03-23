@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: CrownEffect
   m_EditorClassIdentifier: 
-  id: CrownEffect
+  resourceKey: CrownEffect
   effectName: "\uD604\uC7AC \uAC16\uACE0 \uC788\uB294 \uACE8\uB4DC\uB9CC\uD07C \uBC30\uC218\uB97C
     \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 2

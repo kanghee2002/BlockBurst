@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: DecreaseMultiplierOnRerollEffect1
   m_EditorClassIdentifier: 
-  id: DecreaseMultiplierOnRerollEffect1
+  resourceKey: DecreaseMultiplierOnRerollEffect1
   effectName: "\uB2E4\uC2DC \uBF51\uAE30\uB97C \uD560 \uB54C\n-1 \uBC30\uC218\uB97C
     \uC783\uACE0, \uC783\uB294 \uBC30\uC218\uAC00 1 \uC99D\uAC00\uD569\uB2C8\uB2E4"
   type: 2

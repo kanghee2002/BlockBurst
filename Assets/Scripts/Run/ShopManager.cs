@@ -84,7 +84,7 @@ public class ShopManager : MonoBehaviour
         // DEBUG or TUTORIAL /////////////////////////////////////////
         if (firstShopItemList.Count > 0)
         {
-            int index = currentItems.FindIndex(x => x.id == firstShopItemList[0]);
+            int index = currentItems.FindIndex(x => x.resourceKey == firstShopItemList[0]);
             ItemData itemData = currentItems[index];
             if (shopItemDictionary[itemType].Contains(itemData.type))
             {

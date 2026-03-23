@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: OneBulletEffect
   m_EditorClassIdentifier: 
-  id: OneBulletEffect
+  resourceKey: OneBulletEffect
   effectName: "\uB9C8\uC9C0\uB9C9 \uBE14\uB85D\uC744\n\uBC30\uCE58\uD560 \uB54C\n+EffectValue
     \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4."
   type: 2

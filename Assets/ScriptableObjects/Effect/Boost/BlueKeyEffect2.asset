@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: BlueKeyEffect2
   m_EditorClassIdentifier: 
-  id: BlueKeyEffect2
+  resourceKey: BlueKeyEffect2
   effectName: "\uB098\uBA38\uC9C0\n\uAE30\uBCF8 \uBE14\uB85D\n\uC810\uC218 +30"
   type: 0
   scope: 0

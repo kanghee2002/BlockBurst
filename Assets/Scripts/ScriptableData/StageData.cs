@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Stage", menuName = "BlockBurst/Stage")]
 public class StageData : ScriptableObject
 {
-    public string id;                                       // 스테이지 ID
+    public string resourceKey;
     public StageType type;                                  // Normal, Boss
     public Vector2Int boardSize;                            // 보드 사이즈
     public List<Vector2Int> blockedCells;                   // 막힌 셀

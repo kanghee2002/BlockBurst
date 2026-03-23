@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: BrokenClock
   m_EditorClassIdentifier: 
-  id: BrokenClock
+  resourceKey: BrokenClock
   itemName: "\uBD80\uB7EC\uC9C4 \uC2DC\uACC4"
   effects:
   - {fileID: 11400000, guid: c678f34f91fbbac42903d65f3b2a95d5, type: 2}

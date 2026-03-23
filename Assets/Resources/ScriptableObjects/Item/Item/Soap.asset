@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: Soap
   m_EditorClassIdentifier: 
-  id: Soap
+  resourceKey: Soap
   itemName: "\uBE44\uB204"
   effects:
   - {fileID: 11400000, guid: 8a5c43f196988804c929b1745e8234fa, type: 2}

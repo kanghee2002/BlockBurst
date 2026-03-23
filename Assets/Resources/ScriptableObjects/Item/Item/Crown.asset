@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: Crown
   m_EditorClassIdentifier: 
-  id: Crown
+  resourceKey: Crown
   itemName: "\uC655\uAD00"
   effects:
   - {fileID: 11400000, guid: d23ff5218f9899c4583bca8b2d75d5ee, type: 2}

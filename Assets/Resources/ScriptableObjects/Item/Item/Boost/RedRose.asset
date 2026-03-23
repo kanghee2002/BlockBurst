@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: RedRose
   m_EditorClassIdentifier: 
-  id: RedRose
+  resourceKey: RedRose
   itemName: "\uBD89\uC740 \uC7A5\uBBF8"
   effects:
   - {fileID: 11400000, guid: e8bdb9e4e2b6985498f3630bcbad3755, type: 2}

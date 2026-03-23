@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: StoppedSpinningTop
   m_EditorClassIdentifier: 
-  id: StoppedSpinningTop
+  resourceKey: StoppedSpinningTop
   itemName: "\uBA48\uCD98 \uD33D\uC774"
   effects:
   - {fileID: 11400000, guid: 39c30421d1e51224fb52d463b321ae43, type: 2}

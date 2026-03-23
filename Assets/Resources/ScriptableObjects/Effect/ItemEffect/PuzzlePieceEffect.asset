@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: PuzzlePieceEffect
   m_EditorClassIdentifier: 
-  id: PuzzlePieceEffect
+  resourceKey: PuzzlePieceEffect
   effectName: "\uD2B9\uC218 \uBE14\uB85D\uC73C\uB85C \uC904\uC744 \uC9C0\uC6B8 \uB54C
     +EffectValue \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 2

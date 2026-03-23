@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Block", menuName = "BlockBurst/Block")]
 public class BlockData : ScriptableObject
 {
-    public string id;
+    public string resourceKey;
     public BlockType type;                 // 블록 타입
     public Vector2Int[] shape;             // 블록 모양
     public int reuseCount;                 // 재사용 횟수
@@ -17,7 +17,7 @@ public class BlockData : ScriptableObject
     {
         BlockData newBlock = CreateInstance<BlockData>();
 
-        newBlock.id = id;
+        newBlock.resourceKey = resourceKey;
         newBlock.type = type;
         newBlock.shape = (Vector2Int[])shape.Clone();
         newBlock.reuseCount = reuseCount;

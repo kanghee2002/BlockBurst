@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: DecreaseScoreOnClearEffect
   m_EditorClassIdentifier: 
-  id: DecreaseScoreOnClearEffect
+  resourceKey: DecreaseScoreOnClearEffect
   effectName: "\uC904\uC744\\n7\uBC88 \uC9C0\uC6B8 \uB54C\uB9C8\uB2E4\\n\uAE30\uBCF8
     \uBC30\uC218 -1"
   type: 3

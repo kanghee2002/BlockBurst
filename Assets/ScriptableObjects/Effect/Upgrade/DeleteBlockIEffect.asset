@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: DeleteBlockIEffect
   m_EditorClassIdentifier: 
-  id: 
+  resourceKey: 
   effectName: "I \uBE14\uB85D\n2\uAC1C \uC0AD\uC81C"
   type: 0
   trigger: 0

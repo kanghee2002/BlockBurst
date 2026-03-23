@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: DeleteBlockZ
   m_EditorClassIdentifier: 
-  id: BlockZ
+  resourceKey: BlockZ
   itemName: "Z \uBE14\uB85D -2"
   effects:
   - {fileID: 11400000, guid: 8e87b94b423154946950137ea27e4f5d, type: 2}

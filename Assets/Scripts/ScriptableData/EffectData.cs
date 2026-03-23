@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Effect", menuName = "BlockBurst/Effect")]
 public class EffectData : ScriptableObject
 {
-    public string id;                               // 효과 ID
+    public string resourceKey;
     [TextArea] public string effectName;            // 효과 이름
     public EffectType type;                         // 효과 타입
     public EffectScope scope;                       // 효과 범위

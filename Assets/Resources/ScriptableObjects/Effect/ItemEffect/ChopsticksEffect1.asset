@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: ChopsticksEffect1
   m_EditorClassIdentifier: 
-  id: ChopsticksEffect1
+  resourceKey: ChopsticksEffect1
   effectName: "\uD55C \uBC88\uC5D0 TriggerValue\uC904\uC744 \uC9C0\uC6B8 \uB54C +EffectValue
     \uBC30\uC218\uB97C \uC5BB\uACE0,"
   type: 2

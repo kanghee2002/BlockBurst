@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: TornRoseEffect1
   m_EditorClassIdentifier: 
-  id: TornRoseEffect1
+  resourceKey: TornRoseEffect1
   effectName: "\uACE8\uB4DC\uB97C \uC804\uBD80 \uC783\uACE0,\n"
   type: 10
   scope: 0

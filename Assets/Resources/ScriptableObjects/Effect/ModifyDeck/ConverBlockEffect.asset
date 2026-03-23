@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: ConverBlockEffect
   m_EditorClassIdentifier: 
-  id: 
+  resourceKey: 
   effectName: "\uAE30\uBCF8 \uBE14\uB85D \uC911 \uBB34\uC791\uC704 1\uAC1C\uB97C\n\uAC00\uC7A5
     \uC810\uC218 \uB192\uC740 \uBE14\uB85D\uC73C\uB85C \uBC14\uAFC9\uB2C8\uB2E4"
   type: 0

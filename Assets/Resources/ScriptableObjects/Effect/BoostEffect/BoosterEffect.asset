@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: BoosterEffect
   m_EditorClassIdentifier: 
-  id: BoosterEffect
+  resourceKey: BoosterEffect
   effectName: "\uC0C1\uC810\uC5D0 \uBD80\uC2A4\uD2B8\uAC00 2\uAC1C \uB4F1\uC7A5\uD569\uB2C8\uB2E4"
   type: 31
   scope: 0

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: Ladder
   m_EditorClassIdentifier: 
-  id: Ladder
+  resourceKey: Ladder
   itemName: "\uC0AC\uB2E4\uB9AC"
   effects:
   - {fileID: 11400000, guid: 56e8aa01fdb3f8748a8f85724d6f02cc, type: 2}

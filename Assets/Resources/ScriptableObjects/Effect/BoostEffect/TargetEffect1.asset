@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: TargetEffect1
   m_EditorClassIdentifier: 
-  id: TargetEffect1
+  resourceKey: TargetEffect1
   effectName: "\uBCF4\uB4DC \uAC00\uC7A5\uC790\uB9AC \uCE78\uC774 \uB9C9\uD788\uC9C0\uB9CC,\n"
   type: 12
   scope: 0

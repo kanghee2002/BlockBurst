@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: GoldenClover
   m_EditorClassIdentifier: 
-  id: GoldenClover
+  resourceKey: GoldenClover
   itemName: "\uAE08\uBE5B \uD074\uB85C\uBC84"
   effects:
   - {fileID: 11400000, guid: ac0bbb92742d051428f13f2ba7c58927, type: 2}

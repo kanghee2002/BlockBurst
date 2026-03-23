@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: EggJLT
   m_EditorClassIdentifier: 
-  id: EggJLT
+  resourceKey: EggJLT
   itemName: "\uBE14\uB85D \uC54C"
   effects:
   - {fileID: 11400000, guid: 5b0301890a8e8e2429dea069f87dd0be, type: 2}

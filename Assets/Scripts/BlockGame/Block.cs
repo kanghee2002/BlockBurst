@@ -14,7 +14,7 @@ public class Block
 
     public void Initialize(BlockData blockData, int id)
     {
-        Id = blockData.id + id.ToString();
+        Id = blockData.resourceKey + id.ToString();
         Type = blockData.type;
         Shape = blockData.shape.Clone() as Vector2Int[];
         ReuseCount = blockData.reuseCount;

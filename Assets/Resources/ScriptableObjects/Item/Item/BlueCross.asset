@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: BlueCross
   m_EditorClassIdentifier: 
-  id: BlueCross
+  resourceKey: BlueCross
   itemName: "\uD478\uB978 \uC2ED\uC790\uAC00"
   effects:
   - {fileID: 11400000, guid: b25918f1fac48f648b18499eb5c95815, type: 2}

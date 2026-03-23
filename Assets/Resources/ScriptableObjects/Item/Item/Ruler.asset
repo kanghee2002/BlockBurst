@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: Ruler
   m_EditorClassIdentifier: 
-  id: Ruler
+  resourceKey: Ruler
   itemName: "\uC790"
   effects:
   - {fileID: 11400000, guid: 7ca645c1846a97f4fb7bd7233d2f0bd9, type: 2}

@@ -452,7 +452,7 @@ public class GameManager : MonoBehaviour
             for (int i = 0; i < nextStageChoices.Length; i++)
             {
                 if (stageNames.Count == 0) break;
-                StageData stage = templates.FirstOrDefault(x => x.id == stageNames[0]);
+                StageData stage = templates.FirstOrDefault(x => x.resourceKey == stageNames[0]);
                 stage.constraints.ForEach(constraint => constraint.triggerCount = 0);
                 stageNames.RemoveAt(0);
                 nextStageChoices[i] = stage;
@@ -806,7 +806,7 @@ public class GameManager : MonoBehaviour
 
     public void AddUnlockedItem(string itemID)
     {
-        ItemData itemData = itemTemplates.FirstOrDefault(item => item.id == itemID);
+        ItemData itemData = itemTemplates.FirstOrDefault(item => item.resourceKey == itemID);
         
         if (itemData == null)
         {
@@ -972,13 +972,13 @@ public class GameManager : MonoBehaviour
         {
             ItemData currentItem = runData.activeItems[i];
 
-            List<string> itemEffectIDList = currentItem.effects.Select(effect => effect.id).ToList();
+            List<string> itemEffectIDList = currentItem.effects.Select(effect => effect.resourceKey).ToList();
 
             for (int j = animations.Count - 1; j >= 0; j--)
             {
                 AnimationData itemEffectAnim = animations[j];
 
-                if (itemEffectIDList.Contains(itemEffectAnim.effect.id))
+                if (itemEffectIDList.Contains(itemEffectAnim.effect.resourceKey))
                 {
                     itemEffectAnim.animationType = AnimationType.ItemEffect;
                     itemEffectAnim.index = i;

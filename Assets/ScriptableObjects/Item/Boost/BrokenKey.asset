@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: BrokenKey
   m_EditorClassIdentifier: 
-  id: BrokenKey
+  resourceKey: BrokenKey
   itemName: "\uBD80\uB7EC\uC9C4 \uC5F4\uC1E0"
   effects:
   - {fileID: 11400000, guid: 7649650bb72c0e74daa6d10c19a0c2de, type: 2}

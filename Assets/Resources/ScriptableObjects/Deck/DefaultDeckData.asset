@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fa6f765182bfdf4cbe2d3152f17e458, type: 3}
   m_Name: DefaultDeckData
   m_EditorClassIdentifier: 
-  id: DefaultDeck
+  resourceKey: DefaultDeck
   deckName: "\uAE30\uBCF8 \uB371"
   type: 0
   description: "\uAE30\uBCF8\uC801\uC778 \uB371"

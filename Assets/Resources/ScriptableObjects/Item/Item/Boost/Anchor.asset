@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: Anchor
   m_EditorClassIdentifier: 
-  id: Anchor
+  resourceKey: Anchor
   itemName: "\uB2FB"
   effects:
   - {fileID: 11400000, guid: 2398d6c272b53de4388750e0bc066209, type: 2}

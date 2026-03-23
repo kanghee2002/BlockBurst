@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: EggZ
   m_EditorClassIdentifier: 
-  id: EggZ
+  resourceKey: EggZ
   itemName: "Z \uC54C"
   effects:
   - {fileID: 11400000, guid: e0107c7a3f3d88b439bc0b24cbfcb960, type: 2}

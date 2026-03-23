@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fa6f765182bfdf4cbe2d3152f17e458, type: 3}
   m_Name: BombDeckData
   m_EditorClassIdentifier: 
-  id: BombDeck
+  resourceKey: BombDeck
   deckName: "\uD3ED\uD0C4 \uB371"
   type: 5
   description: "\uC904\uC744 \uC9C0\uC6B0\uBA74 \uBCF4\uB4DC\uC758 \uBAA8\uB4E0 \uBE14\uB85D\uC744

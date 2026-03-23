@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: Magazine
   m_EditorClassIdentifier: 
-  id: Magazine
+  resourceKey: Magazine
   itemName: "\uD0C4\uCC3D"
   effects:
   - {fileID: 11400000, guid: 104f7b7f65e1f7441887b782cc6dd13e, type: 2}

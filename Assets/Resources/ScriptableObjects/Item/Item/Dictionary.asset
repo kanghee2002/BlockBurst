@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: Dictionary
   m_EditorClassIdentifier: 
-  id: Dictionary
+  resourceKey: Dictionary
   itemName: "\uC0AC\uC804"
   effects:
   - {fileID: 11400000, guid: 0e3378cd75453b44995fa1df3222874f, type: 2}

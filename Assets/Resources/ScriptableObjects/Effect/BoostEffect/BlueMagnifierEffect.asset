@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: BlueMagnifierEffect
   m_EditorClassIdentifier: 
-  id: BlueMagnifierEffect
+  resourceKey: BlueMagnifierEffect
   effectName: "\uBCF4\uB4DC \uD06C\uAE30\uAC00\nEffectValue\uCE78 \uC99D\uAC00\uD569\uB2C8\uB2E4"
   type: 11
   scope: 0

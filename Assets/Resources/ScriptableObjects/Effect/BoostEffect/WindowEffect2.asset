@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: WindowEffect2
   m_EditorClassIdentifier: 
-  id: WindowEffect2
+  resourceKey: WindowEffect2
   effectName: "I/O \uAC00 EffectValue\uBC30\uB85C \uBCF5\uC0AC\uB429\uB2C8\uB2E4"
   type: 17
   scope: 0

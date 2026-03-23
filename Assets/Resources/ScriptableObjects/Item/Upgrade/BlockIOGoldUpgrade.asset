@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: BlockIOGoldUpgrade
   m_EditorClassIdentifier: 
-  id: BlockIOGoldUpgrade
+  resourceKey: BlockIOGoldUpgrade
   itemName: "\uACE8\uB4DC \uAC15\uD654"
   effects:
   - {fileID: 11400000, guid: f87c190f0ee938842b9eceed27e253d2, type: 2}

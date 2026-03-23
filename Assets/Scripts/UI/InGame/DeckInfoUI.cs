@@ -399,6 +399,6 @@ public class DeckInfoUI : MonoBehaviour
     private Sprite GetImage(ItemData item)
     {
         string itemPath = "Sprites/Item/Item/";
-        return Resources.Load<Sprite>(itemPath + item.id);
+        return Resources.Load<Sprite>(itemPath + item.resourceKey);
     }
 }

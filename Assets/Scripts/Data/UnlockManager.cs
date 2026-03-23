@@ -137,7 +137,7 @@ public class UnlockManager : MonoBehaviour
 
         List<string> lockedItemIDs = GetLockedTargets();
 
-        unlockedItems = unlockedItems.Where(x => !lockedItemIDs.Contains(x.id)).ToArray();
+        unlockedItems = unlockedItems.Where(x => !lockedItemIDs.Contains(x.resourceKey)).ToArray();
 
         return unlockedItems;
     }

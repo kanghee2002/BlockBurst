@@ -91,7 +91,12 @@ public class BlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IB
             foreach (EffectData effect in specialEffects)
             {
                 string tmp = UIUtils.SetBlockNameToIcon(effect.effectName.Replace("\n", " "));
-                string tmp2 = UIUtils.GetEffectValueText(tmp, effect);
+                int displayValue = effect.baseEffectValue;
+                if (GameManager.instance != null)
+                {
+                    displayValue = GameManager.instance.GetDisplayEffectValue(effect);
+                }
+                string tmp2 = UIUtils.GetEffectValueText(tmp, effect, displayValue);
                 string result = UIUtils.GetValueText(tmp2, effect);
                 description += result;
             }

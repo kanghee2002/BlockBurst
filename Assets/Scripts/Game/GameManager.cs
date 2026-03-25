@@ -929,9 +929,10 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        foreach (EffectData effect in runData.activeEffects)
+        foreach (EffectState state in runData.activeEffects)
         {
-            if (effect.scope == EffectScope.Stage && effect.blockTypes.Contains(block.Type))
+            EffectData effect = state.template;
+            if (effect.scope == EffectScope.Stage && effect.blockTypes != null && effect.blockTypes.Contains(block.Type))
             {
                 GameUIManager.instance.StartWarningStageEffectAnimation(isBlockRelated: true);
             }
@@ -961,11 +962,12 @@ public class GameManager : MonoBehaviour
         matchCount++;
 
         GameUIManager.instance.StopWarningStageEffectAnimation(isBlockRelated: false);
-        foreach (EffectData effect in runData.activeEffects)
+        foreach (EffectState state in runData.activeEffects)
         {
+            EffectData effect = state.template;
             if (effect.scope == EffectScope.Stage && effect.triggerMode == TriggerMode.Interval)
             {
-                if (effect.triggerValue == effect.triggerCount + 1)
+                if (effect.triggerValue == state.triggerCount + 1)
                 {
                     GameUIManager.instance.StartWarningStageEffectAnimation(isBlockRelated: false);
                 }
@@ -1163,21 +1165,56 @@ public class GameManager : MonoBehaviour
         GameUIManager.instance.UpdateMultiplier(runData.baseMatchMultipliers[MatchType.ROW]);
     }
 
-    public void UpdateItemTriggerCount(EffectData effect)
+    /// <summary>UI 등에서 SO 대신 런타임 트리거 누적값을 표시할 때 사용.</summary>
+    public int GetTriggerCountForTemplate(EffectData template)
     {
-        int index = runData.activeItems.FindIndex(item => item.effects.Contains(effect));
+        if (template == null)
+            return 0;
+
+        EffectState matchedState = runData.activeEffects.FirstOrDefault(s => s.template == template);
+        if (matchedState == null)
+            return 0;
+
+        return matchedState.triggerCount;
+    }
+
+    /// <summary>UI 설명 등에 쓸 현재 수치. 대응 <see cref="EffectState"/>가 없으면 <see cref="EffectData.baseEffectValue"/>.</summary>
+    public int GetDisplayEffectValue(EffectData template)
+    {
+        if (template == null)
+            return 0;
+
+        if (runData == null || runData.activeEffects == null)
+            return template.baseEffectValue;
+
+        EffectState matchedState = runData.activeEffects.FirstOrDefault(s => s.template == template);
+        if (matchedState == null)
+            return template.baseEffectValue;
+
+        return matchedState.effectValue;
+    }
+
+    public void UpdateItemTriggerCount(EffectState state)
+    {
+        int index = runData.activeItems.FindIndex(item => item.effects.Contains(state.template));
 
         if (index == -1) return;
 
         GameUIManager.instance.StopItemShakeAnimation(isBlockRelated: false);
 
-        // 발동 직전 횟수라면
-        if (runData.activeItems[index].effects.Any(effect => effect.triggerValue == effect.triggerCount + 1))
+        ItemData item = runData.activeItems[index];
+        if (item.effects.Any(template =>
+        {
+            EffectState matchedState = runData.activeEffects.FirstOrDefault(s => s.template == template);
+            if (matchedState == null)
+                return false;
+            return matchedState.template.triggerValue == matchedState.triggerCount + 1;
+        }))
         {
             GameUIManager.instance.StartItemShakeAnimation(index, isBlockRelated: false);
         }
 
-        GameUIManager.instance.UpdateItemTriggerCount(index, effect.triggerCount);
+        GameUIManager.instance.UpdateItemTriggerCount(index, state.triggerCount);
     }
 
     public void PlayActivatedItemAnimation()
@@ -1185,7 +1222,13 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < runData.activeItems.Count; i++)
         {
             ItemData item = runData.activeItems[i];
-            if (item.effects.Any(effect => effect.triggerValue == effect.triggerCount + 1))
+            if (item.effects.Any(template =>
+            {
+                EffectState matchedState = runData.activeEffects.FirstOrDefault(s => s.template == template);
+                if (matchedState == null)
+                    return false;
+                return matchedState.template.triggerValue == matchedState.triggerCount + 1;
+            }))
             {
                 GameUIManager.instance.StartItemShakeAnimation(i, isBlockRelated: false);
             }

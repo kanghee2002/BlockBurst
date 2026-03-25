@@ -230,9 +230,10 @@ public static class UIUtils
         return text;
     }
 
-    public static string GetEffectValueText(string text, EffectData effectData)
+    /// <param name="displayEffectValue">런타임 표시용 수치 (<see cref="EffectState.effectValue"/> 또는 폴백으로 base).</param>
+    public static string GetEffectValueText(string text, EffectData effectData, int displayEffectValue)
     {
-        string value = Math.Abs(effectData.effectValue).ToString();
+        string value = Math.Abs(displayEffectValue).ToString();
 
         text = text.Replace("+EffectValue 블록 점수", "<color=#00FFC3>+EffectValue</color> 블록 점수");
         text = text.Replace("-EffectValue 블록 점수", "<color=#00FFC3>-EffectValue</color> 블록 점수");
@@ -260,7 +261,7 @@ public static class UIUtils
 
         string result = text;
 
-        if (effectData.effectValue >= 0)
+        if (displayEffectValue >= 0)
         {
             result = result.Replace("-EffectValue", "+EffectValue");
         }

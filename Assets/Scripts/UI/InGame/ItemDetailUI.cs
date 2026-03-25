@@ -86,8 +86,14 @@ public class ItemDetailUI : MonoBehaviour
 
         for (int i = 0; i < item.effects.Count; i++)
         {
-            string tmp = UIUtils.GetEffectValueText(item.effects[i].effectName, item.effects[i]);
-            string tmp2 = UIUtils.GetValueText(tmp, item.effects[i]);
+            EffectData effect = item.effects[i];
+            int displayValue = effect.baseEffectValue;
+            if (GameManager.instance != null)
+            {
+                displayValue = GameManager.instance.GetDisplayEffectValue(effect);
+            }
+            string tmp = UIUtils.GetEffectValueText(effect.effectName, effect, displayValue);
+            string tmp2 = UIUtils.GetValueText(tmp, effect);
             description += UIUtils.SetBlockNameToIcon(tmp2);
         }
 
@@ -97,7 +103,12 @@ public class ItemDetailUI : MonoBehaviour
 
             if (triggerEffect != null)
             {
-                description += $" (현재 횟수: {triggerEffect.triggerCount})";
+                int count = 0;
+                if (GameManager.instance != null)
+                {
+                    count = GameManager.instance.GetTriggerCountForTemplate(triggerEffect);
+                }
+                description += $" (현재 횟수: {count})";
             }
         }
 

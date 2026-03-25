@@ -208,14 +208,6 @@ public class ShopManager : MonoBehaviour
 
     public void AddItem(ItemData item)
     {
-        // 아이템 초기 값 초기화
-        item.effects.ForEach(effect =>
-        {
-            effect.effectValue = effect.baseEffectValue;
-            effect.triggerCount = 0;
-        });
-
-        // append
         currentItems.Add(item);
     }
 

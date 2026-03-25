@@ -39,21 +39,40 @@ public class EffectManager : MonoBehaviour
 
     public void AddEffect(EffectData effect)
     {
-        runData.activeEffects.Add(effect);
-        if (effect.trigger == TriggerType.ON_ACQUIRE)
+        AddEffect(EffectState.CreateFromTemplate(effect));
+    }
+
+    public void AddEffect(EffectState state)
+    {
+        if (state == null) return;
+        runData.activeEffects.Add(state);
+        if (state.template.trigger == TriggerType.ON_ACQUIRE)
         {
-            ApplyEffect(effect);
+            ApplyEffect(state);
         }
     }
 
-    public bool RemoveEffect(EffectData effect)
+    public bool RemoveEffect(EffectState state)
     {
-        return runData.activeEffects.Remove(effect);
+        if (state == null)
+            return false;
+        return runData.activeEffects.Remove(state);
     }
 
-    public bool ContainsEffect(EffectData effect)
+    /// <summary>첫 번째로 매칭되는 template 참조를 가진 state 하나를 제거 (스테이지 제약 등).</summary>
+    public bool RemoveEffect(EffectData template)
     {
-        return runData.activeEffects.Contains(effect);
+        if (template == null) return false;
+        EffectState matchedState = runData.activeEffects.FirstOrDefault(s => s.template == template);
+        if (matchedState == null) return false;
+        return runData.activeEffects.Remove(matchedState);
+    }
+
+    public bool ContainsEffect(EffectData template)
+    {
+        if (template == null)
+            return false;
+        return runData.activeEffects.Any(s => s.template == template);
     }
 
     // 모든 트리거 호출 이후, 시각 효과를 위해 호출
@@ -81,22 +100,24 @@ public class EffectManager : MonoBehaviour
 
     public void TriggerEffects(TriggerType trigger, int triggerValue = 0, BlockType[] blockTypes = null) 
     {
-        foreach (EffectData effect in runData.activeEffects)
+        foreach (EffectState state in runData.activeEffects)
         {
+            EffectData effect = state.template;
             if (effect.trigger == trigger && IsIncluded(blockTypes, effect.blockTypes))
             {
-                if (!CheckTriggerCount(effect, triggerValue))
+                if (!CheckTriggerCount(state, triggerValue))
                 {
                     continue;
                 }
 
-                ApplyEffect(effect);
+                ApplyEffect(state);
             }
         }
     }
 
-    private bool CheckTriggerCount(EffectData effect, int triggerValue)
+    private bool CheckTriggerCount(EffectState state, int triggerValue)
     {
+        EffectData effect = state.template;
         if (effect.triggerMode == TriggerMode.None)
         {
             return true;
@@ -114,17 +135,17 @@ public class EffectManager : MonoBehaviour
             }
         }
 
-        effect.triggerCount++;
+        state.triggerCount++;
 
-        GameManager.instance.UpdateItemTriggerCount(effect);
+        GameManager.instance.UpdateItemTriggerCount(state);
 
         if (effect.triggerMode == TriggerMode.Interval)
         {
-            if (effect.triggerValue == effect.triggerCount)
+            if (effect.triggerValue == state.triggerCount)
             {
-                effect.triggerCount = 0;
+                state.triggerCount = 0;
                 
-                GameManager.instance.UpdateItemTriggerCount(effect);
+                GameManager.instance.UpdateItemTriggerCount(state);
                 
                 return true;
             }
@@ -133,8 +154,9 @@ public class EffectManager : MonoBehaviour
         return false;
     }
 
-    public void ApplyEffect(EffectData effect)
+    public void ApplyEffect(EffectState state)
     {
+        EffectData effect = state.template;
         MatchType matchType = MatchType.ROW;
 
         // 확률 적용
@@ -146,7 +168,7 @@ public class EffectManager : MonoBehaviour
             }
         }
 
-        int finalValue = GetFinalValue(effect);
+        int finalValue = GetFinalValue(state);
 
         int additiveValue = finalValue;     // 애니메이션 처리를 위한 효과 증가값
 
@@ -263,7 +285,7 @@ public class EffectManager : MonoBehaviour
                 // TODO
                 break;
             case EffectType.RANDOM_BLOCK_DELETE:
-                for(int i = 0; i < effect.effectValue; i++)
+                for(int i = 0; i < finalValue; i++)
                 {
                     List<BlockType> defaultBlockTypes = Enums.GetEnumList<BlockType>().Where(block => Enums.IsDefaultBlockType(block)).ToList();
                     BlockType randomBlockType = defaultBlockTypes[Random.Range(0, defaultBlockTypes.Count)];
@@ -326,7 +348,14 @@ public class EffectManager : MonoBehaviour
                 GameManager.instance.ForceLineClearBoard(MatchType.COLUMN, columnIndices);
                 break;
             case EffectType.EFFECT_VALUE_MODIFIER:
-                effect.modifyingEffect.effectValue += finalValue;
+                if (effect.modifyingEffect != null)
+                {
+                    EffectState target = runData.activeEffects.FirstOrDefault(s => s.template == effect.modifyingEffect);
+                    if (target != null)
+                        target.effectValue += finalValue;
+                    else
+                        Debug.LogWarning($"EFFECT_VALUE_MODIFIER: no active EffectState for modifyingEffect '{effect.modifyingEffect.name}'");
+                }
                 break;
             case EffectType.SHOP_REROLL_COST_MODIFIER:
                 runData.shopBaseRerollCost += finalValue;
@@ -364,7 +393,7 @@ public class EffectManager : MonoBehaviour
                 break;
         }
 
-        AnimationData animationData = AnimationManager.instance.GetAnimationData(effect, additiveValue);
+        AnimationData animationData = AnimationManager.instance.GetAnimationData(state.template, additiveValue);
         triggeredAnimations.Add(animationData);
 
         DataManager.instance.UpdateMaxBaseMultiplier(runData.baseMatchMultipliers[matchType]);
@@ -389,9 +418,10 @@ public class EffectManager : MonoBehaviour
         return Random.Range(0f, 1f) <= probability;
     }
 
-    public int GetFinalValue(EffectData effect)
+    public int GetFinalValue(EffectState state)
     {
-        int value = effect.effectValue;
+        EffectData effect = state.template;
+        int value = state.effectValue;
         int scalingValue = 1;
 
         // 계수 적용
@@ -466,9 +496,9 @@ public class EffectManager : MonoBehaviour
     {
         foreach (string effectId in effectIdList)
         {
-            EffectData effect = runData.activeEffects.FirstOrDefault(x => x.resourceKey == effectId);
+            EffectState state = runData.activeEffects.FirstOrDefault(x => x.template.resourceKey == effectId);
 
-            if (effect != null && effect.scope == EffectScope.Stage)
+            if (state != null && state.template.scope == EffectScope.Stage)
             {
                 return true;
             }

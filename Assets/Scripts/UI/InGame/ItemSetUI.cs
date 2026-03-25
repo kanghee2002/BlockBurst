@@ -360,7 +360,12 @@ public class ItemSetUI : MonoBehaviour
 
         if (triggerEffect != null)
         {
-            description += "\n현재 횟수: " + triggerEffect.triggerCount;
+            int count = 0;
+            if (GameManager.instance != null)
+            {
+                count = GameManager.instance.GetTriggerCountForTemplate(triggerEffect);
+            }
+            description += "\n현재 횟수: " + count;
         }
 
         return description;

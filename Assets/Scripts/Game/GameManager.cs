@@ -92,9 +92,22 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-
             //dataManager.SaveRunData(runData);
         }
+
+        // 디버그: 플레이 중 스테이지 즉시 종료 (기존 SKIP_BUTTON과 동일 동작, S 키)
+        if (Input.GetKeyDown(KeyCode.S))
+            EndStage();
+
+        // 디버그: 골드 5000 추가 (G 키)
+        if (Input.GetKeyDown(KeyCode.G))
+            DebugAddGold();
+    }
+
+    /// <summary>디버그용. 현재 런에 골드 추가.</summary>
+    public void DebugAddGold()
+    {
+        UpdateGold(5000);
     }
 
     public void TEST_BUTTON()
@@ -464,16 +477,21 @@ public class GameManager : MonoBehaviour
             nextStageChoices[i] = templates[indices[i]];
         }
 
-        //디버깅, 튜토리얼 시에만 실행
+        // 디버깅 / 튜토리얼: firstStageList 키는 StageData.resourceKey와 대소문자 무시하고 일치하면 인정
         List<string> stageNames = stageManager.firstStageList;
         if (stageNames.Count > 0)
         {
             for (int i = 0; i < nextStageChoices.Length; i++)
             {
                 if (stageNames.Count == 0) break;
-                StageData stage = templates.FirstOrDefault(x => x.resourceKey == stageNames[0]);
+                string wantedKey = stageNames[0];
                 stageNames.RemoveAt(0);
-                nextStageChoices[i] = stage;
+                StageData stage = templates.FirstOrDefault(x =>
+                    string.Equals(x.resourceKey, wantedKey, StringComparison.OrdinalIgnoreCase));
+                if (stage != null)
+                    nextStageChoices[i] = stage;
+                else
+                    Debug.LogError($"[DEBUG] firstStageList: resourceKey가 '{wantedKey}'와 일치하는 스테이지 없음 (대소문자 무시). 랜덤 선택 유지.");
             }
         }
 

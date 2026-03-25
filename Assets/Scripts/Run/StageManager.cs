@@ -4,7 +4,7 @@ using UnityEngine;
 public class StageManager : MonoBehaviour
 {
     [Header("DEBUG")]
-    // 첫 스테이지 선택에 나올 스테이지 지정
+    // 첫 스테이지 선택에 나올 스테이지 지정 (GameManager에서 resourceKey와 대소문자 무시 매칭)
     public List<string> firstStageList;
 
     public StageData currentStage;

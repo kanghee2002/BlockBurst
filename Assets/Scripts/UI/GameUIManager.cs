@@ -858,6 +858,7 @@ public class GameUIManager : MonoBehaviour
         boardUI.ProcessStageClearAnimation(delay);
     }
 
+    /// <summary>디버그용 스테이지 스킵. 버튼 등에서 호출해도 플레이 중일 때만 적용.</summary>
     public void ENDSTAGE()
     {
         GameManager.instance.EndStage();

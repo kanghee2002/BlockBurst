@@ -82,16 +82,26 @@ public class ShopManager : MonoBehaviour
         }
 
         // DEBUG or TUTORIAL /////////////////////////////////////////
+        // DEBUG / 튜토리얼: firstShopItemList 키는 resourceKey와 대소문자 무시하고 일치하면 인정
         if (firstShopItemList.Count > 0)
         {
-            int index = currentItems.FindIndex(x => x.resourceKey == firstShopItemList[0]);
-            ItemData itemData = currentItems[index];
-            if (shopItemDictionary[itemType].Contains(itemData.type))
+            string wantedKey = firstShopItemList[0];
+            int index = currentItems.FindIndex(x =>
+                string.Equals(x.resourceKey, wantedKey, System.StringComparison.OrdinalIgnoreCase));
+            if (index < 0)
             {
-                currentItems.RemoveAt(index);
-                firstShopItemList.RemoveAt(0);
+                Debug.LogError($"[firstShopItemList] 풀에 resourceKey가 '{wantedKey}'인 아이템 없음 (대소문자 무시). itemType 슬롯={itemType}");
+            }
+            else
+            {
+                ItemData itemData = currentItems[index];
+                if (shopItemDictionary[itemType].Contains(itemData.type))
+                {
+                    currentItems.RemoveAt(index);
+                    firstShopItemList.RemoveAt(0);
 
-                return itemData;
+                    return itemData;
+                }
             }
         }
         ///////////////////////////////////////////////////////////////

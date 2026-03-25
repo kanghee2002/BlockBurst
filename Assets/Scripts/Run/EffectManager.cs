@@ -37,19 +37,19 @@ public class EffectManager : MonoBehaviour
         blockGameData = data;
     }
 
-    public void AddEffect(EffectData effect)
+    public EffectState AddEffect(EffectData effect)
     {
-        AddEffect(EffectState.CreateFromTemplate(effect));
-    }
-
-    public void AddEffect(EffectState state)
-    {
-        if (state == null) return;
+        if (effect == null)
+            return null;
+        EffectState state = EffectState.CreateFromTemplate(effect, runData.activeEffects);
+        
         runData.activeEffects.Add(state);
+
         if (state.template.trigger == TriggerType.ON_ACQUIRE)
         {
             ApplyEffect(state);
         }
+        return state;
     }
 
     public bool RemoveEffect(EffectState state)
@@ -348,14 +348,23 @@ public class EffectManager : MonoBehaviour
                 GameManager.instance.ForceLineClearBoard(MatchType.COLUMN, columnIndices);
                 break;
             case EffectType.EFFECT_VALUE_MODIFIER:
-                if (effect.modifyingEffect != null)
+                EffectState targetState = null;
+                if (state.modifyingTargetStateId.HasValue)
                 {
-                    EffectState target = runData.activeEffects.FirstOrDefault(s => s.template == effect.modifyingEffect);
-                    if (target != null)
-                        target.effectValue += finalValue;
-                    else
-                        Debug.LogWarning($"EFFECT_VALUE_MODIFIER: no active EffectState for modifyingEffect '{effect.modifyingEffect.name}'");
+                    targetState = runData.activeEffects.FirstOrDefault(s => s.id == state.modifyingTargetStateId);
                 }
+                else
+                {
+                    targetState = runData.activeEffects.FirstOrDefault(s => s != state && s.template == effect.modifyingEffect);
+                }
+
+                if (targetState == null)
+                {
+                    Debug.LogError($"[EFFECT_VALUE_MODIFIER] '{effect.name}': 수정할 대상 효과(EffectState)를 못 찾았습니다.");
+                    break;
+                }
+
+                targetState.effectValue += finalValue;
                 break;
             case EffectType.SHOP_REROLL_COST_MODIFIER:
                 runData.shopBaseRerollCost += finalValue;

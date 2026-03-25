@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +9,8 @@ public class StageManager : MonoBehaviour
 
     public StageData currentStage;
     private BlockGameData blockGameData;
+
+    private readonly List<EffectState> activeConstraintStates = new();
 
     public void StartStage(StageData stage, BlockGameData blockGame)
     {
@@ -32,11 +33,13 @@ public class StageManager : MonoBehaviour
 
     private void ApplyConstraints()
     {
-        // Effect들을 추가
-        currentStage.constraints.ForEach(constraint =>
+        activeConstraintStates.Clear();
+        foreach (EffectData constraint in currentStage.constraints)
         {
-            EffectManager.instance.AddEffect(constraint);
-        });
+            EffectState state = EffectManager.instance.AddEffect(constraint);
+            if (state != null)
+                activeConstraintStates.Add(state);
+        }
     }
 
     public void GrantReward()
@@ -45,16 +48,15 @@ public class StageManager : MonoBehaviour
         RemoveConstraints();
     }
 
-    // 스테이지 클리어 시 적용된 제한 제거
     private void RemoveConstraints()
     {
-        currentStage.constraints.ForEach(constraint =>
+        foreach (EffectState state in activeConstraintStates)
         {
-            EffectManager.instance.RemoveEffect(constraint);
-        });
+            EffectManager.instance.RemoveEffect(state);
+        }
+        activeConstraintStates.Clear();
     }
 
-    // 튜토리얼 용 함수
     public void AddFirstStage(List<string> stages)
     {
         foreach (string stage in stages)

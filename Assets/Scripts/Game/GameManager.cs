@@ -461,7 +461,6 @@ public class GameManager : MonoBehaviour
         // 섞인 인덱스에서 필요한 만큼만 가져와서 사용
         for (int i = 0; i < nextStageChoices.Length; i++)
         {
-            templates[indices[i]].constraints.ForEach(constraint => constraint.triggerCount = 0);
             nextStageChoices[i] = templates[indices[i]];
         }
 
@@ -473,20 +472,9 @@ public class GameManager : MonoBehaviour
             {
                 if (stageNames.Count == 0) break;
                 StageData stage = templates.FirstOrDefault(x => x.resourceKey == stageNames[0]);
-                stage.constraints.ForEach(constraint => constraint.triggerCount = 0);
                 stageNames.RemoveAt(0);
                 nextStageChoices[i] = stage;
             }
-        }
-
-        // 스테이지 초기화
-        for (int i = 0; i < nextStageChoices.Length; i++)
-        {
-            nextStageChoices[i].constraints.ForEach(constraint =>
-            {
-                constraint.triggerCount = 0;
-                constraint.effectValue = constraint.baseEffectValue;
-            });
         }
 
         // UI용 목표/보상 계산 (SO에 쓰지 않음)

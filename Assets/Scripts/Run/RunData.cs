@@ -50,7 +50,7 @@ public class RunData
         activeEffects = new List<EffectState>();
         foreach (EffectData effect in gameData.defaultEffects)
         {
-            activeEffects.Add(EffectState.CreateFromTemplate(effect));
+            activeEffects.Add(EffectState.CreateFromTemplate(effect, activeEffects));
         }
         gold = gameData.startingGold;
         baseRerollCount = gameData.defaultRerollCount;

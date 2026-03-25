@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: BombJLT
   m_EditorClassIdentifier: 
+  id: ba713990-42f5-432a-9a19-eea0b5ad2099
   resourceKey: BombJLT
   itemName: "\uBE14\uB85D \uD3ED\uD0C4"
   effects:

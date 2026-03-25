@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: Magazine
   m_EditorClassIdentifier: 
+  id: cafe020d-5ca7-43a8-be31-05ed5297a6cc
   resourceKey: Magazine
   itemName: "\uD0C4\uCC3D"
   effects:

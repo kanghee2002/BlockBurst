@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: RedCross
   m_EditorClassIdentifier: 
+  id: 76a80dff-63e1-4c24-ad28-d690a51d8b8d
   resourceKey: RedCross
   itemName: "\uBD89\uC740 \uC2ED\uC790\uAC00"
   effects:

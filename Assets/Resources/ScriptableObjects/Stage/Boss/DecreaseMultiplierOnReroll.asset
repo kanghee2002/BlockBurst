@@ -1,4 +1,4 @@
-﻿%YAML 1.1
+%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &11400000
 MonoBehaviour:
@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43902bf98a9ab9c4d8d6db09a48e8201, type: 3}
   m_Name: DecreaseMultiplierOnReroll
   m_EditorClassIdentifier: 
+  id: aed3b1fa-e571-4ec7-8257-899be3e73f4a
   resourceKey: DecreaseMultiplierOnReroll
   type: 1
   boardSize: {x: 8, y: 8}

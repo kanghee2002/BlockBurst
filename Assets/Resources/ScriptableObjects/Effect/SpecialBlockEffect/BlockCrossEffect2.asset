@@ -12,16 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: BlockCrossEffect2
   m_EditorClassIdentifier: 
+  id: 5ec72f1f-fffd-4d28-b722-a544eb8bec4c
   resourceKey: BlockCrossEffect2
   effectName: 
   type: 19
   scope: 0
   baseEffectValue: 1
-  effectValue: 1
   trigger: 1
   triggerMode: 0
   triggerValue: 0
-  triggerCount: 0
   blockTypes: 0b000000
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

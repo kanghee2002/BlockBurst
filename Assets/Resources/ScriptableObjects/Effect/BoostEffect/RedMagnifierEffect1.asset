@@ -12,16 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: RedMagnifierEffect1
   m_EditorClassIdentifier: 
+  id: 7eafdcee-fea5-4865-8db9-dba84c51c729
   resourceKey: RedMagnifierEffect1
   effectName: "\uBCF4\uB4DC \uD06C\uAE30\uAC00 1\uCE78 \uAC10\uC18C\uD558\uC9C0\uB9CC,\n"
   type: 11
   scope: 0
   baseEffectValue: -1
-  effectValue: -1
   trigger: 0
   triggerMode: 0
   triggerValue: 0
-  triggerCount: 0
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 0}

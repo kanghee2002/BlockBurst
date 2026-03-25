@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: Lock
   m_EditorClassIdentifier: 
+  id: 547b191c-5dc7-4351-883e-90ff9e905fde
   resourceKey: Lock
   itemName: "\uC790\uBB3C\uC1E0"
   effects:

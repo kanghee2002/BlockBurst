@@ -12,17 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: BookJLTEffect
   m_EditorClassIdentifier: 
+  id: dc67dd8b-4530-487a-8263-7d4a84894d8f
   resourceKey: BookJLTEffect
   effectName: "J/L/T \uBC30\uCE58\uD560 \uB54C\uB9C8\uB2E4\nJ/L/T +EffectValue \uBE14\uB85D
     \uC810\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 0
   scope: 0
   baseEffectValue: 1
-  effectValue: 1
   trigger: 1
   triggerMode: 0
   triggerValue: 0
-  triggerCount: 0
   blockTypes: 040000000500000006000000
   probability: 1
   modifyingEffect: {fileID: 0}

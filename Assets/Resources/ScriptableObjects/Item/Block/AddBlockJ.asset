@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: AddBlockJ
   m_EditorClassIdentifier: 
+  id: c89069b3-f26f-416c-b2fc-d90aa5283480
   resourceKey: AddBlockJ
   itemName: "J \uBE14\uB85D \uCD94\uAC00"
   effects:

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: RedEgg
   m_EditorClassIdentifier: 
+  id: 08ae8623-0b5f-401e-8d46-e4e2480d3c17
   resourceKey: RedEgg
   itemName: "\uBD89\uC740 \uC54C"
   effects:

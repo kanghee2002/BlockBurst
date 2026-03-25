@@ -12,16 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: AddBlockLEffect
   m_EditorClassIdentifier: 
+  id: c1d1e31b-f237-4c13-b03b-ef27bd747304
   resourceKey: 
   effectName: "\uB371\uC5D0 L 1\uAC1C\uB97C \uCD94\uAC00\uD569\uB2C8\uB2E4"
   type: 0
   scope: 0
   baseEffectValue: 0
-  effectValue: 0
   trigger: 0
   triggerMode: 0
   triggerValue: 0
-  triggerCount: 0
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

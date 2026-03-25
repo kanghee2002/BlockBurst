@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: GearIO
   m_EditorClassIdentifier: 
+  id: 448aa1d4-c7ee-41fc-b66f-af2743e73d31
   resourceKey: GearIO
   itemName: "\uBE14\uB85D \uD1B1\uB2C8\uBC14\uD034"
   effects:

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: Booster
   m_EditorClassIdentifier: 
+  id: 01ff749d-7ae5-4fed-bf4b-2729152000e9
   resourceKey: Booster
   itemName: "\uBD80\uC2A4\uD130"
   effects:

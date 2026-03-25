@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: BookIO
   m_EditorClassIdentifier: 
+  id: a3e65b8f-a095-4ddc-986f-214528d66e12
   resourceKey: BookIO
   itemName: "\uBE14\uB85D \uCC45"
   effects:

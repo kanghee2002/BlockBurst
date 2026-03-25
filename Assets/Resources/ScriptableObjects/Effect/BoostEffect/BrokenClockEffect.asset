@@ -12,17 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: BrokenClockEffect
   m_EditorClassIdentifier: 
+  id: b6569545-8408-444f-bfda-091041ad1cf2
   resourceKey: BrokenClockEffect
   effectName: "\uC904\uC744 TriggerValue\uBC88 \uC9C0\uC6B8 \uB54C\uB9C8\uB2E4\n\uB2E4\uC2DC
     \uBF51\uAE30 \uD69F\uC218\uB97C +EffectValue \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 5
   scope: 0
   baseEffectValue: 3
-  effectValue: 3
   trigger: 10
   triggerMode: 2
   triggerValue: 5
-  triggerCount: 0
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 0}

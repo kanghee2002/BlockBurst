@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: GoldenSpinningTopEffect
   m_EditorClassIdentifier: 
+  id: e7a92add-7b6b-43bf-976c-a3ce26445383
   resourceKey: GoldenSpinningTopEffect
   effectName: "\uBC30\uCE58\uD558\uC9C0 \uC54A\uACE0\n\uB2E4\uC2DC \uBF51\uAE30\uB97C
     TriggerValue\uBC88 \uD560 \uB54C\uB9C8\uB2E4\n$EffectValue \uACE8\uB4DC\uB97C
@@ -19,11 +20,9 @@ MonoBehaviour:
   type: 9
   scope: 0
   baseEffectValue: 1
-  effectValue: 1
   trigger: 18
   triggerMode: 2
   triggerValue: 2
-  triggerCount: 0
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 0}

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: Carrier
   m_EditorClassIdentifier: 
+  id: ef800b87-38df-43d5-b783-a1fbc3e7f043
   resourceKey: Carrier
   itemName: "\uCE90\uB9AC\uC5B4"
   effects:

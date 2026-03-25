@@ -12,17 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: KeyEffect1
   m_EditorClassIdentifier: 
+  id: abb236bc-f630-4219-b7ab-8019adb78c4f
   resourceKey: KeyEffect1
   effectName: "Z/S \uC678\uC758 \uAE30\uBCF8 \uBE14\uB85D\uC774 \uB371\uC5D0\uC11C
     \uBAA8\uB450 \uC0AD\uC81C\uB418\uC9C0\uB9CC,\n"
   type: 18
   scope: 0
   baseEffectValue: 0
-  effectValue: 0
   trigger: 0
   triggerMode: 0
   triggerValue: 0
-  triggerCount: 0
   blockTypes: 0000000001000000040000000500000006000000
   probability: 1
   modifyingEffect: {fileID: 0}

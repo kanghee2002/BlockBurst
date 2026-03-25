@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: GearJLT
   m_EditorClassIdentifier: 
+  id: 18f7a195-464c-4108-b4ca-45a5eb861cb9
   resourceKey: GearJLT
   itemName: "\uBE14\uB85D \uD1B1\uB2C8\uBC14\uD034"
   effects:

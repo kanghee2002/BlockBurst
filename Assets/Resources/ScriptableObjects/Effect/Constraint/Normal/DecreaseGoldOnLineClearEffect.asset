@@ -12,17 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: DecreaseGoldOnLineClearEffect
   m_EditorClassIdentifier: 
+  id: 1c816823-6105-451c-8391-e65c0111ae94
   resourceKey: DecreaseGoldOnLineClearEffect
   effectName: "\uC904\uC744 3\uBC88 \uC9C0\uC6B8 \uB54C\uB9C8\uB2E4 $3 \uACE8\uB4DC\uB97C
     \uC783\uC2B5\uB2C8\uB2E4"
   type: 9
   scope: 1
   baseEffectValue: -3
-  effectValue: -1
   trigger: 9
   triggerMode: 2
   triggerValue: 3
-  triggerCount: 0
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

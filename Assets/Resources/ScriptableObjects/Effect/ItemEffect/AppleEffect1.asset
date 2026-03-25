@@ -12,16 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: AppleEffect1
   m_EditorClassIdentifier: 
+  id: 5e1d0f33-9b1c-4e74-8621-b662841f9c0a
   resourceKey: AppleEffect1
   effectName: "+EffectValue \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4.\n"
   type: 2
   scope: 0
   baseEffectValue: 20
-  effectValue: 20
   trigger: 9
   triggerMode: 0
   triggerValue: 0
-  triggerCount: 0
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 0}

@@ -12,17 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: BlockTrioEffect
   m_EditorClassIdentifier: 
+  id: 4d17f31c-559e-4760-a44a-b5fa86fbdd7f
   resourceKey: BlockTrioEffect
   effectName: "\uC774 \uBE14\uB85D\uC744\n\uC804\uBD80 \uC9C0\uC6B8 \uB54C\n+EffectValue
     \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 2
   scope: 0
   baseEffectValue: 4
-  effectValue: 4
   trigger: 4
   triggerMode: 0
   triggerValue: 0
-  triggerCount: 0
   blockTypes: 09000000
   probability: 1
   modifyingEffect: {fileID: 0}

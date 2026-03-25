@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: BlockZSMultiplierUpgrade
   m_EditorClassIdentifier: 
+  id: 80d7857c-009c-4111-9737-e50591f44911
   resourceKey: BlockZSMultiplierUpgrade
   itemName: "\uBC30\uC218 \uAC15\uD654"
   effects:

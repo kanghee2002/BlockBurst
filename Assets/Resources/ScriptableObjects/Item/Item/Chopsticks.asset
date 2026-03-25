@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: Chopsticks
   m_EditorClassIdentifier: 
+  id: 240feb1a-0271-4bdf-9aa1-d5dc3c1a23bf
   resourceKey: Chopsticks
   itemName: "\uC813\uAC00\uB77D"
   effects:

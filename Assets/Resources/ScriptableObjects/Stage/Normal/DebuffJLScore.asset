@@ -1,4 +1,4 @@
-﻿%YAML 1.1
+%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &11400000
 MonoBehaviour:
@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43902bf98a9ab9c4d8d6db09a48e8201, type: 3}
   m_Name: DebuffJLScore
   m_EditorClassIdentifier: 
+  id: b7b0f032-acec-405d-ae08-174dff3a185a
   resourceKey: DebuffJScore
   type: 0
   boardSize: {x: 8, y: 8}

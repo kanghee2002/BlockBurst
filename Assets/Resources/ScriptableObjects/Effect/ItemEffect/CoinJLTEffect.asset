@@ -12,17 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: CoinJLTEffect
   m_EditorClassIdentifier: 
+  id: ca26ea6f-23dd-4fd4-91b1-f901c656088c
   resourceKey: CoinJLTEffect
   effectName: "J/L/T \uD3EC\uD568\uD574\uC11C \uC904\uC744 TriggerValue\uBC88 \uC9C0\uC6B8
     \uB54C\uB9C8\uB2E4\n$EffectValue \uACE8\uB4DC\uB97C \uC5BB\uC2B5\uB2C8\uB2E4\n"
   type: 9
   scope: 0
   baseEffectValue: 1
-  effectValue: 1
   trigger: 11
   triggerMode: 2
   triggerValue: 3
-  triggerCount: 0
   blockTypes: 040000000500000006000000
   probability: 1
   modifyingEffect: {fileID: 0}

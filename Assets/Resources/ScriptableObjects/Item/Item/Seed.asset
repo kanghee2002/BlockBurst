@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: Seed
   m_EditorClassIdentifier: 
+  id: 43de858f-58ad-420d-b7dd-d0e45c4319fc
   resourceKey: Seed
   itemName: "\uC528\uC557"
   effects:

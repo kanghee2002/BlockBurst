@@ -12,17 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: BlueberryEffect1
   m_EditorClassIdentifier: 
+  id: 0d281650-a298-402f-8ffa-2981b89d34ce
   resourceKey: BlueberryEffect1
   effectName: "\uC2A4\uD14C\uC774\uC9C0 \uC885\uB8CC \uC2DC\n\uBAA8\uB4E0 \uAE30\uBCF8
     \uBE14\uB85D\uC774\n+EffectValue \uBE14\uB85D \uC810\uC218\uB97C \uC5BB\uACE0,\n"
   type: 0
   scope: 0
   baseEffectValue: 5
-  effectValue: 5
   trigger: 24
   triggerMode: 0
   triggerValue: 0
-  triggerCount: 0
   blockTypes: 00000000010000000200000003000000040000000500000006000000
   probability: 1
   modifyingEffect: {fileID: 0}

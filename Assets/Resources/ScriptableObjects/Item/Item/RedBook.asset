@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: RedBook
   m_EditorClassIdentifier: 
+  id: 6221508c-2a35-4bc5-acda-bd698b9c244f
   resourceKey: RedBook
   itemName: "\uBD89\uC740 \uCC45"
   effects:

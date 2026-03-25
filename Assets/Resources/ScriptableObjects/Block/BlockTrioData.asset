@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80988d82d0424cb45adfcaaeecd2c6c0, type: 3}
   m_Name: BlockTrioData
   m_EditorClassIdentifier: 
+  id: 662bd1e3-9aaf-40ef-a663-2cd6ff449bf2
   resourceKey: BlockTrio
   type: 9
   shape:

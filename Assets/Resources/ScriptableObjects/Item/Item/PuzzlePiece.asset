@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: PuzzlePiece
   m_EditorClassIdentifier: 
+  id: 252c802e-6730-434b-922a-4e635b3dcfeb
   resourceKey: PuzzlePiece
   itemName: "\uD37C\uC990 \uC870\uAC01"
   effects:

@@ -12,13 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: DebuffSpecialScoreEffect2
   m_EditorClassIdentifier: 
+  id: de28d2d6-ae9e-418c-a806-3fc7f03b6fb3
   resourceKey: DebuffSpecialScoreEffect2
   effectName: 
   type: 0
-  trigger: 0
   scope: 1
-  effectValue: -10
-  blockTypes: 0700000008000000090000000a0000000b0000000c0000000d000000
-  blockId: -1
-  probability: 1
+  baseEffectValue: 0
+  trigger: 0
+  triggerMode: 0
   triggerValue: 0
+  blockTypes: 0700000008000000090000000a0000000b0000000c0000000d000000
+  probability: 1
+  modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

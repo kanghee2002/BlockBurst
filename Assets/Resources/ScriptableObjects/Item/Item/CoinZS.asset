@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: CoinZS
   m_EditorClassIdentifier: 
+  id: 80cd6465-dba9-4cc4-a19d-29cf4f57eecf
   resourceKey: CoinZS
   itemName: "\uBE14\uB85D \uB3D9\uC804"
   effects:

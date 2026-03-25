@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: GrayClock
   m_EditorClassIdentifier: 
+  id: 1c94da40-0062-4ac0-a208-c41ba183336c
   resourceKey: GrayClock
   itemName: "\uC7BF\uBE5B \uC2DC\uACC4"
   effects:

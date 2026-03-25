@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fa6f765182bfdf4cbe2d3152f17e458, type: 3}
   m_Name: BombDeckData
   m_EditorClassIdentifier: 
+  id: 7701c705-9bca-478a-ba1f-82394b15223a
   resourceKey: BombDeck
   deckName: "\uD3ED\uD0C4 \uB371"
   type: 5

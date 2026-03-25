@@ -12,17 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: BlockJLTMultiplierUpgradeEffect
   m_EditorClassIdentifier: 
+  id: 17b390b2-815e-423d-b772-a3d9196e506e
   resourceKey: BlockJLTMultiplierUpgradeEffect
   effectName: "J/L/T \uBC30\uCE58\uD574\uC11C \uC904\uC744 \uC9C0\uC6B8 \uB54C\n+EffectValue
     \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 2
   scope: 0
   baseEffectValue: 5
-  effectValue: 5
   trigger: 3
   triggerMode: 0
   triggerValue: 0
-  triggerCount: 0
   blockTypes: 040000000500000006000000
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

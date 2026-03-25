@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: ThreeBullet
   m_EditorClassIdentifier: 
+  id: 1c918f1e-4e14-49f6-9d9f-03d98077e225
   resourceKey: ThreeBullet
   itemName: "3\uBC1C\uC758 \uCD1D\uC54C"
   effects:

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Level", menuName = "BlockBurst/Level")]
-public class LevelData : ScriptableObject
+public class LevelData : BaseData
 {
     public int level;
     public List<int> additionalStageScores;          // 추가적인 스테이지 기본 점수

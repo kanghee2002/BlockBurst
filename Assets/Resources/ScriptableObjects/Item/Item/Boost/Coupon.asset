@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: Coupon
   m_EditorClassIdentifier: 
+  id: d3b19243-22ba-418f-a65a-0b58ae1d060f
   resourceKey: Coupon
   itemName: "\uCFE0\uD3F0"
   effects:

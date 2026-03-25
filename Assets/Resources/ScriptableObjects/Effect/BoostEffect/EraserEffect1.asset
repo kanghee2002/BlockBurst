@@ -12,16 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: EraserEffect1
   m_EditorClassIdentifier: 
+  id: f7f40626-7025-48d6-908d-808dbba123d2
   resourceKey: EraserEffect1
   effectName: "+EffectValue \uAE30\uBCF8 \uBC30\uC218\uB97C \uC5BB\uC9C0\uB9CC,"
   type: 3
   scope: 0
   baseEffectValue: 4
-  effectValue: 4
   trigger: 0
   triggerMode: 0
   triggerValue: 0
-  triggerCount: 0
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 0}

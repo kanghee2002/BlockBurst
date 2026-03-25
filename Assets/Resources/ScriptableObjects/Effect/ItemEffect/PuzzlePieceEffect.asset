@@ -12,17 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: PuzzlePieceEffect
   m_EditorClassIdentifier: 
+  id: 054230f2-4676-4a99-ab54-c15e384a31eb
   resourceKey: PuzzlePieceEffect
   effectName: "\uD2B9\uC218 \uBE14\uB85D\uC73C\uB85C \uC904\uC744 \uC9C0\uC6B8 \uB54C
     +EffectValue \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 2
   scope: 0
   baseEffectValue: 15
-  effectValue: 15
   trigger: 3
   triggerMode: 0
   triggerValue: 0
-  triggerCount: 0
   blockTypes: 0700000008000000090000000a0000000b0000000c0000000d000000
   probability: 1
   modifyingEffect: {fileID: 0}

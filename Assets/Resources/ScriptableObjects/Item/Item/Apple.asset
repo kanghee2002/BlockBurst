@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: Apple
   m_EditorClassIdentifier: 
+  id: 6828545f-9335-41f8-b618-c2c62e0fbbb2
   resourceKey: Apple
   itemName: "\uC0AC\uACFC"
   effects:

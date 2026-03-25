@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fa6f765182bfdf4cbe2d3152f17e458, type: 3}
   m_Name: TelescopeDeckData
   m_EditorClassIdentifier: 
+  id: 6fcb59ad-f84f-430e-9c6f-b8a988eff478
   resourceKey: TelescopeDeck
   deckName: "\uB9DD\uC6D0\uACBD \uB371"
   type: 3

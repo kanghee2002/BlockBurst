@@ -12,17 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: CorrectionTapeEffect1
   m_EditorClassIdentifier: 
+  id: 26832968-7c92-46f9-a6e7-8bde7f639754
   resourceKey: CorrectionTapeEffect1
   effectName: "\uB9E4 \uC2A4\uD14C\uC774\uC9C0 \uC2DC\uC791 \uC2DC \uBB34\uC791\uC704
     \uAE30\uBCF8 \uBE14\uB85D\uC744 \uC0AD\uC81C\uD558\uACE0,\n"
   type: 16
   scope: 0
   baseEffectValue: 1
-  effectValue: 1
   trigger: 22
   triggerMode: 0
   triggerValue: 0
-  triggerCount: 0
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 0}

@@ -12,17 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: BalloonEffect2
   m_EditorClassIdentifier: 
+  id: b3595a12-c462-4be0-9626-a4ffcca36ef1
   resourceKey: BalloonEffect2
   effectName: "\uC0C1\uC810\uC5D0\uC11C \uC0C8\uB85C\uACE0\uCE68\uD560 \uB54C\uB9C8\uB2E4
     \uC5BB\uB294 \uBC30\uC218\uAC00 +EffectValue \uC99D\uAC00\uD569\uB2C8\uB2E4"
   type: 27
   scope: 0
   baseEffectValue: 3
-  effectValue: 3
   trigger: 28
   triggerMode: 0
   triggerValue: 0
-  triggerCount: 0
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 11400000, guid: a7cdab877a16f2649af65b70ce33ce5a, type: 2}

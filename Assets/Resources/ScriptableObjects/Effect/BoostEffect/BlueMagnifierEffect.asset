@@ -12,16 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: BlueMagnifierEffect
   m_EditorClassIdentifier: 
+  id: e007fe9f-0130-4940-b1f7-f146ef79d4ae
   resourceKey: BlueMagnifierEffect
   effectName: "\uBCF4\uB4DC \uD06C\uAE30\uAC00\nEffectValue\uCE78 \uC99D\uAC00\uD569\uB2C8\uB2E4"
   type: 11
   scope: 0
   baseEffectValue: 1
-  effectValue: 1
   trigger: 0
   triggerMode: 0
   triggerValue: 0
-  triggerCount: 0
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

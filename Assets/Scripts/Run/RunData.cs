@@ -17,6 +17,7 @@ public class RunData
     // 스테이지 진행 데이터
     public int currentChapterIndex;
     public int currentStageIndex;
+    public string currentStageId;
     public DeckData currentDeck;
     public LevelData currentLevel;
     public History history;

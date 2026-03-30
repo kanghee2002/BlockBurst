@@ -36,20 +36,17 @@ public class GameManager : MonoBehaviour
     public List<BlockData> handBlocksData = new List<BlockData>();
     public List<Block> handBlocks = new List<Block>();
 
-    public Dictionary<ItemType, ItemData[]> shopItems = new();
+    private Dictionary<ItemType, ItemData[]> shopItems = new();
 
     private int blockId = 0;
 
     private StageData[] nextStageChoices = new StageData[STAGE_CHOICE_COUNT];
-    private float[] difficulties = new float[STAGE_CHOICE_COUNT];
-
     private List<Match> currentMatches;
-    private float scoreAnimationDelay;  // 블록 점수 간의 딜레이
-    private float scoreDelayedTime;     // 점수 계산하는데 걸린 시간
+    private float SCORE_ANIMATION_DELAY;  // 블록 점수 간의 딜레이
 
     [SerializeField] private bool isTutorial = true;
 
-    bool isClearStage = false; // 중복 방지 플래그
+    private bool isClearStage = false; // 중복 방지 플래그
 
     // ------------------------------
     // GAME LAYER - start
@@ -179,8 +176,6 @@ public class GameManager : MonoBehaviour
             gameObject.AddComponent<ScriptableDataManager>();
         }
 
-        ScriptableDataManager.instance.Initialize();
-
         LoadPlayerData();
         SetTutorialValue(playerData.tutorialValue);
 
@@ -237,6 +232,9 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game Start");
 
         CLEAR_CHAPTER = 4;
+        
+        SCORE_ANIMATION_DELAY = 0.01f;
+        currentMatches = new List<Match>();
 
         shopItems = new Dictionary<ItemType, ItemData[]>()
         {
@@ -252,50 +250,91 @@ public class GameManager : MonoBehaviour
 
         gameData = new GameData();
         gameData.Initialize(ScriptableDataManager.instance.blockTemplates, deckData, levelData);
-        
-        scoreAnimationDelay = 0.01f;
-        scoreDelayedTime = 0f;
-        currentMatches = new List<Match>();
 
         StartNewRun();
-        
-        //ContinueGame();
     }
 
-    public void ContinueGame()
+    /// <summary>
+    /// 런 저장으로 이어하기. 성공 시 true. 로드·덱/레벨·저장된 스테이지 id로 복원 불가 시 false
+    /// TODO. 상점 풀·해금 연동은 5단계에서 <see cref="ShopManager.Initialize"/>와 맞춘다.
+    /// </summary>
+    public bool ContinueGame()
     {
-        /*foreach (BlockData blockData in ScriptableDataManager.instance.blockTemplates)
+        ScriptableDataManager sdManager = ScriptableDataManager.instance;
+        if (sdManager == null)
         {
-            if (Enums.IsSpecialBlockType(blockData.type))
-            {
-                continue;
-            }
-            for (int i = 0; i < gameData.defaultBlockCount; i++)
-            {
-                gameData.defaultBlocks.Add(blockData);
-            }
+            Debug.LogError("ContinueGame: ScriptableDataManager.instance is null.");
+            return false;
         }
-        runData = DataManager.instance.LoadRunData(gameData);
 
-        CLEAR_CHAPTER = 3;
+        // 디스크에서만 복원한다. 실패 시 빈 런으로 대체하지 않고 중단한다.
+        if (!DataManager.instance.TryLoadRunData(out RunData loadedRun))
+        {
+            Debug.LogWarning("ContinueGame: 런 저장을 불러오지 못했습니다.");
+            return false;
+        }
 
-        InitializeHistory();
+        // 매퍼가 채운 currentDeck / currentLevel로 스테이지 점수·보상 등에 쓸 GameData를 구성한다.
+        if (loadedRun.currentDeck == null || loadedRun.currentLevel == null)
+        {
+            Debug.LogError("ContinueGame: 저장의 덱·레벨 id를 레지스트리에서 찾지 못했습니다.");
+            return false;
+        }
 
-        scoreAnimationDelay = 0.01f;
-        scoreDelayedTime = 0f;
+        // 이어하기는 저장 시점의 스테이지 id가 있어야 하고, 레지스트리에서 풀 수 있어야 한다.
+        if (string.IsNullOrEmpty(loadedRun.currentStageId))
+        {
+            Debug.LogError("ContinueGame: 저장에 currentStageId가 없어 이어하기를 할 수 없습니다.");
+            return false;
+        }
+
+        if (!sdManager.TryGetStage(loadedRun.currentStageId, out StageData resumeStage))
+        {
+            Debug.LogError($"ContinueGame: currentStageId '{loadedRun.currentStageId}'에 해당하는 스테이지를 찾을 수 없습니다.");
+            return false;
+        }
+
+        runData = loadedRun;
+
+        gameData = new GameData();
+        gameData.Initialize(Array.Empty<BlockData>(), runData.currentDeck, runData.currentLevel);
+
+        // StartNewGame과 동일한 런 진입 전 필드 초기화(히스토리는 저장본 유지).
+        CLEAR_CHAPTER = 4;
+        SCORE_ANIMATION_DELAY = 0.01f;
         currentMatches = new List<Match>();
 
+        shopItems = new Dictionary<ItemType, ItemData[]>()
+        {
+            { ItemType.ITEM, new ItemData[2] },
+            { ItemType.BOOST, new ItemData[2] },
+            { ItemType.ADD_BLOCK, new ItemData[2] },
+        };
+
+        // 보드 셀 효과·효과 매니저를 저장된 activeEffects 기준으로 맞춘다.
         CellEffectManager.instance.Initialize();
         EffectManager.instance.Initialize(ref runData);
 
-        stageManager.Initialize(ref runData);
-        shopManager.Initialize(ref runData, ScriptableDataManager.instance.itemTemplates);
+        // TODO. 4단계: 해금 풀 기반 상점은 5단계. 여기서는 runData 참조만 연결한다.
+        shopManager.Initialize(ref runData, Array.Empty<ItemData>());
+
+        animationManager.InitializeRunData(ref runData);
 
         UpdateDeckCount(runData.availableBlocks.Count, runData.availableBlocks.Count);
 
         GameUIManager.instance.Initialize(runData);
 
-        StartStageSelection();*/
+        StartStage(resumeStage);
+        string[] playingDebuffNames = resumeStage.constraints.Select(c => c.effectName).ToArray();
+        GameUIManager.instance.OnStageStart(
+            runData.currentChapterIndex,
+            runData.currentStageIndex,
+            playingDebuffNames,
+            blockGame.clearRequirement,
+            blockGame);
+        GameUIManager.instance.BlockCells(blockGame.inactiveCells);
+
+        return true;
     }
 
     public void InitializeHistory()
@@ -572,6 +611,10 @@ public class GameManager : MonoBehaviour
         blockGame.clearRequirement = GetStageClearRequirement(stage);
         blockGame.goldReward = GetStageGoldReward(stage);
 
+        runData.currentStageId = stage.id;
+
+        DataManager.instance.SaveRunData(runData);
+
         stageManager.StartStage(stage, blockGame);
 
         board = new Board();
@@ -634,7 +677,7 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1.5f);
 
-        GameUIManager.instance.PlayStageClearAnimation(scoreAnimationDelay);
+        GameUIManager.instance.PlayStageClearAnimation(SCORE_ANIMATION_DELAY);
 
         AudioManager.instance.SFXStageClear();
 

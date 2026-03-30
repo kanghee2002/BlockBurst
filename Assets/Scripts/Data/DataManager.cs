@@ -54,6 +54,20 @@ public class DataManager : MonoBehaviour
         GameUIManager.instance.OnDeckSelectionPlayerDataCallback(playerData);
     }
 
+    /// <summary>런 저장 파일이 있고 <see cref="RunSaveData.CurrentSaveVersion"/> 이상이면 true.</summary>
+    public bool HasValidRunSaveData()
+    {
+        string dataPath = Path.Combine(path, "RunData.json");
+        if (!File.Exists(dataPath))
+            return false;
+
+        string loadedJson = File.ReadAllText(dataPath);
+        RunSaveData saveData = JsonUtility.FromJson<RunSaveData>(loadedJson);
+        if (saveData == null)
+            return false;
+        return saveData.saveVersion >= RunSaveData.CurrentSaveVersion;
+    }
+
     // 이어하기
     public void SaveRunData(RunData runData)
     {
@@ -80,46 +94,33 @@ public class DataManager : MonoBehaviour
         return playerData;
     }
 
-    public RunData LoadRunData(GameData gameData)
+    /// <summary>
+    /// 디스크의 런 저장만 복원한다. 실패 시 빈 런을 만들지 않고 false를 반환한다.
+    /// </summary>
+    public bool TryLoadRunData(out RunData runData)
     {
+        runData = null;
+
         string dataPath = Path.Combine(path, "RunData.json");
         if (!File.Exists(dataPath))
         {
-            Debug.Log("There doesn't exist Run Data");
-            RunData fresh = new RunData();
-            fresh.Initialize(gameData);
-            return fresh;
+            Debug.LogWarning("TryLoadRunData: 런 저장 파일이 없습니다.");
+            return false;
         }
 
         string loadedJson = File.ReadAllText(dataPath);
         RunSaveData saveData = JsonUtility.FromJson<RunSaveData>(loadedJson);
         if (saveData == null || saveData.saveVersion < RunSaveData.CurrentSaveVersion)
         {
-            Debug.LogWarning("Run save missing or legacy format; starting fresh run.");
-            
+            Debug.LogWarning("TryLoadRunData: 런 저장이 없거나 구버전입니다.");
+
             // TODO: 데이터 버전 마이그레이션
 
-            RunData fresh = new RunData();
-            fresh.Initialize(gameData);
-            return fresh;
+            return false;
         }
 
-        ScriptableDataManager sdManager = ScriptableDataManager.instance;
-        if (sdManager == null)
-        {
-            Debug.LogError("LoadRunData: ScriptableDataManager.instance is null; starting fresh run.");
-
-            // TODO: 이어하기 실패 구현
-
-            RunData fresh = new RunData();
-            fresh.Initialize(gameData);
-            return fresh;
-        }
-
-        sdManager.Initialize();
-        RunData runData = new RunData();
-        RunSaveMapper.FromSaveData(saveData, runData, sdManager);
-        return runData;
+        runData = RunSaveMapper.FromSaveData(saveData);
+        return runData != null;
     }
 
     // 덱 해금 추가

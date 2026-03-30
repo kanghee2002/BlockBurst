@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// <see cref="RunData"/>와 <see cref="RunSaveData"/> 간 변환. SO 복원은 <see cref="ScriptableDataManager"/>가 초기화된 뒤 수행한다.
+/// <see cref="RunData"/>와 <see cref="RunSaveData"/> 간 변환. SO 복원은 <see cref="ScriptableDataManager"/>가 <see cref="ScriptableDataManager.Awake"/>로 준비된 뒤 수행한다.
 /// </summary>
 public static class RunSaveMapper
 {
@@ -17,6 +17,7 @@ public static class RunSaveMapper
             currentStageIndex = runData.currentStageIndex,
             currentDeckId = runData.currentDeck != null ? runData.currentDeck.id : null,
             currentLevelId = runData.currentLevel != null ? runData.currentLevel.id : null,
+            currentStageId = runData.currentStageId,
             history = runData.history,
             baseBlockScores = new BlockTypeIntDictionary(runData.baseBlockScores),
             baseMatchMultipliers = new MatchTypeIntDictionary(runData.baseMatchMultipliers),
@@ -102,20 +103,27 @@ public static class RunSaveMapper
         return saveData;
     }
 
-    public static void FromSaveData(RunSaveData saveData, RunData runData, ScriptableDataManager sdManager)
+    /// <summary>
+    /// DTO와 레지스트리로 새 <see cref="RunData"/>를 만든다. 인자가 없으면 null.
+    /// </summary>
+    public static RunData FromSaveData(RunSaveData saveData)
     {
-        // 인자가 없으면 반환한다. sdManager 없이는 SO를 복원할 수 없다.
-        if (saveData == null || runData == null)
-            return;
-        if (sdManager == null)
+        if (saveData == null)
+            return null;
+        if (ScriptableDataManager.instance == null)
         {
             Debug.LogError("RunSaveMapper.FromSaveData: ScriptableDataManager is null.");
-            return;
+            return null;
         }
+
+        ScriptableDataManager sdManager = ScriptableDataManager.instance;
+
+        RunData runData = new RunData();
 
         // ToSaveData의 객체 초기화 블록·이후 리스트 채우기와 같은 순서로 역매핑한다(의존성 때문의 재배치는 아님).
         runData.currentChapterIndex = saveData.currentChapterIndex;
         runData.currentStageIndex = saveData.currentStageIndex;
+        runData.currentStageId = saveData.currentStageId;
 
         runData.currentDeck = string.IsNullOrEmpty(saveData.currentDeckId) ? null : sdManager.GetDeck(saveData.currentDeckId);
         runData.currentLevel = string.IsNullOrEmpty(saveData.currentLevelId) ? null : sdManager.GetLevel(saveData.currentLevelId);
@@ -201,5 +209,7 @@ public static class RunSaveMapper
                 runData.activeEffects.Add(state.Clone());
             }
         }
+
+        return runData;
     }
 }

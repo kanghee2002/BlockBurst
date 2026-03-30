@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Resources에서 로드한 ScriptableObject 배열과 id→SO 딕셔너리를 보관한다. <see cref="Initialize"/>는 <see cref="GameManager"/>의 씬 로드 시 호출된된다.
+/// Resources에서 로드한 ScriptableObject 배열과 id→SO 딕셔너리를 보관한다.
 /// </summary>
 public class ScriptableDataManager : MonoBehaviour
 {
@@ -24,13 +24,14 @@ public class ScriptableDataManager : MonoBehaviour
     private readonly Dictionary<string, BlockData> _blockById = new();
     private readonly Dictionary<string, EffectData> _effectById = new();
 
-    // 싱글톤 등록 및 DontDestroyOnLoad (중복 컴포넌트는 제거).
+    // 싱글톤 등록, DontDestroyOnLoad, Resources 로드.
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+            Initialize();
         }
         else if (instance != this)
         {
@@ -38,7 +39,7 @@ public class ScriptableDataManager : MonoBehaviour
         }
     }
 
-    // Resources에서 SO를 로드하고 배열·id 딕셔너리를 채운다.
+    // Resources에서 SO를 로드하고 배열·id 딕셔너리를 채운다. Awake에서 호출되며, 필요 시 수동으로 다시 호출할 수 있다.
     public void Initialize()
     {
         if (_initialized)
@@ -100,7 +101,7 @@ public class ScriptableDataManager : MonoBehaviour
         if (_initialized)
             return true;
 
-        Debug.LogError($"ScriptableDataManager: {caller} called before Initialize().");
+        Debug.LogError($"ScriptableDataManager: {caller} called before initialization (Awake not run yet?).");
         return false;
     }
 

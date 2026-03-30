@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TMPro;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
@@ -79,13 +81,16 @@ public class GameManager : MonoBehaviour
     }
 
     // ------------------------------------------------------------------------
-    // TEST
+    // TEST (에디터 플레이 모드에서만 동작)
 
     private void Update()
     {
+#if UNITY_EDITOR
+        // 디버그: 런 저장 테스트 (C 키)
         if (Input.GetKeyDown(KeyCode.R))
         {
-            //dataManager.SaveRunData(runData);
+            DataManager.instance.SaveRunData(runData);
+            Debug.Log("[Editor] DataManager.SaveRunData(runData) 호출됨.");
         }
 
         // 디버그: 플레이 중 스테이지 즉시 종료 (기존 SKIP_BUTTON과 동일 동작, S 키)
@@ -95,6 +100,7 @@ public class GameManager : MonoBehaviour
         // 디버그: 골드 5000 추가 (G 키)
         if (Input.GetKeyDown(KeyCode.G))
             DebugAddGold();
+#endif
     }
 
     /// <summary>디버그용. 현재 런에 골드 추가.</summary>

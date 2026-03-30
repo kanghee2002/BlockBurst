@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class RunData
 {
+    [Serializable]
     public struct History
     {
         public float startTime;

@@ -143,20 +143,52 @@ public class SerializableDictionary<TKey, TValue> : ISerializationCallbackReceiv
 [Serializable]
 public sealed class BlockTypeIntDictionary : SerializableDictionary<BlockType, int>
 {
+    public BlockTypeIntDictionary()
+    {
+    }
+
+    public BlockTypeIntDictionary(Dictionary<BlockType, int> source)
+        : base(source)
+    {
+    }
 }
 
 [Serializable]
 public sealed class MatchTypeIntDictionary : SerializableDictionary<MatchType, int>
 {
+    public MatchTypeIntDictionary()
+    {
+    }
+
+    public MatchTypeIntDictionary(Dictionary<MatchType, int> source)
+        : base(source)
+    {
+    }
 }
 
 [Serializable]
 public sealed class ItemTypeIntDictionary : SerializableDictionary<ItemType, int>
 {
+    public ItemTypeIntDictionary()
+    {
+    }
+
+    public ItemTypeIntDictionary(Dictionary<ItemType, int> source)
+        : base(source)
+    {
+    }
 }
 
 [Serializable]
 public sealed class ItemRarityIntDictionary : SerializableDictionary<ItemRarity, int>
 {
+    public ItemRarityIntDictionary()
+    {
+    }
+
+    public ItemRarityIntDictionary(Dictionary<ItemRarity, int> source)
+        : base(source)
+    {
+    }
 }
 

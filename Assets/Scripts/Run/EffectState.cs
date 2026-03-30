@@ -9,6 +9,7 @@ using UnityEngine;
 public class EffectState
 {
     public string id;
+    public string resourceKey;
     public string effectDataId;
     public int effectValue;
     public int triggerCount;
@@ -23,6 +24,7 @@ public class EffectState
         var state = new EffectState
         {
             id = Guid.NewGuid().ToString(),
+            resourceKey = effect.resourceKey.ToString(),
             effectDataId = effect.id,
             effectValue = effect.baseEffectValue,
             triggerCount = 0,
@@ -68,5 +70,29 @@ public class EffectState
         modifyingTargetStateId = null;
         Debug.LogWarning(
             $"EFFECT_VALUE_MODIFIER: 등록 시점에 대상 효과 '{targetEffect.name}'에 해당하는 선행 EffectState가 없습니다. 발동 시 템플릿 매칭으로 재시도합니다.");
+    }
+    
+    /// <summary>
+    /// 저장·역직렬화 시 <see cref="RunData"/>와 DTO 간 참조를 나누기 위한 얕은 복제.
+    /// JsonUtility는 빈 문자열을 쓰는 경우가 있어, 빈 문자열은 null로 맞춘다.
+    /// </summary>
+    public EffectState Clone()
+    {
+        return new EffectState
+        {
+            id = NormalizePersistString(id),
+            resourceKey = NormalizePersistString(resourceKey),
+            effectDataId = NormalizePersistString(effectDataId),
+            effectValue = effectValue,
+            triggerCount = triggerCount,
+            modifyingTargetStateId = NormalizePersistString(modifyingTargetStateId)
+        };
+    }
+
+    static string NormalizePersistString(string value)
+    {
+        if (string.IsNullOrEmpty(value))
+            return null;
+        return value;
     }
 }

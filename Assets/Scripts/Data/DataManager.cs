@@ -79,6 +79,16 @@ public class DataManager : MonoBehaviour
         Debug.Log("Finish Saving RunData");
     }
 
+    /// <summary>이어하기용 런 저장 파일(<c>RunData.json</c>)을 삭제한다. 파일이 없으면 아무 것도 하지 않는다.</summary>
+    public void DeleteRunSaveData()
+    {
+        string dataPath = Path.Combine(path, "RunData.json");
+        if (!File.Exists(dataPath))
+            return;
+
+        File.Delete(dataPath);
+    }
+
     public PlayerData LoadPlayerData()
     {
         string dataPath = Path.Combine(path, "PlayerData.json");

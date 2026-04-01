@@ -349,6 +349,9 @@ public class GameManager : MonoBehaviour
     
     public void EndGame(bool isWin, string loseReason = "")
     {
+        if (!isWin && DataManager.instance != null)
+            DataManager.instance.DeleteRunSaveData();
+
         BlockType mostPlacedBlockType = (BlockType)runData.history.blockHistory.ToList().IndexOf(runData.history.blockHistory.Max());
         GameUIManager.instance.OnGameEnd(isWin, runData.currentChapterIndex, runData.currentStageIndex, runData.history, mostPlacedBlockType, loseReason: loseReason);
     }

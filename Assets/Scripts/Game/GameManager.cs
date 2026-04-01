@@ -322,7 +322,8 @@ public class GameManager : MonoBehaviour
 
         UpdateDeckCount(runData.availableBlocks.Count, runData.availableBlocks.Count);
 
-        GameUIManager.instance.Initialize(runData);
+        // 스테이지 선택 단계를 건너뛰므로 selecting UI는 열지 않음(OnStageStart가 playing 전환).
+        GameUIManager.instance.InitializeContinueGame(runData);
 
         StartStage(resumeStage);
         string[] playingDebuffNames = resumeStage.constraints.Select(c => c.effectName).ToArray();

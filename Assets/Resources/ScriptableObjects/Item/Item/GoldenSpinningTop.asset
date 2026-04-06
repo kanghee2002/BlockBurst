@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: GoldenSpinningTop
   m_EditorClassIdentifier: 
+  id: ed180d92-06b6-4f87-aeb4-2e78403405fa
   resourceKey: GoldenSpinningTop
   itemName: "\uAE08\uBE5B \uD33D\uC774"
   effects:

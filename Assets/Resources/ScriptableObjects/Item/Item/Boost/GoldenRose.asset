@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: GoldenRose
   m_EditorClassIdentifier: 
+  id: 98c2a08a-ff0c-4ac9-a7a3-4f00017cb191
   resourceKey: GoldenRose
   itemName: "\uAE08\uBE5B \uC7A5\uBBF8"
   effects:

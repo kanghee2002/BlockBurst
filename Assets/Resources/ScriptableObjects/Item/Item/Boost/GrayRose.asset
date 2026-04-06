@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: GrayRose
   m_EditorClassIdentifier: 
+  id: d4ae2688-f617-46ec-920f-244965677396
   resourceKey: GrayRose
   itemName: "\uC7BF\uBE5B \uC7A5\uBBF8"
   effects:

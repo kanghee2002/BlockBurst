@@ -37,6 +37,14 @@ public class EffectManager : MonoBehaviour
         blockGameData = data;
     }
 
+    private EffectData GetEffect(EffectState state)
+    {
+        if (ScriptableDataManager.instance.TryGetEffect(state.effectDataId, out EffectData effect))
+            return effect;
+        Debug.LogError($"[EffectManager] Unknown effectDataId '{state.effectDataId}'.");
+        return null;
+    }
+
     public EffectState AddEffect(EffectData effect)
     {
         if (effect == null)
@@ -45,10 +53,8 @@ public class EffectManager : MonoBehaviour
         
         runData.activeEffects.Add(state);
 
-        if (state.template.trigger == TriggerType.ON_ACQUIRE)
-        {
+        if (effect.trigger == TriggerType.ON_ACQUIRE)
             ApplyEffect(state);
-        }
         return state;
     }
 
@@ -63,7 +69,7 @@ public class EffectManager : MonoBehaviour
     public bool RemoveEffect(EffectData template)
     {
         if (template == null) return false;
-        EffectState matchedState = runData.activeEffects.FirstOrDefault(s => s.template == template);
+        EffectState matchedState = runData.activeEffects.FirstOrDefault(s => s.effectDataId == template.id);
         if (matchedState == null) return false;
         return runData.activeEffects.Remove(matchedState);
     }
@@ -72,7 +78,7 @@ public class EffectManager : MonoBehaviour
     {
         if (template == null)
             return false;
-        return runData.activeEffects.Any(s => s.template == template);
+        return runData.activeEffects.Any(s => s.effectDataId == template.id);
     }
 
     // 모든 트리거 호출 이후, 시각 효과를 위해 호출
@@ -102,7 +108,7 @@ public class EffectManager : MonoBehaviour
     {
         foreach (EffectState state in runData.activeEffects)
         {
-            EffectData effect = state.template;
+            EffectData effect = GetEffect(state);
             if (effect.trigger == trigger && IsIncluded(blockTypes, effect.blockTypes))
             {
                 if (!CheckTriggerCount(state, triggerValue))
@@ -117,7 +123,7 @@ public class EffectManager : MonoBehaviour
 
     private bool CheckTriggerCount(EffectState state, int triggerValue)
     {
-        EffectData effect = state.template;
+        EffectData effect = GetEffect(state);
         if (effect.triggerMode == TriggerMode.None)
         {
             return true;
@@ -156,7 +162,8 @@ public class EffectManager : MonoBehaviour
 
     public void ApplyEffect(EffectState state)
     {
-        EffectData effect = state.template;
+        EffectData effect = GetEffect(state);
+        
         MatchType matchType = MatchType.ROW;
 
         // 확률 적용
@@ -349,13 +356,9 @@ public class EffectManager : MonoBehaviour
                 break;
             case EffectType.EFFECT_VALUE_MODIFIER:
                 EffectState targetState = null;
-                if (state.modifyingTargetStateId.HasValue)
+                if (!string.IsNullOrEmpty(state.modifyingTargetStateId))
                 {
                     targetState = runData.activeEffects.FirstOrDefault(s => s.id == state.modifyingTargetStateId);
-                }
-                else
-                {
-                    targetState = runData.activeEffects.FirstOrDefault(s => s != state && s.template == effect.modifyingEffect);
                 }
 
                 if (targetState == null)
@@ -402,7 +405,7 @@ public class EffectManager : MonoBehaviour
                 break;
         }
 
-        AnimationData animationData = AnimationManager.instance.GetAnimationData(state.template, additiveValue);
+        AnimationData animationData = AnimationManager.instance.GetAnimationData(effect, additiveValue);
         triggeredAnimations.Add(animationData);
 
         DataManager.instance.UpdateMaxBaseMultiplier(runData.baseMatchMultipliers[matchType]);
@@ -429,7 +432,7 @@ public class EffectManager : MonoBehaviour
 
     public int GetFinalValue(EffectState state)
     {
-        EffectData effect = state.template;
+        EffectData effect = GetEffect(state);
         int value = state.effectValue;
         int scalingValue = 1;
 
@@ -505,11 +508,13 @@ public class EffectManager : MonoBehaviour
     {
         foreach (string effectId in effectIdList)
         {
-            EffectState state = runData.activeEffects.FirstOrDefault(x => x.template.resourceKey == effectId);
-
-            if (state != null && state.template.scope == EffectScope.Stage)
+            foreach (EffectState x in runData.activeEffects)
             {
-                return true;
+                EffectData ed = GetEffect(x);
+                if (ed == null)
+                    continue;
+                if (ed.resourceKey == effectId && ed.scope == EffectScope.Stage)
+                    return true;
             }
         }
         return false;

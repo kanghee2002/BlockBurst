@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: StrangeClock
   m_EditorClassIdentifier: 
+  id: ea825101-e3c2-465b-85dd-53b72f25687f
   resourceKey: StrangeClock
   itemName: "\uC774\uC0C1\uD55C \uC2DC\uACC4"
   effects:
@@ -19,5 +20,6 @@ MonoBehaviour:
   cost: 6
   type: 2
   block: {fileID: 0}
+  isPurchasableAgain: 0
   effectType: 0
   rarity: 1

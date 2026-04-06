@@ -18,10 +18,6 @@ public struct ColorSet
     public Color uiColor;
     public Color contrastColor;
     public Color uiTextColor;
-
-
-
-    
 }
 
 public class GameUIManager : MonoBehaviour
@@ -127,6 +123,27 @@ public class GameUIManager : MonoBehaviour
         goldInfoUI.Initialize(runData.gold);
         actionInfoUI.Initialize(_chip: 0, _multiplier: runData.baseMatchMultipliers[MatchType.ROW], _product: 0);
         actionInfoUI.SetChipLayoutColor(currentUIColor.backGroundDarkerColor);
+    }
+
+    /// <summary>
+    /// 이어하기 전용. <see cref="Initialize"/>와 동일한 런 HUD 준비만 하고 스테이지 선택 UI는 열지 않는다.
+    /// 이후 <see cref="OnStageStart"/>가 <see cref="SceneState.playing"/>으로 전환한다.
+    /// </summary>
+    public void InitializeContinueGame(RunData runData)
+    {
+        deckSelectionBoardUI.CloseDeckSelectionBoardUI();
+
+        gameInfoUI.OpenUI();
+        itemSetUI.OpenItemSetUI();
+        lobbyUI.CloseUI();
+        titleLogoAnimator.StopLogoAnimation();
+
+        DisplayItemSet(runData.activeItems, runData.maxItemCount);
+
+        sceneState = SceneState.none;
+
+        goldInfoUI.Initialize(runData.gold);
+        actionInfoUI.Initialize(_chip: 0, _multiplier: runData.baseMatchMultipliers[MatchType.ROW], _product: 0);
     }
 
     // BUTTON METHODS

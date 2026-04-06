@@ -12,16 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: WallEffect
   m_EditorClassIdentifier: 
+  id: 1f24f021-1f6e-43c3-aba7-a4ca281e739c
   resourceKey: WallEffect
   effectName: "\uBAA9\uD45C \uC810\uC218\uAC00 \uB9E4\uC6B0 \uB192\uC2B5\uB2C8\uB2E4"
   type: 0
   scope: 1
   baseEffectValue: 0
-  effectValue: 0
   trigger: 0
   triggerMode: 0
   triggerValue: 0
-  triggerCount: 0
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

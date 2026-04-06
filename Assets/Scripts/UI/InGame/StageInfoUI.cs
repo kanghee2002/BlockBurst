@@ -49,6 +49,7 @@ public class StageInfoUI : MonoBehaviour
 
         UpdateChapter(chapterIndex);
         UpdateStage(stageIndex);
+        UpdateChapterStage(chapterIndex, stageIndex);
         if (stageDebuffEffectNames == null)
         {
             UpdateStageDescriptionText(System.Array.Empty<string>());

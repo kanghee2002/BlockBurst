@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: Glasses
   m_EditorClassIdentifier: 
+  id: 08458f3c-4967-4e9b-8683-36f470550b0e
   resourceKey: Glasses
   itemName: "\uC548\uACBD"
   effects:

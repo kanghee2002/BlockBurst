@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Item", menuName = "BlockBurst/Item")]
-public class ItemData : ScriptableObject
+public class ItemData : BaseData
 {
-    public string resourceKey;
     [TextArea] public string itemName;            // 아이템 이름
     public List<EffectData> effects;   // 효과
     public int cost;                   // 가격

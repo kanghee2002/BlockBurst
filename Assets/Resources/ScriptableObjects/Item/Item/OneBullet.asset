@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: OneBullet
   m_EditorClassIdentifier: 
+  id: ef508cf9-bedd-481a-8c3c-a63b077cede8
   resourceKey: OneBullet
   itemName: "\uB9C8\uC9C0\uB9C9 \uCD1D\uC54C"
   effects:

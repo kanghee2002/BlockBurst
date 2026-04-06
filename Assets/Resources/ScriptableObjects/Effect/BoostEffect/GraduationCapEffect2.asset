@@ -12,17 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: GraduationCapEffect2
   m_EditorClassIdentifier: 
+  id: 74d9f3e8-74c9-4191-8206-76c1066a37f8
   resourceKey: GraduationCapEffect2
   effectName: "\uB9E4 \uC2A4\uD14C\uC774\uC9C0 \uC885\uB8CC \uC2DC\n$EffectValue
     \uACE8\uB4DC\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 9
   scope: 0
   baseEffectValue: 10
-  effectValue: 10
   trigger: 24
   triggerMode: 0
   triggerValue: 0
-  triggerCount: 0
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 0}

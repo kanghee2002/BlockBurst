@@ -12,17 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: BossBlockBoardEffect
   m_EditorClassIdentifier: 
+  id: 47db1425-98a4-4359-ab68-54732a1fb6fc
   resourceKey: BossBlockBoardEffect
   effectName: "\uBCF4\uB4DC\uC758 \uBB34\uC791\uC704 6\uCE78\uC5D0\n\uBE14\uB85D\uC744
     \uB458 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4"
   type: 13
   scope: 1
   baseEffectValue: 6
-  effectValue: 6
   trigger: 0
   triggerMode: 0
   triggerValue: 0
-  triggerCount: 0
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

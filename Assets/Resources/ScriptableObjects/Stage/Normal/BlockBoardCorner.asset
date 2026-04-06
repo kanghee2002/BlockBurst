@@ -1,4 +1,4 @@
-﻿%YAML 1.1
+%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &11400000
 MonoBehaviour:
@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43902bf98a9ab9c4d8d6db09a48e8201, type: 3}
   m_Name: BlockBoardCorner
   m_EditorClassIdentifier: 
+  id: 455e5ead-5c3e-413a-b223-2c6f6af680cf
   resourceKey: BlockBoardCorner
   type: 0
   boardSize: {x: 8, y: 8}

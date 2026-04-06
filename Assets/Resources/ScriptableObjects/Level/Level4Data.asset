@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dc829b84acbf6345bb5d84ee1f832f9, type: 3}
   m_Name: Level4Data
   m_EditorClassIdentifier: 
+  id: b334e7e1-3cc5-4d54-960c-79610db8b332
+  resourceKey: Level4
   level: 4
   additionalStageScores: 00000000d007000010270000204e0000
   additionalStageReward: -2

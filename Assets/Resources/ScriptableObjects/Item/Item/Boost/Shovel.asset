@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: Shovel
   m_EditorClassIdentifier: 
+  id: 581e76f5-bf42-4e57-ad32-a8f4fdafca95
   resourceKey: Shovel
   itemName: "\uC0BD"
   effects:

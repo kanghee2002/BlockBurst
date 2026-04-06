@@ -12,17 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: RedBookEffect
   m_EditorClassIdentifier: 
+  id: aee090b3-171f-4229-9b83-6a7fd5591a35
   resourceKey: RedBookEffect
   effectName: "\uC5F0\uC18D\uC73C\uB85C\n\uC904\uC744 \uC9C0\uC6B8 \uB54C\n+EffectValue
     \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 2
   scope: 0
   baseEffectValue: 15
-  effectValue: 15
   trigger: 14
   triggerMode: 0
   triggerValue: 0
-  triggerCount: 0
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 0}

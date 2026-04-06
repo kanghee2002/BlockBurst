@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: GearZSEffect
   m_EditorClassIdentifier: 
+  id: b78d5eb4-d528-45c9-b6f3-b0634414a518
   resourceKey: GearZSEffect
   effectName: "\uC190\uD328\uC5D0 Z/S \uC788\uC744 \uB54C\n\uB2E4\uC2DC \uBF51\uAE30\uB97C
     TriggerValue\uBC88 \uD558\uBA74\nZ/S +EffectValue \uBE14\uB85D \uC810\uC218\uB97C
@@ -19,11 +20,9 @@ MonoBehaviour:
   type: 0
   scope: 0
   baseEffectValue: 3
-  effectValue: 3
   trigger: 25
   triggerMode: 2
   triggerValue: 3
-  triggerCount: 0
   blockTypes: 0200000003000000
   probability: 1
   modifyingEffect: {fileID: 0}

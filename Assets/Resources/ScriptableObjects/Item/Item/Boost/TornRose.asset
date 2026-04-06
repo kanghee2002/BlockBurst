@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: TornRose
   m_EditorClassIdentifier: 
+  id: 2b671f7e-b56e-4ebe-95ea-5d987b648dc3
   resourceKey: TornRose
   itemName: "\uB72F\uAE34 \uC7A5\uBBF8"
   effects:

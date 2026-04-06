@@ -4,9 +4,8 @@ using UnityEngine;
 using System;
 
 [CreateAssetMenu(fileName = "Deck", menuName = "BlockBurst/Deck")]
-public class DeckData : ScriptableObject
+public class DeckData : BaseData
 {
-    public string resourceKey;
     public string deckName;                                     // 덱 이름
     public DeckType type;                                       // 덱 타입
     [TextArea] public string description;                                  // 덱 설명

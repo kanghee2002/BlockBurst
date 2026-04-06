@@ -1,4 +1,4 @@
-﻿%YAML 1.1
+%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &11400000
 MonoBehaviour:
@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43902bf98a9ab9c4d8d6db09a48e8201, type: 3}
   m_Name: BossDecreaseBoradSize
   m_EditorClassIdentifier: 
+  id: 5be56342-8268-4b2b-a5c1-a3c8f94bb6fa
   resourceKey: BossDecreaseBoradSize
   type: 1
   boardSize: {x: 8, y: 8}
@@ -19,3 +20,4 @@ MonoBehaviour:
   constraints:
   - {fileID: 11400000, guid: e69080964d657fc4eb0b26705ec21bb6, type: 2}
   baseScoreMultiplier: 0
+  additionalGold: 0

@@ -38,6 +38,44 @@ public class ShopManager : MonoBehaviour
         deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
     }
 
+    /// <summary>
+    /// 이어하기 등: 베이스 풀 채운 뒤, 비반복(<see cref="ItemData.isPurchasableAgain"/> false)으로
+    /// 인벤/부스트에 들어 있는 <see cref="ItemData"/>만큼 <see cref="currentItems"/>에서 참조 동등으로 한 개씩 제거한다.
+    /// </summary>
+    public void ApplyActiveItemToPool(RunData run)
+    {
+        if (run == null)
+        {
+            return;
+        }
+
+        SubtractItemFromPool(run.activeItems);
+        SubtractItemFromPool(run.activeBoosts);
+    }
+
+    private void SubtractItemFromPool(List<ItemData> owned)
+    {
+        if (owned == null)
+        {
+            return;
+        }
+
+        foreach (ItemData item in owned)
+        {
+            if (item == null || item.isPurchasableAgain)
+            {
+                continue;
+            }
+
+            bool removed = currentItems.Remove(item);
+            if (!removed)
+            {
+                Debug.LogWarning(
+                    $"ShopManager.ApplyActiveInventoryToPool: 상점 풀에서 '{item.resourceKey}' 항목을 찾지 못했습니다.");
+            }
+        }
+    }
+
     // 튜토리얼 용 함수
     public void AddFirstItem(List<string> items)
     {
@@ -177,6 +215,7 @@ public class ShopManager : MonoBehaviour
         }
         else if (item.type == ItemType.UPGRADE) 
         {
+            runData.activeUpgrades.Add(item);
             foreach (EffectData effect in item.effects)
             {
                 // 아이템처럼 취급

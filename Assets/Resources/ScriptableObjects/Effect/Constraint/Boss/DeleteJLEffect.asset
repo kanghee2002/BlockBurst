@@ -12,16 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: DeleteJLEffect
   m_EditorClassIdentifier: 
+  id: a6c1ea55-d9f0-4026-886b-22ce8c72ea81
   resourceKey: DeleteJLEffect
   effectName: "J/L \uB97C \uC0AC\uC6A9\uD560 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4"
   type: 18
   scope: 1
   baseEffectValue: 0
-  effectValue: 0
   trigger: 0
   triggerMode: 0
   triggerValue: 0
-  triggerCount: 0
   blockTypes: 0400000005000000
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

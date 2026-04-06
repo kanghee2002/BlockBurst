@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Effect", menuName = "BlockBurst/Effect")]
-public class EffectData : ScriptableObject
+public class EffectData : BaseData
 {
-    public string resourceKey;
     [TextArea] public string effectName;            // 효과 이름
     public EffectType type;                         // 효과 타입
     public EffectScope scope;                       // 효과 범위

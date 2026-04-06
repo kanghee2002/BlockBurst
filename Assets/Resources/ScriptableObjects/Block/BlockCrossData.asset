@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80988d82d0424cb45adfcaaeecd2c6c0, type: 3}
   m_Name: BlockCrossData
   m_EditorClassIdentifier: 
+  id: 46380e98-24d4-4179-aa74-bdc4b1d19edc
   resourceKey: BlockCross
   type: 11
   shape:

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: AddBlockCross
   m_EditorClassIdentifier: 
+  id: f024143d-49cb-4c1f-bc33-e0168bbdb979
   resourceKey: AddBlockCross
   itemName: "Cross \uBE14\uB85D \uCD94\uAC00"
   effects:

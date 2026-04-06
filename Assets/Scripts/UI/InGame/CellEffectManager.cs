@@ -100,6 +100,41 @@ public class CellEffectManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// <see cref="RunData.activeUpgrades"/>에 기록된 구매 내역을 <see cref="blockEffects"/>에 반영한다.
+    /// <see cref="Initialize"/> 직후·이어하기 로드 직후에 호출해 저장본과 시각 캐시를 맞춘다.
+    /// </summary>
+    public void ApplyActiveUpgradeItems(IReadOnlyList<ItemData> activeUpgrades)
+    {
+        if (activeUpgrades == null)
+        {
+            return;
+        }
+
+        foreach (ItemData item in activeUpgrades)
+        {
+            if (item == null || item.type != ItemType.UPGRADE)
+            {
+                continue;
+            }
+
+            if (item.effects == null)
+            {
+                continue;
+            }
+
+            foreach (EffectData effect in item.effects)
+            {
+                if (effect == null || effect.blockTypes == null || effect.blockTypes.Length == 0)
+                {
+                    continue;
+                }
+
+                AddEffect(effect.blockTypes, effect.type.ToString());
+            }
+        }
+    }
+
     public void PlaceEffect(Block block)
     {
         // 점수에 따라 화면을 흔듦, 로그스케일로 계산

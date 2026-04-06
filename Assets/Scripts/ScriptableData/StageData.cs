@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Stage", menuName = "BlockBurst/Stage")]
-public class StageData : ScriptableObject
+public class StageData : BaseData
 {
-    public string resourceKey;
     public StageType type;                                  // Normal, Boss
     public Vector2Int boardSize;                            // 보드 사이즈
     public List<Vector2Int> blockedCells;                   // 막힌 셀

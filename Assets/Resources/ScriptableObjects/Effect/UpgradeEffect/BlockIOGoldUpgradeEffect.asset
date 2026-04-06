@@ -12,17 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: BlockIOGoldUpgradeEffect
   m_EditorClassIdentifier: 
+  id: 2c80e1a8-bf40-493c-98d8-182349601559
   resourceKey: BlockIOGoldUpgradeEffect
   effectName: "I/O \uBC30\uCE58\uD574\uC11C \uC904\uC744 \uC9C0\uC6B8 \uB54C\n$EffectValue
     \uACE8\uB4DC\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 9
   scope: 0
   baseEffectValue: 1
-  effectValue: 1
   trigger: 3
   triggerMode: 0
   triggerValue: 0
-  triggerCount: 0
   blockTypes: 0000000001000000
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

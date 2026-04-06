@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fa6f765182bfdf4cbe2d3152f17e458, type: 3}
   m_Name: DiceDeckData
   m_EditorClassIdentifier: 
+  id: 166e4ffe-4ad0-4fc4-800c-6a744100bcbe
   resourceKey: DiceDeck
   deckName: "\uC8FC\uC0AC\uC704 \uB371"
   type: 2

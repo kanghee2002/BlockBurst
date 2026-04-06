@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: GlassesEffect
   m_EditorClassIdentifier: 
+  id: d7ca1f51-7316-48f5-ab03-98f878012d72
   resourceKey: GlassesEffect
   effectName: "\uD55C \uBC88\uC5D0 2\uC904\uC744 \uC9C0\uC6B8 \uB54C \uBAA8\uB4E0
     \uAE30\uBCF8 \uBE14\uB85D\uC774\n+EffectValue \uBE14\uB85D \uC810\uC218\uB97C
@@ -19,11 +20,9 @@ MonoBehaviour:
   type: 0
   scope: 0
   baseEffectValue: 2
-  effectValue: 2
   trigger: 8
   triggerMode: 1
   triggerValue: 2
-  triggerCount: 0
   blockTypes: 00000000010000000200000003000000040000000500000006000000
   probability: 1
   modifyingEffect: {fileID: 0}

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: CorrectionTape
   m_EditorClassIdentifier: 
+  id: d52dd6ca-9433-4233-b5d0-74b5403bd6d0
   resourceKey: CorrectionTape
   itemName: "\uC218\uC815 \uD14C\uC774\uD504"
   effects:

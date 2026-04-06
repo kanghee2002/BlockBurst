@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: BlockJLTScoreUpgrade
   m_EditorClassIdentifier: 
+  id: e203fa16-0819-409c-bc94-b264b2d15443
   resourceKey: BlockJLTScoreUpgrade
   itemName: "\uC810\uC218 \uC99D\uAC00"
   effects:

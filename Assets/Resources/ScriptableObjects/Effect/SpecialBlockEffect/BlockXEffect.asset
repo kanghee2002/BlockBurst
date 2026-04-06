@@ -12,17 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: BlockXEffect
   m_EditorClassIdentifier: 
+  id: b2e4b648-df68-45a6-9c23-4548f92fc2a1
   resourceKey: BlockXEffect
   effectName: "\uBC30\uCE58\uD560 \uB54C\n\uBCF4\uB4DC\uC758 \uBAA8\uB4E0 \uBE14\uB85D\uC744
     \uC9C0\uC6C1\uB2C8\uB2E4"
   type: 22
   scope: 0
   baseEffectValue: 0
-  effectValue: 0
   trigger: 1
   triggerMode: 0
   triggerValue: 0
-  triggerCount: 0
   blockTypes: 0a000000
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

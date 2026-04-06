@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TMPro;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
@@ -26,12 +28,6 @@ public class GameManager : MonoBehaviour
     public AnimationManager animationManager;
     public TutorialManager tutorialManager;
 
-    public DeckData[] deckTemplates;
-    public LevelData[] levelTemplates;
-    public StageData[] stageTemplates;
-    public ItemData[] itemTemplates;
-    public BlockData[] blockTemplates;
-
     public Board board;
 
     private const int STAGE_CHOICE_COUNT = 2;
@@ -40,20 +36,17 @@ public class GameManager : MonoBehaviour
     public List<BlockData> handBlocksData = new List<BlockData>();
     public List<Block> handBlocks = new List<Block>();
 
-    public Dictionary<ItemType, ItemData[]> shopItems = new();
+    private Dictionary<ItemType, ItemData[]> shopItems = new();
 
     private int blockId = 0;
 
     private StageData[] nextStageChoices = new StageData[STAGE_CHOICE_COUNT];
-    private float[] difficulties = new float[STAGE_CHOICE_COUNT];
-
     private List<Match> currentMatches;
-    private float scoreAnimationDelay;  // 블록 점수 간의 딜레이
-    private float scoreDelayedTime;     // 점수 계산하는데 걸린 시간
+    private float SCORE_ANIMATION_DELAY;  // 블록 점수 간의 딜레이
 
     [SerializeField] private bool isTutorial = true;
 
-    bool isClearStage = false; // 중복 방지 플래그
+    private bool isClearStage = false; // 중복 방지 플래그
 
     // ------------------------------
     // GAME LAYER - start
@@ -70,11 +63,10 @@ public class GameManager : MonoBehaviour
         else if (instance != this)
         {
             Destroy(gameObject);
+            return;
         }
 
         playerData = null;
-
-        LoadTemplates();
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 120; // for mobile build
         SetApplicationType();
@@ -86,13 +78,16 @@ public class GameManager : MonoBehaviour
     }
 
     // ------------------------------------------------------------------------
-    // TEST
+    // TEST (에디터 플레이 모드에서만 동작)
 
     private void Update()
     {
+#if UNITY_EDITOR
+        // 디버그: 런 저장 테스트 (C 키)
         if (Input.GetKeyDown(KeyCode.R))
         {
-            //dataManager.SaveRunData(runData);
+            DataManager.instance.SaveRunData(runData);
+            Debug.Log("[Editor] DataManager.SaveRunData(runData) 호출됨.");
         }
 
         // 디버그: 플레이 중 스테이지 즉시 종료 (기존 SKIP_BUTTON과 동일 동작, S 키)
@@ -102,6 +97,7 @@ public class GameManager : MonoBehaviour
         // 디버그: 골드 5000 추가 (G 키)
         if (Input.GetKeyDown(KeyCode.G))
             DebugAddGold();
+#endif
     }
 
     /// <summary>디버그용. 현재 런에 골드 추가.</summary>
@@ -124,16 +120,6 @@ public class GameManager : MonoBehaviour
     }
 
     // ------------------------------------------------------------------------
-
-    private void LoadTemplates()
-    {
-        // 경로에서 scriptable objects를 로드
-        deckTemplates = Resources.LoadAll<DeckData>("ScriptableObjects/Deck");
-        levelTemplates = Resources.LoadAll<LevelData>("ScriptableObjects/Level");
-        stageTemplates = Resources.LoadAll<StageData>("ScriptableObjects/Stage");
-        itemTemplates = Resources.LoadAll<ItemData>("ScriptableObjects/Item");
-        blockTemplates = Resources.LoadAll<BlockData>("ScriptableObjects/Block");
-    }
 
     private void LoadPlayerData()
     {
@@ -184,6 +170,12 @@ public class GameManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        if (ScriptableDataManager.instance == null)
+        {
+            Debug.LogError("ScriptableDataManager: instance is null — adding component to GameManager GameObject.");
+            gameObject.AddComponent<ScriptableDataManager>();
+        }
+
         LoadPlayerData();
         SetTutorialValue(playerData.tutorialValue);
 
@@ -240,6 +232,9 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game Start");
 
         CLEAR_CHAPTER = 4;
+        
+        SCORE_ANIMATION_DELAY = 0.01f;
+        currentMatches = new List<Match>();
 
         shopItems = new Dictionary<ItemType, ItemData[]>()
         {
@@ -248,57 +243,101 @@ public class GameManager : MonoBehaviour
             { ItemType.ADD_BLOCK, new ItemData[2] },
         };
 
-        DeckData deckData = deckTemplates.FirstOrDefault(deck => deck.type == deckType);
+        DeckData deckData = ScriptableDataManager.instance.deckTemplates.FirstOrDefault(deck => deck.type == deckType);
         deckData.Initialize();
 
-        LevelData levelData = levelTemplates.FirstOrDefault(data => data.level == level);
+        LevelData levelData = ScriptableDataManager.instance.levelTemplates.FirstOrDefault(data => data.level == level);
 
         gameData = new GameData();
-        gameData.Initialize(blockTemplates, deckData, levelData);
-        
-        scoreAnimationDelay = 0.01f;
-        scoreDelayedTime = 0f;
-        currentMatches = new List<Match>();
+        gameData.Initialize(ScriptableDataManager.instance.blockTemplates, deckData, levelData);
 
         StartNewRun();
-        
-        //ContinueGame();
     }
 
-    public void ContinueGame()
+    /// <summary>
+    /// 런 저장으로 이어하기. 성공 시 true. 로드·덱/레벨·저장된 스테이지 id로 복원 불가 시 false.
+    /// </summary>
+    public bool ContinueGame()
     {
-        /*foreach (BlockData blockData in blockTemplates)
+        ScriptableDataManager sdManager = ScriptableDataManager.instance;
+        if (sdManager == null)
         {
-            if (Enums.IsSpecialBlockType(blockData.type))
-            {
-                continue;
-            }
-            for (int i = 0; i < gameData.defaultBlockCount; i++)
-            {
-                gameData.defaultBlocks.Add(blockData);
-            }
+            Debug.LogError("ContinueGame: ScriptableDataManager.instance is null.");
+            return false;
         }
-        runData = DataManager.instance.LoadRunData(gameData);
 
-        CLEAR_CHAPTER = 3;
+        // 디스크에서만 복원한다. 실패 시 빈 런으로 대체하지 않고 중단한다.
+        if (!DataManager.instance.TryLoadRunData(out RunData loadedRun))
+        {
+            Debug.LogWarning("ContinueGame: 런 저장을 불러오지 못했습니다.");
+            return false;
+        }
 
-        InitializeHistory();
+        // 매퍼가 채운 currentDeck / currentLevel로 스테이지 점수·보상 등에 쓸 GameData를 구성한다.
+        if (loadedRun.currentDeck == null || loadedRun.currentLevel == null)
+        {
+            Debug.LogError("ContinueGame: 저장의 덱·레벨 id를 레지스트리에서 찾지 못했습니다.");
+            return false;
+        }
 
-        scoreAnimationDelay = 0.01f;
-        scoreDelayedTime = 0f;
+        // 이어하기는 저장 시점의 스테이지 id가 있어야 하고, 레지스트리에서 풀 수 있어야 한다.
+        if (string.IsNullOrEmpty(loadedRun.currentStageId))
+        {
+            Debug.LogError("ContinueGame: 저장에 currentStageId가 없어 이어하기를 할 수 없습니다.");
+            return false;
+        }
+
+        if (!sdManager.TryGetStage(loadedRun.currentStageId, out StageData resumeStage))
+        {
+            Debug.LogError($"ContinueGame: currentStageId '{loadedRun.currentStageId}'에 해당하는 스테이지를 찾을 수 없습니다.");
+            return false;
+        }
+
+        runData = loadedRun;
+
+        gameData = new GameData();
+        gameData.Initialize(Array.Empty<BlockData>(), runData.currentDeck, runData.currentLevel);
+
+        // StartNewGame과 동일한 런 진입 전 필드 초기화(히스토리는 저장본 유지).
+        CLEAR_CHAPTER = 4;
+        SCORE_ANIMATION_DELAY = 0.01f;
         currentMatches = new List<Match>();
 
+        shopItems = new Dictionary<ItemType, ItemData[]>()
+        {
+            { ItemType.ITEM, new ItemData[2] },
+            { ItemType.BOOST, new ItemData[2] },
+            { ItemType.ADD_BLOCK, new ItemData[2] },
+        };
+
+        // 보드 셀 효과·효과 매니저를 저장된 activeEffects 기준으로 맞춘다.
         CellEffectManager.instance.Initialize();
+        CellEffectManager.instance.ApplyActiveUpgradeItems(runData.activeUpgrades);
         EffectManager.instance.Initialize(ref runData);
 
-        stageManager.Initialize(ref runData);
-        shopManager.Initialize(ref runData, itemTemplates);
+        // 상점 풀: ShopManager.Initialize로 해금 베이스를 채운 뒤 ApplyActiveInventoryToPool로 인벤/부스트만큼 맞춤.
+        ItemData[] unlockedShopItems = UnlockManager.instance.GetUnlockedItems(sdManager.itemTemplates);
+        shopManager.Initialize(ref runData, unlockedShopItems);
+        shopManager.ApplyActiveItemToPool(runData);
+
+        animationManager.InitializeRunData(ref runData);
 
         UpdateDeckCount(runData.availableBlocks.Count, runData.availableBlocks.Count);
 
-        GameUIManager.instance.Initialize(runData);
+        // 스테이지 선택 단계를 건너뛰므로 selecting UI는 열지 않음(OnStageStart가 playing 전환).
+        GameUIManager.instance.InitializeContinueGame(runData);
 
-        StartStageSelection();*/
+        StartStage(resumeStage);
+        string[] playingDebuffNames = resumeStage.constraints.Select(c => c.effectName).ToArray();
+        GameUIManager.instance.OnStageStart(
+            runData.currentChapterIndex,
+            runData.currentStageIndex,
+            playingDebuffNames,
+            blockGame.clearRequirement,
+            blockGame);
+        GameUIManager.instance.BlockCells(blockGame.inactiveCells);
+
+        return true;
     }
 
     public void InitializeHistory()
@@ -312,6 +351,9 @@ public class GameManager : MonoBehaviour
     
     public void EndGame(bool isWin, string loseReason = "")
     {
+        if (!isWin && DataManager.instance != null)
+            DataManager.instance.DeleteRunSaveData();
+
         BlockType mostPlacedBlockType = (BlockType)runData.history.blockHistory.ToList().IndexOf(runData.history.blockHistory.Max());
         GameUIManager.instance.OnGameEnd(isWin, runData.currentChapterIndex, runData.currentStageIndex, runData.history, mostPlacedBlockType, loseReason: loseReason);
     }
@@ -363,7 +405,7 @@ public class GameManager : MonoBehaviour
         CellEffectManager.instance.Initialize();
         EffectManager.instance.Initialize(ref runData);
 
-        ItemData[] unlockedItems = UnlockManager.instance.GetUnlockedItems(itemTemplates);
+        ItemData[] unlockedItems = UnlockManager.instance.GetUnlockedItems(ScriptableDataManager.instance.itemTemplates);
 
         shopManager.Initialize(ref runData, unlockedItems);
 
@@ -421,7 +463,9 @@ public class GameManager : MonoBehaviour
 
     public void OnDeckLevelInfoRequested()
     {
-        GameUIManager.instance.OnDeckLevelInfoCallback(deckTemplates, levelTemplates);
+        GameUIManager.instance.OnDeckLevelInfoCallback(
+            ScriptableDataManager.instance.deckTemplates,
+            ScriptableDataManager.instance.levelTemplates);
     }
 
     private int GetStageClearRequirement(StageData stage)
@@ -459,7 +503,7 @@ public class GameManager : MonoBehaviour
 
         // stage Template에서 stagetype이 맞는 것을 랜덤하게 추출
         StageType stageType = runData.currentStageIndex == 3 ? StageType.BOSS : StageType.NORMAL;
-        var templates = stageTemplates.Where(stage => stage.type == stageType).ToArray();
+        var templates = ScriptableDataManager.instance.stageTemplates.Where(stage => stage.type == stageType).ToArray();
         
         // 사용할 인덱스들을 미리 섞어서 준비
         List<int> indices = Enumerable.Range(0, templates.Length).ToList();
@@ -573,6 +617,10 @@ public class GameManager : MonoBehaviour
         blockGame.clearRequirement = GetStageClearRequirement(stage);
         blockGame.goldReward = GetStageGoldReward(stage);
 
+        runData.currentStageId = stage.id;
+
+        DataManager.instance.SaveRunData(runData);
+
         stageManager.StartStage(stage, blockGame);
 
         board = new Board();
@@ -635,7 +683,7 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1.5f);
 
-        GameUIManager.instance.PlayStageClearAnimation(scoreAnimationDelay);
+        GameUIManager.instance.PlayStageClearAnimation(SCORE_ANIMATION_DELAY);
 
         AudioManager.instance.SFXStageClear();
 
@@ -825,7 +873,7 @@ public class GameManager : MonoBehaviour
 
     public void AddUnlockedItem(string itemID)
     {
-        ItemData itemData = itemTemplates.FirstOrDefault(item => item.resourceKey == itemID);
+        ItemData itemData = ScriptableDataManager.instance.itemTemplates.FirstOrDefault(item => item.resourceKey == itemID);
         
         if (itemData == null)
         {
@@ -937,7 +985,9 @@ public class GameManager : MonoBehaviour
 
         foreach (EffectState state in runData.activeEffects)
         {
-            EffectData effect = state.template;
+            EffectData effect = ScriptableDataManager.instance.GetEffect(state.effectDataId);
+            if (effect == null)
+                continue;
             if (effect.scope == EffectScope.Stage && effect.blockTypes != null && effect.blockTypes.Contains(block.Type))
             {
                 GameUIManager.instance.StartWarningStageEffectAnimation(isBlockRelated: true);
@@ -970,7 +1020,9 @@ public class GameManager : MonoBehaviour
         GameUIManager.instance.StopWarningStageEffectAnimation(isBlockRelated: false);
         foreach (EffectState state in runData.activeEffects)
         {
-            EffectData effect = state.template;
+            EffectData effect = ScriptableDataManager.instance.GetEffect(state.effectDataId);
+            if (effect == null)
+                continue;
             if (effect.scope == EffectScope.Stage && effect.triggerMode == TriggerMode.Interval)
             {
                 if (effect.triggerValue == state.triggerCount + 1)
@@ -1177,7 +1229,7 @@ public class GameManager : MonoBehaviour
         if (template == null)
             return 0;
 
-        EffectState matchedState = runData.activeEffects.FirstOrDefault(s => s.template == template);
+        EffectState matchedState = runData.activeEffects.FirstOrDefault(s => s.effectDataId == template.id);
         if (matchedState == null)
             return 0;
 
@@ -1193,7 +1245,7 @@ public class GameManager : MonoBehaviour
         if (runData == null || runData.activeEffects == null)
             return template.baseEffectValue;
 
-        EffectState matchedState = runData.activeEffects.FirstOrDefault(s => s.template == template);
+        EffectState matchedState = runData.activeEffects.FirstOrDefault(s => s.effectDataId == template.id);
         if (matchedState == null)
             return template.baseEffectValue;
 
@@ -1202,19 +1254,19 @@ public class GameManager : MonoBehaviour
 
     public void UpdateItemTriggerCount(EffectState state)
     {
-        int index = runData.activeItems.FindIndex(item => item.effects.Contains(state.template));
+        int index = runData.activeItems.FindIndex(item => item.effects.Any(e => e.id == state.effectDataId));
 
         if (index == -1) return;
 
         GameUIManager.instance.StopItemShakeAnimation(isBlockRelated: false);
 
         ItemData item = runData.activeItems[index];
-        if (item.effects.Any(template =>
+        if (item.effects.Any(effectData =>
         {
-            EffectState matchedState = runData.activeEffects.FirstOrDefault(s => s.template == template);
+            EffectState matchedState = runData.activeEffects.FirstOrDefault(s => s.effectDataId == effectData.id);
             if (matchedState == null)
                 return false;
-            return matchedState.template.triggerValue == matchedState.triggerCount + 1;
+            return effectData.triggerValue == matchedState.triggerCount + 1;
         }))
         {
             GameUIManager.instance.StartItemShakeAnimation(index, isBlockRelated: false);
@@ -1228,12 +1280,12 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < runData.activeItems.Count; i++)
         {
             ItemData item = runData.activeItems[i];
-            if (item.effects.Any(template =>
+            if (item.effects.Any(effectData =>
             {
-                EffectState matchedState = runData.activeEffects.FirstOrDefault(s => s.template == template);
+                EffectState matchedState = runData.activeEffects.FirstOrDefault(s => s.effectDataId == effectData.id);
                 if (matchedState == null)
                     return false;
-                return matchedState.template.triggerValue == matchedState.triggerCount + 1;
+                return effectData.triggerValue == matchedState.triggerCount + 1;
             }))
             {
                 GameUIManager.instance.StartItemShakeAnimation(i, isBlockRelated: false);

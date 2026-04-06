@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80988d82d0424cb45adfcaaeecd2c6c0, type: 3}
   m_Name: BlockCornerData
   m_EditorClassIdentifier: 
+  id: 600b62da-1ab4-406f-baaf-63d28e2594e3
   resourceKey: BlockCorner
   type: 12
   shape:

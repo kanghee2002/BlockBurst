@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: GoldenStone
   m_EditorClassIdentifier: 
+  id: 34ecc410-cde8-4bf9-8b5e-e6d9467bfae4
   resourceKey: GoldenStone
   itemName: "\uAE08\uBE5B \uB3CC\uBA69\uC774"
   effects:

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fa6f765182bfdf4cbe2d3152f17e458, type: 3}
   m_Name: YoYoDeckData
   m_EditorClassIdentifier: 
+  id: 221babf1-faf3-4c39-b8ec-31eed335b052
   resourceKey: YoYoDeck
   deckName: "\uC694\uC694 \uB371"
   type: 1

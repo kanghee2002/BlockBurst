@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: BombZS
   m_EditorClassIdentifier: 
+  id: 9903134f-7b46-4ffd-b2dc-05cd0441abe2
   resourceKey: BombZS
   itemName: "\uBE14\uB85D \uD3ED\uD0C4"
   effects:

@@ -12,17 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: EggJLTEffect
   m_EditorClassIdentifier: 
+  id: 3178f8ec-9ed4-4e2e-8f05-6b6044127897
   resourceKey: EggJLTEffect
   effectName: "J/L/T \uD3EC\uD568\uD574\uC11C \uC904\uC744 \uC9C0\uC6B8 \uB54C\n+EffectValue
     \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 2
   scope: 0
   baseEffectValue: 3
-  effectValue: 3
   trigger: 11
   triggerMode: 0
   triggerValue: 0
-  triggerCount: 0
   blockTypes: 040000000500000006000000
   probability: 1
   modifyingEffect: {fileID: 0}

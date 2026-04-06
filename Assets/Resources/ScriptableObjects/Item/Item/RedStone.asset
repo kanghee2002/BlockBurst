@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: RedStone
   m_EditorClassIdentifier: 
+  id: b366f512-4c0f-468a-aff9-077607bc4b40
   resourceKey: RedStone
   itemName: "\uBD89\uC740 \uB3CC\uBA69\uC774"
   effects:

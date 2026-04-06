@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: GiftBox
   m_EditorClassIdentifier: 
+  id: 71d666e3-0268-4046-8d98-5ac0e19552d5
   resourceKey: GiftBox
   itemName: "\uC120\uBB3C\uC0C1\uC790"
   effects:

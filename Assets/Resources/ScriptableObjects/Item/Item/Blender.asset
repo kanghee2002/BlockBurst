@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: Blender
   m_EditorClassIdentifier: 
+  id: 5294add7-295b-42fc-af89-49de2e10ed0b
   resourceKey: Blender
   itemName: "\uBBF9\uC11C\uAE30"
   effects:

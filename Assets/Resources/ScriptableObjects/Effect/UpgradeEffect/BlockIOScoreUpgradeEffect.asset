@@ -12,16 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: BlockIOScoreUpgradeEffect
   m_EditorClassIdentifier: 
+  id: c53dd7a2-e9ac-44b9-b293-a0b0941a7eda
   resourceKey: BlockIOScoreUpgradeEffect
   effectName: "I/O +EffectValue \uBE14\uB85D \uC810\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 0
   scope: 0
   baseEffectValue: 5
-  effectValue: 5
   trigger: 0
   triggerMode: 0
   triggerValue: 0
-  triggerCount: 0
   blockTypes: 0000000001000000
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

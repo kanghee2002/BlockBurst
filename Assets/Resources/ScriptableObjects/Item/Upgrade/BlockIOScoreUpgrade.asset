@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: BlockIOScoreUpgrade
   m_EditorClassIdentifier: 
+  id: 1ae0f14b-4fa9-456d-bc02-861b1c35ddc0
   resourceKey: BlockIOScoreUpgrade
   itemName: "\uC810\uC218 \uC99D\uAC00"
   effects:

@@ -12,17 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: DictionaryEffect2
   m_EditorClassIdentifier: 
+  id: dd07582a-5d85-456d-b187-3f262b5f5b5d
   resourceKey: DictionaryEffect2
   effectName: "\uB371\uC5D0 \uBE14\uB85D\uC744 \uCD94\uAC00\uD560 \uB54C\uB9C8\uB2E4
     \uC5BB\uB294 \uBC30\uC218\uAC00 +EffectValue \uC99D\uAC00\uD569\uB2C8\uB2E4"
   type: 27
   scope: 0
   baseEffectValue: 2
-  effectValue: 3
   trigger: 27
   triggerMode: 0
   triggerValue: 0
-  triggerCount: 0
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 11400000, guid: 0e3378cd75453b44995fa1df3222874f, type: 2}

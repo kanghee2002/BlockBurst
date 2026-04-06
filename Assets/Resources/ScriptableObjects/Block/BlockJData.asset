@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80988d82d0424cb45adfcaaeecd2c6c0, type: 3}
   m_Name: BlockJData
   m_EditorClassIdentifier: 
+  id: 71681aff-cc7e-4750-91a3-f147017f354b
   resourceKey: BlockJ
   type: 4
   shape:

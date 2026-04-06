@@ -12,17 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: BlueCubeEffect
   m_EditorClassIdentifier: 
+  id: 7bfae5d9-3d28-43c2-afd3-e61ccd6b9bec
   resourceKey: BlueCubeEffect
   effectName: "\uAE30\uBCF8 \uBE14\uB85D\uC774 \uBAA8\uB450\n+EffectValue \uBE14\uB85D
     \uC810\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 0
   scope: 0
   baseEffectValue: 10
-  effectValue: 10
   trigger: 0
   triggerMode: 0
   triggerValue: 0
-  triggerCount: 0
   blockTypes: 00000000010000000200000003000000040000000500000006000000
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

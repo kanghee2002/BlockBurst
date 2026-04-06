@@ -12,17 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: ThreeBulletEffect
   m_EditorClassIdentifier: 
+  id: ddaf7dcf-ad8f-48d9-98d7-8f32f1db005b
   resourceKey: ThreeBulletEffect
   effectName: "\uD55C \uBC88\uC5D0\nTriggerValue\uC904\uC744 \uC9C0\uC6B8 \uB54C\n+EffectValue
     \uBC30\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 2
   scope: 0
   baseEffectValue: 20
-  effectValue: 20
   trigger: 8
   triggerMode: 1
   triggerValue: 3
-  triggerCount: 0
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 0}

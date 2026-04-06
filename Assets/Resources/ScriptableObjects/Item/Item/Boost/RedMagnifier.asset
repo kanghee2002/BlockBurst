@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: RedMagnifier
   m_EditorClassIdentifier: 
+  id: 2df61cc7-e6c6-47de-94c3-8c8a4239e2b3
   resourceKey: RedMagnifier
   itemName: "\uBD89\uC740 \uB3CB\uBCF4\uAE30"
   effects:

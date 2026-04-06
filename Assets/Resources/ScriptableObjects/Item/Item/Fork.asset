@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: Fork
   m_EditorClassIdentifier: 
+  id: a8e3d3b9-d0f9-47b5-a369-e8d8e713575f
   resourceKey: Fork
   itemName: "\uD3EC\uD06C"
   effects:

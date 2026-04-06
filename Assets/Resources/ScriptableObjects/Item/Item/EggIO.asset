@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: EggIO
   m_EditorClassIdentifier: 
+  id: 60cfae84-29a7-4b71-bc99-92deaaebf059
   resourceKey: EggIO
   itemName: "\uBE14\uB85D \uC54C"
   effects:

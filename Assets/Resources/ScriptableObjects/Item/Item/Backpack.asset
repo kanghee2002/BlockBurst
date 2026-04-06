@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: Backpack
   m_EditorClassIdentifier: 
+  id: fbd2a1d9-5233-4553-bff3-96b4e53d1964
   resourceKey: Backpack
   itemName: "\uAC00\uBC29"
   effects:

@@ -12,17 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: IceEffect
   m_EditorClassIdentifier: 
+  id: f835d0b9-a237-4ef6-9539-6ac430cc8715
   resourceKey: IceEffect
   effectName: "\uB371\uC5D0 \uB0A8\uC740\n\uBE14\uB85D \uC218\uB9CC\uD07C\n\uBC30\uC218\uB97C
     \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 2
   scope: 0
   baseEffectValue: 1
-  effectValue: 1
   trigger: 9
   triggerMode: 0
   triggerValue: 0
-  triggerCount: 0
   blockTypes: 
   probability: 1
   modifyingEffect: {fileID: 0}

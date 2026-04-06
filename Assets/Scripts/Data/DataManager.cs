@@ -1,24 +1,14 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using UnityEngine;
 
 public class DataManager : MonoBehaviour
 {
-    [Serializable]
-    private struct DictionaryData<TKey, TValue>
-    {
-        public List<TKey> keys;
-        public List<TValue> values;
-    }
-
     public static DataManager instance = null;
 
     private string path;
-    private int dictionaryCount;
 
     private PlayerData playerData;
 
@@ -64,30 +54,88 @@ public class DataManager : MonoBehaviour
         GameUIManager.instance.OnDeckSelectionPlayerDataCallback(playerData);
     }
 
+    /// <summary>
+    /// <c>RunData.json</c> 파일 존재 여부만 본다. JSON 파싱·버전·마이그레이션은 하지 않는다(오버헤드·메뉴 표시용).
+    /// 실제 복원 가능 여부는 <see cref="TryLoadRunData"/>에서 판단한다.
+    /// </summary>
+    public bool HasValidRunSaveData()
+    {
+        string dataPath = Path.Combine(path, "RunData.json");
+        return File.Exists(dataPath);
+    }
+
     // 이어하기
     public void SaveRunData(RunData runData)
     {
-        dictionaryCount = 0;
-
-        FieldInfo[] fields = runData.GetType().GetFields();
-
-        foreach (FieldInfo field in fields)
-        {
-            if (typeof(IDictionary).IsAssignableFrom(field.FieldType))
-            {
-                object fieldValue = field.GetValue(runData);
-                IDictionary dictionary = fieldValue as IDictionary;
-
-                MatchDictionaryType(dictionary);
-            }
-        }
-
-        string jsonData = JsonUtility.ToJson(runData, true);
-        string dataPath = Path.Combine(path, "RunData/");
-        dataPath = Path.Combine(dataPath, "RunData.json");
-        File.WriteAllText(dataPath, jsonData);
+        RunSaveData saveData = RunSaveMapper.ToSaveData(runData);
+        string jsonData = JsonUtility.ToJson(saveData, true);
+        WriteRunDataJsonAtomic(path, jsonData);
 
         Debug.Log("Finish Saving RunData");
+    }
+
+    /// <summary>
+    /// <c>RunData.json</c>을 임시 파일에 쓴 뒤 교체해, 쓰기 중단 시 기존 파일이 깨지지 않게 한다.
+    /// </summary>
+    private static void WriteRunDataJsonAtomic(string directory, string jsonData)
+    {
+        string finalPath = Path.Combine(directory, "RunData.json");
+        string tempPath = Path.Combine(directory, "RunData.json.tmp");
+        string backupPath = Path.Combine(directory, "RunData.json.bak");
+
+        File.WriteAllText(tempPath, jsonData);
+
+        try
+        {
+            if (File.Exists(finalPath))
+            {
+                if (File.Exists(backupPath))
+                    File.Delete(backupPath);
+                File.Replace(tempPath, finalPath, backupPath);
+            }
+            else
+            {
+                File.Move(tempPath, finalPath);
+            }
+        }
+        catch
+        {
+            if (File.Exists(tempPath))
+            {
+                try
+                {
+                    File.Delete(tempPath);
+                }
+                catch
+                {
+                    // best effort
+                }
+            }
+
+            throw;
+        }
+
+        if (File.Exists(backupPath))
+        {
+            try
+            {
+                File.Delete(backupPath);
+            }
+            catch
+            {
+                // best effort; next save may delete it
+            }
+        }
+    }
+
+    /// <summary>이어하기용 런 저장 파일(<c>RunData.json</c>)을 삭제한다. 파일이 없으면 아무 것도 하지 않는다.</summary>
+    public void DeleteRunSaveData()
+    {
+        string dataPath = Path.Combine(path, "RunData.json");
+        if (!File.Exists(dataPath))
+            return;
+
+        File.Delete(dataPath);
     }
 
     public PlayerData LoadPlayerData()
@@ -105,110 +153,31 @@ public class DataManager : MonoBehaviour
         return playerData;
     }
 
-    public RunData LoadRunData(GameData gameData)
+    /// <summary>
+    /// 디스크에서 JSON 역직렬화 → <see cref="RunSaveData.TryMigrate"/> → <see cref="RunSaveMapper.FromSaveData"/>로 <see cref="RunData"/>를 만든다.
+    /// 실패 시 빈 런을 만들지 않고 false를 반환한다(구버전·손상·레지스트리 불일치 등).
+    /// </summary>
+    public bool TryLoadRunData(out RunData runData)
     {
-        string dataPath = Path.Combine(path, "RunData/");
-        dataPath = Path.Combine(dataPath, "RunData.json");
+        runData = null;
+
+        string dataPath = Path.Combine(path, "RunData.json");
         if (!File.Exists(dataPath))
         {
-            Debug.Log("There doesn't exist Run Data");
-            //return null;
+            Debug.LogWarning("TryLoadRunData: 런 저장 파일이 없습니다.");
+            return false;
         }
 
-        //string loadedJson = File.ReadAllText(dataPath);
-        //RunData runData = JsonUtility.FromJson<RunData>(loadedJson);
-
-        // ---------------------------------
-        // TEST
-
-        RunData runData = new RunData();
-        runData.Initialize(gameData);
-
-        // ---------------------------------
-
-        return runData;
-    }
-    
-    private void MatchDictionaryType(IDictionary dictionary)
-    {
-        Type keyType = dictionary.GetType().GetGenericArguments()[0];
-        Type valueType = dictionary.GetType().GetGenericArguments()[1];
-
-        if (valueType == typeof(int))
+        string loadedJson = File.ReadAllText(dataPath);
+        RunSaveData saveData = JsonUtility.FromJson<RunSaveData>(loadedJson);
+        if (saveData == null || !RunSaveData.TryMigrate(ref saveData))
         {
-            if (keyType == typeof(BlockType))
-            {
-                SaveDictionaryData(dictionary as Dictionary<BlockType, int>, "RunData/");
-            }
-            else if (keyType == typeof(MatchType))
-            {
-                SaveDictionaryData(dictionary as Dictionary<MatchType, int>, "RunData/");
-            }
-            else if (keyType == typeof(ItemType))
-            {
-                SaveDictionaryData(dictionary as Dictionary<ItemType, int>, "RunData/");
-            }
-            else if (keyType == typeof(ItemRarity))
-            {
-                SaveDictionaryData(dictionary as Dictionary<ItemRarity, int>, "RunData/");
-            }
-            else
-            {
-                Debug.LogError("Dictionary 저장 에러: keyType이 정의되지 않음");
-            }
-        }
-        else
-        {
-            Debug.LogError("Dictionary 저장 에러: keyType이 정의되지 않음");
-        }
-    }
-
-    private DictionaryData<TKey,TValue> ConvertToDictionaryData<TKey, TValue>(Dictionary<TKey, TValue> dictionary)
-    {
-        DictionaryData<TKey, TValue> dictionaryData = new();
-        
-        List<TKey> keys = new();
-        List<TValue> values = new();
-
-        foreach (KeyValuePair<TKey, TValue> kvp in dictionary)
-        {
-            keys.Add(kvp.Key);
-            values.Add(kvp.Value);
+            Debug.LogWarning("TryLoadRunData: 런 저장이 없거나 마이그레이션할 수 없습니다.");
+            return false;
         }
 
-        dictionaryData.keys = keys;
-        dictionaryData.values = values;
-
-        return dictionaryData;
-    }
-
-    private void SaveDictionaryData<TKey, TValue>(Dictionary<TKey, TValue> dictionary, string additionalPath = "")
-    {
-        DictionaryData<TKey, TValue> data = ConvertToDictionaryData(dictionary);
-        string jsonData = JsonUtility.ToJson(data, true);
-        string dataPath = Path.Combine(path, additionalPath);
-        dataPath = Path.Combine(dataPath, "dictionary" + dictionaryCount + ".json");
-        File.WriteAllText(dataPath, jsonData);
-
-        dictionaryCount++;
-    }
-
-    private Dictionary<TKey, TValue> ConvertToDictionary<TKey, TValue>(DictionaryData<TKey, TValue> dictionaryData)
-    {
-        Dictionary<TKey, TValue> dictionary = new Dictionary<TKey, TValue>();
-
-        if (dictionaryData.keys.Count != dictionaryData.values.Count)
-        {
-            Debug.LogError("Dictionary 불러오기 에러: key와 value의 개수가 맞지 않음");
-            return null;
-        }
-
-        for (int i = 0; i < dictionaryData.keys.Count; i++)
-        {
-            dictionary.Add(dictionaryData.keys[i], dictionaryData.values[i]);
-        }
-
-        return dictionary;
+        runData = RunSaveMapper.FromSaveData(saveData);
+        return runData != null;
     }
 
     // 덱 해금 추가

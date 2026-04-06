@@ -12,17 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b72af8dfad296a4eaff177b1f16cb42, type: 3}
   m_Name: BrokenKeyEffect2
   m_EditorClassIdentifier: 
+  id: 0a4dfce3-85dc-46fd-9ee1-9c81ef24ed62
   resourceKey: BrokenKeyEffect2
   effectName: "\uB098\uBA38\uC9C0 \uAE30\uBCF8 \uBE14\uB85D\uC774\n+EffectValue \uBE14\uB85D
     \uC810\uC218\uB97C \uC5BB\uC2B5\uB2C8\uB2E4"
   type: 0
   scope: 0
   baseEffectValue: 15
-  effectValue: 15
   trigger: 0
   triggerMode: 0
   triggerValue: 0
-  triggerCount: 0
   blockTypes: 000000000100000002000000030000000400000005000000
   probability: 1
   modifyingEffect: {fileID: 0}
+  maxValue: -1
+  scalingFactor: 0
+  scalingMultiplier: 1

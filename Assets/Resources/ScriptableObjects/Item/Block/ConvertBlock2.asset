@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
   m_Name: ConvertBlock2
   m_EditorClassIdentifier: 
+  id: 71f2fa9c-c96d-4fa2-960c-be23967bb06e
   resourceKey: ConvertBlock
   itemName: "\uBE14\uB85D \uAD50\uD658"
   effects:

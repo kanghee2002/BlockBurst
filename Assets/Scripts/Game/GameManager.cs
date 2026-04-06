@@ -255,8 +255,7 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 런 저장으로 이어하기. 성공 시 true. 로드·덱/레벨·저장된 스테이지 id로 복원 불가 시 false
-    /// TODO. 상점 풀·해금 연동은 5단계에서 <see cref="ShopManager.Initialize"/>와 맞춘다.
+    /// 런 저장으로 이어하기. 성공 시 true. 로드·덱/레벨·저장된 스테이지 id로 복원 불가 시 false.
     /// </summary>
     public bool ContinueGame()
     {
@@ -315,8 +314,10 @@ public class GameManager : MonoBehaviour
         CellEffectManager.instance.Initialize();
         EffectManager.instance.Initialize(ref runData);
 
-        // TODO. 4단계: 해금 풀 기반 상점은 5단계. 여기서는 runData 참조만 연결한다.
-        shopManager.Initialize(ref runData, Array.Empty<ItemData>());
+        // 상점 풀: ShopManager.Initialize로 해금 베이스를 채운 뒤 ApplyActiveInventoryToPool로 인벤/부스트만큼 맞춤.
+        ItemData[] unlockedShopItems = UnlockManager.instance.GetUnlockedItems(sdManager.itemTemplates);
+        shopManager.Initialize(ref runData, unlockedShopItems);
+        shopManager.ApplyActiveItemToPool(runData);
 
         animationManager.InitializeRunData(ref runData);
 

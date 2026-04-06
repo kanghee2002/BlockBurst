@@ -8,6 +8,10 @@ using UnityEngine;
 [Serializable]
 public class RunSaveData
 {
+    /// <summary>이 버전 미만 저장은 로드하지 않는다.</summary>
+    public const int MinSupportedSaveVersion = 1;
+
+    /// <summary>새로 저장할 때 쓰는 버전. 올리면 <see cref="TryMigrate"/>에 분기를 추가한다.</summary>
     public const int CurrentSaveVersion = 1;
 
     public int saveVersion = CurrentSaveVersion;
@@ -40,4 +44,42 @@ public class RunSaveData
 
     public ItemTypeIntDictionary shopItemCounts;
     public ItemRarityIntDictionary itemRarityWeights;
+
+    /// <summary>
+    /// 디스크에서 읽은 DTO를 현재 <see cref="CurrentSaveVersion"/>까지 올린다. 실패 시 false.
+    /// </summary>
+    public static bool TryMigrate(ref RunSaveData save)
+    {
+        if (save == null)
+            return false;
+
+        if (save.saveVersion < MinSupportedSaveVersion)
+        {
+            Debug.LogWarning($"RunSaveData.TryMigrate: unsupported version {save.saveVersion} (min {MinSupportedSaveVersion}).");
+            return false;
+        }
+
+        if (save.saveVersion > CurrentSaveVersion)
+        {
+            Debug.LogWarning($"RunSaveData.TryMigrate: save is newer than this build ({save.saveVersion} > {CurrentSaveVersion}).");
+            return false;
+        }
+
+        while (save.saveVersion < CurrentSaveVersion)
+        {
+            switch (save.saveVersion)
+            {
+                // When bumping CurrentSaveVersion, add a case for the previous version:
+                // case 1:
+                //     save.newField = defaultValue;
+                //     save.saveVersion = 2;
+                //     break;
+                default:
+                    Debug.LogWarning($"RunSaveData.TryMigrate: no migration path from version {save.saveVersion}.");
+                    return false;
+            }
+        }
+
+        return true;
+    }
 }

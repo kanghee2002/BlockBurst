@@ -3,7 +3,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// 이어하기 버튼: <see cref="DataManager.HasValidRunSaveData"/>에 따라 클릭 동작·표시를 맞춘다.
+/// 이어하기 버튼: 런 저장 파일 존재 시 활성화(<see cref="DataManager.HasValidRunSaveData"/>).
+/// 손상·구버전 등은 클릭 후 <see cref="GameManager.ContinueGame"/>의 <c>TryLoadRunData</c>에서 걸러진다.
 /// </summary>
 public class ContinueButtonUI : MonoBehaviour
 {

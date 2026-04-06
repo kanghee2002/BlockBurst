@@ -54,18 +54,14 @@ public class DataManager : MonoBehaviour
         GameUIManager.instance.OnDeckSelectionPlayerDataCallback(playerData);
     }
 
-    /// <summary>런 저장 파일이 있고 <see cref="RunSaveData.CurrentSaveVersion"/> 이상이면 true.</summary>
+    /// <summary>
+    /// <c>RunData.json</c> 파일 존재 여부만 본다. JSON 파싱·버전·마이그레이션은 하지 않는다(오버헤드·메뉴 표시용).
+    /// 실제 복원 가능 여부는 <see cref="TryLoadRunData"/>에서 판단한다.
+    /// </summary>
     public bool HasValidRunSaveData()
     {
         string dataPath = Path.Combine(path, "RunData.json");
-        if (!File.Exists(dataPath))
-            return false;
-
-        string loadedJson = File.ReadAllText(dataPath);
-        RunSaveData saveData = JsonUtility.FromJson<RunSaveData>(loadedJson);
-        if (saveData == null)
-            return false;
-        return saveData.saveVersion >= RunSaveData.CurrentSaveVersion;
+        return File.Exists(dataPath);
     }
 
     // 이어하기
@@ -73,10 +69,63 @@ public class DataManager : MonoBehaviour
     {
         RunSaveData saveData = RunSaveMapper.ToSaveData(runData);
         string jsonData = JsonUtility.ToJson(saveData, true);
-        string dataPath = Path.Combine(path, "RunData.json");
-        File.WriteAllText(dataPath, jsonData);
+        WriteRunDataJsonAtomic(path, jsonData);
 
         Debug.Log("Finish Saving RunData");
+    }
+
+    /// <summary>
+    /// <c>RunData.json</c>을 임시 파일에 쓴 뒤 교체해, 쓰기 중단 시 기존 파일이 깨지지 않게 한다.
+    /// </summary>
+    private static void WriteRunDataJsonAtomic(string directory, string jsonData)
+    {
+        string finalPath = Path.Combine(directory, "RunData.json");
+        string tempPath = Path.Combine(directory, "RunData.json.tmp");
+        string backupPath = Path.Combine(directory, "RunData.json.bak");
+
+        File.WriteAllText(tempPath, jsonData);
+
+        try
+        {
+            if (File.Exists(finalPath))
+            {
+                if (File.Exists(backupPath))
+                    File.Delete(backupPath);
+                File.Replace(tempPath, finalPath, backupPath);
+            }
+            else
+            {
+                File.Move(tempPath, finalPath);
+            }
+        }
+        catch
+        {
+            if (File.Exists(tempPath))
+            {
+                try
+                {
+                    File.Delete(tempPath);
+                }
+                catch
+                {
+                    // best effort
+                }
+            }
+
+            throw;
+        }
+
+        if (File.Exists(backupPath))
+        {
+            try
+            {
+                File.Delete(backupPath);
+            }
+            catch
+            {
+                // best effort; next save may delete it
+            }
+        }
     }
 
     /// <summary>이어하기용 런 저장 파일(<c>RunData.json</c>)을 삭제한다. 파일이 없으면 아무 것도 하지 않는다.</summary>
@@ -105,7 +154,8 @@ public class DataManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 디스크의 런 저장만 복원한다. 실패 시 빈 런을 만들지 않고 false를 반환한다.
+    /// 디스크에서 JSON 역직렬화 → <see cref="RunSaveData.TryMigrate"/> → <see cref="RunSaveMapper.FromSaveData"/>로 <see cref="RunData"/>를 만든다.
+    /// 실패 시 빈 런을 만들지 않고 false를 반환한다(구버전·손상·레지스트리 불일치 등).
     /// </summary>
     public bool TryLoadRunData(out RunData runData)
     {
@@ -120,12 +170,9 @@ public class DataManager : MonoBehaviour
 
         string loadedJson = File.ReadAllText(dataPath);
         RunSaveData saveData = JsonUtility.FromJson<RunSaveData>(loadedJson);
-        if (saveData == null || saveData.saveVersion < RunSaveData.CurrentSaveVersion)
+        if (saveData == null || !RunSaveData.TryMigrate(ref saveData))
         {
-            Debug.LogWarning("TryLoadRunData: 런 저장이 없거나 구버전입니다.");
-
-            // TODO: 데이터 버전 마이그레이션
-
+            Debug.LogWarning("TryLoadRunData: 런 저장이 없거나 마이그레이션할 수 없습니다.");
             return false;
         }
 

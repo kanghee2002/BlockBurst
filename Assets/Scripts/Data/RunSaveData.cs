@@ -31,6 +31,7 @@ public class RunSaveData
     public List<string> availableBlockIds;
     public List<string> activeItemIds;
     public List<string> activeBoostIds;
+    public List<string> activeUpgradeIds;
     public List<EffectState> activeEffects;
 
     public int gold;

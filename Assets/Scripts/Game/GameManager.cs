@@ -312,6 +312,7 @@ public class GameManager : MonoBehaviour
 
         // 보드 셀 효과·효과 매니저를 저장된 activeEffects 기준으로 맞춘다.
         CellEffectManager.instance.Initialize();
+        CellEffectManager.instance.ApplyActiveUpgradeItems(runData.activeUpgrades);
         EffectManager.instance.Initialize(ref runData);
 
         // 상점 풀: ShopManager.Initialize로 해금 베이스를 채운 뒤 ApplyActiveInventoryToPool로 인벤/부스트만큼 맞춤.

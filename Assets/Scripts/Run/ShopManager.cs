@@ -215,6 +215,7 @@ public class ShopManager : MonoBehaviour
         }
         else if (item.type == ItemType.UPGRADE) 
         {
+            runData.activeUpgrades.Add(item);
             foreach (EffectData effect in item.effects)
             {
                 // 아이템처럼 취급

@@ -24,6 +24,7 @@ public static class RunSaveMapper
             availableBlockIds = new List<string>(),
             activeItemIds = new List<string>(),
             activeBoostIds = new List<string>(),
+            activeUpgradeIds = new List<string>(),
             activeEffects = new List<EffectState>(),
             gold = runData.gold,
             baseRerollCount = runData.baseRerollCount,
@@ -85,6 +86,23 @@ public static class RunSaveMapper
                 }
 
                 saveData.activeBoostIds.Add(item.id);
+            }
+        }
+
+        // 구매한 블록 업그레이드 아이템 SO를 id 리스트로 옮긴다(순서·중복 유지).
+        if (runData.activeUpgrades != null)
+        {
+            foreach (ItemData item in runData.activeUpgrades)
+            {
+                if (item == null)
+                    continue;
+                if (string.IsNullOrEmpty(item.id))
+                {
+                    Debug.LogWarning("RunSaveMapper: ItemData without id skipped in activeUpgrades.");
+                    continue;
+                }
+
+                saveData.activeUpgradeIds.Add(item.id);
             }
         }
 
@@ -195,6 +213,21 @@ public static class RunSaveMapper
                     runData.activeBoosts.Add(item);
                 else
                     Debug.LogWarning($"RunSaveMapper: skipped unknown boost id '{id}'.");
+            }
+        }
+
+        // ToSaveData의 activeUpgradeIds 채우기에 대응.
+        runData.activeUpgrades = new List<ItemData>();
+        if (saveData.activeUpgradeIds != null)
+        {
+            foreach (string id in saveData.activeUpgradeIds)
+            {
+                if (string.IsNullOrEmpty(id))
+                    continue;
+                if (sdManager.TryGetItem(id, out ItemData item))
+                    runData.activeUpgrades.Add(item);
+                else
+                    Debug.LogWarning($"RunSaveMapper: skipped unknown upgrade item id '{id}'.");
             }
         }
 

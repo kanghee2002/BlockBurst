@@ -26,6 +26,7 @@ public class RunData
     public List<BlockData> availableBlocks;                     // 사용 가능한 블록들
     public List<ItemData> activeItems;                          // 활성화된 아이템들
     public List<ItemData> activeBoosts;                         // 활성화된 부스트들
+    public List<ItemData> activeUpgrades;
     public List<EffectState> activeEffects;                      // 활성화된 효과들
     public int gold;                                            // 현재 보유 골드
     public int baseRerollCount;                                 // 기본 리롤 횟수
@@ -50,6 +51,7 @@ public class RunData
         availableBlocks = new List<BlockData>(gameData.defaultBlocks);
         activeItems = new List<ItemData>();
         activeBoosts = new List<ItemData>();
+        activeUpgrades = new List<ItemData>();
         activeEffects = new List<EffectState>();
         foreach (EffectData effect in gameData.defaultEffects)
         {

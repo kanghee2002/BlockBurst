@@ -292,10 +292,14 @@ public class EffectManager : MonoBehaviour
                 // TODO
                 break;
             case EffectType.RANDOM_BLOCK_DELETE:
-                for(int i = 0; i < finalValue; i++)
+                for (int i = 0; i < finalValue; i++)
                 {
                     List<BlockType> defaultBlockTypes = Enums.GetEnumList<BlockType>().Where(block => Enums.IsDefaultBlockType(block)).ToList();
                     BlockType randomBlockType = defaultBlockTypes[Random.Range(0, defaultBlockTypes.Count)];
+                    if (IsDeleteException(randomBlockType)) 
+                    {
+                        continue;
+                    }
                     GameManager.instance.deckManager.RemoveBlockFromGameDeck(randomBlockType);
                     if (effect.scope == EffectScope.Run)
                     {
@@ -312,6 +316,10 @@ public class EffectManager : MonoBehaviour
             case EffectType.BLOCK_DELETE:
                 foreach (BlockType blockType in effect.blockTypes)
                 {
+                    if (IsDeleteException(blockType)) 
+                    {
+                        continue;
+                    }
                     if (effect.scope == EffectScope.Run)
                     {
                         runData.availableBlocks.RemoveAll(data => data.type == blockType);
@@ -324,6 +332,10 @@ public class EffectManager : MonoBehaviour
                 {
                     foreach (BlockType blockType in effect.blockTypes)
                     {
+                        if (IsDeleteException(blockType)) 
+                        {
+                            continue;
+                        }   
                         GameManager.instance.RemoveBlockFromRunDeck(blockType);
                     }
                 }
@@ -401,6 +413,18 @@ public class EffectManager : MonoBehaviour
                 additiveValue = blockGameData.matchMultipliers[matchType];
                 blockGameData.matchMultipliers[matchType] *= finalValue;
                 break;
+            case EffectType.DECK_DELETE_EXCEPTION:
+                if (effect.blockTypes != null && effect.blockTypes.Length > 0)
+                {
+                    foreach (BlockType blockType in effect.blockTypes)
+                    {
+                        if (!runData.deleteExceptions.Contains(blockType))
+                        {
+                            runData.deleteExceptions.Add(blockType);
+                        }
+                    }
+                }
+                break;
             default:
                 break;
         }
@@ -414,6 +438,11 @@ public class EffectManager : MonoBehaviour
         DataManager.instance.UpdateMaxGold(runData.gold);
     }
 
+
+    private bool IsDeleteException(BlockType blockType)
+    {
+        return runData.deleteExceptions != null && runData.deleteExceptions.Contains(blockType);
+    }
 
     private bool IsIncluded(BlockType[] arr1, BlockType[] arr2)
     {

@@ -78,6 +78,7 @@ public enum EffectType
     EPIC_WEIGHTS_MULTIPLIER,            // 상점 특급 등장 확률 N배
     LEGENDARY_WEIGHTS_MULTIPLIER,       // 상점 전설 등장 확률 N배
     MULTIPLIER_MULTIPLER,               // 배수 N배
+    DECK_DELETE_EXCEPTION,              // 덱 제거 효과 면제 타입 추가
 }
 
 public enum TriggerType

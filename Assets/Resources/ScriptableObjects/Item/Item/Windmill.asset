@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f87859a44a247da4daf4b7b19b1da27f, type: 3}
+  m_Name: Windmill
+  m_EditorClassIdentifier: 
+  id: 7e918f43-0832-4b92-974b-974f42e99cc1
+  resourceKey: Windmill
+  itemName: "\uD48D\uCC28"
+  effects:
+  - {fileID: 11400000, guid: 8541a8c01ab39b54896986bf29d3c189, type: 2}
+  cost: 6
+  type: 2
+  block: {fileID: 0}
+  isPurchasableAgain: 0
+  effectType: 3
+  rarity: 2

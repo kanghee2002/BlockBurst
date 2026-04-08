@@ -357,6 +357,8 @@ public class AnimationManager : MonoBehaviour
             case EffectType.MULTIPLIER_MULTIPLER:
                 description = "<color=red>X" + effectValue.ToString() + "</color>";
                 break;
+            default:
+                break;
         }
         return description;
     }

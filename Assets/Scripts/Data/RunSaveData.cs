@@ -33,6 +33,7 @@ public class RunSaveData
     public List<string> activeBoostIds;
     public List<string> activeUpgradeIds;
     public List<EffectState> activeEffects;
+    public List<int> deleteExceptions;
 
     public int gold;
     public int baseRerollCount;

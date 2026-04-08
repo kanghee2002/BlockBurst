@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,6 +27,7 @@ public static class RunSaveMapper
             activeBoostIds = new List<string>(),
             activeUpgradeIds = new List<string>(),
             activeEffects = new List<EffectState>(),
+            deleteExceptions = new List<int>(),
             gold = runData.gold,
             baseRerollCount = runData.baseRerollCount,
             maxItemCount = runData.maxItemCount,
@@ -115,6 +117,13 @@ public static class RunSaveMapper
                     continue;
                 saveData.activeEffects.Add(state.Clone());
             }
+        }
+
+        // 덱 제거 효과 면제 타입을 BlockType 리스트로 옮긴다(순서·중복 유지).
+        if (runData.deleteExceptions != null)
+        {
+            foreach (BlockType blockType in runData.deleteExceptions)
+                saveData.deleteExceptions.Add((int)blockType);
         }
 
         // 직렬화 대상 DTO를 반환한다.
@@ -240,6 +249,22 @@ public static class RunSaveMapper
                 if (state == null)
                     continue;
                 runData.activeEffects.Add(state.Clone());
+            }
+        }
+
+        // ToSaveData의 deleteExceptions 채우기에 대응: 정수 → BlockType.
+        runData.deleteExceptions = new List<BlockType>();
+        if (saveData.deleteExceptions != null)
+        {
+            foreach (int raw in saveData.deleteExceptions)
+            {
+                if (!Enum.IsDefined(typeof(BlockType), raw))
+                {
+                    Debug.LogWarning($"RunSaveMapper: skipped unknown BlockType value {raw} in deleteExceptions.");
+                    continue;
+                }
+
+                runData.deleteExceptions.Add((BlockType)raw);
             }
         }
 

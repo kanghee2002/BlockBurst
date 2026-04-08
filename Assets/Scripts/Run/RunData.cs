@@ -28,6 +28,8 @@ public class RunData
     public List<ItemData> activeBoosts;                         // 활성화된 부스트들
     public List<ItemData> activeUpgrades;
     public List<EffectState> activeEffects;                      // 활성화된 효과들
+    public List<BlockType> deleteExceptions;                    // 덱 제거 효과 면제 타입
+                                                                // 전역 적용되지 않으므로 추후 확장 시 EffectManager, DeckcManager 리팩토링 필요
     public int gold;                                            // 현재 보유 골드
     public int baseRerollCount;                                 // 기본 리롤 횟수
     public int maxItemCount;                                    // 소지 가능 아이템 수
@@ -53,6 +55,7 @@ public class RunData
         activeBoosts = new List<ItemData>();
         activeUpgrades = new List<ItemData>();
         activeEffects = new List<EffectState>();
+        deleteExceptions = new List<BlockType>();
         foreach (EffectData effect in gameData.defaultEffects)
         {
             activeEffects.Add(EffectState.CreateFromTemplate(effect, activeEffects));

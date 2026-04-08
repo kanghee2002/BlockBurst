@@ -41,7 +41,8 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private GoldInfoUI goldInfoUI;
     [SerializeField] private RerollButtonUI rerollButtonUI;
     [SerializeField] private HandUI handUI;
-    [SerializeField] private DeckButtonUI deckButtonUI;
+    [SerializeField] private DeckButtonUI playDeckButtonUI;
+    [SerializeField] private DeckButtonUI shopDeckButtonUI;
     [SerializeField] private ItemSetUI itemSetUI;
     [SerializeField] private ShopSignboardUI shopSignboardUI;
     [SerializeField] private ItemBoardUI itemBoardUI;
@@ -686,7 +687,8 @@ public class GameUIManager : MonoBehaviour
 
         handUI.SetColorOfUI(currentUIColor.backGroundLighterColor, currentUIColor.uiTextColor);
         rerollButtonUI.SetColorOfUI(currentUIColor.backGroundLighterColor, currentUIColor.uiTextColor);
-        deckButtonUI.SetColorOfUI(currentUIColor.backGroundLighterColor, currentUIColor.uiTextColor);
+        playDeckButtonUI.SetColorOfUI(currentUIColor.backGroundLighterColor, currentUIColor.uiTextColor);
+        shopDeckButtonUI.SetColorOfUI(currentUIColor.backGroundLighterColor, currentUIColor.uiTextColor);
         deckInfoUI.SetLayoutsColor(currentUIColor.backGroundColor, currentUIColor.uiTextColor);
         deckInfoUI.SetTextColor(currentUIColor.uiTextColor);
     }
@@ -798,7 +800,8 @@ public class GameUIManager : MonoBehaviour
 
     public void DisplayDeckCount(int deckCount, int maxDeckCount)
     {
-        deckButtonUI.DisplayDeckCount(deckCount, maxDeckCount);
+        playDeckButtonUI.DisplayDeckCount(deckCount, maxDeckCount);
+        shopDeckButtonUI.DisplayDeckCount(deckCount, maxDeckCount);
     }
 
     public void BackToMain()

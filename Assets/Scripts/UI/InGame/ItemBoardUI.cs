@@ -20,13 +20,8 @@ public class ItemBoardUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI nextStageText;
     [SerializeField] private GameObject nextStageBtn;
 
-    public Image rerollButtonImage;
-    public TextMeshProUGUI rerollButtonText;
-    public Image deckImage;
-    public TextMeshProUGUI deckText;
-
-    public DeckButtonUI deckButtonUI;
-    public ShopRerollButtonUI shopRerollButtonUI;
+    [SerializeField] private DeckButtonUI deckButtonUI;
+    [SerializeField] private ShopRerollButtonUI shopRerollButtonUI;
 
 
     [Header("UI Color")]
@@ -69,7 +64,7 @@ public class ItemBoardUI : MonoBehaviour
     {
         rerollCostText.text = "$" + rerollCost;
     }
-
+    
     public void OpenItemBoardUI()
     {
         gameObject.SetActive(true);

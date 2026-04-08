@@ -445,7 +445,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -430.8451, y: -865.6603}
+  m_AnchoredPosition: {x: -430.8451, y: -865.66016}
   m_SizeDelta: {x: 78.76999, y: 88.68}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &26536537
@@ -829,7 +829,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: -1548.65}
+  m_AnchoredPosition: {x: 0, y: -1548.6499}
   m_SizeDelta: {x: 463, y: 520}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &39161167
@@ -5918,7 +5918,8 @@ MonoBehaviour:
   goldInfoUI: {fileID: 1045692802}
   rerollButtonUI: {fileID: 982027555}
   handUI: {fileID: 231077322}
-  deckButtonUI: {fileID: 1793532059}
+  playDeckButtonUI: {fileID: 1793532059}
+  shopDeckButtonUI: {fileID: 581574929}
   itemSetUI: {fileID: 1583208971}
   shopSignboardUI: {fileID: 1116449223}
   itemBoardUI: {fileID: 846563016}
@@ -7739,7 +7740,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8378713409662279789, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 354.28424
+      value: 354.28418
       objectReference: {fileID: 0}
     - target: {fileID: 8378713409662279789, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -16263,10 +16264,6 @@ MonoBehaviour:
   rerollCostText: {fileID: 1472882537}
   nextStageText: {fileID: 663493266}
   nextStageBtn: {fileID: 941146165}
-  rerollButtonImage: {fileID: 1939032168}
-  rerollButtonText: {fileID: 1472882537}
-  deckImage: {fileID: 988707581}
-  deckText: {fileID: 1032447617}
   deckButtonUI: {fileID: 581574929}
   shopRerollButtonUI: {fileID: 1178047096}
   itemShowcaseColor: {r: 0.3764706, g: 0.2627451, b: 0, a: 1}
@@ -28896,7 +28893,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 629.4}
+  m_AnchoredPosition: {x: 0, y: 629.3999}
   m_SizeDelta: {x: 420, y: 73}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1583208971
@@ -29715,7 +29712,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 25
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2a59723d8f0743f4ba7c0c6d36676d1c, type: 2}
   m_sharedMaterial: {fileID: 92899030693641188, guid: 2a59723d8f0743f4ba7c0c6d36676d1c, type: 2}
@@ -32706,7 +32703,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8378713409662279789, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -101.97
+      value: -101.96997
       objectReference: {fileID: 0}
     - target: {fileID: 8378713409662279789, guid: 35be04623c9f2a145bb59de23349e418, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -37616,7 +37613,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0025634766, y: 0}
+  m_AnchoredPosition: {x: -0.0024414062, y: 0}
   m_SizeDelta: {x: 924, y: 476}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1989505113
@@ -39713,7 +39710,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: -1153.0001}
+  m_AnchoredPosition: {x: 0, y: -1153}
   m_SizeDelta: {x: 420, y: 549}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2113994237

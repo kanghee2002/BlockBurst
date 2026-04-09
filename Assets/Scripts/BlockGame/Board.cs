@@ -422,11 +422,16 @@ public class Board
 
         gameData.currentScore += totalScore;
 
-        Debug.Log("현재 배수: " + gameData.matchMultipliers[MatchType.ROW]);
-
-        if (totalScore > 0)
+        // 튜토리얼 스킵 방지용 예외 처리 (첫 줄 지우기 때 3줄 이상 지울 시 발생)
+        if (GameManager.instance.tutorialManager.IsPlayingTutorial() &&
+            GameManager.instance.tutorialManager.isFirstScore &&
+            totalScore > 0)
         {
-            Debug.Log("계산된 점수: " + totalScore);
+            GameManager.instance.tutorialManager.isFirstScore = false;
+            
+            gameData.currentScore = Mathf.Min(gameData.currentScore, 240);
+            
+            ScoreCalculator.instance.SetLastScore(gameData.currentScore);
         }
     }
 

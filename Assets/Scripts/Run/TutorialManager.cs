@@ -72,6 +72,10 @@ public class TutorialManager : MonoBehaviour
 
     private float shadowAlpha;
 
+    [HideInInspector] public bool isFirstScore { get; set; }
+
+    public bool IsPlayingTutorial() => isPlayingTutorial;
+
     public void Initialize()
     {
         characterRect.gameObject.SetActive(true);
@@ -83,6 +87,7 @@ public class TutorialManager : MonoBehaviour
         itemCount = 0;
         blockPlaceCount = 0;
         shadowAlpha = shadow.color.a;
+        isFirstScore = true;
 
         List<string> firstStageName = new List<string>()
         {

@@ -27,6 +27,11 @@ public class ScoreCalculator : MonoBehaviour
         return tmp;
     }
 
+    public void SetLastScore(int score)
+    {
+        lastScore = score;
+    }
+
     public int Calculate(Match match, BlockGameData data)
     {
         switch (match.matchType)

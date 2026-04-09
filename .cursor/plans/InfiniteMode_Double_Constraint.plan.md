@@ -3,8 +3,8 @@ name: 무한 모드 이중 스테이지
 overview: 무한 모드에서 스테이지 제한 2개를 한 스테이지처럼 적용하고, 제약 타입·저장·이어하기·UI를 단계적으로 반영하는 설계(사용자 명세 원문 유지).
 todos:
   - id: phase-1
-    content: "1단계: StageConstraintType·StageData·RunData/RunSaveData 리스트·Mapper·마이그레이션·단일 id 브리지"
-    status: pending
+    content: "1단계: ConstraintType·StageData·RunData/RunSaveData 리스트·Mapper·마이그레이션·단일 id 브리지"
+    status: completed
   - id: phase-2
     content: "2단계: StageManager currentStages·ApplyConstraints·StartStage 합산·currentStageIds 저장·BOSS 임시 규칙"
     status: pending
@@ -33,7 +33,7 @@ isProject: false
 
 - **새 enum** (예: `ConstraintType`): [Enums.cs](c:\Projects\BlockBurst\Assets\Scripts\Enums.cs)에 두는 편이 `EffectType` 등과 일관적이다.
 - `ConstraintType은 5가지로 구성된다. None, Reroll, Block, Gold, Board.`
-- **StageData**: `public StageConstraintType constraintType;` 추가. 기획값을 현재는 입력하지 않고 None으로 둔다.
+- **StageData**: `public ConstraintType constraintType;` 추가. 기획값을 현재는 입력하지 않고 None으로 둔다.
 - **RunData / RunSaveData**: `string currentStageId` → `*List<string> currentStageIds`* (이름은 프로젝트 스타일에 맞춰 `currentStageRestrictionIds` 등으로 해도 됨). `RunData.Initialize`에서 빈 리스트 준비.
 - **세이브 버전**: 이전 세이브 버전이 배포된 적 없으므로 세이브 버전은 고려하지 않아도 된다.
 
@@ -85,7 +85,7 @@ flowchart LR
 
 ### 1단계 — 데이터·저장 기반
 
-- `StageConstraintType` enum 추가, `StageData`에 `constraintType` 필드 추가.
+- `ConstraintType` enum 추가, `StageData`에 `constraintType` 필드 추가.
 - `RunData` / `RunSaveData`: `currentStageId` → `List<string> currentStageIds`(이름 확정), `RunData.Initialize`에서 리스트 초기화.
 - `RunSaveMapper` ToSaveData / FromSaveData 양방향 매핑.
 - *아직 게임플레이는 “제한 1개”**로도 동작하게: 매 스테이지 시작 시 리스트에 **id 한 개만** 넣는 임시 브리지로 기존 `StartStage(StageData)` 호출부를 유지해도 된다(2단계에서 본격 치환).

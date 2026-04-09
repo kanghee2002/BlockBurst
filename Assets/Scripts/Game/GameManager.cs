@@ -280,16 +280,29 @@ public class GameManager : MonoBehaviour
             return false;
         }
 
-        // 이어하기는 저장 시점의 스테이지 id가 있어야 하고, 레지스트리에서 풀 수 있어야 한다.
-        if (string.IsNullOrEmpty(loadedRun.currentStageId))
+        // 이어하기는 저장 시점의 스테이지 id 목록이 있어야 하고, 레지스트리에서 풀 수 있어야 한다(1단계: 단일 id 브리지).
+        string resumeStageId = null;
+        if (loadedRun.currentStageIds != null)
         {
-            Debug.LogError("ContinueGame: 저장에 currentStageId가 없어 이어하기를 할 수 없습니다.");
+            foreach (string id in loadedRun.currentStageIds)
+            {
+                if (!string.IsNullOrEmpty(id))
+                {
+                    resumeStageId = id;
+                    break;
+                }
+            }
+        }
+
+        if (string.IsNullOrEmpty(resumeStageId))
+        {
+            Debug.LogError("ContinueGame: 저장에 currentStageIds가 비어 있어 이어하기를 할 수 없습니다.");
             return false;
         }
 
-        if (!sdManager.TryGetStage(loadedRun.currentStageId, out StageData resumeStage))
+        if (!sdManager.TryGetStage(resumeStageId, out StageData resumeStage))
         {
-            Debug.LogError($"ContinueGame: currentStageId '{loadedRun.currentStageId}'에 해당하는 스테이지를 찾을 수 없습니다.");
+            Debug.LogError($"ContinueGame: 스테이지 id '{resumeStageId}'에 해당하는 스테이지를 찾을 수 없습니다.");
             return false;
         }
 
@@ -617,7 +630,8 @@ public class GameManager : MonoBehaviour
         blockGame.clearRequirement = GetStageClearRequirement(stage);
         blockGame.goldReward = GetStageGoldReward(stage);
 
-        runData.currentStageId = stage.id;
+        runData.currentStageIds.Clear();
+        runData.currentStageIds.Add(stage.id);
 
         DataManager.instance.SaveRunData(runData);
 

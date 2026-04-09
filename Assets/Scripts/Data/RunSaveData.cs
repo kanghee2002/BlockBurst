@@ -20,8 +20,8 @@ public class RunSaveData
     public int currentStageIndex;
     public string currentDeckId;
     public string currentLevelId;
-    /// <summary>이어하기 시 <see cref="GameManager.StartStage"/>에 바로 진입할 스테이지 SO id.</summary>
-    public string currentStageId;
+    /// <summary>이어하기 시 <see cref="GameManager.StartStage"/>에 복원할 <see cref="StageData"/> id 목록.</summary>
+    public List<string> currentStageIds;
 
     public RunData.History history;
 

@@ -6,6 +6,7 @@ using UnityEngine;
 public class StageData : BaseData
 {
     public StageType type;                                  // Normal, Boss
+    public ConstraintType constraintType;                   // 제약 타입
     public Vector2Int boardSize;                            // 보드 사이즈
     public List<Vector2Int> blockedCells;                   // 막힌 셀
     public List<EffectData> constraints;                    // 제약 조건

@@ -38,6 +38,17 @@ public enum StageType
     NORMAL, BOSS
 }
 
+// 스테이지 제한 타입
+// 같은 타입끼리는 조합되지 않으며 None은 모든 타입과 조합 가능
+public enum ConstraintType
+{
+    None,
+    Reroll,
+    Block,
+    Gold,
+    Board,
+}
+
 public enum EffectType
 {
     SCORE_MODIFIER,                     // 점수 수정

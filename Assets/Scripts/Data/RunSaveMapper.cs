@@ -18,7 +18,7 @@ public static class RunSaveMapper
             currentStageIndex = runData.currentStageIndex,
             currentDeckId = runData.currentDeck != null ? runData.currentDeck.id : null,
             currentLevelId = runData.currentLevel != null ? runData.currentLevel.id : null,
-            currentStageId = runData.currentStageId,
+            currentStageIds = new List<string>(),
             history = runData.history,
             baseBlockScores = new BlockTypeIntDictionary(runData.baseBlockScores),
             baseMatchMultipliers = new MatchTypeIntDictionary(runData.baseMatchMultipliers),
@@ -39,6 +39,15 @@ public static class RunSaveMapper
             shopItemCounts = new ItemTypeIntDictionary(runData.shopItemCounts),
             itemRarityWeights = new ItemRarityIntDictionary(runData.itemRarityWeights)
         };
+
+        // 현재 스테이지 StageData id 목록을 순서·항목 그대로 복사한다.
+        if (runData.currentStageIds != null)
+        {
+            foreach (string id in runData.currentStageIds)
+            {
+                saveData.currentStageIds.Add(id);
+            }
+        }
 
         // 사용 가능한 블록 SO를 순서 유지한 채 BaseData.id 문자열 리스트로 옮긴다. id 없는 에셋은 건너뛴다.
         if (runData.availableBlocks != null)
@@ -123,7 +132,9 @@ public static class RunSaveMapper
         if (runData.deleteExceptions != null)
         {
             foreach (BlockType blockType in runData.deleteExceptions)
+            {
                 saveData.deleteExceptions.Add((int)blockType);
+            }
         }
 
         // 직렬화 대상 DTO를 반환한다.
@@ -150,7 +161,7 @@ public static class RunSaveMapper
         // ToSaveData의 객체 초기화 블록·이후 리스트 채우기와 같은 순서로 역매핑한다(의존성 때문의 재배치는 아님).
         runData.currentChapterIndex = saveData.currentChapterIndex;
         runData.currentStageIndex = saveData.currentStageIndex;
-        runData.currentStageId = saveData.currentStageId;
+        runData.currentStageIds = new List<string>(saveData.currentStageIds);
 
         runData.currentDeck = string.IsNullOrEmpty(saveData.currentDeckId) ? null : sdManager.GetDeck(saveData.currentDeckId);
         runData.currentLevel = string.IsNullOrEmpty(saveData.currentLevelId) ? null : sdManager.GetLevel(saveData.currentLevelId);

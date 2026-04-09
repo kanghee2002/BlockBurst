@@ -17,7 +17,7 @@ public class RunData
     // 스테이지 진행 데이터
     public int currentChapterIndex;
     public int currentStageIndex;
-    public string currentStageId;
+    public List<string> currentStageIds;
     public DeckData currentDeck;
     public LevelData currentLevel;
     public History history;
@@ -81,6 +81,7 @@ public class RunData
             { ItemRarity.EPIC, 20 },
             { ItemRarity.LEGENDARY, 2 },
         };
+        currentStageIds = new List<string>();
     }
 }
 

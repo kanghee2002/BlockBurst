@@ -280,32 +280,6 @@ public class GameManager : MonoBehaviour
             return false;
         }
 
-        // 이어하기는 저장 시점의 스테이지 id 목록이 있어야 하고, 레지스트리에서 풀 수 있어야 한다(1단계: 단일 id 브리지).
-        string resumeStageId = null;
-        if (loadedRun.currentStageIds != null)
-        {
-            foreach (string id in loadedRun.currentStageIds)
-            {
-                if (!string.IsNullOrEmpty(id))
-                {
-                    resumeStageId = id;
-                    break;
-                }
-            }
-        }
-
-        if (string.IsNullOrEmpty(resumeStageId))
-        {
-            Debug.LogError("ContinueGame: 저장에 currentStageIds가 비어 있어 이어하기를 할 수 없습니다.");
-            return false;
-        }
-
-        if (!sdManager.TryGetStage(resumeStageId, out StageData resumeStage))
-        {
-            Debug.LogError($"ContinueGame: 스테이지 id '{resumeStageId}'에 해당하는 스테이지를 찾을 수 없습니다.");
-            return false;
-        }
-
         runData = loadedRun;
 
         gameData = new GameData();
@@ -340,8 +314,30 @@ public class GameManager : MonoBehaviour
         // 스테이지 선택 단계를 건너뛰므로 selecting UI는 열지 않음(OnStageStart가 playing 전환).
         GameUIManager.instance.InitializeContinueGame(runData);
 
-        StartStage(resumeStage);
-        string[] playingDebuffNames = resumeStage.constraints.Select(c => c.effectName).ToArray();
+        // 이어하기는 저장 시점의 스테이지 id 목록마다 레지스트리에서 풀 수 있어야 한다.
+        List<StageData> resumeStages = new List<StageData>();
+        if (loadedRun.currentStageIds != null)
+        {
+            foreach (string id in loadedRun.currentStageIds)
+            {
+                if (string.IsNullOrEmpty(id))
+                {
+                    continue;
+                }
+
+                if (!sdManager.TryGetStage(id, out StageData stage))
+                {
+                    Debug.LogError($"ContinueGame: 스테이지 id '{id}'에 해당하는 스테이지를 찾을 수 없습니다.");
+                    return false;
+                }
+
+                resumeStages.Add(stage);
+            }
+        }
+
+        StartStage(resumeStages);
+
+        string[] playingDebuffNames = resumeStages.SelectMany(stage => stage.constraints).Select(constraint => constraint.effectName).ToArray();
         GameUIManager.instance.OnStageStart(
             runData.currentChapterIndex,
             runData.currentStageIndex,
@@ -481,26 +477,37 @@ public class GameManager : MonoBehaviour
             ScriptableDataManager.instance.levelTemplates);
     }
 
-    private int GetStageClearRequirement(StageData stage)
+    private int GetStageClearRequirement(IReadOnlyList<StageData> stages)
     {
+        float totalBaseScoreMultiplier = 0f;
+        foreach (StageData stage in stages)
+        {
+            totalBaseScoreMultiplier += stage.baseScoreMultiplier;
+        }
+
         if (runData.currentChapterIndex <= gameData.stageBaseScoreList.Count)
         {
             int stageBaseScore = gameData.stageBaseScoreList[runData.currentChapterIndex - 1];
             float scoreMultiplier = gameData.stageScoreMultiplier[runData.currentStageIndex - 1];
-            float stageBaseMultiplier = stage.baseScoreMultiplier;
-            return (int)(stageBaseScore * (scoreMultiplier + stageBaseMultiplier));
+            return (int)(stageBaseScore * (scoreMultiplier + totalBaseScoreMultiplier));
         }
 
         int lastBaseScore = gameData.stageBaseScoreList[gameData.stageBaseScoreList.Count - 1];
         int powExponent = 3 * (runData.currentChapterIndex - 1 - gameData.stageBaseScoreList.Count) + runData.currentStageIndex + 1;
         float powResult = Mathf.Pow(1.5f, powExponent);
-        float combinedScoreMultiplier = gameData.stageScoreMultiplier[runData.currentStageIndex - 1] + stage.baseScoreMultiplier;
+        float combinedScoreMultiplier = gameData.stageScoreMultiplier[runData.currentStageIndex - 1] + totalBaseScoreMultiplier;
         return (int)(lastBaseScore * powResult * combinedScoreMultiplier);
     }
 
-    private int GetStageGoldReward(StageData stage)
+    private int GetStageGoldReward(IReadOnlyList<StageData> stages)
     {
-        return gameData.stageBaseReward + (int)MathF.Pow(runData.currentChapterIndex + 2, 0.5f) * 3 + stage.additionalGold;
+        int totalAdditionalGold = 0;
+        foreach (StageData stage in stages)
+        {
+            totalAdditionalGold += stage.additionalGold;
+        }
+
+        return gameData.stageBaseReward + (int)MathF.Pow(runData.currentChapterIndex + 2, 0.5f) * 3 + totalAdditionalGold;
     }
 
     public void StartStageSelection()
@@ -560,8 +567,9 @@ public class GameManager : MonoBehaviour
         {
             StageData stage = nextStageChoices[i];
             choiceDebuffNames[i] = stage.constraints.Select(c => c.effectName).ToArray();
-            choiceClearRequirements[i] = GetStageClearRequirement(stage);
-            choiceGoldRewards[i] = GetStageGoldReward(stage);
+            choiceClearRequirements[i] = GetStageClearRequirement(new[] { stage });
+            choiceGoldRewards[i] = GetStageGoldReward(new[] { stage });
+            // TODO: 무한 모드 제한 중첩 관련 수정 필요
         }
 
         GameUIManager.instance.OnStageSelection(
@@ -576,7 +584,7 @@ public class GameManager : MonoBehaviour
         // 선택된 스테이지로 진행
         StageData selectedStage = nextStageChoices[choiceIndex];
 
-        StartStage(selectedStage);
+        StartStage(new List<StageData> { selectedStage });      // Need to Fix
         string[] playingDebuffNames = selectedStage.constraints.Select(c => c.effectName).ToArray();
         GameUIManager.instance.OnStageStart(
             runData.currentChapterIndex,
@@ -616,26 +624,29 @@ public class GameManager : MonoBehaviour
         return result;
     }
 
-    public void StartStage(StageData stage)
+    public void StartStage(IReadOnlyList<StageData> stages)
     {
         blockGame = new BlockGameData();
         blockGame.Initialize(runData);
-        
+
         deckManager.Initialize(ref blockGame, ref runData);
         animationManager.InitializeBlockGameData(ref blockGame);
 
         EffectManager.instance.InitializeBlockGameData(ref blockGame);
         CellEffectManager.instance.InitializeBlockGame(ref blockGame);
 
-        blockGame.clearRequirement = GetStageClearRequirement(stage);
-        blockGame.goldReward = GetStageGoldReward(stage);
+        blockGame.clearRequirement = GetStageClearRequirement(stages);
+        blockGame.goldReward = GetStageGoldReward(stages);
 
         runData.currentStageIds.Clear();
-        runData.currentStageIds.Add(stage.id);
+        foreach (StageData stage in stages)
+        {
+            runData.currentStageIds.Add(stage.id);
+        }
 
         DataManager.instance.SaveRunData(runData);
 
-        stageManager.StartStage(stage, blockGame);
+        stageManager.StartStage(stages);
 
         board = new Board();
         board.Initialize(blockGame);
@@ -653,7 +664,7 @@ public class GameManager : MonoBehaviour
 
     public void EndStage()
     {
-        if (runData.currentChapterIndex == CLEAR_CHAPTER && stageManager.currentStage.type == StageType.BOSS)
+        if (runData.currentChapterIndex == CLEAR_CHAPTER && stageManager.CurrentStages[0].type == StageType.BOSS)
         {
             EndGame(true);
             DataManager.instance.UpdateWinCount();
@@ -669,7 +680,7 @@ public class GameManager : MonoBehaviour
             EffectManager.instance.EndTriggerEffect();
 
             stageManager.GrantReward();
-            if (stageManager.currentStage.type == StageType.BOSS)
+            if (stageManager.CurrentStages[0].type == StageType.BOSS)
             {
                 runData.currentChapterIndex++;
                 runData.currentStageIndex = 1;

@@ -161,7 +161,9 @@ public static class RunSaveMapper
         // ToSaveData의 객체 초기화 블록·이후 리스트 채우기와 같은 순서로 역매핑한다(의존성 때문의 재배치는 아님).
         runData.currentChapterIndex = saveData.currentChapterIndex;
         runData.currentStageIndex = saveData.currentStageIndex;
-        runData.currentStageIds = new List<string>(saveData.currentStageIds);
+        runData.currentStageIds = saveData.currentStageIds != null
+            ? new List<string>(saveData.currentStageIds)
+            : new List<string>();
 
         runData.currentDeck = string.IsNullOrEmpty(saveData.currentDeckId) ? null : sdManager.GetDeck(saveData.currentDeckId);
         runData.currentLevel = string.IsNullOrEmpty(saveData.currentLevelId) ? null : sdManager.GetLevel(saveData.currentLevelId);

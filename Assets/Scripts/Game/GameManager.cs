@@ -31,7 +31,10 @@ public class GameManager : MonoBehaviour
     public Board board;
 
     private const int STAGE_CHOICE_COUNT = 2;
-    private int CLEAR_CHAPTER = 4;
+    private const int CLEAR_CHAPTER = 1;
+    private const int INFINITE_CHAPTER = -1;
+    private int currentClearChapter = 5;
+    private bool IsInfiniteMode => currentClearChapter < 0;
 
     public List<BlockData> handBlocksData = new List<BlockData>();
     public List<Block> handBlocks = new List<Block>();
@@ -40,7 +43,7 @@ public class GameManager : MonoBehaviour
 
     private int blockId = 0;
 
-    private StageData[] nextStageChoices = new StageData[STAGE_CHOICE_COUNT];
+    private List<StageData>[] nextStageChoices = new List<StageData>[STAGE_CHOICE_COUNT];
     private List<Match> currentMatches;
     private float SCORE_ANIMATION_DELAY;  // 블록 점수 간의 딜레이
 
@@ -231,7 +234,7 @@ public class GameManager : MonoBehaviour
         // 각종 초기화
         Debug.Log("Game Start");
 
-        CLEAR_CHAPTER = 4;
+        currentClearChapter = CLEAR_CHAPTER;
         
         SCORE_ANIMATION_DELAY = 0.01f;
         currentMatches = new List<Match>();
@@ -286,7 +289,7 @@ public class GameManager : MonoBehaviour
         gameData.Initialize(Array.Empty<BlockData>(), runData.currentDeck, runData.currentLevel);
 
         // StartNewGame과 동일한 런 진입 전 필드 초기화(히스토리는 저장본 유지).
-        CLEAR_CHAPTER = 4;
+        currentClearChapter = CLEAR_CHAPTER;
         SCORE_ANIMATION_DELAY = 0.01f;
         currentMatches = new List<Match>();
 
@@ -369,7 +372,7 @@ public class GameManager : MonoBehaviour
 
     public void InfiniteMode()
     {
-        CLEAR_CHAPTER = -1;
+        currentClearChapter = INFINITE_CHAPTER;
         EndStage();
     }
 
@@ -525,23 +528,35 @@ public class GameManager : MonoBehaviour
         StageType stageType = runData.currentStageIndex == 3 ? StageType.BOSS : StageType.NORMAL;
         var templates = ScriptableDataManager.instance.stageTemplates.Where(stage => stage.type == stageType).ToArray();
         
-        // 사용할 인덱스들을 미리 섞어서 준비
+        // 사용할 인덱스들을 미리 섞어서 준비 (Fisher-Yates 셔플플)
         List<int> indices = Enumerable.Range(0, templates.Length).ToList();
         for (int i = indices.Count - 1; i > 0; i--)
         {
-            int j = UnityEngine.Random.Range(0, i + 1);
+            int j = Random.Range(0, i + 1);
             int temp = indices[i];
             indices[i] = indices[j];
             indices[j] = temp;
         }
 
-        // 섞인 인덱스에서 필요한 만큼만 가져와서 사용
-        for (int i = 0; i < nextStageChoices.Length; i++)
+        if (IsInfiniteMode)
         {
-            nextStageChoices[i] = templates[indices[i]];
+            for (int i = 0; i < nextStageChoices.Length; i++)
+            {
+                StageData firstStage = templates[indices[i]];
+                StageData secondStage = SelectSecondStage(templates, firstStage);
+                nextStageChoices[i] = new List<StageData> { firstStage, secondStage };
+            }
+        }
+        else
+        {
+            for (int i = 0; i < nextStageChoices.Length; i++)
+            {
+                nextStageChoices[i] = new List<StageData> { templates[indices[i]] };
+            }
         }
 
-        // 디버깅 / 튜토리얼: firstStageList 키는 StageData.resourceKey와 대소문자 무시하고 일치하면 인정
+        // 디버깅 / 튜토리얼 ===========================================================
+        // firstStageList 키는 StageData.resourceKey와 대소문자 무시하고 일치하면 인정
         List<string> stageNames = stageManager.firstStageList;
         if (stageNames.Count > 0)
         {
@@ -553,23 +568,31 @@ public class GameManager : MonoBehaviour
                 StageData stage = templates.FirstOrDefault(x =>
                     string.Equals(x.resourceKey, wantedKey, StringComparison.OrdinalIgnoreCase));
                 if (stage != null)
-                    nextStageChoices[i] = stage;
+                {
+                    nextStageChoices[i][0] = stage;
+                    if (IsInfiniteMode && nextStageChoices[i].Count > 1)
+                    {
+                        nextStageChoices[i][1] = SelectSecondStage(templates, stage);
+                    }
+                }
                 else
-                    Debug.LogError($"[DEBUG] firstStageList: resourceKey가 '{wantedKey}'와 일치하는 스테이지 없음 (대소문자 무시). 랜덤 선택 유지.");
+                {
+                    Debug.LogError($"[DEBUG] firstStageList: resourceKey가 '{wantedKey}'와 일치하는 스테이지 없음");
+                }
             }
         }
+        // ============================================================================
 
-        // UI용 목표/보상 계산 (SO에 쓰지 않음)
+        // UI용 목표/보상 계산 
         string[][] choiceDebuffNames = new string[nextStageChoices.Length][];
         int[] choiceClearRequirements = new int[nextStageChoices.Length];
         int[] choiceGoldRewards = new int[nextStageChoices.Length];
         for (int i = 0; i < nextStageChoices.Length; i++)
         {
-            StageData stage = nextStageChoices[i];
-            choiceDebuffNames[i] = stage.constraints.Select(c => c.effectName).ToArray();
-            choiceClearRequirements[i] = GetStageClearRequirement(new[] { stage });
-            choiceGoldRewards[i] = GetStageGoldReward(new[] { stage });
-            // TODO: 무한 모드 제한 중첩 관련 수정 필요
+            List<StageData> choiceStages = nextStageChoices[i];
+            choiceDebuffNames[i] = choiceStages.SelectMany(s => s.constraints).Select(c => c.effectName).ToArray();
+            choiceClearRequirements[i] = GetStageClearRequirement(choiceStages);
+            choiceGoldRewards[i] = GetStageGoldReward(choiceStages);
         }
 
         GameUIManager.instance.OnStageSelection(
@@ -581,11 +604,13 @@ public class GameManager : MonoBehaviour
 
     public void OnStageSelection(int choiceIndex)
     {
-        // 선택된 스테이지로 진행
-        StageData selectedStage = nextStageChoices[choiceIndex];
+        List<StageData> selectedStages = nextStageChoices[choiceIndex];
 
-        StartStage(new List<StageData> { selectedStage });      // Need to Fix
-        string[] playingDebuffNames = selectedStage.constraints.Select(c => c.effectName).ToArray();
+        StartStage(selectedStages);
+        string[] playingDebuffNames = selectedStages
+            .SelectMany(s => s.constraints)
+            .Select(c => c.effectName)
+            .ToArray();
         GameUIManager.instance.OnStageStart(
             runData.currentChapterIndex,
             runData.currentStageIndex,
@@ -595,7 +620,24 @@ public class GameManager : MonoBehaviour
         GameUIManager.instance.BlockCells(blockGame.inactiveCells);
     }
 
-    HashSet<Vector2Int> SetInactiveBlockCells(BlockGameData data)
+    private StageData SelectSecondStage(StageData[] pool, StageData firstStage)
+    {
+        List<StageData> candidates = new List<StageData>();
+        foreach (StageData candidate in pool)
+        {
+            if (candidate == firstStage)
+                continue;
+            if (firstStage.constraintType != ConstraintType.None
+                && candidate.constraintType != ConstraintType.None
+                && candidate.constraintType == firstStage.constraintType)
+                continue;
+            candidates.Add(candidate);
+        }
+
+        return candidates[Random.Range(0, candidates.Count)];
+    }
+
+    private HashSet<Vector2Int> SetInactiveBlockCells(BlockGameData data)
     {
         if (data.isCornerBlocked)
         {
@@ -664,7 +706,7 @@ public class GameManager : MonoBehaviour
 
     public void EndStage()
     {
-        if (runData.currentChapterIndex == CLEAR_CHAPTER && stageManager.CurrentStages[0].type == StageType.BOSS)
+        if (runData.currentChapterIndex == currentClearChapter && stageManager.CurrentStages[0].type == StageType.BOSS)
         {
             EndGame(true);
             DataManager.instance.UpdateWinCount();

@@ -2,15 +2,38 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
+
+#if UNITY_EDITOR
+using Unity.Profiling;
+#endif
 
 public class DataManager : MonoBehaviour
 {
     public static DataManager instance = null;
 
+#if UNITY_EDITOR
+    private static readonly ProfilerMarker s_ProfileSaveRunTotal = new ProfilerMarker("DataManager.SaveRunData");
+    private static readonly ProfilerMarker s_ProfileSaveRunToSaveData = new ProfilerMarker("DataManager.SaveRunData.ToSaveData");
+    private static readonly ProfilerMarker s_ProfileSaveRunToJson = new ProfilerMarker("DataManager.SaveRunData.ToJson");
+    private static readonly ProfilerMarker s_ProfileSaveRunWriteAtomic = new ProfilerMarker("DataManager.SaveRunData.WriteAtomic");
+#endif
+
     private string path;
 
     private PlayerData playerData;
+
+    // --- RunData 비동기 저장 파이프라인 ---
+    private volatile int runSaveGeneration;              // 저장 요청 세대 번호 (lock 안에서 쓰고, 워커에서 volatile 읽기)
+    private CancellationTokenSource runSaveCts;          // 진행 중인 워커 취소용
+    private Task runSaveTask;                            // 현재 백그라운드 저장 Task (메인 스레드용)
+    private readonly object runSaveLock = new object();  // 세대·CTS 갱신 동기화
+
+    private const int SAVE_RETRY_COUNT = 3;              // 디스크 쓰기 최대 재시도 횟수
+    private const int SAVE_RETRY_BASE_DELAY_MS = 50;     // 재시도 간 기본 대기(지수 백오프 적용)
+    private const int FLUSH_TIMEOUT_MS = 3000;           // pause/quit 시 저장 완료 대기 한도
 
     private void Awake()
     {
@@ -64,78 +87,209 @@ public class DataManager : MonoBehaviour
         return File.Exists(dataPath);
     }
 
-    // 이어하기
+    // 이어하기 — 메인 스레드에서 직렬화 후, 디스크 I/O는 백그라운드로 넘긴다.
     public void SaveRunData(RunData runData)
     {
-        RunSaveData saveData = RunSaveMapper.ToSaveData(runData);
-        string jsonData = JsonUtility.ToJson(saveData, true);
-        WriteRunDataJsonAtomic(path, jsonData);
+        RunSaveData saveData;
+        string jsonData;
 
-        Debug.Log("Finish Saving RunData");
+#if UNITY_EDITOR
+        using (s_ProfileSaveRunTotal.Auto())
+        {
+            using (s_ProfileSaveRunToSaveData.Auto())
+                saveData = RunSaveMapper.ToSaveData(runData);
+
+            using (s_ProfileSaveRunToJson.Auto())
+                jsonData = JsonUtility.ToJson(saveData, true);
+        }
+#else
+        saveData = RunSaveMapper.ToSaveData(runData);
+        jsonData = JsonUtility.ToJson(saveData, true);
+#endif
+
+        EnqueueRunSave(jsonData);
+    }
+
+    /// <summary>직렬화된 JSON을 백그라운드 워커에 넘긴다. 이전 저장이 있으면 취소(coalesce).</summary>
+    /// <remarks>메인 스레드 전용. 백그라운드에서 호출하지 않는다.</remarks>
+    private void EnqueueRunSave(string jsonData)
+    {
+        int generation;
+        CancellationToken token;
+
+        lock (runSaveLock)
+        {
+            // 세대 증가 — 이후 stale 판별의 기준이 된다 
+            generation = ++runSaveGeneration;
+
+            // 기존 작업이 있다면 취소 신호만 보낸다
+            if (runSaveCts != null)
+                runSaveCts.Cancel();
+
+            // 새 토큰 발급
+            runSaveCts = new CancellationTokenSource();
+            token = runSaveCts.Token;
+        }
+
+        // 클로저 캡처 시점의 경로를 고정하여 워커에 전달
+        string directory = path;
+        runSaveTask = Task.Run(() => RunSaveWorker(directory, jsonData, generation, token), token);
+    }
+
+    /// <summary>백그라운드 스레드에서 원자적 쓰기를 시도하고, 실패 시 지수 백오프로 재시도한다.</summary>
+    private void RunSaveWorker(string directory, string jsonData, int generation, CancellationToken token)
+    {
+        for (int attempt = 0; attempt <= SAVE_RETRY_COUNT; attempt++)
+        {
+            // 새 세대가 이미 요청됐다면 즉시 종료
+            if (token.IsCancellationRequested)
+                return;
+
+            try
+            {
+                WriteRunDataJsonAtomic(directory, jsonData, generation, token);
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+                Debug.Log("Finish Saving RunData");
+#endif
+                return;
+            }
+            catch (Exception exception)
+            {
+                // 최대 재시도 횟수 초과 — 로그 남기고 포기 (디스크엔 직전 성공본이 유지됨)
+                if (attempt == SAVE_RETRY_COUNT)
+                {
+                    Debug.LogError($"[DataManager] RunData 저장 최종 실패 (generation={generation}): {exception}");
+                    return;
+                }
+
+                // 지수 백오프 후 재시도 (50ms → 100ms → 200ms)
+                Debug.LogWarning($"[DataManager] RunData 저장 재시도 ({attempt + 1}/{SAVE_RETRY_COUNT}): {exception.Message}");
+                Thread.Sleep(SAVE_RETRY_BASE_DELAY_MS * (1 << attempt));
+            }
+        }
     }
 
     /// <summary>
-    /// <c>RunData.json</c>을 임시 파일에 쓴 뒤 교체해, 쓰기 중단 시 기존 파일이 깨지지 않게 한다.
+    /// 임시 파일에 쓴 뒤 세대·취소를 확인하고 원자적 교체를 수행한다.
+    /// stale 세대이거나 취소된 경우 임시 파일만 정리하고 조용히 반환한다.
     /// </summary>
-    private static void WriteRunDataJsonAtomic(string directory, string jsonData)
+    private void WriteRunDataJsonAtomic(string directory, string jsonData, int generation, CancellationToken token)
     {
         string finalPath = Path.Combine(directory, "RunData.json");
-        string tempPath = Path.Combine(directory, "RunData.json.tmp");
-        string backupPath = Path.Combine(directory, "RunData.json.bak");
+        // 세대별 고유 경로 — 워커끼리 같은 파일을 공유하지 않아 락 없이도 충돌하지 않는다
+        string tempPath = Path.Combine(directory, $"RunData.json.{generation}.tmp");
+        string backupPath = Path.Combine(directory, $"RunData.json.{generation}.bak");
 
-        File.WriteAllText(tempPath, jsonData);
+#if UNITY_EDITOR
+        using (s_ProfileSaveRunWriteAtomic.Auto())
+#endif
+        {
+            // 임시 파일에 JSON 기록
+            File.WriteAllText(tempPath, jsonData);
 
-        try
-        {
-            if (File.Exists(finalPath))
+            // tmp 기록 후 stale/취소 판정 — 새 세대가 요청됐으면 교체 생략
+            if (runSaveGeneration != generation || token.IsCancellationRequested)
             {
-                if (File.Exists(backupPath))
-                    File.Delete(backupPath);
-                File.Replace(tempPath, finalPath, backupPath);
-            }
-            else
-            {
-                File.Move(tempPath, finalPath);
-            }
-        }
-        catch
-        {
-            if (File.Exists(tempPath))
-            {
-                try
-                {
-                    File.Delete(tempPath);
-                }
-                catch
-                {
-                    // best effort
-                }
+                TryDeleteFile(tempPath);
+                return;
             }
 
-            throw;
-        }
-
-        if (File.Exists(backupPath))
-        {
+            // 원자적 교체: tmp → final (기존 파일이 있으면 backup 경유)
             try
             {
-                File.Delete(backupPath);
+                if (File.Exists(finalPath))
+                {
+                    if (File.Exists(backupPath))
+                        File.Delete(backupPath);
+                    File.Replace(tempPath, finalPath, backupPath);
+                }
+                else
+                {
+                    File.Move(tempPath, finalPath);
+                }
             }
             catch
             {
-                // best effort; next save may delete it
+                TryDeleteFile(tempPath);
+                throw;
             }
+
+            // 교체 성공 후 백업 정리
+            TryDeleteFile(backupPath);
+        }
+    }
+
+    private static void TryDeleteFile(string filePath)
+    {
+        try
+        {
+            if (File.Exists(filePath))
+                File.Delete(filePath);
+        }
+        catch
+        {
+            // best effort
         }
     }
 
     /// <summary>이어하기용 런 저장 파일(<c>RunData.json</c>)을 삭제한다. 파일이 없으면 아무 것도 하지 않는다.</summary>
     public void DeleteRunSaveData()
     {
+        // 진행 중인 저장이 있으면 취소 후 완료 대기 — 삭제와 쓰기가 충돌하지 않도록
+        CancelRunSave();
+
         string dataPath = Path.Combine(path, "RunData.json");
         if (!File.Exists(dataPath))
             return;
 
         File.Delete(dataPath);
+    }
+
+    // --- 비동기 저장 라이프사이클 ---
+
+    /// <summary>진행 중인 저장을 취소하고 완료될 때까지 대기한다.</summary>
+    /// <remarks>메인 스레드 전용. 백그라운드에서 호출하지 않는다.</remarks>
+    private void CancelRunSave()
+    {
+        lock (runSaveLock)
+        {
+            if (runSaveCts != null)
+                runSaveCts.Cancel();
+        }
+
+        FlushRunSave();
+    }
+
+    /// <summary>현재 백그라운드 저장 Task가 끝날 때까지 메인 스레드에서 대기한다.</summary>
+    /// <remarks>메인 스레드 전용. 백그라운드에서 호출하지 않는다.</remarks>
+    private void FlushRunSave()
+    {
+        Task task = runSaveTask;
+        if (task == null || task.IsCompleted)
+            return;
+
+        try
+        {
+            if (!task.Wait(FLUSH_TIMEOUT_MS))
+                Debug.LogWarning($"[DataManager] RunData 저장 flush 타임아웃 ({FLUSH_TIMEOUT_MS}ms)");
+        }
+        catch (AggregateException)
+        {
+            // 취소 또는 실패 — 워커에서 이미 로그를 남김
+        }
+    }
+
+    /// <summary>앱이 백그라운드로 내려갈 때 저장 완료를 보장한다.</summary>
+    private void OnApplicationPause(bool pauseStatus)
+    {
+        if (pauseStatus)
+            FlushRunSave();
+    }
+
+    /// <summary>앱 종료 직전 저장 완료를 보장한다.</summary>
+    private void OnApplicationQuit()
+    {
+        FlushRunSave();
     }
 
     public PlayerData LoadPlayerData()

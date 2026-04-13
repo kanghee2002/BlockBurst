@@ -31,7 +31,9 @@ public class GameManager : MonoBehaviour
     public Board board;
 
     private const int STAGE_CHOICE_COUNT = 2;
-    private int CLEAR_CHAPTER = 4;
+    private const int CLEAR_CHAPTER = 5;
+    private const int INFINITE_CHAPTER = -1;
+    private int currentClearChapter = 5;
 
     public List<BlockData> handBlocksData = new List<BlockData>();
     public List<Block> handBlocks = new List<Block>();
@@ -83,10 +85,17 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
 #if UNITY_EDITOR
-        // 디버그: 런 저장 테스트 (C 키)
+        // 디버그: 런 저장 테스트 (R 키)
         if (Input.GetKeyDown(KeyCode.R))
         {
             DataManager.instance.SaveRunData(runData);
+            Debug.Log("[Editor] DataManager.SaveRunData(runData) 호출됨.");
+        }
+
+        // 디버그: 플레이어 데이터 저장 테스트 (T 키)
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            DataManager.instance.SavePlayerData(playerData);
             Debug.Log("[Editor] DataManager.SaveRunData(runData) 호출됨.");
         }
 
@@ -231,7 +240,7 @@ public class GameManager : MonoBehaviour
         // 각종 초기화
         Debug.Log("Game Start");
 
-        CLEAR_CHAPTER = 4;
+        currentClearChapter = CLEAR_CHAPTER;
         
         SCORE_ANIMATION_DELAY = 0.01f;
         currentMatches = new List<Match>();
@@ -299,7 +308,7 @@ public class GameManager : MonoBehaviour
         gameData.Initialize(Array.Empty<BlockData>(), runData.currentDeck, runData.currentLevel);
 
         // StartNewGame과 동일한 런 진입 전 필드 초기화(히스토리는 저장본 유지).
-        CLEAR_CHAPTER = 4;
+        currentClearChapter = CLEAR_CHAPTER;
         SCORE_ANIMATION_DELAY = 0.01f;
         currentMatches = new List<Match>();
 
@@ -360,7 +369,7 @@ public class GameManager : MonoBehaviour
 
     public void InfiniteMode()
     {
-        CLEAR_CHAPTER = -1;
+        currentClearChapter = INFINITE_CHAPTER;
         EndStage();
     }
 
@@ -639,7 +648,7 @@ public class GameManager : MonoBehaviour
 
     public void EndStage()
     {
-        if (runData.currentChapterIndex == CLEAR_CHAPTER && stageManager.currentStage.type == StageType.BOSS)
+        if (runData.currentChapterIndex == currentClearChapter && stageManager.currentStage.type == StageType.BOSS)
         {
             EndGame(true);
             DataManager.instance.UpdateWinCount();

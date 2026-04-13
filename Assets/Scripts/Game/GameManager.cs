@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.T))
         {
             DataManager.instance.SavePlayerData(playerData);
-            Debug.Log("[Editor] DataManager.SaveRunData(runData) 호출됨.");
+            Debug.Log("[Editor] DataManager.SavePlayerData(playerData) 호출됨.");
         }
 
         // 디버그: 플레이 중 스테이지 즉시 종료 (기존 SKIP_BUTTON과 동일 동작, S 키)

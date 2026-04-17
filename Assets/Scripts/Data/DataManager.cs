@@ -334,26 +334,30 @@ public class DataManager : MonoBehaviour
         return runData != null;
     }
 
-    // 덱 해금 추가
-    public void AddUnlockedDeck(string deckName)
+    // 덱 해금 설정
+    public void SetDeckUnlocked(string deckName)
     {
-        int index = playerData.unlockedDecks.FindIndex(x => x.deckName == deckName);
+        int index = playerData.decks.FindIndex(x => x.deckName == deckName);
 
-        if (index != -1)
+        if (index == -1)
         {
-            Debug.LogError("해금하려는 덱이 이미 존재함: " + deckName); ;
+            Debug.LogError("해금하려는 덱이 존재하지 않음: " + deckName);
             return;
         }
 
-        DeckType deckType = Enums.GetEnumByString<DeckType>(deckName);
-        DeckInfo deckInfo = new DeckInfo(deckType, 0);
-        playerData.unlockedDecks.Add(deckInfo);
+        if (playerData.decks[index].isUnlocked)
+        {
+            Debug.LogError("해금하려는 덱이 이미 해금됨: " + deckName);
+            return;
+        }
+
+        playerData.decks[index].isUnlocked = true;
     }
 
     // 덱 레벨 업데이트
     public void UpdateDeckLevel(DeckType deckType, int clearedLevel)
     {
-        int index = playerData.unlockedDecks.FindIndex(x => x.deckType == deckType);
+        int index = playerData.decks.FindIndex(x => x.deckType == deckType);
 
         if (index == -1)
         {
@@ -361,12 +365,11 @@ public class DataManager : MonoBehaviour
             return;
         }
 
-        DeckInfo deckInfo = playerData.unlockedDecks[index];
+        DeckInfo deckInfo = playerData.decks[index];
 
         if (deckInfo.level == clearedLevel && deckInfo.level < DeckInfo.MAX_LEVEL)
         {
             deckInfo.level++;
-            playerData.unlockedDecks[index] = deckInfo;
         }
     }
 
@@ -586,39 +589,39 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    public void UpdateYoYoAdWatchCount()
+    public void UpdateDeckAdWatchCount(DeckType deckType)
     {
-        playerData.yoyoAdWatchCount++;
-        SavePlayerData(playerData);
-        UnlockManager.instance.onYoYoAdWatchCountUpdate?.Invoke(playerData.yoyoAdWatchCount);
-    }
+        int index = playerData.decks.FindIndex(x => x.deckType == deckType);
 
-    public void UpdateDiceAdWatchCount()
-    {
-        playerData.diceAdWatchCount++;
-        SavePlayerData(playerData);
-        UnlockManager.instance.onDiceAdWatchCountUpdate?.Invoke(playerData.diceAdWatchCount);
-    }
+        if (index == -1)
+        {
+            Debug.LogError("광고 시청 횟수 업데이트하려는 덱이 존재하지 않음: " + deckType);
+            return;
+        }
 
-    public void UpdateTelescopeAdWatchCount()
-    {
-        playerData.telescopeAdWatchCount++;
-        SavePlayerData(playerData);
-        UnlockManager.instance.onTelescopeAdWatchCountUpdate?.Invoke(playerData.telescopeAdWatchCount);
-    }
+        playerData.decks[index].adWatchCount++;
 
-    public void UpdateMirrorAdWatchCount()
-    {
-        playerData.mirrorAdWatchCount++;
-        SavePlayerData(playerData);
-        UnlockManager.instance.onMirrorAdWatchCountUpdate?.Invoke(playerData.mirrorAdWatchCount);
-    }
+        int count = playerData.decks[index].adWatchCount;
+        switch (deckType)
+        {
+            case DeckType.YoYo:
+                UnlockManager.instance.onYoYoAdWatchCountUpdate?.Invoke(count);
+                break;
+            case DeckType.Dice:
+                UnlockManager.instance.onDiceAdWatchCountUpdate?.Invoke(count);
+                break;
+            case DeckType.Telescope:
+                UnlockManager.instance.onTelescopeAdWatchCountUpdate?.Invoke(count);
+                break;
+            case DeckType.Mirror:
+                UnlockManager.instance.onMirrorAdWatchCountUpdate?.Invoke(count);
+                break;
+            case DeckType.Bomb:
+                UnlockManager.instance.onBombAdWatchCountUpdate?.Invoke(count);
+                break;
+        }
 
-    public void UpdateBombAdWatchCount()
-    {
-        playerData.bombAdWatchCount++;
         SavePlayerData(playerData);
-        UnlockManager.instance.onBombAdWatchCountUpdate?.Invoke(playerData.bombAdWatchCount);
     }
     // ---------------------------------------------------------------------
 }

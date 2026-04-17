@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.G))
             DebugAddGold();
 
-        // 디버그: 부활 광고 테스트 (A 키)
+        // 디버그: 부활 광고 테스트 (Z 키)
         if (Input.GetKeyDown(KeyCode.Z))
         {
             TryReviveWithAd(
@@ -115,11 +115,15 @@ public class GameManager : MonoBehaviour
                 onFailed: () => Debug.Log("[Editor] Revive ad: onFailed"));
         }
 
-        // 디버그: 덱 해금 광고 테스트 (S 키 = Dice)
+        // 디버그: 덱 해금 광고 테스트 (X 키 = Dice)
         if (Input.GetKeyDown(KeyCode.X))
         {
             TryDeckUnlockWithAd("Dice",
-                onRewarded: () => Debug.Log($"[Editor] Deck unlock ad: onRewarded (diceAdWatchCount={playerData?.diceAdWatchCount})"),
+                onRewarded: () =>
+                {
+                    int count = playerData?.decks.Find(d => d.deckType == DeckType.Dice)?.adWatchCount ?? 0;
+                    Debug.Log($"[Editor] Deck unlock ad: onRewarded (diceAdWatchCount={count})");
+                },
                 onFailed: () => Debug.Log("[Editor] Deck unlock ad: onFailed"));
         }
 #endif
@@ -407,31 +411,22 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        DeckType deckType;
+        try
+        {
+            deckType = Enums.GetEnumByString<DeckType>(deckName);
+        }
+        catch
+        {
+            Debug.LogError($"TryDeckUnlockWithAd: 알 수 없는 deckName '{deckName}'");
+            onFailed?.Invoke();
+            return;
+        }
+
         AdManager.instance.ShowDeckUnlockAd(
             onRewarded: () =>
             {
-                switch (deckName)
-                {
-                    case "YoYo":
-                        DataManager.instance.UpdateYoYoAdWatchCount();
-                        break;
-                    case "Dice":
-                        DataManager.instance.UpdateDiceAdWatchCount();
-                        break;
-                    case "Telescope":
-                        DataManager.instance.UpdateTelescopeAdWatchCount();
-                        break;
-                    case "Mirror":
-                        DataManager.instance.UpdateMirrorAdWatchCount();
-                        break;
-                    case "Bomb":
-                        DataManager.instance.UpdateBombAdWatchCount();
-                        break;
-                    default:
-                        Debug.LogError($"TryDeckUnlockWithAd: 알 수 없는 deckName '{deckName}'");
-                        onFailed?.Invoke();
-                        return;
-                }
+                DataManager.instance.UpdateDeckAdWatchCount(deckType);
                 onRewarded?.Invoke();
             },
             onFailed: onFailed);

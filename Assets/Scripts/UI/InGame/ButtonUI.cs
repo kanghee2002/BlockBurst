@@ -86,7 +86,7 @@ public class ButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         onClick.AddListener(action);
     }
 
-    public void SetUIColor(Color uiColor, float scalar = 1f)
+    public void SetUIColor(Color uiColor, float scalar = 1f, float duration = 0.5f)
     {
         Color newColor = uiColor * scalar;
         newColor = new Color(newColor.r, newColor.g, newColor.b, 1f);
@@ -97,7 +97,7 @@ public class ButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             image = button.GetComponent<Image>();
         }
 
-        UIUtils.SetImageColorByScalar(image, uiColor, scalar);
+        UIUtils.SetImageColorByScalar(image, uiColor, scalar, duration);
 
         originalColor = newColor;
         hoverColor = Color.Lerp(originalColor, Color.white, brightnessIncrease);

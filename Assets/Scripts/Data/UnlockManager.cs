@@ -115,7 +115,7 @@ public class UnlockManager : MonoBehaviour
         }
         else if (unlockInfo.targetType == UnlockTarget.Deck)
         {
-            DataManager.instance.AddUnlockedDeck(targetName);
+            DataManager.instance.SetDeckUnlocked(targetName);
         }
 
         SetSubscribe(unlockInfo, false);

@@ -106,6 +106,22 @@ public class GameManager : MonoBehaviour
         // 디버그: 골드 5000 추가 (G 키)
         if (Input.GetKeyDown(KeyCode.G))
             DebugAddGold();
+
+        // 디버그: 부활 광고 테스트 (A 키)
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            TryReviveWithAd(
+                onSuccess: () => Debug.Log("[Editor] Revive ad: onSuccess (ContinueGame OK)"),
+                onFailed: () => Debug.Log("[Editor] Revive ad: onFailed"));
+        }
+
+        // 디버그: 덱 해금 광고 테스트 (S 키 = Dice)
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            TryDeckUnlockWithAd("Dice",
+                onRewarded: () => Debug.Log($"[Editor] Deck unlock ad: onRewarded (diceAdWatchCount={playerData?.diceAdWatchCount})"),
+                onFailed: () => Debug.Log("[Editor] Deck unlock ad: onFailed"));
+        }
 #endif
     }
 
@@ -360,11 +376,65 @@ public class GameManager : MonoBehaviour
     
     public void EndGame(bool isWin, string loseReason = "")
     {
-        if (!isWin && DataManager.instance != null)
-            DataManager.instance.DeleteRunSaveData();
-
         BlockType mostPlacedBlockType = (BlockType)runData.history.blockHistory.ToList().IndexOf(runData.history.blockHistory.Max());
         GameUIManager.instance.OnGameEnd(isWin, runData.currentChapterIndex, runData.currentStageIndex, runData.history, mostPlacedBlockType, loseReason: loseReason);
+    }
+
+    public void TryReviveWithAd(Action onSuccess, Action onFailed)
+    {
+        if (AdManager.instance == null)
+        {
+            onFailed?.Invoke();
+            return;
+        }
+
+        AdManager.instance.ShowReviveAd(
+            onRewarded: () =>
+            {
+                if (ContinueGame())
+                    onSuccess?.Invoke();
+                else
+                    onFailed?.Invoke();
+            },
+            onFailed: onFailed);
+    }
+
+    public void TryDeckUnlockWithAd(string deckName, Action onRewarded, Action onFailed)
+    {
+        if (AdManager.instance == null)
+        {
+            onFailed?.Invoke();
+            return;
+        }
+
+        AdManager.instance.ShowDeckUnlockAd(
+            onRewarded: () =>
+            {
+                switch (deckName)
+                {
+                    case "YoYo":
+                        DataManager.instance.UpdateYoYoAdWatchCount();
+                        break;
+                    case "Dice":
+                        DataManager.instance.UpdateDiceAdWatchCount();
+                        break;
+                    case "Telescope":
+                        DataManager.instance.UpdateTelescopeAdWatchCount();
+                        break;
+                    case "Mirror":
+                        DataManager.instance.UpdateMirrorAdWatchCount();
+                        break;
+                    case "Bomb":
+                        DataManager.instance.UpdateBombAdWatchCount();
+                        break;
+                    default:
+                        Debug.LogError($"TryDeckUnlockWithAd: 알 수 없는 deckName '{deckName}'");
+                        onFailed?.Invoke();
+                        return;
+                }
+                onRewarded?.Invoke();
+            },
+            onFailed: onFailed);
     }
 
     public void InfiniteMode()
@@ -392,6 +462,7 @@ public class GameManager : MonoBehaviour
 
     public void MakeNewRun()
     {
+        DataManager.instance.DeleteRunSaveData();
         SceneTransitionManager.instance.TransitionToScene("VerticalGameScene");
     }
 

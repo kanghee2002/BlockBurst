@@ -585,5 +585,40 @@ public class DataManager : MonoBehaviour
             UnlockManager.instance.onClearedMaxLevelUpdate?.Invoke(playerData.clearedMaxLevel);
         }
     }
+
+    public void UpdateYoYoAdWatchCount()
+    {
+        playerData.yoyoAdWatchCount++;
+        SavePlayerData(playerData);
+        UnlockManager.instance.onYoYoAdWatchCountUpdate?.Invoke(playerData.yoyoAdWatchCount);
+    }
+
+    public void UpdateDiceAdWatchCount()
+    {
+        playerData.diceAdWatchCount++;
+        SavePlayerData(playerData);
+        UnlockManager.instance.onDiceAdWatchCountUpdate?.Invoke(playerData.diceAdWatchCount);
+    }
+
+    public void UpdateTelescopeAdWatchCount()
+    {
+        playerData.telescopeAdWatchCount++;
+        SavePlayerData(playerData);
+        UnlockManager.instance.onTelescopeAdWatchCountUpdate?.Invoke(playerData.telescopeAdWatchCount);
+    }
+
+    public void UpdateMirrorAdWatchCount()
+    {
+        playerData.mirrorAdWatchCount++;
+        SavePlayerData(playerData);
+        UnlockManager.instance.onMirrorAdWatchCountUpdate?.Invoke(playerData.mirrorAdWatchCount);
+    }
+
+    public void UpdateBombAdWatchCount()
+    {
+        playerData.bombAdWatchCount++;
+        SavePlayerData(playerData);
+        UnlockManager.instance.onBombAdWatchCountUpdate?.Invoke(playerData.bombAdWatchCount);
+    }
     // ---------------------------------------------------------------------
 }

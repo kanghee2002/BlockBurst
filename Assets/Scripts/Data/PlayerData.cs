@@ -60,6 +60,11 @@ public class PlayerData
     public int mirrorDeckWinCount;
     public int bombDeckWinCount;
     public int clearedMaxLevel;
+    public int yoyoAdWatchCount;
+    public int diceAdWatchCount;
+    public int telescopeAdWatchCount;
+    public int mirrorAdWatchCount;
+    public int bombAdWatchCount;
 
     public PlayerData()
     {
@@ -98,6 +103,11 @@ public class PlayerData
         mirrorDeckWinCount = 0;
         bombDeckWinCount = 0;
         clearedMaxLevel = -1;
+        yoyoAdWatchCount = 0;
+        diceAdWatchCount = 0;
+        telescopeAdWatchCount = 0;
+        mirrorAdWatchCount = 0;
+        bombAdWatchCount = 0;
     }
 
     public bool IsDeckUnlocked(string deckName)

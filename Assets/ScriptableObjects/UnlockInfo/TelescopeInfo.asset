@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e5d6495931287004b85fc19752c7e3e6, type: 3}
-  m_Name: DiceInfo
+  m_Name: TelescopeInfo
   m_EditorClassIdentifier: 
   targetType: 1
-  targetName: Dice
-  description: "\uAD11\uACE0 3\uD68C \uC2DC\uCCAD\uD558\uAE30"
-  trigger: 35
-  requirement: 3
+  targetName: Telescope
+  description: "\uC8FC\uC0AC\uC704 \uB371\uC73C\uB85C \uAC8C\uC784 \uC2B9\uB9AC\uD558\uAE30"
+  trigger: 26
+  requirement: 1

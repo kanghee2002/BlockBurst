@@ -815,6 +815,19 @@ public class GameUIManager : MonoBehaviour
         GameManager.instance.MakeNewRun();
     }
 
+    public void OnRetryButtonUIPressed()
+    {
+        GameManager.instance.TryReviveWithAd(
+            onSuccess: () =>
+            {
+                clearInfoUI.CloseClearInfoUI();
+            },
+            onFailed: () =>
+            {
+                Debug.LogWarning("다시하기 실패: 광고를 시청할 수 없습니다.");
+            });
+    }
+
     public void PlayItemFullAnimation()
     {
         itemSetUI.PlayItemFullAnimation();

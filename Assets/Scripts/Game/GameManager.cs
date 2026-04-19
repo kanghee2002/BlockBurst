@@ -103,9 +103,37 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S))
             EndStage();
 
+        // 디버그: 즉시 패배 (D 키)
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            runData.isDefeated = true;
+            DataManager.instance.SaveRunData(runData);
+            EndGame(false, loseReason: "[Editor] 디버그 패배 강제 호출");
+        }
+
         // 디버그: 골드 5000 추가 (G 키)
         if (Input.GetKeyDown(KeyCode.G))
             DebugAddGold();
+
+        // 디버그: 부활 광고 테스트 (Z 키)
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            TryReviveWithAd(
+                onSuccess: () => Debug.Log("[Editor] Revive ad: onSuccess (ContinueGame OK)"),
+                onFailed: () => Debug.Log("[Editor] Revive ad: onFailed"));
+        }
+
+        // 디버그: 덱 해금 광고 테스트 (X 키 = Dice)
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            TryDeckUnlockWithAd("Dice",
+                onRewarded: () =>
+                {
+                    int count = playerData?.decks.Find(d => d.deckType == DeckType.Dice)?.adWatchCount ?? 0;
+                    Debug.Log($"[Editor] Deck unlock ad: onRewarded (diceAdWatchCount={count})");
+                },
+                onFailed: () => Debug.Log("[Editor] Deck unlock ad: onFailed"));
+        }
 #endif
     }
 
@@ -349,6 +377,33 @@ public class GameManager : MonoBehaviour
         return true;
     }
 
+    /// <summary>
+    /// 패배 후 광고 시청으로 현재 스테이지를 재시도한다. 디스크 로드 없이 메모리의 runData를 그대로 사용한다.
+    /// </summary>
+    public bool ResumeGame()
+    {
+        if (stageManager == null || stageManager.currentStage == null)
+        {
+            Debug.LogError("ResumeGame: 현재 스테이지가 없어 재시도할 수 없습니다.");
+            return false;
+        }
+
+        runData.isDefeated = false;
+
+        StageData currentStage = stageManager.currentStage;
+        StartStage(currentStage);
+        string[] playingDebuffNames = currentStage.constraints.Select(constraint => constraint.effectName).ToArray();
+        GameUIManager.instance.OnStageStart(
+            runData.currentChapterIndex,
+            runData.currentStageIndex,
+            playingDebuffNames,
+            blockGame.clearRequirement,
+            blockGame);
+        GameUIManager.instance.BlockCells(blockGame.inactiveCells);
+
+        return true;
+    }
+
     public void InitializeHistory()
     {
         runData.history.startTime = Time.time;
@@ -360,11 +415,56 @@ public class GameManager : MonoBehaviour
     
     public void EndGame(bool isWin, string loseReason = "")
     {
-        if (!isWin && DataManager.instance != null)
-            DataManager.instance.DeleteRunSaveData();
-
         BlockType mostPlacedBlockType = (BlockType)runData.history.blockHistory.ToList().IndexOf(runData.history.blockHistory.Max());
         GameUIManager.instance.OnGameEnd(isWin, runData.currentChapterIndex, runData.currentStageIndex, runData.history, mostPlacedBlockType, loseReason: loseReason);
+    }
+
+    public void TryReviveWithAd(Action onSuccess, Action onFailed)
+    {
+        if (AdManager.instance == null)
+        {
+            onFailed?.Invoke();
+            return;
+        }
+
+        AdManager.instance.ShowReviveAd(
+            onRewarded: () =>
+            {
+                if (ResumeGame())
+                    onSuccess?.Invoke();
+                else
+                    onFailed?.Invoke();
+            },
+            onFailed: onFailed);
+    }
+
+    public void TryDeckUnlockWithAd(string deckName, Action onRewarded, Action onFailed)
+    {
+        if (AdManager.instance == null)
+        {
+            onFailed?.Invoke();
+            return;
+        }
+
+        DeckType deckType;
+        try
+        {
+            deckType = Enums.GetEnumByString<DeckType>(deckName);
+        }
+        catch
+        {
+            Debug.LogError($"TryDeckUnlockWithAd: 알 수 없는 deckName '{deckName}'");
+            onFailed?.Invoke();
+            return;
+        }
+
+        AdManager.instance.ShowDeckUnlockAd(
+            onRewarded: () =>
+            {
+                DataManager.instance.UpdateDeckAdWatchCount(deckType);
+                onRewarded?.Invoke();
+            },
+            onFailed: onFailed);
     }
 
     public void InfiniteMode()
@@ -1206,6 +1306,9 @@ public class GameManager : MonoBehaviour
 
         if (isGameOver)
         {
+            runData.isDefeated = true;
+            DataManager.instance.SaveRunData(runData);
+
             if (noMoreBlocks)
             {
                 EndGame(false, loseReason: "덱의 블록을 모두 사용했으나\r\n점수 달성 실패");

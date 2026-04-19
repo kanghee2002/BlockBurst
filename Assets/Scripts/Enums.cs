@@ -193,6 +193,11 @@ public enum UnlockTrigger
     placeCountIO,
     placeCountZS,
     placeCountJL,
+    YoYoAdWatchCount,
+    DiceAdWatchCount,
+    TelescopeAdWatchCount,
+    MirrorAdWatchCount,
+    BombAdWatchCount,
 }
 // -----------------------------------------------------------------------
 

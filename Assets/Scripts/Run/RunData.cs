@@ -14,6 +14,8 @@ public class RunData
         public int maxScore;
     }
 
+    public bool isDefeated;                                     // 패배 플래그 (true면 이어하기 불가)
+
     // 스테이지 진행 데이터
     public int currentChapterIndex;
     public int currentStageIndex;

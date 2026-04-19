@@ -12,6 +12,8 @@ public class DeckSelectionBoardUI : MonoBehaviour
 
     [SerializeField] private Transform deckContainer;
     [SerializeField] private ButtonUI playButtonUI;
+    [SerializeField] private ButtonUI adButtonUI;
+    [SerializeField] private TextMeshProUGUI adButtonText;
 
     [SerializeField] private DeckDescriptionUI deckDescriptionUI;
 
@@ -25,6 +27,7 @@ public class DeckSelectionBoardUI : MonoBehaviour
 
     [SerializeField] private Color canPlayColor;
     [SerializeField] private Color cantPlayColor;
+    [SerializeField] private Color adButtonColor;
 
     private List<DeckDescriptionUI> deckDescriptions;
 
@@ -32,6 +35,8 @@ public class DeckSelectionBoardUI : MonoBehaviour
     private int selectedLevel;
 
     private bool isTutorialToggleOn;
+
+    private Color lastActiveColor = Color.black;
 
 
     private void Awake()
@@ -52,7 +57,7 @@ public class DeckSelectionBoardUI : MonoBehaviour
         foreach (DeckData deck in orderedDeckTemplates)
         {
             DeckDescriptionUI deckUI;
-            
+
             if (deckDescriptions.Count < orderedDeckTemplates.Length)
             {
                 deckUI = Instantiate(deckDescriptionUI, deckContainer);
@@ -79,26 +84,29 @@ public class DeckSelectionBoardUI : MonoBehaviour
     {
         for (int i = 0; i < deckDescriptions.Count; i++)
         {
-            int index = playerData.unlockedDecks.FindIndex(deckInfo => i == (int)deckInfo.deckType);
+            int index = playerData.decks.FindIndex(deckInfo => i == (int)deckInfo.deckType);
 
-            if (index != -1)
-            {
-                deckDescriptions[i].SetUnlock(true, playerData.unlockedDecks[index].level);
-            }
-            else
+            if (index == -1)
             {
                 deckDescriptions[i].SetUnlock(false, -1);
+                continue;
             }
+
+            DeckInfo deckInfo = playerData.decks[index];
+            deckDescriptions[i].SetUnlock(deckInfo.isUnlocked, deckInfo.level);
+            deckDescriptions[i].SetAdWatchCount(deckInfo.adWatchCount);
         }
 
+#if UNITY_EDITOR
         string data = "Start: ";
 
-        foreach (var x in playerData.unlockedDecks)
+        foreach (var x in playerData.decks)
         {
             data += x.deckName + " " + x.level + "\n";
         }
 
         GameManager.instance.TEST_TEXT(data);
+#endif
     }
 
     // 세 번째 호출
@@ -116,19 +124,37 @@ public class DeckSelectionBoardUI : MonoBehaviour
             }
 
             deckUI.SetUnlockDescription(unlockInfo.GetDescription());
+
+            bool isAdTrigger = IsAdWatchTrigger(unlockInfo.trigger);
+            deckUI.SetIsAdUnlock(isAdTrigger);
+            if (isAdTrigger)
+            {
+                deckUI.SetAdWatchRequirement(unlockInfo.requirement);
+            }
         }
+    }
+
+    private static bool IsAdWatchTrigger(UnlockTrigger trigger)
+    {
+        return trigger == UnlockTrigger.YoYoAdWatchCount
+            || trigger == UnlockTrigger.DiceAdWatchCount
+            || trigger == UnlockTrigger.TelescopeAdWatchCount
+            || trigger == UnlockTrigger.MirrorAdWatchCount
+            || trigger == UnlockTrigger.BombAdWatchCount;
     }
 
     public void Initialize()
     {
         selectedDeckIndex = 0;
-        selectedLevel = 0;
+        selectedLevel = deckDescriptions[selectedDeckIndex].GetMaxPlayableLevel();
 
         isTutorialToggleOn = tutorialToggle.isOn;
 
-        SetActiveLevel(0, 0);
+        adButtonUI.gameObject.SetActive(false);
+        playButtonUI.gameObject.SetActive(false);
+        lastActiveColor = adButtonColor;
 
-        SetPlayButtonColor();
+        SetActiveLevel(selectedDeckIndex, selectedLevel);
     }
 
     private void SetActiveDeck(int index)
@@ -166,6 +192,8 @@ public class DeckSelectionBoardUI : MonoBehaviour
         {
             SetActiveTutorialToggle(false);
         }
+
+        RefreshSharedButtons();
     }
 
     private bool CanPlay()
@@ -173,16 +201,33 @@ public class DeckSelectionBoardUI : MonoBehaviour
         return deckDescriptions[selectedDeckIndex].CanPlay(selectedLevel);
     }
 
-    private void SetPlayButtonColor()
+    private void RefreshSharedButtons()
     {
-        if (CanPlay())
+        DeckDescriptionUI current = deckDescriptions[selectedDeckIndex];
+        bool unlocked = current.GetIsUnlocked();
+        bool adUnlockable = current.GetIsAdUnlock();
+
+        adButtonText.text = $"광고 보기 ({current.GetAdWatchCount()}/{current.GetAdWatchRequirement()})";
+
+        bool showPlayButton = unlocked || !adUnlockable;
+
+        ButtonUI incoming = showPlayButton ? playButtonUI : adButtonUI;
+        ButtonUI outgoing = showPlayButton ? adButtonUI : playButtonUI;
+        Color incomingTarget = unlocked
+            ? (CanPlay() ? canPlayColor : cantPlayColor)
+            : (adUnlockable ? adButtonColor : cantPlayColor);
+
+        bool switchingButtons = !incoming.gameObject.activeSelf;
+
+        if (switchingButtons)
         {
-            playButtonUI.SetUIColor(canPlayColor);
+            outgoing.gameObject.SetActive(false);
+            incoming.gameObject.SetActive(true);
+            incoming.SetUIColor(lastActiveColor, 1f, 0.0001f);
         }
-        else
-        {
-            playButtonUI.SetUIColor(cantPlayColor);
-        }
+
+        incoming.SetUIColor(incomingTarget);
+        lastActiveColor = incomingTarget;
     }
 
     private void SetActiveTutorialToggle(bool isActive)
@@ -211,11 +256,9 @@ public class DeckSelectionBoardUI : MonoBehaviour
         }
 
         selectedDeckIndex++;
-        selectedLevel = 0;
+        selectedLevel = deckDescriptions[selectedDeckIndex].GetMaxPlayableLevel();
 
         SetActiveLevel(selectedDeckIndex, selectedLevel);
-
-        SetPlayButtonColor();
     }
 
     public void OnDeckSelectionDownButtonUIPressed()
@@ -226,11 +269,9 @@ public class DeckSelectionBoardUI : MonoBehaviour
         }
 
         selectedDeckIndex--;
-        selectedLevel = 0;
+        selectedLevel = deckDescriptions[selectedDeckIndex].GetMaxPlayableLevel();
 
         SetActiveLevel(selectedDeckIndex, selectedLevel);
-
-        SetPlayButtonColor();
     }
 
     public void OnLevelUpButtonUIPressed()
@@ -243,8 +284,6 @@ public class DeckSelectionBoardUI : MonoBehaviour
         selectedLevel++;
 
         SetActiveLevel(selectedDeckIndex, selectedLevel);
-
-        SetPlayButtonColor();
     }
 
     public void OnLevelDownButtonUIPressed()
@@ -257,8 +296,6 @@ public class DeckSelectionBoardUI : MonoBehaviour
         selectedLevel--;
 
         SetActiveLevel(selectedDeckIndex, selectedLevel);
-
-        SetPlayButtonColor();
     }
 
     public void OnPlayButtonUIPressed()
@@ -267,6 +304,26 @@ public class DeckSelectionBoardUI : MonoBehaviour
         {
             GameUIManager.instance.OnPlayButtonUIPressed((DeckType)selectedDeckIndex, selectedLevel);
         }
+    }
+
+    public void OnAdButtonUIPressed()
+    {
+        DeckDescriptionUI current = deckDescriptions[selectedDeckIndex];
+        DeckType deckType = current.deckType;
+
+        GameManager.instance.TryDeckUnlockWithAd(
+            deckType.ToString(),
+            onRewarded: () =>
+            {
+                DeckInfo deckInfo = GameManager.instance.playerData.decks.Find(d => d.deckType == deckType);
+                if (deckInfo != null)
+                {
+                    current.SetUnlock(deckInfo.isUnlocked, deckInfo.level);
+                    current.SetAdWatchCount(deckInfo.adWatchCount);
+                }
+                RefreshSharedButtons();
+            },
+            onFailed: () => Debug.Log($"[DeckSelectionBoardUI] {deckType} 광고 시청 실패"));
     }
 
     public void OpenDeckSelectionBoardUI()

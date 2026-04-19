@@ -21,6 +21,7 @@ public class ClearInfoUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI loseReasonText;
 
     [SerializeField] private GameObject infiniteButton;
+    [SerializeField] private GameObject retryButton;
     [SerializeField] private GameObject loseReasonContainer;
 
     [Header("Layout")]
@@ -58,6 +59,7 @@ public class ClearInfoUI : MonoBehaviour
         seungRi.text = isCleared ? "승리!" : "패배";
         
         infiniteButton.SetActive(isCleared);
+        retryButton.SetActive(!isCleared);
         // loseReasonContainer.SetActive(!isCleared);
         loseReasonText.gameObject.SetActive(!isCleared);
 

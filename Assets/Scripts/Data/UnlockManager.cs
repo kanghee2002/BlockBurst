@@ -43,6 +43,11 @@ public class UnlockManager : MonoBehaviour
     public Action<int> onPlaceCountIOUpdate;
     public Action<int> onPlaceCountZSUpdate;
     public Action<int> onPlaceCountJLUpdate;
+    public Action<int> onYoYoAdWatchCountUpdate;
+    public Action<int> onDiceAdWatchCountUpdate;
+    public Action<int> onTelescopeAdWatchCountUpdate;
+    public Action<int> onMirrorAdWatchCountUpdate;
+    public Action<int> onBombAdWatchCountUpdate;
 
     // 모든 해금 아이템 리스트
     private UnlockInfo[] unlockInfoTemplates;
@@ -110,7 +115,7 @@ public class UnlockManager : MonoBehaviour
         }
         else if (unlockInfo.targetType == UnlockTarget.Deck)
         {
-            DataManager.instance.AddUnlockedDeck(targetName);
+            DataManager.instance.SetDeckUnlocked(targetName);
         }
 
         SetSubscribe(unlockInfo, false);
@@ -299,6 +304,26 @@ public class UnlockManager : MonoBehaviour
             case UnlockTrigger.placeCountJL:
                 if (isSubscribing) onPlaceCountJLUpdate += unlockInfo.condition;
                 else onPlaceCountJLUpdate -= unlockInfo.condition;
+                break;
+            case UnlockTrigger.YoYoAdWatchCount:
+                if (isSubscribing) onYoYoAdWatchCountUpdate += unlockInfo.condition;
+                else onYoYoAdWatchCountUpdate -= unlockInfo.condition;
+                break;
+            case UnlockTrigger.DiceAdWatchCount:
+                if (isSubscribing) onDiceAdWatchCountUpdate += unlockInfo.condition;
+                else onDiceAdWatchCountUpdate -= unlockInfo.condition;
+                break;
+            case UnlockTrigger.TelescopeAdWatchCount:
+                if (isSubscribing) onTelescopeAdWatchCountUpdate += unlockInfo.condition;
+                else onTelescopeAdWatchCountUpdate -= unlockInfo.condition;
+                break;
+            case UnlockTrigger.MirrorAdWatchCount:
+                if (isSubscribing) onMirrorAdWatchCountUpdate += unlockInfo.condition;
+                else onMirrorAdWatchCountUpdate -= unlockInfo.condition;
+                break;
+            case UnlockTrigger.BombAdWatchCount:
+                if (isSubscribing) onBombAdWatchCountUpdate += unlockInfo.condition;
+                else onBombAdWatchCountUpdate -= unlockInfo.condition;
                 break;
         }
     }

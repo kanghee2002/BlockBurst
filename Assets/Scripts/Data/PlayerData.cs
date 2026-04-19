@@ -10,14 +10,18 @@ public class DeckInfo
     public DeckType deckType;
     public string deckName;
     public int level;
+    public int adWatchCount;
+    public bool isUnlocked;
 
     public const int MAX_LEVEL = 5;
 
-    public DeckInfo(DeckType deckType, int level)
+    public DeckInfo(DeckType deckType, int level, bool isUnlocked)
     {
         this.deckType = deckType;
         this.deckName = deckType.ToString();
         this.level = level;
+        this.adWatchCount = 0;
+        this.isUnlocked = isUnlocked;
     }
 }
 
@@ -27,7 +31,7 @@ public class PlayerData
 
     // 저장되는 데이터
     public bool tutorialValue;
-    public List<DeckInfo> unlockedDecks;
+    public List<DeckInfo> decks;
     public List<string> unlockedItems;
     public int placeCountI;
     public int placeCountO;
@@ -64,8 +68,15 @@ public class PlayerData
     public PlayerData()
     {
         tutorialValue = true;
-        DeckInfo defaultDeck = new DeckInfo(DeckType.Default, 0);
-        unlockedDecks = new List<DeckInfo>() { defaultDeck };
+        decks = new List<DeckInfo>()
+        {
+            new DeckInfo(DeckType.Default, 0, true),
+            new DeckInfo(DeckType.YoYo, 0, false),
+            new DeckInfo(DeckType.Dice, 0, false),
+            new DeckInfo(DeckType.Telescope, 0, false),
+            new DeckInfo(DeckType.Mirror, 0, false),
+            new DeckInfo(DeckType.Bomb, 0, false),
+        };
         unlockedItems = new List<string>();
         placeCountI = 0;
         placeCountO = 0;
@@ -102,14 +113,7 @@ public class PlayerData
 
     public bool IsDeckUnlocked(string deckName)
     {
-        if (unlockedDecks.FindIndex(deck => deck.deckName == deckName) == -1)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        return decks.Any(deck => deck.deckName == deckName && deck.isUnlocked);
     }
 
     public bool IsItemUnlocked(string itemName)
@@ -119,7 +123,7 @@ public class PlayerData
 
     public List<DeckInfo> GetUnlockedDecks()
     {
-        return unlockedDecks.ToList();
+        return decks.Where(deck => deck.isUnlocked).ToList();
     }
 
     public List<string> GetUnlockedItems()

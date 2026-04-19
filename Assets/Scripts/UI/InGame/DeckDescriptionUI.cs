@@ -19,10 +19,11 @@ public class DeckDescriptionUI : MonoBehaviour
     public DeckType deckType { get; private set; }
     private bool isUnlocked;
 
-    private void OnEnable()
-    {
-        // Level에 따라 SetActiveLevel();
-    }
+    private int adWatchCount;
+    private int adWatchRequirement;
+    private bool isAdUnlock;
+
+    private int maxPlayableLevel;
 
     public void Initialize(DeckData deckData)
     {
@@ -43,7 +44,7 @@ public class DeckDescriptionUI : MonoBehaviour
     public void InitializeLevel(LevelData levelData, int levelCount)
     {
         LevelDescriptionUI levelUI;
-        
+
         if (levelDescriptions.Count < levelCount)
         {
             levelUI = Instantiate(levelDescriptionUI, levelConatiner);
@@ -59,14 +60,20 @@ public class DeckDescriptionUI : MonoBehaviour
     public void SetUnlock(bool isUnlocked, int unlockedLevel)
     {
         this.isUnlocked = isUnlocked;
+        maxPlayableLevel = isUnlocked ? unlockedLevel : 0;
 
         if (isUnlocked)
         {
+            deckImage.sprite = GetDeckImage(deckType);
             for (int i = 0; i < levelDescriptions.Count; i++)
             {
                 if (i > unlockedLevel)
                 {
                     levelDescriptions[i].SetLock();
+                }
+                else
+                {
+                    levelDescriptions[i].Unlock();
                 }
             }
         }
@@ -87,6 +94,46 @@ public class DeckDescriptionUI : MonoBehaviour
         {
             levelDescriptions[i].SetDeckLock(description);
         }
+    }
+
+    public void SetAdWatchCount(int count)
+    {
+        adWatchCount = count;
+    }
+
+    public void SetAdWatchRequirement(int requirement)
+    {
+        adWatchRequirement = requirement;
+    }
+
+    public void SetIsAdUnlock(bool value)
+    {
+        isAdUnlock = value;
+    }
+
+    public bool GetIsUnlocked()
+    {
+        return isUnlocked;
+    }
+
+    public bool GetIsAdUnlock()
+    {
+        return isAdUnlock;
+    }
+
+    public int GetMaxPlayableLevel()
+    {
+        return maxPlayableLevel;
+    }
+
+    public int GetAdWatchCount()
+    {
+        return adWatchCount;
+    }
+
+    public int GetAdWatchRequirement()
+    {
+        return adWatchRequirement;
     }
 
     public void SetActiveLevel(int index)

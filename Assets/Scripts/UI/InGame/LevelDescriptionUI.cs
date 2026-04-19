@@ -13,6 +13,9 @@ public class LevelDescriptionUI : MonoBehaviour
 
     private bool isUnlocked;
 
+    private string originalSelectedLevelText;
+    private string originalDescriptionText;
+
     public void Initialize(LevelData levelData)
     {
         selectedLevelText.text = "레벨 " + levelData.level;
@@ -31,10 +34,23 @@ public class LevelDescriptionUI : MonoBehaviour
         level = levelData.level;
 
         isUnlocked = true;
+
+        originalSelectedLevelText = selectedLevelText.text;
+        originalDescriptionText = levelDescriptionText.text;
+    }
+
+    public void Unlock()
+    {
+        selectedLevelText.text = originalSelectedLevelText;
+        levelDescriptionText.text = originalDescriptionText;
+
+        isUnlocked = true;
     }
 
     public void SetLock()
     {
+        selectedLevelText.text = originalSelectedLevelText;
+
         levelDescriptionText.text = "이전 레벨을 클리어하세요";
 
         levelDuplicatedApplyText.gameObject.SetActive(false);

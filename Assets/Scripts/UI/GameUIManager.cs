@@ -509,6 +509,8 @@ public class GameUIManager : MonoBehaviour
 
     public void ChangeSceneState(SceneState stateToSet)
     {
+        if (sceneState == stateToSet) return;
+
         SceneState prevState = sceneState;
         sceneState = stateToSet;
 
@@ -813,6 +815,19 @@ public class GameUIManager : MonoBehaviour
     {
         AudioManager.instance.RestartGame();
         GameManager.instance.MakeNewRun();
+    }
+
+    public void OnRetryButtonUIPressed()
+    {
+        GameManager.instance.TryReviveWithAd(
+            onSuccess: () =>
+            {
+                clearInfoUI.CloseClearInfoUI();
+            },
+            onFailed: () =>
+            {
+                Debug.LogWarning("다시하기 실패: 광고를 시청할 수 없습니다.");
+            });
     }
 
     public void PlayItemFullAnimation()

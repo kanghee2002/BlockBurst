@@ -37,7 +37,8 @@ public static class RunSaveMapper
             shopBaseRerollCost = runData.shopBaseRerollCost,
             shopRerollCostIncreasePercentage = runData.shopRerollCostIncreasePercentage,
             shopItemCounts = new ItemTypeIntDictionary(runData.shopItemCounts),
-            itemRarityWeights = new ItemRarityIntDictionary(runData.itemRarityWeights)
+            itemRarityWeights = new ItemRarityIntDictionary(runData.itemRarityWeights),
+            isDefeated = runData.isDefeated
         };
 
         // 사용 가능한 블록 SO를 순서 유지한 채 BaseData.id 문자열 리스트로 옮긴다. id 없는 에셋은 건너뛴다.
@@ -148,6 +149,7 @@ public static class RunSaveMapper
         RunData runData = new RunData();
 
         // ToSaveData의 객체 초기화 블록·이후 리스트 채우기와 같은 순서로 역매핑한다(의존성 때문의 재배치는 아님).
+        runData.isDefeated = saveData.isDefeated;
         runData.currentChapterIndex = saveData.currentChapterIndex;
         runData.currentStageIndex = saveData.currentStageIndex;
         runData.currentStageId = saveData.currentStageId;

@@ -103,6 +103,14 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S))
             EndStage();
 
+        // 디버그: 즉시 패배 (D 키)
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            runData.isDefeated = true;
+            DataManager.instance.SaveRunData(runData);
+            EndGame(false, loseReason: "[Editor] 디버그 패배 강제 호출");
+        }
+
         // 디버그: 골드 5000 추가 (G 키)
         if (Input.GetKeyDown(KeyCode.G))
             DebugAddGold();
@@ -369,6 +377,33 @@ public class GameManager : MonoBehaviour
         return true;
     }
 
+    /// <summary>
+    /// 패배 후 광고 시청으로 현재 스테이지를 재시도한다. 디스크 로드 없이 메모리의 runData를 그대로 사용한다.
+    /// </summary>
+    public bool ResumeGame()
+    {
+        if (stageManager == null || stageManager.currentStage == null)
+        {
+            Debug.LogError("ResumeGame: 현재 스테이지가 없어 재시도할 수 없습니다.");
+            return false;
+        }
+
+        runData.isDefeated = false;
+
+        StageData currentStage = stageManager.currentStage;
+        StartStage(currentStage);
+        string[] playingDebuffNames = currentStage.constraints.Select(constraint => constraint.effectName).ToArray();
+        GameUIManager.instance.OnStageStart(
+            runData.currentChapterIndex,
+            runData.currentStageIndex,
+            playingDebuffNames,
+            blockGame.clearRequirement,
+            blockGame);
+        GameUIManager.instance.BlockCells(blockGame.inactiveCells);
+
+        return true;
+    }
+
     public void InitializeHistory()
     {
         runData.history.startTime = Time.time;
@@ -395,7 +430,7 @@ public class GameManager : MonoBehaviour
         AdManager.instance.ShowReviveAd(
             onRewarded: () =>
             {
-                if (ContinueGame())
+                if (ResumeGame())
                     onSuccess?.Invoke();
                 else
                     onFailed?.Invoke();
@@ -457,7 +492,6 @@ public class GameManager : MonoBehaviour
 
     public void MakeNewRun()
     {
-        DataManager.instance.DeleteRunSaveData();
         SceneTransitionManager.instance.TransitionToScene("VerticalGameScene");
     }
 
@@ -1272,6 +1306,9 @@ public class GameManager : MonoBehaviour
 
         if (isGameOver)
         {
+            runData.isDefeated = true;
+            DataManager.instance.SaveRunData(runData);
+
             if (noMoreBlocks)
             {
                 EndGame(false, loseReason: "덱의 블록을 모두 사용했으나\r\n점수 달성 실패");

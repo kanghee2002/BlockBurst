@@ -24,7 +24,7 @@ public class ContinueButtonUI : MonoBehaviour
             return;
         }
 
-        bool canContinue = DataManager.instance.HasValidRunSaveData();
+        bool canContinue = DataManager.instance.HasValidRunSaveData() && !DataManager.instance.IsRunDefeated();
 
         if (canContinue)
         {

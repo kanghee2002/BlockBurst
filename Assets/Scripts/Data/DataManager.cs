@@ -87,6 +87,19 @@ public class DataManager : MonoBehaviour
         return File.Exists(dataPath);
     }
 
+    /// <summary>
+    /// 저장된 런이 패배 상태인지 확인한다. 파일이 없으면 false.
+    /// </summary>
+    public bool IsRunDefeated()
+    {
+        string dataPath = Path.Combine(path, "RunData.json");
+        if (!File.Exists(dataPath)) return false;
+
+        string json = File.ReadAllText(dataPath);
+        RunSaveData saveData = JsonUtility.FromJson<RunSaveData>(json);
+        return saveData != null && saveData.isDefeated;
+    }
+
     // 이어하기 — 메인 스레드에서 직렬화 후, 디스크 I/O는 백그라운드로 넘긴다.
     public void SaveRunData(RunData runData)
     {

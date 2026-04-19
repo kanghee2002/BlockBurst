@@ -16,6 +16,8 @@ public class RunSaveData
 
     public int saveVersion = CurrentSaveVersion;
 
+    public bool isDefeated;
+
     public int currentChapterIndex;
     public int currentStageIndex;
     public string currentDeckId;

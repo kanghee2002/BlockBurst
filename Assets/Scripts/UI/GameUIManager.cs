@@ -509,6 +509,8 @@ public class GameUIManager : MonoBehaviour
 
     public void ChangeSceneState(SceneState stateToSet)
     {
+        if (sceneState == stateToSet) return;
+
         SceneState prevState = sceneState;
         sceneState = stateToSet;
 

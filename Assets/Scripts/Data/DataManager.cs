@@ -172,6 +172,7 @@ public class DataManager : MonoBehaviour
                 if (attempt == SAVE_RETRY_COUNT)
                 {
                     Debug.LogError($"[DataManager] RunData 저장 최종 실패 (generation={generation}): {exception}");
+                    Firebase.Crashlytics.Crashlytics.LogException(exception);
                     return;
                 }
 

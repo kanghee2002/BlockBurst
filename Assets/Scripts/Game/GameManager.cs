@@ -68,6 +68,8 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        InitializeFirebase();
+
         playerData = null;
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 120; // for mobile build
@@ -77,6 +79,23 @@ public class GameManager : MonoBehaviour
         {
             SceneTransitionManager.instance.TransitionToScene("NewLogoScene");
         }
+    }
+
+    // Firebase 의존성 해결 후 Crashlytics 수집을 활성화한다.
+    // ContinueWith 콜백은 풀 스레드에서 실행될 수 있으나 Crashlytics API는 thread-safe.
+    private void InitializeFirebase()
+    {
+        Firebase.FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
+        {
+            if (task.Result == Firebase.DependencyStatus.Available)
+            {
+                Firebase.Crashlytics.Crashlytics.ReportUncaughtExceptionsAsFatal = true;
+            }
+            else
+            {
+                Debug.LogError($"Firebase 의존성 해결 실패: {task.Result}");
+            }
+        });
     }
 
     // ------------------------------------------------------------------------

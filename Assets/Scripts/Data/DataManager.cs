@@ -171,8 +171,7 @@ public class DataManager : MonoBehaviour
                 // 최대 재시도 횟수 초과 — 로그 남기고 포기 (디스크엔 직전 성공본이 유지됨)
                 if (attempt == SAVE_RETRY_COUNT)
                 {
-                    Debug.LogError($"[DataManager] RunData 저장 최종 실패 (generation={generation}): {exception}");
-                    Firebase.Crashlytics.Crashlytics.LogException(exception);
+                    GameLog.Critical($"[DataManager] RunData 저장 최종 실패 (generation={generation})", exception);
                     return;
                 }
 

@@ -140,7 +140,7 @@ public static class RunSaveMapper
             return null;
         if (ScriptableDataManager.instance == null)
         {
-            Debug.LogError("RunSaveMapper.FromSaveData: ScriptableDataManager is null.");
+            GameLog.Critical("RunSaveMapper.FromSaveData: ScriptableDataManager is null.");
             return null;
         }
 

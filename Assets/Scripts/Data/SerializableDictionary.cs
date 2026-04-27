@@ -118,7 +118,7 @@ public class SerializableDictionary<TKey, TValue> : ISerializationCallbackReceiv
 
         if (keys.Count != values.Count)
         {
-            Debug.LogError(
+            GameLog.Critical(
                 $"SerializableDictionary deserialization failed: keys({keys.Count}) != values({values.Count}) for {GetType().Name}");
             dictionary = new Dictionary<TKey, TValue>();
             return;

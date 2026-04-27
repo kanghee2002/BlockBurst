@@ -41,7 +41,7 @@ public class EffectManager : MonoBehaviour
     {
         if (ScriptableDataManager.instance.TryGetEffect(state.effectDataId, out EffectData effect))
             return effect;
-        Debug.LogError($"[EffectManager] Unknown effectDataId '{state.effectDataId}'.");
+        GameLog.Critical($"[EffectManager] Unknown effectDataId '{state.effectDataId}'.");
         return null;
     }
 
@@ -375,7 +375,7 @@ public class EffectManager : MonoBehaviour
 
                 if (targetState == null)
                 {
-                    Debug.LogError($"[EFFECT_VALUE_MODIFIER] '{effect.name}': 수정할 대상 효과(EffectState)를 못 찾았습니다.");
+                    GameLog.Critical($"[EFFECT_VALUE_MODIFIER] '{effect.name}': 수정할 대상 효과(EffectState)를 못 찾았습니다.");
                     break;
                 }
 

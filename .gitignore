@@ -106,5 +106,7 @@ fmod_editor.log
 /[Aa]ssets/GeneratedLocalRepo.meta
 /[Aa]ssets/Plugins/Android/FirebaseApp.androidlib/
 /[Aa]ssets/Plugins/Android/FirebaseApp.androidlib.meta
+/[Aa]ssets/Plugins/Android/FirebaseCrashlytics.androidlib/
+/[Aa]ssets/Plugins/Android/FirebaseCrashlytics.androidlib.meta
 /[Aa]ssets/StreamingAssets/google-services-desktop.json
 /[Aa]ssets/StreamingAssets/google-services-desktop.json.meta

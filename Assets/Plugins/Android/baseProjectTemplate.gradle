@@ -1,3 +1,16 @@
+// FIREBASE_R8_OVERRIDE: AGP 7.4.2 번들 D8 가 Firebase 13.x 의 Kotlin 1.9 메타데이터를
+// dex 하지 못해 StackOverflow 를 일으키므로, 새 R8/D8 을 classpath 로 강제 주입한다.
+// Firebase 다운그레이드 또는 Unity 업그레이드 시 이 블록 전체 삭제.
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools:r8:8.2.47'
+    }
+}
+
 plugins {
     // If you are changing the Android Gradle Plugin version, make sure it is compatible with the Gradle version preinstalled with Unity
     // See which Gradle version is preinstalled with Unity here https://docs.unity3d.com/Manual/android-gradle-overview.html
@@ -6,12 +19,13 @@ plugins {
     id 'com.android.application' version '7.4.2' apply false
     id 'com.android.library' version '7.4.2' apply false
     id 'com.google.gms.google-services' version '4.4.2' apply false
-    id 'com.google.firebase.crashlytics' version '3.0.2' apply false
+    id 'com.google.firebase.crashlytics' version '2.9.9' apply false
     **BUILD_SCRIPT_DEPS**
 }
 
 // AGP 7.4.2 (Unity 2022.3) 의 D8 dexer 가 Kotlin 1.9+ 메타데이터에서 StackOverflow 를
 // 일으키므로 AGP 와 같은 시기에 릴리스된 1.8.22 로 고정.
+// Firebase 가 1.9 계열 transitive 를 끌어오므로 jvm 변형·parcelize·extensions 도 같이 고정.
 allprojects {
     configurations.all {
         resolutionStrategy {
@@ -19,8 +33,12 @@ allprojects {
             force 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22'
             force 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22'
             force 'org.jetbrains.kotlin:kotlin-stdlib-common:1.8.22'
+            force 'org.jetbrains.kotlin:kotlin-parcelize-runtime:1.8.22'
+            force 'org.jetbrains.kotlin:kotlin-android-extensions-runtime:1.8.22'
             force 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3'
+            force 'org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.7.3'
             force 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
+            force 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3'
         }
     }
 }

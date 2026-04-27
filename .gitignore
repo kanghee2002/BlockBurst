@@ -90,3 +90,21 @@ crashlytics-build.properties
 # If the source bank files are kept outside of the StreamingAssets folder then these can be ignored.
 # Log files can be ignored.
 fmod_editor.log
+
+# Firebase Unity SDK 본체 — 각 작업자가 unitypackage로 직접 import (Docs/Firebase.md 참고)
+/[Aa]ssets/Firebase/
+/[Aa]ssets/Firebase.meta
+/[Aa]ssets/Plugins/iOS/Firebase/
+/[Aa]ssets/Plugins/iOS/Firebase.meta
+/[Aa]ssets/Plugins/tvOS/
+/[Aa]ssets/Plugins/tvOS.meta
+/[Aa]ssets/Editor Default Resources/
+/[Aa]ssets/Editor Default Resources.meta
+
+# Firebase 관련 EDM4U 자동 생성물 (Unity Editor가 다시 만들어줌)
+/[Aa]ssets/GeneratedLocalRepo/
+/[Aa]ssets/GeneratedLocalRepo.meta
+/[Aa]ssets/Plugins/Android/FirebaseApp.androidlib/
+/[Aa]ssets/Plugins/Android/FirebaseApp.androidlib.meta
+/[Aa]ssets/StreamingAssets/google-services-desktop.json
+/[Aa]ssets/StreamingAssets/google-services-desktop.json.meta

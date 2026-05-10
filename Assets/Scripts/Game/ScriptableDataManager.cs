@@ -101,7 +101,7 @@ public class ScriptableDataManager : MonoBehaviour
         if (_initialized)
             return true;
 
-        Debug.LogError($"ScriptableDataManager: {caller} called before initialization (Awake not run yet?).");
+        GameLog.Critical($"ScriptableDataManager: {caller} called before initialization (Awake not run yet?).");
         return false;
     }
 
@@ -122,7 +122,7 @@ public class ScriptableDataManager : MonoBehaviour
         if (!TryGetEffect(id, out EffectData data))
         {
             if (_initialized && !string.IsNullOrEmpty(id))
-                Debug.LogError($"ScriptableDataManager.GetEffect: no EffectData for id '{id}'.");
+                GameLog.Critical($"ScriptableDataManager.GetEffect: no EffectData for id '{id}'.");
             return null;
         }
 
@@ -171,7 +171,7 @@ public class ScriptableDataManager : MonoBehaviour
         if (!TryGet(map, id, out T data, nameof(Get)))
         {
             if (_initialized && !string.IsNullOrEmpty(id))
-                Debug.LogError($"ScriptableDataManager: no {typeName} for id '{id}'.");
+                GameLog.Critical($"ScriptableDataManager: no {typeName} for id '{id}'.");
             return null;
         }
 

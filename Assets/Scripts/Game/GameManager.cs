@@ -68,6 +68,8 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        InitializeFirebase();
+
         playerData = null;
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 120; // for mobile build
@@ -77,6 +79,23 @@ public class GameManager : MonoBehaviour
         {
             SceneTransitionManager.instance.TransitionToScene("NewLogoScene");
         }
+    }
+
+    // Firebase 의존성 해결 후 Crashlytics 수집을 활성화한다.
+    // ContinueWith 콜백은 풀 스레드에서 실행될 수 있으나 Crashlytics API는 thread-safe.
+    private void InitializeFirebase()
+    {
+        Firebase.FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
+        {
+            if (task.Result == Firebase.DependencyStatus.Available)
+            {
+                Firebase.Crashlytics.Crashlytics.ReportUncaughtExceptionsAsFatal = true;
+            }
+            else
+            {
+                Debug.LogError($"Firebase 의존성 해결 실패: {task.Result}");
+            }
+        });
     }
 
     // ------------------------------------------------------------------------
@@ -299,34 +318,34 @@ public class GameManager : MonoBehaviour
         ScriptableDataManager sdManager = ScriptableDataManager.instance;
         if (sdManager == null)
         {
-            Debug.LogError("ContinueGame: ScriptableDataManager.instance is null.");
+            GameLog.Critical("ContinueGame: ScriptableDataManager.instance is null.");
             return false;
         }
 
         // 디스크에서만 복원한다. 실패 시 빈 런으로 대체하지 않고 중단한다.
         if (!DataManager.instance.TryLoadRunData(out RunData loadedRun))
         {
-            Debug.LogWarning("ContinueGame: 런 저장을 불러오지 못했습니다.");
+            GameLog.Critical("ContinueGame: 런 저장을 불러오지 못했습니다.");
             return false;
         }
 
         // 매퍼가 채운 currentDeck / currentLevel로 스테이지 점수·보상 등에 쓸 GameData를 구성한다.
         if (loadedRun.currentDeck == null || loadedRun.currentLevel == null)
         {
-            Debug.LogError("ContinueGame: 저장의 덱·레벨 id를 레지스트리에서 찾지 못했습니다.");
+            GameLog.Critical("ContinueGame: 저장의 덱·레벨 id를 레지스트리에서 찾지 못했습니다.");
             return false;
         }
 
         // 이어하기는 저장 시점의 스테이지 id가 있어야 하고, 레지스트리에서 풀 수 있어야 한다.
         if (string.IsNullOrEmpty(loadedRun.currentStageId))
         {
-            Debug.LogError("ContinueGame: 저장에 currentStageId가 없어 이어하기를 할 수 없습니다.");
+            GameLog.Critical("ContinueGame: 저장에 currentStageId가 없어 이어하기를 할 수 없습니다.");
             return false;
         }
 
         if (!sdManager.TryGetStage(loadedRun.currentStageId, out StageData resumeStage))
         {
-            Debug.LogError($"ContinueGame: currentStageId '{loadedRun.currentStageId}'에 해당하는 스테이지를 찾을 수 없습니다.");
+            GameLog.Critical($"ContinueGame: currentStageId '{loadedRun.currentStageId}'에 해당하는 스테이지를 찾을 수 없습니다.");
             return false;
         }
 
@@ -384,7 +403,7 @@ public class GameManager : MonoBehaviour
     {
         if (stageManager == null || stageManager.currentStage == null)
         {
-            Debug.LogError("ResumeGame: 현재 스테이지가 없어 재시도할 수 없습니다.");
+            GameLog.Critical("ResumeGame: 현재 스테이지가 없어 재시도할 수 없습니다.");
             return false;
         }
 
@@ -986,7 +1005,7 @@ public class GameManager : MonoBehaviour
         
         if (itemData == null)
         {
-            Debug.LogError("추가하려는 해금 아이템이 존재하지 않음: " + itemID);
+            GameLog.Critical("추가하려는 해금 아이템이 존재하지 않음: " + itemID);
             return;
         }
 

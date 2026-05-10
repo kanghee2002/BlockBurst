@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
-#if UNITY_EDITOR
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
 using Unity.Profiling;
 #endif
 
@@ -14,7 +14,7 @@ public class DataManager : MonoBehaviour
 {
     public static DataManager instance = null;
 
-#if UNITY_EDITOR
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
     private static readonly ProfilerMarker s_ProfileSaveRunTotal = new ProfilerMarker("DataManager.SaveRunData");
     private static readonly ProfilerMarker s_ProfileSaveRunToSaveData = new ProfilerMarker("DataManager.SaveRunData.ToSaveData");
     private static readonly ProfilerMarker s_ProfileSaveRunToJson = new ProfilerMarker("DataManager.SaveRunData.ToJson");
@@ -106,7 +106,7 @@ public class DataManager : MonoBehaviour
         RunSaveData saveData;
         string jsonData;
 
-#if UNITY_EDITOR
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
         using (s_ProfileSaveRunTotal.Auto())
         {
             using (s_ProfileSaveRunToSaveData.Auto())
@@ -171,7 +171,7 @@ public class DataManager : MonoBehaviour
                 // 최대 재시도 횟수 초과 — 로그 남기고 포기 (디스크엔 직전 성공본이 유지됨)
                 if (attempt == SAVE_RETRY_COUNT)
                 {
-                    Debug.LogError($"[DataManager] RunData 저장 최종 실패 (generation={generation}): {exception}");
+                    GameLog.Critical($"[DataManager] RunData 저장 최종 실패 (generation={generation})", exception);
                     return;
                 }
 
@@ -193,7 +193,7 @@ public class DataManager : MonoBehaviour
         string tempPath = Path.Combine(directory, $"RunData.json.{generation}.tmp");
         string backupPath = Path.Combine(directory, $"RunData.json.{generation}.bak");
 
-#if UNITY_EDITOR
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
         using (s_ProfileSaveRunWriteAtomic.Auto())
 #endif
         {

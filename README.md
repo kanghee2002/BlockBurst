@@ -5,83 +5,63 @@
 </p>
 
 ## 덱 빌딩 로그라이크 퍼즐
-- Mobile, 팀 프로젝트 (4인)
-- **장려상** (2025 **넥슨** 드림 멤버스), **우수상** (2025 **네오위즈** GameDev)
+- Mobile, 팀 프로젝트 (4인, **팀장**)
+- Unity, C#
+- **장려상** (2025 **넥슨** 드림 멤버스), **우수상** (2025 **네오위즈** GameDev), **루키 부문 전시** (BIC 2025)
 
 ## 주요 기능
-### 딕셔너리 자동 직렬화
+### 수명 기반 데이터 관리 설계
 
 - 이유
-    - Unity가 Dictionary 직렬화 지원하지 않아 JsonUtility 데이터 저장에 어려움 발생
-- 방법
-    - 대안 1
-        - Dictionary마다 구조체로 변환하여 저장
-        - Dictionary마다 함수 호출이 1번씩 필요 (Dictionary 추가 시 함수도 추가 필요)
-    - 대안 2
-        - Dictionary를 직렬화 가능한 Wrapper 클래스로 리팩토링
-        - 구조적으로 적절하지만, 기존 코드 영향 범위가 커 단기 적용 어려움
-    - **대안 3**
-        - **Reflection 기반 Dictionary 자동 탐색 및 직렬화 → 선택**
-- 구현
-    1. Reflection으로 클래스 FieldInfo 탐색
-    2. Type.IsAssignableFrom으로 IDictionary 타입 필드만 선별, 직렬화 수행
-    3. Type이 정적이지 않아 제네릭 직렬화 함수 직접 호출 불가 → 패턴 매칭으로 해결
-- 장점
-    - 신규 Dicionary 필드 추가 시 저장 로직 수정 최소화
-    - **클래스 내 Dictionary 한 번의 함수 호출로 직렬화 가능**
-- 단점
-    - Reflection 기반 구조로 인해 **성능과 타입 안정성, 캡슐화** 측면에서 한계
-- 깨달은 점
-    - 직렬화 문제를 Reflection으로 우회하면 **단기적인 확장성 확보** 가능하지만, **타입 안정성과 캡슐화가 무너질 수 있음**을 경험
-    - 장기적으로는 직렬화 가능한 Wrapper 클래스 사용 필요성 인식
-
-### 데이터 저장 시스템 (JSON)
-
-- 이유
-    - 통계/해금 기능 구현 시 책임 분리 필요
-
-- 방법
-    - **데이터 클래스**: PlayerData
-    - **해금 정보 클래스**: UnlockInfo
-    - **데이터 저장 담당**: DataManager
-    - **해금 처리 담당**: UnlockManager
-- 효과
-    - 역할 분담을 통한 **단일 책임 원칙**
-    - 간편한 데이터, 해금 정보 추가
-
-### 게임 데이터 수명 기반 관리
-
-- 이유
-    - 초기에는 모든 데이터를 하나의 데이터로 관리
-    - 초기화 범위 불명확, 버그 원인 추적 어려움
-    - 데이터의 수명과 역할을 기준으로 구분 필요
-- 방법
-    - **DeckData/LevelData** : 재사용되는 설정 데이터
-    - **GameData** : 게임 전체에서 유지되는 공통 데이터
-    - **RunData** : 한 번의 플레이 동안 유지되는 진행 데이터
+    - 단일 저장 구조로 데이터 관리 시 **초기화 범위 불명확**, 버그 원인 추적 어려움
+    - 데이터의 수명과 역할 기준으로 구분 필요
+- 방법 — 데이터를 **수명 기준 4계층**으로 분리
+    - **PlayerData** : 영구 데이터 (해금, 통계)
+    - **GameData** : 한 게임 전체에서 유지되는 공통 데이터
+    - **RunData** : 한 번의 런 동안 유지되는 진행 데이터
     - **BlockGameData** : 스테이지별로 관리되는 세부 진행 데이터
 - 효과
-    - 스테이지 진입 시 BlockGameData만 초기화되어 RunData는 안전하게 관리
-    - 데이터 버그 발생 시 문제 발생 시점 빠르게 특정
+    - 데이터 버그 발생 시 **발생 시점 특정 용이**
+    - 신규 데이터 추가 시 적절한 계층에 배치 → **확장성 확보**
+    - **이어하기 / 부활 기능을 동일 구조로 지원**
 
-### MVP 패턴
+#### RunData 저장 / 로드 흐름 (이어하기 기능)
+
+- **저장**: `RunData` (SO 직접 참조) → `RunSaveMapper`가 SO를 ID로 변환 → `RunSaveData` (SO id로 평탄화) → `DataManager`가 JSON으로 기록
+- **로드**: JSON → `DataManager` → `RunSaveData` → `RunSaveMapper`가 ID를 SO로 역참조 (`ScriptableDataManager` 경유) → `RunData` 복원
+- **저장 무결성**: ScriptableObject 직접 참조는 instance ID 변경 시 저장 파일이 조용히 다른 SO를 가리키는 문제 발생
+    - 저장용 데이터 클래스(`RunSaveData`) 및 `RunSaveMapper` 도입 → SO 참조를 **GUID로 저장**, 로드 시 `ScriptableDataManager`로 GUID를 SO로 역참조
+
+### Dictionary 직렬화 리팩토링 (Reflection → Wrapper)
 
 - 이유
-    - UI 상호작용이 핵심인 게임 플레이
-    - UI 로직 분리 및 View 책임 최소화 필요
-- 대안
-    - **MVC** : Model과 View 사이 의존성 문제
-    - **MVP : UI와 데이터 간 명확한 역할 분리**
-    - **MVVM** : 프로젝트 규모에 비해 과설계
-- 효과
-    - 화면 표시와 UI 흐름, 데이터를 명확히 분리
-    - Model과 View를 독립적으로 개발하고 Presenter를 통해 테스트 → 생산성
+    - Unity `JsonUtility`가 Dictionary 직렬화를 지원하지 않아 데이터 저장에 어려움 발생
+
+- **1차 시도 — Reflection 기반 자동 직렬화**
+    1. 클래스 필드를 Reflection으로 탐색
+    2. `IDictionary.IsAssignableFrom`으로 타입을 선별
+    3. 제네릭 메서드로 일괄 직렬화
+    - 장점: 신규 Dictionary 추가 시 **저장 로직 수정 불필요**
+    - 한계
+        - **성능**: 매 저장마다 Reflection 호출 비용 발생
+        - **타입 안정성**: 컴파일 타임 검증 불가 → 런타임 오류 가능성
+        - **캡슐화**: private 필드를 외부에서 접근하게 됨
+
+- **2차 시도 — SerializableDictionary Wrapper**
+    1. 클래스 Dictionary를 Mapper로 `SerializableDictionary`에 매핑
+    2. `ISerializationCallbackReceiver`가 key / value List를 동기화
+    3. JSON 직렬화
+
+- 효과 및 학습
+    - Reflection 호출 제거
+    - **타입 안정성과 캡슐화 확보**
+    - **편의성을 위한 추상화가 항상 옳은 선택은 아니라는 점을 배움**
 
 ### 기타
 
-- 아이템, 스테이지, 효과, 블록을 Scriptable Object로 최적화
-- Queue 기반 점수 처리 애니메이션 구조 설계
-- DoTween과 Coroutine을 이용한 애니메이션 처리
+- 아이템, 스테이지, 효과, 블록을 **ScriptableObject** 기반 데이터로 관리
+- **Queue 기반 점수·애니메이션 처리 구조** 설계
+- **DoTween + Coroutine** 으로 애니메이션 처리
 
 ## 의미
 ### 리더십 & 협업 방식에 대한 인식 변화

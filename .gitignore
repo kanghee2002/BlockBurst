@@ -87,6 +87,10 @@ crashlytics-build.properties
 /[Aa]ssets/StreamingAssets/**/*.bank
 /[Aa]ssets/StreamingAssets/**/*.bank.meta
 
+# Ignore Firebase auto-generated desktop config in StreamingAssets.
+/[Aa]ssets/StreamingAssets/google-services-desktop.json
+/[Aa]ssets/StreamingAssets/google-services-desktop.json.meta
+
 # If the source bank files are kept outside of the StreamingAssets folder then these can be ignored.
 # Log files can be ignored.
 fmod_editor.log
